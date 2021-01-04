@@ -53,7 +53,7 @@ class DemographicInference():
                   'demographic parameters should be inferred.'))
         parser.add_argument(
             'outprefix', type=str,
-            help='The file prefix for the output `*inferred_demography.txt`.')
+            help='The file prefix for the output files')
         return parser
 
     def snm(self, notused, ns, pts):
@@ -243,11 +243,20 @@ class DemographicInference():
         # Output files: logfile
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        inferred_demography = \
-            '{0}{1}inferred_demography.txt'.format(
+        exponential_growth_demography = \
+            '{0}{1}exponential_growth_demography.txt'.format(
+                arts['outprefix'], underscore)
+        two_epoch_demography = \
+            '{0}{1}two_epoch_demography.txt'.format(
+                args['outprefix'], underscore)
+        bottleneck_growth_demography = \
+            '{0}{1}bottleneck_growth.txt'.format(
+                args['outprefix'], underscore)
+        three_epoch_demography = \
+            '{0}{1}three_epoch_demography.txt'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, inferred_demography]
+        to_remove = [logfile, two_epoch_demography]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -282,70 +291,98 @@ class DemographicInference():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        upper_bound = [8, 3]
-        lower_bound = [1e-4, 0]
-
-        initial_guess = [0.5, 0.1]
-        with open(inferred_demography, 'w') as f:
-            f.write('Beginning with demographic inference for two-epoch '
-                    'model.\n')
-            max_likelihood = -1e25
-            for i in range(5):
-                # Start at initial guess
-                p0 = initial_guess
-                # Randomly perturb parameters before optimization.
-                p0 = dadi.Misc.perturb_params(
-                    p0, fold=1, upper_bound=upper_bound,
-                    lower_bound=lower_bound)
-                # Make the extrapolating version of demographic model function.
+        model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
+                      'three_epoch']
+        for model in model_list:
+            if model is 'exponential_growth':
+                upper_bound = [8, 3]
+                lower_bound = [1e-4, 0]
+                initial_guess = [0.5, 0.1]
+                file = exponential_growth_demography
+                func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
+                logger.info('Beginning demographic inference for exponential '
+                            'growth demographic model.')
+            if model is 'two_epoch':
+                upper_bound = [8, 3]
+                lower_bound = [1e-4, 0]
+                initial_guess = [0.5, 0.1]
+                file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
-                logger.info(
-                    'Beginning optimization with guess, {0}.'.format(p0))
-                popt = dadi.Inference.optimize_log_lbfgsb(
-                    p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-                    lower_bound=lower_bound, upper_bound=upper_bound,
-                    verbose=len(p0), maxiter=25)
-                logger.info(
-                    'Finished optimization with guess, ' + str(p0) + '.')
-                logger.info('Best fit parameters: {0}.'.format(popt))
-                # Calculate the best-fit model allele-frequency spectrum.
-                # Note, this spectrum needs to be multiplied by "theta".
-                non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
-                # Likelihood of the data given the model AFS.
-                multinomial_ll_non_scaled_spectrum = \
-                    dadi.Inference.ll_multinom(
-                        model=non_scaled_spectrum, data=syn_data)
-                logger.info(
-                    'Maximum log composite likelihood: {0}.'.format(
-                        multinomial_ll_non_scaled_spectrum))
-                theta = dadi.Inference.optimal_sfs_scaling(
-                    non_scaled_spectrum, syn_data)
-                logger.info(
-                    'Optimal value of theta: {0}.'.format(theta))
-                if multinomial_ll_non_scaled_spectrum > max_likelihood:
-                    best_params = popt
-                    best_non_scaled_spectrum = non_scaled_spectrum
-                    max_likelihood = multinomial_ll_non_scaled_spectrum
-                    theta_syn = theta
-            best_scaled_spectrum = theta_syn * best_non_scaled_spectrum
-            theta_nonsyn = theta_syn * 2.14
-            poisson_ll = dadi.Inference.ll(
-                model=best_scaled_spectrum, data=syn_data)
-            f.write('Best fit parameters: {0}.\n'.format(best_params))
-            f.write(
-                'Maximum multinomial log composite likelihood: {0}.\n'.format(
-                    max_likelihood))
-            f.write(
-                'Maximum poisson log composite likelihood: {0}.\n'.format(
-                    poisson_ll))
-            f.write('Non-scaled best-fit model spectrum: {0}.\n'.format(
-                best_non_scaled_spectrum))
-            f.write('Optimal value of theta_syn: {0}.\n'.format(theta_syn))
-            f.write('Optimal value of theta_nonsyn: {0}.\n'.format(
-                theta_nonsyn))
-            f.write('Scaled best-fit model spectrum: {0}.\n'.format(
-                best_scaled_spectrum))
-
+                logger.info('Beginning demographic inference for two-epoch '
+                            'demographic model.')
+            if model is 'bottleneck_growth':
+                upper_bound = [8, 8, 3]
+                lower_bound = [1e-4, 1e-4, 0]
+                initial_guess = [0.5, 0.5, 0.1]
+                file = bottleneck_growth_demography
+                func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
+                logger.info('Beginning demographic inference for bottleneck + '
+                            'growth demographic model.')
+            else:
+                upper_bound = []
+                lower_bound = []
+                initial_guess = []
+                file = three_epoch_demography
+                func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
+                logger.info('Beginning demographic inference for three-epoch '
+                            'demographic model.')
+            with open(file, 'w') as f:
+                max_likelihood = -1e25
+                for i in range(5):
+                    # Start at initial guess
+                    p0 = initial_guess
+                    # Randomly perturb parameters before optimization.
+                    p0 = dadi.Misc.perturb_params(
+                        p0, fold=1, upper_bound=upper_bound,
+                        lower_bound=lower_bound)
+                    logger.info(
+                        'Beginning optimization with guess, {0}.'.format(p0))
+                    popt = dadi.Inference.optimize_log_lbfgsb(
+                        p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
+                        lower_bound=lower_bound,
+                        upper_bound=upper_bound,
+                        verbose=len(p0), maxiter=25)
+                    logger.info(
+                        'Finished optimization with guess, ' + str(p0) + '.')
+                    logger.info('Best fit parameters: {0}.'.format(popt))
+                    # Calculate the best-fit model allele-frequency spectrum.
+                    # Note, this spectrum needs to be multiplied by "theta".
+                    non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
+                    # Likelihood of the data given the model AFS.
+                    multinomial_ll_non_scaled_spectrum = \
+                        dadi.Inference.ll_multinom(
+                            model=non_scaled_spectrum, data=syn_data)
+                    logger.info(
+                        'Maximum log composite likelihood: {0}.'.format(
+                            multinomial_ll_non_scaled_spectrum))
+                    theta = dadi.Inference.optimal_sfs_scaling(
+                        non_scaled_spectrum, syn_data)
+                    logger.info(
+                        'Optimal value of theta: {0}.'.format(theta))
+                    if multinomial_ll_non_scaled_spectrum > max_likelihood:
+                        best_params = popt
+                        best_non_scaled_spectrum = non_scaled_spectrum
+                        max_likelihood = multinomial_ll_non_scaled_spectrum
+                        theta_syn = theta
+                best_scaled_spectrum = theta_syn * best_non_scaled_spectrum
+                theta_nonsyn = theta_syn * 2.14
+                poisson_ll = dadi.Inference.ll(
+                    model=best_scaled_spectrum, data=syn_data)
+                f.write('Best fit parameters: {0}.\n'.format(best_params))
+                f.write(
+                    'Maximum multinomial log composite '
+                    'likelihood: {0}.\n'.format(
+                        max_likelihood))
+                f.write(
+                    'Maximum poisson log composite likelihood: {0}.\n'.format(
+                        poisson_ll))
+                f.write('Non-scaled best-fit model spectrum: {0}.\n'.format(
+                    best_non_scaled_spectrum))
+                f.write('Optimal value of theta_syn: {0}.\n'.format(theta_syn))
+                f.write('Optimal value of theta_nonsyn: {0}.\n'.format(
+                    theta_nonsyn))
+                f.write('Scaled best-fit model spectrum: {0}.\n'.format(
+                    best_scaled_spectrum))
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
