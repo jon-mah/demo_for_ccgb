@@ -294,7 +294,7 @@ class DemographicInference():
         model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
                       'three_epoch']
         for model in model_list:
-            if model is 'exponential_growth':
+            if model == 'exponential_growth':
                 upper_bound = [8, 3]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
@@ -304,7 +304,7 @@ class DemographicInference():
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
-            if model is 'two_epoch':
+            if model == 'two_epoch':
                 upper_bound = [8, 3]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
@@ -314,7 +314,7 @@ class DemographicInference():
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
-            if model is 'bottleneck_growth':
+            if model == 'bottleneck_growth':
                 upper_bound = [8, 8, 3]
                 lower_bound = [1e-4, 1e-4, 0]
                 initial_guess = [0.5, 0.5, 0.1]
@@ -391,6 +391,7 @@ class DemographicInference():
                     theta_nonsyn))
                 f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                     best_scaled_spectrum))
+
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
