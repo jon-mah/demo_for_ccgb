@@ -351,4 +351,4 @@ class DemographicInference():
 
 
 if __name__ == '__main__':
-    DemographicAndDFEInference().main()
+    DemographicInference().main()
