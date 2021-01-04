@@ -250,13 +250,15 @@ class DemographicInference():
             '{0}{1}two_epoch_demography.txt'.format(
                 args['outprefix'], underscore)
         bottleneck_growth_demography = \
-            '{0}{1}bottleneck_growth.txt'.format(
+            '{0}{1}bottleneck_growth_demography.txt'.format(
                 args['outprefix'], underscore)
         three_epoch_demography = \
             '{0}{1}three_epoch_demography.txt'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, two_epoch_demography]
+        to_remove = [logfile, exponential_growth_demography,
+                     two_epoch_demography, bottleneck_growth_demography,
+                     three_epoch_demography]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -298,9 +300,7 @@ class DemographicInference():
                 upper_bound = [8, 3]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
-                file = \
-                    '{0}{1}exponential_growth_demography.txt'.format(
-                        args['outprefix'], underscore)
+                file = exponential_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
@@ -308,9 +308,7 @@ class DemographicInference():
                 upper_bound = [8, 3]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
-                file = \
-                    '{0}{1}two_epoch_demography.txt'.format(
-                        args['outprefix'], underscore)
+                file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
@@ -318,9 +316,7 @@ class DemographicInference():
                 upper_bound = [8, 8, 3]
                 lower_bound = [1e-4, 1e-4, 0]
                 initial_guess = [0.5, 0.5, 0.1]
-                file = \
-                    '{0}{1}bottleneck_growth.txt'.format(
-                        args['outprefix'], underscore)
+                file = bottleneck_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
                 logger.info('Beginning demographic inference for bottleneck + '
                             'growth demographic model.')
@@ -328,9 +324,7 @@ class DemographicInference():
                 upper_bound = [8, 8, 3, 3]
                 lower_bound = [1e-4, 1e-4, 0, 0]
                 initial_guess = [0.5, 0.5, 0.1, 0.1]
-                file = \
-                    '{0}{1}three_epoch_demography.txt'.format(
-                        args['outprefix'], underscore)
+                file = three_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
                 logger.info('Beginning demographic inference for three-epoch '
                             'demographic model.')
