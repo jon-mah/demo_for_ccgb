@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -m a
+#$ -m bea
 #$ -l h_data=1G
 #$ -l h_rt=02:00:00
 
