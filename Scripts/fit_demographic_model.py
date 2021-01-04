@@ -325,9 +325,9 @@ class DemographicInference():
                 logger.info('Beginning demographic inference for bottleneck + '
                             'growth demographic model.')
             else:
-                upper_bound = []
-                lower_bound = []
-                initial_guess = []
+                upper_bound = [8, 8, 3, 3]
+                lower_bound = [1e-4, 1e-4, 0, 0]
+                initial_guess = [0.5, 0.5, 0.1, 0.1]
                 file = \
                     '{0}{1}three_epoch_demography.txt'.format(
                         args['outprefix'], underscore)
