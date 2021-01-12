@@ -56,7 +56,7 @@ species_name = "Bacteroides_uniformis_57318"
 ################################################################################
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("--debug", help="Loads only a subset of SNPs for speed", action="store_true")
+parser.add_argument("--debug", help="Loads only a subset of SNPs for speed", action="store_false")
 parser.add_argument("--chunk-size", type=int, help="max number of records to load", default=1000000000)
 parser.add_argument('--other-species', type=str, help='Run the script for a different species')
 
