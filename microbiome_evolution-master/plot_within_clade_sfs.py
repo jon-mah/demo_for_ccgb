@@ -44,8 +44,11 @@ mpl.rcParams['lines.linewidth'] = 0.5
 mpl.rcParams['legend.frameon']  = False
 mpl.rcParams['legend.fontsize']  = 'small'
 
-species_name = "Bacteroides_vulgatus_57955"
-
+# species_name = "Bacteroides_vulgatus_57955"
+species_name = "Bacteroides_uniformis_57318"
+# species_name = "Alistipes_putredinis_61533"
+# species_name = "Bacteroides_ovatus_58035"
+# species_name = "Eubacterium_rectale_56927"
 ################################################################################
 #
 # Standard header to read in argument information
@@ -320,21 +323,32 @@ sys.stderr.write("%d rest-tons!\n" % (synonymous_count_sfs[3:]+nonsynonymous_cou
 
 sys.stderr.write("%g pi-weighted!\n" % (nonsynonymous_pi_weighted_counts+synonymous_pi_weighted_counts))
 
-output_sfs = '../Data/' + species_name + '.sfs'
+output_syn_sfs = '../Data/' + species_name + '_syn.sfs'
+output_nonsyn_sfs = '../Data/' + species_name + '_nonsyn.sfs'
 output_figure = '../Data/' + species_name + '_sfs.pdf'
-with open(output_sfs, 'w+') as f:
-    f.write('The count locations are: ')
-    for location in count_locations:
-        f.write(str(location) + ' ')
-    f.write('\n')
-    f.write('The synonymous SFS is: ')
-    for count in synonymous_count_sfs:
-        f.write(str(count) + ' ')
-    f.write('\n')
-    f.write('The nonsynonymous SFS is: ')
-    for count in nonsynonymous_count_sfs:
-        f.write(str(count) + ' ')
-    f.write('\n')
+
+num_bins = len(count)
+with open(output_syn_sfs, 'w+') as f:
+    f.write(str(num_bins) + ' folded ' + str(species_name) + '\n')
+    for freq in synonymous_count_sfs[:-1]:
+        f.write(str(freq) + ' ')
+    f.write(str(synonymous_count_sfs[-1]) + '\n')
+    f.write('0')
+    for i in range(num_bins / 2):
+        f.write(' 0')
+    for i in range(num_bins - (num_bins / 2 + 1)):
+        f.write(' 1')
+
+with open(output_nonsyn_sfs, 'w+') as f:
+    f.write(str(num_bins) + ' folded ' + str(species_name) + '\n')
+    for freq in nonsynonymous_count_sfs[:-1]:
+        f.write(str(freq) + ' ')
+    f.write(str(nonsynonymous_count_sfs[-1]) + '\n')
+    f.write('0')
+    for i in range(num_bins / 2):
+        f.write(' 0')
+    for i in range(num_bins - (num_bins / 2 + 1)):
+        f.write(' 1')
 
 print count_locations
 print synonymous_count_sfs
