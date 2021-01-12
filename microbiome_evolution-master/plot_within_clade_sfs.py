@@ -86,11 +86,11 @@ sys.stderr.write("Loading sample metadata...\n")
 subject_sample_map = parse_HMP_data.parse_subject_sample_map()
 sample_country_map = parse_HMP_data.parse_sample_country_map()
 sys.stderr.write("Done!\n")
-snp_samples = [s.decode("utf-8")  for s in snp_samples]
 
 # Only plot samples above a certain depth threshold that are "haploids"
 snp_samples = diversity_utils.calculate_haploid_samples(species_name, debug=debug)
 snp_samples = snp_samples[ diversity_utils.parse_midas_data.calculate_unique_samples(subject_sample_map, snp_samples)]
+snp_samples = [s.decode("utf-8")  for s in snp_samples]
 
 
 ####################################################
