@@ -6,11 +6,11 @@
 import os.path 
 from math import log10
 
-data_directory = os.path.expanduser("~/ben_nandita_hmp_data_091118/")
+data_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/Data/negative_selection_data/")
 #data_directory = os.path.expanduser("~/ben_nandita_hmp_data_071518/")
 #data_directory = os.path.expanduser("~/ben_nandita_hmp_data/")
-analysis_directory = os.path.expanduser("~/ben_nandita_hmp_analysis/")
-scripts_directory = os.path.expanduser("~/ben_nandita_hmp_scripts/")
+analysis_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/Analysis/")
+scripts_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/microbiome_evolution-master/")
 patric_directory = os.path.expanduser("~/patric_db/")
 midas_directory = os.path.expanduser("~/midas_db/")
 

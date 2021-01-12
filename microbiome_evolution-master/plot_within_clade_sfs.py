@@ -320,9 +320,9 @@ sys.stderr.write("%d rest-tons!\n" % (synonymous_count_sfs[3:]+nonsynonymous_cou
 
 sys.stderr.write("%g pi-weighted!\n" % (nonsynonymous_pi_weighted_counts+synonymous_pi_weighted_counts))
 
-output_sfs = '../../Data/' + species_name + '.sfs'
-output_figure = '../../Data/' + species_name + '_sfs.pdf'
-with open(output_sfs, 'w') as f:
+output_sfs = '../Data/' + species_name + '.sfs'
+output_figure = '../Data/' + species_name + '_sfs.pdf'
+with open(output_sfs, 'w+') as f:
     f.write('The count locations are: ' + str(count_locations)[1:-1])
     f.write('The synonymous SFS is: ' + str(synonymous_count_sfs)[1:-1])
     f.write('The nonsynonymous SFS is: ' + str(nonsynonymous_count_sfs)[1:-1])
