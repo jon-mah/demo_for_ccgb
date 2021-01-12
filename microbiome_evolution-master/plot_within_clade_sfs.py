@@ -323,9 +323,18 @@ sys.stderr.write("%g pi-weighted!\n" % (nonsynonymous_pi_weighted_counts+synonym
 output_sfs = '../Data/' + species_name + '.sfs'
 output_figure = '../Data/' + species_name + '_sfs.pdf'
 with open(output_sfs, 'w+') as f:
-    f.write('The count locations are: ' + str(count_locations)[1:-1])
-    f.write('The synonymous SFS is: ' + str(synonymous_count_sfs)[1:-1])
-    f.write('The nonsynonymous SFS is: ' + str(nonsynonymous_count_sfs)[1:-1])
+    f.write('The count locations are: ')
+    for location in count_locations:
+        f.write(str(location) + ' ')
+    f.write('/n')
+    f.write('The synonymous SFS is: ')
+    for count in synonymous_count_sfs:
+        f.write(str(count) + ' ')
+    f.write('/n')
+    f.write('The nonsynonymous SFS is: ')
+    for count in nonsynonymous_count_sfs:
+        f.write(str(count) + ' ')
+    f.write('/n')
 
 print count_locations
 print synonymous_count_sfs
@@ -357,6 +366,6 @@ count_axis.bar([3-0.3],[pi_weighted_fraction],width=0.6,color='r',linewidth=0)
 
 
 sys.stderr.write("Saving figure...\t")
-fig.savefig('%s/figure_5%s.pdf' % (parse_midas_data.analysis_directory, other_species_str),bbox_inches='tight')
+# fig.savefig('%s/figure_5%s.pdf' % (parse_midas_data.analysis_directory, other_species_str),bbox_inches='tight')
 fig.savefig(output_figure, bbox_inches='tight')
 sys.stderr.write("Done!\n")
