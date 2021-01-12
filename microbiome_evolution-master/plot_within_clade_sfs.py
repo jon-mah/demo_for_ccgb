@@ -44,8 +44,8 @@ mpl.rcParams['lines.linewidth'] = 0.5
 mpl.rcParams['legend.frameon']  = False
 mpl.rcParams['legend.fontsize']  = 'small'
 
-species_name = "Bacteroides_vulgatus_57955"
-# species_name = "Bacteroides_uniformis_57318"
+# species_name = "Bacteroides_vulgatus_57955"
+species_name = "Bacteroides_uniformis_57318"
 # species_name = "Alistipes_putredinis_61533"
 # species_name = "Bacteroides_ovatus_58035"
 # species_name = "Eubacterium_rectale_56927"
@@ -327,7 +327,7 @@ output_syn_sfs = '../Data/' + species_name + '_syn.sfs'
 output_nonsyn_sfs = '../Data/' + species_name + '_nonsyn.sfs'
 output_figure = '../Data/' + species_name + '_sfs.pdf'
 
-num_bins = len(count)
+num_bins = len(count_locations)
 with open(output_syn_sfs, 'w+') as f:
     f.write(str(num_bins) + ' folded ' + str(species_name) + '\n')
     for freq in synonymous_count_sfs[:-1]:

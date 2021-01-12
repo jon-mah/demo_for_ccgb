@@ -1,0 +1,16 @@
+INFO:fit_demographic_model.py:Beginning execution of fit_demographic_model.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+INFO:fit_demographic_model.py:Progress is being logged to ../Analysis/Bacteroides_ovatus_58035/log.log
+
+INFO:fit_demographic_model.py:Parsed the following arguments:
+	outprefix = ../Analysis/Bacteroides_ovatus_58035/
+	syn_input_sfs = ../Data/Bacteroides_ovatus_58035_syn.sfs
+
+Traceback (most recent call last):
+  File "fit_demographic_model.py", line 394, in <module>
+    DemographicInference().main()
+  File "fit_demographic_model.py", line 290, in main
+    syn_data = dadi.Spectrum.from_file(syn_input_sfs)
+  File "/u/home/j/jonmah/.conda/envs/jonmah_env/lib/python2.7/site-packages/dadi/Spectrum_mod.py", line 237, in from_file
+    count=numpy.product(shape), sep=' ')
+TypeError: integer argument expected, got float
