@@ -56,7 +56,7 @@ species_name = "Bacteroides_vulgatus_57955"
 ################################################################################
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("--debug", help="Loads only a subset of SNPs for speed", action="store_false")
+parser.add_argument("--debug", help="Loads only a subset of SNPs for speed", action="store_true")
 parser.add_argument("--chunk-size", type=int, help="max number of records to load", default=1000000000)
 parser.add_argument('--other-species', type=str, help='Run the script for a different species')
 
@@ -86,6 +86,7 @@ sys.stderr.write("Loading sample metadata...\n")
 subject_sample_map = parse_HMP_data.parse_subject_sample_map()
 sample_country_map = parse_HMP_data.parse_sample_country_map()
 sys.stderr.write("Done!\n")
+snp_samples = [s.decode("utf-8")  for s in snp_samples]
 
 # Only plot samples above a certain depth threshold that are "haploids"
 snp_samples = diversity_utils.calculate_haploid_samples(species_name, debug=debug)
@@ -114,7 +115,8 @@ sfs_axis = plt.Subplot(fig, outer_grid[0])
 fig.add_subplot(sfs_axis)
 
 sfs_axis.set_xlabel('Minor allele freq in largest clade, $f$')
-sfs_axis.set_ylabel('Scaled fraction of sites, $f(1-f) P(f)$')
+sfs_axis.set_ylabel('Fraction of sites, $P(f)$')
+# sfs_axis.set_ylabel('Scaled fraction of sites, $f(1-f) P(f)$')
 sfs_axis.set_xlim([0,0.5])
 sfs_axis.spines['top'].set_visible(False)
 sfs_axis.spines['right'].set_visible(False)
@@ -298,8 +300,8 @@ while final_line_number >= 0:
 
 largest_clade_matrix_idxs_i = []
 largest_clade_matrix_idxs_j = []
-for i in xrange(0, snp_difference_matrix.shape[0]):
-    for j in xrange(i+1, snp_difference_matrix.shape[0]):
+for i in range(0, snp_difference_matrix.shape[0]):
+    for j in range(i+1, snp_difference_matrix.shape[0]):
 
         largest_clade_matrix_idxs_i.append(i)
         largest_clade_matrix_idxs_j.append(j)
@@ -360,8 +362,12 @@ print nonsynonymous_count_sfs
 #
 ###############
 
-sfs_axis.plot(mafs, synonymous_sfs*mafs*(1-mafs)/(synonymous_sfs*mafs*(1-mafs)).sum(), 'b.-',label='4D')
-sfs_axis.plot(mafs, nonsynonymous_sfs*mafs*(1-mafs)/(nonsynonymous_sfs*mafs*(1-mafs)).sum(),'r.-',label='1D')
+# sfs_axis.plot(mafs, synonymous_sfs*mafs*(1-mafs)/(synonymous_sfs*mafs*(1-mafs)).sum(), 'b.-',label='4D')
+# sfs_axis.plot(mafs, nonsynonymous_sfs*mafs*(1-mafs)/(nonsynonymous_sfs*mafs*(1-mafs)).sum(),'r.-',label='1D')
+sfs_axis.plot(mafs, synonymous_sfs/synonymous_sfs.sum(), 'b.-',label='4D')
+sfs_axis.plot(mafs, nonsynonymous_sfs/nonsynonymous_sfs.sum(),'r.-',label='1D')
+# sfs_axis.set_xscale('log',basex=10)
+# sfs_axis.set_yscale('log',basey=10)
 
 singleton_fraction = nonsynonymous_count_sfs[0]*1.0/(synonymous_count_sfs[0])/opportunity_ratio
 doubleton_fraction =  nonsynonymous_count_sfs[1]*1.0/(synonymous_count_sfs[1])/opportunity_ratio
