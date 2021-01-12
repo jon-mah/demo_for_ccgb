@@ -326,15 +326,15 @@ with open(output_sfs, 'w+') as f:
     f.write('The count locations are: ')
     for location in count_locations:
         f.write(str(location) + ' ')
-    f.write('/n')
+    f.write('\n')
     f.write('The synonymous SFS is: ')
     for count in synonymous_count_sfs:
         f.write(str(count) + ' ')
-    f.write('/n')
+    f.write('\n')
     f.write('The nonsynonymous SFS is: ')
     for count in nonsynonymous_count_sfs:
         f.write(str(count) + ' ')
-    f.write('/n')
+    f.write('\n')
 
 print count_locations
 print synonymous_count_sfs
