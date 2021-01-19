@@ -331,7 +331,7 @@ output_figure = '../Data/' + species_name + '_sfs.pdf'
 
 num_bins = len(count_locations)
 with open(output_syn_sfs, 'w+') as f:
-    f.write(str(num_bins) + ' folded ' + str(species_name) + '\n')
+    f.write(str(num_bins) + ' folded "' + str(species_name) + '"\n')
     f.write('0')
     for freq in synonymous_count_sfs[:-1]:
         f.write(' ' + str(freq))
