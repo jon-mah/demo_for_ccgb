@@ -1,0 +1,115 @@
+INFO:fit_demographic_model.py:Beginning execution of fit_demographic_model.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+INFO:fit_demographic_model.py:Progress is being logged to ../Analysis/Bacteroides_vulgatus_57955/log.log
+
+INFO:fit_demographic_model.py:Parsed the following arguments:
+	outprefix = ../Analysis/Bacteroides_vulgatus_57955/
+	syn_input_sfs = ../Data/Bacteroides_vulgatus_57955_syn.sfs
+
+WARNING:Spectrum_mod:Creating Spectrum with data_folded = True, but data has non-zero values in entries which are nonsensical for a folded Spectrum.
+INFO:fit_demographic_model.py:Beginning demographic inference for exponential growth demographic model.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.41885477 0.1465244 ].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.41885477 0.1465244 ].
+INFO:fit_demographic_model.py:Best fit parameters: [3.05447503e-01 7.61938918e-06].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.18625327.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.4042626.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.77515061 0.14081279].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.77515061 0.14081279].
+INFO:fit_demographic_model.py:Best fit parameters: [1.91532127 0.06307663].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -123.959643776.
+INFO:fit_demographic_model.py:Optimal value of theta: 2355.18128356.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.59920084 0.16109794].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.59920084 0.16109794].
+INFO:fit_demographic_model.py:Best fit parameters: [7.55252739e-01 5.05903224e-06].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.014418179.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.1961451.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.2999527 0.1984193].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.2999527 0.1984193].
+INFO:fit_demographic_model.py:Best fit parameters: [2.69184442e-01 9.10450403e-06].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.266694322.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.50162673.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.77449985 0.08214937].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.77449985 0.08214937].
+INFO:fit_demographic_model.py:Best fit parameters: [2.34360421 0.05432866].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -123.582830394.
+INFO:fit_demographic_model.py:Optimal value of theta: 2334.57650849.
+INFO:fit_demographic_model.py:Beginning demographic inference for two-epoch demographic model.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.52386691 0.08853775].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.52386691 0.08853775].
+INFO:fit_demographic_model.py:Best fit parameters: [5.18925038e-01 7.10165638e-06].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.068939706.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.262201.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.4705179 0.0586976].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.4705179 0.0586976].
+INFO:fit_demographic_model.py:Best fit parameters: [4.05883497e-01 3.00275347e-07].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.000869138.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.17972675.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.86285059 0.10117048].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.86285059 0.10117048].
+INFO:fit_demographic_model.py:Best fit parameters: [1.46471105 0.20111674].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -115.548611105.
+INFO:fit_demographic_model.py:Optimal value of theta: 2192.20331124.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.30263557 0.12164046].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.30263557 0.12164046].
+INFO:fit_demographic_model.py:Best fit parameters: [1.48985043 0.76189865].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -120.406289832.
+INFO:fit_demographic_model.py:Optimal value of theta: 1953.22342734.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.25335861 0.06457528].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.25335861 0.06457528].
+INFO:fit_demographic_model.py:Best fit parameters: [1.81148065e-01 4.94569047e-06].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.24133017.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.47090841.
+INFO:fit_demographic_model.py:Beginning demographic inference for bottleneck + growth demographic model.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.27910825 0.29875145 0.0587644 ].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.27910825 0.29875145 0.0587644 ].
+INFO:fit_demographic_model.py:Best fit parameters: [2.61027264e-01 2.46789781e-01 2.24896396e-05].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.745013267.
+INFO:fit_demographic_model.py:Optimal value of theta: 2526.07984442.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.66781968 0.55218539 0.11294182].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.66781968 0.55218539 0.11294182].
+INFO:fit_demographic_model.py:Best fit parameters: [8.71287349e-01 7.15393494e-01 6.28735518e-05].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -188.268249453.
+INFO:fit_demographic_model.py:Optimal value of theta: 2525.50386583.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.92085736 0.40076332 0.07314921].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.92085736 0.40076332 0.07314921].
+INFO:fit_demographic_model.py:Best fit parameters: [7.21954155e-01 2.47737764e-01 5.63490893e-05].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -189.862159149.
+INFO:fit_demographic_model.py:Optimal value of theta: 2527.42551075.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.33414266 0.54487929 0.1499574 ].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.33414266 0.54487929 0.1499574 ].
+INFO:fit_demographic_model.py:Best fit parameters: [0.99063457 1.53009861 0.44283702].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -114.478986615.
+INFO:fit_demographic_model.py:Optimal value of theta: 2167.13241563.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.68543795 0.35343228 0.05789274].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.68543795 0.35343228 0.05789274].
+INFO:fit_demographic_model.py:Best fit parameters: [4.69507888e-01 2.19293139e-01 4.72199239e-05].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -189.830122587.
+INFO:fit_demographic_model.py:Optimal value of theta: 2527.38665213.
+INFO:fit_demographic_model.py:Beginning demographic inference for three-epoch demographic model.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.88528954 0.26447244 0.09346996 0.0646169 ].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.88528954 0.26447244 0.09346996 0.0646169 ].
+INFO:fit_demographic_model.py:Best fit parameters: [1.56750463e+00 2.80044759e-01 9.37798849e-02 1.22397234e-04].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -118.644375991.
+INFO:fit_demographic_model.py:Optimal value of theta: 2277.19637426.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.26523375 0.5746643  0.10242685 0.0596167 ].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.26523375 0.5746643  0.10242685 0.0596167 ].
+INFO:fit_demographic_model.py:Best fit parameters: [0.14358629 0.59212985 0.17233639 0.18944438].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -116.992426454.
+INFO:fit_demographic_model.py:Optimal value of theta: 5176.97153566.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.82510313 0.25880222 0.14610965 0.11404668].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.82510313 0.25880222 0.14610965 0.11404668].
+INFO:fit_demographic_model.py:Best fit parameters: [0.21715317 0.59879689 0.32155757 0.2586879 ].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -117.344486793.
+INFO:fit_demographic_model.py:Optimal value of theta: 4985.65979103.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.83368809 0.76452256 0.16407764 0.07512389].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.83368809 0.76452256 0.16407764 0.07512389].
+INFO:fit_demographic_model.py:Best fit parameters: [1.43575234 1.43566152 0.28861314 0.01340126].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -115.763713816.
+INFO:fit_demographic_model.py:Optimal value of theta: 2144.57234173.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.64400161 0.59136972 0.09444989 0.1403033 ].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.64400161 0.59136972 0.09444989 0.1403033 ].
+INFO:fit_demographic_model.py:Best fit parameters: [0.24848454 0.96224174 0.17743243 0.25880799].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -117.409207305.
+INFO:fit_demographic_model.py:Optimal value of theta: 3325.63925601.
+INFO:fit_demographic_model.py:Finished demographic inference.
+INFO:fit_demographic_model.py:Pipeline executed succesfully.
