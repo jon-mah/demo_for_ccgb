@@ -5,7 +5,6 @@ library(reshape2)
 seed(1)
 
 # b_vulgatus
-
 b_vulgatus_empirical_syn_sfs = c(3066, 1346, 904, 727, 543, 475, 434, 369, 331, 270, 222, 239, 
                                  241, 231, 220, 199, 212, 199, 192, 180, 192, 163, 143, 47)
 
@@ -70,24 +69,234 @@ b_vulgatus_two_epoch_sfs = c(2971.3578691935672, 1393.4795651545382, 881.7562662
                              54.8050953451347, 53.4683796627313, 52.195319800678675,
                              50.98147355174829, 49.82280296103384, 48.71562926392503)
 
-x_axis = 1:length(b_vulgatus_empirical_syn_sfs)
+b_vulgatus_x_axis = 1:length(b_vulgatus_empirical_syn_sfs)
+b_vulgatus_bottleneck_growth_sfs = b_vulgatus_bottleneck_growth_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_exponential_growth_sfs = b_vulgatus_exponential_growth_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_two_epoch_sfs = b_vulgatus_two_epoch_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_three_epoch_sfs = b_vulgatus_three_epoch_sfs[1:length(b_vulgatus_x_axis)]
+
+df = data.frame(b_vulgatus_empirical_syn_sfs, b_vulgatus_bottleneck_growth_sfs, b_vulgatus_exponential_growth_sfs, b_vulgatus_two_epoch_sfs, b_vulgatus_three_epoch_sfs)
+
+p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=b_vulgatus_empirical_syn_sfs, color='b_vulgatus_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_sfs, color='b_vulgatus_bottleneck')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_sfs, color='b_vulgatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_sfs, color='b_vulgatus_exponential')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_sfs, color='b_vulgatus_exponential')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_sfs, color='b_vulgatus_two_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_sfs, color='b_vulgatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_sfs, color='b_vulgatus_three_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_sfs, color='b_vulgatus_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(1, length(b_vulgatus_x_axis))) +
+  scale_y_continuous(name='Number of SNPs') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
+                     name='Data Type',
+                     breaks=c('b_vulgatus_empirical',
+                              'b_vulgatus_bottleneck',
+                              'b_vulgatus_exponential',
+                              'b_vulgatus_two_epoch',
+                              'b_vulgatus_three_epoch'),
+                     labels=c('Empirical',
+                              'Bottleneck + Growth',
+                              'Exponential',
+                              'Two Epoch',
+                              'Three Epoch')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('B. vulgatus, Empirical vs. Expected SFS.')
+
+p_b_vulgatus
 
 # b_ovatus
 
 b_ovatus_empirical_syn_sfs = c(2850, 1283, 956, 657, 560, 542, 389, 365, 268, 305, 272, 227,
                                238, 226, 205, 187, 185, 202, 205, 188, 152, 125, 28)
 
+b_ovatus_bottleneck_growth_sfs = c(2734.9769315249014, 1337.76125312669, 872.6546203943514,
+                                   640.8294085416991, 502.3840277466753, 410.64178837782686,
+                                   345.58146346547085, 297.184907737633, 259.8829541835118,
+                                   230.33246112198685, 206.40528885291343, 186.68249615291455,
+                                   170.18182938911033, 156.20191466394044, 144.22872161562012,
+                                   133.87707179836053, 124.85277131164953, 116.92735307058346,
+                                   109.92078677299433, 103.68937025859734, 98.11707670373826,
+                                   93.10925912699469, 88.58799548886023, 84.48859638377797,
+                                   80.7569501545991, 77.34748022332224, 74.22155609781571,
+                                   71.34624476769434, 68.69332042255675, 66.23847228745147,
+                                   63.96066589045349, 61.84162423612357, 59.865403476906984,
+                                   58.01804364586304, 56.287279451521954, 54.662299464757,
+                                   53.13354454778119, 51.69253829928363, 50.33174377016319,
+                                   49.04444185203938, 47.82462763677122, 46.66692174947704,
+                                   45.56649421461744)
+b_ovatus_exponential_growth_sfs = c(2785.7727354193185, 1304.1379615560168, 832.0035297708419,
+                                604.7258336897211, 472.69955778141224, 387.0893774965086,
+                                327.37983968459963, 283.5070550065935, 249.98089986749568,
+                                223.56406164568045, 202.23027738563803, 184.64983000710777,
+                                169.91582308892978, 157.38959649020987, 146.60903674592652,
+                                137.2319119553382, 128.9996068931992, 121.7132045779618,
+                                115.21729163996682, 109.3887373724358, 104.12875821480733,
+                                99.35720216215489, 95.00836383859648, 91.0278743988178,
+                                87.37035873101546, 83.99764871128268, 80.87740498938118,
+                                77.98204272873734, 75.28788613459244, 72.77449705135894,
+                                70.42413732318948, 68.22133490210328, 66.15253112255338,
+                                64.20579199236326, 62.37057035861264, 60.637508794446205,
+                                58.99827529939786, 57.4454256098018, 55.97228721864335,
+                                54.57286120781499, 53.24173877445835, 51.9740299413589,
+                                50.76530241960906)
+b_ovatus_three_epoch_sfs = c(2750.433541482216, 1339.7413326505705, 871.5340379059769,
+                             638.8169691879904, 500.2002660129557, 408.5611406452437,
+                             343.70969258006164, 295.55540394685835, 258.4960075700752,
+                             229.17306407442808, 205.45179447013106, 185.91101719759763,
+                             169.5685163116265, 155.72412379723022, 143.8655815250094,
+                             133.6097156967465, 124.66438243292687, 116.80310604841213,
+                             109.84773308029189, 103.6562959619842, 98.11434927918359,
+                             93.12867324577147, 88.62262354916245, 84.53264703115147,
+                             80.80563647041438, 77.39689829199004, 74.26857406660116,
+                             71.38840215046088, 68.7287371855731, 66.2657671375835,
+                             63.97888312937434, 61.85016852637314, 59.86398187239263,
+                             58.00661426122732, 56.26600617548036, 54.63151215806746,
+                             53.09370420416051, 51.644206685663775, 50.275557100093344,
+                             48.9810880820243, 47.75482700958062, 46.59141024067184,
+                             45.48600956866814)
+b_ovatus_two_epoch_sfs = c(2750.5870923088755, 1343.3954417842638, 875.6845718963608,
+                           642.790731507824, 503.78263411646384, 411.684675259764,
+                           346.36568928853444, 297.7611366996343, 260.28050077850907,
+                           230.5702470990757, 206.49698769570412, 186.63906383577898,
+                           170.01278351720222, 155.9159863151548, 143.83418280287674,
+                           133.38189215892504, 124.26468457945955, 116.25387661717315,
+                           109.16921783326906, 102.86677179434616, 97.23025995811176,
+                           92.1647666121368, 87.5920862774422, 83.44723451808171,
+                           79.67579639696783, 76.23188705195118, 73.07656568890842,
+                           70.17658963239032, 67.50342634609933, 65.032463225627,
+                           62.742370500792056, 60.614583750716974, 58.63288065527978,
+                           56.78303257757943, 55.05251600763814, 53.43027222426188,
+                           51.906506049444936, 50.47251649098285, 49.1205535468174,
+                           47.84369658999174, 46.63575064703898, 45.49115758498604,
+                           44.4049197775577)
+
+b_ovatus_x_axis = 1:length(b_ovatus_empirical_syn_sfs)
+b_ovatus_bottleneck_growth_sfs = b_ovatus_bottleneck_growth_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_exponential_growth_sfs = b_ovatus_exponential_growth_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_two_epoch_sfs = b_ovatus_two_epoch_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_three_epoch_sfs = b_ovatus_three_epoch_sfs[1:length(b_ovatus_x_axis)]
+
+df = data.frame(b_ovatus_empirical_syn_sfs, b_ovatus_bottleneck_growth_sfs, b_ovatus_exponential_growth_sfs, b_ovatus_two_epoch_sfs, b_ovatus_three_epoch_sfs)
+
+p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=b_ovatus_empirical_syn_sfs, color='b_ovatus_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_sfs, color='b_ovatus_bottleneck')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_sfs, color='b_ovatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_sfs, color='b_ovatus_exponential')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_sfs, color='b_ovatus_exponential')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_sfs, color='b_ovatus_two_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_sfs, color='b_ovatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_sfs, color='b_ovatus_three_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_sfs, color='b_ovatus_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(1, length(b_ovatus_x_axis))) +
+  scale_y_continuous(name='Number of SNPs') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
+                     name='Data Type',
+                     breaks=c('b_ovatus_empirical',
+                              'b_ovatus_bottleneck',
+                              'b_ovatus_exponential',
+                              'b_ovatus_two_epoch',
+                              'b_ovatus_three_epoch'),
+                     labels=c('Empirical',
+                              'Bottleneck + Growth',
+                              'Exponential',
+                              'Two Epoch',
+                              'Three Epoch')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('B. ovatus, Empirical vs. Expected SFS.')
+
+p_b_ovatus
 
 # a_putredinis
 
 a_putredinis_empirical_syn_sfs = c(4348, 2472, 1485, 1091, 580, 395, 300, 196, 184, 131, 113,
                                    90, 129, 179, 167, 65)
 
-a_putredinis_bottleneck_growth_sfs = c()
-a_putredinis_exponential_growth_sfs = c()
-a_putredinis_three_epoch_sfs = c()
-a_putredinis_two_epoch_sfs = c()
+a_putredinis_bottleneck_growth_sfs = c(4809.662533501777, 2129.434950912631, 1264.0725705549412,
+                                      846.1243362155784, 604.6184504928658, 450.042072162345,
+                                      344.37149905476144, 268.76180713686256, 212.83591447619904,
+                                      170.42331130940843, 137.633378092071, 111.8970599686288,
+                                      91.45348856279928, 75.05810292233535, 61.808393159265044,
+                                      51.03552502058591, 42.234555059189475, 35.01813110052089,
+                                      29.084964750579804, 24.197866859253473, 20.168132774353573,
+                                      16.844239862528024, 14.103533117262046, 11.846019117715896,
+                                      9.98967216352596, 8.4668412464003, 7.221469367934153,
+                                      6.206919823080437, 5.384261214600445)
+a_putredinis_exponential_growth_sfs = c(4657.5308442380765, 1932.60462190821, 1118.1825487889935,
+                                       746.953686769612, 541.5279301694807, 414.11621545997957,
+                                       328.86472439325644, 268.63647771552576, 224.30588459770806,
+                                       190.6123515874658, 164.33282705826574, 143.3947352454357,
+                                       126.41173550126618, 112.4256202756203, 100.75549909061336,
+                                       90.90591868481432, 82.50886439234036, 75.28601017152816,
+                                       69.02348312521147, 63.554592787159656, 58.747762413304024,
+                                       54.497936896459, 50.7203625212816, 47.34601512825171,
+                                       44.31819330305342, 41.58994763126988, 39.122118380739586,
+                                       36.88182166340267, 34.841270101674155)
+a_putredinis_three_epoch_sfs = c(4778.404211141924, 2150.548094500213, 1287.8461585376697,
+                                865.7594257664093, 619.4088353139502, 460.52469712701725,
+                                351.296280082056, 272.83423158524363, 214.65807278225796,
+                                170.49121602639283, 136.34962635043524, 109.58616752036848,
+                                88.37603289874673, 71.42271836488767, 57.781617347326474,
+                                46.74977800246161, 37.794579033888695, 30.506188877049606,
+                                24.565045726447227, 19.719100896589875, 15.767570872756542,
+                                12.549126918798928, 9.93317150710974, 7.813301084574621,
+                                6.102342847412412, 4.728541609419227, 3.6325984558821833,
+                                2.7653481091348415, 2.0859207135751268)
+a_putredinis_two_epoch_sfs = c(4793.362730951363, 2148.391035694644, 1281.575358383368, 
+                              858.4733343424734, 612.2359284757692, 453.94513692971583,
+                              345.51906060390655, 267.9382164642422, 210.65434742751486,
+                              167.35398079723402, 134.03280337442527, 108.03287596184853,
+                              87.52423447929573, 71.20868365882605, 58.14209278932164,
+                              47.62334826115858, 39.12251544089435, 32.232961295214665,
+                              26.638609651175585, 22.091032236801, 18.393096507010082,
+                              15.387083632001298, 12.945915816741993, 10.966585739710377,
+                              9.36517121535727, 8.073008006745361, 7.033720262691118,
+                              6.20089392528325, 5.536237675268127)
 
+a_putredinis_x_axis = 1:length(a_putredinis_empirical_syn_sfs)
+a_putredinis_bottleneck_growth_sfs = a_putredinis_bottleneck_growth_sfs[1:length(a_putredinis_x_axis)]
+a_putredinis_exponential_growth_sfs = a_putredinis_exponential_growth_sfs[1:length(a_putredinis_x_axis)]
+a_putredinis_two_epoch_sfs = a_putredinis_two_epoch_sfs[1:length(a_putredinis_x_axis)]
+a_putredinis_three_epoch_sfs = a_putredinis_three_epoch_sfs[1:length(a_putredinis_x_axis)]
+
+df = data.frame(a_putredinis_empirical_syn_sfs, a_putredinis_bottleneck_growth_sfs, a_putredinis_exponential_growth_sfs, a_putredinis_two_epoch_sfs, a_putredinis_three_epoch_sfs)
+
+p_a_putredinis <- ggplot(data = df, aes(x=a_putredinis_x_axis, y=a_putredinis_empirical_syn_sfs, color='a_putredinis_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_bottleneck_growth_sfs, color='a_putredinis_bottleneck')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_bottleneck_growth_sfs, color='a_putredinis_bottleneck')) +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_bottleneck_growth_sfs, color='a_putredinis_exponential')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_exponential_growth_sfs, color='a_putredinis_exponential')) +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_two_epoch_sfs, color='a_putredinis_two_epoch')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_two_epoch_sfs, color='a_putredinis_two_epoch')) +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_three_epoch_sfs, color='a_putredinis_three_epoch')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_three_epoch_sfs, color='a_putredinis_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_putredinis_x_axis, limits = c(1, length(a_putredinis_x_axis))) +
+  scale_y_continuous(name='Number of SNPs') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
+                     name='Data Type',
+                     breaks=c('a_putredinis_empirical',
+                              'a_putredinis_bottleneck',
+                              'a_putredinis_exponential',
+                              'a_putredinis_two_epoch',
+                              'a_putredinis_three_epoch'),
+                     labels=c('Empirical',
+                              'Bottleneck + Growth',
+                              'Exponential',
+                              'Two Epoch',
+                              'Three Epoch')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('A. putredinis, Empirical vs. Expected SFS.')
+
+p_a_putredinis
 # b_uniformis
 
 b_uniformis_empirical_syn_sfs = c(3013, 1244, 743, 580, 427, 384, 371, 341, 278, 240, 219,
@@ -95,18 +304,271 @@ b_uniformis_empirical_syn_sfs = c(3013, 1244, 743, 580, 427, 384, 371, 341, 278,
                                   119, 108, 95, 108, 87, 111, 80, 75, 68, 83, 64, 84, 66, 55,
                                   43)
 
-b_uniformis_bottleneck_growth_sfs = c()
-b_uniformis_exponential_growth_sfs = c()
-b_uniformis_three_epoch_sfs = c()
-b_uniformis_two_epoch_sfs = c()
+b_uniformis_bottleneck_growth_sfs = c(2793.391887826412, 1324.7787175272179, 845.4515979300986,
+                                      610.5858580644108, 472.4018236180534, 382.0234926306892,
+                                      318.66421647106984, 272.0088842271452, 236.36942058112723,
+                                      208.3580391449706, 185.8345733429377, 167.3825742039916,
+                                      152.02849870771124, 139.08197182866786, 128.04037296205655,
+                                      118.5294669428031, 110.26515767856333, 103.0281017034101,
+                                      96.64641362071873, 90.98361189628788, 85.93004544804575,
+                                      81.39668489622767, 77.31055287027108, 73.61131116160614,
+                                      70.24867784582372, 67.18044877895771, 64.37096520632714,
+                                      61.78991478700956, 59.41138467493044, 57.21310717424387,
+                                      55.175853970069205, 53.28294603434995, 51.51985435677561,
+                                      49.8738725541653, 48.33384678558384, 46.88995167213381,
+                                      45.53350338982408, 44.25680298353766, 43.053004392223336,
+                                      41.91600279024597, 40.84033971759621, 39.821122151806215,
+                                      38.85395321080615, 37.93487260153851, 37.06030526878317,
+                                      36.227016971094635, 35.43207573054036, 34.67281828099246,
+                                      33.94682078477781, 33.25187320609381, 32.58595682704911,
+                                      31.947224472596147, 31.333983077134732, 30.74467828094439,
+                                      30.177880790765368, 29.632274277458947, 29.10664461619456,
+                                      28.59987030192581, 28.110913896087652, 27.638814380013304,
+                                      27.182680307278268, 26.741683661391622, 26.31505433738157,
+                                      25.902075176291603, 25.50207749051289, 25.114437025611085,
+                                      24.738570310976755, 24.373931357367805, 24.020008664418555,
+                                      23.676322505554204, 23.342422461486716, 23.01788517683486)
+b_uniformis_exponential_growth_sfs = c(2242.1832969188404, 1121.5018425597373, 747.668233697805,
+                                       560.7511889641291, 448.6009603878034, 373.8341408092084,
+                                       320.42926941579447, 280.3756157073732, 249.22277381962448,
+                                       224.30050022166603, 203.9095490246357, 186.91708963317836,
+                                       172.53885471055426, 160.21465330109606, 149.53367870346779,
+                                       140.18782589134332, 131.94148513851042, 124.61140443554794,
+                                       118.05291114334787, 112.15026715055264, 106.80977970031068,
+                                       101.95479108242725, 97.52197536237621, 93.45856092802407,
+                                       89.72021962517375, 86.26944301564049, 83.07427946689117,
+                                       80.107341865315, 77.34502063021361, 74.76685412497008, 
+                                       72.35502092414882, 70.09392728048265, 67.9698695978893,
+                                       65.97075646805882, 64.08587835791627, 62.30571568250186,
+                                       60.62177800117493, 59.026468603892326, 57.5129699303504,
+                                       56.07514617628068, 54.70746015246364, 53.40490202102987,
+                                       52.16292797554458, 50.97740728287908, 49.84457638618902,
+                                       48.7609989944358, 47.723531266884144, 46.72929134952774,
+                                       45.77563264174732, 44.86012027097183, 43.98051033502956,
+                                       43.13473153960569, 42.3208689144864, 41.537149339102264,
+                                       40.78192864710747, 40.05368011260799, 39.35098414837103,
+                                       38.67251906973053, 38.01705279775827, 37.38343539212401,
+                                       36.77059231841848, 36.17751836703522, 35.60327215119869,
+                                       35.0469711208043, 34.507787036527944, 33.98494185536442,
+                                       33.47770398463722, 32.9853848665353, 32.507335859640214,
+                                       32.042945387758685, 31.591636329693358, 31.152863626535538)
+b_uniformis_three_epoch_sfs = c(2839.1809367547226, 1317.5907357080282, 824.1729397801223,
+                                585.6685707301673, 447.78453766757923, 359.3244090789832,
+                                298.50475505686984, 254.54258658334274, 221.52357038956058,
+                                195.9533095974474, 175.64710780885508, 159.1768614866911,
+                                145.5746804977706, 134.1645797759712, 124.46226355355718,
+                                116.11305711378556, 108.85216488248984, 102.47848872273093,
+                                96.8369484848248, 91.80628272389048, 87.29046817396336,
+                                83.21258045282244, 79.51033329155662, 76.13279176063605,
+                                73.03791938805873, 70.19072596537413, 67.56185364704427,
+                                65.12648665244227, 62.8635025170805, 60.75480548656703,
+                                58.784798566747526, 56.93996206966363, 55.20851464284269,
+                                53.58013869188638, 52.045756452766646, 50.59734618910702,
+                                49.227790393849794, 47.93074968465943, 46.70055745553383,
+                                45.5321313961504, 44.42089879764787, 43.36273318838641,
+                                42.35390033028253, 41.391011987885086, 40.47098618333306,
+                                39.591012888742696, 38.748524297738285, 37.94116896999037,
+                                37.16678926522216, 36.423401582246946, 35.70917899915027,
+                                35.02243597646901, 34.36161483912059, 33.7252737972161,
+                                33.11207630256409, 32.52078156814089, 31.9502361031398,
+                                31.399366137469148, 30.867170827337198, 30.35271614861472,
+                                29.85512939729121, 29.373594227144846, 28.9073461638692,
+                                28.455668542714356, 28.017888823401364, 27.59337524177718,
+                                27.181533762660376, 26.781805302559476, 26.39366319465828,
+                                26.016610871666597, 25.650179744912517, 25.29392726050532)
+b_uniformis_two_epoch_sfs = c(2957.373719291666, 1247.4100076179573, 749.1345691686063,
+                              528.1020847371057, 407.49347124179053, 332.5379892371882,
+                              281.58541559610194, 244.64337874901793, 216.55491690482822,
+                              194.4183635631796, 176.48366021829395, 161.6335369686614,
+                              149.12034512491033, 138.4238029723361, 129.16980498828474,
+                              121.0818480325991, 113.95075195546312, 107.61509260735644,
+                              101.94815172862542, 96.84896847189053, 92.23605188016595,
+                              88.04286699605737, 84.21453205377999, 80.70536066504212,
+                              77.47700506614365, 74.49703438162217, 71.73783267420451,
+                              69.17573540377086, 66.79034590640427, 64.56398939023919,
+                              62.48127309881944, 60.528729239909836, 58.694523016232175,
+                              56.96821228996763, 55.34054851485401, 53.803310887580274,
+                              52.34916741901913, 50.971557957322965, 49.6645952172104,
+                              48.42298066093757, 47.24193269312878, 46.11712511584719,
+                              45.04463417279378, 44.02089281567312, 43.042651068952445,
+                              42.10694156478824, 41.21104947798191, 40.352486219203996,
+                              39.52896634954626, 38.738387265379906, 37.978811273270246,
+                              37.2484497331872, 36.54564899683999, 35.868877908428416,
+                              35.21671666895453, 34.58784689363872, 33.98104271594236,
+                              33.39516281184729, 32.82914323523388, 32.28199096973034,
+                              31.752778114788693, 31.240636634416617, 30.744753606015262,
+                              30.26436691465082, 29.798761344769055, 29.347265027214718,
+                              28.90924620442109, 28.48411028103266, 28.071297130987986,
+                              27.67027863543335, 27.28055642868913, 26.901659832065494)
 
+b_uniformis_x_axis = 1:length(b_uniformis_empirical_syn_sfs)
+b_uniformis_bottleneck_growth_sfs = b_uniformis_bottleneck_growth_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_exponential_growth_sfs = b_uniformis_exponential_growth_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_two_epoch_sfs = b_uniformis_two_epoch_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_three_epoch_sfs = b_uniformis_three_epoch_sfs[1:length(b_uniformis_x_axis)]
+
+df = data.frame(b_uniformis_empirical_syn_sfs, b_uniformis_bottleneck_growth_sfs, b_uniformis_exponential_growth_sfs, b_uniformis_two_epoch_sfs, b_uniformis_three_epoch_sfs)
+
+p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=b_uniformis_empirical_syn_sfs, color='b_uniformis_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_sfs, color='b_uniformis_bottleneck')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_sfs, color='b_uniformis_bottleneck')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_sfs, color='b_uniformis_exponential')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_sfs, color='b_uniformis_exponential')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_sfs, color='b_uniformis_two_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_sfs, color='b_uniformis_two_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_sfs, color='b_uniformis_three_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_sfs, color='b_uniformis_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(1, length(b_uniformis_x_axis))) +
+  scale_y_continuous(name='Number of SNPs') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
+                     name='Data Type',
+                     breaks=c('b_uniformis_empirical',
+                              'b_uniformis_bottleneck',
+                              'b_uniformis_exponential',
+                              'b_uniformis_two_epoch',
+                              'b_uniformis_three_epoch'),
+                     labels=c('Empirical',
+                              'Bottleneck + Growth',
+                              'Exponential',
+                              'Two Epoch',
+                              'Three Epoch')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('B. uniformis, Empirical vs. Expected SFS.')
+
+p_b_uniformis
 # e_rectale
 
 e_rectale_empirical_syn_sfs = c(13797, 6657, 4566, 3313, 2578, 2070, 1747, 1615, 1419, 1347,
                                 1173, 1145, 1047, 1022, 887, 803, 790, 807, 729, 590, 641,
                                 591, 587, 543, 535, 579, 559, 538, 497, 497, 456, 465, 323)
 
-e_rectale_bottleneck_growth_sfs = c()
-e_rectale_exponential_growth_sfs = c()
-e_rectale_three_epoch_sfs = c()
-e_rectale_two_epoch_sfs = c()
+e_rectale_bottleneck_growth_sfs = c(13513.660301271595, 6665.55328006506, 4368.626852491173,
+                                    3215.527971213258, 2522.2364469941335, 2059.9039200970246,
+                                    1730.0961488201215, 1483.4206600353782, 1292.3417709190433,
+                                    1140.2822947166173, 1016.6587431419491, 914.3934238307675,
+                                    828.571842654653, 755.6738183649277, 693.1111417023934,
+                                    638.9379829248165, 591.6631023718519, 550.1243877098146,
+                                    513.402827116818, 480.76216238172896, 451.60569293521206,
+                                    425.44479479367914, 401.8756036581073, 380.56149131392425,
+                                    361.21972065039193, 343.6111597132282, 327.5322657172721,
+                                    312.8087745281887, 299.29068621606285, 286.84824599655565,
+                                    275.3686971306355, 264.75363795604494, 254.9168557156104,
+                                    245.78253966154182, 237.28379809152258, 229.36142062753274,
+                                    221.96283966880023, 215.04125459455645, 208.5548897208742,
+                                    202.46636278054697, 196.7421452001815, 191.35209899337238,
+                                    186.26907789485603, 181.46858259606927, 176.9284617329092,
+                                    172.62865171859028, 168.55094968197633, 164.6788147216187,
+                                    160.99719346199052, 157.49236653587934, 154.15181314256304,
+                                    150.96409126650687, 147.9187315031891, 145.0061427403949,
+                                    142.21752819626414, 139.54481052766272, 136.98056490158643,
+                                    134.51795907393205, 132.15069964832028, 129.87298379728173,
+                                    127.67945582135243, 125.56516800159949, 123.52554526970661,
+                                    121.55635327878457)
+e_rectale_exponential_growth_sfs = c(13899.996431678055, 6353.444969340434, 3992.0677019329937,
+                                     2871.7683654072566, 2228.6230735373733, 1815.5865424106712,
+                                     1529.7726141895234, 1321.1147352166267, 1162.5030303768206,
+                                     1038.0615524337109, 937.9162140360654, 855.6248118816548,
+                                     786.8168957737314, 728.4295011516406, 678.2560195157811,
+                                     634.6686838122158, 596.4417476515282, 562.6353550861675,
+                                     532.5172266801327, 505.50860352512603, 481.1461557927298,
+                                     459.0546398662335, 438.92694137485114, 420.5092875978355,
+                                     403.590138656902, 387.9917367432533, 373.5636027034813,
+                                     360.177477641741, 347.72334947772146, 336.1063030448768,
+                                     325.24400166174854, 315.0646574922432, 305.5053836001466,
+                                     296.5108465380473, 288.03215740894586, 280.0259535393627,
+                                     272.4536335590952, 265.2807167485965, 258.4763036695705,
+                                     252.01261982717958, 245.8646277777083, 240.00969595433511,
+                                     234.4273147279693, 229.09885199243368, 224.00734197210588,
+                                     219.13730207540294, 214.47457352183585, 210.0061822004684,
+                                     205.72021681037145, 201.60572181662883, 197.65260315142532,
+                                     193.8515449151298, 190.19393560151016, 186.6718025939541,
+                                     183.27775386564252, 180.00492597167622, 176.84693755132253,
+                                     173.7978476682857, 170.85211840933118, 168.00458123994113,
+                                     165.2504066824422, 162.5850769386367, 160.00436112772874,
+                                     157.50429285165)
+e_rectale_three_epoch_sfs = c(13727.300763455209, 6647.9507723616725, 4296.747500048827,
+                              3127.328529682447, 2430.4252504086444, 1969.6202029128249,
+                              1643.5961641888246, 1401.6983920769544, 1215.7887080466246,
+                              1068.9871320661337, 950.5544455846207, 853.3334745589793,
+                              772.3713201753327, 704.1320633962994, 646.0243888606832,
+                              596.1063508984383, 552.8943407709676, 515.2357324200783,
+                              482.22174620579796, 453.12645432128295, 427.3632139777877,
+                              404.4529831464236, 384.0009024133817, 365.6787319865046,
+                              349.211504399496, 334.36725790717435, 320.94905186372085,
+                              308.7886935783354, 297.741763523968, 287.68363594073026,
+                              278.50627005946865, 270.11560336396843, 262.42941917913026,
+                              255.3755909222427, 248.8906276779462, 242.9184624992994,
+                              237.40943750747542, 232.31944953148448, 227.60922746729452,
+                              223.24371829966887, 219.1915632292434, 215.42464888203554,
+                              211.91772137384567, 208.6480532247656, 205.59515489853212,
+                              202.74052417114714, 200.0674276906355, 197.56071002910872,
+                              195.20662629586406, 192.9926950091143, 190.90756844203455,
+                              188.94091808739086, 187.08333324046404, 185.3262309965492,
+                              183.66177620701325, 182.08281014611723, 180.58278681585148,
+                              179.15571596415555, 177.7961120172634, 176.49894823349277,
+                              175.2596154768023, 174.0738850860089, 172.93787538222782,
+                              171.8480214141912)
+e_rectale_two_epoch_sfs = c(13598.157855930793, 6656.060795403004, 4345.6793682455855,
+                            3193.1454847319656, 2503.6844034596256, 2045.7058691346215,
+                            1719.9580624524317, 1476.8160593035723, 1288.7113165409774,
+                            1139.103466350169, 1017.4674956739983, 916.7873361022373,
+                            832.2062585967899, 760.2556706360725, 698.3923946488117,
+                            644.7094671720946, 597.7490090222755, 556.3774721945791,
+                            519.7002825902464, 487.00209003000134, 457.70408979087784,
+                            431.3329838166027, 407.49803909138944, 385.87388150316275,
+                            366.18741925847553, 348.2077840455408, 331.7385075655556,
+                            316.6113745892098, 302.6815478592423, 289.8236680740006,
+                            277.9287087718531, 266.9014209810032, 256.6582425323816,
+                            247.125576369028, 238.23836405186546, 229.93889706221168,
+                            222.17582091159042, 214.90329654135718, 208.08029077995036,
+                            201.66997327220938, 195.6392017020466, 189.95808059249035,
+                            184.5995817047903, 179.5392162364046, 174.75475075970505,
+                            170.22596024483107, 165.93441264305721, 161.8632804277505,
+                            157.99717524136636, 154.32200241328843, 150.8248326207708,
+                            147.49378838489434, 144.31794344183368, 141.2872333200574,
+                            138.39237569696854, 135.62479931217607, 132.97658038629606,
+                            130.4403856391567, 128.00942112407878, 125.67738619944778,
+                            123.43843204773485, 121.28712422829533, 119.2184088154978,
+                            117.22758172970471)
+
+e_rectale_x_axis = 1:length(e_rectale_empirical_syn_sfs)
+e_rectale_bottleneck_growth_sfs = e_rectale_bottleneck_growth_sfs[1:length(e_rectale_x_axis)]
+e_rectale_exponential_growth_sfs = e_rectale_exponential_growth_sfs[1:length(e_rectale_x_axis)]
+e_rectale_two_epoch_sfs = e_rectale_two_epoch_sfs[1:length(e_rectale_x_axis)]
+e_rectale_three_epoch_sfs = e_rectale_three_epoch_sfs[1:length(e_rectale_x_axis)]
+
+df = data.frame(e_rectale_empirical_syn_sfs, e_rectale_bottleneck_growth_sfs, e_rectale_exponential_growth_sfs, e_rectale_two_epoch_sfs, e_rectale_three_epoch_sfs)
+
+p_e_rectale <- ggplot(data = df, aes(x=e_rectale_x_axis, y=e_rectale_empirical_syn_sfs, color='e_rectale_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_bottleneck_growth_sfs, color='e_rectale_bottleneck')) +
+  geom_line(aes(x=e_rectale_x_axis, y=e_rectale_bottleneck_growth_sfs, color='e_rectale_bottleneck')) +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_bottleneck_growth_sfs, color='e_rectale_exponential')) +
+  geom_line(aes(x=e_rectale_x_axis, y=e_rectale_exponential_growth_sfs, color='e_rectale_exponential')) +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_two_epoch_sfs, color='e_rectale_two_epoch')) +
+  geom_line(aes(x=e_rectale_x_axis, y=e_rectale_two_epoch_sfs, color='e_rectale_two_epoch')) +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_three_epoch_sfs, color='e_rectale_three_epoch')) +
+  geom_line(aes(x=e_rectale_x_axis, y=e_rectale_three_epoch_sfs, color='e_rectale_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=e_rectale_x_axis, limits = c(1, length(e_rectale_x_axis))) +
+  scale_y_continuous(name='Number of SNPs') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
+                     name='Data Type',
+                     breaks=c('e_rectale_empirical',
+                              'e_rectale_bottleneck',
+                              'e_rectale_exponential',
+                              'e_rectale_two_epoch',
+                              'e_rectale_three_epoch'),
+                     labels=c('Empirical',
+                              'Bottleneck + Growth',
+                              'Exponential',
+                              'Two Epoch',
+                              'Three Epoch')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('E. rectale, Empirical vs. Expected SFS.')
+
+p_e_rectale
