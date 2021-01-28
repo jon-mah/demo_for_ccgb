@@ -1,0 +1,21 @@
+INFO:fit_demographic_model.py:Beginning execution of fit_demographic_model.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+INFO:fit_demographic_model.py:Progress is being logged to ../Analysis/Prevotella_copri_61740/log.log
+
+INFO:fit_demographic_model.py:Parsed the following arguments:
+	outprefix = ../Analysis/Prevotella_copri_61740/
+	syn_input_sfs = ../Data/Prevotella_copri_61740_syn.sfs
+
+WARNING:Spectrum_mod:Creating Spectrum with data_folded = True, but data has non-zero values in entries which are nonsensical for a folded Spectrum.
+INFO:fit_demographic_model.py:Beginning demographic inference for exponential growth demographic model.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.72184903 0.14099079].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.72184903 0.14099079].
+INFO:fit_demographic_model.py:Best fit parameters: [1.10066513e-01 5.15544870e-09].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -1652.22842495.
+INFO:fit_demographic_model.py:Optimal value of theta: 10616.9902915.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.26839528 0.15335282].
+INFO:fit_demographic_model.py:Finished optimization with guess, [0.26839528 0.15335282].
+INFO:fit_demographic_model.py:Best fit parameters: [2.68872203e-02 4.41020393e-09].
+INFO:fit_demographic_model.py:Maximum log composite likelihood: -1652.23128591.
+INFO:fit_demographic_model.py:Optimal value of theta: 10616.9928345.
+INFO:fit_demographic_model.py:Beginning optimization with guess, [0.39164952 0.10123469].

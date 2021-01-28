@@ -296,7 +296,7 @@ class DemographicInference():
         model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
                       'three_epoch']
         for model in model_list:
-            if model == 'XXexponential_growth':
+            if model == 'exponential_growth':
                 upper_bound = [80, 30]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
@@ -304,7 +304,7 @@ class DemographicInference():
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
-            elif model == 'XXtwo_epoch':
+            elif model == 'two_epoch':
                 upper_bound = [80, 30]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
@@ -330,7 +330,7 @@ class DemographicInference():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(5):
+                for i in range(15):
                     # Start at initial guess
                     p0 = initial_guess
                     # Randomly perturb parameters before optimization.
@@ -343,7 +343,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=25)
+                        verbose=len(p0), maxiter=50)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
