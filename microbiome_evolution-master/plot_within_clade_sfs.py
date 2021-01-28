@@ -44,11 +44,16 @@ mpl.rcParams['lines.linewidth'] = 0.5
 mpl.rcParams['legend.frameon']  = False
 mpl.rcParams['legend.fontsize']  = 'small'
 
-species_name = "Bacteroides_vulgatus_57955"
+# species_name = "Bacteroides_vulgatus_57955"
 # species_name = "Bacteroides_uniformis_57318"
 # species_name = "Alistipes_putredinis_61533"
 # species_name = "Bacteroides_ovatus_58035"
 # species_name = "Eubacterium_rectale_56927"
+species_name = "Alistipes_shahii_62199"
+# species_name = "Bacteroides_massiliensis_44749"
+# species_name = "Odoribacter_splanchnicus_62174"
+# species_name = "Prevotella_copri_61740"
+# species_name = "Roseburia_intestinalis_56239"
 ################################################################################
 #
 # Standard header to read in argument information
