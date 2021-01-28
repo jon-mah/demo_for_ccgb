@@ -289,14 +289,14 @@ class DemographicInference():
         # Construct initial Spectrum object from input synonymous sfs.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs)
         syn_ns = syn_data.sample_sizes  # Number of samples.
-        pts_l = [800, 1000, 1200]
+        pts_l = [1200, 1400, 1600]
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
         model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
                       'three_epoch']
         for model in model_list:
-            if model == 'exponential_growth':
+            if model == 'XXexponential_growth':
                 upper_bound = [80, 30]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
@@ -304,7 +304,7 @@ class DemographicInference():
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
-            elif model == 'two_epoch':
+            elif model == 'XXtwo_epoch':
                 upper_bound = [80, 30]
                 lower_bound = [1e-4, 0]
                 initial_guess = [0.5, 0.1]
