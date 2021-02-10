@@ -145,7 +145,7 @@ class ComputeSNPMatrix():
                         f.write('0')
                     for other_alt_ref in items[2:]:
                         alt_ref = other_alt_ref.split(",")
-                        if int(alt_ref[0]) >= int(alt_ref[1]) / 2 and int(first_alt_ref[0]) >= 1:
+                        if int(alt_ref[0]) >= int(alt_ref[1]) / 2 and int(alt_ref[0]) >= 1:
                             f.write(', 1')
                         else:
                             f.write(', 0')
