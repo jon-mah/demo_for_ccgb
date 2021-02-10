@@ -7,4 +7,5 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python compute_SNP_matrix.py ../Data/microbiome_data/snps/Phascolarctobacterium_succinatutens_61948/annotated_snps.txt.bz2 ../Data/example_output/
+# python compute_SNP_matrix.py ../Data/microbiome_data/snps/Phascolarctobacterium_succinatutens_61948/annotated_snps.txt.bz2 ../Data/example_output/
+python compute_SNP_matrix.py ../Data/microbiome_data/snps/Bacteroides_vulgatus_57955//annotated_snps.txt.bz2 ../Analysis/Bacteroides_vulgatus_57955/

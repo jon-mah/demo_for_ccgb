@@ -139,13 +139,15 @@ class ComputeSNPMatrix():
                 if p_value <= 0.05:
                     # Load alt and depth counts
                     first_alt_ref = items[1].split(",")
-                    if int(first_alt_ref[0]) >= int(first_alt_ref[1]) / 2 and int(first_alt_ref[0]) >= 1:
+                    if int(first_alt_ref[0]) >= int(first_alt_ref[1]) / 2 and \
+                       int(first_alt_ref[0]) >= 1:
                         f.write('1')
                     else:
                         f.write('0')
                     for other_alt_ref in items[2:]:
                         alt_ref = other_alt_ref.split(",")
-                        if int(alt_ref[0]) >= int(alt_ref[1]) / 2 and int(alt_ref[0]) >= 1:
+                        if int(alt_ref[0]) >= int(alt_ref[1]) / 2 and \
+                           int(alt_ref[0]) >= 1:
                             f.write(', 1')
                         else:
                             f.write(', 0')
