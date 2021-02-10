@@ -12,12 +12,8 @@ import time
 import argparse
 import warnings
 
-import parse_midas_data
-import pylab
-import sys
 import numpy
 import bz2
-import calculate_snp_prevalences
 
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
@@ -58,7 +54,7 @@ class ComputeSNPMatrix():
     def main(self):
         """Execute main function."""
         # Parse command line arguments
-        parser = self.computeSNPParser()
+        parser = self.computeSNPMatrixParser()
         args = vars(parser.parse_args())
         prog = parser.prog
 
@@ -84,9 +80,7 @@ class ComputeSNPMatrix():
             '{0}{1}snp_matrix.csv'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, exponential_growth_demography,
-                     two_epoch_demography, bottleneck_growth_demography,
-                     three_epoch_demography]
+        to_remove = [logfile, snp_matrix]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -135,8 +129,8 @@ class ComputeSNPMatrix():
                 variant_type = info_items[3]
 
                 if len(info_items) > 5:  # for backwards compatability
-                        polarization = info_items[4]
-                        p_value = float(info_items[5])
+                    polarization = info_items[4]
+                    p_value = float(info_items[5])
 
                 else:
                     polarization = "?"
@@ -145,16 +139,17 @@ class ComputeSNPMatrix():
                 if p_value <= 0.05:
                     # Load alt and depth counts
                     first_alt_ref = items[1].split(",")
-                    if alt_ref[0] >= alt_ref[1] / 2:
+                    if int(first_alt_ref[0]) >= int(first_alt_ref[1]) / 2 and int(first_alt_ref[0]) >= 1:
                         f.write('1')
                     else:
                         f.write('0')
                     for other_alt_ref in items[2:]:
                         alt_ref = other_alt_ref.split(",")
-                        if alt_ref[0] >= alt_ref[1] / 2:
+                        if int(alt_ref[0]) >= int(alt_ref[1]) / 2 and int(first_alt_ref[0]) >= 1:
                             f.write(', 1')
                         else:
                             f.write(', 0')
+                    f.write('\n')
             snp_file.close()
 
 

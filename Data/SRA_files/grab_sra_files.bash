@@ -1,7 +1,5 @@
 #!/bin/bash
-#$ -N SRA_download_NIH1
-#$ -e /u/home/postproc_error
-#$ -o /u/home/postproc_output
+#$ -N SRA_download
 #$ -cwd # Run qsub script from desired working directory
 #$ -l h_data=4G
 #$ -l time=2:00:00
