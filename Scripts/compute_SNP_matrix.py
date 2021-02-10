@@ -140,8 +140,8 @@ class ComputeSNPMatrix():
                     # Load alt and depth counts
                     above_minimum_depth = True
                     for item in items[1:]:
-                        depth = item.split(",")[1]
-                        if depth < 20:
+                        depth = int(item.split(",")[1])
+                        if depth < 5:
                             above_minimum_depth = False
                     if above_minimum_depth:
                         # Load alt and depth counts

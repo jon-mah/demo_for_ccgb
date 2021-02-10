@@ -12,4 +12,4 @@
 # python compute_SNP_matrix.py ../Data/microbiome_data/snps/Bacteroides_ovatus_58035/annotated_snps.txt.bz2 ../Analysis/Bacteroides_ovatus_58035/
 # python compute_SNP_matrix.py ../Data/microbiome_data/snps/Alistipes_putredinis_61533/annotated_snps.txt.bz2 ../Analysis/Alistipes_putredinis_61533/
 # python compute_SNP_matrix.py ../Data/microbiome_data/snps/Bacteroides_uniformis_57318/annotated_snps.txt.bz2 ../Analysis/Bacteroides_uniformis_57318/
-# python compute_SNP_matrix.py ../Data/microbiome_data/snps/Eubacterium_rectale_56927/annotated_snps.txt.bz2 ../Analysis/Eubacterium_rectale_56927/
+python compute_SNP_matrix.py ../Data/microbiome_data/snps/Eubacterium_rectale_56927/annotated_snps.txt.bz2 ../Analysis/Eubacterium_rectale_56927/
