@@ -351,15 +351,18 @@ with open(output_syn_sfs, 'w+') as f:
         f.write(' 1')
 
 with open(output_nonsyn_sfs, 'w+') as f:
-    f.write(str(num_bins) + ' folded ' + str(species_name) + '\n')
+    f.write(str(num_bins + 1 + num_bins % 2) +
+            ' folded "' + str(species_name) + '"\n')
     f.write('0')
-    for freq in nonsynonymous_count_sfs[:-1]:
+    for freq in nonsynonymous_count_sfs[]:
         f.write(' ' + str(freq))
+    if num_bins % 2 == 1:
+        f.write(' 0')
     f.write('\n')
     f.write('1')
-    for i in range(num_bins / 2):
+    for i in range(num_bins / 2 + num_bins % 2):
         f.write(' 0')
-    for i in range(num_bins - (num_bins / 2 + 1)):
+    for i in range(num_bins / 2 + num_bins % 2):
         f.write(' 1')
 
 print count_locations
