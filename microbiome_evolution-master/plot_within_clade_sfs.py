@@ -339,7 +339,7 @@ with open(output_syn_sfs, 'w+') as f:
     f.write(str(num_bins + 1 + num_bins % 2) +
             ' folded "' + str(species_name) + '"\n')
     f.write('0')
-    for freq in synonymous_count_sfs[]:
+    for freq in synonymous_count_sfs:
         f.write(' ' + str(freq))
     if num_bins % 2 == 1:
         f.write(' 0')
@@ -354,7 +354,7 @@ with open(output_nonsyn_sfs, 'w+') as f:
     f.write(str(num_bins + 1 + num_bins % 2) +
             ' folded "' + str(species_name) + '"\n')
     f.write('0')
-    for freq in nonsynonymous_count_sfs[]:
+    for freq in nonsynonymous_count_sfs:
         f.write(' ' + str(freq))
     if num_bins % 2 == 1:
         f.write(' 0')
