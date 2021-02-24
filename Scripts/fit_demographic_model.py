@@ -297,40 +297,40 @@ class DemographicInference():
                       'three_epoch']
         for model in model_list:
             if model == 'exponential_growth':
-                upper_bound = [80, 0.03]
-                lower_bound = [1e-4, 0]
-                initial_guess = [0.5, 0.00001]
+                upper_bound = [8, 0.00005]
+                lower_bound = [0, 0]
+                initial_guess = [0.1, 0.00001]
                 file = exponential_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
             elif model == 'two_epoch':
-                upper_bound = [80, 0.03]
-                lower_bound = [1e-4, 0]
-                initial_guess = [0.5, 0.00001]
+                upper_bound = [8, 0.00005]
+                lower_bound = [0, 0]
+                initial_guess = [0.1, 0.00001]
                 file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             elif model == 'bottleneck_growth':
-                upper_bound = [80, 80, 0.03]
-                lower_bound = [1e-4, 1e-4, 0]
-                initial_guess = [0.5, 0.5, 0.00001]
+                upper_bound = [8, 8, 0.00005]
+                lower_bound = [0, 0, 0]
+                initial_guess = [0.1, 0.1, 0.00001]
                 file = bottleneck_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
                 logger.info('Beginning demographic inference for bottleneck + '
                             'growth demographic model.')
             else:
-                upper_bound = [80, 80, 0.03, 0.03]
-                lower_bound = [1e-4, 1e-4, 0, 0]
-                initial_guess = [0.5, 0.5, 0.00001, 0.00001]
+                upper_bound = [8, 8, 0.00005, 0.00005]
+                lower_bound = [0, 0, 0, 0]
+                initial_guess = [0.1, 0.1, 0.00001, 0.00001]
                 file = three_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
                 logger.info('Beginning demographic inference for three-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(5):
+                for i in range(25):
                     # Start at initial guess
                     p0 = initial_guess
                     # Randomly perturb parameters before optimization.
@@ -343,7 +343,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=15)
+                        verbose=len(p0), maxiter=25)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))

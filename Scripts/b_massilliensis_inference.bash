@@ -7,4 +7,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_demographic_model.py ../Data/Bacteroides_massiliensis_44749_syn.sfs ../Analysis/Bacteroides_massiliensis_44749
+python fit_demographic_model.py ../Data/Bacteroides_massiliensis_44749_syn.sfs ../Analysis/Bacteroides_massiliensis_44749/
