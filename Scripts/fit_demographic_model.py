@@ -52,6 +52,16 @@ class DemographicInference():
             help=('Synonynomous site-frequency spectrum from which the '
                   'demographic parameters should be inferred.'))
         parser.add_argument(
+            '--mask_singletons', dest='mask_singletons',
+            help=('Boolean flag for masking singlestons in Spectrum.'),
+            action='store_true')
+        parser.add_argument(
+            '--mask_doubletons', dest='mask_doubletons',
+            help=('Boolean flag for masking doublestons in Spectrum.'),
+            action='store_true')
+        parser.set_defaults(mask_singletons=False)
+        parser.set_defaults(mask_doubletons=False)
+        parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
         return parser
@@ -228,6 +238,8 @@ class DemographicInference():
         # Assign arguments
         syn_input_sfs = args['syn_input_sfs']
         outprefix = args['outprefix']
+        mask_singletons = parser.mask_singletons
+        mask_doubletons = parser.mask_doubletons
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -288,6 +300,10 @@ class DemographicInference():
 
         # Construct initial Spectrum object from input synonymous sfs.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs)
+        if mask_singletons:
+            syn_data.mask[1, :] = True
+        if mask_doubletons:
+            syn_data.maks[2, :] = True
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 
