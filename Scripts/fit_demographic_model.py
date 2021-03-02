@@ -238,8 +238,8 @@ class DemographicInference():
         # Assign arguments
         syn_input_sfs = args['syn_input_sfs']
         outprefix = args['outprefix']
-        mask_singletons = parser.mask_singletons
-        mask_doubletons = parser.mask_doubletons
+        mask_singletons = args['mask_singletons']
+        mask_doubletons = args['mask_doubletons']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -301,9 +301,9 @@ class DemographicInference():
         # Construct initial Spectrum object from input synonymous sfs.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs)
         if mask_singletons:
-            syn_data.mask[1, :] = True
+            syn_data.mask[1] = True
         if mask_doubletons:
-            syn_data.maks[2, :] = True
+            syn_data.mask[2] = True
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 

@@ -7,4 +7,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_demographic_model.py ../Data/Bacteroides_uniformis_57318_syn.sfs ../Analysis/Bacteroides_uniformis_57318/ --mask_singletons --mask_doubletons
+python fit_demographic_model.py ../Data/Bacteroides_uniformis_57318_syn.sfs ../Analysis/Bacteroides_uniformis_57318_no_doubletons/ --mask_singletons --mask_doubletons
