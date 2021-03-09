@@ -64,10 +64,6 @@ class DemographicInference():
             '--mask_doubletons', dest='mask_doubletons',
             help=('Boolean flag for masking doublestons in Spectrum.'),
             action='store_true')
-        parser.add_argument(
-            '--species', type=self.ExistingSpecies,
-            help=('The species of the organism being analyzed.'),
-            default='')
         parser.set_defaults(mask_singletons=False)
         parser.set_defaults(mask_doubletons=False)
         parser.add_argument(
@@ -399,7 +395,6 @@ class DemographicInference():
         outprefix = args['outprefix']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
-        species = args['species']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -763,9 +758,6 @@ class DemographicInference():
                                 numpy.array([1, 1, 1, 1, 1]))))
                     f.write('The expected SFS is: {0}.\n\n'.format(
                         expected_sfs_mixunif))
-
-        logger.info('Pipeline executed succesfully.')
-
 
         logger.info('Pipeline executed succesfully.')
 
