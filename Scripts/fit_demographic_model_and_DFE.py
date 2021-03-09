@@ -579,6 +579,10 @@ class DemographicInference():
             logger.info('Finished demographic inference.')
             logger.info('Beginning DFE inference.')
 
+            # Load in nonsynonymous data
+            nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs)
+            nonsyn_ns = nonsyn_data.sample_sizes
+
             demog_params = best_params
 
             mu = 5E-10
