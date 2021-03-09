@@ -486,7 +486,7 @@ class DemographicInference():
                 demography_file = exponential_growth_demography
                 dfe_file = exponential_growth_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
-                func_sel = self.exponential_growth_sel
+                func_sel = self.growth_sel
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
             elif model == 'two_epoch':
