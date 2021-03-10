@@ -24,15 +24,15 @@ proportional_sfs = function(input_sfs) {
 ##### No singletons
 
 # b_vulgatus
-b_vulgatus_empirical_syn_sfs = c(3066, 1346, 904, 727, 543, 475, 434, 369, 331, 270, 222, 239, 
+b_vulgatus_empirical_syn_no_s_sfs = c(3066, 1346, 904, 727, 543, 475, 434, 369, 331, 270, 222, 239, 
                                  241, 231, 220, 199, 212, 199, 192, 180, 192, 163, 143, 47)
 
-b_vulgatus_empirical_nonsyn_sfs = c(3254, 1171, 732, 513, 341, 288, 265, 210, 174, 166, 141,
+b_vulgatus_empirical_nonsyn_no_s_sfs = c(3254, 1171, 732, 513, 341, 288, 265, 210, 174, 166, 141,
                                     116, 117, 113, 116, 115, 106, 117, 109, 104, 81, 79, 65, 20)
 
-b_vulgatus_ratio = b_vulgatus_empirical_nonsyn_sfs / b_vulgatus_empirical_syn_sfs
+b_vulgatus_ratio = b_vulgatus_empirical_nonsyn_no_s_sfs / b_vulgatus_empirical_syn_no_s_sfs
 
-b_vulgatus_bottleneck_growth_syn_sfs = fold_sfs(c(2364.311781722684, 1182.2854155709988, 788.1903216166188,
+b_vulgatus_bottleneck_growth_syn_no_s_sfs = fold_sfs(c(2364.311781722684, 1182.2854155709988, 788.1903216166188,
                                               591.1427476056948, 472.9142027663291, 394.095172685024,
                                               337.7958653686266, 295.5713847974877, 262.73012206416035,
                                               236.4571118211272, 214.9610124822103, 197.0475963226168,
@@ -49,9 +49,9 @@ b_vulgatus_bottleneck_growth_syn_sfs = fold_sfs(c(2364.311781722684, 1182.285415
                                               54.99003457476419, 53.74026112772935, 52.54603315649781,
                                               51.403728130038026, 50.310031817833256))
 
-b_vulgatus_bottleneck_growth_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_bottleneck_growth_syn_sfs
+b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs = b_vulgatus_ratio * b_vulgatus_bottleneck_growth_syn_no_s_sfs
 
-b_vulgatus_exponential_growth_syn_sfs = fold_sfs(c(2364.4467211037827, 1182.2854405836288, 788.1903187688821,
+b_vulgatus_exponential_growth_syn_no_s_sfs = fold_sfs(c(2364.4467211037827, 1182.2854405836288, 788.1903187688821,
                                                591.142745460723, 472.9142010503583, 394.09517125503993,
                                                337.79586414292595, 295.57138372500805, 262.7301211108395, 
                                                236.45711096313843, 214.9610117022205, 197.04759560762616,
@@ -68,9 +68,9 @@ b_vulgatus_exponential_growth_syn_sfs = fold_sfs(c(2364.4467211037827, 1182.2854
                                                54.99003437523188, 53.740260932731864, 52.546032965832865,
                                                51.403727943517964, 50.310031635283856))
 
-b_vulgatus_exponential_growth_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_exponential_growth_syn_sfs
+b_vulgatus_exponential_growth_nonsyn_no_s_sfs = b_vulgatus_ratio * b_vulgatus_exponential_growth_syn_no_s_sfs
 
-b_vulgatus_three_epoch_syn_sfs = fold_sfs(c(2363.632596896401, 1182.2851162215534, 788.1903555758352,
+b_vulgatus_three_epoch_syn_no_s_sfs = fold_sfs(c(2363.632596896401, 1182.2851162215534, 788.1903555758352,
                                         591.1427732881266, 472.9142233125268, 394.09518980685556,
                                         337.7958800444824, 295.57139763887005, 262.73013347871694,
                                         236.4571220942282, 214.9610218213931, 197.04760488353443,
@@ -87,9 +87,9 @@ b_vulgatus_three_epoch_syn_sfs = fold_sfs(c(2363.632596896401, 1182.285116221553
                                         54.99003696385781, 53.7402634625254, 52.54603543940876,
                                         51.40373036332047, 50.310034003599775))
 
-b_vulgatus_three_epoch_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_three_epoch_syn_sfs
+b_vulgatus_three_epoch_nonsyn_no_s_sfs = b_vulgatus_ratio * b_vulgatus_three_epoch_syn_no_s_sfs
 
-b_vulgatus_two_epoch_syn_sfs = fold_sfs(c(2364.4410069186315, 1182.2854408699334, 788.1903187365133,
+b_vulgatus_two_epoch_syn_no_s_sfs = fold_sfs(c(2364.4410069186315, 1182.2854408699334, 788.1903187365133,
                                       591.1427454361523, 472.91420103069845, 394.0951712386567,
                                       337.7958641288832, 295.5713837127206, 262.7301210999173,
                                       236.45711095330847, 214.96101169328418, 197.04759559943452,
@@ -106,37 +106,37 @@ b_vulgatus_two_epoch_syn_sfs = fold_sfs(c(2364.4410069186315, 1182.2854408699334
                                       54.99003437294584, 53.74026093049778, 52.54603296364843,
                                       51.403727941381014, 50.31003163319094))
 
-b_vulgatus_two_epoch_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_two_epoch_syn_sfs
+b_vulgatus_two_epoch_nonsyn_no_s_sfs = b_vulgatus_ratio * b_vulgatus_two_epoch_syn_no_s_sfs
 
-b_vulgatus_bottleneck_growth_syn_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_syn_sfs)
-b_vulgatus_exponential_growth_syn_sfs = proportional_sfs(b_vulgatus_exponential_growth_syn_sfs)
-b_vulgatus_three_epoch_syn_sfs = proportional_sfs(b_vulgatus_three_epoch_syn_sfs)
-b_vulgatus_two_epoch_syn_sfs = proportional_sfs(b_vulgatus_two_epoch_syn_sfs)
+b_vulgatus_bottleneck_growth_syn_no_s_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_syn_no_s_sfs)
+b_vulgatus_exponential_growth_syn_no_s_sfs = proportional_sfs(b_vulgatus_exponential_growth_syn_no_s_sfs)
+b_vulgatus_three_epoch_syn_no_s_sfs = proportional_sfs(b_vulgatus_three_epoch_syn_no_s_sfs)
+b_vulgatus_two_epoch_syn_no_s_sfs = proportional_sfs(b_vulgatus_two_epoch_syn_no_s_sfs)
 
-b_vulgatus_bottleneck_growth_nonsyn_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_nonsyn_sfs)
-b_vulgatus_exponential_growth_nonsyn_sfs = proportional_sfs(b_vulgatus_exponential_growth_nonsyn_sfs)
-b_vulgatus_three_epoch_nonsyn_sfs = proportional_sfs(b_vulgatus_three_epoch_nonsyn_sfs)
-b_vulgatus_two_epoch_nonsyn_sfs = proportional_sfs(b_vulgatus_two_epoch_nonsyn_sfs)
+b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs)
+b_vulgatus_exponential_growth_nonsyn_no_s_sfs = proportional_sfs(b_vulgatus_exponential_growth_nonsyn_no_s_sfs)
+b_vulgatus_three_epoch_nonsyn_no_s_sfs = proportional_sfs(b_vulgatus_three_epoch_nonsyn_no_s_sfs)
+b_vulgatus_two_epoch_nonsyn_no_s_sfs = proportional_sfs(b_vulgatus_two_epoch_nonsyn_no_s_sfs)
 
-b_vulgatus_x_axis = 1:length(b_vulgatus_empirical_syn_sfs)
-b_vulgatus_bottleneck_growth_syn_sfs = b_vulgatus_bottleneck_growth_syn_sfs[1:length(b_vulgatus_x_axis)]
-b_vulgatus_exponential_growth_syn_sfs = b_vulgatus_exponential_growth_syn_sfs[1:length(b_vulgatus_x_axis)]
-b_vulgatus_two_epoch_syn_sfs = b_vulgatus_two_epoch_syn_sfs[1:length(b_vulgatus_x_axis)]
-b_vulgatus_three_epoch_syn_sfs = b_vulgatus_three_epoch_syn_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_x_axis = 1:length(b_vulgatus_empirical_syn_no_s_sfs)
+b_vulgatus_bottleneck_growth_syn_no_s_sfs = b_vulgatus_bottleneck_growth_syn_no_s_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_exponential_growth_syn_no_s_sfs = b_vulgatus_exponential_growth_syn_no_s_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_two_epoch_syn_no_s_sfs = b_vulgatus_two_epoch_syn_no_s_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_three_epoch_syn_no_s_sfs = b_vulgatus_three_epoch_syn_no_s_sfs[1:length(b_vulgatus_x_axis)]
 
-df = data.frame(b_vulgatus_empirical_syn_sfs, b_vulgatus_bottleneck_growth_syn_sfs, b_vulgatus_exponential_growth_syn_sfs, b_vulgatus_two_epoch_syn_sfs, b_vulgatus_three_epoch_syn_sfs)
+df = data.frame(b_vulgatus_empirical_syn_no_s_sfs, b_vulgatus_bottleneck_growth_syn_no_s_sfs, b_vulgatus_exponential_growth_syn_no_s_sfs, b_vulgatus_two_epoch_syn_no_s_sfs, b_vulgatus_three_epoch_syn_no_s_sfs)
 
-p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_sfs), color='b_vulgatus_empirical')) +
+p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_no_s_sfs), color='b_vulgatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_sfs, color='b_vulgatus_exponential')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_syn_sfs, color='b_vulgatus_exponential')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_sfs, color='b_vulgatus_three_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_sfs, color='b_vulgatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_s_sfs, color='b_vulgatus_bottleneck')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_s_sfs, color='b_vulgatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_s_sfs, color='b_vulgatus_exponential')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_syn_no_s_sfs, color='b_vulgatus_exponential')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_no_s_sfs, color='b_vulgatus_two_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_no_s_sfs, color='b_vulgatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_no_s_sfs, color='b_vulgatus_three_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_no_s_sfs, color='b_vulgatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(1, length(b_vulgatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -157,19 +157,19 @@ p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_
 
 p_b_vulgatus
 
-df = data.frame(b_vulgatus_empirical_nonsyn_sfs, b_vulgatus_bottleneck_growth_nonsyn_sfs, b_vulgatus_exponential_growth_nonsyn_sfs, b_vulgatus_two_epoch_nonsyn_sfs, b_vulgatus_three_epoch_nonsyn_sfs)
+df = data.frame(b_vulgatus_empirical_nonsyn_no_s_sfs, b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs, b_vulgatus_exponential_growth_nonsyn_no_s_sfs, b_vulgatus_two_epoch_nonsyn_no_s_sfs, b_vulgatus_three_epoch_nonsyn_no_s_sfs)
 
-p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_nonsyn_sfs), color='b_vulgatus_empirical')) +
+p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_nonsyn_no_s_sfs), color='b_vulgatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_sfs, color='b_vulgatus_exponential')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_nonsyn_sfs, color='b_vulgatus_exponential')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_sfs, color='b_vulgatus_three_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_sfs, color='b_vulgatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs, color='b_vulgatus_bottleneck')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs, color='b_vulgatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_no_s_sfs, color='b_vulgatus_exponential')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_nonsyn_no_s_sfs, color='b_vulgatus_exponential')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_no_s_sfs, color='b_vulgatus_two_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_no_s_sfs, color='b_vulgatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_no_s_sfs, color='b_vulgatus_three_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_no_s_sfs, color='b_vulgatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(1, length(b_vulgatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -192,15 +192,15 @@ p_b_vulgatus
 
 # b_ovatus
 
-b_ovatus_empirical_syn_sfs = c(2850, 1283, 956, 657, 560, 542, 389, 365, 268, 305, 272, 227,
+b_ovatus_empirical_syn_no_s_sfs = c(2850, 1283, 956, 657, 560, 542, 389, 365, 268, 305, 272, 227,
                                238, 226, 205, 187, 185, 202, 205, 188, 152, 125, 28)
 
-b_ovatus_empirical_nonsyn_sfs = c(2074, 783, 550, 341, 323, 240, 149, 141, 113, 111, 110, 89,
+b_ovatus_empirical_nonsyn_no_s_sfs = c(2074, 783, 550, 341, 323, 240, 149, 141, 113, 111, 110, 89,
                                   96, 82, 73, 75, 58, 77, 66, 58, 65, 59, 6)
 
-b_ovatus_ratio = b_ovatus_empirical_nonsyn_sfs / b_ovatus_empirical_syn_sfs
+b_ovatus_ratio = b_ovatus_empirical_nonsyn_no_s_sfs / b_ovatus_empirical_syn_no_s_sfs
 
-b_ovatus_bottleneck_growth_syn_sfs = fold_sfs(c(2301.9437651195744, 1151.1458480490132, 767.4306349250169,
+b_ovatus_bottleneck_growth_syn_no_s_sfs = fold_sfs(c(2301.9437651195744, 1151.1458480490132, 767.4306349250169,
                                             575.5729826144529, 460.45839079705115, 383.7153293995799,
                                             328.8988568564132, 287.7865023632382, 255.81022657718117,
                                             230.22920588967503, 209.299279821268, 191.8576747183154,
@@ -216,9 +216,9 @@ b_ovatus_bottleneck_growth_syn_sfs = fold_sfs(c(2301.9437651195744, 1151.1458480
                                             57.55731013436692, 56.153473389197984, 54.81648600068734,
                                             53.541684060228796, 52.32482765091364, 51.16205373733013))
 
-b_ovatus_bottleneck_growth_nonsyn_sfs = b_ovatus_ratio * b_ovatus_bottleneck_growth_syn_sfs
+b_ovatus_bottleneck_growth_nonsyn_no_s_sfs = b_ovatus_ratio * b_ovatus_bottleneck_growth_syn_no_s_sfs
 
-b_ovatus_exponential_growth_syn_sfs = fold_sfs(c(2302.116682522891, 1151.1458926906105, 767.4306297711701,
+b_ovatus_exponential_growth_syn_no_s_sfs = fold_sfs(c(2302.116682522891, 1151.1458926906105, 767.4306297711701,
                                              575.5729787269589, 460.4583876870363, 383.71532680789807,
                                              328.898854634974, 287.7865004194768, 255.81022484939322,
                                              230.22920433466587, 209.29927840762332, 191.85767342247442,
@@ -234,9 +234,9 @@ b_ovatus_exponential_growth_syn_sfs = fold_sfs(c(2302.116682522891, 1151.1458926
                                              57.557309745614575, 56.1534730099274, 54.81648563044701,
                                              53.54168369859871, 52.32482729750242, 51.16205339177395))
 
-b_ovatus_exponential_growth_nonsyn_sfs = b_ovatus_ratio * b_ovatus_exponential_growth_syn_sfs
+b_ovatus_exponential_growth_nonsyn_no_s_sfs = b_ovatus_ratio * b_ovatus_exponential_growth_syn_no_s_sfs
 
-b_ovatus_three_epoch_syn_sfs = fold_sfs(c(2301.044860516565, 1151.145411624897, 767.4306851541962,
+b_ovatus_three_epoch_syn_no_s_sfs = fold_sfs(c(2301.044860516565, 1151.145411624897, 767.4306851541962,
                                       575.5730206343461, 460.4584212134143, 383.7153547465576,
                                       328.8988785823896, 287.7865213734677, 255.8102434751631,
                                       230.2292210978589, 209.29929364688687, 191.8576873918022,
@@ -252,9 +252,9 @@ b_ovatus_three_epoch_syn_sfs = fold_sfs(c(2301.044860516565, 1151.145411624897, 
                                       57.55731393641264, 56.153477098511694, 54.81648962168562,
                                       53.5416875970163, 52.3248311073196, 51.16205711692709))
 
-b_ovatus_three_epoch_nonsyn_sfs = b_ovatus_ratio * b_ovatus_three_epoch_syn_sfs
+b_ovatus_three_epoch_nonsyn_no_s_sfs = b_ovatus_ratio * b_ovatus_three_epoch_syn_no_s_sfs
 
-b_ovatus_two_epoch_syn_sfs = fold_sfs(c(2302.1643492534035, 1151.14590202132, 767.4306286927919,
+b_ovatus_two_epoch_syn_no_s_sfs = fold_sfs(c(2302.1643492534035, 1151.14590202132, 767.4306286927919,
                                     575.5729779145231, 460.4583870370975, 383.7153262662824,
                                     328.898854170725, 287.7865000132691, 255.81022448831249,
                                     230.2292040096932, 209.2992781121936, 191.85767315166385,
@@ -270,37 +270,37 @@ b_ovatus_two_epoch_syn_sfs = fold_sfs(c(2302.1643492534035, 1151.14590202132, 76
                                     57.557309664371395, 56.153472930665764, 54.816485553073335,
                                     53.54168362302366, 52.324827223644235, 51.16205331955706))
 
-b_ovatus_two_epoch_nonsyn_sfs = b_ovatus_ratio * b_ovatus_two_epoch_syn_sfs
+b_ovatus_two_epoch_nonsyn_no_s_sfs = b_ovatus_ratio * b_ovatus_two_epoch_syn_no_s_sfs
 
-b_ovatus_bottleneck_growth_syn_sfs = proportional_sfs(b_ovatus_bottleneck_growth_syn_sfs)
-b_ovatus_exponential_growth_syn_sfs = proportional_sfs(b_ovatus_exponential_growth_syn_sfs)
-b_ovatus_three_epoch_syn_sfs = proportional_sfs(b_ovatus_three_epoch_syn_sfs)
-b_ovatus_two_epoch_syn_sfs = proportional_sfs(b_ovatus_two_epoch_syn_sfs)
+b_ovatus_bottleneck_growth_syn_no_s_sfs = proportional_sfs(b_ovatus_bottleneck_growth_syn_no_s_sfs)
+b_ovatus_exponential_growth_syn_no_s_sfs = proportional_sfs(b_ovatus_exponential_growth_syn_no_s_sfs)
+b_ovatus_three_epoch_syn_no_s_sfs = proportional_sfs(b_ovatus_three_epoch_syn_no_s_sfs)
+b_ovatus_two_epoch_syn_no_s_sfs = proportional_sfs(b_ovatus_two_epoch_syn_no_s_sfs)
 
-b_ovatus_bottleneck_growth_nonsyn_sfs = proportional_sfs(b_ovatus_bottleneck_growth_nonsyn_sfs)
-b_ovatus_exponential_growth_nonsyn_sfs = proportional_sfs(b_ovatus_exponential_growth_nonsyn_sfs)
-b_ovatus_three_epoch_nonsyn_sfs = proportional_sfs(b_ovatus_three_epoch_nonsyn_sfs)
-b_ovatus_two_epoch_nonsyn_sfs = proportional_sfs(b_ovatus_two_epoch_nonsyn_sfs)
+b_ovatus_bottleneck_growth_nonsyn_no_s_sfs = proportional_sfs(b_ovatus_bottleneck_growth_nonsyn_no_s_sfs)
+b_ovatus_exponential_growth_nonsyn_no_s_sfs = proportional_sfs(b_ovatus_exponential_growth_nonsyn_no_s_sfs)
+b_ovatus_three_epoch_nonsyn_no_s_sfs = proportional_sfs(b_ovatus_three_epoch_nonsyn_no_s_sfs)
+b_ovatus_two_epoch_nonsyn_no_s_sfs = proportional_sfs(b_ovatus_two_epoch_nonsyn_no_s_sfs)
 
-b_ovatus_x_axis = 1:length(b_ovatus_empirical_syn_sfs)
-b_ovatus_bottleneck_growth_syn_sfs = b_ovatus_bottleneck_growth_syn_sfs[1:length(b_ovatus_x_axis)]
-b_ovatus_exponential_growth_syn_sfs = b_ovatus_exponential_growth_syn_sfs[1:length(b_ovatus_x_axis)]
-b_ovatus_two_epoch_syn_sfs = b_ovatus_two_epoch_syn_sfs[1:length(b_ovatus_x_axis)]
-b_ovatus_three_epoch_syn_sfs = b_ovatus_three_epoch_syn_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_x_axis = 1:length(b_ovatus_empirical_syn_no_s_sfs)
+b_ovatus_bottleneck_growth_syn_no_s_sfs = b_ovatus_bottleneck_growth_syn_no_s_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_exponential_growth_syn_no_s_sfs = b_ovatus_exponential_growth_syn_no_s_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_two_epoch_syn_no_s_sfs = b_ovatus_two_epoch_syn_no_s_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_three_epoch_syn_no_s_sfs = b_ovatus_three_epoch_syn_no_s_sfs[1:length(b_ovatus_x_axis)]
 
-df = data.frame(b_ovatus_empirical_syn_sfs, b_ovatus_bottleneck_growth_syn_sfs, b_ovatus_exponential_growth_syn_sfs, b_ovatus_two_epoch_syn_sfs, b_ovatus_three_epoch_syn_sfs)
+df = data.frame(b_ovatus_empirical_syn_no_s_sfs, b_ovatus_bottleneck_growth_syn_no_s_sfs, b_ovatus_exponential_growth_syn_no_s_sfs, b_ovatus_two_epoch_syn_no_s_sfs, b_ovatus_three_epoch_syn_no_s_sfs)
 
-p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_syn_sfs), color='b_ovatus_empirical')) +
+p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_syn_no_s_sfs), color='b_ovatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_sfs, color='b_ovatus_bottleneck')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_sfs, color='b_ovatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_sfs, color='b_ovatus_exponential')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_syn_sfs, color='b_ovatus_exponential')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_sfs, color='b_ovatus_two_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_sfs, color='b_ovatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_sfs, color='b_ovatus_three_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_sfs, color='b_ovatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_no_s_sfs, color='b_ovatus_bottleneck')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_no_s_sfs, color='b_ovatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_no_s_sfs, color='b_ovatus_exponential')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_syn_no_s_sfs, color='b_ovatus_exponential')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_no_s_sfs, color='b_ovatus_two_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_no_s_sfs, color='b_ovatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_no_s_sfs, color='b_ovatus_three_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_no_s_sfs, color='b_ovatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(1, length(b_ovatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -321,19 +321,19 @@ p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovat
 
 p_b_ovatus
 
-df = data.frame(b_ovatus_empirical_nonsyn_sfs, b_ovatus_bottleneck_growth_nonsyn_sfs, b_ovatus_exponential_growth_nonsyn_sfs, b_ovatus_two_epoch_nonsyn_sfs, b_ovatus_three_epoch_nonsyn_sfs)
+df = data.frame(b_ovatus_empirical_nonsyn_no_s_sfs, b_ovatus_bottleneck_growth_nonsyn_no_s_sfs, b_ovatus_exponential_growth_nonsyn_no_s_sfs, b_ovatus_two_epoch_nonsyn_no_s_sfs, b_ovatus_three_epoch_nonsyn_no_s_sfs)
 
-p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_nonsyn_sfs), color='b_ovatus_empirical')) +
+p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_nonsyn_no_s_sfs), color='b_ovatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_sfs, color='b_ovatus_bottleneck')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_sfs, color='b_ovatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_sfs, color='b_ovatus_exponential')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_nonsyn_sfs, color='b_ovatus_exponential')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_sfs, color='b_ovatus_two_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_sfs, color='b_ovatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_sfs, color='b_ovatus_three_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_sfs, color='b_ovatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_no_s_sfs, color='b_ovatus_bottleneck')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_no_s_sfs, color='b_ovatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_no_s_sfs, color='b_ovatus_exponential')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_nonsyn_no_s_sfs, color='b_ovatus_exponential')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_no_s_sfs, color='b_ovatus_two_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_no_s_sfs, color='b_ovatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_no_s_sfs, color='b_ovatus_three_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_no_s_sfs, color='b_ovatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(1, length(b_ovatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -356,24 +356,24 @@ p_b_ovatus
 
 # a_putredinis
 
-a_putredinis_empirical_syn_sfs = c(4348, 2472, 1485, 1091, 580, 395, 300, 196, 184, 131, 113,
+a_putredinis_empirical_syn_no_s_sfs = c(4348, 2472, 1485, 1091, 580, 395, 300, 196, 184, 131, 113,
                                    90, 129, 179, 167, 65)
 
 # b_uniformis
 
-b_uniformis_empirical_syn_sfs = c(3013, 1244, 743, 580, 427, 384, 371, 341, 278, 240, 219,
+b_uniformis_empirical_syn_no_s_sfs = c(3013, 1244, 743, 580, 427, 384, 371, 341, 278, 240, 219,
                                   245, 197, 182, 220, 178, 146, 130, 148, 160, 138, 115,
                                   119, 108, 95, 108, 87, 111, 80, 75, 68, 83, 64, 84, 66, 55,
                                   43)
 
-b_uniformis_empirical_nonsyn_sfs = c(3053, 1024, 506, 330, 322, 226, 235, 182, 171, 141,
+b_uniformis_empirical_nonsyn_no_s_sfs = c(3053, 1024, 506, 330, 322, 226, 235, 182, 171, 141,
                                      136, 116, 95, 107, 124, 86, 78, 66, 82, 69, 54, 69,
                                      57, 69, 55, 69, 54, 40, 47, 39, 36, 25, 31, 35, 36,
                                      33, 27)
 
-b_uniformis_ratio = b_uniformis_empirical_nonsyn_sfs / b_uniformis_empirical_syn_sfs
+b_uniformis_ratio = b_uniformis_empirical_nonsyn_no_s_sfs / b_uniformis_empirical_syn_no_s_sfs
 
-b_uniformis_bottleneck_growth_syn_sfs = fold_sfs(c(2054.0457394272116, 1027.2453061206927, 684.8303199886025,
+b_uniformis_bottleneck_growth_syn_no_s_sfs = fold_sfs(c(2054.0457394272116, 1027.2453061206927, 684.8303199886025,
                                                513.622744419909, 410.8981985369978, 342.415167773767,
                                                293.4987171411248, 256.8113791131977, 228.27678283197577,
                                                205.4491057785879, 186.77191543911303, 171.2075901367091,
@@ -399,9 +399,9 @@ b_uniformis_bottleneck_growth_syn_sfs = fold_sfs(c(2054.0457394272116, 1027.2453
                                                29.34987778333432, 28.93649923576827, 28.534603423128964,
                                                28.143718452204315))
 
-b_uniformis_bottleneck_growth_nonsyn_sfs = b_uniformis_ratio * b_uniformis_bottleneck_growth_syn_sfs
+b_uniformis_bottleneck_growth_nonsyn_no_s_sfs = b_uniformis_ratio * b_uniformis_bottleneck_growth_syn_no_s_sfs
 
-b_uniformis_exponential_growth_syn_sfs = fold_sfs(c(2054.327328939652, 1027.2454202781387, 684.8303087576919,
+b_uniformis_exponential_growth_syn_no_s_sfs = fold_sfs(c(2054.327328939652, 1027.2454202781387, 684.8303087576919,
                                                 513.6227359206447, 410.8981917374987, 342.41516210751524,
                                                 293.4987122843355, 256.81137486351065, 228.27677905447615,
                                                 205.44910237883823, 186.7719123484315, 171.2075873035819,
@@ -427,9 +427,9 @@ b_uniformis_exponential_growth_syn_sfs = fold_sfs(c(2054.327328939652, 1027.2454
                                                 29.34987729765487, 28.9364987569302, 28.53460295094142,
                                                 28.143717986485093))
 
-b_uniformis_exponential_growth_nonsyn_sfs = b_uniformis_ratio * b_uniformis_exponential_growth_syn_sfs
+b_uniformis_exponential_growth_nonsyn_no_s_sfs = b_uniformis_ratio * b_uniformis_exponential_growth_syn_no_s_sfs
 
-b_uniformis_three_epoch_syn_sfs = fold_sfs(c(2052.857836930186, 1027.2443654746291, 684.8304118988689,
+b_uniformis_three_epoch_syn_no_s_sfs = fold_sfs(c(2052.857836930186, 1027.2443654746291, 684.8304118988689,
                                          513.6228145032961, 410.89825460603475, 342.41521449796966,
                                          293.4987571904459, 256.811414156352, 228.27681398143994,
                                          205.44913381310872, 186.77194092504385, 171.20761349881005,
@@ -455,9 +455,9 @@ b_uniformis_three_epoch_syn_sfs = fold_sfs(c(2052.857836930186, 1027.24436547462
                                          29.34988178826704, 28.93650318429349, 28.534607316813556,
                                          28.143722292550763))
 
-b_uniformis_three_epoch_nonsyn_sfs = b_uniformis_ratio * b_uniformis_three_epoch_syn_sfs
+b_uniformis_three_epoch_nonsyn_no_s_sfs = b_uniformis_ratio * b_uniformis_three_epoch_syn_no_s_sfs
 
-b_uniformis_two_epoch_syn_sfs = fold_sfs(c(2054.4213420617302, 1027.245433338713, 684.8303074666856,
+b_uniformis_two_epoch_syn_no_s_sfs = fold_sfs(c(2054.4213420617302, 1027.245433338713, 684.8303074666856,
                                        513.6227349487477, 410.89819095998115, 342.41516145958394,
                                        293.49871172896997, 256.8113743775622, 228.27677862252193,
                                        205.44910199007944, 186.7719119950144, 171.20758697961864,
@@ -483,37 +483,37 @@ b_uniformis_two_epoch_syn_sfs = fold_sfs(c(2054.4213420617302, 1027.245433338713
                                        29.349877242118723, 28.936498702175427, 28.53460289694713,
                                        28.143717933228853))
 
-b_uniformis_two_epoch_nonsyn_sfs = b_uniformis_ratio * b_uniformis_two_epoch_syn_sfs
+b_uniformis_two_epoch_nonsyn_no_s_sfs = b_uniformis_ratio * b_uniformis_two_epoch_syn_no_s_sfs
 
-b_uniformis_bottleneck_growth_syn_sfs = proportional_sfs(b_uniformis_bottleneck_growth_syn_sfs)
-b_uniformis_exponential_growth_syn_sfs = proportional_sfs(b_uniformis_exponential_growth_syn_sfs)
-b_uniformis_three_epoch_syn_sfs = proportional_sfs(b_uniformis_three_epoch_syn_sfs)
-b_uniformis_two_epoch_syn_sfs = proportional_sfs(b_uniformis_two_epoch_syn_sfs)
+b_uniformis_bottleneck_growth_syn_no_s_sfs = proportional_sfs(b_uniformis_bottleneck_growth_syn_no_s_sfs)
+b_uniformis_exponential_growth_syn_no_s_sfs = proportional_sfs(b_uniformis_exponential_growth_syn_no_s_sfs)
+b_uniformis_three_epoch_syn_no_s_sfs = proportional_sfs(b_uniformis_three_epoch_syn_no_s_sfs)
+b_uniformis_two_epoch_syn_no_s_sfs = proportional_sfs(b_uniformis_two_epoch_syn_no_s_sfs)
 
-b_uniformis_bottleneck_growth_nonsyn_sfs = proportional_sfs(b_uniformis_bottleneck_growth_nonsyn_sfs)
-b_uniformis_exponential_growth_nonsyn_sfs = proportional_sfs(b_uniformis_exponential_growth_nonsyn_sfs)
-b_uniformis_three_epoch_nonsyn_sfs = proportional_sfs(b_uniformis_three_epoch_nonsyn_sfs)
-b_uniformis_two_epoch_nonsyn_sfs = proportional_sfs(b_uniformis_two_epoch_nonsyn_sfs)
+b_uniformis_bottleneck_growth_nonsyn_no_s_sfs = proportional_sfs(b_uniformis_bottleneck_growth_nonsyn_no_s_sfs)
+b_uniformis_exponential_growth_nonsyn_no_s_sfs = proportional_sfs(b_uniformis_exponential_growth_nonsyn_no_s_sfs)
+b_uniformis_three_epoch_nonsyn_no_s_sfs = proportional_sfs(b_uniformis_three_epoch_nonsyn_no_s_sfs)
+b_uniformis_two_epoch_nonsyn_no_s_sfs = proportional_sfs(b_uniformis_two_epoch_nonsyn_no_s_sfs)
 
-b_uniformis_x_axis = 1:length(b_uniformis_empirical_syn_sfs)
-b_uniformis_bottleneck_growth_syn_sfs = b_uniformis_bottleneck_growth_syn_sfs[1:length(b_uniformis_x_axis)]
-b_uniformis_exponential_growth_syn_sfs = b_uniformis_exponential_growth_syn_sfs[1:length(b_uniformis_x_axis)]
-b_uniformis_two_epoch_syn_sfs = b_uniformis_two_epoch_syn_sfs[1:length(b_uniformis_x_axis)]
-b_uniformis_three_epoch_syn_sfs = b_uniformis_three_epoch_syn_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_x_axis = 1:length(b_uniformis_empirical_syn_no_s_sfs)
+b_uniformis_bottleneck_growth_syn_no_s_sfs = b_uniformis_bottleneck_growth_syn_no_s_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_exponential_growth_syn_no_s_sfs = b_uniformis_exponential_growth_syn_no_s_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_two_epoch_syn_no_s_sfs = b_uniformis_two_epoch_syn_no_s_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_three_epoch_syn_no_s_sfs = b_uniformis_three_epoch_syn_no_s_sfs[1:length(b_uniformis_x_axis)]
 
-df = data.frame(b_uniformis_empirical_syn_sfs, b_uniformis_bottleneck_growth_syn_sfs, b_uniformis_exponential_growth_syn_sfs, b_uniformis_two_epoch_syn_sfs, b_uniformis_three_epoch_syn_sfs)
+df = data.frame(b_uniformis_empirical_syn_no_s_sfs, b_uniformis_bottleneck_growth_syn_no_s_sfs, b_uniformis_exponential_growth_syn_no_s_sfs, b_uniformis_two_epoch_syn_no_s_sfs, b_uniformis_three_epoch_syn_no_s_sfs)
 
-p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_syn_sfs), color='b_uniformis_empirical')) +
+p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_syn_no_s_sfs), color='b_uniformis_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_sfs, color='b_uniformis_bottleneck')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_sfs, color='b_uniformis_bottleneck')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_sfs, color='b_uniformis_exponential')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_sfs, color='b_uniformis_exponential')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_sfs, color='b_uniformis_two_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_sfs, color='b_uniformis_two_epoch')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_sfs, color='b_uniformis_three_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_sfs, color='b_uniformis_three_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_no_s_sfs, color='b_uniformis_bottleneck')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_no_s_sfs, color='b_uniformis_bottleneck')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_no_s_sfs, color='b_uniformis_exponential')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_no_s_sfs, color='b_uniformis_exponential')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_no_s_sfs, color='b_uniformis_two_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_no_s_sfs, color='b_uniformis_two_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_no_s_sfs, color='b_uniformis_three_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_no_s_sfs, color='b_uniformis_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(1, length(b_uniformis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -534,19 +534,19 @@ p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(
 
 p_b_uniformis
 
-df = data.frame(b_uniformis_empirical_nonsyn_sfs, b_uniformis_bottleneck_growth_nonsyn_sfs, b_uniformis_exponential_growth_nonsyn_sfs, b_uniformis_two_epoch_nonsyn_sfs, b_uniformis_three_epoch_nonsyn_sfs)
+df = data.frame(b_uniformis_empirical_nonsyn_no_s_sfs, b_uniformis_bottleneck_growth_nonsyn_no_s_sfs, b_uniformis_exponential_growth_nonsyn_no_s_sfs, b_uniformis_two_epoch_nonsyn_no_s_sfs, b_uniformis_three_epoch_nonsyn_no_s_sfs)
 
-p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_sfs), color='b_uniformis_empirical')) +
+p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_no_s_sfs), color='b_uniformis_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_sfs, color='b_uniformis_bottleneck')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_sfs, color='b_uniformis_bottleneck')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_sfs, color='b_uniformis_exponential')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_sfs, color='b_uniformis_exponential')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_sfs, color='b_uniformis_two_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_sfs, color='b_uniformis_two_epoch')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_sfs, color='b_uniformis_three_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_sfs, color='b_uniformis_three_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_no_s_sfs, color='b_uniformis_bottleneck')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_no_s_sfs, color='b_uniformis_bottleneck')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_no_s_sfs, color='b_uniformis_exponential')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_s_sfs, color='b_uniformis_exponential')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_no_s_sfs, color='b_uniformis_two_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_no_s_sfs, color='b_uniformis_two_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_no_s_sfs, color='b_uniformis_three_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_no_s_sfs, color='b_uniformis_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(1, length(b_uniformis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -598,10 +598,14 @@ b_massiliensis_empirical_syn_sfs = c(661, 136, 61, 23)
 ##### No singletons or doubletons
 
 # b_vulgatus
-b_vulgatus_empirical_syn_sfs = c(3066, 1346, 904, 727, 543, 475, 434, 369, 331, 270, 222, 239, 
+b_vulgatus_empirical_syn_no_d_sfs = c(3066, 1346, 904, 727, 543, 475, 434, 369, 331, 270, 222, 239, 
                                  241, 231, 220, 199, 212, 199, 192, 180, 192, 163, 143, 47)
 
-b_vulgatus_bottleneck_growth_syn_sfs = fold_sfs(c(2324.072206271832, 1162.8862723952786, 775.2584991473477,
+b_vulgatus_empirical_nonsyn_no_d_sfs = c(3254, 1171, 732, 513, 341, 288, 265, 210, 174, 166, 141,
+                                    116, 117, 113, 116, 115, 106, 117, 109, 104, 81, 79, 65, 20)
+
+
+b_vulgatus_bottleneck_growth_syn_no_d_sfs = fold_sfs(c(2324.072206271832, 1162.8862723952786, 775.2584991473477,
                                               581.4438824751076, 465.15511058987767, 387.6292624770717,
                                               332.2536565686301, 290.7219520548419, 258.41951514498294,
                                               232.57756556165435, 211.43415221784778, 193.81464105489593,
@@ -618,9 +622,9 @@ b_vulgatus_bottleneck_growth_syn_sfs = fold_sfs(c(2324.072206271832, 1162.886272
                                               54.08781437381632, 52.85854593026516, 51.68391162920448,
                                               50.56034837438615, 49.48459631179393))
 
-b_vulgatus_bottleneck_growth_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_bottleneck_growth_syn_sfs
+b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs = b_vulgatus_ratio * b_vulgatus_bottleneck_growth_syn_no_d_sfs
 
-b_vulgatus_exponential_growth_syn_sfs = fold_sfs(c(2324.0927900330685, 1162.8863240098385, 775.2584992732425,
+b_vulgatus_exponential_growth_syn_no_d_sfs = fold_sfs(c(2324.0927900330685, 1162.8863240098385, 775.2584992732425,
                                                581.4438824632564, 465.15511058001664, 387.62926246884865,
                                                332.25365656158414, 290.7219520486746, 258.4195151395009,
                                                232.57756555672051, 211.4341522133625, 193.81464105078717,
@@ -637,9 +641,9 @@ b_vulgatus_exponential_growth_syn_sfs = fold_sfs(c(2324.0927900330685, 1162.8863
                                                54.087814372668916, 52.85854592914384, 51.68391162810807,
                                                50.56034837331358, 49.48459631074348))
 
-b_vulgatus_exponential_growth_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_exponential_growth_syn_sfs
+b_vulgatus_exponential_growth_nonsyn_no_d_sfs = b_vulgatus_ratio * b_vulgatus_exponential_growth_syn_no_d_sfs
 
-b_vulgatus_three_epoch_syn_sfs = fold_sfs(c(2321.019730603907, 1162.8791947843608, 775.258477659387,
+b_vulgatus_three_epoch_syn_no_d_sfs = fold_sfs(c(2321.019730603907, 1162.8791947843608, 775.258477659387,
                                         581.4438844737256, 465.15511227554157, 387.6292638822929,
                                         332.25365777311015, 290.7219531087516, 258.4195160817953,
                                         232.57756640478544, 211.4341529843306, 193.81464175750796,
@@ -656,9 +660,9 @@ b_vulgatus_three_epoch_syn_sfs = fold_sfs(c(2321.019730603907, 1162.879194784360
                                         54.087814569892586, 52.858546121885894, 51.683911816566976,
                                         50.56034855767555, 49.48459649118285))
 
-b_vulgatus_three_epoch_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_three_epoch_syn_sfs
+b_vulgatus_three_epoch_nonsyn_no_d_sfs = b_vulgatus_ratio * b_vulgatus_three_epoch_syn_no_d_sfs
 
-b_vulgatus_two_epoch_syn_sfs = fold_sfs(c(2324.32413930096, 1162.8866604692287, 775.258499944615,
+b_vulgatus_two_epoch_syn_no_d_sfs = fold_sfs(c(2324.32413930096, 1162.8866604692287, 775.258499944615,
                                       581.4438823997708, 465.1551105274203, 387.6292624250183,
                                       332.2536565240153, 290.7219520157998, 258.41951511028253,
                                       232.57756553042398, 211.43415218945654, 193.81464102887338,
@@ -675,37 +679,37 @@ b_vulgatus_two_epoch_syn_sfs = fold_sfs(c(2324.32413930096, 1162.8866604692287, 
                                       54.087814366553445, 52.85854592316735, 51.6839116222644,
                                       50.56034836759766, 49.48459630514917))
 
-b_vulgatus_two_epoch_nonsyn_sfs = b_vulgatus_ratio * b_vulgatus_two_epoch_syn_sfs
+b_vulgatus_two_epoch_nonsyn_no_d_sfs = b_vulgatus_ratio * b_vulgatus_two_epoch_syn_no_d_sfs
 
-b_vulgatus_bottleneck_growth_syn_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_syn_sfs)
-b_vulgatus_exponential_growth_syn_sfs = proportional_sfs(b_vulgatus_exponential_growth_syn_sfs)
-b_vulgatus_three_epoch_syn_sfs = proportional_sfs(b_vulgatus_three_epoch_syn_sfs)
-b_vulgatus_two_epoch_syn_sfs = proportional_sfs(b_vulgatus_two_epoch_syn_sfs)
+b_vulgatus_bottleneck_growth_syn_no_d_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_syn_no_d_sfs)
+b_vulgatus_exponential_growth_syn_no_d_sfs = proportional_sfs(b_vulgatus_exponential_growth_syn_no_d_sfs)
+b_vulgatus_three_epoch_syn_no_d_sfs = proportional_sfs(b_vulgatus_three_epoch_syn_no_d_sfs)
+b_vulgatus_two_epoch_syn_no_d_sfs = proportional_sfs(b_vulgatus_two_epoch_syn_no_d_sfs)
 
-b_vulgatus_bottleneck_growth_nonsyn_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_nonsyn_sfs)
-b_vulgatus_exponential_growth_nonsyn_sfs = proportional_sfs(b_vulgatus_exponential_growth_nonsyn_sfs)
-b_vulgatus_three_epoch_nonsyn_sfs = proportional_sfs(b_vulgatus_three_epoch_nonsyn_sfs)
-b_vulgatus_two_epoch_nonsyn_sfs = proportional_sfs(b_vulgatus_two_epoch_nonsyn_sfs)
+b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs = proportional_sfs(b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs)
+b_vulgatus_exponential_growth_nonsyn_no_d_sfs = proportional_sfs(b_vulgatus_exponential_growth_nonsyn_no_d_sfs)
+b_vulgatus_three_epoch_nonsyn_no_d_sfs = proportional_sfs(b_vulgatus_three_epoch_nonsyn_no_d_sfs)
+b_vulgatus_two_epoch_nonsyn_no_d_sfs = proportional_sfs(b_vulgatus_two_epoch_nonsyn_no_d_sfs)
 
-b_vulgatus_x_axis = 1:length(b_vulgatus_empirical_syn_sfs)
-b_vulgatus_bottleneck_growth_syn_sfs = b_vulgatus_bottleneck_growth_syn_sfs[1:length(b_vulgatus_x_axis)]
-b_vulgatus_exponential_growth_syn_sfs = b_vulgatus_exponential_growth_syn_sfs[1:length(b_vulgatus_x_axis)]
-b_vulgatus_two_epoch_syn_sfs = b_vulgatus_two_epoch_syn_sfs[1:length(b_vulgatus_x_axis)]
-b_vulgatus_three_epoch_syn_sfs = b_vulgatus_three_epoch_syn_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_x_axis = 1:length(b_vulgatus_empirical_syn_no_d_sfs)
+b_vulgatus_bottleneck_growth_syn_no_d_sfs = b_vulgatus_bottleneck_growth_syn_no_d_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_exponential_growth_syn_no_d_sfs = b_vulgatus_exponential_growth_syn_no_d_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_two_epoch_syn_no_d_sfs = b_vulgatus_two_epoch_syn_no_d_sfs[1:length(b_vulgatus_x_axis)]
+b_vulgatus_three_epoch_syn_no_d_sfs = b_vulgatus_three_epoch_syn_no_d_sfs[1:length(b_vulgatus_x_axis)]
 
-df = data.frame(b_vulgatus_empirical_syn_sfs, b_vulgatus_bottleneck_growth_syn_sfs, b_vulgatus_exponential_growth_syn_sfs, b_vulgatus_two_epoch_syn_sfs, b_vulgatus_three_epoch_syn_sfs)
+df = data.frame(b_vulgatus_empirical_syn_no_d_sfs, b_vulgatus_bottleneck_growth_syn_no_d_sfs, b_vulgatus_exponential_growth_syn_no_d_sfs, b_vulgatus_two_epoch_syn_no_d_sfs, b_vulgatus_three_epoch_syn_no_d_sfs)
 
-p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_sfs), color='b_vulgatus_empirical')) +
+p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_no_d_sfs), color='b_vulgatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_sfs, color='b_vulgatus_exponential')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_syn_sfs, color='b_vulgatus_exponential')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_sfs, color='b_vulgatus_three_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_sfs, color='b_vulgatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_d_sfs, color='b_vulgatus_bottleneck')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_d_sfs, color='b_vulgatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_d_sfs, color='b_vulgatus_exponential')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_syn_no_d_sfs, color='b_vulgatus_exponential')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_no_d_sfs, color='b_vulgatus_two_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_syn_no_d_sfs, color='b_vulgatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_no_d_sfs, color='b_vulgatus_three_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_no_d_sfs, color='b_vulgatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(1, length(b_vulgatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -726,19 +730,19 @@ p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_
 
 p_b_vulgatus
 
-df = data.frame(b_vulgatus_empirical_nonsyn_sfs, b_vulgatus_bottleneck_growth_nonsyn_sfs, b_vulgatus_exponential_growth_nonsyn_sfs, b_vulgatus_two_epoch_nonsyn_sfs, b_vulgatus_three_epoch_nonsyn_sfs)
+df = data.frame(b_vulgatus_empirical_nonsyn_no_d_sfs, b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs, b_vulgatus_exponential_growth_nonsyn_no_d_sfs, b_vulgatus_two_epoch_nonsyn_no_d_sfs, b_vulgatus_three_epoch_nonsyn_no_d_sfs)
 
-p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_nonsyn_sfs), color='b_vulgatus_empirical')) +
+p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_nonsyn_no_d_sfs), color='b_vulgatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_sfs, color='b_vulgatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_sfs, color='b_vulgatus_exponential')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_nonsyn_sfs, color='b_vulgatus_exponential')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_sfs, color='b_vulgatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_sfs, color='b_vulgatus_three_epoch')) +
-  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_sfs, color='b_vulgatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs, color='b_vulgatus_bottleneck')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs, color='b_vulgatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_nonsyn_no_d_sfs, color='b_vulgatus_exponential')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_exponential_growth_nonsyn_no_d_sfs, color='b_vulgatus_exponential')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_no_d_sfs, color='b_vulgatus_two_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch_nonsyn_no_d_sfs, color='b_vulgatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_no_d_sfs, color='b_vulgatus_three_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_nonsyn_no_d_sfs, color='b_vulgatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(1, length(b_vulgatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -761,10 +765,13 @@ p_b_vulgatus
 
 # b_ovatus
 
-b_ovatus_empirical_syn_sfs = c(2850, 1283, 956, 657, 560, 542, 389, 365, 268, 305, 272, 227,
+b_ovatus_empirical_syn_no_d_sfs = c(2850, 1283, 956, 657, 560, 542, 389, 365, 268, 305, 272, 227,
                                238, 226, 205, 187, 185, 202, 205, 188, 152, 125, 28)
 
-b_ovatus_bottleneck_growth_syn_sfs = fold_sfs(c(2273.056564217283, 1137.1924895249867, 758.1289547951559,
+b_ovatus_empirical_nonsyn_no_d_sfs = c(2074, 783, 550, 341, 323, 240, 149, 141, 113, 111, 110, 89,
+                                  96, 82, 73, 75, 58, 77, 66, 58, 65, 59, 6)
+
+b_ovatus_bottleneck_growth_syn_no_d_sfs = fold_sfs(c(2273.056564217283, 1137.1924895249867, 758.1289547951559,
                                             568.5967233553124, 454.87738333470963, 379.0644898023539,
                                             324.9124228785423, 284.2983726009175, 252.7096667611283,
                                             227.4387020313474, 206.76245811079258, 189.53225479827373,
@@ -780,9 +787,9 @@ b_ovatus_bottleneck_growth_syn_sfs = fold_sfs(c(2273.056564217283, 1137.19248952
                                             56.85968406479827, 55.472862588559764, 54.15208021822471,
                                             52.89272957431087, 51.690622130019946, 50.5419416720416))
 
-b_ovatus_bottleneck_growth_nonsyn_sfs = b_ovatus_ratio * b_ovatus_bottleneck_growth_syn_sfs
+b_ovatus_bottleneck_growth_nonsyn_no_d_sfs = b_ovatus_ratio * b_ovatus_bottleneck_growth_syn_no_d_sfs
 
-b_ovatus_exponential_growth_syn_sfs = fold_sfs(c(2272.3685827084455, 1137.191396953524, 758.1289524214081,
+b_ovatus_exponential_growth_syn_no_d_sfs = fold_sfs(c(2272.3685827084455, 1137.191396953524, 758.1289524214081,
                                              568.5967235831931, 454.87738352402454, 379.064489960146,
                                              324.9124230137811, 284.29837271925754, 252.70966686631942,
                                              227.43870212601942, 206.762458196861, 189.53225487716708,
@@ -798,9 +805,9 @@ b_ovatus_exponential_growth_syn_sfs = fold_sfs(c(2272.3685827084455, 1137.191396
                                              56.85968408846547, 55.47286261164972, 54.15208024076567,
                                              52.89272959632762, 51.69062215153705, 50.541941693079835))
 
-b_ovatus_exponential_growth_nonsyn_sfs = b_ovatus_ratio * b_ovatus_exponential_growth_syn_sfs
+b_ovatus_exponential_growth_nonsyn_no_d_sfs = b_ovatus_ratio * b_ovatus_exponential_growth_syn_no_d_sfs
 
-b_ovatus_three_epoch_syn_sfs = fold_sfs(c(2271.234361793639, 1137.1896658994278, 758.128949031555,
+b_ovatus_three_epoch_syn_no_d_sfs = fold_sfs(c(2271.234361793639, 1137.1896658994278, 758.128949031555,
                                       568.596723910058, 454.87738379424957, 379.0644901853685,
                                       324.9124232068337, 284.2983728881724, 252.7096670164624,
                                       227.43870226115135, 206.76245831970527, 189.53225498977704,
@@ -816,9 +823,9 @@ b_ovatus_three_epoch_syn_sfs = fold_sfs(c(2271.234361793639, 1137.1896658994278,
                                       56.85968412224845, 55.47286264461109, 54.15208027294148,
                                       52.89272962775366, 51.69062218224959, 50.541941723109154))
 
-b_ovatus_three_epoch_nonsyn_sfs = b_ovatus_ratio * b_ovatus_three_epoch_syn_sfs
+b_ovatus_three_epoch_nonsyn_no_d_sfs = b_ovatus_ratio * b_ovatus_three_epoch_syn_no_d_sfs
 
-b_ovatus_two_epoch_syn_sfs = fold_sfs(c(2272.800259369082, 1137.192155057901, 758.1289541782724,
+b_ovatus_two_epoch_syn_no_d_sfs = fold_sfs(c(2272.800259369082, 1137.192155057901, 758.1289541782724,
                                     568.5967234148438, 454.8773833838764, 379.06448984333696,
                                     324.9124229136707, 284.29837263165484, 252.70966678845036,
                                     227.43870205593726, 206.76245813314995, 189.5322548187626,
@@ -834,37 +841,37 @@ b_ovatus_two_epoch_syn_sfs = fold_sfs(c(2272.800259369082, 1137.192155057901, 75
                                     56.85968407094574, 55.47286259455809, 54.15208022407944,
                                     52.8927295800302, 51.69062213560929, 50.5419416775053))
 
-b_ovatus_two_epoch_nonsyn_sfs = b_ovatus_ratio * b_ovatus_two_epoch_syn_sfs
+b_ovatus_two_epoch_nonsyn_no_d_sfs = b_ovatus_ratio * b_ovatus_two_epoch_syn_no_d_sfs
 
-b_ovatus_bottleneck_growth_syn_sfs = proportional_sfs(b_ovatus_bottleneck_growth_syn_sfs)
-b_ovatus_exponential_growth_syn_sfs = proportional_sfs(b_ovatus_exponential_growth_syn_sfs)
-b_ovatus_three_epoch_syn_sfs = proportional_sfs(b_ovatus_three_epoch_syn_sfs)
-b_ovatus_two_epoch_syn_sfs = proportional_sfs(b_ovatus_two_epoch_syn_sfs)
+b_ovatus_bottleneck_growth_syn_no_d_sfs = proportional_sfs(b_ovatus_bottleneck_growth_syn_no_d_sfs)
+b_ovatus_exponential_growth_syn_no_d_sfs = proportional_sfs(b_ovatus_exponential_growth_syn_no_d_sfs)
+b_ovatus_three_epoch_syn_no_d_sfs = proportional_sfs(b_ovatus_three_epoch_syn_no_d_sfs)
+b_ovatus_two_epoch_syn_no_d_sfs = proportional_sfs(b_ovatus_two_epoch_syn_no_d_sfs)
 
-b_ovatus_bottleneck_growth_nonsyn_sfs = proportional_sfs(b_ovatus_bottleneck_growth_nonsyn_sfs)
-b_ovatus_exponential_growth_nonsyn_sfs = proportional_sfs(b_ovatus_exponential_growth_nonsyn_sfs)
-b_ovatus_three_epoch_nonsyn_sfs = proportional_sfs(b_ovatus_three_epoch_nonsyn_sfs)
-b_ovatus_two_epoch_nonsyn_sfs = proportional_sfs(b_ovatus_two_epoch_nonsyn_sfs)
+b_ovatus_bottleneck_growth_nonsyn_no_d_sfs = proportional_sfs(b_ovatus_bottleneck_growth_nonsyn_no_d_sfs)
+b_ovatus_exponential_growth_nonsyn_no_d_sfs = proportional_sfs(b_ovatus_exponential_growth_nonsyn_no_d_sfs)
+b_ovatus_three_epoch_nonsyn_no_d_sfs = proportional_sfs(b_ovatus_three_epoch_nonsyn_no_d_sfs)
+b_ovatus_two_epoch_nonsyn_no_d_sfs = proportional_sfs(b_ovatus_two_epoch_nonsyn_no_d_sfs)
 
-b_ovatus_x_axis = 1:length(b_ovatus_empirical_syn_sfs)
-b_ovatus_bottleneck_growth_syn_sfs = b_ovatus_bottleneck_growth_syn_sfs[1:length(b_ovatus_x_axis)]
-b_ovatus_exponential_growth_syn_sfs = b_ovatus_exponential_growth_syn_sfs[1:length(b_ovatus_x_axis)]
-b_ovatus_two_epoch_syn_sfs = b_ovatus_two_epoch_syn_sfs[1:length(b_ovatus_x_axis)]
-b_ovatus_three_epoch_syn_sfs = b_ovatus_three_epoch_syn_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_x_axis = 1:length(b_ovatus_empirical_syn_no_d_sfs)
+b_ovatus_bottleneck_growth_syn_no_d_sfs = b_ovatus_bottleneck_growth_syn_no_d_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_exponential_growth_syn_no_d_sfs = b_ovatus_exponential_growth_syn_no_d_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_two_epoch_syn_no_d_sfs = b_ovatus_two_epoch_syn_no_d_sfs[1:length(b_ovatus_x_axis)]
+b_ovatus_three_epoch_syn_no_d_sfs = b_ovatus_three_epoch_syn_no_d_sfs[1:length(b_ovatus_x_axis)]
 
-df = data.frame(b_ovatus_empirical_syn_sfs, b_ovatus_bottleneck_growth_syn_sfs, b_ovatus_exponential_growth_syn_sfs, b_ovatus_two_epoch_syn_sfs, b_ovatus_three_epoch_syn_sfs)
+df = data.frame(b_ovatus_empirical_syn_no_d_sfs, b_ovatus_bottleneck_growth_syn_no_d_sfs, b_ovatus_exponential_growth_syn_no_d_sfs, b_ovatus_two_epoch_syn_no_d_sfs, b_ovatus_three_epoch_syn_no_d_sfs)
 
-p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_syn_sfs), color='b_ovatus_empirical')) +
+p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_syn_no_d_sfs), color='b_ovatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_sfs, color='b_ovatus_bottleneck')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_sfs, color='b_ovatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_sfs, color='b_ovatus_exponential')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_syn_sfs, color='b_ovatus_exponential')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_sfs, color='b_ovatus_two_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_sfs, color='b_ovatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_sfs, color='b_ovatus_three_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_sfs, color='b_ovatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_no_d_sfs, color='b_ovatus_bottleneck')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_no_d_sfs, color='b_ovatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_syn_no_d_sfs, color='b_ovatus_exponential')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_syn_no_d_sfs, color='b_ovatus_exponential')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_no_d_sfs, color='b_ovatus_two_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_syn_no_d_sfs, color='b_ovatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_no_d_sfs, color='b_ovatus_three_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_syn_no_d_sfs, color='b_ovatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(1, length(b_ovatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -885,19 +892,19 @@ p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovat
 
 p_b_ovatus
 
-df = data.frame(b_ovatus_empirical_nonsyn_sfs, b_ovatus_bottleneck_growth_nonsyn_sfs, b_ovatus_exponential_growth_nonsyn_sfs, b_ovatus_two_epoch_nonsyn_sfs, b_ovatus_three_epoch_nonsyn_sfs)
+df = data.frame(b_ovatus_empirical_nonsyn_no_d_sfs, b_ovatus_bottleneck_growth_nonsyn_no_d_sfs, b_ovatus_exponential_growth_nonsyn_no_d_sfs, b_ovatus_two_epoch_nonsyn_no_d_sfs, b_ovatus_three_epoch_nonsyn_no_d_sfs)
 
-p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_nonsyn_sfs), color='b_ovatus_empirical')) +
+p_b_ovatus <- ggplot(data = df, aes(x=b_ovatus_x_axis, y=proportional_sfs(b_ovatus_empirical_nonsyn_no_d_sfs), color='b_ovatus_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_sfs, color='b_ovatus_bottleneck')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_sfs, color='b_ovatus_bottleneck')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_sfs, color='b_ovatus_exponential')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_nonsyn_sfs, color='b_ovatus_exponential')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_sfs, color='b_ovatus_two_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_sfs, color='b_ovatus_two_epoch')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_sfs, color='b_ovatus_three_epoch')) +
-  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_sfs, color='b_ovatus_three_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_no_d_sfs, color='b_ovatus_bottleneck')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_no_d_sfs, color='b_ovatus_bottleneck')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_bottleneck_growth_nonsyn_no_d_sfs, color='b_ovatus_exponential')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_exponential_growth_nonsyn_no_d_sfs, color='b_ovatus_exponential')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_no_d_sfs, color='b_ovatus_two_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch_nonsyn_no_d_sfs, color='b_ovatus_two_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_no_d_sfs, color='b_ovatus_three_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_three_epoch_nonsyn_no_d_sfs, color='b_ovatus_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(1, length(b_ovatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -920,12 +927,17 @@ p_b_ovatus
 
 # b_uniformis
 
-b_uniformis_empirical_syn_sfs = c(3013, 1244, 743, 580, 427, 384, 371, 341, 278, 240, 219,
+b_uniformis_empirical_syn_no_d_sfs = c(3013, 1244, 743, 580, 427, 384, 371, 341, 278, 240, 219,
                                   245, 197, 182, 220, 178, 146, 130, 148, 160, 138, 115,
                                   119, 108, 95, 108, 87, 111, 80, 75, 68, 83, 64, 84, 66, 55,
                                   43)
 
-b_uniformis_bottleneck_growth_syn_sfs = fold_sfs(c(1996.2578639594647, 999.1246888591537, 666.0847217860874,
+b_uniformis_empirical_nonsyn_no_d_sfs = c(3053, 1024, 506, 330, 322, 226, 235, 182, 171, 141,
+                                     136, 116, 95, 107, 124, 86, 78, 66, 82, 69, 54, 69,
+                                     57, 69, 55, 69, 54, 40, 47, 39, 36, 25, 31, 35, 36,
+                                     33, 27)
+
+b_uniformis_bottleneck_growth_syn_no_d_sfs = fold_sfs(c(1996.2578639594647, 999.1246888591537, 666.0847217860874,
                                                499.5635497708541, 399.65084275111707, 333.04237122192797,
                                                285.4648914730799, 249.78178160946118, 222.0282516792758,
                                                199.82542770749484, 181.65948079905698, 166.5211916897179,
@@ -951,9 +963,9 @@ b_uniformis_bottleneck_growth_syn_sfs = fold_sfs(c(1996.2578639594647, 999.12468
                                                28.54649505039878, 28.14443175224384, 27.753536876599796,
                                                27.373351447203827))
 
-b_uniformis_bottleneck_growth_nonsyn_sfs = b_uniformis_ratio * b_uniformis_bottleneck_growth_syn_sfs
+b_uniformis_bottleneck_growth_nonsyn_no_d_sfs = b_uniformis_ratio * b_uniformis_bottleneck_growth_syn_no_d_sfs
 
-b_uniformis_exponential_growth_syn_sfs = fold_sfs(c(1996.1350363617978, 999.1243786046282, 666.0847207594145,
+b_uniformis_exponential_growth_syn_no_d_sfs = fold_sfs(c(1996.1350363617978, 999.1243786046282, 666.0847207594145,
                                                 499.5635498509922, 399.65084281958934, 333.0423712790166,
                                                 285.4648915220069, 249.7817816522759, 222.02825171733173,
                                                 199.82542774174232, 181.6594808301911, 166.52119171825748,
@@ -979,9 +991,9 @@ b_uniformis_exponential_growth_syn_sfs = fold_sfs(c(1996.1350363617978, 999.1243
                                                 28.546495055292496, 28.14443175706783, 27.753536881356787,
                                                 27.3733514518941))
 
-b_uniformis_exponential_growth_nonsyn_sfs = b_uniformis_ratio * b_uniformis_exponential_growth_syn_sfs
+b_uniformis_exponential_growth_nonsyn_no_d_sfs = b_uniformis_ratio * b_uniformis_exponential_growth_syn_no_d_sfs
 
-b_uniformis_three_epoch_syn_sfs = fold_sfs(c(1992.4799173283789, 999.1125576096465, 666.0846690561311,
+b_uniformis_three_epoch_syn_no_d_sfs = fold_sfs(c(1992.4799173283789, 999.1125576096465, 666.0846690561311,
                                          499.5635538014593, 399.65084627271233, 333.0423741590542,
                                          285.46489399063285, 249.7817838123254, 222.02825363737102,
                                          199.82542946978054, 181.6594824011349, 166.52119315828932,
@@ -1007,9 +1019,9 @@ b_uniformis_three_epoch_syn_sfs = fold_sfs(c(1992.4799173283789, 999.11255760964
                                          28.546495302155545, 28.144432000453136, 27.75353712136253,
                                          27.373351688612093))
 
-b_uniformis_three_epoch_nonsyn_sfs = b_uniformis_ratio * b_uniformis_two_epoch_syn_sfs
+b_uniformis_three_epoch_nonsyn_no_d_sfs = b_uniformis_ratio * b_uniformis_two_epoch_syn_no_d_sfs
 
-b_uniformis_two_epoch_syn_sfs = fold_sfs(c(1996.550787398168, 999.1253320181567, 666.0847236827736,
+b_uniformis_two_epoch_syn_no_d_sfs = fold_sfs(c(1996.550787398168, 999.1253320181567, 666.0847236827736,
                                        499.56354962184173, 399.65084262469156, 333.04237111652844,
                                        285.4648913827333, 249.78178153040975, 222.02825160900787,
                                        199.82542764425082, 181.65948074156503, 166.52119163701457,
@@ -1035,37 +1047,37 @@ b_uniformis_two_epoch_syn_sfs = fold_sfs(c(1996.550787398168, 999.1253320181567,
                                        28.546495041365947, 28.144431743336632, 27.753536867816297,
                                        27.373351438539096))
 
-b_uniformis_two_epoch_nonsyn_sfs = b_uniformis_ratio * b_uniformis_two_epoch_syn_sfs
+b_uniformis_two_epoch_nonsyn_no_d_sfs = b_uniformis_ratio * b_uniformis_two_epoch_syn_no_d_sfs
 
-b_uniformis_bottleneck_growth_syn_sfs = proportional_sfs(b_uniformis_bottleneck_growth_syn_sfs)
-b_uniformis_exponential_growth_syn_sfs = proportional_sfs(b_uniformis_exponential_growth_syn_sfs)
-b_uniformis_three_epoch_syn_sfs = proportional_sfs(b_uniformis_three_epoch_syn_sfs)
-b_uniformis_two_epoch_syn_sfs = proportional_sfs(b_uniformis_two_epoch_syn_sfs)
+b_uniformis_bottleneck_growth_syn_no_d_sfs = proportional_sfs(b_uniformis_bottleneck_growth_syn_no_d_sfs)
+b_uniformis_exponential_growth_syn_no_d_sfs = proportional_sfs(b_uniformis_exponential_growth_syn_no_d_sfs)
+b_uniformis_three_epoch_syn_no_d_sfs = proportional_sfs(b_uniformis_three_epoch_syn_no_d_sfs)
+b_uniformis_two_epoch_syn_no_d_sfs = proportional_sfs(b_uniformis_two_epoch_syn_no_d_sfs)
 
-b_uniformis_bottleneck_growth_nonsyn_sfs = proportional_sfs(b_uniformis_bottleneck_growth_nonsyn_sfs)
-b_uniformis_exponential_growth_nonsyn_sfs = proportional_sfs(b_uniformis_exponential_growth_nonsyn_sfs)
-b_uniformis_three_epoch_nonsyn_sfs = proportional_sfs(b_uniformis_three_epoch_nonsyn_sfs)
-b_uniformis_two_epoch_nonsyn_sfs = proportional_sfs(b_uniformis_two_epoch_nonsyn_sfs)
+b_uniformis_bottleneck_growth_nonsyn_no_d_sfs = proportional_sfs(b_uniformis_bottleneck_growth_nonsyn_no_d_sfs)
+b_uniformis_exponential_growth_nonsyn_no_d_sfs = proportional_sfs(b_uniformis_exponential_growth_nonsyn_no_d_sfs)
+b_uniformis_three_epoch_nonsyn_no_d_sfs = proportional_sfs(b_uniformis_three_epoch_nonsyn_no_d_sfs)
+b_uniformis_two_epoch_nonsyn_no_d_sfs = proportional_sfs(b_uniformis_two_epoch_nonsyn_no_d_sfs)
 
-b_uniformis_x_axis = 1:length(b_uniformis_empirical_syn_sfs)
-b_uniformis_bottleneck_growth_syn_sfs = b_uniformis_bottleneck_growth_syn_sfs[1:length(b_uniformis_x_axis)]
-b_uniformis_exponential_growth_syn_sfs = b_uniformis_exponential_growth_syn_sfs[1:length(b_uniformis_x_axis)]
-b_uniformis_two_epoch_syn_sfs = b_uniformis_two_epoch_syn_sfs[1:length(b_uniformis_x_axis)]
-b_uniformis_three_epoch_syn_sfs = b_uniformis_three_epoch_syn_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_x_axis = 1:length(b_uniformis_empirical_syn_no_d_sfs)
+b_uniformis_bottleneck_growth_syn_no_d_sfs = b_uniformis_bottleneck_growth_syn_no_d_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_exponential_growth_syn_no_d_sfs = b_uniformis_exponential_growth_syn_no_d_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_two_epoch_syn_no_d_sfs = b_uniformis_two_epoch_syn_no_d_sfs[1:length(b_uniformis_x_axis)]
+b_uniformis_three_epoch_syn_no_d_sfs = b_uniformis_three_epoch_syn_no_d_sfs[1:length(b_uniformis_x_axis)]
 
-df = data.frame(b_uniformis_empirical_syn_sfs, b_uniformis_bottleneck_growth_syn_sfs, b_uniformis_exponential_growth_syn_sfs, b_uniformis_two_epoch_syn_sfs, b_uniformis_three_epoch_syn_sfs)
+df = data.frame(b_uniformis_empirical_syn_no_d_sfs, b_uniformis_bottleneck_growth_syn_no_d_sfs, b_uniformis_exponential_growth_syn_no_d_sfs, b_uniformis_two_epoch_syn_no_d_sfs, b_uniformis_three_epoch_syn_no_d_sfs)
 
-p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_syn_sfs), color='b_uniformis_empirical')) +
+p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_syn_no_d_sfs), color='b_uniformis_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_sfs, color='b_uniformis_bottleneck')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_sfs, color='b_uniformis_bottleneck')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_sfs, color='b_uniformis_exponential')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_sfs, color='b_uniformis_exponential')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_sfs, color='b_uniformis_two_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_sfs, color='b_uniformis_two_epoch')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_sfs, color='b_uniformis_three_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_sfs, color='b_uniformis_three_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_no_d_sfs, color='b_uniformis_bottleneck')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_no_d_sfs, color='b_uniformis_bottleneck')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_syn_no_d_sfs, color='b_uniformis_exponential')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_no_d_sfs, color='b_uniformis_exponential')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_no_d_sfs, color='b_uniformis_two_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_syn_no_d_sfs, color='b_uniformis_two_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_no_d_sfs, color='b_uniformis_three_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_syn_no_d_sfs, color='b_uniformis_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(1, length(b_uniformis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -1086,19 +1098,19 @@ p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(
 
 p_b_uniformis
 
-df = data.frame(b_uniformis_empirical_nonsyn_sfs, b_uniformis_bottleneck_growth_nonsyn_sfs, b_uniformis_exponential_growth_nonsyn_sfs, b_uniformis_two_epoch_nonsyn_sfs, b_uniformis_three_epoch_nonsyn_sfs)
+df = data.frame(b_uniformis_empirical_nonsyn_no_d_sfs, b_uniformis_bottleneck_growth_nonsyn_no_d_sfs, b_uniformis_exponential_growth_nonsyn_no_d_sfs, b_uniformis_two_epoch_nonsyn_no_d_sfs, b_uniformis_three_epoch_nonsyn_no_d_sfs)
 
-p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_sfs), color='b_uniformis_empirical')) +
+p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_no_d_sfs), color='b_uniformis_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_sfs, color='b_uniformis_bottleneck')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_sfs, color='b_uniformis_bottleneck')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_sfs, color='b_uniformis_exponential')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_sfs, color='b_uniformis_exponential')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_sfs, color='b_uniformis_two_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_sfs, color='b_uniformis_two_epoch')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_sfs, color='b_uniformis_three_epoch')) +
-  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_sfs, color='b_uniformis_three_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_no_d_sfs, color='b_uniformis_bottleneck')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_no_d_sfs, color='b_uniformis_bottleneck')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_bottleneck_growth_nonsyn_no_d_sfs, color='b_uniformis_exponential')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_d_sfs, color='b_uniformis_exponential')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_no_d_sfs, color='b_uniformis_two_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch_nonsyn_no_d_sfs, color='b_uniformis_two_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_no_d_sfs, color='b_uniformis_three_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_three_epoch_nonsyn_no_d_sfs, color='b_uniformis_three_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(1, length(b_uniformis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green'),
@@ -1118,3 +1130,48 @@ p_b_uniformis <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(
   ggtitle('B. uniformis, Empirical vs. Expected nonsyn SFS. (No singletons or doubletons)')
 
 p_b_uniformis
+
+df = data.frame(b_uniformis_empirical_syn_no_s_sfs,
+                b_uniformis_empirical_nonsyn_no_s_sfs,
+                b_uniformis_exponential_growth_nonsyn_no_s_sfs,
+                b_uniformis_exponential_growth_syn_no_s_sfs,
+                b_uniformis_exponential_growth_nonsyn_no_d_sfs,
+                b_uniformis_exponential_growth_syn_no_d_sfs)
+
+p_b_uniformis_comparison <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_no_s_sfs), color='b_uniformis_empirical_nonsyn')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_no_s_sfs), color='b_uniformis_empirical_syn_no_s')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=proportional_sfs(b_uniformis_empirical_nonsyn_no_s_sfs), color='b_uniformis_empirical_syn_no_s')) +  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_d_sfs, color='b_uniformis_exponential_nonsyn_no_d')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_d_sfs, color='b_uniformis_exponential_nonsyn_no_d')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_d_sfs, color='b_uniformis_exponential_nonsyn_no_d')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_s_sfs, color='b_uniformis_exponential_nonsyn_no_s')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_nonsyn_no_s_sfs, color='b_uniformis_exponential_nonsyn_no_s')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_no_d_sfs, color='b_uniformis_exponential_syn_no_d')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_no_d_sfs, color='b_uniformis_exponential_syn_no_d')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_no_s_sfs, color='b_uniformis_exponential_syn_no_s')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_exponential_growth_syn_no_s_sfs, color='b_uniformis_exponential_syn_no_s')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(1, length(b_uniformis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green', 'violet'),
+                     name='Data Type',
+                     breaks=c('b_uniformis_empirical_nonsyn_no_s',
+                              'b_uniformis_empirical_syn_no_s',
+                              'b_uniformis_exponential_nonsyn_no_d',
+                              'b_uniformis_exponential_nonsyn_no_s',
+                              'b_uniformis_exponential_syn_no_d',
+                              'b_uniformis_exponential_syn_no_s'
+                              ),
+                     labels=c('Empirical Nonsynonymous',
+                              'Empirical Synonymous',
+                              'Model Nonsynonymous, no doubletons',
+                              'Model Nonsynonymous, no singletons',
+                              'Model Synonymous, no doubletons',
+                              'Model Synonymous, no singletons')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('B. uniformis, Empirical vs. Expected nonsyn SFS.')
+
+p_b_uniformis_comparison
+
+
