@@ -596,6 +596,8 @@ class DemographicInference():
 
             pts_l = [1200, 1400, 1600]
 
+            logger.info('Generating spectra object.')
+
             spectra = Selection.spectra(demog_params, nonsyn_ns,
                                         func_sel,
                                         pts_l=pts_l,
