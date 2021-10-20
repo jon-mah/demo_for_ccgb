@@ -7,4 +7,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_demographic_model.py ../Data/Alistipes_putredinis_61533_syn.sfs ../Analysis/Alistipes_putredinis_61533/
+python fit_demographic_model.py ../Data/Alistipes_putredinis_61533_syn.sfs ../Analysis/Alistipes_putredinis_61533/ --mask_singletons

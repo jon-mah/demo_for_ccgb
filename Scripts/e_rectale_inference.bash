@@ -7,4 +7,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_demographic_model.py ../Data/Eubacterium_rectale_56927_syn.sfs ../Analysis/Eubacterium_rectale_56927/
+python fit_demographic_model.py ../Data/Eubacterium_rectale_56927_syn.sfs ../Analysis/Eubacterium_rectale_56927/ --mask_singletons

@@ -7,4 +7,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_demographic_model.py ../Data/Prevotella_copri_61740_syn.sfs ../Analysis/Prevotella_copri_61740/
+python fit_demographic_model.py ../Data/Prevotella_copri_61740_syn.sfs  ../Analysis/Prevotella_copri_61740/ --mask_singletons
