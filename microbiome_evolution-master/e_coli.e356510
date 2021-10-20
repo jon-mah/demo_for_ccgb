@@ -1,0 +1,12 @@
+Loading sample metadata...
+Done!
+Loading pre-computed substitution rates for Escherichia_coli_58110...
+Calculating matrix...
+Traceback (most recent call last):
+  File "plot_within_clade_sfs.py", line 186, in <module>
+    dummy_samples, snp_difference_matrix, snp_opportunity_matrix = calculate_substitution_rates.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/microbiome_evolution-master/calculate_substitution_rates.py", line 111, in calculate_matrices_from_substitution_rate_map
+    samples, mut_difference_matrix, rev_difference_matrix, mut_opportunity_matrix, rev_opportunity_matrix = calculate_mutrev_matrices_from_substitution_rate_map( substitution_rate_map, type, allowed_samples)
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/microbiome_evolution-master/calculate_substitution_rates.py", line 70, in calculate_mutrev_matrices_from_substitution_rate_map
+    for sample_1, sample_2 in substitution_rate_map[type].keys():
+KeyError: 'core'

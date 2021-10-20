@@ -74,11 +74,12 @@ mpl.rcParams['legend.fontsize']  = 'small'
 # species_name = "Eubacterium_eligens_61678"
 # species_name = "Faecalibacterium_cf_62236"
 # species_name = "Roseburia_intestinalis_56239"
-# species_name = "Escherichia_coli_58110"
+species_name = "Escherichia_coli_58110"
 # species_name = "Phascolarctobacterium_sp_59817"
 # species_name = "Blautia_wexlerae_56130"
 # species_name = "Bacteroidales_bacterium_58650"
-species_name = "Roseburia_intestinalis_56239"
+# species_name = "Roseburia_intestinalis_56239"
+# species_name = "Faecalibacterium_cf_62236"
 ################################################################################
 #
 # Standard header to read in argument information
