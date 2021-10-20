@@ -77,7 +77,8 @@ mpl.rcParams['legend.fontsize']  = 'small'
 # species_name = "Escherichia_coli_58110"
 # species_name = "Phascolarctobacterium_sp_59817"
 # species_name = "Blautia_wexlerae_56130"
-species_name = "Bacteroidales_bacterium_58650"
+# species_name = "Bacteroidales_bacterium_58650"
+species_name = "Roseburia_intestinalis_56239"
 ################################################################################
 #
 # Standard header to read in argument information

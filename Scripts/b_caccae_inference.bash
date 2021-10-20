@@ -7,4 +7,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_demographic_model.py ../Data/Alistipes_shahii_62199_syn.sfs ../Analysis/Alistipes_shahii_62199/ --mask_singletons
+python fit_demographic_model.py ../Data/Bacteroides_caccae_53434_syn.sfs  ../Analysis/Bacteroides_caccae_53434/ --mask_singletons

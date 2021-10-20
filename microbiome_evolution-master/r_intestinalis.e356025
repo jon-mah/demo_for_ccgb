@@ -1,0 +1,12 @@
+Loading sample metadata...
+Done!
+Traceback (most recent call last):
+  File "plot_within_clade_sfs.py", line 121, in <module>
+    snp_samples = diversity_utils.calculate_haploid_samples(species_name, debug=debug)
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/microbiome_evolution-master/diversity_utils.py", line 1665, in calculate_haploid_samples
+    desired_samples = calculate_highcoverage_samples(species_name, min_coverage)
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/microbiome_evolution-master/diversity_utils.py", line 1649, in calculate_highcoverage_samples
+    sample_coverage_histograms, samples = parse_midas_data.parse_coverage_distribution(species_name)
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/microbiome_evolution-master/parse_midas_data.py", line 201, in parse_coverage_distribution
+    coverage_distribution_file = bz2.BZ2File("%ssnps/%s/%scoverage_distribution.txt.bz2" % (data_directory, desired_species_name, full_str))
+IOError: [Errno 2] No such file or directory: '/u/home/j/jonmah/project-ngarud/demo_for_ccgb/Data/microbiome_data/snps/Roseburia_intestinalis/coverage_distribution.txt.bz2'
