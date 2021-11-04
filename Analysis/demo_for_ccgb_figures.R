@@ -32,14 +32,14 @@ two_epoch_data = data.frame(two_epoch_time, two_epoch_demographic_contraction, N
 
 ggplot(two_epoch_data, aes(x=two_epoch_time, y=two_epoch_demographic_contraction, color=Name)) +
   geom_point(size=2) +
-  geom_text_repel(label=Name, size=4) +
-  theme(text = element_text(size=12)) +
+  geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=15)) +
   theme(legend.position = "none") +
   ylim(0, 1.0) +
   xlab("Years since Demographic Contraction") +
   ylab("Ratio of Current to Ancestral Population Size") +
-  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Two Epoch Demographic Model')
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE))
+  # ggtitle('Two Epoch Demographic Model')
 
 # Exponential
 
@@ -73,11 +73,12 @@ exponential_data = data.frame(exponential_time, exponential_demographic_contract
 
 ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contraction, color=Name)) +
   geom_point(size=2) +
-  geom_text_repel(label=Name, size=3) +
-  theme(text = element_text(size=12)) +
+  geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
   theme(legend.position = "none") +
   ylim(0, 1.0) +
   xlab("Years since Demographic Contraction") +
   ylab("Ratio of Current to Ancestral Population Size") +
-  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Exponential Demographic Model')
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE))
+  # ggtitle('Exponential Demographic Model')
+
