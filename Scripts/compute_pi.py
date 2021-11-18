@@ -16,7 +16,6 @@ import numpy
 import bz2
 import pandas as pd
 
-
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
 
@@ -82,11 +81,11 @@ class ComputePi():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        snp_matrix = \
+        output_matrix = \
             '{0}{1}output_matrix.csv'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, snp_matrix]
+        logfile = '{0}{1}compute_pi.log'.format(args['outprefix'], underscore)
+        to_remove = [logfile, output_matrix]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -114,10 +113,56 @@ class ComputePi():
         logger.info('Parsed the following arguments:\n{0}\n'.format(
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
+        # open post-processed MIDAS output
+        depth_file = bz2.BZ2File(input_depth, "r")
+        site_ids = depth_file.readline().split()[1:]
+        num_ids = len(site_ids)
+        del depth_file
+
         with open(output_matrix, 'w') as f:
-            # Open post-processed MIDAS output
-            depth_file = bz2.BZ2File(input_depth, "r")
-            depth_df = pd.read_tsv(depth_file)
+            avg_pi_vals = []
+            for i in range(1, num_ids + 1):
+                depth_file = bz2.BZ2File(input_depth, "r")
+                depth_header = depth_file.readline()
+                depths = []
+                depths_bool = []
+                for line in depth_file:
+                    items = line.split()
+                    depth_val = items[i]
+                    depths.append(int(depth_val))
+                depths_bool = [x>=20 for x in depths]
+                if len(depths_bool) < 1:
+                    continue
+                ref_freq_file = bz2.BZ2File(input_ref_freq, "r")
+                ref_freq_header = ref_freq_file.readline()
+                pi_vals = []
+                j = 0
+                for line in ref_freq_file:
+                    items = line.split()
+                    if depths_bool[j]:
+                        p_val = float(items[i])
+                        pi_val = 2 * p_val * (1 - p_val)
+                        pi_vals.append(pi_val)
+                    j += 1
+                avg_pi_val = sum(pi_vals) / len(pi_vals)
+                avg_pi_vals.append(avg_pi_val)
+                del depths
+                del depths_bool
+                del pi_vals
+                del ref_freq_file
+                del depth_file
+            output_header = 'site id, ' + site_ids[0]
+            if len(site_ids) > 1:
+                for id in site_ids[1:]:
+                    output_header += ', ' + id
+            output_values = 'average pi, ' + str(avg_pi_vals[0])
+            if len(avg_pi_vals) > 1:
+                for val in avg_pi_vals[1:]:
+                    output_values += ', ' + str(val)
+            f.write(output_header + '\n')
+            f.write(output_values)
+            print(output_header)
+            print(output_values)
 
 
 if __name__ == '__main__':
