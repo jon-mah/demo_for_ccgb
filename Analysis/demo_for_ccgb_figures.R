@@ -82,3 +82,30 @@ ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contr
   scale_x_continuous(labels = function(x) format(x, scientific = TRUE))
   # ggtitle('Exponential Demographic Model')
 
+
+
+
+
+# Pi comparison
+
+HMP_A_hadrus = c(0.004329818, 0.004721698, 0.000428205, 
+                 0.005333094, 0.003916313, 0.006042175, 
+                 0.004555924,	0.011173757, 0.004683564, 
+                 0.003821825, 0.006904684, 0.005479467, 
+                 0.005411685, 0.002851478, 0.004020586, 
+                 0.002315632, 0.002852941, 0.009213049, 
+                 0.005284239, 0.010568705, 0.006085333)
+
+African_A_hadrus = c(0.008134724, 0.011419147, 0.007915942, 
+                     0.01082511, 0.000888769, 0.010845978, 
+                     0.000775207)
+
+data = data.frame(HMP_A_hadrus, African_A_hadrus)
+
+data = stack(data)
+
+ggplot(data=data, aes(y=values, x=ind, color=ind)) + geom_boxplot() +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1) +
+  theme(axis.title.x=element_blank())
+
+       
