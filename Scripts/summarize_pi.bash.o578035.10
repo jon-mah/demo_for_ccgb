@@ -1,0 +1,16 @@
+Alistipes_sp_60764
+HMP
+['0.000408869403418', '0.00256657559112', '0.00184438450032', '0.00194457847328', '0.00161395774685', '0.00486024701059', '0.00624640117094', '0.000400049127335', '0.00283394997755', '0.00188434725996', '0.00329727096335', '0.0030404028773', '0.00256874275695', '0.00519362223735', '0.00267901773442', '0.00277210018539', '0.00281266353111', '0.00284789033883', '0.00325742848444', '0.000745170613468', '0.00227475924755', '0.00758188824903', '0.00291899321921', '0.00165332170172', '0.000714413615432', '0.00287166211715', '0.00300701914576', '0.000921344049918']
+28
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit

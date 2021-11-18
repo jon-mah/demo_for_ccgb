@@ -1,0 +1,16 @@
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit
+Prevotella_stercorea_58308
+African
+['0.00225391922378', '0.0108827969837', '0.00501971883569', '0.0141330894251', '0.00264912613687', '0.0144865580684', '0.00759579118213', '0.000664909579516', '0.0179624219922', '0.0188572611563', '0.00978906139938', '0.00283928831', '0.00969286652982', '0.0139139000043', '0.00186851476481', '0.00531359185746', '0.0019059900684', '0.00239963032783', '0.00992433476514', '0.00854065817151', '0.0082014549579', '0.015112674596', '0.00679169383332', '0.00184701154098', '0.0143034197899', '0.00896793060419']
+26

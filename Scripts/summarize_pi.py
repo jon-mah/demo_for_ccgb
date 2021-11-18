@@ -40,13 +40,20 @@ class ComputePi():
         """Return *argparse.ArgumentParser* for ``fitdadi_infer_DFE.py``."""
         parser = ArgumentParserNoArgHelp(
             description=(
-                'Given a specified `*snps_ref_freq.txt.bz2, this script '
-                'computes average Pi across samples matrix for that species.'),
+                'Given computed average pi values, summarizes across '
+                'species and sample.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
             'input_csv', type=self.ExistingFile,
             help=('File containing average pi values per sample in .csv '
                   'format'))
+        parser.add_argument(
+            'species', type=str,
+            help=('String describing the species being analyzed.'))
+        parser.add_argument(
+            'cohort', type=str,
+            help=('String describing the cohort from which the data '
+                  'was sequenced.'))
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
@@ -62,6 +69,8 @@ class ComputePi():
         # Assign arguments
         input_csv = args['input_csv']
         outprefix = args['outprefix']
+        species = args['species']
+        cohort = args['cohort']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -72,38 +81,23 @@ class ComputePi():
         output_matrix = \
             '{0}{1}summarized_pi.csv'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}summarize_pi.log'.format(args['outprefix'], underscore)
-
-        # Set up to log everything to logfile.
-        logging.shutdown()
-        logging.captureWarnings(True)
-        logging.basicConfig(
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            level=logging.INFO)
-        logger = logging.getLogger(prog)
-        warning_logger = logging.getLogger("py.warnings")
-        logfile_handler = logging.FileHandler(logfile)
-        logger.addHandler(logfile_handler)
-        warning_logger.addHandler(logfile_handler)
-        formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s')
-        logfile_handler.setFormatter(formatter)
-        logger.setLevel(logging.INFO)
-
-        # print some basic information
-        logger.info('Beginning execution of {0} in directory {1}\n'.format(
-            prog, os.getcwd()))
-        logger.info('Progress is being logged to {0}\n'.format(logfile))
-        logger.info('Parsed the following arguments:\n{0}\n'.format(
-            '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # open post-processed MIDAS output
 
-        with open(output_matrix, 'w+') as f:
+        with open(output_matrix, 'a') as f:
             input_file = open(input_csv, 'r')
+            pi_values = input_file.readlines()[1]
+            pi_values = pi_values.split(', ')[1:]
+            num_samples = len(pi_values)
+            for item in pi_values:
+                string = str(species) + ', '
+                string += str(cohort) + ', ' + str(item) + ', ' + str(num_samples)
+                f.write(string + '\n')
 
-        print('input_file')
-
+        print(species)
+        print(cohort)
+        print(pi_values)
+        print(num_samples)
 
 if __name__ == '__main__':
     ComputePi().main()
