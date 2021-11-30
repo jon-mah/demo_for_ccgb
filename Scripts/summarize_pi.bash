@@ -5,9 +5,9 @@
 #$ -m a
 #$ -l h_data=1G
 #$ -l h_rt=01:00:00
-#$ -t 1-165
+#$ -t 146-147
 
-# There are 94 species
+# There are 165 species
 path_to_data='../Analysis/'
 
 i=0
@@ -21,7 +21,7 @@ do
 done < ../Data/all_species_list.txt
 
 # HMP data
-python summarize_pi.py ${path_to_data}${species}/HMP/output_matrix.csv ${species} HMP ../Analysis/
+# python summarize_pi.py ${path_to_data}${species}/HMP/output_matrix.csv ${species} HMP ../Analysis/
 
 # African data
 python summarize_pi.py ${path_to_data}${species}/African/output_matrix.csv ${species} African ../Analysis/

@@ -1,6 +1,11 @@
 """
 Computes SNP matrix from a given `*snps_ref_freq.txt.bz2`.
 
+Recall that pi is the expected heterozygosity.
+Recall that heterozygosity is the probability of grabbing
+    two disinct alleles, i.e., randomly selecting a 
+    heterozygote.
+
 JCM 20211116
 """
 
@@ -121,6 +126,7 @@ class ComputePi():
 
         with open(output_matrix, 'w') as f:
             avg_pi_vals = []
+            depth_per_sample = []
             for i in range(1, num_ids + 1):
                 depth_file = bz2.BZ2File(input_depth, "r")
                 depth_header = depth_file.readline()
@@ -145,6 +151,7 @@ class ComputePi():
                         pi_vals.append(pi_val)
                     j += 1
                 avg_pi_val = sum(pi_vals) / len(pi_vals)
+                depth_per_sample.append(len(pi_vals))
                 avg_pi_vals.append(avg_pi_val)
                 del depths
                 del depths_bool
@@ -155,15 +162,25 @@ class ComputePi():
             if len(site_ids) > 1:
                 for id in site_ids[1:]:
                     output_header += ', ' + id
-            output_values = 'average pi, ' + str(avg_pi_vals[0])
+            output_pi_values = 'average pi, ' + str(avg_pi_vals[0])
             if len(avg_pi_vals) > 1:
                 for val in avg_pi_vals[1:]:
-                    output_values += ', ' + str(val)
+                    output_pi_values += ', ' + str(val)
+            num_sites = 'num_sites, ' + str(depth_per_sample[0])
+            if len(num_sites) > 1:
+                for num in depth_per_sample[1:]:
+                    num_sites += ', ' + str(num) 
+            across_species_pi = []
+            for i in range(len(avg_pi_vals)):
+                across_species_pi.append(avg_pi_vals[i] * depth_per_sample[i])
+            across_species_pi = sum(across_species_pi) / len(across_species_pi)
+            across_species_pi = across_species_pi / sum(depth_per_sample)
             f.write(output_header + '\n')
-            f.write(output_values)
-            print(output_header)
-            print(output_values)
-
+            f.write(output_pi_values + '\n')
+            f.write(num_sites + '\n')
+            f.write('across_species_pi')
+            for i in range(len(avg_pi_vals)):
+                f.write(', ' + str(across_species_pi))
 
 if __name__ == '__main__':
     ComputePi().main()

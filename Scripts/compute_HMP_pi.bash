@@ -4,8 +4,8 @@
 #$ -V
 #$ -m a
 #$ -l h_data=5G
-#$ -l h_rt=04:00:00
-#$ -t 2-94
+#$ -l h_rt=35:50:00
+#$ -t 13
 
 # HMP Data
 # There are 94 species

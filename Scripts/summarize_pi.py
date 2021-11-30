@@ -86,18 +86,31 @@ class ComputePi():
 
         with open(output_matrix, 'a') as f:
             input_file = open(input_csv, 'r')
-            pi_values = input_file.readlines()[1]
+            input_file = list(input_file.readlines())
+	    pi_values = input_file[1]
             pi_values = pi_values.split(', ')[1:]
+            num_sites = input_file[2]
+            num_sites = num_sites.split(', ')[1:]
+            across_pi = input_file[3]
+	    across_pi = across_pi.split(', ')[1]
             num_samples = len(pi_values)
+            i = 0
             for item in pi_values:
                 string = str(species) + ', '
-                string += str(cohort) + ', ' + str(item) + ', ' + str(num_samples)
+                string += str(cohort) + ', ' + str(item) + ', ' 
+                string += str(num_sites[i]) + ', ' + str(num_samples)
+                string += ', ' + across_pi
+                string = string.replace('\n',"")
                 f.write(string + '\n')
+                i = i + 1
 
+        print(string)
         print(species)
         print(cohort)
         print(pi_values)
+        print(num_sites)
         print(num_samples)
+        print(across_pi)
 
 if __name__ == '__main__':
     ComputePi().main()

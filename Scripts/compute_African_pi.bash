@@ -4,7 +4,7 @@
 #$ -V
 #$ -m a
 #$ -l h_data=5G
-#$ -l h_rt=02:00:00
+#$ -l h_rt=12:00:00
 #$ -t 1-128
 
 # African data
