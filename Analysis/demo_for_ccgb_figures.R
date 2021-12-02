@@ -90,17 +90,132 @@ ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contr
 
 # Pi comparison
 
-pi_summary_df = data.frame(read.csv('summarized_pi.csv'))
+pi_summary_df = data.frame(read.csv('summarized_pi.csv', header=TRUE))
 
-pi_comparison <- ggplot(data=pi_summary_df, aes(x=species, y=average_pi, fill=cohort)) +
-  geom_dotplot()
+# pi_summary_df$num_samples * pi_summary_df$across_pi
+# actual_across_pi = pi_summary_df$num_samples * pi_summary_df$across_pi
+# pi_summary_df$across_pi = actual_across_pi
+# pi_summary_df
+# write.csv(pi_summary_df, './summarized_pi_fixed.csv', row.names=FALSE)
+# write.csv(Your DataFrame,"Path to export the DataFrame\\File Name.csv", row.names = FALSE)
 
-pi_comparison
+overlapping_list = c('Akkermansia_muciniphila_55290',
+                     'Alistipes_finegoldii_56071',
+                     'Alistipes_onderdonkii_55464',
+                     'Alistipes_putredinis_61533',
+                     'Alistipes_senegalensis_58364',
+                     'Alistipes_shahii_62199',
+                     'Anaerostipes_hadrus_55206',
+                     'Bacteroides_caccae_53434',
+                     'Bacteroides_finegoldii_57739',
+                     'Bacteroides_fragilis_54507',
+                     'Bacteroides_thetaiotaomicron_56941',
+                     'Bacteroides_uniformis_57318',
+                     'Bacteroides_vulgatus_57955',
+                     'Bacteroides_xylanisolvens_57185'	,
+                     'Barnesiella_intestinihominis_62208',
+                     'Bifidobacterium_longum_57796',
+                     'Bifidobacterium_pseudocatenulatum_57754',
+                     'Bilophila_wadsworthia_57364',
+                     'Blautia_wexlerae_56130',
+                     'Butyricimonas_virosa_58742',
+                     'Butyrivibrio_crossotus_61674',
+                     'Clostridiales_bacterium_56470',
+                     'Clostridiales_bacterium_61057',
+                     'Clostridium_sp_61482',
+                     'Collinsella_sp_62205',
+                     'Coprococcus_sp_62244',
+                     'Dialister_invisus_61905',
+                     'Dorea_longicatena_59913',
+                     'Dorea_longicatena_61473',
+                     'Escherichia_coli_58110',
+                     'Eubacterium_eligens_61678',
+                     'Eubacterium_hallii_61477',
+                     'Eubacterium_ramulus_59802',
+                     'Eubacterium_rectale_56927',
+                     'Eubacterium_siraeum_57634',
+                     'Faecalibacterium_cf_62236',
+                     'Faecalibacterium_prausnitzii_57453',
+                     'Faecalibacterium_prausnitzii_61481',
+                     'Faecalibacterium_prausnitzii_62201',
+                     'Guyana_massiliensis_60772',
+                     'Haemophilus_parainfluenzae_62356',
+                     'Intestinimonas_butyriciproducens_60001',
+                     'Odoribacter_splanchnicus_62174',
+                     'Oscillibacter_sp_60799',
+                     'Parabacteroides_distasonis_56985',
+                     'Parabacteroides_merdae_56972',
+                     'Phascolarctobacterium_sp_59817',
+                     'Phascolarctobacterium_succinatutens_61948',
+                     'Prevotella_copri_61740',
+                     'Roseburia_hominis_61877',
+                     'Roseburia_intestinalis_56239',
+                     'Roseburia_inulinivorans_61943',
+                     'Ruminococcus_bicirculans_59300',
+                     'Ruminococcus_bromii_62047',
+                     'Ruminococcus_gnavus_57638',
+                     'Ruminococcus_lactaris_55568',
+                     'Ruminococcus_obeum_61472',
+                     'Ruminococcus_sp_55468',
+                     'Ruminococcus_torques_62045',
+                     'Sutterella_wadsworthensis_56828',
+                     'Veillonella_atypica_58169',
+                     'Veillonella_dispar_61763',
+                     'Veillonella_parvula_57794')
+
+list_over_20 = c('Eubacterium_eligens_61678',
+                 'Faecalibacterium_cf_62236',
+                 'Faecalibacterium_prausnitzii_57453',
+                 'Faecalibacterium_prausnitzii_61481',
+                 'Faecalibacterium_prausnitzii_62201',
+                 'Oscillibacter_sp_60799',
+                 'Prevotella_copri_61740',
+                 'Roseburia_inulinivorans_61943',
+                 'Ruminococcus_bromii_62047',
+                 'Ruminococcus_torques_62045')
+
+list_over_10 = c('Bifidobacterium_longum_57796',
+                 'Blautia_wexlerae_56130',
+                 'Butyrivibrio_crossotus_61674',
+                 'Clostridium_sp_61482',
+                 'Escherichia_coli_58110',
+                 'Eubacterium_eligens_61678',
+                 'Faecalibacterium_cf_62236',
+                 'Faecalibacterium_prausnitzii_57453',
+                 'Faecalibacterium_prausnitzii_61481',
+                 'Faecalibacterium_prausnitzii_62201',
+                 'Oscillibacter_sp_60799',
+                 'Prevotella_copri_61740',
+                 'Roseburia_inulinivorans_61943',
+                 'Ruminococcus_bromii_62047',
+                 'Ruminococcus_torques_62045')
+
+over_20_df = subset(pi_summary_df, 
+                    species %in% list_over_20)
+
+over_10_df = subset(pi_summary_df,
+                    species %in% list_over_10)
+
+pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
+  geom_boxplot(position=position_dodge(width=1)) +
+  # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
+  # geom_jitter(aes(color=cohort), size=0.2) +
+  geom_point(aes(x=species, y=across_pi, color=cohort), size=3, shape=18) +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  scale_shape_manual(values = c(21:23)) + 
+  ggtitle('Pi within and across hosts, Minimum #samples >= 20')
+
+pi_comparison_20
+
+pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
+  geom_boxplot(position=position_dodge(width=1)) +
+  # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
+  # geom_jitter(aes(color=cohort), size=0.2) +
+  geom_point(aes(x=species, y=across_pi, color=cohort), size=3, shape=18) +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  scale_shape_manual(values = c(21:23)) + 
+  ggtitle('Pi within and across hosts, Minimum #samples >= 10')
+
+pi_comparison_10
 
 
-
-ggplot(data=data, aes(y=values, x=ind, color=ind)) + geom_boxplot() +
-  geom_dotplot(binaxis='y', stackdir='center', dotsize=1) +
-  theme(axis.title.x=element_blank())
-
-       
