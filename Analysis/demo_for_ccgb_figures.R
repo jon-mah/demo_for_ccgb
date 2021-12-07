@@ -1,6 +1,7 @@
 # nsf_grfp_preliminary_results
 library(ggplot2)
 library(ggrepel)
+library(ggsignif)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -214,7 +215,11 @@ pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=co
   geom_point(aes(x=species, y=across_pi, color=cohort), size=3, shape=18) +
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
-  ggtitle('Pi within and across hosts, Minimum #samples >= 10')
+  ggtitle('Pi within and across hosts, Minimum #samples >= 10') +
+  geom_signif(stat="identity", annotation=c("**", "NS")),
+              aes(x=x,xend=xend, y=y, yend=y, annotation=annotation)) +
+  # geom_signif(comparisons=list(c("Bifidobacterium_longum_57796")), annotations="***",
+  #             y_position = 9.3, tip_length = 0, vjust=0.4)
 
 pi_comparison_10
 

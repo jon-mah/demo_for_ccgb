@@ -3,7 +3,7 @@ Computes SNP matrix from a given `*snps_ref_freq.txt.bz2`.
 
 Recall that pi is the expected heterozygosity.
 Recall that heterozygosity is the probability of grabbing
-    two disinct alleles, i.e., randomly selecting a 
+    two disinct alleles, i.e., randomly selecting a
     heterozygote.
 
 JCM 20211116
@@ -124,6 +124,7 @@ class ComputePi():
         num_ids = len(site_ids)
         del depth_file
 
+        freq_list = []
         with open(output_matrix, 'w') as f:
             avg_pi_vals = []
             depth_per_sample = []
@@ -142,17 +143,22 @@ class ComputePi():
                 ref_freq_file = bz2.BZ2File(input_ref_freq, "r")
                 ref_freq_header = ref_freq_file.readline()
                 pi_vals = []
+                this_p = 0
+                this_q = 0
                 j = 0
                 for line in ref_freq_file:
                     items = line.split()
                     if depths_bool[j]:
                         p_val = float(items[i])
+                        this_p += p_val
+                        this_q += (1 - p_val)
                         pi_val = 2 * p_val * (1 - p_val)
                         pi_vals.append(pi_val)
                     j += 1
                 avg_pi_val = sum(pi_vals) / len(pi_vals)
                 depth_per_sample.append(len(pi_vals))
                 avg_pi_vals.append(avg_pi_val)
+                freq_list.append((this_p, this_q))
                 del depths
                 del depths_bool
                 del pi_vals
@@ -169,18 +175,11 @@ class ComputePi():
             num_sites = 'num_sites, ' + str(depth_per_sample[0])
             if len(num_sites) > 1:
                 for num in depth_per_sample[1:]:
-                    num_sites += ', ' + str(num) 
-            across_species_pi = []
-            for i in range(len(avg_pi_vals)):
-                across_species_pi.append(avg_pi_vals[i] * depth_per_sample[i])
-            across_species_pi = sum(across_species_pi) / len(across_species_pi)
-            across_species_pi = across_species_pi / sum(depth_per_sample)
+                    num_sites += ', ' + str(num)
             f.write(output_header + '\n')
             f.write(output_pi_values + '\n')
             f.write(num_sites + '\n')
-            f.write('across_species_pi')
-            for i in range(len(avg_pi_vals)):
-                f.write(', ' + str(across_species_pi))
+            f.write(freq_list)
 
 if __name__ == '__main__':
     ComputePi().main()
