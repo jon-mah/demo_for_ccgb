@@ -2,6 +2,8 @@
 library(ggplot2)
 library(ggrepel)
 library(ggsignif)
+# install.packages("ggpubr")
+library(ggpubr)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -197,30 +199,54 @@ over_20_df = subset(pi_summary_df,
 over_10_df = subset(pi_summary_df,
                     species %in% list_over_10)
 
-pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
+# Aggregate
+aggregate_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
   # geom_jitter(aes(color=cohort), size=0.2) +
-  geom_point(aes(x=species, y=across_pi, color=cohort), size=3, shape=18) +
+  geom_point(aes(x=species, y=aggregate_across_pi, color=cohort), size=3, shape=18) +
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
-  ggtitle('Pi within and across hosts, Minimum #samples >= 20')
+  stat_compare_means(label = "p.signif", method = "t.test") +
+  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
 
-pi_comparison_20
+aggregate_pi_comparison_20
 
-pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
+aggregate_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
   # geom_jitter(aes(color=cohort), size=0.2) +
-  geom_point(aes(x=species, y=across_pi, color=cohort), size=3, shape=18) +
+  geom_point(aes(x=species, y=aggregate_across_pi, color=cohort), size=3, shape=18) +
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
-  ggtitle('Pi within and across hosts, Minimum #samples >= 10') +
-  geom_signif(stat="identity", annotation=c("**", "NS")),
-              aes(x=x,xend=xend, y=y, yend=y, annotation=annotation)) +
-  # geom_signif(comparisons=list(c("Bifidobacterium_longum_57796")), annotations="***",
-  #             y_position = 9.3, tip_length = 0, vjust=0.4)
+  stat_compare_means(label = "p.signif", method = "t.test") +
+  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 10')
 
-pi_comparison_10
+aggregate_pi_comparison_10
+
+# Pairwise
+pairwise_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
+  geom_boxplot(position=position_dodge(width=1)) +
+  # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
+  # geom_jitter(aes(color=cohort), size=0.2) +
+  geom_point(aes(x=species, y=pairwise_across_pi, color=cohort), size=3, shape=18) +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  scale_shape_manual(values = c(21:23))  +
+  stat_compare_means(label = "p.signif", method = "t.test") +
+  ggtitle('Pi within hosts and distributed across hosts, Minimum #samples >= 20')
+
+pairwise_pi_comparison_20
+
+pairwise_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
+  geom_boxplot(position=position_dodge(width=1)) +
+  # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
+  # geom_jitter(aes(color=cohort), size=0.2) +
+  geom_point(aes(x=species, y=pairwise_across_pi, color=cohort), size=3, shape=18) +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  scale_shape_manual(values = c(21:23)) + 
+  stat_compare_means(label = "p.signif", method = "t.test") +
+  ggtitle('Pi within hosts and distributed across hosts, Minimum #samples >= 10')
+
+pairwise_pi_comparison_10 + stat_compare_means(label = "p.signif", method = "t.test")
 
 
