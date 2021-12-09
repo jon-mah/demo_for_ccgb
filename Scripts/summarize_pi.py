@@ -91,16 +91,19 @@ class ComputePi():
             pi_values = pi_values.split(', ')[1:]
             num_sites = input_file[2]
             num_sites = num_sites.split(', ')[1:]
-            across_pi = input_file[3]
-	    across_pi = across_pi.split(', ')[1]
+            aggregate_across_pi = input_file[3]
+	    aggregate_across_pi = aggregate_across_pi.split(', ')[1]
+            pairwise_across_pi = input_file[4]
+            pairwise_across_pi = pairwise_across_pi.split(', ')[1]
             num_samples = len(pi_values)
             i = 0
             for item in pi_values:
                 string = str(species) + ', '
                 string += str(cohort) + ', ' + str(item) + ', ' 
                 string += str(num_sites[i]) + ', ' + str(num_samples)
-                string += ', ' + across_pi
-                string = string.replace('\n',"")
+                string += ', ' + aggregate_across_pi
+                string += ', ' + pairwise_across_pi
+                string = string.replace('\n','')
                 f.write(string + '\n')
                 i = i + 1
 
@@ -110,7 +113,8 @@ class ComputePi():
         print(pi_values)
         print(num_sites)
         print(num_samples)
-        print(across_pi)
+        print(aggregate_across_pi)
+        print(pairwise_across_pi)
 
 if __name__ == '__main__':
     ComputePi().main()

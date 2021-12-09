@@ -179,7 +179,43 @@ class ComputePi():
             f.write(output_header + '\n')
             f.write(output_pi_values + '\n')
             f.write(num_sites + '\n')
-            f.write(freq_list)
+
+            # aggregate across host pi
+            total_freq_p = 0
+            total_freq_q = 0
+            for i in range(len(freq_list)):
+                total_freq_p += freq_list[i][0]
+                total_freq_q += freq_list[i][1]
+            total_denom = total_freq_p + total_freq_q
+            total_freq_p = total_freq_p / total_denom
+            total_freq_q = total_freq_q / total_denom
+            aggregate_across_pi = 2 * total_freq_p * total_freq_q
+            print(len(freq_list))
+            output_aggregate = 'aggregate_across_pi'
+            for i in range(len(freq_list)):
+                output_aggregate += ', ' + str(aggregate_across_pi)
+            f.write(output_aggregate + '\n')
+
+            # distributed across host pi
+            distributed_across_pi = []
+            if len(freq_list) > 1:
+               for i in range(0, len(freq_list)):
+                   for j in range(i + 1, len(freq_list)):
+                       freq_p = freq_list[i][0] + freq_list[j][0]
+                       freq_q = freq_list[i][1] + freq_list[j][1]
+                       pair_denom = freq_p + freq_q
+                       freq_p = freq_p / pair_denom
+                       freq_q = freq_q / pair_denom
+                       distributed_across_pi.append(2 * freq_p * freq_q)
+            else:
+               distributed_across_pi = [aggregate_across_pi]
+
+            distributed_across_pi = (sum(distributed_across_pi) / 
+                                     len(distributed_across_pi))
+            output_distributed = 'distributed_across_pi'
+            for i in range(len(freq_list)):
+                output_distributed += ', ' + str(distributed_across_pi)
+            f.write(output_distributed)
 
 if __name__ == '__main__':
     ComputePi().main()

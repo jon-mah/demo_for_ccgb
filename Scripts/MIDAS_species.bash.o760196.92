@@ -1,0 +1,35 @@
+
+MIDAS: Metagenomic Intra-species Diversity Analysis System
+version 1.2.1; github.com/snayfach/MIDAS
+Copyright (C) 2015-2016 Stephen Nayfach
+Freely distributed under the GNU General Public License (GPLv3)
+
+===========Parameters===========
+Command: /usr/midas/software/MIDAS_mod/scripts/run_midas.py species ../Data/oral_microbiome_data/SRS022625/ -1 ../Data/oral_microbiome_data/SRS022625/SRS022625.denovo_duplicates_marked.trimmed.1.fastq.gz -2 ../Data/oral_microbiome_data/SRS022625/SRS022625.denovo_duplicates_marked.trimmed.2.fastq.gz
+Script: run_midas.py species
+Database: /u/project/ngarud/Garud_lab/midas_db_v1.2
+Output directory: ../Data/oral_microbiome_data/SRS022625/
+Input reads (1st mate): ../Data/oral_microbiome_data/SRS022625/SRS022625.denovo_duplicates_marked.trimmed.1.fastq.gz
+Input reads (2nd mate): ../Data/oral_microbiome_data/SRS022625/SRS022625.denovo_duplicates_marked.trimmed.2.fastq.gz
+Remove temporary files: False
+Word size for database search: 28
+Minimum mapping alignment coverage: 0.75
+Number of reads to use from input: use all
+Number of threads for database search: 1
+================================
+
+Aligning reads to marker-genes database
+  45.21 minutes
+  0.72 Gb maximum memory
+
+Classifying reads
+  total alignments: 2157167
+  uniquely mapped reads: 38212
+  ambiguously mapped reads: 26096
+  0.61 minutes
+  0.95 Gb maximum memory
+
+Estimating species abundance
+  total marker-gene coverage: 612.631
+  0.01 minutes
+  0.96 Gb maximum memory

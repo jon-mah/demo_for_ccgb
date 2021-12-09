@@ -22,3 +22,4 @@ do
 done < ../Data/African_species_list.txt
 
 python compute_pi.py ${path_to_data}${species}/snps_depth.txt.bz2 ${path_to_data}${species}/snps_ref_freq.txt.bz2 ../Analysis/${species}/African/
+

@@ -1,0 +1,20 @@
+Bacteroides_sartorii_54642, HMP, 0.00136473464602, 3849209, 4, 0.00856678806069, 0.0104128692339
+Bacteroides_sartorii_54642
+HMP
+['0.00464772064081', '0.000576931039363', '0.0053244396093', '0.00136473464602\n']
+['134790', '3621028', '77372', '3849209\n']
+4
+0.00856678806069
+0.0104128692339
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit

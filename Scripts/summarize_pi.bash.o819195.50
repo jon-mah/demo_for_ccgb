@@ -1,0 +1,20 @@
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit
+Bifidobacterium_ruminantium_50236, African, 0.00112211140116, 490214, 4, 0.012215290329, 0.0122785370981
+Bifidobacterium_ruminantium_50236
+African
+['0.00238391984539', '0.00450280568541', '0.000459287052994', '0.00112211140116\n']
+['551976', '54094', '1353128', '490214\n']
+4
+0.012215290329
+0.0122785370981

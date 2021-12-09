@@ -1,0 +1,20 @@
+Paraprevotella_xylaniphila_62280, HMP, 0.000493055036034, 3214806, 4, 0.0136538786441, 0.0136444792926
+Paraprevotella_xylaniphila_62280
+HMP
+['0.000465011086555', '0.00548264377846', '0.00317387086231', '0.000493055036034\n']
+['2524320', '1802265', '3043843', '3214806\n']
+4
+0.0136538786441
+0.0136444792926
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit

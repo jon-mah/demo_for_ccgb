@@ -1,0 +1,21 @@
+Turicibacter_sanguinis_52329, HMP, 0.00167011218929, 975449, 1, 0.00540777675432, 0.00540777675432
+Turicibacter_sanguinis_52329
+HMP
+['0.00167011218929\n']
+['975449\n']
+1
+0.00540777675432
+
+0.00540777675432
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit

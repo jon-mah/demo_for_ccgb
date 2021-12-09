@@ -535,7 +535,8 @@ def parse_snps(species_name, debug=False, allowed_samples=[], allowed_genes=[], 
         seen_samples.add(sample)
         
     desired_sample_idxs = numpy.array(desired_sample_idxs)    
-        
+    desired_sample_idxs = desired_sample_idxs.astype(int)
+    
     desired_samples = samples[desired_sample_idxs]
     
     #print len(samples), len(desired_sample_idxs), len(allowed_samples), len(desired_samples), len(allowed_sample_set)

@@ -1,0 +1,9 @@
+Loading HMP metadata...
+Done!
+Loading Bacteroides_uniformis_57318...
+Done!
+Calculate synonymous pi matrix...
+Traceback (most recent call last):
+  File "plot_pi_distribution.py", line 38, in <module>
+    pi_between = pi_matrix_syn[diff_subject_idxs]
+IndexError: index 6 is out of bounds for axis 0 with size 0

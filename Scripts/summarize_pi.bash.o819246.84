@@ -1,0 +1,20 @@
+Erysipelotrichaceae_bacterium_55770, HMP, 0.00389094891232, 2531797, 7, 0.0248221746714, 0.0242597072506
+Erysipelotrichaceae_bacterium_55770
+HMP
+['0.00566314232494', '0.0045868822191', '0.00165186201773', '0.00684038310858', '0.00190120485956', '0.00484454762392', '0.00389094891232\n']
+['11583', '16278', '2453534', '9716', '107991', '22019', '2531797\n']
+7
+0.0248221746714
+0.0242597072506
+usage: summarize_pi.py [-h] input_csv species cohort outprefix
+
+Given computed average pi values, summarizes across species and sample.
+
+positional arguments:
+  input_csv   File containing average pi values per sample in .csv format
+  species     String describing the species being analyzed.
+  cohort      String describing the cohort from which the data was sequenced.
+  outprefix   The file prefix for the output files
+
+optional arguments:
+  -h, --help  show this help message and exit
