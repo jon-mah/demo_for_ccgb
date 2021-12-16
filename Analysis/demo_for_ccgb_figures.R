@@ -300,7 +300,9 @@ pairwise_pi_comparison_10 + stat_compare_means(label = "p.signif", method = "t.t
 
 across_host_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=aggregate_across_pi, y=pairwise_across_pi, color=cohort)) +
   geom_point() +
-  geom_abline(intercept = 0, slope = 1)
+  geom_abline(intercept = 0, slope = 1) +
+  xlab('Aggregate across-host pi') +
+  ylab('Pairwise distributed across-host pi')
 across_host_pi_comparison_10
 
 # aggregate across host pi
