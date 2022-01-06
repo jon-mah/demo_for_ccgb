@@ -77,28 +77,51 @@ Name = c("B. vulgatus", "B. uniformis", "A. putredinis", "B. ovatus",
 
 exponential_data = data.frame(exponential_time, exponential_demographic_contraction, Name)
 
-# Bottleneck
+# bottlegrowth
 set.seed(0)
 mod_1 = runif(27, min=0.9, max=1.05)
 mod_2 = runif(27, min=0.9, max=1.05)
 
-bottleneck_demographic_contraction = c(0.79, 0.69, 0.76, 0.76,
-                                      0.9, 0.66, 0.78, 0.65, 
-                                      0.52, 0.76, 0.80, 0.77,
-                                      0.81, 0.92, 0.83, 0.66,
-                                      0.91, 0.85, 0.84, 0.93,
-                                      0.72, 0.68, 0.75, 0.81,
-                                      0.77, 0.75, 0.68) * mod_1
+bottlegrowth_demographic_contraction = c(0.78, 0.95, 0.80, 0.70,
+                                       0.72, 0.72, 0.65, 0.74,
+                                       0.74, 0.66, 0.65, 0.82,
+                                       0.72, 0.92, 0.68, 0.88,
+                                       0.81, 0.91, 0.73, 0.77,
+                                       0.68, 0.71, 0.92, 0.81,
+                                       0.59, 0.68, 0.86) * mod_1
 
-bottleneck_time = c(16901.55, 14008.49, 22669.70, 17228.19,
-                   14896.13, 15330.99, 15567.18, 11059.32,
-                   15088.56, 13582.92, 19036.01, 17328.31,
-                   18346.12, 16438.92, 13758.31, 12674.43,
-                   14834.13, 15749.19, 17439.31, 12832.73,
-                   17293.52, 12749.25, 13847.36, 13840.89,
-                   12482.95, 11847.52, 18837.91) * mod_2
+bottlegrowth_time = c(18150.38, 15264.44, 18639.72, 17964.14,
+                    19635.40, 16787.48, 15118.29, 12103.17, 
+                    14586.11, 12528.75, 19184.61, 11245.32,
+                    11366.48, 15328.51, 18347.13, 12405.52,
+                    18253.53, 18379.13, 19273.31, 18630.59,
+                    17349.14, 10239.14, 20193.51, 19248.13,
+                    14281.63, 18547.36, 13547.23) * mod_2
 
-bottleneck_data = data.frame(bottleneck_time, bottleneck_demographic_contraction, Name)
+bottlegrowth_data = data.frame(bottlegrowth_time, bottlegrowth_demographic_contraction, Name)
+
+# Three Epoch
+set.seed(100)
+mod_1 = runif(27, min=0.9, max=0.99)
+mod_2 = runif(27, min=0.85, max=0.95)
+
+three_epoch_demographic_contraction = c(0.78, 0.95, 0.80, 0.70,
+                                        0.72, 0.72, 0.65, 0.74,
+                                        0.74, 0.66, 0.65, 0.82,
+                                        0.72, 0.92, 0.68, 0.88,
+                                        0.81, 0.91, 0.73, 0.77,
+                                        0.68, 0.71, 0.92, 0.81,
+                                        0.59, 0.68, 0.86) * mod_1
+
+three_epoch_time = c(16901.55, 14008.49, 22669.70, 17228.19,
+                     14896.13, 15330.99, 15567.18, 11059.32,
+                     15088.56, 13582.92, 19036.01, 17328.31,
+                     18346.12, 16438.92, 13758.31, 12674.43,
+                     14834.13, 15749.19, 17439.31, 12832.73,
+                     17293.52, 12749.25, 13847.36, 13840.89,
+                     12482.95, 11847.52, 18837.91) * mod_2
+
+three_epoch_data = data.frame(three_epoch_time, three_epoch_demographic_contraction, Name)
 
 demographic_contraction = data.frame(two_epoch_demographic_contraction, exponential_demographic_contraction, Name)
 
@@ -123,7 +146,7 @@ ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contr
   scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
   ggtitle('Exponential Demographic Model')
 
-ggplot(bottleneck_data, aes(x=bottleneck_time, y=bottleneck_demographic_contraction, color=Name)) +
+ggplot(bottlegrowth_data, aes(x=bottlegrowth_time, y=bottlegrowth_demographic_contraction, color=Name)) +
   geom_point(size=2) +
   geom_text_repel(label=Name, size=6) +
   theme(text = element_text(size=20)) +
@@ -132,7 +155,53 @@ ggplot(bottleneck_data, aes(x=bottleneck_time, y=bottleneck_demographic_contract
   xlab("Years since Demographic Contraction") +
   ylab("Ratio of Current to Ancestral Population Size") +
   scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Bottleneck Demographic Model')
+  ggtitle('Bottlegrowth Demographic Model')
+
+ggplot(three_epoch_data, aes(x=three_epoch_time, y=three_epoch_demographic_contraction, color=Name)) +
+  geom_point(size=2) +
+  geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Three Epoch Demographic Model')
+
+
+two_epoch_data$model='two_epoch'
+colnames(two_epoch_data) = c('time', 'demographic_contraction', 'Name', 'model')
+exponential_data$model='exponential'
+colnames(exponential_data) = c('time', 'demographic_contraction', 'Name', 'model')
+bottlegrowth_data$model='bottlegrowth'
+colnames(bottlegrowth_data) = c('time', 'demographic_contraction', 'Name', 'model')
+three_epoch_data$model='three_epoch'
+colnames(three_epoch_data) = c('time', 'demographic_contraction', 'Name', 'model')
+
+demographic_data = data.frame(rbind(two_epoch_data, exponential_data, bottlegrowth_data, three_epoch_data))
+
+ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=model)) +
+  geom_point(size=2) +
+  # geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  # theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Summary of Demographic Models by Model')
+
+ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=Name)) +
+  geom_point(size=2) +
+  # geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  # theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Summary of Demographic Models by Species')
+
 
 # Pi comparison
 
