@@ -1,138 +1,138 @@
-2021-10-20 13:31:59,780 - INFO - Beginning execution of fit_demographic_model.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2022-01-24 14:11:01,912 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2021-10-20 13:31:59,780 - INFO - Progress is being logged to ../Analysis/Barnesiella_intestinihominis_62208/log.log
+2022-01-24 14:11:01,913 - INFO - Progress is being logged to ../Analysis/Barnesiella_intestinihominis_62208/log.log
 
-2021-10-20 13:31:59,781 - INFO - Parsed the following arguments:
+2022-01-24 14:11:01,913 - INFO - Parsed the following arguments:
 	mask_doubletons = False
 	syn_input_sfs = ../Data/Barnesiella_intestinihominis_62208_syn.sfs
 	mask_singletons = True
 	outprefix = ../Analysis/Barnesiella_intestinihominis_62208/
 
-2021-10-20 13:31:59,786 - INFO - Beginning demographic inference for exponential growth demographic model.
-2021-10-20 13:31:59,787 - INFO - Beginning optimization with guess, [9.06825086e-02 3.19038765e-05].
-2021-10-20 13:32:02,698 - INFO - Finished optimization with guess, [9.06825086e-02 3.19038765e-05].
-2021-10-20 13:32:02,700 - INFO - Best fit parameters: [0.00233972 0.00025   ].
-2021-10-20 13:32:02,806 - INFO - Maximum log composite likelihood: -272.687526743.
-2021-10-20 13:32:02,807 - INFO - Optimal value of theta: 11486.6944654.
-2021-10-20 13:32:02,807 - INFO - Beginning optimization with guess, [1.25584466e-01 3.14543707e-05].
-2021-10-20 13:32:05,682 - INFO - Finished optimization with guess, [1.25584466e-01 3.14543707e-05].
-2021-10-20 13:32:05,682 - INFO - Best fit parameters: [0.00209563 0.00025   ].
-2021-10-20 13:32:05,792 - INFO - Maximum log composite likelihood: -268.575678805.
-2021-10-20 13:32:05,793 - INFO - Optimal value of theta: 11663.5617553.
-2021-10-20 13:32:05,793 - INFO - Beginning optimization with guess, [6.30159888e-02 4.29805847e-05].
-2021-10-20 13:32:09,015 - INFO - Finished optimization with guess, [6.30159888e-02 4.29805847e-05].
-2021-10-20 13:32:09,016 - INFO - Best fit parameters: [0.00096235 0.00012038].
-2021-10-20 13:32:09,121 - INFO - Maximum log composite likelihood: -268.085122131.
-2021-10-20 13:32:09,122 - INFO - Optimal value of theta: 11747.244316.
-2021-10-20 13:32:09,122 - INFO - Beginning optimization with guess, [1.37600049e-01 9.56770372e-05].
-2021-10-20 13:32:11,969 - INFO - Finished optimization with guess, [1.37600049e-01 9.56770372e-05].
-2021-10-20 13:32:11,969 - INFO - Best fit parameters: [0.00188383 0.00023561].
-2021-10-20 13:32:12,074 - INFO - Maximum log composite likelihood: -268.128752683.
-2021-10-20 13:32:12,075 - INFO - Optimal value of theta: 11745.1068611.
-2021-10-20 13:32:12,075 - INFO - Beginning optimization with guess, [8.98010266e-02 3.43713993e-05].
-2021-10-20 13:32:15,228 - INFO - Finished optimization with guess, [8.98010266e-02 3.43713993e-05].
-2021-10-20 13:32:15,228 - INFO - Best fit parameters: [0.00204237 0.00025   ].
-2021-10-20 13:32:15,333 - INFO - Maximum log composite likelihood: -268.233736839.
-2021-10-20 13:32:15,334 - INFO - Optimal value of theta: 11707.415653.
-2021-10-20 13:32:15,334 - INFO - Beginning optimization with guess, [1.33094417e-01 8.10475377e-05].
-2021-10-20 13:32:18,185 - INFO - Finished optimization with guess, [1.33094417e-01 8.10475377e-05].
-2021-10-20 13:32:18,185 - INFO - Best fit parameters: [0.00149058 0.00018843].
-2021-10-20 13:32:18,290 - INFO - Maximum log composite likelihood: -268.128634867.
-2021-10-20 13:32:18,291 - INFO - Optimal value of theta: 11764.6766701.
-2021-10-20 13:32:18,291 - INFO - Beginning optimization with guess, [9.11537330e-02 4.02541775e-05].
-2021-10-20 13:32:21,448 - INFO - Finished optimization with guess, [9.11537330e-02 4.02541775e-05].
-2021-10-20 13:32:21,449 - INFO - Best fit parameters: [0.00235441 0.00025   ].
-2021-10-20 13:32:21,554 - INFO - Maximum log composite likelihood: -273.045436297.
-2021-10-20 13:32:21,555 - INFO - Optimal value of theta: 11477.1530216.
-2021-10-20 13:32:21,555 - INFO - Beginning optimization with guess, [1.15825033e-01 9.58273041e-05].
-2021-10-20 13:32:24,409 - INFO - Finished optimization with guess, [1.15825033e-01 9.58273041e-05].
-2021-10-20 13:32:24,409 - INFO - Best fit parameters: [0.00200391 0.00025   ].
-2021-10-20 13:32:24,515 - INFO - Maximum log composite likelihood: -268.137057022.
-2021-10-20 13:32:24,515 - INFO - Optimal value of theta: 11740.4436485.
-2021-10-20 13:32:24,516 - INFO - Beginning optimization with guess, [1.20406934e-01 4.02792837e-05].
-2021-10-20 13:32:27,375 - INFO - Finished optimization with guess, [1.20406934e-01 4.02792837e-05].
-2021-10-20 13:32:27,375 - INFO - Best fit parameters: [0.00222864 0.00025   ].
-2021-10-20 13:32:27,483 - INFO - Maximum log composite likelihood: -270.35419096.
-2021-10-20 13:32:27,484 - INFO - Optimal value of theta: 11562.6639762.
-2021-10-20 13:32:27,484 - INFO - Beginning optimization with guess, [1.96729649e-01 4.66235534e-05].
-2021-10-20 13:32:30,678 - INFO - Finished optimization with guess, [1.96729649e-01 4.66235534e-05].
-2021-10-20 13:32:30,678 - INFO - Best fit parameters: [0.00230354 0.00025   ].
-2021-10-20 13:32:30,784 - INFO - Maximum log composite likelihood: -271.853112593.
-2021-10-20 13:32:30,785 - INFO - Optimal value of theta: 11510.6768932.
-2021-10-20 13:32:30,785 - INFO - Beginning optimization with guess, [8.65678027e-02 6.67050441e-05].
-2021-10-20 13:32:34,304 - INFO - Finished optimization with guess, [8.65678027e-02 6.67050441e-05].
-2021-10-20 13:32:34,304 - INFO - Best fit parameters: [0.00170855 0.00021243].
-2021-10-20 13:32:34,409 - INFO - Maximum log composite likelihood: -268.128969076.
-2021-10-20 13:32:34,410 - INFO - Optimal value of theta: 11735.1139717.
-2021-10-20 13:32:34,410 - INFO - Beginning optimization with guess, [1.44179299e-01 4.68118118e-05].
-2021-10-20 13:32:37,276 - INFO - Finished optimization with guess, [1.44179299e-01 4.68118118e-05].
-2021-10-20 13:32:37,277 - INFO - Best fit parameters: [0.00217552 0.00025   ].
-2021-10-20 13:32:37,383 - INFO - Maximum log composite likelihood: -269.49795629.
-2021-10-20 13:32:37,383 - INFO - Optimal value of theta: 11601.5622976.
-2021-10-20 13:32:37,383 - INFO - Beginning optimization with guess, [1.58628327e-01 4.93153712e-05].
-2021-10-20 13:32:40,238 - INFO - Finished optimization with guess, [1.58628327e-01 4.93153712e-05].
-2021-10-20 13:32:40,238 - INFO - Best fit parameters: [0.00199303 0.00024982].
-2021-10-20 13:32:40,343 - INFO - Maximum log composite likelihood: -268.133711696.
-2021-10-20 13:32:40,344 - INFO - Optimal value of theta: 11748.744166.
-2021-10-20 13:32:40,344 - INFO - Beginning optimization with guess, [1.45873211e-01 2.56295041e-05].
-2021-10-20 13:32:44,197 - INFO - Finished optimization with guess, [1.45873211e-01 2.56295041e-05].
-2021-10-20 13:32:44,198 - INFO - Best fit parameters: [0.00197587 0.00025   ].
-2021-10-20 13:32:44,303 - INFO - Maximum log composite likelihood: -268.151854615.
-2021-10-20 13:32:44,304 - INFO - Optimal value of theta: 11765.2823677.
-2021-10-20 13:32:44,304 - INFO - Beginning optimization with guess, [8.54347519e-02 9.45341423e-05].
-2021-10-20 13:32:47,497 - INFO - Finished optimization with guess, [8.54347519e-02 9.45341423e-05].
-2021-10-20 13:32:47,497 - INFO - Best fit parameters: [0.00240394 0.00025   ].
-2021-10-20 13:32:47,602 - INFO - Maximum log composite likelihood: -274.328256704.
-2021-10-20 13:32:47,603 - INFO - Optimal value of theta: 11445.7972116.
-2021-10-20 13:32:47,603 - INFO - Beginning optimization with guess, [9.34512443e-02 3.84124358e-05].
-2021-10-20 13:32:50,787 - INFO - Finished optimization with guess, [9.34512443e-02 3.84124358e-05].
-2021-10-20 13:32:50,787 - INFO - Best fit parameters: [0.00199014 0.0002498 ].
-2021-10-20 13:32:50,892 - INFO - Maximum log composite likelihood: -268.134294484.
-2021-10-20 13:32:50,893 - INFO - Optimal value of theta: 11751.1247161.
-2021-10-20 13:32:50,893 - INFO - Beginning optimization with guess, [1.39396963e-01 4.90658869e-05].
-2021-10-20 13:32:53,767 - INFO - Finished optimization with guess, [1.39396963e-01 4.90658869e-05].
-2021-10-20 13:32:53,768 - INFO - Best fit parameters: [0.0019547 0.00025  ].
-2021-10-20 13:32:53,877 - INFO - Maximum log composite likelihood: -268.213208256.
-2021-10-20 13:32:53,878 - INFO - Optimal value of theta: 11784.4741556.
-2021-10-20 13:32:53,878 - INFO - Beginning optimization with guess, [6.10304461e-02 7.40544444e-05].
-2021-10-20 13:32:56,754 - INFO - Finished optimization with guess, [6.10304461e-02 7.40544444e-05].
-2021-10-20 13:32:56,754 - INFO - Best fit parameters: [0.00191467 0.00025   ].
-2021-10-20 13:32:56,863 - INFO - Maximum log composite likelihood: -268.453751552.
-2021-10-20 13:32:56,864 - INFO - Optimal value of theta: 11821.8573089.
-2021-10-20 13:32:56,864 - INFO - Beginning optimization with guess, [9.79534714e-02 7.62088651e-05].
-2021-10-20 13:32:59,728 - INFO - Finished optimization with guess, [9.79534714e-02 7.62088651e-05].
-2021-10-20 13:32:59,728 - INFO - Best fit parameters: [0.00194353 0.0002424 ].
-2021-10-20 13:32:59,834 - INFO - Maximum log composite likelihood: -268.134483833.
-2021-10-20 13:32:59,834 - INFO - Optimal value of theta: 11740.0730705.
-2021-10-20 13:32:59,834 - INFO - Beginning optimization with guess, [1.73756861e-01 9.74431875e-05].
-2021-10-20 13:33:03,654 - INFO - Finished optimization with guess, [1.73756861e-01 9.74431875e-05].
-2021-10-20 13:33:03,654 - INFO - Best fit parameters: [0.00174974 0.00021932].
-2021-10-20 13:33:03,760 - INFO - Maximum log composite likelihood: -268.122378417.
-2021-10-20 13:33:03,760 - INFO - Optimal value of theta: 11749.2078663.
-2021-10-20 13:33:03,761 - INFO - Beginning optimization with guess, [1.13893445e-01 3.82973804e-05].
-2021-10-20 13:33:06,990 - INFO - Finished optimization with guess, [1.13893445e-01 3.82973804e-05].
-2021-10-20 13:33:06,990 - INFO - Best fit parameters: [0.00223788 0.00025   ].
-2021-10-20 13:33:07,113 - INFO - Maximum log composite likelihood: -270.521453361.
-2021-10-20 13:33:07,113 - INFO - Optimal value of theta: 11556.0700142.
-2021-10-20 13:33:07,113 - INFO - Beginning optimization with guess, [6.05832329e-02 7.99758247e-05].
-2021-10-20 13:33:09,990 - INFO - Finished optimization with guess, [6.05832329e-02 7.99758247e-05].
-2021-10-20 13:33:09,990 - INFO - Best fit parameters: [0.00198854 0.00024891].
-2021-10-20 13:33:10,098 - INFO - Maximum log composite likelihood: -268.133470834.
-2021-10-20 13:33:10,099 - INFO - Optimal value of theta: 11746.291043.
-2021-10-20 13:33:10,099 - INFO - Beginning optimization with guess, [6.06237419e-02 3.71858005e-05].
-2021-10-20 13:33:13,609 - INFO - Finished optimization with guess, [6.06237419e-02 3.71858005e-05].
-2021-10-20 13:33:13,609 - INFO - Best fit parameters: [0.00085467 0.00010723].
-2021-10-20 13:33:13,715 - INFO - Maximum log composite likelihood: -268.082419973.
-2021-10-20 13:33:13,715 - INFO - Optimal value of theta: 11752.7236583.
-2021-10-20 13:33:13,715 - INFO - Beginning optimization with guess, [1.65818860e-01 8.19018429e-05].
-2021-10-20 13:33:16,876 - INFO - Finished optimization with guess, [1.65818860e-01 8.19018429e-05].
-2021-10-20 13:33:16,877 - INFO - Best fit parameters: [0.00200813 0.00025   ].
-2021-10-20 13:33:16,982 - INFO - Maximum log composite likelihood: -268.141182314.
-2021-10-20 13:33:16,983 - INFO - Optimal value of theta: 11736.7626026.
-2021-10-20 13:33:16,983 - INFO - Beginning optimization with guess, [1.56700705e-01 7.00529447e-05].
-2021-10-20 13:33:19,827 - INFO - Finished optimization with guess, [1.56700705e-01 7.00529447e-05].
-2021-10-20 13:33:19,827 - INFO - Best fit parameters: [0.00225503 0.00025   ].
-2021-10-20 13:33:19,937 - INFO - Maximum log composite likelihood: -270.845341426.
-2021-10-20 13:33:19,937 - INFO - Optimal value of theta: 11543.9733339.
-2021-10-20 13:33:19,939 - INFO - Beginning demographic inference for two-epoch demographic model.
-2021-10-20 13:33:19,942 - INFO - Beginning optimization with guess, [5.89758288e-02 3.99529708e-05].
+2022-01-24 14:11:01,929 - INFO - Beginning demographic inference for one-epoch demographic model.
+2022-01-24 14:11:01,931 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:02,577 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:02,578 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:02,749 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:02,750 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:02,750 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:03,127 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:03,129 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:03,342 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:03,343 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:03,343 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:03,745 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:03,746 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:03,941 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:03,942 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:03,943 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:04,325 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:04,326 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:04,508 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:04,509 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:04,509 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:04,877 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:04,878 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:05,070 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:05,073 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:05,073 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:05,454 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:05,455 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:05,627 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:05,628 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:05,628 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:05,991 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:05,992 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:06,189 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:06,190 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:06,191 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:06,565 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:06,565 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:06,744 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:06,745 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:06,745 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:07,116 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:07,117 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:07,328 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:07,329 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:07,329 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:07,689 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:07,689 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:07,871 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:07,872 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:07,873 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:08,227 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:08,227 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:08,404 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:08,405 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:08,405 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:08,750 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:08,751 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:08,925 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:08,926 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:08,926 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:09,286 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:09,286 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:09,468 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:09,468 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:09,469 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:09,831 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:09,831 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:10,014 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:10,015 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:10,016 - INFO - Beginning optimization with guess, [7.92].
+2022-01-24 14:11:10,379 - INFO - Finished optimization with guess, [7.92].
+2022-01-24 14:11:10,379 - INFO - Best fit parameters: [8.].
+2022-01-24 14:11:10,561 - INFO - Maximum log composite likelihood: -701.532028657.
+2022-01-24 14:11:10,562 - INFO - Optimal value of theta: 10010.5283981.
+2022-01-24 14:11:10,586 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-01-24 14:11:10,588 - INFO - Beginning optimization with guess, [1.59255838e-01 6.54284746e-06].
+2022-01-24 14:11:14,985 - INFO - Finished optimization with guess, [1.59255838e-01 6.54284746e-06].
+2022-01-24 14:11:14,985 - INFO - Best fit parameters: [0.00520416 0.00015   ].
+2022-01-24 14:11:15,170 - INFO - Maximum log composite likelihood: -497.173037827.
+2022-01-24 14:11:15,172 - INFO - Optimal value of theta: 10300.3162153.
+2022-01-24 14:11:15,172 - INFO - Beginning optimization with guess, [1.58175369e-01 9.12870412e-06].
+2022-01-24 14:11:19,515 - INFO - Finished optimization with guess, [1.58175369e-01 9.12870412e-06].
+2022-01-24 14:11:19,516 - INFO - Best fit parameters: [0.0074584 0.00015  ].
+2022-01-24 14:11:19,702 - INFO - Maximum log composite likelihood: -570.776618931.
+2022-01-24 14:11:19,703 - INFO - Optimal value of theta: 10179.2381359.
+2022-01-24 14:11:19,703 - INFO - Beginning optimization with guess, [9.94020498e-02 1.06283022e-05].
+2022-01-24 14:11:23,451 - INFO - Finished optimization with guess, [9.94020498e-02 1.06283022e-05].
+2022-01-24 14:11:23,452 - INFO - Best fit parameters: [0.00613985 0.00015   ].
+2022-01-24 14:11:23,627 - INFO - Maximum log composite likelihood: -533.914162524.
+2022-01-24 14:11:23,628 - INFO - Optimal value of theta: 10237.0025682.
+2022-01-24 14:11:23,628 - INFO - Beginning optimization with guess, [1.39830329e-01 1.03977042e-05].
+2022-01-24 14:11:27,413 - INFO - Finished optimization with guess, [1.39830329e-01 1.03977042e-05].
+2022-01-24 14:11:27,413 - INFO - Best fit parameters: [0.0078659 0.00015  ].
+2022-01-24 14:11:27,596 - INFO - Maximum log composite likelihood: -579.799635521.
+2022-01-24 14:11:27,597 - INFO - Optimal value of theta: 10165.7409289.
+2022-01-24 14:11:27,597 - INFO - Beginning optimization with guess, [1.99934314e-01 5.00151287e-06].
+2022-01-24 14:11:32,490 - INFO - Finished optimization with guess, [1.99934314e-01 5.00151287e-06].
+2022-01-24 14:11:32,491 - INFO - Best fit parameters: [0.00439699 0.00015   ].
+2022-01-24 14:11:32,666 - INFO - Maximum log composite likelihood: -455.151344918.
+2022-01-24 14:11:32,667 - INFO - Optimal value of theta: 10381.4176663.
+2022-01-24 14:11:32,667 - INFO - Beginning optimization with guess, [1.80625682e-01 5.95677349e-06].
+2022-01-24 14:11:37,513 - INFO - Finished optimization with guess, [1.80625682e-01 5.95677349e-06].
+2022-01-24 14:11:37,513 - INFO - Best fit parameters: [0.00506799 0.00015   ].
+2022-01-24 14:11:37,693 - INFO - Maximum log composite likelihood: -490.849386987.
+2022-01-24 14:11:37,694 - INFO - Optimal value of theta: 10311.8201469.
+2022-01-24 14:11:37,694 - INFO - Beginning optimization with guess, [6.46106520e-02 1.08841212e-05].
+2022-01-24 14:11:40,923 - INFO - Finished optimization with guess, [6.46106520e-02 1.08841212e-05].
+2022-01-24 14:11:40,924 - INFO - Best fit parameters: [0.00432673 0.00015   ].
+2022-01-24 14:11:41,109 - INFO - Maximum log composite likelihood: -450.935340397.
+2022-01-24 14:11:41,110 - INFO - Optimal value of theta: 10390.1957568.
+2022-01-24 14:11:41,110 - INFO - Beginning optimization with guess, [1.41945770e-01 5.22188292e-06].
+2022-01-24 14:11:45,420 - INFO - Finished optimization with guess, [1.41945770e-01 5.22188292e-06].
+2022-01-24 14:11:45,421 - INFO - Best fit parameters: [0.00377364 0.00015   ].
+2022-01-24 14:11:45,596 - INFO - Maximum log composite likelihood: -414.188137268.
+2022-01-24 14:11:45,598 - INFO - Optimal value of theta: 10472.438496.
+2022-01-24 14:11:45,598 - INFO - Beginning optimization with guess, [7.87551637e-02 6.70845022e-06].
+2022-01-24 14:11:49,351 - INFO - Finished optimization with guess, [7.87551637e-02 6.70845022e-06].
+2022-01-24 14:11:49,351 - INFO - Best fit parameters: [0.00310967 0.00015   ].
+2022-01-24 14:11:49,532 - INFO - Maximum log composite likelihood: -361.117696731.
+2022-01-24 14:11:49,532 - INFO - Optimal value of theta: 10615.748924.
+2022-01-24 14:11:49,533 - INFO - Beginning optimization with guess, [8.55617078e-02 8.68409413e-06].
+2022-01-24 14:11:53,310 - INFO - Finished optimization with guess, [8.55617078e-02 8.68409413e-06].
+2022-01-24 14:11:53,311 - INFO - Best fit parameters: [0.00437273 0.00015   ].
+2022-01-24 14:11:53,495 - INFO - Maximum log composite likelihood: -453.706047973.
+2022-01-24 14:11:53,496 - INFO - Optimal value of theta: 10384.4091155.
+2022-01-24 14:11:53,497 - INFO - Beginning optimization with guess, [7.43240684e-02 1.65618384e-05].
