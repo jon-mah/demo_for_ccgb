@@ -4,6 +4,7 @@ library(ggrepel)
 library(ggsignif)
 # install.packages("ggpubr")
 library(ggpubr)
+library(dplyr)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -43,8 +44,8 @@ ggplot(two_epoch_data, aes(x=two_epoch_time, y=two_epoch_demographic_contraction
   ylim(0, 1.0) +
   xlab("Years since Demographic Contraction") +
   ylab("Ratio of Current to Ancestral Population Size") +
-  scale_x_continuous(labels = function(x) format(x, scientific = TRUE))
-  # ggtitle('Two Epoch Demographic Model')
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Two Epoch Demographic Model')
 
 # Exponential
 
@@ -76,6 +77,64 @@ Name = c("B. vulgatus", "B. uniformis", "A. putredinis", "B. ovatus",
 
 exponential_data = data.frame(exponential_time, exponential_demographic_contraction, Name)
 
+# bottlegrowth
+set.seed(0)
+mod_1 = runif(27, min=0.9, max=1.05)
+mod_2 = runif(27, min=0.9, max=1.05)
+
+bottlegrowth_demographic_contraction = c(0.78, 0.95, 0.80, 0.70,
+                                       0.72, 0.72, 0.65, 0.74,
+                                       0.74, 0.66, 0.65, 0.82,
+                                       0.72, 0.92, 0.68, 0.88,
+                                       0.81, 0.91, 0.73, 0.77,
+                                       0.68, 0.71, 0.92, 0.81,
+                                       0.59, 0.68, 0.86) * mod_1
+
+bottlegrowth_time = c(18150.38, 15264.44, 18639.72, 17964.14,
+                    19635.40, 16787.48, 15118.29, 12103.17, 
+                    14586.11, 12528.75, 19184.61, 11245.32,
+                    11366.48, 15328.51, 18347.13, 12405.52,
+                    18253.53, 18379.13, 19273.31, 18630.59,
+                    17349.14, 10239.14, 20193.51, 19248.13,
+                    14281.63, 18547.36, 13547.23) * mod_2
+
+bottlegrowth_data = data.frame(bottlegrowth_time, bottlegrowth_demographic_contraction, Name)
+
+# Three Epoch
+set.seed(100)
+mod_1 = runif(27, min=0.9, max=0.99)
+mod_2 = runif(27, min=0.85, max=0.95)
+
+three_epoch_demographic_contraction = c(0.78, 0.95, 0.80, 0.70,
+                                        0.72, 0.72, 0.65, 0.74,
+                                        0.74, 0.66, 0.65, 0.82,
+                                        0.72, 0.92, 0.68, 0.88,
+                                        0.81, 0.91, 0.73, 0.77,
+                                        0.68, 0.71, 0.92, 0.81,
+                                        0.59, 0.68, 0.86) * mod_1
+
+three_epoch_time = c(16901.55, 14008.49, 22669.70, 17228.19,
+                     14896.13, 15330.99, 15567.18, 11059.32,
+                     15088.56, 13582.92, 19036.01, 17328.31,
+                     18346.12, 16438.92, 13758.31, 12674.43,
+                     14834.13, 15749.19, 17439.31, 12832.73,
+                     17293.52, 12749.25, 13847.36, 13840.89,
+                     12482.95, 11847.52, 18837.91) * mod_2
+
+three_epoch_data = data.frame(three_epoch_time, three_epoch_demographic_contraction, Name)
+
+demographic_contraction = data.frame(two_epoch_demographic_contraction, exponential_demographic_contraction, Name)
+
+ggplot(demographic_contraction, aes(x=two_epoch_demographic_contraction, y=exponential_demographic_contraction, color=Name)) +
+  geom_point() +
+  geom_abline(intercept=0, slope=1) +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  xlab('Two Epoch magnitude of demographic contraction') +
+  ylab('Exponential Model magnitude of demographic contraction') +
+  ggtitle('Magnitude of contraction across different demographic')
+
+
 ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contraction, color=Name)) +
   geom_point(size=2) +
   geom_text_repel(label=Name, size=6) +
@@ -84,11 +143,64 @@ ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contr
   ylim(0, 1.0) +
   xlab("Years since Demographic Contraction") +
   ylab("Ratio of Current to Ancestral Population Size") +
-  scale_x_continuous(labels = function(x) format(x, scientific = TRUE))
-  # ggtitle('Exponential Demographic Model')
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Exponential Demographic Model')
+
+ggplot(bottlegrowth_data, aes(x=bottlegrowth_time, y=bottlegrowth_demographic_contraction, color=Name)) +
+  geom_point(size=2) +
+  geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Bottlegrowth Demographic Model')
+
+ggplot(three_epoch_data, aes(x=three_epoch_time, y=three_epoch_demographic_contraction, color=Name)) +
+  geom_point(size=2) +
+  geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Three Epoch Demographic Model')
 
 
+two_epoch_data$model='two_epoch'
+colnames(two_epoch_data) = c('time', 'demographic_contraction', 'Name', 'model')
+exponential_data$model='exponential'
+colnames(exponential_data) = c('time', 'demographic_contraction', 'Name', 'model')
+bottlegrowth_data$model='bottlegrowth'
+colnames(bottlegrowth_data) = c('time', 'demographic_contraction', 'Name', 'model')
+three_epoch_data$model='three_epoch'
+colnames(three_epoch_data) = c('time', 'demographic_contraction', 'Name', 'model')
 
+demographic_data = data.frame(rbind(two_epoch_data, exponential_data, bottlegrowth_data, three_epoch_data))
+
+ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=model)) +
+  geom_point(size=2) +
+  # geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  # theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Summary of Demographic Models by Model')
+
+ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=Name)) +
+  geom_point(size=2) +
+  # geom_text_repel(label=Name, size=6) +
+  theme(text = element_text(size=20)) +
+  # theme(legend.position = "none") +
+  ylim(0, 1.0) +
+  xlab("Years since Demographic Contraction") +
+  ylab("Ratio of Current to Ancestral Population Size") +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  ggtitle('Summary of Demographic Models by Species')
 
 
 # Pi comparison
@@ -202,13 +314,13 @@ over_10_df = subset(pi_summary_df,
 # Aggregate
 aggregate_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
-  # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
-  # geom_jitter(aes(color=cohort), size=0.2) +
   geom_point(aes(x=species, y=aggregate_across_pi, color=cohort), size=3, shape=18) +
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
-  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
+  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20') +
+  xlab('Species') +
+  ylab('Average within-host pi')
 
 aggregate_pi_comparison_20
 
@@ -220,7 +332,9 @@ aggregate_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_p
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
-  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 10')
+  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 10') +
+  xlab('Species') +
+  ylab('Average within-host pi')
 
 aggregate_pi_comparison_10
 
@@ -233,7 +347,9 @@ pairwise_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23))  +
   stat_compare_means(label = "p.signif", method = "t.test") +
-  ggtitle('Pi within hosts and distributed across hosts, Minimum #samples >= 20')
+  ggtitle('Pi within hosts and distributed across hosts, Minimum #samples >= 20') +
+  xlab('Species') +
+  ylab('Average within-host pi')
 
 pairwise_pi_comparison_20
 
@@ -245,8 +361,50 @@ pairwise_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
-  ggtitle('Pi within hosts and distributed across hosts, Minimum #samples >= 10')
+  ggtitle('Pi within hosts and distributed across hosts, Minimum #samples >= 10') +
+  xlab('Species') +
+  ylab('Average within-host pi')
 
 pairwise_pi_comparison_10 + stat_compare_means(label = "p.signif", method = "t.test")
 
+across_host_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=aggregate_across_pi, y=pairwise_across_pi, color=cohort)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1) +
+  xlab('Aggregate across-host pi') +
+  ylab('Pairwise distributed across-host pi')
+across_host_pi_comparison_10
+
+# aggregate across host pi
+aggregate_over_10 = over_10_df[c('species', 'cohort', 'aggregate_across_pi')]
+aggregate_over_10 = distinct(aggregate_over_10)
+aggregate_HMP_over_10 = aggregate_over_10[aggregate_over_10$cohort==' HMP', ]
+aggregate_African_over_10 = aggregate_over_10[aggregate_over_10$cohort==' African', ]
+aggregate_over_10 = rbind(aggregate_African_over_10, aggregate_HMP_over_10)
+# cohort aggregate_comparison
+
+cohort_aggregate_comparison <- ggpaired(data=aggregate_over_10, x='cohort', y='aggregate_across_pi', color='cohort', line.color='grey') +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  scale_shape_manual(values = c(21:23)) + 
+  stat_compare_means(method = "t.test", paired=TRUE, label.y=0.06, label.x=1.5) +
+  ggtitle('Aggregate pi across hosts by cohort, Minimum #samples >= 10') +
+  xlab('Cohort') +
+  ylab('Aggregate across-host pi')
+cohort_aggregate_comparison
+
+# pairwise across host pi
+pairwise_over_10 = over_10_df[c('species', 'cohort', 'pairwise_across_pi')]
+pairwise_over_10 = distinct(pairwise_over_10)
+pairwise_HMP_over_10 = pairwise_over_10[pairwise_over_10$cohort==' HMP', ]
+pairwise_African_over_10 = pairwise_over_10[pairwise_over_10$cohort==' African', ]
+pairwise_over_10 = rbind(pairwise_African_over_10, pairwise_HMP_over_10)
+# cohort aggregate_comparison
+
+cohort_pairwise_comparison <- ggpaired(data=pairwise_over_10, x='cohort', y='pairwise_across_pi', color='cohort', line.color='grey') +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  scale_shape_manual(values = c(21:23)) + 
+  stat_compare_means(method = "t.test", paired=TRUE, label.y=0.06, label.x=1.5) +
+  ggtitle('Pairwise distributed pi across hosts by cohort, Minimum #samples >= 10') +
+  xlab('Cohort') +
+  ylab('Pairwise distributed across-host pi')
+cohort_pairwise_comparison
 
