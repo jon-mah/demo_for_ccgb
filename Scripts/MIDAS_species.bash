@@ -1,11 +1,13 @@
 #!/bin/bash
-#$ -N MIDAS_species.bash
+#$ -N MIDAS_species_long.bash
 #$ -cwd # Run qsub script from desired working directory
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=15G
-#$ -l time=0:10:00
+#$ -l h_data=20G
+#$ -l highp
+#$ -l exclusive
+#$ -l time=335:00:00
 #$ -t 1-339
 
 # module load python/2.7
@@ -39,6 +41,6 @@ then
 echo "File is found"
 else
    echo "File is not found"
-   # singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2}
-   echo $SGE_TASK_ID >> species_errors.txt
+   singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2}
+   # echo $SGE_TASK_ID >> species_errors.txt
 fi
