@@ -6,9 +6,8 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=20G
 #$ -l highp
-#$ -l exclusive
 #$ -l time=335:00:00
-#$ -t 1-339
+#$ -t 8-339
 
 # module load python/2.7
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS

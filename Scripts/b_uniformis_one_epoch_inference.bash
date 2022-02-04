@@ -1,7 +1,8 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -m ea
+#$ -e /u/home/j/jonmah/postproc_error
+#$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=5G
 #$ -l h_rt=02:00:00
 

@@ -415,7 +415,7 @@ class DemographicInference():
         # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
         #               'three_epoch', 'one_epoch']
         # model_list = ['snm']
-        model_list = ['one_epoch']
+        model_list = ['one_epoch', 'two_epoch']
         # Fit different one-epoch models and compute likelihood
         method_list = ['expectation']
         for method in method_list:
@@ -447,9 +447,34 @@ class DemographicInference():
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
             elif model == 'two_epoch':
-                upper_bound = [8, 0.00015]
+                upper_bound = [8, 0.0015]
                 lower_bound = [0, 0]
-                initial_guess = [0.1, 0.00001]
+                initial_guesses = []
+                initial_guesses.append([0.1, 0.00001])
+                initial_guesses.append([0.2, 0.00001])
+                initial_guesses.append([0.3, 0.00001])
+                initial_guesses.append([0.4, 0.00001])
+                initial_guesses.append([0.5, 0.00001])
+                initial_guesses.append([0.6, 0.00001])
+                initial_guesses.append([0.7, 0.00001])
+                initial_guesses.append([0.8, 0.00001])
+                initial_guesses.append([0.9, 0.00001])
+                initial_guesses.append([1, 0.00001])
+                initial_guesses.append([1.25, 0.00001])
+                initial_guesses.append([1.5, 0.00001])
+                initial_guesses.append([1.75, 0.00001])
+                initial_guesses.append([2, 0.00001])
+                initial_guesses.append([2.25, 0.00001])
+                initial_guesses.append([2.5, 0.00001])
+                initial_guesses.append([2.75, 0.00001])
+                initial_guesses.append([3, 0.00001])
+                initial_guesses.append([3.33, 0.00001])
+                initial_guesses.append([3.66, 0.00001])
+                initial_guesses.append([4, 0.00001])
+                initial_guesses.append([5, 0.00001])
+                initial_guesses.append([6, 0.00001])
+                initial_guesses.append([7, 0.00001])
+                initial_guesses.append([8, 0.00001])
                 file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
@@ -473,16 +498,42 @@ class DemographicInference():
             elif model == 'one_epoch':
                 upper_bound = [8]
                 lower_bound = [8]
-                initial_guess = [0.1]
+                initial_guesses = []
+                initial_guesses.append([0.1])
+                initial_guesses.append([0.2])
+                initial_guesses.append([0.3])
+                initial_guesses.append([0.4])
+                initial_guesses.append([0.5])
+                initial_guesses.append([0.6])
+                initial_guesses.append([0.7])
+                initial_guesses.append([0.8])
+                initial_guesses.append([0.9])
+                initial_guesses.append([1])
+                initial_guesses.append([1.25])
+                initial_guesses.append([1.5])
+                initial_guesses.append([1.75])
+                initial_guesses.append([2])
+                initial_guesses.append([2.25])
+                initial_guesses.append([2.5])
+                initial_guesses.append([2.75])
+                initial_guesses.append([3])
+                initial_guesses.append([3.33])
+                initial_guesses.append([3.66])
+                initial_guesses.append([4])
+                initial_guesses.append([5])
+                initial_guesses.append([6])
+                initial_guesses.append([7])
+                initial_guesses.append([8])
+                # initial_guess = [0.1]
                 file = one_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.snm) 
                 logger.info('Beginning demographic inference for one-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(15):
+                for i in range(25):
                     # Start at initial guess
-                    p0 = initial_guess
+                    p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
                     p0 = dadi.Misc.perturb_params(
                         p0, fold=1, upper_bound=upper_bound,
@@ -493,7 +544,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=15)
+                        verbose=len(p0), maxiter=25)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
