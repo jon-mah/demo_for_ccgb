@@ -1175,3 +1175,123 @@ p_b_uniformis_comparison <- ggplot(data = df, aes(x=b_uniformis_x_axis, y=propor
 p_b_uniformis_comparison
 
 
+a_muciniphila_empirical = fold_sfs(c(6086, 3589, 3233, 2477, 2248, 2176, 1801, 1678, 630, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+a_muciniphila_two_epoch = fold_sfs(c(4856.85835255306, 3347.7729196144837, 2463.522110113016, 1912.8116849569628, 1549.5981768854656, 1297.23494993225,
+                                     1113.736995642971, 975.0817552301565, 866.9110678493279, 780.2715189468886, 709.3528197073293, 650.2443379468108,
+                                     600.2266887974953, 557.3536458784366, 520.1968062648581, 487.68452223354774, 458.99720162924217))
+a_muciniphila_one_epoch = fold_sfs(c(7490.140844113354, 3745.0710808582367, 2496.714114876777, 1872.5356266659865, 1498.0285313679894, 1248.3571327189354,
+                                     1070.02041792512, 936.2678805625335, 832.2381281642893, 749.0143252465251, 680.922121954235, 624.1786183831039,
+                                     576.1648838297001, 535.0102535055369, 499.34290656548245, 468.1339773755469, 440.59668633320047))
+a_muciniphila_df = data.frame(a_muciniphila_empirical,
+                              a_muciniphila_one_epoch,
+                              a_muciniphila_two_epoch)
+a_muciniphila_x_axis = 1:length(a_muciniphila_empirical)
+p_a_muciniphila_comparison <- ggplot(data = a_muciniphila_df, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +  
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_x_axis, limits = c(1, length(a_muciniphila_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_muciniphila_empirical',
+                              'a_muciniphila_one_epoch',
+                              'a_muciniphila_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'One epoch',
+                              'Two epoch')) +
+  ggtitle('A. muciniphila')
+
+p_a_muciniphila_comparison
+
+a_putredinis_empirical = fold_sfs(c(4348, 2472, 1485, 1091, 580, 395, 300, 196, 184, 131, 113, 90, 129, 179, 167, 65, 0, 0, 0, 0, 0, 0, 0,
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0))
+a_putredinis_two_epoch = fold_sfs(c(2961.6947056779304, 1480.4391608572696, 986.9594365658554, 740.21958802935, 592.1756783728677, 493.47973829044355,
+                                    422.98263800294666, 370.10981260169467, 328.9865037977154, 296.0878566150948, 269.17078152255294, 246.73988549864472,
+                                    227.75989645129235, 211.49133431455678, 197.3919137066259, 185.05492059109005, 174.16933835180774, 164.4932651762085,
+                                    155.83572594906417, 148.04394057819732, 140.99422994134648, 134.58540202938286, 128.7338634434481, 123.36995301783317,
+                                    118.4351553733276, 113.87995749675136, 109.66218163614089, 105.74567543264602, 102.09927305969724, 98.69596413424804, 
+                                    95.51222348396934))
+a_putredinis_one_epoch = fold_sfs(c(2961.6947056779304, 1480.4391608572696, 986.9594365658554, 740.21958802935, 592.1756783728677, 493.47973829044355,
+                                    422.98263800294666, 370.10981260169467, 328.9865037977154, 296.0878566150948, 269.17078152255294, 246.73988549864472,
+                                    227.75989645129235, 211.49133431455678, 197.3919137066259, 185.05492059109005, 174.16933835180774, 164.4932651762085,
+                                    155.83572594906417, 148.04394057819732, 140.99422994134648, 134.58540202938286, 128.7338634434481, 123.36995301783317,
+                                    118.4351553733276, 113.87995749675136, 109.66218163614089, 105.74567543264602, 102.09927305969724, 98.69596413424804, 
+                                    95.51222348396934))
+
+a_putredinis_df = data.frame(a_putredinis_empirical,
+                              a_putredinis_one_epoch,
+                              a_putredinis_two_epoch)
+a_putredinis_x_axis = 1:length(a_putredinis_empirical)
+p_a_putredinis_comparison <- ggplot(data = a_putredinis_df, aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empirical')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empirical')) +  
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_one_epoch, color='a_putredinis_one_epoch')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_one_epoch, color='a_putredinis_one_epoch')) +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_two_epoch, color='a_putredinis_two_epoch')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_two_epoch, color='a_putredinis_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_putredinis_x_axis, limits = c(1, length(a_putredinis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_putredinis_empirical',
+                              'a_putredinis_one_epoch',
+                              'a_putredinis_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'One epoch',
+                              'Two epoch')) +
+  ggtitle('A. putredinis')
+p_a_putredinis_comparison
+
+a_finegoldii_empirical = fold_sfs(c(6207, 2356, 1527, 1236, 1123, 1036, 1078, 1043, 1026, 992, 1016, 903, 853, 741, 737, 625, 614, 579, 232, 0, 0, 0, 0,
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+a_finegoldii_two_epoch = fold_sfs(c(2591.452115690476, 2040.3513974213315, 1647.5716188051133, 1360.6264968342396, 1146.521196160241, 983.5147484922816,
+                                    856.9918534967202, 756.968728572783, 676.5216712538063, 610.7773044190312, 556.2544121055782, 510.429513195906,
+                                    471.44665871152654, 437.9212758071015, 408.80601606138976, 383.2979250828289, 360.7734456876588, 340.742370906557,
+                                    322.8148374889029, 306.6773902445915, 292.07542416148675, 278.80015916045147, 266.6788707150096, 255.56748404476986,
+                                    245.3449020805276, 235.9086182591707, 227.17129097886522, 219.05804481746716, 211.50432614464194, 204.45418545450462,
+                                    197.85889098771784, 191.67580167860103, 185.86744469211013, 180.40075557669388, 175.2464485878213, 170.37849191257166,
+                                    165.7736679704896))
+a_finegoldii_one_epoch = fold_sfs(c(5580.9300025725715, 2790.465911482565, 1860.3106395655457, 1395.232997343584, 1116.186411044604, 930.155353010814,
+                                    797.2760255000767, 697.6165295983906, 620.1035881170635, 558.0932347372021, 507.35749088963206, 465.07770419365653,
+                                    429.3024999234318, 398.6380389886885, 372.0621727230122, 348.8082896263927, 328.290157375271, 310.0518174956055,
+                                    293.7333027710832, 279.04663942856405, 265.7587058421832, 253.67876613620396, 242.64925589153276, 232.53887142557363,
+                                    223.23731764493994, 214.65126793214117, 206.70122183524362, 199.3190361097097, 192.4459665792345, 186.03110162434857,
+                                    180.03009886676412, 174.40415872553487, 169.11918459916942, 164.14509125108614, 159.45523175743773, 155.02591996371225,
+                                    150.83603038071726))
+
+a_finegoldii_df = data.frame(a_finegoldii_empirical,
+                             a_finegoldii_one_epoch,
+                             a_finegoldii_two_epoch)
+a_finegoldii_x_axis = 1:length(a_finegoldii_empirical)
+p_a_finegoldii_comparison <- ggplot(data = a_finegoldii_df, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +  
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(1, length(a_finegoldii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_finegoldii_empirical',
+                              'a_finegoldii_one_epoch',
+                              'a_finegoldii_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'One epoch',
+                              'Two epoch')) +
+  ggtitle('A. finegoldii')
+p_a_finegoldii_comparison
