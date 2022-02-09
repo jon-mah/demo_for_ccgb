@@ -8,4 +8,5 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_one_epoch.py ../Data/Parabacteroides_merdae_56972_syn.sfs  ../Analysis/Parabacteroides_merdae_56972/ --mask_singletons
+# python fit_one_epoch.py ../Data/Parabacteroides_merdae_56972_syn.sfs  ../Analysis/Parabacteroides_merdae_56972/ --mask_singletons
+python fit_one_epoch.py ../Data/Parabacteroides_merdae_56972_syn.sfs  ../Analysis/Parabacteroides_merdae_56972_no_mask/

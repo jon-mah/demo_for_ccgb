@@ -8,4 +8,5 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_one_epoch.py ../Data/Alistipes_finegoldii_56071_syn.sfs  ../Analysis/Alistipes_finegoldii_56071/ --mask_singletons
+# python fit_one_epoch.py ../Data/Alistipes_finegoldii_56071_syn.sfs  ../Analysis/Alistipes_finegoldii_56071/ --mask_singletons
+python fit_one_epoch.py ../Data/Alistipes_finegoldii_56071_syn.sfs  ../Analysis/Alistipes_finegoldii_56071_no_mask/

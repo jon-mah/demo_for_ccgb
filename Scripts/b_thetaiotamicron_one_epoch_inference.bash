@@ -8,4 +8,5 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python fit_one_epoch.py ../Data/Bacteroides_thetaiotaomicron_56941_syn.sfs  ../Analysis/Bacteroides_thetaiotaomicron_56941/ --mask_singletons
+# python fit_one_epoch.py ../Data/Bacteroides_thetaiotaomicron_56941_syn.sfs  ../Analysis/Bacteroides_thetaiotaomicron_56941/ --mask_singletons
+python fit_one_epoch.py ../Data/Bacteroides_thetaiotaomicron_56941_syn.sfs  ../Analysis/Bacteroides_thetaiotaomicron_56941_no_mask/
