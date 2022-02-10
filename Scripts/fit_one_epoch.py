@@ -447,7 +447,7 @@ class DemographicInference():
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
             elif model == 'two_epoch':
-                upper_bound = [8, 0.0015]
+                upper_bound = [80, 0.0015]
                 lower_bound = [0, 0]
                 initial_guesses = []
                 initial_guesses.append([0.1, 0.00001])
