@@ -41,6 +41,6 @@ then
 echo "File is found"
 else
    # echo "File is not found"
-   # singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2}
+   singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2}  --remove_temp
    echo $SGE_TASK_ID >> species_errors.txt
 fi

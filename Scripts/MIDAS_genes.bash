@@ -8,7 +8,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l highp
 #$ -l time=335:00:00
-#$ -t 379
+#$ -t 1-379
 
 # 182, 276
 
@@ -47,7 +47,7 @@ file_2=${OUTDIR}${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
 if [ -f "${OUTDIR}/species/species_profile.txt" ]
 then
    echo "Species Profile file is found"
-   singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py genes $OUTDIR -1 ${file_1} -2 ${file_2}
+   singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py genes $OUTDIR -1 ${file_1} -2 ${file_2}  --remove_temp
 else
    echo "Species Profile file is not found"
 fi
