@@ -124,7 +124,11 @@ b_vulgatus_exponential_growth_syn_no_s_sfs = b_vulgatus_exponential_growth_syn_n
 b_vulgatus_two_epoch_syn_no_s_sfs = b_vulgatus_two_epoch_syn_no_s_sfs[1:length(b_vulgatus_x_axis)]
 b_vulgatus_three_epoch_syn_no_s_sfs = b_vulgatus_three_epoch_syn_no_s_sfs[1:length(b_vulgatus_x_axis)]
 
-df = data.frame(b_vulgatus_empirical_syn_no_s_sfs, b_vulgatus_bottleneck_growth_syn_no_s_sfs, b_vulgatus_exponential_growth_syn_no_s_sfs, b_vulgatus_two_epoch_syn_no_s_sfs, b_vulgatus_three_epoch_syn_no_s_sfs)
+df = data.frame(b_vulgatus_empirical_syn_no_s_sfs, 
+                b_vulgatus_bottleneck_growth_syn_no_s_sfs, 
+                b_vulgatus_exponential_growth_syn_no_s_sfs, 
+                b_vulgatus_two_epoch_syn_no_s_sfs, 
+                b_vulgatus_three_epoch_syn_no_s_sfs)
 
 p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_no_s_sfs), color='b_vulgatus_empirical')) +
   geom_point(shape=1) +
@@ -1367,8 +1371,8 @@ p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonki
                      ),
                      labels=c('Empirical',
                               'One epoch',
-                              'Two epoch')) +
-  ggtitle('A. onderdonkii')
+                              'Three epoch')) +
+  ggtitle('A. onderdonkii, singletons masked')
 p_a_onderdonkii_comparison
 
 a_onderdonkii_two_epoch = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963, 3513.1941264046495, 2747.44614715245,
@@ -1408,7 +1412,7 @@ p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonki
                      ),
                      labels=c('Empirical',
                               'One epoch',
-                              'Two epoch')) +
+                              'Three epoch')) +
   ggtitle('A. onderdonkii with singletons')
 p_a_onderdonkii_comparison
 
@@ -1530,8 +1534,8 @@ p_b_intestinihominis_comparison <- ggplot(data = b_intestinihominis_df, aes(x=b_
                      ),
                      labels=c('Empirical',
                               'One epoch',
-                              'Two epoch')) +
-  ggtitle('B. intestinihominis')
+                              'Three epoch')) +
+  ggtitle('B. intestinihominis, singletons masked')
 p_b_intestinihominis_comparison
 
 b_intestinihominis_two_epoch = proportional_sfs(fold_sfs(c(10437.311252979902, 5087.0606777901185, 3390.743436308415, 2543.05267242049,
@@ -1952,6 +1956,29 @@ p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_th
   ggtitle('B. thetaiotamicron, with singletons')
 p_b_thetaiotamicron_comparison
 
+p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_no_s_sfs), color='b_vulgatus_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_s_sfs, color='b_vulgatus_one_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_bottleneck_growth_syn_no_s_sfs, color='b_vulgatus_one_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_no_s_sfs, color='b_vulgatus_three_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_three_epoch_syn_no_s_sfs, color='b_vulgatus_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(1, length(b_vulgatus_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'red', 'green'),
+                     name='Data Type',
+                     breaks=c('b_vulgatus_empirical',
+                              'b_vulgatus_three_epoch'),
+                     labels=c('Empirical',
+                              'One Epoch',
+                              'Three Epoch')) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle('B. vulgatus, Empirical vs. Expected Syn SFS. (No singletons)')
+
+p_b_vulgatus
+
+
 p_distasonis_empirical = proportional_sfs(fold_sfs(c(8721, 4302, 2876, 2723, 2110, 1975, 1740, 1781, 1609, 1586, 1292, 1140, 1108,
                                                      993, 972, 924, 861, 837, 834, 696, 687, 638, 583, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
@@ -2003,8 +2030,8 @@ p_p_distasonis_comparison <- ggplot(data = p_distasonis_df, aes(x=p_distasonis_x
                      ),
                      labels=c('Empirical',
                               'One epoch',
-                              'Two epoch')) +
-  ggtitle('P. distasonis')
+                              'Three epoch')) +
+  ggtitle('P. distasonis, singletons masked')
 p_p_distasonis_comparison
 
 p_distasonis_two_epoch = proportional_sfs(fold_sfs(c(8996.550787398168, 999.1253320181567, 666.0847236827736,
@@ -2039,7 +2066,7 @@ p_p_distasonis_comparison <- ggplot(data = p_distasonis_df, aes(x=p_distasonis_x
                      ),
                      labels=c('Empirical',
                               'One epoch',
-                              'Two epoch')) +
+                              'Three epoch')) +
   ggtitle('P. distasonis with singletons')
 p_p_distasonis_comparison
 
