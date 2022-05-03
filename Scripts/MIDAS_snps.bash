@@ -1,4 +1,3 @@
-]
 #!/bin/bash
 #$ -N MIDAS_snps.bash
 #$ -cwd # Run qsub script from desired working directory
@@ -7,7 +6,7 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l highp
-#$ -l time=24:00:00
+#$ -l time=48:00:00
 #$ -t 1-379
 
 # 182, 276
@@ -28,7 +27,7 @@ do
    fi
 done < ../Data/oral_microbiome_data/file_list.txt
 
-OUTDIR=../Data/oral_microbiome_data/${file}/
+OUTDIR=../Data/oral_microbiome_data/${file}
 
 if [ ! -d $OUTDIR/snps ] 
 then
@@ -36,13 +35,21 @@ then
 fi
 
 
-file_1=${OUTDIR}${file}.denovo_duplicates_marked.trimmed.1.fastq.gz
-file_2=${OUTDIR}${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
+file_1=${OUTDIR}/${file}.denovo_duplicates_marked.trimmed.1.fastq.gz
+file_2=${OUTDIR}/${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
 species_union=../Data/oral_microbiome_data/successful_species_union.txt
 
 # echo ${file_1}
 # echo ${file_2}
 # echo $OUTDIR
+
+prev_bool=$(head -n 1 ${OUTDIR}/species/species_profile.txt)
+if grep -q "prevalence" <<< "$prev_bool"; then
+   echo "It's there"
+   cp $species_union ${OUTDIR}/species/species_profile.txt
+   # singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py snps $OUTDIR -1 ${file_1} -2 ${file_2}  --extra_species_file $species_union --remove_temp
+fi
+
 
 if [ -f "${OUTDIR}/species/species_profile.txt" ]
 then

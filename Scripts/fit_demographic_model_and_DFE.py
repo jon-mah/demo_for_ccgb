@@ -476,8 +476,7 @@ class DemographicInference():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
-                      'three_epoch']
+        model_list = ['three_epoch']
         for model in model_list:
             if model == 'exponential_growth':
                 upper_bound = [8, 0.00005]
@@ -534,7 +533,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=25)
+                        verbose=len(p0), maxiter=5)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
@@ -628,7 +627,7 @@ class DemographicInference():
                                            lower_bound=lower_bound,
                                            upper_bound=upper_bound,
                                            verbose=len(p0),
-                                           maxiter=15))
+                                           maxiter=5))
                 logger.info(
                     'Finished optomization, results are {0}.'.format(popt))
 
@@ -657,7 +656,7 @@ class DemographicInference():
                                            lower_bound=lower_bound,
                                            upper_bound=upper_bound,
                                            verbose=len(p0_neugamma),
-                                           maxiter=15))
+                                           maxiter=5))
                 logger.info(
                     'Finished optimization, results are {0}.'.format(popt))
                 neugamma_max_likelihoods.append(popt[0])
@@ -688,7 +687,7 @@ class DemographicInference():
                                             lower_bound=lower_bound,
                                             upper_bound=upper_bound,
                                             verbose=len(p0_mixunif),
-                                            maxiter=15,
+                                            maxiter=5,
                                             constraint=constraint_function))
                 logger.info(
                     'Finished optimization, results are {0}.'.format(popt))

@@ -69,3 +69,16 @@ This script summarizes the average pi values per sample across species and popul
     * `outprefix`: Prefix of output directory.
     * `species`: String describing the species being analyzed
     * `cohort`: String describing the cohort from which the data is derived. Currently only accepts "HMP" and "African".
+
+* `MIDAS_merge.bash`
+
+This script runs the merge step of the MIDAS pipeline.
+
+OUTDIR=/u/home/j/jonmah/project-ngarud/demo_for_ccgb/Data/oral_microbiome_data
+
+`module load singularity`
+`singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif merge_midas.py snps $OUTDIR/snps -i /u/home/j/jonmah/project-ngarud/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate -t dir –sample_depth 5 –site_depth 3 –min_samples 1 –site_prev 0.0`
+
+`singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif merge_midas.py genes $OUTDIR/genes -i /u/home/j/jonmah/project-ngarud/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate -t dir`
+
+`merge_midas.py species $OUTDIR/species -i /u/home/j/jonmah/project-ngarud/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate -t dir`

@@ -16,6 +16,7 @@ import numpy
 import bz2
 import pandas as pd
 import gzip
+import re
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -48,7 +49,7 @@ class ComputePi():
             'input_fastq_gz', type=self.ExistingFile,
             help=('String containing path to desired input file')),
         parser.add_argument(
-            'output_fastq_gz', type=self.ExistingFile,
+            'output_fastq_gz', type=str,
             help=('String containing path to desired output file')),
         parser.add_argument(
             'outprefix', type=str,
@@ -64,9 +65,8 @@ class ComputePi():
 
         # Assign arguments
         input_fastq_gz = args['input_fastq_gz']
+        output_fastq_gz = args['output_fastq_gz']
         outprefix = args['outprefix']
-        file_prefix = input_fastq_gz.split('/')[-1]
-        file_prefix = input_fastq_gz.split('.')[0]
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -82,11 +82,11 @@ class ComputePi():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        output_file = \
-            '{0}{1}{2}.fastq.gz'.format(
-                args['outprefix'], underscore, file_prefix)
+        # output_file = \
+        #     '{0}{1}{2}.fastq.gz'.format(
+        #         args['outprefix'], underscore, file_prefix)
         logfile = '{0}{1}compute_pi.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, output_matrix]
+        to_remove = [logfile, output_fastq_gz]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -115,10 +115,24 @@ class ComputePi():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # open post-processed MIDAS output
-        input_file = bz2.BZ2File(input_fastq_gz)
-        print(output_file)
-        # output_file =
-        # with open()
+        # input_file = bz2.BZ2File(input_fastq_gz)
+        # with gzip.open(input_fastq_gz, 'rb') as input:
+        #     lines = input.readlines()
+        #     with gzip.open(output_fastq_gz, 'wb') as output:
+        #         for i in range(0, len(lines)-1):
+        #            if lines[i+1]:
+        #                 next_line = lines[i+1]
+        #                 if re.search('N', next_line):
+        #                     print('only N')
+        #                 else:
+        #                     print('not only N')
+        #                     output.write(lines[i])
+        #                     output.write(lines[i+1])
+
+        # with gzip.open(input_fastq_gz, 'rb') as input:
+        #     with gzip.open(output_fastq_gz, 'wb') as output:
+        #         for line in input:
+        #             output.write(line)
 
 if __name__ == '__main__':
     ComputePi().main()
