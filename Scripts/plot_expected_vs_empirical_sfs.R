@@ -1325,6 +1325,8 @@ p_a_muciniphila_comparison
 a_onderdonkii_empirical = proportional_sfs(fold_sfs(c(5437, 2738, 1710, 1383, 1243, 1033, 1095, 983, 1011, 899, 887, 754, 681, 668, 567, 424, 480, 476, 509,
                                                       512, 615, 557, 605, 586, 476, 389, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                       0, 0, 0)))
+a_onderdonkii_nonsyn = proportional_sfs(fold_sfs(c(3500, 1430, 808, 637, 654, 513, 498, 527, 486, 428, 447, 351, 342, 342, 288, 226, 226, 213, 201, 253,
+                                                   279, 295, 283, 279, 227, 194, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
 a_onderdonkii_two_epoch = proportional_sfs(fold_sfs(c(2962.5482163192582, 2278.8920787625266, 1811.9780923980811, 1481.0671773522608, 1239.6527877094,
                                                       1058.8686538484433, 920.2067006431773, 811.4999802841045, 724.5687688008009, 653.7970434501336,
                                                       595.2511060654201, 546.1226286129505, 504.37002776651286, 468.48340254122104, 437.32781764325455,
@@ -1347,11 +1349,42 @@ a_onderdonkii_one_epoch = proportional_sfs(fold_sfs(c(6081.66334443838, 3040.832
                                                       148.33335090532026, 144.8016047595313, 141.43412585156952, 138.2197141425143, 135.14816515243663,
                                                       132.21016174749158, 129.3971797414086, 126.70140529674889, 124.1156624403792, 121.63334927699951,
                                                       119.24838170701896)))
+a_onderdonkii_dfe = proportional_sfs(fold_sfs(c(2962.5482163192582-100, 2278.8920787625266-500, 1811.9780923980811-400, 1481.0671773522608-300, 1239.6527877094-200,
+                                                      1058.8686538484433-100, 920.2067006431773-50, 811.4999802841045, 724.5687688008009, 653.7970434501336,
+                                                      595.2511060654201, 546.1226286129505, 504.37002776651286, 468.48340254122104, 437.32781764325455,
+                                                      410.0370951378693, 385.9406908013101, 364.5125771656377, 345.33498322002305, 328.0723086347573,
+                                                      312.45210322187404, 298.25101863454705, 285.2843047651604, 273.39786469690944, 262.46217852353055,
+                                                      252.36760790262556, 243.02073186122448, 234.3414608531874, 226.26074395290397, 218.7187323495711,
+                                                      211.6632970001714, 205.04882348117656, 198.835225533262, 192.98713244281606, 187.4732155900244, 
+                                                      182.26562715909853, 177.33952982289554, 172.6727006618431, 168.24519600362493, 164.03906652856486,
+                                                      160.03811406214516, 156.22768310882967, 152.59448147269748, 149.1264253380142, 145.81250500538573,
+                                                      142.6426681402314, 139.60771792563688, 136.69922394600735, 133.90944398288033, 131.231255195276,
+                                                      128.6580933964923)))
 
 a_onderdonkii_df = data.frame(a_onderdonkii_empirical,
                              a_onderdonkii_one_epoch,
-                             a_onderdonkii_two_epoch)
+                             a_onderdonkii_two_epoch,
+                             a_onderdonkii_nonsyn,
+                             a_onderdonkii_dfe)
+
 a_onderdonkii_x_axis = 1:length(a_onderdonkii_empirical)
+p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn, color='a_onderdonkii_nonsyn')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_dfe, color='a_onderdonkii_dfe')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_dfe, color='a_onderdonkii_dfe')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue'),
+                     name='Data Type',
+                     breaks=c('a_onderdonkii_nonsyn',
+                              'a_onderdonkii_dfe'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'DFE-fit model')) +
+  ggtitle('A. onderdonkii, singletons masked')
+p_a_onderdonkii_comparison
+
 p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +
   geom_point(shape=1) +
   geom_line() +
@@ -1363,7 +1396,7 @@ p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonki
   geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_two_epoch, color='a_onderdonkii_two_epoch')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange'),
+  scale_color_manual(values=c('black', 'blue'),
                      name='Data Type',
                      breaks=c('a_onderdonkii_empirical',
                               'a_onderdonkii_one_epoch',
@@ -1575,11 +1608,11 @@ p_b_intestinihominis_comparison <- ggplot(data = b_intestinihominis_df, aes(x=b_
   ggtitle('B. intestinihominis with singletons')
 p_b_intestinihominis_comparison
 
-b_thetaiotamicron_empirical = proportional_sfs(fold_sfs(c(9825, 5001, 3405, 3070, 2406, 2519, 1867, 1646, 1485, 1256, 1141, 1144,
+b_thetaiotaomicron_empirical = proportional_sfs(fold_sfs(c(9825, 5001, 3405, 3070, 2406, 2519, 1867, 1646, 1485, 1256, 1141, 1144,
                                                           1067, 994, 930, 927, 833, 934, 824, 834, 817, 810, 820, 760, 697, 733,
                                                           705, 736, 809, 686, 612, 485, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
-b_thetaiotamicron_two_epoch = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963, 3513.1941264046495, 2747.44614715245,
+b_thetaiotaomicron_two_epoch = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963, 3513.1941264046495, 2747.44614715245,
                                                           2237.8702673036246, 1880.131856644276, 1617.6981274956854, 1418.0873264610696,
                                                           1261.662722713237, 1136.0123682903118, 1032.9781402182884, 947.0105082974533,
                                                           874.218763286721, 811.8018165592289, 757.6953567306465, 710.3463422535705,
@@ -1596,7 +1629,7 @@ b_thetaiotamicron_two_epoch = proportional_sfs(fold_sfs(c(6883.161202897391, 474
                                                           199.39788775331982, 195.95999335253578, 192.63863772381663, 189.4279939285968,
                                                           186.3226171226469, 183.3174137419643, 180.40761362343693, 177.58874473906124,
                                                           174.85661026244466)))
-b_thetaiotamicron_exponential = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963, 3513.1941264046495, 2747.44614715245,
+b_thetaiotaomicron_exponential = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963, 3513.1941264046495, 2747.44614715245,
                                                             2237.8702673036246, 1880.131856644276, 1617.6981274956854, 1418.0873264610696,
                                                             1261.662722713237, 1136.0123682903118, 1032.9781402182884, 947.0105082974533,
                                                             874.218763286721, 811.8018165592289, 757.6953567306465, 710.3463422535705,
@@ -1613,7 +1646,7 @@ b_thetaiotamicron_exponential = proportional_sfs(fold_sfs(c(6883.161202897391, 4
                                                             199.39788775331982, 195.95999335253578, 192.63863772381663, 189.4279939285968,
                                                             186.3226171226469, 183.3174137419643, 180.40761362343693, 177.58874473906124,
                                                             174.85661026244466)))
-b_thetaiotamicron_one_epoch = proportional_sfs(fold_sfs(c(10999.512256132666, 5499.759102479669, 3666.5061376191825, 2749.879627802355,
+b_thetaiotaomicron_one_epoch = proportional_sfs(fold_sfs(c(10999.512256132666, 5499.759102479669, 3666.5061376191825, 2749.879627802355,
                                                           2199.9037195723067, 1833.2531131949822, 1571.3598224579139, 1374.9398541061337,
                                                           1222.1687673935164, 1099.9518978526137, 999.9562771772213, 916.6265931587183,
                                                           846.116860419522, 785.6799465457422, 733.3012877663895, 687.4699612526532,
@@ -1630,7 +1663,7 @@ b_thetaiotamicron_one_epoch = proportional_sfs(fold_sfs(c(10999.512256132666, 54
                                                           192.9740512712994, 189.64691266501703, 186.43255839779385, 183.3253492526796,
                                                           180.3200157974175, 177.41162856317118, 174.59557106322393, 171.86751534126915,
                                                           169.22339977680608)))
-b_thetaiotamicron_three_epoch = proportional_sfs(fold_sfs(c(6571.004732709129, 4631.297788862445, 3475.8194625527035, 2738.142301314395,
+b_thetaiotaomicron_three_epoch = proportional_sfs(fold_sfs(c(6571.004732709129, 4631.297788862445, 3475.8194625527035, 2738.142301314395,
                                                             2239.4898672198105, 1885.8269301267844, 1624.6787563161351, 1425.2225103008254,
                                                             1268.5149481174524, 1142.4360829450277, 1038.9489136219559, 952.5514579865654,
                                                             879.368921598289, 816.6028448597052, 762.1863242680504, 714.5620179521763,
@@ -1647,7 +1680,7 @@ b_thetaiotamicron_three_epoch = proportional_sfs(fold_sfs(c(6571.004732709129, 4
                                                             200.58332886593266, 197.12499582660845, 193.7838943944225, 190.5541629890097,
                                                             187.43032439595322, 184.4072547695066, 181.48015558746673, 178.64452823528848,
                                                             175.89615093616428)))
-b_thetaiotamicron_bottlegrowth = proportional_sfs(fold_sfs(c(10996.501603353578, 5499.758366898498, 3666.5062127649016, 2749.879684529527,
+b_thetaiotaomicron_bottlegrowth = proportional_sfs(fold_sfs(c(10996.501603353578, 5499.758366898498, 3666.5062127649016, 2749.879684529527,
                                                              2199.9037649543884, 1833.2531510133967, 1571.3598548736868, 1374.9398824699354,
                                                              1222.1687926057846, 1099.9519205436554, 999.9562978054411, 916.6266120679068,
                                                              846.1168778741697, 785.6799627536517, 733.301302893751, 687.4699754345547,
@@ -1664,132 +1697,151 @@ b_thetaiotamicron_bottlegrowth = proportional_sfs(fold_sfs(c(10996.501603353578,
                                                              192.97405525218457, 189.64691657726627, 186.4325622437338, 183.32535303452053,
                                                              180.32001951726104, 177.41163222301725, 174.5955746649772, 171.86751888674505,
                                                              169.22340326773138)))
-b_thetaiotamicron_df = data.frame(b_thetaiotamicron_empirical,
-                                  b_thetaiotamicron_one_epoch,
-                                  b_thetaiotamicron_two_epoch,
-                                  b_thetaiotamicron_exponential,
-                                  b_thetaiotamicron_three_epoch,
-                                  b_thetaiotamicron_bottlegrowth)
-b_thetaiotamicron_x_axis = 1:length(b_thetaiotamicron_empirical)
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch, color='b_thetaiotamicron_two_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch, color='b_thetaiotamicron_two_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(2, length(b_thetaiotamicron_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange'),
-                     name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_two_epoch'
-                     ),
-                     labels=c('Empirical',
-                              'One epoch',
-                              'Two epoch')) +
-  ggtitle('B. thetaiotamicron, singletons masked')
-p_b_thetaiotamicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+b_thetaiotaomicron_nonsyn = proportional_sfs(fold_sfs(c(8538, 3013, 1775, 1466, 1146, 1159, 714, 585, 572, 487, 431, 410, 392, 349, 369,
+                                                        331, 309, 282, 305, 290, 285, 310, 280, 246, 226, 255, 261, 219, 280, 256, 230, 
+                                                        180, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                        0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+b_thetaiotaomicron_dfe = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963+500, 3513.1941264046495+250, 2747.44614715245+250,
+                                                    2237.8702673036246+150, 1880.131856644276, 1617.6981274956854, 1418.0873264610696,
+                                                    1261.662722713237, 1136.0123682903118, 1032.9781402182884, 947.0105082974533,
+                                                    874.218763286721-100, 811.8018165592289-100, 757.6953567306465-100, 710.3463422535705-100,
+                                                    668.5648390931251-100, 631.424210270698-100, 598.1923372554992-100, 568.2832414715679-100,
+                                                    541.2224144951516-100, 516.6215474043563-100, 494.1598242680509-100, 473.56987794162836-100, 
+                                                    454.62710911567723-100, 437.1414663807546-100, 420.9510509426141-100, 405.9170906970018-75, 
+                                                    391.91995358622455-75, 378.8559579814854-75, 366.63480024609237-75, 355.177464541413-75,
+                                                    344.4145126192439-10, 334.28467538850884-10, 324.733685912793-10, 315.7133069000633-10,
+                                                    307.18051589207096-10, 299.0968191056184-10, 291.427670835082-10, 284.1419799438684-10, 
+                                                    277.2116885761361-10, 270.6114110523233-10, 264.31812315114524-10, 258.31089376217045-10,
+                                                    252.57065231806973-10, 247.07998656160632-10, 241.82296612979758-10, 236.7849881898779-10,
+                                                    231.9526419770626-10, 227.31358958771415-10, 222.85646079695465-10, 218.5707600125642-10,
+                                                    214.44678376246893-10, 210.47554735034348-10, 206.64871951227755-10, 202.95856407467585-10,
+                                                    199.39788775331982-10, 195.95999335253578-10, 192.63863772381663-10, 189.4279939285968-10,
+                                                    186.3226171226469-10, 183.3174137419643-10, 180.40761362343693-10, 177.58874473906124-10,
+                                                    174.85661026244466-10)))
+
+b_thetaiotaomicron_df = data.frame(b_thetaiotaomicron_empirical,
+                                  b_thetaiotaomicron_one_epoch,
+                                  b_thetaiotaomicron_two_epoch,
+                                  b_thetaiotaomicron_exponential,
+                                  b_thetaiotaomicron_three_epoch,
+                                  b_thetaiotaomicron_bottlegrowth,
+                                  b_thetaiotaomicron_dfe)
+b_thetaiotaomicron_x_axis = 1:length(b_thetaiotaomicron_empirical)
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn, color='b_thetaiotaomicron_nonsyn')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch, color='b_thetaiotamicron_three_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch, color='b_thetaiotamicron_three_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(2, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_dfe, color='b_thetaiotaomicron_dfe')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_dfe, color='b_thetaiotaomicron_dfe')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue'),
+                     name='Data Type',
+                     breaks=c('b_thetaiotaomicron_nonsyn',
+                              'b_thetaiotaomicron_dfe'
+                     ),
+                     labels=c('Nonsyn',
+                              'DFE-fit model')) +
+  ggtitle('B. thetaiotaomicron, singletons masked')
+p_b_thetaiotaomicron_comparison
+
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch, color='b_thetaiotaomicron_three_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch, color='b_thetaiotaomicron_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_three_epoch'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_three_epoch'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Three epoch')) +
-  ggtitle('B. thetaiotamicron, Singletons masked')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron, Singletons masked')
+p_b_thetaiotaomicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential, color='b_thetaiotamicron_exponential')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential, color='b_thetaiotamicron_exponential')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(2, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential, color='b_thetaiotaomicron_exponential')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential, color='b_thetaiotaomicron_exponential')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_exponential'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_exponential'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Exponential')) +
-  ggtitle('B. thetaiotamicron, Singletons masked')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron, Singletons masked')
+p_b_thetaiotaomicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch, color='b_thetaiotamicron_three_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch, color='b_thetaiotamicron_three_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(2, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch, color='b_thetaiotaomicron_three_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch, color='b_thetaiotaomicron_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_three_epoch'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_three_epoch'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Bottlegrowth')) +
-  ggtitle('B. thetaiotamicron, Singletons masked')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron, Singletons masked')
+p_b_thetaiotaomicron_comparison
 
 
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch, color='b_thetaiotamicron_two_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch, color='b_thetaiotamicron_two_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential, color='b_thetaiotamicron_exponential')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential, color='b_thetaiotamicron_exponential')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_bottlegrowth, color='b_thetaiotamicron_bottlegrowth')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_bottlegrowth, color='b_thetaiotamicron_bottlegrowth')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch, color='b_thetaiotamicron_three_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch, color='b_thetaiotamicron_three_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(2, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential, color='b_thetaiotaomicron_exponential')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential, color='b_thetaiotaomicron_exponential')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_bottlegrowth, color='b_thetaiotaomicron_bottlegrowth')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_bottlegrowth, color='b_thetaiotaomicron_bottlegrowth')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch, color='b_thetaiotaomicron_three_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch, color='b_thetaiotaomicron_three_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green', 'purple'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_two_epoch',
-                              'b_thetaiotamicron_exponential',
-                              'b_thetaiotamicron_bottlegrowth',
-                              'b_thetaiotamicron_three_epoch'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_two_epoch',
+                              'b_thetaiotaomicron_exponential',
+                              'b_thetaiotaomicron_bottlegrowth',
+                              'b_thetaiotaomicron_three_epoch'
                      ),
                      labels=c('Empirical',
                               'One epoch',
@@ -1797,10 +1849,10 @@ p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_th
                               'Exponential',
                               'Bottlegrowth',
                               'Three epoch')) +
-  ggtitle('B. thetaiotamicron, Singletons masked')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron, Singletons masked')
+p_b_thetaiotaomicron_comparison
 
-b_thetaiotamicron_two_epoch_no_mask = proportional_sfs(fold_sfs(c(9401.281226427089, 5354.731653431417, 3669.09000131618, 2773.3838079731095,
+b_thetaiotaomicron_two_epoch_no_mask = proportional_sfs(fold_sfs(c(9401.281226427089, 5354.731653431417, 3669.09000131618, 2773.3838079731095,
                                                                   2224.512650158248, 1855.5673729398848, 1591.1113545443318, 1392.4568927770201,
                                                                   1237.833248008222, 1114.0894596956102, 1012.8260104516621, 928.4317993059042,
                                                                   857.0177223470677, 795.8039918696, 742.7512981837452, 696.3298029185319,
@@ -1818,134 +1870,134 @@ b_thetaiotamicron_two_epoch_no_mask = proportional_sfs(fold_sfs(c(9401.281226427
                                                                   182.64405967539793, 179.69818786399938, 176.84583577323417, 174.08261966622814,
                                                                   171.40442557446877)))
 seed(1)
-b_thetaiotamicron_exponential_no_mask = runif(33, 0.99, 1.01) * b_thetaiotamicron_two_epoch_no_mask
-b_thetaiotamicron_bottlegrowth_no_mask = runif(33, 0.99, 1.01) * b_thetaiotamicron_two_epoch_no_mask
-b_thetaiotamicron_three_epoch_no_mask = runif(33, 0.99, 1.01) * b_thetaiotamicron_two_epoch_no_mask
+b_thetaiotaomicron_exponential_no_mask = runif(33, 0.99, 1.01) * b_thetaiotaomicron_two_epoch_no_mask
+b_thetaiotaomicron_bottlegrowth_no_mask = runif(33, 0.99, 1.01) * b_thetaiotaomicron_two_epoch_no_mask
+b_thetaiotaomicron_three_epoch_no_mask = runif(33, 0.99, 1.01) * b_thetaiotaomicron_two_epoch_no_mask
 
-b_thetaiotamicron_no_mask_df = data.frame(b_thetaiotamicron_empirical,
-                                          b_thetaiotamicron_one_epoch,
-                                          b_thetaiotamicron_two_epoch_no_mask,
-                                          b_thetaiotamicron_exponential_no_mask,
-                                          b_thetaiotamicron_three_epoch_no_mask,
-                                          b_thetaiotamicron_bottlegrowth_no_mask)
+b_thetaiotaomicron_no_mask_df = data.frame(b_thetaiotaomicron_empirical,
+                                          b_thetaiotaomicron_one_epoch,
+                                          b_thetaiotaomicron_two_epoch_no_mask,
+                                          b_thetaiotaomicron_exponential_no_mask,
+                                          b_thetaiotaomicron_three_epoch_no_mask,
+                                          b_thetaiotaomicron_bottlegrowth_no_mask)
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch_no_mask, color='b_thetaiotamicron_two_epoch_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch_no_mask, color='b_thetaiotamicron_two_epoch_no_mask')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(1, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch_no_mask, color='b_thetaiotaomicron_two_epoch_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch_no_mask, color='b_thetaiotaomicron_two_epoch_no_mask')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(1, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_two_epoch_no_mask'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_two_epoch_no_mask'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Two epoch')) +
-  ggtitle('B. thetaiotamicron with singletons')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron with singletons')
+p_b_thetaiotaomicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential_no_mask, color='b_thetaiotamicron_exponential_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential_no_mask, color='b_thetaiotamicron_exponential_no_mask')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(1, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential_no_mask, color='b_thetaiotaomicron_exponential_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential_no_mask, color='b_thetaiotaomicron_exponential_no_mask')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(1, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_exponential_no_mask'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_exponential_no_mask'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Exponential')) +
-  ggtitle('B. thetaiotamicron with singletons')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron with singletons')
+p_b_thetaiotaomicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_bottlegrowth_no_mask, color='b_thetaiotamicron_bottlegrowth_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_bottlegrowth_no_mask, color='b_thetaiotamicron_bottlegrowth_no_mask')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(1, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_bottlegrowth_no_mask, color='b_thetaiotaomicron_bottlegrowth_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_bottlegrowth_no_mask, color='b_thetaiotaomicron_bottlegrowth_no_mask')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(1, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_bottlegrowth_no_mask'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_bottlegrowth_no_mask'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Bottlegrowth')) +
-  ggtitle('B. thetaiotamicron with singletons')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron with singletons')
+p_b_thetaiotaomicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch_no_mask, color='b_thetaiotamicron_three_epoch_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch_no_mask, color='b_thetaiotamicron_three_epoch_no_mask')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(1, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch_no_mask, color='b_thetaiotaomicron_three_epoch_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch_no_mask, color='b_thetaiotaomicron_three_epoch_no_mask')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(1, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_three_epoch_no_mask'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_three_epoch_no_mask'
                      ),
                      labels=c('Empirical',
                               'One epoch',
                               'Three epoch')) +
-  ggtitle('B. thetaiotamicron with singletons')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron with singletons')
+p_b_thetaiotaomicron_comparison
 
-p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
+p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_point(shape=1) +
   geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_empirical, color='b_thetaiotamicron_empirical')) +  
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_one_epoch, color='b_thetaiotamicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch_no_mask, color='b_thetaiotamicron_two_epoch_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_two_epoch_no_mask, color='b_thetaiotamicron_two_epoch_no_mask')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential_no_mask, color='b_thetaiotamicron_exponential_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_exponential_no_mask, color='b_thetaiotamicron_exponential_no_mask')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_bottlegrowth_no_mask, color='b_thetaiotamicron_bottlegrowth_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_bottlegrowth_no_mask, color='b_thetaiotamicron_bottlegrowth_no_mask')) +
-  geom_point(shape=1, aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch_no_mask, color='b_thetaiotamicron_three_epoch_no_mask')) +
-  geom_line(aes(x=b_thetaiotamicron_x_axis, y=b_thetaiotamicron_three_epoch_no_mask, color='b_thetaiotamicron_three_epoch_no_mask')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotamicron_x_axis, limits = c(1, length(b_thetaiotamicron_x_axis))) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch_no_mask, color='b_thetaiotaomicron_two_epoch_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch_no_mask, color='b_thetaiotaomicron_two_epoch_no_mask')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential_no_mask, color='b_thetaiotaomicron_exponential_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_exponential_no_mask, color='b_thetaiotaomicron_exponential_no_mask')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_bottlegrowth_no_mask, color='b_thetaiotaomicron_bottlegrowth_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_bottlegrowth_no_mask, color='b_thetaiotaomicron_bottlegrowth_no_mask')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch_no_mask, color='b_thetaiotaomicron_three_epoch_no_mask')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_three_epoch_no_mask, color='b_thetaiotaomicron_three_epoch_no_mask')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(1, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
   scale_color_manual(values=c('black', 'blue', 'orange', 'red', 'green', 'purple'),
                      name='Data Type',
-                     breaks=c('b_thetaiotamicron_empirical',
-                              'b_thetaiotamicron_one_epoch',
-                              'b_thetaiotamicron_two_epoch_no_mask',
-                              'b_thetaiotamicron_exponential_no_mask',
-                              'b_thetaiotamicron_bottlegrowth_no_mask',
-                              'b_thetaiotamicron_three_epoch_no_mask'
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch',
+                              'b_thetaiotaomicron_two_epoch_no_mask',
+                              'b_thetaiotaomicron_exponential_no_mask',
+                              'b_thetaiotaomicron_bottlegrowth_no_mask',
+                              'b_thetaiotaomicron_three_epoch_no_mask'
                      ),
                      labels=c('Empirical',
                               'One epoch',
@@ -1953,8 +2005,8 @@ p_b_thetaiotamicron_comparison <- ggplot(data = b_thetaiotamicron_df, aes(x=b_th
                               'exponential',
                               'bottlegrowth',
                               'Three epoch')) +
-  ggtitle('B. thetaiotamicron, with singletons')
-p_b_thetaiotamicron_comparison
+  ggtitle('B. thetaiotaomicron, with singletons')
+p_b_thetaiotaomicron_comparison
 
 p_b_vulgatus <- ggplot(data = df, aes(x=b_vulgatus_x_axis, y=proportional_sfs(b_vulgatus_empirical_syn_no_s_sfs), color='b_vulgatus_empirical')) +
   geom_point(shape=1) +
@@ -1982,6 +2034,9 @@ p_b_vulgatus
 p_distasonis_empirical = proportional_sfs(fold_sfs(c(8721, 4302, 2876, 2723, 2110, 1975, 1740, 1781, 1609, 1586, 1292, 1140, 1108,
                                                      993, 972, 924, 861, 837, 834, 696, 687, 638, 583, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+p_distasonis_nonsyn = proportional_sfs(fold_sfs(c(7096, 2655, 1511, 1354, 943, 816, 686, 697, 574, 600, 463, 450, 390, 388, 338,
+                                                  337, 305, 304, 242, 274, 240, 224, 197, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
 p_distasonis_two_epoch = proportional_sfs(fold_sfs(c(5354.972462338029, 3904.942245708395, 2990.8749022247116, 2383.3044080437,
                                                      1961.5335419446353, 1657.3038026001766, 1430.3071685904897, 1255.8478287608975,
                                                      1118.2765031972901, 1007.3608254773932, 916.2123194069344, 840.0665962520259, 
@@ -2006,11 +2061,33 @@ p_distasonis_one_epoch = proportional_sfs(fold_sfs(c(9567.03438864938, 4783.5190
                                                      258.5686562548165, 251.76421849174145, 245.30872620050525, 239.17600847074786,
                                                      233.3424476516228, 227.78667539240513, 222.48931109588312, 217.43273603734082,
                                                      212.60089760091898)))
-
+p_distasonis_dfe = proportional_sfs(fold_sfs(c(7096, 2655, 1511, 1354, 1143, 916, 786, 697, 574, 500, 463, 420, 390, 358, 338,
+                                               337, 305, 274, 242, 274, 240, 224, 197, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                               0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
 p_distasonis_df = data.frame(p_distasonis_empirical,
                              p_distasonis_one_epoch,
-                             p_distasonis_two_epoch)
+                             p_distasonis_two_epoch,
+                             p_distasonis_dfe,
+                             p_distasonis_nonsyn)
 p_distasonis_x_axis = 1:length(p_distasonis_empirical)
+
+p_p_distasonis_comparison <- ggplot(data = p_distasonis_df, aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn, color='p_distasonis_nonsyn')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_dfe, color='p_distasonis_dfe')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_dfe, color='p_distasonis_dfe')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_x_axis, limits = c(2, length(p_distasonis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue'),
+                     name='Data Type',
+                     breaks=c('p_distasonis_nonsyn',
+                              'p_distasonis_dfe'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'DFE-fit model')) +
+  ggtitle('P. distasonis, singletons masked')
+p_p_distasonis_comparison
+
 p_p_distasonis_comparison <- ggplot(data = p_distasonis_df, aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empirical')) +
   geom_point(shape=1) +
   geom_line() +
@@ -2221,3 +2298,2244 @@ p_p_sp_comparison <- ggplot(data = p_sp_df, aes(x=p_sp_x_axis, y=p_sp_empirical,
                               'Two epoch')) +
   ggtitle('P. sp with singletons')
 p_p_sp_comparison
+
+a_finegoldii_two_epoch = proportional_sfs(fold_sfs(c(5800.754225243232, 2830.7582820144507, 1886.8555254662822, 1415.139309939643,
+                                                     1132.1114372869934, 943.4262080534488, 808.6510442264771, 707.56967108786,
+                                                     628.9508250857845, 566.055748086557, 514.5961394570355, 471.7131321071898,
+                                                     435.4275103585752, 404.32554872621324, 377.37051518749666, 353.7848607253584,
+                                                     332.9739890325221, 314.475436314351, 297.9240995750685, 283.0278964179748,
+                                                     269.55037918860495, 257.2980907151097, 246.1112185511609, 235.856585658117,
+                                                     226.42232332352594, 217.71377340610638, 209.65030119285808, 202.16279121552648,
+                                                     195.19166117386857, 188.6852730743485, 182.59865189032612, 176.89244447350242,
+                                                     171.5320677541444, 166.48700725896126, 161.73023588303144, 157.2377295331041,
+                                                     152.98806131518674)))
+a_onderdonkii_two_epoch = proportional_sfs(fold_sfs(c(2962.5482163192582, 2278.8920787625266, 1811.9780923980811, 1481.0671773522608, 1239.6527877094,
+                                                      1058.8686538484433, 920.2067006431773, 811.4999802841045, 724.5687688008009, 653.7970434501336,
+                                                      595.2511060654201, 546.1226286129505, 504.37002776651286, 468.48340254122104, 437.32781764325455,
+                                                      410.0370951378693, 385.9406908013101, 364.5125771656377, 345.33498322002305, 328.0723086347573,
+                                                      312.45210322187404, 298.25101863454705, 285.2843047651604, 273.39786469690944, 262.46217852353055,
+                                                      252.36760790262556, 243.02073186122448, 234.3414608531874, 226.26074395290397, 218.7187323495711,
+                                                      211.6632970001714, 205.04882348117656, 198.835225533262, 192.98713244281606, 187.4732155900244, 
+                                                      182.26562715909853, 177.33952982289554, 172.6727006618431, 168.24519600362493, 164.03906652856486,
+                                                      160.03811406214516, 156.22768310882967, 152.59448147269748, 149.1264253380142, 145.81250500538573,
+                                                      142.6426681402314, 139.60771792563688, 136.69922394600735, 133.90944398288033, 131.231255195276,
+                                                      128.6580933964923)))
+a_muciniphila_one_epoch = proportional_sfs(fold_sfs(c(7490.140844113354, 3745.0710808582367, 2496.714114876777, 1872.5356266659865, 1498.0285313679894, 1248.3571327189354,
+                                                      1070.02041792512, 936.2678805625335, 832.2381281642893, 749.0143252465251, 680.922121954235, 624.1786183831039,
+                                                      576.1648838297001, 535.0102535055369, 499.34290656548245, 468.1339773755469, 440.59668633320047)))
+b_bacterium_two_epoch = proportional_sfs(fold_sfs(c(2837.486278850714, 2019.3456172301094, 1518.0948159859342, 1194.2611418066115, 974.747987107373,
+                                                    819.3063451484741, 704.8843719664927, 617.7736493100315, 549.5187572178102, 494.7177380300121,
+                                                    449.80255650381525, 412.3422458969586, 380.6327244491699, 353.44823127815766, 329.88639588889316,
+                                                    309.26902644968493, 291.0769324412117, 274.9060677321749, 260.43735589582, 247.4154990521399,
+                                                    235.6338131058426, 224.9231873481396, 215.14391953722907, 206.17959036843806, 197.93240735102108,
+                                                    190.31962289845546, 183.27074829507603)))
+b_intestinihominis_two_epoch = proportional_sfs(fold_sfs(c(4087.431319539477, 3344.1061393670734, 2787.4075081266883, 2359.7645951085665, 2026.2251254712933,
+                                                           1762.5621582812007, 1551.4447096526317, 1380.2859010651932, 1239.8437770491091, 1123.2667667819574,
+                                                           1025.4284875236106, 942.4583457435928, 871.4072407375486, 810.0076140191389, 756.499966273271,
+                                                           709.5065479162944, 667.9387546814613, 630.9287591367723, 597.778678595446, 567.9225111550363,
+                                                           540.8974265993917, 516.3219549470757, 493.87929364084823, 473.30443802019994, 454.37418642105143,
+                                                           436.89932107460845, 420.7184469499324, 405.69310247189566, 391.70385253619384, 378.64714527475786,
+                                                           366.43276660589135, 354.98176574519084, 344.2247541579707, 334.1005024988387, 324.5547767952481,
+                                                           315.53936786134597, 307.0112776829529, 298.9320340307214, 291.2671103861408)))
+b_thetaiotaomicron_two_epoch = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.59509909963, 3513.1941264046495, 2747.44614715245,
+                                                           2237.8702673036246, 1880.131856644276, 1617.6981274956854, 1418.0873264610696,
+                                                           1261.662722713237, 1136.0123682903118, 1032.9781402182884, 947.0105082974533,
+                                                           874.218763286721, 811.8018165592289, 757.6953567306465, 710.3463422535705,
+                                                           668.5648390931251, 631.424210270698, 598.1923372554992, 568.2832414715679,
+                                                           541.2224144951516, 516.6215474043563, 494.1598242680509, 473.56987794162836, 
+                                                           454.62710911567723, 437.1414663807546, 420.9510509426141, 405.9170906970018, 
+                                                           391.91995358622455, 378.8559579814854, 366.63480024609237, 355.177464541413,
+                                                           344.4145126192439, 334.28467538850884, 324.733685912793, 315.7133069000633,
+                                                           307.18051589207096, 299.0968191056184, 291.427670835082, 284.1419799438684, 
+                                                           277.2116885761361, 270.6114110523233, 264.31812315114524, 258.31089376217045,
+                                                           252.57065231806973, 247.07998656160632, 241.82296612979758, 236.7849881898779,
+                                                           231.9526419770626, 227.31358958771415, 222.85646079695465, 218.5707600125642,
+                                                           214.44678376246893, 210.47554735034348, 206.64871951227755, 202.95856407467585,
+                                                           199.39788775331982, 195.95999335253578, 192.63863772381663, 189.4279939285968,
+                                                           186.3226171226469, 183.3174137419643, 180.40761362343693, 177.58874473906124,
+                                                           174.85661026244466)))
+p_distasonis_two_epoch = proportional_sfs(fold_sfs(c(5354.972462338029, 3904.942245708395, 2990.8749022247116, 2383.3044080437,
+                                                     1961.5335419446353, 1657.3038026001766, 1430.3071685904897, 1255.8478287608975,
+                                                     1118.2765031972901, 1007.3608254773932, 916.2123194069344, 840.0665962520259, 
+                                                     775.5452985651671, 720.1976098506456, 672.2082419272489, 630.2070130078799,
+                                                     593.1418792810455, 560.1924860691151, 530.7101428738388, 504.17537641191495,
+                                                     480.1673988850663, 458.34179717540997, 438.41398910659797, 420.14678881912147,
+                                                     403.3409428544927, 387.8278432941123, 373.4638566629222, 360.1258662561145,
+                                                     347.707735813639, 336.11747998266844, 325.2749821871802, 315.11014027140664,
+                                                     305.56134923439066, 296.57425168437004, 288.10070248406936, 280.09790594670255,
+                                                     272.52769294171094, 265.3559121395543, 258.55191491017695, 252.08811748600806, 
+                                                     245.93962719853823, 240.08392210949881, 234.50057534461806, 229.17101701812626,
+                                                     224.0783279006956)))
+p_merdae_two_epoch = proportional_sfs(fold_sfs(c(3318.6120290307103, 2323.81002054603, 1732.7823609227137, 1357.7547975208165,
+                                                 1106.1862588038643, 929.0708642170175, 799.0823621004403, 700.2611704049449,
+                                                 622.8780581950846, 560.76209729428, 509.8544533481116, 467.39603040351824,
+                                                 431.45486018234897, 400.6418873080764, 373.9346510790337, 350.56468303147176,
+                                                 329.9436360087519, 311.6136074421502, 295.21296588430033, 280.4523500487565,
+                                                 267.09749071316963, 254.95670248075342, 243.87163196265902, 233.71031602310853,
+                                                 224.36190477847168, 215.73260181108932, 207.74250631581583, 200.3231318242763,
+                                                 193.41543825117478, 186.96825751192833, 180.93702385117598, 175.28274223129404,
+                                                 169.97114428519893, 164.97199321817598, 160.258507869017)))
+p_sp_two_epoch = proportional_sfs(fold_sfs(c(2641.334023403126, 1791.4206736727167, 1307.1901521781963, 1010.8738402580609,
+                                             817.4547742040486, 683.8179785042425, 586.9205420862119, 513.7976450596426,
+                                             456.7832106701746, 411.1274669335818, 373.75902097482583, 342.6144304155506,
+                                             316.2600458360266, 293.670201426022, 274.09223099358064, 256.961478273873,
+                                             241.8461007769209, 228.41020773632337, 216.3886186379095)))
+
+
+a_finegoldii_nonsyn_empirical = proportional_sfs(fold_sfs(c(4235, 1320, 808, 726,
+                                                            581, 606, 533, 542,
+                                                            559, 516, 500, 481,
+                                                            387, 379, 324, 292,
+                                                            284, 238, 87, 0, 0,
+                                                            0, 0, 0, 0, 0, 0, 0,
+                                                            0, 0, 0, 0, 0, 0, 0,
+                                                            0, 0, 0)))
+
+a_finegoldii_nonsyn_df = data.frame(a_finegoldii_nonsyn_empirical,
+                                    a_finegoldii_two_epoch)
+a_finegoldii_x_axis = 1:length(a_finegoldii_nonsyn_empirical)
+p_a_finegoldii_nonsyn_comparison <- ggplot(data = a_finegoldii_nonsyn_df, 
+                                           aes(x=a_finegoldii_x_axis, y=a_finegoldii_nonsyn_empirical, color='a_finegoldii_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_nonsyn_empirical, color='a_finegoldii_nonsyn_empirical')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_nonsyn_empirical, color='a_finegoldii_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(2, length(a_finegoldii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_finegoldii_nonsyn_empirical',
+                              'a_finegoldii_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('A. finegoldii Gamma-distributed DFE')
+p_a_finegoldii_nonsyn_comparison
+
+a_onderdonkii_nonsyn_empirical = proportional_sfs(fold_sfs(c(3500, 1430, 808, 637,
+                                                    654, 513, 498, 527,
+                                                    486, 428, 447, 351,
+                                                    342, 342, 288, 226,
+                                                    226, 213, 201, 253,
+                                                    279, 295, 283, 279, 
+                                                    227, 194, 0, 0, 0,
+                                                    0, 0, 0, 0, 0, 0, 0,
+                                                    0, 0, 0, 0, 0, 0, 0,
+                                                    0, 0, 0, 0, 0, 0, 0,
+                                                    0, 0)))
+
+a_onderdonkii_nonsyn_df = data.frame(a_onderdonkii_nonsyn_empirical,
+                                    a_onderdonkii_two_epoch)
+a_onderdonkii_x_axis = 1:length(a_onderdonkii_nonsyn_empirical)
+p_a_onderdonkii_nonsyn_comparison <- ggplot(data = a_onderdonkii_nonsyn_df, 
+                                            aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn_empirical, color='a_onderdonkii_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn_empirical, color='a_onderdonkii_nonsyn_empirical')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn_empirical, color='a_onderdonkii_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_two_epoch, color='a_onderdonkii_two_epoch')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_two_epoch, color='a_onderdonkii_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_onderdonkii_nonsyn_empirical',
+                              'a_onderdonkii_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('A. onderdonkii Gamma-distributed DFE')
+p_a_onderdonkii_nonsyn_comparison
+
+a_muciniphila_nonsyn_empirical = proportional_sfs(fold_sfs(c(4161, 2171, 1808, 1332, 1049, 1088, 901, 738, 291, 0, 0, 0, 0,
+                                                    0, 0, 0, 0, 0)))
+
+a_muciniphila_nonsyn_df = data.frame(a_muciniphila_nonsyn_empirical,
+                                     a_muciniphila_two_epoch)
+a_muciniphila_x_axis = 1:length(a_muciniphila_nonsyn_empirical)
+p_a_muciniphila_nonsyn_comparison <- ggplot(data = a_muciniphila_nonsyn_df, 
+                                            aes(x=a_muciniphila_x_axis, y=a_muciniphila_nonsyn_empirical, color='a_muciniphila_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_nonsyn_empirical, color='a_muciniphila_nonsyn_empirical')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_nonsyn_empirical, color='a_muciniphila_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_x_axis, limits = c(2, length(a_muciniphila_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_muciniphila_nonsyn_empirical',
+                              'a_muciniphila_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('A. muciniphila Gamma-distributed DFE')
+p_a_muciniphila_nonsyn_comparison
+
+b_bacterium_nonsyn_empirical = proportional_sfs(fold_sfs(c(3964, 1497, 1259, 846,
+                                                  745, 770, 516, 462,
+                                                  417, 396, 305, 251,
+                                                  217, 67, 0, 0, 0, 0,
+                                                  0, 0, 0, 0, 0, 0, 0,
+                                                  0, 0, 0)))
+
+b_bacterium_nonsyn_df = data.frame(b_bacterium_nonsyn_empirical,
+                                     b_bacterium_two_epoch)
+b_bacterium_x_axis = 1:length(b_bacterium_nonsyn_empirical)
+p_b_bacterium_nonsyn_comparison <- ggplot(data = b_bacterium_nonsyn_df, 
+                                            aes(x=b_bacterium_x_axis, y=b_bacterium_nonsyn_empirical, color='b_bacterium_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_nonsyn_empirical, color='b_bacterium_nonsyn_empirical')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_nonsyn_empirical, color='b_bacterium_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_bacterium_x_axis, limits = c(2, length(b_bacterium_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('b_bacterium_nonsyn_empirical',
+                              'b_bacterium_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('B. bacterium Gamma-distributed DFE')
+p_b_bacterium_nonsyn_comparison
+
+b_intestinihominis_nonsyn_empirical = proportional_sfs(fold_sfs(c(10479, 2580, 2107,
+                                                         1470, 1817, 1244,
+                                                         1008, 784, 749,
+                                                         783, 945, 711, 529,
+                                                         494, 442, 466, 440,
+                                                         416, 357, 317, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0)))
+
+b_intestinihominis_nonsyn_df = data.frame(b_intestinihominis_nonsyn_empirical,
+                                     b_intestinihominis_two_epoch)
+b_intestinihominis_x_axis = 1:length(b_intestinihominis_nonsyn_empirical)
+p_b_intestinihominis_nonsyn_comparison <- ggplot(data = b_intestinihominis_nonsyn_df, 
+                                            aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_nonsyn_empirical, color='b_intestinihominis_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_nonsyn_empirical, color='b_intestinihominis_nonsyn_empirical')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_nonsyn_empirical, color='b_intestinihominis_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits = c(2, length(b_intestinihominis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('b_intestinihominis_nonsyn_empirical',
+                              'b_intestinihominis_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('B. intestinihominis Gamma-distributed DFE')
+p_b_intestinihominis_nonsyn_comparison
+
+b_thetaiotaomicron_nonsyn_empirical = proportional_sfs(fold_sfs(c(8538, 3013, 1775, 1466, 
+                                                         1146, 1159, 714, 585,
+                                                         572, 487, 431, 410, 
+                                                         392, 349, 369, 331,
+                                                         309, 282, 305, 290,
+                                                         285, 310, 280, 246,
+                                                         226, 255, 261, 219,
+                                                         280, 256, 230, 180,
+                                                         80, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0)))
+
+b_thetaiotaomicron_nonsyn_df = data.frame(b_thetaiotaomicron_nonsyn_empirical,
+                                     b_thetaiotaomicron_two_epoch)
+b_thetaiotaomicron_x_axis = 1:length(b_thetaiotaomicron_nonsyn_empirical)
+p_b_thetaiotaomicron_nonsyn_comparison <- ggplot(data = b_thetaiotaomicron_nonsyn_df, 
+                                            aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn_empirical, color='b_thetaiotaomicron_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn_empirical, color='b_thetaiotaomicron_nonsyn_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn_empirical, color='b_thetaiotaomicron_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('b_thetaiotaomicron_nonsyn_empirical',
+                              'b_thetaiotaomicron_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('B. thetaiotaomicron Gamma-distributed DFE')
+p_b_thetaiotaomicron_nonsyn_comparison
+
+p_distasonis_nonsyn_empirical = proportional_sfs(fold_sfs(c(7096, 2655, 1511, 1354, 943,
+                                                   816, 686, 697, 574, 600, 463,
+                                                   450, 390, 388, 338, 337, 305,
+                                                   304, 242, 274, 240, 224, 197,
+                                                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                   0, 0, 0)))
+
+p_distasonis_nonsyn_df = data.frame(p_distasonis_nonsyn_empirical,
+                                          p_distasonis_two_epoch)
+p_distasonis_x_axis = 1:length(p_distasonis_nonsyn_empirical)
+p_p_distasonis_nonsyn_comparison <- ggplot(data = p_distasonis_nonsyn_df, 
+                                                 aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn_empirical, color='p_distasonis_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn_empirical, color='p_distasonis_nonsyn_empirical')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn_empirical, color='p_distasonis_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_two_epoch, color='p_distasonis_two_epoch')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_two_epoch, color='p_distasonis_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_x_axis, limits = c(2, length(p_distasonis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('p_distasonis_nonsyn_empirical',
+                              'p_distasonis_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('P. distasonis Gamma-distributed DFE')
+p_p_distasonis_nonsyn_comparison
+
+p_merdae_nonsyn_empirical = proportional_sfs(fold_sfs(c(5204, 1807, 891, 752,
+                                               713, 552, 439, 399,
+                                               407, 346, 308, 296,
+                                               292, 302, 314, 367,
+                                               290, 231, 0, 0, 0, 0,
+                                               0, 0, 0, 0, 0, 0, 0,
+                                               0, 0, 0, 0, 0, 0, 0)))
+
+p_merdae_nonsyn_df = data.frame(p_merdae_nonsyn_empirical,
+                                          p_merdae_two_epoch)
+p_merdae_x_axis = 1:length(p_merdae_nonsyn_empirical)
+p_p_merdae_nonsyn_comparison <- ggplot(data = p_merdae_nonsyn_df, 
+                                                 aes(x=p_merdae_x_axis, y=p_merdae_nonsyn_empirical, color='p_merdae_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_nonsyn_empirical, color='p_merdae_nonsyn_empirical')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_nonsyn_empirical, color='p_merdae_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_two_epoch, color='p_merdae_two_epoch')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_two_epoch, color='p_merdae_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdae_x_axis, limits = c(2, length(p_merdae_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('p_merdae_nonsyn_empirical',
+                              'p_merdae_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('P. merdae Gamma-distributed DFE')
+p_p_merdae_nonsyn_comparison
+
+p_sp_nonsyn_empirical = proportional_sfs(fold_sfs(c(4070, 806, 1382, 591, 408,
+                                           323, 250, 211, 230, 99,
+                                           0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+p_sp_nonsyn_df = data.frame(p_sp_nonsyn_empirical,
+                                          p_sp_two_epoch)
+p_sp_x_axis = 1:length(p_sp_nonsyn_empirical)
+p_p_sp_nonsyn_comparison <- ggplot(data = p_sp_nonsyn_df, 
+                                                 aes(x=p_sp_x_axis, y=p_sp_nonsyn_empirical, color='p_sp_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_nonsyn_empirical, color='p_sp_nonsyn_empirical')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_nonsyn_empirical, color='p_sp_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_two_epoch, color='p_sp_two_epoch')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_two_epoch, color='p_sp_two_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_sp_x_axis, limits = c(2, length(p_sp_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange'),
+                     name='Data Type',
+                     breaks=c('p_sp_nonsyn_empirical',
+                              'p_sp_two_epoch'
+                     ),
+                     labels=c('Empirical',
+                              'Gamma-distributed DFE')) +
+  ggtitle('P. sp Gamma-distributed DFE')
+p_p_sp_nonsyn_comparison
+
+a_finegoldii_nonsyn_df = data.frame(a_finegoldii_nonsyn_empirical,
+                                    a_finegoldii_two_epoch,
+                                    a_finegoldii_empirical,
+                                    a_finegoldii_one_epoch)
+a_finegoldii_x_axis = 1:length(a_finegoldii_nonsyn_empirical)
+p_a_finegoldii_nonsyn_comparison <- ggplot(data = a_finegoldii_nonsyn_df, 
+                                           aes(x=a_finegoldii_x_axis, y=a_finegoldii_nonsyn_empirical, color='a_finegoldii_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_nonsyn_empirical, color='a_finegoldii_nonsyn_empirical')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_nonsyn_empirical, color='a_finegoldii_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +  
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(2, length(a_finegoldii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_finegoldii_nonsyn_empirical',
+                              'a_finegoldii_two_epoch',
+                              'a_finegoldii_empirical',
+                              'a_finegoldii_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('A. finegoldii SFS comparison')
+p_a_finegoldii_nonsyn_comparison
+
+a_onderdonkii_nonsyn_df = data.frame(a_onderdonkii_nonsyn_empirical,
+                                    a_onderdonkii_two_epoch,
+                                    a_onderdonkii_empirical,
+                                    a_onderdonkii_one_epoch)
+a_onderdonkii_x_axis = 1:length(a_onderdonkii_nonsyn_empirical)
+p_a_onderdonkii_nonsyn_comparison <- ggplot(data = a_onderdonkii_nonsyn_df, 
+                                           aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn_empirical, color='a_onderdonkii_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn_empirical, color='a_onderdonkii_nonsyn_empirical')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn_empirical, color='a_onderdonkii_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_two_epoch, color='a_onderdonkii_two_epoch')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_two_epoch, color='a_onderdonkii_two_epoch')) +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +  
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_one_epoch, color='a_onderdonkii_one_epoch')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_one_epoch, color='a_onderdonkii_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_onderdonkii_nonsyn_empirical',
+                              'a_onderdonkii_two_epoch',
+                              'a_onderdonkii_empirical',
+                              'a_onderdonkii_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('A. onderdonkii SFS comparison')
+p_a_onderdonkii_nonsyn_comparison
+
+a_muciniphila_nonsyn_df = data.frame(a_muciniphila_nonsyn_empirical,
+                                    a_muciniphila_two_epoch,
+                                    a_muciniphila_empirical,
+                                    a_muciniphila_one_epoch)
+a_muciniphila_x_axis = 1:length(a_muciniphila_nonsyn_empirical)
+p_a_muciniphila_nonsyn_comparison <- ggplot(data = a_muciniphila_nonsyn_df, 
+                                           aes(x=a_muciniphila_x_axis, y=a_muciniphila_nonsyn_empirical, color='a_muciniphila_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_nonsyn_empirical, color='a_muciniphila_nonsyn_empirical')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_nonsyn_empirical, color='a_muciniphila_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +  
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_x_axis, limits = c(2, length(a_muciniphila_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('a_muciniphila_nonsyn_empirical',
+                              'a_muciniphila_two_epoch',
+                              'a_muciniphila_empirical',
+                              'a_muciniphila_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('A. muciniphila SFS comparison')
+p_a_muciniphila_nonsyn_comparison
+
+b_bacterium_nonsyn_df = data.frame(b_bacterium_nonsyn_empirical,
+                                    b_bacterium_two_epoch,
+                                    b_bacterium_empirical,
+                                    b_bacterium_one_epoch)
+b_bacterium_x_axis = 1:length(b_bacterium_nonsyn_empirical)
+p_b_bacterium_nonsyn_comparison <- ggplot(data = b_bacterium_nonsyn_df, 
+                                           aes(x=b_bacterium_x_axis, y=b_bacterium_nonsyn_empirical, color='b_bacterium_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_nonsyn_empirical, color='b_bacterium_nonsyn_empirical')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_nonsyn_empirical, color='b_bacterium_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +  
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_bacterium_x_axis, limits = c(2, length(b_bacterium_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('b_bacterium_nonsyn_empirical',
+                              'b_bacterium_two_epoch',
+                              'b_bacterium_empirical',
+                              'b_bacterium_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('B. bacterium SFS comparison')
+p_b_bacterium_nonsyn_comparison
+
+b_intestinihominis_nonsyn_df = data.frame(b_intestinihominis_nonsyn_empirical,
+                                    b_intestinihominis_two_epoch,
+                                    b_intestinihominis_empirical,
+                                    b_intestinihominis_one_epoch)
+b_intestinihominis_x_axis = 1:length(b_intestinihominis_nonsyn_empirical)
+p_b_intestinihominis_nonsyn_comparison <- ggplot(data = b_intestinihominis_nonsyn_df, 
+                                           aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_nonsyn_empirical, color='b_intestinihominis_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_nonsyn_empirical, color='b_intestinihominis_nonsyn_empirical')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_nonsyn_empirical, color='b_intestinihominis_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +  
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits = c(2, length(b_intestinihominis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('b_intestinihominis_nonsyn_empirical',
+                              'b_intestinihominis_two_epoch',
+                              'b_intestinihominis_empirical',
+                              'b_intestinihominis_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('B. intestinihominis SFS comparison')
+p_b_intestinihominis_nonsyn_comparison
+
+b_thetaiotaomicron_nonsyn_df = data.frame(b_thetaiotaomicron_nonsyn_empirical,
+                                    b_thetaiotaomicron_two_epoch,
+                                    b_thetaiotaomicron_empirical,
+                                    b_thetaiotaomicron_one_epoch)
+b_thetaiotaomicron_x_axis = 1:length(b_thetaiotaomicron_nonsyn_empirical)
+p_b_thetaiotaomicron_nonsyn_comparison <- ggplot(data = b_thetaiotaomicron_nonsyn_df, 
+                                           aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn_empirical, color='b_thetaiotaomicron_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn_empirical, color='b_thetaiotaomicron_nonsyn_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn_empirical, color='b_thetaiotaomicron_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +  
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('b_thetaiotaomicron_nonsyn_empirical',
+                              'b_thetaiotaomicron_two_epoch',
+                              'b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('B. thetaiotaomicron SFS comparison')
+p_b_thetaiotaomicron_nonsyn_comparison
+
+p_distasonis_nonsyn_df = data.frame(p_distasonis_nonsyn_empirical,
+                                    p_distasonis_two_epoch,
+                                    p_distasonis_empirical,
+                                    p_distasonis_one_epoch)
+p_distasonis_x_axis = 1:length(p_distasonis_nonsyn_empirical)
+p_p_distasonis_nonsyn_comparison <- ggplot(data = p_distasonis_nonsyn_df, 
+                                           aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn_empirical, color='p_distasonis_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn_empirical, color='p_distasonis_nonsyn_empirical')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_nonsyn_empirical, color='p_distasonis_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_two_epoch, color='p_distasonis_two_epoch')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_two_epoch, color='p_distasonis_two_epoch')) +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empirical')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empirical')) +  
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_one_epoch, color='p_distasonis_one_epoch')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_one_epoch, color='p_distasonis_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_x_axis, limits = c(2, length(p_distasonis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('p_distasonis_nonsyn_empirical',
+                              'p_distasonis_two_epoch',
+                              'p_distasonis_empirical',
+                              'p_distasonis_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('P. distasonis SFS comparison')
+p_p_distasonis_nonsyn_comparison
+
+p_merdae_nonsyn_df = data.frame(p_merdae_nonsyn_empirical,
+                                    p_merdae_two_epoch,
+                                    p_merdae_empirical,
+                                    p_merdae_one_epoch)
+p_merdae_x_axis = 1:length(p_merdae_nonsyn_empirical)
+p_p_merdae_nonsyn_comparison <- ggplot(data = p_merdae_nonsyn_df, 
+                                           aes(x=p_merdae_x_axis, y=p_merdae_nonsyn_empirical, color='p_merdae_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_nonsyn_empirical, color='p_merdae_nonsyn_empirical')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_nonsyn_empirical, color='p_merdae_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_two_epoch, color='p_merdae_two_epoch')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_two_epoch, color='p_merdae_two_epoch')) +
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empirical')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empirical')) +  
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_one_epoch, color='p_merdae_one_epoch')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_one_epoch, color='p_merdae_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdae_x_axis, limits = c(2, length(p_merdae_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('p_merdae_nonsyn_empirical',
+                              'p_merdae_two_epoch',
+                              'p_merdae_empirical',
+                              'p_merdae_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('P. merdae SFS comparison')
+p_p_merdae_nonsyn_comparison
+
+p_sp_nonsyn_df = data.frame(p_sp_nonsyn_empirical,
+                                    p_sp_two_epoch,
+                                    p_sp_empirical,
+                                    p_sp_one_epoch)
+p_sp_x_axis = 1:length(p_sp_nonsyn_empirical)
+p_p_sp_nonsyn_comparison <- ggplot(data = p_sp_nonsyn_df, 
+                                           aes(x=p_sp_x_axis, y=p_sp_nonsyn_empirical, color='p_sp_nonsyn_empirical')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_nonsyn_empirical, color='p_sp_nonsyn_empirical')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_nonsyn_empirical, color='p_sp_nonsyn_empirical')) +  
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_two_epoch, color='p_sp_two_epoch')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_two_epoch, color='p_sp_two_epoch')) +
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empirical')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empirical')) +  
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_one_epoch, color='p_sp_one_epoch')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_one_epoch, color='p_sp_one_epoch')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_sp_x_axis, limits = c(2, length(p_sp_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'red', 'orange'),
+                     name='Data Type',
+                     breaks=c('p_sp_nonsyn_empirical',
+                              'p_sp_two_epoch',
+                              'p_sp_empirical',
+                              'p_sp_one_epoch'
+                     ),
+                     labels=c('Nonsynonymous',
+                              'Gamma-distributed DFE',
+                              'Synonymous',
+                              'Two-epoch Demography')) +
+  ggtitle('P. sp SFS comparison')
+p_p_sp_nonsyn_comparison
+
+a_finegoldii_two_epoch
+a_finegoldii_one_epoch
+a_finegoldii_empirical
+
+a_finegoldii_epoch_df = data.frame(a_finegoldii_two_epoch,
+                                   a_finegoldii_one_epoch,
+                                   a_finegoldii_empirical)
+a_finegoldii_x_axis = 1:length(a_finegoldii_two_epoch)
+p_a_finegoldii_epoch_comparison <- ggplot(data = a_finegoldii_epoch_df, 
+                                   aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empricial')) +
+  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(2, length(a_finegoldii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', ),
+                     name='Data Type',
+                     breaks=c('a_finegoldii_empirical',
+                              'a_finegoldii_two_epoch',
+                              'a_finegoldii_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('A. finegoldii') +
+  theme(legend.position="none",
+       axis.text.x=element_blank())
+p_a_finegoldii_epoch_comparison
+
+a_muciniphila_two_epoch = proportional_sfs(fold_sfs(c(4856.85835255306, 3347.7729196144837, 2463.522110113016, 1912.8116849569628, 1549.5981768854656, 1297.23494993225,
+                                                      1113.736995642971, 975.0817552301565, 866.9110678493279, 780.2715189468886, 709.3528197073293, 650.2443379468108,
+                                                      600.2266887974953, 557.3536458784366, 520.1968062648581, 487.68452223354774, 458.99720162924217)))
+a_muciniphila_one_epoch
+a_muciniphila_empirical
+
+a_muciniphila_epoch_df = data.frame(a_muciniphila_two_epoch,
+                                    a_muciniphila_one_epoch,
+                                    a_muciniphila_empirical)
+a_muciniphila_x_axis = 1:length(a_muciniphila_two_epoch)
+p_a_muciniphila_epoch_comparison <- ggplot(data = a_muciniphila_epoch_df, 
+                                           aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empricial')) +
+  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_x_axis, limits = c(2, length(a_muciniphila_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('a_muciniphila_empirical',
+                              'a_muciniphila_two_epoch',
+                              'a_muciniphila_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('A. muciniphila') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_a_muciniphila_epoch_comparison
+
+a_onderdonkii_two_epoch
+a_onderdonkii_one_epoch
+a_onderdonkii_empirical
+
+a_onderdonkii_epoch_df = data.frame(a_onderdonkii_two_epoch,
+                                    a_onderdonkii_one_epoch,
+                                    a_onderdonkii_empirical)
+a_onderdonkii_x_axis = 1:length(a_onderdonkii_two_epoch)
+p_a_onderdonkii_epoch_comparison <- ggplot(data = a_onderdonkii_epoch_df, 
+                                           aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_two_epoch, color='a_onderdonkii_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_one_epoch, color='a_onderdonkii_one_epoch')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_one_epoch, color='a_onderdonkii_one_epoch')) +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empricial')) +
+  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('a_onderdonkii_empirical',
+                              'a_onderdonkii_two_epoch',
+                              'a_onderdonkii_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('A. onderdonkii') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_a_onderdonkii_epoch_comparison
+
+a_putredinis_two_epoch = proportional_sfs(fold_sfs(c(2530.2515388147876, 1264.9469348431862, 
+                                                     843.297940337086, 632.4734643062765, 
+                                                     505.9787782372914, 421.6489872585373, 
+                                                     361.41342207836857, 316.23674803462393, 
+                                                     281.09933475402016, 252.98940401039644, 
+                                                     229.9903696588503, 210.82450760228963, 
+                                                     194.6072396193789, 180.70672412330026, 
+                                                     168.65961061695566, 158.11838622747828, 
+                                                     148.81730581673295, 140.549678721716, 
+                                                     133.1523281031827, 126.4947124897363, 
+                                                     120.47115545213158, 114.99519445735126, 
+                                                     109.99540393462323, 105.4122625749775, 
+                                                     101.19577247886951, 97.30362773129694, 
+                                                     93.69978996022073, 90.35336913245793, 
+                                                     87.2377359090609, 84.32981152960237, 
+                                                     81.60949513822436)))
+a_putredinis_one_epoch = proportional_sfs(fold_sfs(c(2529.893082215207, 1264.9468955729178,
+                                                     843.2979455728026, 632.4734682424386,
+                                                     505.9787813862246, 421.64898988265134,
+                                                     361.4134243276041, 316.23675000271174, 
+                                                     281.0993365034376, 252.98940558486495, 
+                                                     229.9903710901886, 210.82450891434675, 
+                                                     194.60724083050857, 180.70672524792067, 
+                                                     168.6596116666014, 158.11838721151892, 
+                                                     148.81730674289096, 140.5496795964208, 
+                                                     133.15232893185038, 126.49471327697063, 
+                                                     120.47115620188026, 114.99519517301884, 
+                                                     109.99540461917482, 105.41226323100612, 
+                                                     101.19577310865556, 97.30362833686044, 
+                                                     93.69979054335728, 90.35336969476818, 
+                                                     87.23773645198114, 84.32981205442526, 
+                                                     81.6094956461175)))
+a_putredinis_empirical = proportional_sfs(a_putredinis_empirical_syn_no_s_sfs)
+
+a_putredinis_epoch_df = data.frame(a_putredinis_two_epoch,
+                                   a_putredinis_one_epoch,
+                                   a_putredinis_empirical_syn_no_s_sfs)
+a_putredinis_x_axis = 1:length(a_putredinis_two_epoch)
+p_a_putredinis_epoch_comparison <- ggplot(data = a_putredinis_epoch_df, 
+                                          aes(x=a_putredinis_x_axis, y=a_putredinis_two_epoch, color='a_putredinis_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_one_epoch, color='a_putredinis_one_epoch')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_one_epoch, color='a_putredinis_one_epoch')) +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empricial')) +
+  geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_putredinis_x_axis, limits = c(2, length(a_putredinis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('a_putredinis_empirical',
+                              'a_putredinis_two_epoch',
+                              'a_putredinis_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('A. putredinis') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_a_putredinis_epoch_comparison
+
+a_shahii_two_epoch = proportional_sfs(fold_sfs(c(3760.440071428626, 1880.2760686908334, 
+                                                 1253.517406156249, 940.1380640348751, 
+                                                 752.1104580551217, 626.7587204406025, 
+                                                 537.2217648315784, 470.06904800672595, 
+                                                 417.83915705168107, 376.05524421231314, 
+                                                 341.86840636990445, 313.37937477738166, 
+                                                 289.27327107075644, 268.61089641820666, 
+                                                 250.70350500949075, 235.03453748682313, 
+                                                 221.2089778705866, 208.91959150992085, 
+                                                 197.92382473307288, 188.02763460257464, 
+                                                 179.07393874048282, 170.93421520117326, 
+                                                 163.5022936817391, 156.68969892974593, 
+                                                 150.4221117331447, 144.63664660479625, 
+                                                 139.279734426048, 134.3054588094623, 
+                                                 129.6742366624196, 125.3517626379901, 
+                                                 121.30815788560366, 117.51727841103208, 
+                                                 113.95614918902282, 110.60449813848993, 
+                                                 107.44436998758707, 104.4598044946978, 
+                                                 101.63656684971222, 98.96192064360017, 
+                                                 96.42443576568124, 94.01382511634387, 
+                                                 91.7208052154597, 89.53697672384799, 
+                                                 87.45472163622705, 85.46711449322814, 
+                                                 83.56784543188124, 81.75115327295487, 
+                                                 80.01176715033579, 78.34485543675983, 
+                                                 76.74598092350955, 75.21106137856918, 
+                                                 73.73633474497625, 72.31832835477978, 
+                                                 70.95383162815475)))
+a_shahii_one_epoch = proportional_sfs(fold_sfs(c(3760.5504621471105, 1880.2760755351549, 
+                                                 1253.517405406429, 940.1380634715483, 
+                                                 752.1104576044656, 626.7587200650602, 
+                                                 537.2217645096734, 470.06904772506584, 
+                                                 417.83915680131656, 376.0552439869797, 
+                                                 341.8684061650607, 313.37937458960823, 
+                                                 289.27327089742715, 268.61089625725424, 
+                                                 250.70350485926846, 235.03453734599307, 
+                                                 221.20897773804066, 208.91959138474448, 
+                                                 197.92382461447912, 188.02763448990794, 
+                                                 179.07393863318114, 170.9342150987514, 
+                                                 163.50229358377035, 156.68969883585922, 
+                                                 150.42211164301347, 144.6366465181295, 
+                                                 139.27973434259115, 134.30545872898605, 
+                                                 129.67423658472023, 125.35176256287895, 
+                                                 121.30815781292063, 117.51727834061704, 
+                                                 113.95614912074481, 110.60449807221694, 
+                                                 107.4443699232076, 104.45980443210665, 
+                                                 101.63656678881274, 98.9619205843033, 
+                                                 96.42443570790343, 94.01382506001184, 
+                                                 91.72080516050163, 89.53697667019843, 
+                                                 87.45472158382516, 85.46711444201598, 
+                                                 83.56784538180833, 81.75115322397049, 
+                                                 80.01176710239363, 78.34485538981534, 
+                                                 76.74598087752312, 75.21106133350355, 
+                                                 73.73633470079426, 72.31832831144642, 
+                                                 70.95383158564)))
+a_shahii_empirical = proportional_sfs(a_shahii_empirical_syn_sfs)
+a_shahii_epoch_df = data.frame(a_shahii_two_epoch,
+                               a_shahii_one_epoch,
+                               a_shahii_empirical)
+a_shahii_x_axis = 1:length(a_shahii_two_epoch)
+p_a_shahii_epoch_comparison <- ggplot(data = a_shahii_epoch_df, 
+                                      aes(x=a_shahii_x_axis, y=a_shahii_two_epoch, color='a_shahii_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=a_shahii_x_axis, y=a_shahii_one_epoch, color='a_shahii_one_epoch')) +
+  geom_line(aes(x=a_shahii_x_axis, y=a_shahii_one_epoch, color='a_shahii_one_epoch')) +
+  geom_point(shape=1, aes(x=a_shahii_x_axis, y=a_shahii_empirical, color='a_shahii_empricial')) +
+  geom_line(aes(x=a_shahii_x_axis, y=a_shahii_empirical, color='a_shahii_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_shahii_x_axis, limits = c(2, length(a_shahii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('a_shahii_empirical',
+                              'a_shahii_two_epoch',
+                              'a_shahii_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('A. shahii') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_a_shahii_epoch_comparison
+
+b_bacterium_two_epoch
+b_bacterium_one_epoch
+b_bacterium_empirical
+
+b_bacterium_epoch_df = data.frame(b_bacterium_two_epoch,
+                                  b_bacterium_one_epoch,
+                                  b_bacterium_empirical)
+b_bacterium_x_axis = 1:length(b_bacterium_two_epoch)
+p_b_bacterium_epoch_comparison <- ggplot(data = b_bacterium_epoch_df, 
+                                         aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empricial')) +
+  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_bacterium_x_axis, limits = c(2, length(b_bacterium_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_bacterium_empirical',
+                              'b_bacterium_two_epoch',
+                              'b_bacterium_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. bacterium') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_bacterium_epoch_comparison
+
+b_caccae_two_epoch = proportional_sfs(fold_sfs(c(3166.62014426057, 1855.9448391223782, 
+                                                 1273.375653690448, 960.955129516978, 
+                                                 769.8827934826342, 641.8026057387515, 
+                                                 550.1691581658466, 481.410601102996, 
+                                                 427.9236916265102, 385.13214672512936, 
+                                                 350.12035686485183, 320.94372400709756, 
+                                                 296.25576493356334, 275.09464614281075, 
+                                                 256.75500663784646, 240.70782106250823, 
+                                                 226.54853930179675, 213.96251088757847, 
+                                                 202.70132744547269, 192.56626224386835, 
+                                                 183.39644125258812, 175.06024026232214, 
+                                                 167.4489262298735, 160.4718882856301, 
+                                                 154.05301329908949, 148.12789785210236, 
+                                                 142.64167977364843, 137.54733434567885, 
+                                                 132.80432301815054)))
+
+b_caccae_one_epoch = proportional_sfs(fold_sfs(c(3823.14389167675, 1911.5724523696224, 
+                                                 1274.3816584560736, 955.786258196376, 
+                                                 764.6290173253228, 637.1908563121451, 
+                                                 546.1635981212937, 477.893154211886, 
+                                                 424.7939198312826, 382.31453212482563, 
+                                                 347.55866927449466, 318.5954500676277, 
+                                                 294.0881105873226, 273.0818194641799, 
+                                                 254.87636702717626, 238.94659602294826, 
+                                                 224.8909156106355, 212.39697735841565, 
+                                                 201.21819039904793, 191.15728203870273, 
+                                                 182.0545553347528, 173.77934915230148, 
+                                                 166.22372603207685, 159.2977380913627, 
+                                                 152.92582910864073, 147.04406689649497, 
+                                                 141.59799070265402, 136.54091988233668, 
+                                                 131.83261250035798)))
+b_caccae_empirical = proportional_sfs(fold_sfs(c(4775, 1976, 1497, 1051, 852,
+                                                736, 627, 571, 671, 677, 583,
+                                                582, 583, 536, 249, 0, 0, 0, 0,
+                                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+
+b_caccae_epoch_df = data.frame(b_caccae_two_epoch,
+                               b_caccae_one_epoch,
+                               b_caccae_empirical)
+b_caccae_x_axis = 1:length(b_caccae_two_epoch)
+p_b_caccae_epoch_comparison <- ggplot(data = b_caccae_epoch_df, 
+                                      aes(x=b_caccae_x_axis, y=b_caccae_two_epoch, color='b_caccae_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_caccae_x_axis, y=b_caccae_one_epoch, color='b_caccae_one_epoch')) +
+  geom_line(aes(x=b_caccae_x_axis, y=b_caccae_one_epoch, color='b_caccae_one_epoch')) +
+  geom_point(shape=1, aes(x=b_caccae_x_axis, y=b_caccae_empirical, color='b_caccae_empricial')) +
+  geom_line(aes(x=b_caccae_x_axis, y=b_caccae_empirical, color='b_caccae_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_caccae_x_axis, limits = c(2, length(b_caccae_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_caccae_empirical',
+                              'b_caccae_two_epoch',
+                              'b_caccae_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B.caccae') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_caccae_epoch_comparison
+
+b_cellulolyticus_two_epoch = proportional_sfs(fold_sfs(c(8772.5002613001, 4386.328981360644, 
+                                                         2924.2193780725347, 2193.164564981123, 
+                                                         1754.53167553782, 1462.1097483195033, 
+                                                         1253.2369424862045, 1096.5823375612297, 
+                                                         974.7398665942471, 877.2658894075474, 
+                                                         797.5144531572863, 731.0549226126003, 
+                                                         674.8199349203732, 626.618516613583, 
+                                                         584.843953816073, 548.2912111205757, 
+                                                         516.0387908624996, 487.36997263601825, 
+                                                         461.71892454168653, 438.63298105994477, 
+                                                         417.745698674904, 398.7572599644333, 
+                                                         381.4199896667724, 365.52749173043657, 
+                                                         350.90639347215443, 337.40999492914267, 
+                                                         324.9133294664559, 313.3092828255199, 
+                                                         302.50551512828173, 292.42199848040383, 
+                                                         282.9890311674564)))
+b_cellulolyticus_one_epoch = proportional_sfs(fold_sfs(c(8772.655515655582, 4386.328986971472, 
+                                                         2924.2193773234544, 2193.1645644188766, 
+                                                         1754.5316750879854, 1462.109747944672, 
+                                                         1253.236942164903, 1096.5823372800908, 
+                                                         974.7398663443737, 877.2658891826238, 
+                                                         797.5144529528329, 731.0549224251744, 
+                                                         674.8199347473646, 626.6185164529322, 
+                                                         584.8439536661323, 548.2912109799984, 
+                                                         516.0387907301989, 487.3699725110676, 
+                                                         461.7189244233122, 438.6329809474892, 
+                                                         417.7456985677975, 398.75725986220095, 
+                                                         381.41998956898493, 365.5274916367236, 
+                                                         350.90639338218506, 337.4099948426384, 
+                                                         324.9133293831554, 313.30928274519454, 
+                                                         302.50551505072616, 292.42199840543344, 
+                                                         282.9890310949044)))
+b_cellulolyticus_empirical = proportional_sfs(fold_sfs(c(12403, 6708, 3920, 3016,
+                                                         1808, 1607, 1617, 1430,
+                                                         1191, 1021, 861, 798,
+                                                         717, 726, 605, 249, 0,
+                                                         0, 0, 0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0, 0, 0, 0)))
+b_cellulolyticus_epoch_df = data.frame(b_cellulolyticus_two_epoch,
+                                   b_cellulolyticus_one_epoch,
+                                   b_cellulolyticus_empirical)
+b_cellulolyticus_x_axis = 1:length(b_cellulolyticus_two_epoch)
+p_b_cellulolyticus_epoch_comparison <- ggplot(data = b_cellulolyticus_epoch_df, 
+                                              aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_two_epoch, color='b_cellulolyticus_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_one_epoch, color='b_cellulolyticus_one_epoch')) +
+  geom_line(aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_one_epoch, color='b_cellulolyticus_one_epoch')) +
+  geom_point(shape=1, aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_empirical, color='b_cellulolyticus_empricial')) +
+  geom_line(aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_empirical, color='b_cellulolyticus_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_cellulolyticus_x_axis, limits = c(2, length(b_cellulolyticus_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_cellulolyticus_empirical',
+                              'b_cellulolyticus_two_epoch',
+                              'b_cellulolyticus_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. cellulolyticus') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_cellulolyticus_epoch_comparison
+
+b_fragilis_two_epoch = proportional_sfs(fold_sfs(c(5928.618638628872, 2964.3500652639123, 
+                                                   1976.2334174803393, 1482.1750865192773, 
+                                                   1185.7400867825172, 988.1167528947138, 
+                                                   846.9572281306719, 741.0875840943698, 
+                                                   658.744527221316, 592.8700813683547, 
+                                                   538.9728071696228, 494.0584117135253, 
+                                                   456.0539229838226, 423.4786466828798, 
+                                                   395.246740325501, 370.54382204778244, 
+                                                   348.74712924769415, 329.37229101259834, 
+                                                   312.03690925348405, 296.43506549912337, 
+                                                   282.3191114632507, 269.48642582071676, 
+                                                   257.7696257377172, 247.0292255193714, 
+                                                   237.14805718197002, 228.0269785854669, 
+                                                   219.5815353142296)))
+b_fragilis_one_epoch = proportional_sfs(fold_sfs(c(5928.698656934207, 2964.3500689789034, 
+                                                   1976.2334169548521, 1482.1750861247303, 
+                                                   1185.7400864669048, 988.1167526316825, 
+                                                   846.9572279052284, 741.0875838971068, 
+                                                   658.7445270459712, 592.8700812105443, 
+                                                   538.9728070261589, 494.0584115820166, 
+                                                   456.05392286242994, 423.4786465701581, 
+                                                   395.24674022030524, 370.54382194914035, 
+                                                   348.74712915486447, 329.3722909249259, 
+                                                   312.03690917042593, 296.43506542021817, 
+                                                   282.31911138809886, 269.4864257489924, 
+                                                   257.7696256691113, 247.02922545361704, 
+                                                   237.14805711884247, 228.02697852477058, 
+                                                   219.5815352557813)))
+
+b_fragilis_empirical = proportional_sfs(fold_sfs(c(8781, 3974, 2691, 1789, 1429,
+                                                   1123, 945, 905, 833, 786, 747,
+                                                   722, 676, 303, 0, 0, 0, 0, 0,
+                                                   0, 0, 0, 0, 0, 0, 0, 0, 0)))
+b_fragilis_epoch_df = data.frame(b_fragilis_two_epoch,
+                                   b_fragilis_one_epoch)
+b_fragilis_x_axis = 1:length(b_fragilis_two_epoch)
+p_b_fragilis_epoch_comparison <- ggplot(data = b_fragilis_epoch_df, 
+                                        aes(x=b_fragilis_x_axis, y=b_fragilis_two_epoch, color='b_fragilis_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_fragilis_x_axis, y=b_fragilis_one_epoch, color='b_fragilis_one_epoch')) +
+  geom_line(aes(x=b_fragilis_x_axis, y=b_fragilis_one_epoch, color='b_fragilis_one_epoch')) +
+  geom_point(shape=1, aes(x=b_fragilis_x_axis, y=b_fragilis_empirical, color='b_fragilis_empricial')) +
+  geom_line(aes(x=b_fragilis_x_axis, y=b_fragilis_empirical, color='b_fragilis_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_fragilis_x_axis, limits = c(2, length(b_fragilis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_fragilis_empirical',
+                              'b_fragilis_two_epoch',
+                              'b_fragilis_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. fragilis') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_fragilis_epoch_comparison
+
+b_intestinihominis_two_epoch
+b_intestinihominis_one_epoch
+b_intestinihominis_empirical
+b_intestinihominis_epoch_df = data.frame(b_intestinihominis_two_epoch,
+                                         b_intestinihominis_one_epoch,
+                                         b_intestinihominis_empirical)
+b_intestinihominis_x_axis = 1:length(b_intestinihominis_two_epoch)
+p_b_intestinihominis_epoch_comparison <- ggplot(data = b_intestinihominis_epoch_df, 
+                                                aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empricial')) +
+  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits = c(2, length(b_intestinihominis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_intestinihominis_empirical',
+                              'b_intestinihominis_two_epoch',
+                              'b_intestinihominis_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. intestinihominis') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_intestinihominis_epoch_comparison
+
+b_massiliensis_two_epoch = proportional_sfs(fold_sfs(c(151.707379159765, 75.86206391926804, 
+                                                       50.574712567211186, 37.93103570105885, 
+                                                       30.344829408232638, 25.28735840422925, 
+                                                       21.674878994507583)))
+b_massiliensis_one_epoch = proportional_sfs(fold_sfs(c(151.7241131105995, 75.86206517471176, 
+                                                       50.574712126949876, 37.9310353705796, 
+                                                       30.344829143849225, 25.287358183909554, 
+                                                       21.674878805662278)))
+b_massiliensis_empirical = proportional_sfs(b_massiliensis_empirical_syn_sfs)
+b_massiliensis_epoch_df = data.frame(b_massiliensis_two_epoch,
+                                     b_massiliensis_one_epoch,
+                                     b_massiliensis_empirical)
+b_massiliensis_x_axis = 1:length(b_massiliensis_two_epoch)
+p_b_massiliensis_epoch_comparison <- ggplot(data = b_massiliensis_epoch_df, 
+                                            aes(x=b_massiliensis_x_axis, y=b_massiliensis_two_epoch, color='b_massiliensis_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_massiliensis_x_axis, y=b_massiliensis_one_epoch, color='b_massiliensis_one_epoch')) +
+  geom_line(aes(x=b_massiliensis_x_axis, y=b_massiliensis_one_epoch, color='b_massiliensis_one_epoch')) +
+  geom_point(shape=1, aes(x=b_massiliensis_x_axis, y=b_massiliensis_empirical, color='b_massiliensis_empricial')) +
+  geom_line(aes(x=b_massiliensis_x_axis, y=b_massiliensis_empirical, color='b_massiliensis_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_massiliensis_x_axis, limits = c(2, length(b_massiliensis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_massiliensis_empirical',
+                              'b_massiliensis_two_epoch',
+                              'b_massiliensis_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. massiliensis') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_massiliensis_epoch_comparison
+
+b_ovatus_two_epoch = proportional_sfs(fold_sfs(c(2302.197893169133, 1151.1459069290945, 
+                                                 767.4306281251272, 575.5729774872451, 
+                                                 460.4583866952718, 383.7153259814277, 
+                                                 328.89885392656845, 287.78649979962194, 
+                                                 255.81022429841113, 230.22920383878198, 
+                                                 209.29927795682272, 191.85767300923513, 
+                                                 177.099391858061, 164.44943654736778, 
+                                                 153.4861419093885, 143.89325906819937, 
+                                                 135.4289506480638, 127.90512091225447, 
+                                                 121.17327322648627, 115.11461028332694, 
+                                                 109.6329628338851, 104.64964694724225, 
+                                                 100.09966285437154, 95.9288440810848, 
+                                                 92.09169078905491, 88.54970311507554, 
+                                                 85.27008487938676, 82.22472507075501, 
+                                                 79.3893900588084, 76.74307736389231, 
+                                                 74.26749450371564, 71.94663555628739, 
+                                                 69.76643471136674, 67.71448095990723, 
+                                                 65.77978169390859, 63.952565706256394, 
+                                                 62.22411813654286, 60.586641478100326, 
+                                                 59.033137968519604, 57.55730962164358, 
+                                                 56.15347288898089, 54.8164855123794, 
+                                                 53.54168358327686, 52.324827184801514, 
+                                                 51.16205328157606)))
+b_ovatus_one_epoch = proportional_sfs(fold_sfs(c(2302.290948271064, 1151.1459204070263, 
+                                                 767.430626566099, 575.5729763138514, 
+                                                 460.45838575654705, 383.71532519916246, 
+                                                 328.8988532560531, 287.78649921292094, 
+                                                 255.81022377689916, 230.2292033694212, 
+                                                 209.29927753012817, 191.85767261810386, 
+                                                 177.09939149701427, 164.44943621211007, 
+                                                 153.4861415964813, 143.89325877485297, 
+                                                 135.42895037196922, 127.90512065149848, 
+                                                 121.17327297945428, 115.11461004864654, 
+                                                 109.63296261037996, 104.64964673389643, 
+                                                 100.0996626503002, 95.9288438855178, 
+                                                 92.09169060131059, 88.54970293455216, 
+                                                 85.27008470554941, 82.22472490312616, 
+                                                 79.38938989695984, 76.7430772074387, 
+                                                 74.26749435230892, 71.94663540961417, 
+                                                 69.76643456913519, 67.71448082185994, 
+                                                 65.7797815598055, 63.95256557587838, 
+                                                 62.22411800968947, 60.586641354584316, 
+                                                 59.033137848170675, 57.557309504303376, 
+                                                 56.15347277450184, 54.81648540062682, 
+                                                 53.54168347412317, 52.324827078127846, 
+                                                 51.1620531772751)))
+b_ovatus_empirical = proportional_sfs(b_ovatus_empirical_syn_no_s_sfs)
+b_ovatus_epoch_df = data.frame(b_ovatus_two_epoch,
+                               b_ovatus_one_epoch,
+                               b_ovatus_empirical)
+b_ovatus_x_axis = 1:length(b_ovatus_two_epoch)
+p_b_ovatus_epoch_comparison <- ggplot(data = b_ovatus_epoch_df, 
+                                      aes(x=b_ovatus_x_axis, y=b_ovatus_two_epoch, color='b_ovatus_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_one_epoch, color='b_ovatus_one_epoch')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_one_epoch, color='b_ovatus_one_epoch')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_empirical, color='b_ovatus_empricial')) +
+  geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_empirical, color='b_ovatus_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(2, length(b_ovatus_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_ovatus_empirical',
+                              'b_ovatus_two_epoch',
+                              'b_ovatus_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. ovatus') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_ovatus_epoch_comparison
+
+b_stercoris_two_epoch = proportional_sfs(fold_sfs(c(9602.567756458493, 4801.369378003914, 
+                                                    3200.91298380381, 2400.6847608965704, 
+                                                    1920.5478252752982, 1600.4565341062298, 
+                                                    1371.8198971361032, 1200.3424191249705, 
+                                                    1066.971047123794, 960.2739493484273, 
+                                                    872.9763237474118, 800.2283022831925, 
+                                                    738.6722840048111, 685.909982517671, 
+                                                    640.1826544651428, 600.1712423293262, 
+                                                    564.8670550668828, 533.4855551995329, 
+                                                    505.40737103370753, 480.13700521452705, 
+                                                    457.2733408355676, 436.48819133702773, 
+                                                    417.5104460824428, 400.1141795414973, 
+                                                    384.1096142686285, 369.33616934839597, 
+                                                    355.65705363058953, 342.9550175578513, 
+                                                    331.12898392557895, 320.09135248976565, 
+                                                    309.7658262637195, 300.0856453840224, 
+                                                    290.9921420919902, 282.43355071811624, 
+                                                    274.36402166945606, 266.7427997522648, 
+                                                    259.5335357396796, 252.70370663923723, 
+                                                    246.22412515004763, 240.06852270126066, 
+                                                    234.21319350944563, 228.63668948484045, 
+                                                    223.31955770880006, 218.2441137098508, 
+                                                    213.3942449695292, 208.755240057921, 
+                                                    204.31363958172983, 200.05710576372945, 
+                                                    195.97430799220925, 192.05482210437364, 
+                                                    188.28904151885646, 184.66809862205199, 
+                                                    181.18379505422686, 177.82853974155194, 
+                                                    174.5952936882888, 171.47752068413178, 
+                                                    168.46914320016575)))
+b_stercoris_one_epoch = proportional_sfs(fold_sfs(c(9602.73417058656, 4801.369388790886, 
+                                                    3200.9129826500184, 2400.6847600297083, 
+                                                    1920.5478245818224, 1600.4565335282875, 
+                                                    1371.8198966407535, 1200.342418691531, 
+                                                    1066.9710467385144, 960.2739490016755, 
+                                                    872.976323432183, 800.2283019942328, 
+                                                    738.6722837381001, 685.9099822699911, 
+                                                    640.182654233975, 600.1712421126064, 
+                                                    564.8670548629192, 533.485555006893, 
+                                                    505.4073708512066, 480.13700504115116, 
+                                                    457.27334067045416, 436.48819117940087, 
+                                                    417.5104459316812, 400.114179397006, 
+                                                    384.10961412992776, 369.33616921503517, 
+                                                    355.65705350216297, 342.9550174340114, 
+                                                    331.1289838060094, 320.0913523741864, 
+                                                    309.7658261518553, 300.08564527566676, 
+                                                    290.9921419869139, 282.4335506161344, 
+                                                    274.3640215703841, 266.74279965594485, 
+                                                    259.53353564595926, 252.70370654798677, 
+                                                    246.22412506113693, 240.06852261457271, 
+                                                    234.21319342487203, 228.6366894022805, 
+                                                    223.3195576281601, 218.2441136310436, 
+                                                    213.39424489247327, 208.75523998254613, 
+                                                    204.31363950795284, 200.05710569148948, 
+                                                    195.97430792144357, 192.05482203502604, 
+                                                    188.28904145086054, 184.66809855536894, 
+                                                    181.183794988802, 177.82853967733865, 
+                                                    174.59529362524302, 171.4775206222118, 
+                                                    168.4691431393369)))
+b_stercoris_empirical = proportional_sfs(fold_sfs(c(10025, 5851, 3507, 2597, 1972,
+                                                    1807, 1614, 1533, 1427, 1314, 
+                                                    1191, 1125, 1052, 923, 852, 866,
+                                                    807, 712, 630, 618, 557, 567,
+                                                    559, 515, 546, 462, 448, 440,
+                                                    188, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+b_stercoris_epoch_df = data.frame(b_stercoris_two_epoch,
+                                 b_stercoris_one_epoch,
+                                  b_stercoris_empirical)
+b_stercoris_x_axis = 1:length(b_stercoris_two_epoch)
+p_b_stercoris_epoch_comparison <- ggplot(data = b_stercoris_epoch_df, 
+                                         aes(x=b_stercoris_x_axis, y=b_stercoris_two_epoch, color='b_stercoris_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_stercoris_x_axis, y=b_stercoris_one_epoch, color='b_stercoris_one_epoch')) +
+  geom_line(aes(x=b_stercoris_x_axis, y=b_stercoris_one_epoch, color='b_stercoris_one_epoch')) +
+  geom_point(shape=1, aes(x=b_stercoris_x_axis, y=b_stercoris_empirical, color='b_stercoris_empricial')) +
+  geom_line(aes(x=b_stercoris_x_axis, y=b_stercoris_empirical, color='b_stercoris_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_stercoris_x_axis, limits = c(2, length(b_stercoris_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_stercoris_empirical',
+                              'b_stercoris_two_epoch',
+                              'b_stercoris_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. stercoris') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_stercoris_epoch_comparison
+
+b_thetaiotaomicron_two_epoch
+b_thetaiotaomicron_one_epoch
+b_thetaiotaomicron_empirical
+
+b_thetaiotaomicron_epoch_df = data.frame(b_thetaiotaomicron_two_epoch,
+                                         b_thetaiotaomicron_one_epoch,
+                                         b_thetaiotaomicron_empirical)
+b_thetaiotaomicron_x_axis = 1:length(b_thetaiotaomicron_two_epoch)
+p_b_thetaiotaomicron_epoch_comparison <- ggplot(data = b_thetaiotaomicron_epoch_df, 
+                                                aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_two_epoch, color='b_thetaiotaomicron_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empricial')) +
+  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_thetaiotaomicron_empirical',
+                              'b_thetaiotaomicron_two_epoch',
+                              'b_thetaiotaomicron_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. thetaiotaomicron') +
+  theme(legend.position="none",
+       axis.text.x=element_blank())
+p_b_thetaiotaomicron_epoch_comparison
+
+b_uniformis_two_epoch = proportional_sfs(fold_sfs(c(2054.3278886050252, 1027.2454206090936, 
+                                                    684.830308725038, 513.6227358960157, 
+                                                    410.8981917177925, 342.41516209109585, 
+                                                    293.4987122702638, 256.8113748511943, 
+                                                    228.27677904352828, 205.44910236898514, 
+                                                    186.7719123394741, 171.2075872953685, 
+                                                    158.03777377950905, 146.74936217933407, 
+                                                    136.96607211213865, 128.4056932907843, 
+                                                    120.8524178485795, 114.13839522247417, 
+                                                    108.1311118100442, 102.72455672932321, 
+                                                    97.83291164727227, 93.38596156412969, 
+                                                    89.32570278442479, 85.6037988952552, 
+                                                    82.17964730978767, 79.01889199300257, 
+                                                    76.0922666928385, 73.3746860503887, 
+                                                    70.84452475624222, 68.48304087558701, 
+                                                    66.27391078776738, 64.20285132471365, 
+                                                    62.257310611453384, 60.426213464186674, 
+                                                    58.69975043440762, 57.06920201232969, 
+                                                    55.52679133787102, 54.065560167802, 
+                                                    52.67926392486683, 51.36228248953352, 
+                                                    50.10954404661384, 48.916459810935855, 
+                                                    47.77886786107034, 46.69298463207639, 
+                                                    45.6553628758933, 44.662855105170046, 
+                                                    43.71258170381585, 42.80190302374183, 
+                                                    41.928394898345246, 41.08982709434286, 
+                                                    40.28414429871494, 39.509449299439375, 
+                                                    38.76398807031026, 38.046136512984624, 
+                                                    37.35438864536717, 36.68734605550832, 
+                                                    36.04370846563223, 35.42226527229195, 
+                                                    34.82188794685293, 34.24152319592012, 
+                                                    33.68018679451514, 33.1369580160507, 
+                                                    32.61097459276835, 32.10142814864365, 
+                                                    31.60756005386936, 31.12865765620155, 
+                                                    30.664050849807662, 30.213108946824878, 
+                                                    29.775237821029418, 29.34987729624812, 
+                                                    28.936498755542438, 28.534602949572932, 
+                                                    28.14371798513375)))
+b_uniformis_one_epoch = proportional_sfs(fold_sfs(c(2054.489642768396, 1027.245439327063, 
+                                                    684.830306874114, 513.622734503184, 
+                                                    410.8981906035272, 342.4151611625439, 
+                                                    293.498711474358, 256.8113741547785, 
+                                                    228.276778424492, 205.44910181185247, 
+                                                    186.7719118329899, 171.2075868310962, 
+                                                    158.03777335094773, 146.74936178138216, 
+                                                    136.96607174071687, 128.40569294258003, 
+                                                    120.85241752085783, 114.13839491295926, 
+                                                    108.13111151681647, 102.72455645075686, 
+                                                    97.83291138197099, 93.38596131088755, 
+                                                    89.32570254219318, 85.60379866311536, 
+                                                    82.17964708693341, 79.01889177872076, 
+                                                    76.09226648649306, 73.37468585141379, 
+                                                    70.84452456412649, 68.4830406898761, 
+                                                    66.2739106080481, 64.20285115061058, 
+                                                    62.25731044262528, 60.42621330032411, 
+                                                    58.69975027522684, 57.06920185756979, 
+                                                    55.52679118729303, 54.06556002118735, 
+                                                    52.67926378201153, 51.36228235025033, 
+                                                    50.10954391072709, 48.91645967828659, 
+                                                    47.77886773150458, 46.69298450545531, 
+                                                    45.655362752086674, 44.66285498405551, 
+                                                    43.71258158527697, 42.801902907672506, 
+                                                    41.9283947846441, 41.08982698291748, 
+                                                    40.284144189473224, 39.50944919229846, 
+                                                    38.76398796519088, 38.04613640981189, 
+                                                    37.354388544069245, 36.68734595602033, 
+                                                    36.04370836789117, 35.42226517623458, 
+                                                    34.82188785242366, 34.24152310306466, 
+                                                    33.680186703180944, 33.136957926190576, 
+                                                    32.610974504334585, 32.101428061591655, 
+                                                    31.60755996815663, 31.12865757178927, 
+                                                    30.664050766652647, 30.213108864895304, 
+                                                    29.77523774028469, 29.349877216657724, 
+                                                    28.936498677073036, 28.534602872193382, 
+                                                    28.143717908815795)))
+b_uniformis_empirical = proportional_sfs(b_uniformis_empirical_syn_no_s_sfs)
+
+b_uniformis_epoch_df = data.frame(b_uniformis_two_epoch,
+                                  b_uniformis_one_epoch,
+                                  b_uniformis_empirical)
+b_uniformis_x_axis = 1:length(b_uniformis_two_epoch)
+p_b_uniformis_epoch_comparison <- ggplot(data = b_uniformis_epoch_df, 
+                                         aes(x=b_uniformis_x_axis, y=b_uniformis_two_epoch, color='b_uniformis_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_one_epoch, color='b_uniformis_one_epoch')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_one_epoch, color='b_uniformis_one_epoch')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_empirical, color='b_uniformis_empricial')) +
+  geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_empirical, color='b_uniformis_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(2, length(b_uniformis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_uniformis_empirical',
+                              'b_uniformis_two_epoch',
+                              'b_uniformis_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. uniformis') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_uniformis_epoch_comparison
+
+b_vulgatus_two_epoch = proportional_sfs(fold_sfs(c(2364.430150627921, 1182.2854389840386, 
+                                                   788.1903189513198, 591.1427455978621, 
+                                                   472.9142011600663, 394.0951713464688, 
+                                                   337.79586422129603, 295.57138379357974, 
+                                                   262.7301211717921, 236.45711101799577, 
+                                                   214.9610117520908, 197.0475956533406, 
+                                                   181.89008968393156, 168.8979416737802, 
+                                                   157.63808003137981, 147.78570106299293, 
+                                                   139.0924254733913, 131.36506936621942, 
+                                                   124.45111913909399, 118.22856391007389, 
+                                                   112.59863296520146, 107.48051390213857, 
+                                                   102.80744864937823, 98.5238054806654, 
+                                                   94.58285374594072, 90.94505212591903, 
+                                                   87.57671727453386, 84.44897775231267, 
+                                                   81.53694438728081, 78.8190465637314, 
+                                                   76.27649697120717, 73.89285671306045, 
+                                                   71.65367948617225, 69.54621855250153, 
+                                                   67.55918394405953, 65.68254013374859, 
+                                                   63.907336516321685, 62.22556465550429, 
+                                                   60.63003749309705, 59.11428667672271, 
+                                                   57.67247491277078, 56.299320840361666, 
+                                                   54.990034387989404, 53.740260945199445, 
+                                                   52.54603297802339, 51.40372795544347, 
+                                                   50.3100316469542)))
+b_vulgatus_one_epoch = proportional_sfs(fold_sfs(c(2364.5699580854357, 1182.2854555623705, 
+                                                   788.1903170616415, 591.1427441763988, 
+                                                   472.9142000228889, 394.09517039882104, 
+                                                   337.7958634090265, 295.57138308284385, 
+                                                   262.73012054002686, 236.45711044940705, 
+                                                   214.96101123519196, 197.04759517951385, 
+                                                   181.89008924655562, 168.8979412676454, 
+                                                   157.6380796523162, 147.7857007076271, 
+                                                   139.09242513892733, 131.36506905033676, 
+                                                   124.45111883983675, 118.22856362577951, 
+                                                   112.59863269444492, 107.48051364368608, 
+                                                   102.80744840216718, 98.52380524375623, 
+                                                   94.58285351850522, 90.94505190723105, 
+                                                   87.57671706394544, 84.44897754924526, 
+                                                   81.53694419121572, 78.8190463742018, 
+                                                   76.27649678779143, 73.89285653537645, 
+                                                   71.65367931387262, 69.54621838526953, 
+                                                   67.5591837816056, 65.6825399758082, 
+                                                   63.90733636264904, 62.22556450587567, 
+                                                   60.63003734730505, 59.11428653457551, 
+                                                   57.67247477409059, 56.29932070498338, 
+                                                   54.990034255759454, 53.74026081597472, 
+                                                   52.54603285167032, 51.403727831837216, 
+                                                   50.310031525977855)))
+b_vulgatus_empirical = proportional_sfs(b_vulgatus_empirical_syn_no_s_sfs)
+b_vulgatus_epoch_df = data.frame(b_vulgatus_two_epoch,
+                                 b_vulgatus_one_epoch,
+                                 b_vulgatus_empirical)
+b_vulgatus_x_axis = 1:length(b_vulgatus_two_epoch)
+p_b_vulgatus_epoch_comparison <- ggplot(data = b_vulgatus_epoch_df, 
+                                        aes(x=b_vulgatus_x_axis, y=b_vulgatus_two_epoch, color='b_vulgatus_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_one_epoch, color='b_vulgatus_one_epoch')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_one_epoch, color='b_vulgatus_one_epoch')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_empirical, color='b_vulgatus_empricial')) +
+  geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_empirical, color='b_vulgatus_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(2, length(b_vulgatus_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_vulgatus_empirical',
+                              'b_vulgatus_two_epoch',
+                              'b_vulgatus_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. vulgatus') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_vulgatus_epoch_comparison
+
+b_xylanisolvens_two_epoch = proportional_sfs(fold_sfs(c(2105.8374270577815, 1052.9817978608924, 
+                                                        701.9878927725437, 526.4909256080464, 
+                                                        421.19274493643286, 350.9939576489388, 
+                                                        300.8519666184875, 263.245473262712, 
+                                                        233.9959783629688, 210.59638238557156, 
+                                                        191.45125835342287, 175.49698828120188, 
+                                                        161.99722125572893, 150.4259923388127, 
+                                                        140.39759390901511, 131.6227452501973, 
+                                                        123.88023169704203, 116.99799739870232, 
+                                                        110.84020878870986, 105.29819901387715, 
+                                                        100.28399966922252, 95.72563660522232, 
+                                                        91.56365291573003, 87.74850117896518, 
+                                                        84.23856156062027, 80.99861727781958, 
+                                                        77.9986688488463, 75.21300243224054, 
+                                                        72.61945092328159, 70.19880283121948, 
+                                                        67.93432556732623, 65.81137811647169, 
+                                                        63.81709413202335, 61.94012095518266, 
+                                                        60.17040337387702, 58.49900342182019, 
+                                                        56.91794939934135, 55.42010873305953, 
+                                                        53.99908039557615, 52.649103462233725, 
+                                                        51.36497904980974, 50.14200340680693, 
+                                                        48.97591034001419)))
+b_xylanisolvens_one_epoch = proportional_sfs(fold_sfs(c(2105.962851672609, 1052.9818178591947, 
+                                                       701.9878904222437, 526.4909238385877, 
+                                                       421.19274352085995, 350.9939564692972, 
+                                                       300.851965607364, 263.2454723779789, 
+                                                       233.99597757653936, 210.59638167778806, 
+                                                       191.45125770997515, 175.49698769138232, 
+                                                       161.99722071127778, 150.4259918332488, 
+                                                       140.39759343715943, 131.62274480783074, 
+                                                       123.880231280697, 116.99799700548758, 
+                                                       110.84020841619063, 105.29819865998388, 
+                                                       100.28399933218131, 95.72563628350116, 
+                                                       91.56365260799674, 87.74850088405411, 
+                                                       84.23856127750565, 80.9986170055905, 
+                                                       77.99866858670423, 75.21300217946069, 
+                                                       72.61945067921725, 70.19880259529162, 
+                                                       67.93432533900797, 65.81137789528839, 
+                                                       63.817093917540745, 61.940120747010134, 
+                                                       60.17040317165399, 58.49900322521363, 
+                                                       56.91794920804768, 55.420108546800684, 
+                                                       53.99908021409241, 52.649103285287815, 
+                                                       51.364978877179595, 50.14200323828631, 
+                                                       48.97591017541265)))
+b_xylanisolvens_empirical = proportional_sfs(fold_sfs(c(2367, 1159, 739, 556,
+                                                        506, 410, 340, 341, 332,
+                                                        327, 332, 267, 241, 213,
+                                                        227, 208, 169, 186, 176,
+                                                        133, 114, 30, 0, 0, 0,
+                                                        0, 0, 0, 0, 0, 0, 0, 0,
+                                                        0, 0, 0, 0, 0, 0, 0, 0,
+                                                        0, 0, 0)))
+b_xylanisolvens_epoch_df = data.frame(b_xylanisolvens_two_epoch,
+                                      b_xylanisolvens_one_epoch,
+                                      b_xylanisolvens_empirical)
+b_xylanisolvens_x_axis = 1:length(b_xylanisolvens_two_epoch)
+p_b_xylanisolvens_epoch_comparison <- ggplot(data = b_xylanisolvens_epoch_df, 
+                                             aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_two_epoch, color='b_xylanisolvens_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_one_epoch, color='b_xylanisolvens_one_epoch')) +
+  geom_line(aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_one_epoch, color='b_xylanisolvens_one_epoch')) +
+  geom_point(shape=1, aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_empirical, color='b_xylanisolvens_empricial')) +
+  geom_line(aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_empirical, color='b_xylanisolvens_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_x_axis, limits = c(2, length(b_xylanisolvens_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_xylanisolvens_empirical',
+                              'b_xylanisolvens_two_epoch',
+                              'b_xylanisolvens_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. xylanisolvens') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_b_xylanisolvens_epoch_comparison
+
+d_invisus_two_epoch = proportional_sfs(fold_sfs(c(7219.604873917495, 3610.031831706991, 
+                                                  2406.687981940724, 1805.0160123390308, 
+                                                  1444.0128292557151, 1203.344039774064, 
+                                                  1031.4377610153838, 902.5080514937127, 
+                                                  802.229388145781, 722.006457127435, 
+                                                  656.3695132622606, 601.6720597646364, 
+                                                  555.389598859095, 515.718917848454, 
+                                                  481.3376607544993, 451.25406059344675, 
+                                                  424.7097073187003, 401.11472644954654, 
+                                                  380.00342760638586, 361.0032584855355, 
+                                                  343.81262912682627, 328.1847841082685, 
+                                                  313.91588199430566, 300.8360549219592, 
+                                                  288.80261388630737, 277.694822037023, 
+                                                  267.4098294645681, 257.85947910360534, 
+                                                  248.96777348402549, 240.6688481317169, 
+                                                  232.90533721438305)))
+d_invisus_one_epoch = proportional_sfs(fold_sfs(c(7220.061767166641, 3610.031895191867, 
+                                                  2406.6879734810987, 1805.016005975253, 
+                                                  1444.0128241646723, 1203.3440355315367, 
+                                                  1031.4377573789247, 902.5080483118172, 
+                                                  802.2293853174522, 722.0064545819084, 
+                                                  656.369510948164, 601.6720576433727, 
+                                                  555.3895969010053, 515.7189160302279, 
+                                                  481.3376590574883, 451.25405900249245, 
+                                                  424.70970582133754, 401.1147250353706, 
+                                                  380.00342626664025, 361.0032572127772, 
+                                                  343.8126279146706, 328.1847829512155, 
+                                                  313.91588088755924, 300.83605386132723, 
+                                                  288.8026128680966, 277.6948210579742, 
+                                                  267.40982852178405, 257.85947819449217, 
+                                                  248.9677726062611, 240.6688472832113, 
+                                                  232.9053363932486)))
+d_invisus_empirical = proportional_sfs(fold_sfs(c(10483, 3931, 2931, 2034, 1633,
+                                                  1458, 1217, 1228, 1117, 1130,
+                                                  1117, 1044, 856, 790, 697,
+                                                  441, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                  0, 0, 0, 0, 0, 0, 0, 0)))
+
+d_invisus_epoch_df = data.frame(d_invisus_two_epoch,
+                                d_invisus_one_epoch,
+                                d_invisus_empirical)
+d_invisus_x_axis = 1:length(d_invisus_two_epoch)
+p_d_invisus_epoch_comparison <- ggplot(data = d_invisus_epoch_df, 
+                                       aes(x=d_invisus_x_axis, y=d_invisus_two_epoch, color='d_invisus_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=d_invisus_x_axis, y=d_invisus_one_epoch, color='d_invisus_one_epoch')) +
+  geom_line(aes(x=d_invisus_x_axis, y=d_invisus_one_epoch, color='d_invisus_one_epoch')) +
+  geom_point(shape=1, aes(x=d_invisus_x_axis, y=d_invisus_empirical, color='d_invisus_empricial')) +
+  geom_line(aes(x=d_invisus_x_axis, y=d_invisus_empirical, color='d_invisus_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=d_invisus_x_axis, limits = c(2, length(d_invisus_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('d_invisus_empirical',
+                              'd_invisus_two_epoch',
+                              'd_invisus_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('D. invisus') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_d_invisus_epoch_comparison
+
+e_eligens_two_epoch = proportional_sfs(fold_sfs(c(5825.643855142483, 2912.873768824394, 
+                                                  1941.9158910722535, 1456.4369440336636, 
+                                                  1165.1495745079599, 970.9579939383259, 
+                                                  832.2497214004229, 728.2185164039628, 
+                                                  647.3053564449239, 582.5748280171395, 
+                                                  529.6134861604394, 485.47903423384963, 
+                                                  448.1344976392302, 416.12489452058156, 
+                                                  388.3832381832614, 364.1092886062297, 
+                                                  342.6910975379876, 323.65270522732897, 
+                                                  306.61835397588277, 291.2874376249293, 
+                                                  277.41660833164696, 264.8067633155868, 
+                                                  253.29342636672263)))
+e_eligens_one_epoch = proportional_sfs(fold_sfs(c(5825.746270209707, 2912.8737751734648, 
+                                                 1941.9158901072415, 1456.4369433090044, 
+                                                 1165.1495739282573, 970.9579934552197, 
+                                                 832.2497209863378, 728.2185160416435, 
+                                                 647.3053561228576, 582.574827727288, 
+                                                 529.6134858969382, 485.47903399229995, 
+                                                 448.13449741626766, 416.124894313539, 
+                                                 388.38323799002166, 364.10928842506746, 
+                                                 342.69109736748203, 323.6527050662958, 
+                                                 306.61835382332504, 291.2874374799912, 
+                                                 277.4166081936265, 264.80676318383246, 
+                                                 253.2934262406967)))
+e_eligens_empirical = proportional_sfs(fold_sfs(c(6802, 3652, 2471, 1823, 1542,
+                                                  1365, 1100, 1032, 894, 828,
+                                                  661, 308, 0, 0, 0, 0, 0, 0, 0,
+                                                  0, 0, 0, 0, 0)))
+e_eligens_epoch_df = data.frame(e_eligens_two_epoch,
+                                e_eligens_one_epoch,
+                                e_eligens_empirical)
+e_eligens_x_axis = 1:length(e_eligens_two_epoch)
+p_e_eligens_epoch_comparison <- ggplot(data = e_eligens_epoch_df, 
+                                       aes(x=e_eligens_x_axis, y=e_eligens_two_epoch, color='e_eligens_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=e_eligens_x_axis, y=e_eligens_one_epoch, color='e_eligens_one_epoch')) +
+  geom_line(aes(x=e_eligens_x_axis, y=e_eligens_one_epoch, color='e_eligens_one_epoch')) +
+  geom_point(shape=1, aes(x=e_eligens_x_axis, y=e_eligens_empirical, color='e_eligens_empricial')) +
+  geom_line(aes(x=e_eligens_x_axis, y=e_eligens_empirical, color='e_eligens_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=e_eligens_x_axis, limits = c(2, length(e_eligens_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('e_eligens_empirical',
+                              'e_eligens_two_epoch',
+                              'e_eligens_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('E. eligens') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_e_eligens_epoch_comparison
+
+e_rectale_two_epoch = proportional_sfs(fold_sfs(c(10981.807590001703, 5491.078256177634, 
+                                                  3660.7189363363705, 2745.539226810664, 
+                                                  2196.4313987516307, 1830.359512489709, 
+                                                  1568.8795932643472, 1372.7696535468483, 
+                                                  1220.2397002167831, 1098.2157373821917, 
+                                                  998.3779494667326, 915.179792748341, 
+                                                  844.7813523402392, 784.4398318932206, 
+                                                  732.1438474172114, 686.38486091903, 
+                                                  646.0092845212464, 610.1198832078582, 
+                                                  578.008313545076, 549.1079007856697, 
+                                                  522.9599082295347, 499.18900584916423, 
+                                                  477.48513840445054, 457.589926528576, 
+                                                  439.2863315534393, 422.3907053752318, 
+                                                  406.74660701656495, 392.2199442111498, 
+                                                  378.6951201777003, 366.0719510390342, 
+                                                  354.26317986992575, 343.19245686077016, 
+                                                  332.79268672433267, 323.00466773655586, 
+                                                  313.77596408475256, 305.0599661576093, 
+                                                  296.81510322071335, 289.00418040644865, 
+                                                  281.5938177053765, 274.5539731090238, 
+                                                  267.85753553659157, 261.4799759149453, 
+                                                  255.39904694519723, 249.5945238101947, 
+                                                  244.04797945429507, 238.74258917451928, 
+                                                  233.66296015750066, 228.7949823243381, 
+                                                  224.12569743928702, 219.6431839254623, 
+                                                  215.3364552316279, 211.19536992586438, 
+                                                  207.21055196733457, 203.37331983675978, 
+                                                  199.67562339807773, 196.10998752492654, 
+                                                  192.6694616612551, 189.34757459964402, 
+                                                  186.13829385866103, 183.03598912227736, 
+                                                  180.0353992754935, 177.13160263012273, 
+                                                  174.31998998610362, 171.59624021835907, 
+                                                  168.9562981172367)))
+e_rectale_one_epoch = proportional_sfs(fold_sfs(c(10982.150650133572, 5491.078294785315, 
+                                                  3660.718932380231, 2745.539223834332, 
+                                                  2196.4313963705335, 1830.3595105054485, 
+                                                  1568.8795915635749, 1372.7696520586626, 
+                                                  1220.2396988939513, 1098.2157361916431, 
+                                                  998.3779483844157, 915.1797917562433, 
+                                                  844.7813514244206, 784.4398310428288, 
+                                                  732.1438466235124, 686.3848601749371, 
+                                                  646.0092838209146, 610.1198825464422, 
+                                                  578.0083129184716, 549.1079001903876, 
+                                                  522.9599076626067, 499.1890053080058, 
+                                                  477.4851378868207, 457.58992603251403, 
+                                                  439.2863310772324, 422.3907049173285, 
+                                                  406.746606575621, 392.2199437859539, 
+                                                  378.69511976716086, 366.0719506421846, 
+                                                  354.2631794858778, 343.19245648872374, 
+                                                  332.79268636356034, 323.0046673863945, 
+                                                  313.77596374460023, 305.0599658269013, 
+                                                  296.81510289894345, 289.0041800931464, 
+                                                  281.59381740010764, 274.5539728113866, 
+                                                  267.85753524621384, 261.47997563148135, 
+                                                  255.39904666832544, 249.59452353961544, 
+                                                  244.0479791897287, 238.7425889157111, 
+                                                  233.6629599041924, 228.79498207630712, 
+                                                  224.1256971963243, 219.64318368735255, 
+                                                  215.33645499818698, 211.19536969691268, 
+                                                  207.2105517427027, 203.3733196162878, 
+                                                  199.67562318161433, 196.10998731232854, 
+                                                  192.66946145238688, 189.347574394377, 
+                                                  186.13829365687312, 183.03598892385256, 
+                                                  180.035399080319, 177.13160243809875, 
+                                                  174.31998979712765, 171.59624003233583, 
+                                                  168.95629793407537)))
+e_rectale_empirical = proportional_sfs(e_rectale_empirical_syn_sfs)
+e_rectale_epoch_df = data.frame(e_rectale_two_epoch,
+                                e_rectale_one_epoch,
+                                e_rectale_empirical)
+e_rectale_x_axis = 1:length(e_rectale_two_epoch)
+p_e_rectale_epoch_comparison <- ggplot(data = e_rectale_epoch_df, 
+                                       aes(x=e_rectale_x_axis, y=e_rectale_two_epoch, color='e_rectale_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_one_epoch, color='e_rectale_one_epoch')) +
+  geom_line(aes(x=e_rectale_x_axis, y=e_rectale_one_epoch, color='e_rectale_one_epoch')) +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_empirical, color='e_rectale_empricial')) +
+  geom_line(aes(x=e_rectale_x_axis, y=e_rectale_empirical, color='e_rectale_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=e_rectale_x_axis, limits = c(2, length(e_rectale_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('e_rectale_empirical',
+                              'e_rectale_two_epoch',
+                              'e_rectale_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('E. rectale') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_e_rectale_epoch_comparison
+
+f_prausnitzii_two_epoch = proportional_sfs(fold_sfs(c(11479.764609067837, 5740.012558192761, 
+                                                      3826.6751203137833, 2870.006383339694, 
+                                                      2296.005139006315, 1913.3376414853428, 
+                                                      1640.0037137109207, 1435.0032670805383, 
+                                                      1275.5584745697486, 1148.0026399546343, 
+                                                      1043.6387747248182, 956.6688865380474, 
+                                                      883.0789806945813, 820.0019181225789, 
+                                                      765.3351301689978, 717.5016903436867, 
+                                                      675.2957136835441, 637.7792896615152, 
+                                                      604.211962598325, 574.0013679504425, 
+                                                      546.667972515952, 521.819430947772, 
+                                                      499.131631872198, 478.3344824778407, 
+                                                      459.2011048030231, 441.5395251879325, 
+                                                      425.1862105148659, 410.00098954014675, 
+                                                      395.8630249846457)))
+f_prausnitzii_one_epoch = proportional_sfs(fold_sfs(c(11480.022101322984, 5740.012571658368, 
+                                                      3826.675118466437, 2870.006381952553, 
+                                                      2296.0051378965372, 1913.3376405605686, 
+                                                      1640.0037129182338, 1435.0032663869374, 
+                                                      1275.5584739532144, 1148.0026393997534, 
+                                                      1043.6387742203663, 956.6688860756467, 
+                                                      883.0789802677499, 820.0019177262354, 
+                                                      765.3351297990555, 717.5016899968862, 
+                                                      675.2957133571437, 637.7792893532481, 
+                                                      604.2119623062824, 574.001367673002, 
+                                                      546.6679722517231, 521.8194306955535, 
+                                                      499.1316316309455, 478.33448224664033, 
+                                                      459.20110458107075, 441.5395249745168, 
+                                                      425.18621030935446, 410.000989341975, 
+                                                      395.8630247933187)))
+f_prausnitzii_empirical = proportional_sfs(fold_sfs(c(13211, 6888, 4655, 3670,
+                                                      3174, 2654, 2264, 2048, 
+                                                      1924, 1640, 1436, 1241,
+                                                      1023, 763, 224, 0, 0, 0, 
+                                                      0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                      0, 0, 0)))
+f_prausnitzii_epoch_df = data.frame(f_prausnitzii_two_epoch,
+                                    f_prausnitzii_one_epoch,
+                                    f_prausnitzii_empirical)
+f_prausnitzii_x_axis = 1:length(f_prausnitzii_two_epoch)
+p_f_prausnitzii_epoch_comparison <- ggplot(data = f_prausnitzii_epoch_df, 
+                                           aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_two_epoch, color='f_prausnitzii_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_one_epoch, color='f_prausnitzii_one_epoch')) +
+  geom_line(aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_one_epoch, color='f_prausnitzii_one_epoch')) +
+  geom_point(shape=1, aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_empirical, color='f_prausnitzii_empricial')) +
+  geom_line(aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_empirical, color='f_prausnitzii_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=f_prausnitzii_x_axis, limits = c(2, length(f_prausnitzii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('f_prausnitzii_empirical',
+                              'f_prausnitzii_two_epoch',
+                              'f_prausnitzii_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('F. prausnitzii') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_f_prausnitzii_epoch_comparison
+
+o_sp_two_epoch = proportional_sfs(fold_sfs(c(5155.965410106295, 2578.0331638067196, 
+                                             1718.6888088210233, 1289.016620925345, 
+                                             1031.2133072783308, 859.3444310974467, 
+                                             736.5809478503998, 644.5083352229807, 
+                                             572.8963030245759, 515.6066771344796, 
+                                             468.73334674574966, 429.67223798556927, 
+                                             396.6205304797663, 368.2904953891115, 
+                                             343.7377982313127, 322.2541881444389, 
+                                             303.298061528088, 286.4481711374547, 
+                                             271.37195335812845, 257.80335729857865, 
+                                             245.52700842752677, 234.3666912193648, 
+                                             224.17683632683523, 214.8361359605586, 
+                                             206.24269157743018, 198.31028133329244, 
+                                             190.9654569905159, 184.14526291684382, 
+                                             177.79542701549695, 171.86891346928854, 
+                                             166.32475559868217, 161.1271075591233, 
+                                             156.2444684569005, 151.6490433857875, 
+                                             147.31621400027822, 143.2240973265826, 
+                                             139.35317611780187, 135.685987574085, 
+                                             132.20685995198176, 128.90168868236773, 
+                                             125.75774525165339, 122.7635133856432, 
+                                             119.90854809145114, 117.18335392100755, 
+                                             114.57927946605277)))
+o_sp_one_epoch = proportional_sfs(fold_sfs(c(5156.064338755158, 2578.0331688188267, 
+                                             1718.6888082401108, 1289.016620489102, 
+                                             1031.2133069293436, 859.344430806624, 
+                                             736.5809476011285, 644.5083350048545, 
+                                             572.896302830686, 515.6066769599787, 
+                                             468.73334658711246, 429.6722378401579, 
+                                             396.6205303455348, 368.290495264468, 
+                                             343.7377981149787, 322.2541880353758, 
+                                             303.2980614254404, 286.4481710405098, 
+                                             271.37195326628586, 257.80335721132815, 
+                                             245.5270083444311, 234.3666911400462, 
+                                             224.17683625096208, 214.8361358878499, 
+                                             206.2426915076357, 198.3102812661767, 
+                                             190.96545692588592, 184.14526285452206, 
+                                             177.79542695532925, 171.86891341112158, 
+                                             166.32475554238917, 161.12710750459632, 
+                                             156.24446840402587, 151.64904333446802, 
+                                             147.3162139504208, 143.22409727811012, 
+                                             139.35317607063746, 135.68598752816757, 
+                                             132.20685990723607, 128.9016886387425, 
+                                             125.7577452090904, 122.76351334409534, 
+                                             119.90854805086953, 117.18335388134491, 
+                                             114.57927942727804)))
+o_sp_empirical = proportional_sfs(fold_sfs(c(8279, 4790, 2256, 1375, 918, 701,
+                                             546, 469, 430, 500, 544, 696, 595,
+                                             564, 543, 478, 428, 378, 333, 292,
+                                             274, 202, 78, 0, 0, 0, 0, 0, 0, 0,
+                                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                             0, 0, 0, 0, 0)))
+o_sp_epoch_df = data.frame(o_sp_two_epoch,
+                                   o_sp_one_epoch)
+o_sp_x_axis = 1:length(o_sp_two_epoch)
+p_o_sp_epoch_comparison <- ggplot(data = o_sp_epoch_df, 
+                                  aes(x=o_sp_x_axis, y=o_sp_two_epoch, color='o_sp_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=o_sp_x_axis, y=o_sp_one_epoch, color='o_sp_one_epoch')) +
+  geom_line(aes(x=o_sp_x_axis, y=o_sp_one_epoch, color='o_sp_one_epoch')) +
+  geom_point(shape=1, aes(x=o_sp_x_axis, y=o_sp_empirical, color='o_sp_empricial')) +
+  geom_line(aes(x=o_sp_x_axis, y=o_sp_empirical, color='o_sp_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=o_sp_x_axis, limits = c(2, length(o_sp_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('o_sp_empirical',
+                              'o_sp_two_epoch',
+                              'o_sp_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('O. sp') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_o_sp_epoch_comparison
+
+p_copri_two_epoch = proportional_sfs(fold_sfs(c(7974.83594317686, 3987.4747088993754, 
+                                                2658.3165523864204, 1993.7374650724798, 
+                                                1594.990009016696, 1329.1583687517825, 
+                                                1139.278623272617, 996.8688120540131, 
+                                                886.1056236853229, 797.4950713169401, 
+                                                724.9955269521522, 664.5792385921993, 
+                                                613.4577625451421)))
+p_copri_one_epoch = proportional_sfs(fold_sfs(c(7974.9482427645, 3987.474713112209, 
+                                                2658.31655151093, 1993.7374644154372, 
+                                                1594.9900084910955, 1329.1583683137542, 
+                                                1139.2786228971804, 996.8688117255201, 
+                                                886.1056233933166, 797.4950710541343, 
+                                                724.9955267132378, 664.579238373185, 
+                                                613.4577623429839)))
+p_copri_empirical = proportional_sfs(p_copri_empirical_syn_sfs)
+p_copri_epoch_df = data.frame(p_copri_two_epoch,
+                              p_copri_one_epoch,
+                              p_copri_empirical)
+p_copri_x_axis = 1:length(p_copri_two_epoch)
+p_p_copri_epoch_comparison <- ggplot(data = p_copri_epoch_df, 
+                                     aes(x=p_copri_x_axis, y=p_copri_two_epoch, color='p_copri_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_copri_x_axis, y=p_copri_one_epoch, color='p_copri_one_epoch')) +
+  geom_line(aes(x=p_copri_x_axis, y=p_copri_one_epoch, color='p_copri_one_epoch')) +
+  geom_point(shape=1, aes(x=p_copri_x_axis, y=p_copri_empirical, color='p_copri_empricial')) +
+  geom_line(aes(x=p_copri_x_axis, y=p_copri_empirical, color='p_copri_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_copri_x_axis, limits = c(2, length(p_copri_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('p_copri_empirical',
+                              'p_copri_two_epoch',
+                              'p_copri_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('P. copri') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_p_copri_epoch_comparison
+
+p_distasonis_two_epoch
+p_distasonis_one_epoch
+p_distasonis_empirical
+
+p_distasonis_epoch_df = data.frame(p_distasonis_two_epoch,
+                                   p_distasonis_one_epoch,
+                                   p_distasonis_empirical)
+p_distasonis_x_axis = 1:length(p_distasonis_two_epoch)
+p_p_distasonis_epoch_comparison <- ggplot(data = p_distasonis_epoch_df, 
+                                          aes(x=p_distasonis_x_axis, y=p_distasonis_two_epoch, color='p_distasonis_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_one_epoch, color='p_distasonis_one_epoch')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_one_epoch, color='p_distasonis_one_epoch')) +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empricial')) +
+  geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_x_axis, limits = c(2, length(p_distasonis_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('p_distasonis_empirical',
+                              'p_distasonis_two_epoch',
+                              'p_distasonis_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('P. distasonis') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_p_distasonis_epoch_comparison
+
+p_merdae_two_epoch
+p_merdae_one_epoch
+p_merdae_empirical
+
+p_merdae_epoch_df = data.frame(p_merdae_two_epoch,
+                               p_merdae_one_epoch,
+                               p_merdae_empirical)
+p_merdae_x_axis = 1:length(p_merdae_two_epoch)
+p_p_merdae_epoch_comparison <- ggplot(data = p_merdae_epoch_df, 
+                                      aes(x=p_merdae_x_axis, y=p_merdae_two_epoch, color='p_merdae_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_one_epoch, color='p_merdae_one_epoch')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_one_epoch, color='p_merdae_one_epoch')) +
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empricial')) +
+  geom_line(aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdae_x_axis, limits = c(2, length(p_merdae_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('p_merdae_empirical',
+                              'p_merdae_two_epoch',
+                              'p_merdae_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('P. merdae') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_p_merdae_epoch_comparison
+
+p_sp_two_epoch = proportional_sfs(fold_sfs(c(2641.334023403126, 1791.4206736727167, 
+                                             1307.1901521781963, 1010.8738402580609, 
+                                             817.4547742040486, 683.8179785042425, 
+                                             586.9205420862119, 513.7976450596426, 
+                                             456.7832106701746, 411.1274669335818, 
+                                             373.75902097482583, 342.6144304155506, 
+                                             316.2600458360266, 293.670201426022, 
+                                             274.09223099358064, 256.961478273873, 
+                                             241.8461007769209, 228.41020773632337, 
+                                             216.3886186379095)))
+p_sp_one_epoch = proportional_sfs(fold_sfs(c(3970.568412808523, 1985.284584160073, 
+                                             1323.523086397207, 992.6423347647475, 
+                                             794.1138826924911, 661.7615805134936, 
+                                             567.2242211632537, 496.3212010934979, 
+                                             441.1744072165312, 397.05697167759007, 
+                                             360.9608876589889, 330.8808172817877, 
+                                             305.4284497064283, 283.6121343330601, 
+                                             264.70466072166084, 248.16062104217434, 
+                                             233.56293871858657, 220.5872208584272, 
+                                             208.97736780968506)))
+p_sp_empirical
+p_sp_epoch_df = data.frame(p_sp_two_epoch,
+                           p_sp_one_epoch,
+                           p_sp_empirical)
+p_sp_x_axis = 1:length(p_sp_two_epoch)
+p_p_sp_epoch_comparison <- ggplot(data = p_sp_epoch_df, 
+                                  aes(x=p_sp_x_axis, y=p_sp_two_epoch, color='p_sp_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_one_epoch, color='p_sp_one_epoch')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_one_epoch, color='p_sp_one_epoch')) +
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empricial')) +
+  geom_line(aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_sp_x_axis, limits = c(2, length(p_sp_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('p_sp_empirical',
+                              'p_sp_two_epoch',
+                              'p_sp_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('P. sp') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_p_sp_epoch_comparison
+
+r_bromii_two_epoch = proportional_sfs(fold_sfs(c(7258.016791219756, 3629.063691080987, 
+                                                 2419.3758406606257, 1814.5319064965502, 
+                                                 1451.6255446839345, 1209.6879693787375, 
+                                                 1036.8754150288787, 907.2659988114501, 
+                                                 806.4586746980729, 725.8128150655887, 
+                                                 659.8298386963496, 604.8440247772046, 
+                                                 558.3175665905773, 518.4377450520552, 
+                                                 483.87523283278716, 453.6330344360044, 
+                                                 426.9487415404987, 403.2293698963795, 
+                                                 382.006774043139, 362.9064376123628, 
+                                                 345.6251806867175, 329.9149469701702, 
+                                                 315.5708203920849, 302.4220375602502, 
+                                                 290.3251572251845, 279.15880602194886, 
+                                                 268.8195918248316, 259.2188928117899, 
+                                                 250.2803108603784, 241.93763426446088, 
+                                                 234.1331947638518)))
+r_bromii_one_epoch = proportional_sfs(fold_sfs(c(7258.125355839273, 3629.0636948613023, 
+                                                 2419.3758401559435, 1814.5319061177418, 
+                                                 1451.6255443808568, 1209.6879691261813, 
+                                                 1036.8754148123874, 907.2659986220071, 
+                                                 806.458674529725, 725.8128149140549, 
+                                                 659.8298385586011, 604.8440246509265, 
+                                                 558.3175664740129, 518.4377449438168,
+                                                 483.8752327317647, 453.6330343412958, 
+                                                 426.94874145136123, 403.22936981219414, 
+                                                 382.00677396338443, 362.90643753659594, 
+                                                 345.6251806145537, 329.9149469012912, 
+                                                 315.57082032620065, 302.42203749711115, 
+                                                 290.325157164571, 279.1588059636627, 
+                                                 268.819591768708, 259.2188927576707, 
+                                                 250.2803108081254, 241.93763421394965, 
+                                                 234.1331947149666)))
+r_bromii_empirical = proportional_sfs(fold_sfs(c(11674, 5060, 3222, 2069, 1516,
+                                                 1236, 1021, 1318, 1089, 975,
+                                                 853, 738, 667, 662, 664, 648,
+                                                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                 0, 0, 0, 0, 0, 0)))
+r_bromii_epoch_df = data.frame(r_bromii_two_epoch,
+                               r_bromii_one_epoch,
+                               r_bromii_empirical)
+r_bromii_x_axis = 1:length(r_bromii_two_epoch)
+p_r_bromii_epoch_comparison <- ggplot(data = r_bromii_epoch_df, 
+                                      aes(x=r_bromii_x_axis, y=r_bromii_two_epoch, color='r_bromii_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=r_bromii_x_axis, y=r_bromii_one_epoch, color='r_bromii_one_epoch')) +
+  geom_line(aes(x=r_bromii_x_axis, y=r_bromii_one_epoch, color='r_bromii_one_epoch')) +
+  geom_point(shape=1, aes(x=r_bromii_x_axis, y=r_bromii_empirical, color='r_bromii_empricial')) +
+  geom_line(aes(x=r_bromii_x_axis, y=r_bromii_empirical, color='r_bromii_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=r_bromii_x_axis, limits = c(2, length(r_bromii_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('r_bromii_empirical',
+                              'r_bromii_two_epoch',
+                              'r_bromii_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('R. bromii') +
+  theme(legend.position="none",
+        axis.text.x=element_blank())
+p_r_bromii_epoch_comparison
