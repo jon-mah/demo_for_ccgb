@@ -413,7 +413,24 @@ ggplot(species_prevalence, aes(x = reorder(species, prevalence), y=prevalence, f
   ggtitle('Highest Prevalence Gut Microbial Species in North American Microbiomes')
 # species_prevalence = species_prevalence[species_prevalence$species_prevalence.prevalence>= 0]
 
+rho_mu = read.csv('../Data/r_mu_dic.csv', header = FALSE)
+rho_mu$significant = c('Yes', 'Yes', 'Yes', 'No', 'No', 
+                       'No', 'Yes', 'No', 'No', 'No', 
+                       'No', 'No', 'No', 'No', 'No', 
+                       'No', 'No', 'Yes', 'No', 'No', 
+                       'No', 'Yes', 'No', 'No', 'No', 
+                       'No', 'No', 'No', 'No', 'No', 
+                       'No', 'No', 'No', 'Yes', 'Yes', 
+                       'Yes', 'No', 'No', 'No', 'No', 
+                       'No')
+names(rho_mu) = c('species', 'rho_ratio', 'Significant')
+
+rho_mu_plot = ggplot(aes(x=species, y=rho_ratio), data = rho_mu) +
+  geom_bar(aes(fill = Significant), stat = 'identity', position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle('Significance of demographic model vs. ratio of recombination to mutation') +
+  xlab('Species') +
+  ylab('Rho / mu')
 
 
-
-
+rho_mu_plot
