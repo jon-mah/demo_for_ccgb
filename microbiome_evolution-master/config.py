@@ -12,7 +12,7 @@ data_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/Data/microbi
 analysis_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/Analysis/")
 scripts_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/microbiome_evolution-master/")
 patric_directory = os.path.expanduser("~/patric_db/")
-midas_directory = os.path.expanduser("~/midas_db/")
+midas_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/midas_db_v1.2")
 
 # We use this one to debug because it was the first one we looked at
 debug_species_name = 'Bacteroides_uniformis_57318'

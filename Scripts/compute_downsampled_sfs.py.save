@@ -74,19 +74,21 @@ class ComputeDownSampledSFS():
             '{0}{1}{2}_downsampled_sfs.csv'.format(
                 args['outprefix'], underscore, species)
 
-        core_genes = pmd.load_core_genes(species)
-        print(core_genes)
         print('test1')
-        desired_samples, allele_counts_map, passed_sites_map, final_line_number = pmd.parse_snps(species, allowed_genes=core_genes)
+        desired_samples, allele_counts_map, passed_sites_map, final_line_number = pmd.parse_snps(species)
         allowed_genes = set(passed_sites_map.keys())
         print(allele_counts_map.values()[0])
+        print(allele_counts_map.values()[0].values()[0]['alleles'])
+        print(allele_counts_map.values()[0].values()[0]['alleles'].shape)
 
-        allowed_sample_idxs = numpy.array([True for i in xrange(0,allele_counts_map.values()[0].values()[0]['alleles'].shape[1])])
+        allowed_sample_idxs = numpy.array([True for i in xrange(0, allele_counts_map.values()[0].values()[0]['alleles'].shape[0])])
 
         print(allowed_sample_idxs)
-     
+
         allowed_genes = set(passed_sites_map.keys())
-        allowed_genes = allowed_genes & set(passed_sites_map.keys())        
+        allowed_genes = set(passed_sites_map.keys())
+    allowed_genes = allowed_genes & set(passed_sites_map.keys())
+        
         for gene_name in allowed_genes:
         
             for variant_type in allele_counts_map[gene_name].keys():
