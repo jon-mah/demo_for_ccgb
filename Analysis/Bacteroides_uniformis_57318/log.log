@@ -1,57 +1,324 @@
-2022-04-25 17:44:40,439 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2022-05-25 13:38:42,481 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2022-04-25 17:44:40,439 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+2022-05-25 13:38:42,481 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
 
-2022-04-25 17:44:40,439 - INFO - Parsed the following arguments:
+2022-05-25 13:38:42,481 - INFO - Parsed the following arguments:
 	mask_doubletons = False
+	projection_size = 25
 	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
 	mask_singletons = True
 	outprefix = ../Analysis/Bacteroides_uniformis_57318/
 
-2022-04-25 17:44:40,446 - INFO - Beginning demographic inference for exponential growth demographic model.
-2022-04-25 17:44:40,448 - INFO - Beginning optimization with guess, [1.35073499e-01 1.83417427e-05].
-2022-04-25 17:44:56,365 - INFO - Finished optimization with guess, [1.35073499e-01 1.83417427e-05].
-2022-04-25 17:44:56,367 - INFO - Best fit parameters: [1.37524520e+00 5.95005493e-06].
-2022-04-25 17:44:56,778 - INFO - Maximum log composite likelihood: -253.217139067.
-2022-04-25 17:44:56,778 - INFO - Optimal value of theta: 2054.49140295.
-2022-04-25 17:44:56,779 - INFO - Beginning optimization with guess, [1.04173503e-01 1.81093642e-05].
-2022-04-25 17:45:13,787 - INFO - Finished optimization with guess, [1.04173503e-01 1.81093642e-05].
-2022-04-25 17:45:13,788 - INFO - Best fit parameters: [1.22589257e+00 4.50674614e-06].
-2022-04-25 17:45:14,162 - INFO - Maximum log composite likelihood: -253.217140993.
-2022-04-25 17:45:14,163 - INFO - Optimal value of theta: 2054.49140575.
-2022-04-25 17:45:14,163 - INFO - Beginning optimization with guess, [1.87578571e-01 9.48229656e-06].
-2022-04-25 17:45:25,395 - INFO - Finished optimization with guess, [1.87578571e-01 9.48229656e-06].
-2022-04-25 17:45:25,397 - INFO - Best fit parameters: [9.54691672e-01 3.73253159e-06].
-2022-04-25 17:45:25,768 - INFO - Maximum log composite likelihood: -253.217142802.
-2022-04-25 17:45:25,769 - INFO - Optimal value of theta: 2054.49140838.
-2022-04-25 17:45:25,769 - INFO - Beginning optimization with guess, [4.56940594e-01 5.86647200e-06].
-2022-04-25 17:45:28,199 - INFO - Finished optimization with guess, [4.56940594e-01 5.86647200e-06].
-2022-04-25 17:45:28,199 - INFO - Best fit parameters: [4.56997628e-01 5.86595508e-06].
-2022-04-25 17:45:28,600 - INFO - Maximum log composite likelihood: -253.217186322.
-2022-04-25 17:45:28,601 - INFO - Optimal value of theta: 2054.49147165.
-2022-04-25 17:45:28,601 - INFO - Beginning optimization with guess, [2.88328347e-01 1.57530243e-05].
-2022-04-25 17:45:52,100 - INFO - Finished optimization with guess, [2.88328347e-01 1.57530243e-05].
-2022-04-25 17:45:52,101 - INFO - Best fit parameters: [80.          0.09709052].
-2022-04-25 17:45:52,517 - INFO - Maximum log composite likelihood: -233.25945604.
-2022-04-25 17:45:52,518 - INFO - Optimal value of theta: 1962.61683827.
-2022-04-25 17:45:52,519 - INFO - Beginning optimization with guess, [3.44487062e-01 1.02933996e-05].
-2022-04-25 17:46:01,720 - INFO - Finished optimization with guess, [3.44487062e-01 1.02933996e-05].
-2022-04-25 17:46:01,721 - INFO - Best fit parameters: [1.32096871e+00 6.80148290e-06].
-2022-04-25 17:46:02,104 - INFO - Maximum log composite likelihood: -253.217138338.
-2022-04-25 17:46:02,105 - INFO - Optimal value of theta: 2054.49140189.
-2022-04-25 17:46:02,106 - INFO - Beginning optimization with guess, [5.05095210e-01 1.39769478e-05].
-2022-04-25 17:46:04,400 - INFO - Finished optimization with guess, [5.05095210e-01 1.39769478e-05].
-2022-04-25 17:46:04,400 - INFO - Best fit parameters: [5.05378596e-01 1.39717488e-05].
-2022-04-25 17:46:04,780 - INFO - Maximum log composite likelihood: -253.217328055.
-2022-04-25 17:46:04,781 - INFO - Optimal value of theta: 2054.49167794.
-2022-04-25 17:46:04,781 - INFO - Beginning optimization with guess, [5.1761617e-01 1.1758902e-05].
-2022-04-25 17:46:07,081 - INFO - Finished optimization with guess, [5.1761617e-01 1.1758902e-05].
-2022-04-25 17:46:07,081 - INFO - Best fit parameters: [5.17810412e-01 1.17560248e-05].
-2022-04-25 17:46:07,463 - INFO - Maximum log composite likelihood: -253.217264508.
-2022-04-25 17:46:07,464 - INFO - Optimal value of theta: 2054.49158543.
-2022-04-25 17:46:07,465 - INFO - Beginning optimization with guess, [5.13964153e-01 1.46872925e-05].
-2022-04-25 17:46:09,761 - INFO - Finished optimization with guess, [5.13964153e-01 1.46872925e-05].
-2022-04-25 17:46:09,762 - INFO - Best fit parameters: [5.14269797e-01 1.46815721e-05].
-2022-04-25 17:46:10,144 - INFO - Maximum log composite likelihood: -253.217336795.
-2022-04-25 17:46:10,145 - INFO - Optimal value of theta: 2054.49169067.
-2022-04-25 17:46:10,145 - INFO - Beginning optimization with guess, [5.14586270e-01 1.80545844e-05].
+2022-05-25 13:38:42,485 - INFO - Finished downsampling projection.
+2022-05-25 13:38:42,485 - INFO - Pipeline executed succesfully.
+2022-05-25 13:41:53,323 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:41:53,323 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:41:53,323 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:41:53,328 - INFO - Finished downsampling projection.
+2022-05-25 13:41:53,328 - INFO - Pipeline executed succesfully.
+2022-05-25 13:42:44,036 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:42:44,036 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:42:44,036 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:42:44,040 - INFO - Finished downsampling projection.
+2022-05-25 13:42:44,040 - INFO - Pipeline executed succesfully.
+2022-05-25 13:44:12,275 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:44:12,275 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:44:12,275 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:44:12,280 - INFO - Finished downsampling projection.
+2022-05-25 13:44:12,280 - INFO - Pipeline executed succesfully.
+2022-05-25 13:45:40,455 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:45:40,455 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:45:40,455 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:46:49,863 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:46:49,863 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:46:49,863 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:47:34,004 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:47:34,005 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:47:34,005 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:47:55,614 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:47:55,614 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:47:55,615 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:47:55,621 - INFO - Finished downsampling projection.
+2022-05-25 13:47:55,621 - INFO - Pipeline executed succesfully.
+2022-05-25 13:48:56,024 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:48:56,024 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:48:56,024 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:48:56,032 - INFO - Finished downsampling projection.
+2022-05-25 13:48:56,032 - INFO - Pipeline executed succesfully.
+2022-05-25 13:50:09,751 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:50:09,751 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:50:09,751 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:50:09,757 - INFO - Finished downsampling projection.
+2022-05-25 13:50:09,757 - INFO - Pipeline executed succesfully.
+2022-05-25 13:51:17,839 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:51:17,839 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:51:17,840 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:51:17,846 - INFO - Finished downsampling projection.
+2022-05-25 13:51:17,846 - INFO - Pipeline executed succesfully.
+2022-05-25 13:51:55,059 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:51:55,059 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:51:55,060 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:51:55,065 - INFO - Finished downsampling projection.
+2022-05-25 13:51:55,065 - INFO - Pipeline executed succesfully.
+2022-05-25 13:52:32,495 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:52:32,495 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:52:32,496 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:52:32,501 - INFO - Finished downsampling projection.
+2022-05-25 13:52:32,501 - INFO - Pipeline executed succesfully.
+2022-05-25 13:55:04,383 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:55:04,384 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:55:04,384 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:55:39,207 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:55:39,207 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:55:39,208 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:58:20,412 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:58:20,413 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:58:20,413 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:58:36,360 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:58:36,360 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:58:36,360 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:59:00,102 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:59:00,103 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:59:00,103 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:59:00,110 - INFO - Finished downsampling projection.
+2022-05-25 13:59:00,110 - INFO - Pipeline executed succesfully.
+2022-05-25 13:59:14,750 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 13:59:14,751 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 13:59:14,751 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 13:59:14,771 - INFO - Finished downsampling projection.
+2022-05-25 13:59:14,771 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:08,221 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:08,222 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:08,222 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 25
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:08,230 - INFO - Finished downsampling projection.
+2022-05-25 14:01:08,230 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:09,055 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:09,056 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:09,056 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 24
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:09,063 - INFO - Finished downsampling projection.
+2022-05-25 14:01:09,063 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:09,870 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:09,871 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:09,871 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 23
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:09,879 - INFO - Finished downsampling projection.
+2022-05-25 14:01:09,879 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:10,684 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:10,685 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:10,685 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 22
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:10,690 - INFO - Finished downsampling projection.
+2022-05-25 14:01:10,690 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:11,492 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:11,493 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:11,493 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 21
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:11,498 - INFO - Finished downsampling projection.
+2022-05-25 14:01:11,498 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:12,301 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:12,301 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:12,301 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 20
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:12,307 - INFO - Finished downsampling projection.
+2022-05-25 14:01:12,307 - INFO - Pipeline executed succesfully.
+2022-05-25 14:01:13,152 - INFO - Beginning execution of downsample_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-05-25 14:01:13,152 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318/log.log
+
+2022-05-25 14:01:13,152 - INFO - Parsed the following arguments:
+	mask_doubletons = False
+	projection_size = 15
+	syn_input_sfs = ../Data/Bacteroides_uniformis_57318_syn.sfs
+	mask_singletons = True
+	outprefix = ../Analysis/Bacteroides_uniformis_57318/
+
+2022-05-25 14:01:13,159 - INFO - Finished downsampling projection.
+2022-05-25 14:01:13,159 - INFO - Pipeline executed succesfully.
