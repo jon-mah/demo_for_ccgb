@@ -3298,7 +3298,7 @@ p_b_caccae_epoch_comparison <- ggplot(data = b_caccae_epoch_df,
                      labels=c('Synonymous empirical',
                               'Two-epoch',
                               'One-epoch')) +
-  ggtitle('B.caccae') +
+  ggtitle('B. caccae') +
   theme(legend.position="none",
         axis.text.x=element_blank())
 p_b_caccae_epoch_comparison
@@ -3691,11 +3691,11 @@ p_b_thetaiotaomicron_epoch_comparison <- ggplot(data = b_thetaiotaomicron_epoch_
                               'b_thetaiotaomicron_one_epoch'
                      ),
                      labels=c('Synonymous empirical',
-                              'Two-epoch',
+                              'Multi-epoch',
                               'One-epoch')) +
-  ggtitle('B. thetaiotaomicron') +
-  theme(legend.position="none",
-       axis.text.x=element_blank())
+  ggtitle('B. thetaiotaomicron')
+  # theme(legend.position="none",
+  #      axis.text.x=element_blank())
 p_b_thetaiotaomicron_epoch_comparison
 
 b_uniformis_two_epoch = proportional_sfs(fold_sfs(c(2054.3278886050252, 1027.2454206090936, 
