@@ -1,18 +1,20 @@
-###############################################################################
-#
-# Set up default source and output directories
-#
-###############################################################################
 import os.path 
 from math import log10
 
-data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
-#data_directory = os.path.expanduser("~/ben_nandita_hmp_data_071518/")
-#data_directory = os.path.expanduser("~/ben_nandita_hmp_data/")
-analysis_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/Analysis/")
-scripts_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/microbiome_evolution-master/")
-patric_directory = os.path.expanduser("~/patric_db/")
-midas_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/midas_db_v1.2")
+# ==========================================================================
+# Set up default source and output directories
+# ==========================================================================
+
+main_dir = '/u/home/d/daisyche'
+
+data_directory = os.path.expanduser("%s/dbd/data/" % main_dir)
+data_rarefied_directory = os.path.expanduser("%s/dbd/data_rarefied/" % main_dir)
+int_data_directory = os.path.expanduser("%s/glab/metagenomic_fastq_files/HMP1-2/midas_output_rarefied_v2" % main_dir)
+metadata_directory = os.path.expanduser("%s/dbd/scripts/metadata/" % main_dir)
+analysis_directory = os.path.expanduser("%s/dbd/analysis/" % main_dir)
+scripts_directory = os.path.expanduser("%s/dbd/scripts/" % main_dir)
+patric_directory = os.path.expanduser("%s/patric_db/" % main_dir)
+midas_directory = os.path.expanduser("%s/midas_db/" % main_dir)
 
 # We use this one to debug because it was the first one we looked at
 debug_species_name = 'Bacteroides_uniformis_57318'
@@ -24,7 +26,10 @@ min_median_coverage = 20
 
 consensus_lower_threshold = 0.2
 consensus_upper_threshold = 0.8
-fixation_min_change = consensus_upper_threshold-consensus_lower_threshold
+temporal_lower_threshold = 0.35
+temporal_upper_threshold = 0.65
+
+fixation_min_change = 0.3 # Originally consensus_upper_threshold - consensus_lower_threshold
 fixation_log10_depth_ratio_threshold = log10(3)
 
 threshold_within_between_fraction = 0.1
@@ -62,9 +67,3 @@ within_host_min_sample_size = 3
 within_host_min_haploid_sample_size = 10
 
 between_low_divergence_threshold = 2e-04
-
-# Comment this out
-from parse_HMP_data import *
-# and uncomment this
-#from parse_simulated_data import *
-# for isolate data

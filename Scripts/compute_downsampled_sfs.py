@@ -1,7 +1,7 @@
 """
 Summarizes the average pi values per sample across species and populations.
 
-JCM 20211118
+JCM 20220516
 """
 
 
@@ -86,7 +86,7 @@ class ComputeDownSampledSFS():
         upper_threshold = 0.8
 
         # Pooled counts: for reference
-        synonymous_counts, synonymous_weights = diversity_utils.calculate_pooled_counts(allele_counts_map, passed_sites_map, allowed_variant_types = set(['4D']), allowed_genes=core_genes,pi_min_k=4)
+        # synonymous_counts, synonymous_weights = diversity_utils.calculate_pooled_counts(allele_counts_map, passed_sites_map, allowed_variant_types = set(['4D']), allowed_genes=core_genes,pi_min_k=4)
 
         # Dive into internals of calculatealle_pooled_counts
         allowed_variant_types = '4D'
