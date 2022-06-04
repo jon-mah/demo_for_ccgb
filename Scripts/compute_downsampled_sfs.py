@@ -74,10 +74,10 @@ class ComputeDownSampledSFS():
                 args['outprefix'], underscore, species)
 
         # Load core genes
-        core_genes = parse_midas_data.load_core_genes(species_name)
+        core_genes = parse_midas_data.load_core_genes(species)
 
         # Load allele counts map for this species
-        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species_name, allowed_variant_types=['1D','2D','3D','4D'], allowed_genes=core_genes, debug=True)
+        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_genes=core_genes, debug=False)
 
         allowed_variant_types = '4D'
         allowed_genes = core_genes

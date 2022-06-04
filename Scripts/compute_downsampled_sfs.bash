@@ -7,7 +7,7 @@
 
 # This script infers the demography of a given example synonymous sfs.
 # species=Veillonella_sp_62404
-# species=Faecalibacterium_prausnitzii_61481
-species=Bacteriudes_uniformis
+species=Faecalibacterium_prausnitzii_61481
+# species=Bacteriudes_uniformis_57318
 
-python compute_downsampled_sfs.py ${species} ../Analysis/${species}
+python compute_downsampled_sfs.py ${species} ../Data/
