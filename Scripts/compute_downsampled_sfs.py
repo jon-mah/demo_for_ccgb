@@ -76,8 +76,32 @@ class ComputeDownSampledSFS():
         # Load core genes
         core_genes = parse_midas_data.load_core_genes(species)
 
+        # Default parameters
+        alpha = 0.5 # Confidence interval range for rate estimates
+        low_divergence_threshold = 5e-04
+        min_change = 0.8
+
+        # Pre-computed substituion rates for species
+        substitution_rate_map = calculate_substitution_rates.load_substitution_rate_map(species)
+        dummy_samples, snp_difference_matrix, snp_opportunity_matrix = calculate_substitution_rates.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
+        snp_samples = numpy.array(dummy_samples)
+        substitution_rate = snp_difference_matrix*1.0/(snp_opportunity_matrix+(snp_opportunity_matrix==0))
+
+
+        coarse_grained_idxs, coarse_grained_cluster_list = clade_utils.cluster_samples(substitution_rate, min_d=low_divergence_threshold)
+
+        coarse_grained_samples = snp_samples[coarse_grained_idxs]
+        clade_sets = clade_utils.load_manual_clades(species)
+
+        clade_idxss = clade_utils.calculate_clade_idxs_from_clade_sets(coarse_grained_samples, clade_sets)
+
+        clade_sizes = numpy.array([clade_idxs.sum() for clade_idxs in clade_idxss])
+
+        largest_clade_samples = coarse_grained_samples[ clade_idxss[clade_sizes.argmax()] ]
+
+
         # Load allele counts map for this species
-        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_genes=core_genes, debug=True)
+        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_samples=largest_clade_samples, allowed_genes=core_genes, debug=True)
 
         allowed_variant_types = '4D'
         allowed_genes = core_genes
