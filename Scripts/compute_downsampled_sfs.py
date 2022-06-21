@@ -112,30 +112,23 @@ class ComputeDownSampledSFS():
           # (freq>0.8, (2) how many samples have reference allele (freq>0.8),
           # and (3) how many samples have 0 coverage
           # site number --> gene + position within gene
-          genotype_matrix, passed_sites_matrix = diversity_utils.calculate_consensus_genotypes(allele_counts,lower_threshold,upper_threshold)
+          genotype_matrix, passed_sites_matrix = diversity_utils.calculate_consensus_genotypes(
+            allele_counts, lower_threshold, upper_threshold, debug=True)
           num_sites = passed_sites_matrix.shape[0]
           num_samples = passed_sites_matrix.shape[1]
           with open(output_matrix, 'a+') as f:
+            header = 'Bacl	Dsim	Allele1	BAC	Allele2	BAC	SNPid'
+            f.write(header + '\n')
             for i in range(0, num_sites):
               site_id = gene_name + '.site.' + str(i+1)
               alts = int(sum(genotype_matrix[i]))
               fails = int(sum(numpy.invert(passed_sites_matrix[i])))
               refs = int(len(genotype_matrix[i]) - fails)
+              string = '-A-' + '\t' + '---' + '\t' + 'A'
+              string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)
+              string = string + '\t' + site_id + '\n'
               f.write(site_id + ', ' + str(alts) + ', ' + str(refs) + ', ' + str(alts + refs) + '\n')
-          # prevalences = (genotype_matrix*passed_sites_matrix).sum(axis=1)
-          # min_prevalences = 0.5
-          # max_prevalences = (passed_sites_matrix).sum(axis=1)-0.5
-          # polymorphic_sites = (prevalences>min_prevalences)*(prevalences<max_prevalences)
-          # ks = prevalences[polymorphic_sites]
-          # ns = passed_sites_matrix.sum(axis=1)[polymorphic_sites]
-          # minor_ks = numpy.fmin(ks,ns-ks)
-          # break
 
-        # Finally, do whatever you need to do to figure out what the data structure and data is
-        # print(allele_counts)
-        # print(genotype_matrix)
-        # print(passed_sites_matrix)
-        # print(prevalences)
 
 
 
