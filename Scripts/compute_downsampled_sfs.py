@@ -77,7 +77,7 @@ class ComputeDownSampledSFS():
         core_genes = parse_midas_data.load_core_genes(species)
 
         # Load allele counts map for this species
-        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_genes=core_genes, debug=False)
+        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_genes=core_genes, debug=True)
 
         allowed_variant_types = '4D'
         allowed_genes = core_genes
@@ -96,7 +96,8 @@ class ComputeDownSampledSFS():
         upper_threshold = 0.8
 
         with open(output_matrix, 'w+') as f:
-          f.write('site, alts, refs, total\n')
+          header = 'Bacl' + '\t' + 'Dsim' + '\t' + 'Allele1' + '\t' + 'BAC' + '\t' + 'Allele2' + '\t' + 'BAC'+ '\t' + 'SNPid'
+          f.write(header + '\n')
         for gene_name in allele_counts_map:
           for variant_type in allele_counts_map[gene_name].keys():
             if variant_type not in allowed_variant_types:
@@ -113,21 +114,19 @@ class ComputeDownSampledSFS():
           # and (3) how many samples have 0 coverage
           # site number --> gene + position within gene
           genotype_matrix, passed_sites_matrix = diversity_utils.calculate_consensus_genotypes(
-            allele_counts, lower_threshold, upper_threshold, debug=True)
+            allele_counts, lower_threshold, upper_threshold)
           num_sites = passed_sites_matrix.shape[0]
           num_samples = passed_sites_matrix.shape[1]
           with open(output_matrix, 'a+') as f:
-            header = 'Bacl	Dsim	Allele1	BAC	Allele2	BAC	SNPid'
-            f.write(header + '\n')
             for i in range(0, num_sites):
               site_id = gene_name + '.site.' + str(i+1)
               alts = int(sum(genotype_matrix[i]))
               fails = int(sum(numpy.invert(passed_sites_matrix[i])))
               refs = int(len(genotype_matrix[i]) - fails)
-              string = '-A-' + '\t' + '---' + '\t' + 'A'
+              string = '-A-' + '\t' + '---' + '\t' + 'A' + '\t'
               string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)
               string = string + '\t' + site_id + '\n'
-              f.write(site_id + ', ' + str(alts) + ', ' + str(refs) + ', ' + str(alts + refs) + '\n')
+              f.write(string)
 
 
 
