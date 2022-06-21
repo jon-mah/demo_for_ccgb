@@ -52,6 +52,87 @@ class ComputeDownSampledSFS():
             help='The file prefix for the output files')
         return parser
 
+    def load_substitution_rate_map(self, species_name):
+    # This definition is called whenever another script downstream uses the output of this data.
+
+        intermediate_filename = intermediate_filename_template % (substitution_rate_directory, species_name)
+
+        substitution_rate_map = {}
+
+        if not os.path.isfile(intermediate_filename):
+            return substitution_rate_map
+
+        file = gzip.open(intermediate_filename,"r")
+        file.readline() # header
+        for line in file:
+            items = line.split(",")
+            if items[0].strip()!=species_name:
+                continue
+
+            record_strs = [", ".join(['Species', 'Sample1', 'Sample2', 'Type', 'Num_muts', 'Num_revs', 'Num_mut_opportunities', 'Num_rev_opportunities'])]
+
+            sample_1 = items[1].strip()
+            sample_2 = items[2].strip()
+            type = items[3].strip()
+            num_muts = float(items[4])
+            num_revs = float(items[5])
+            num_mut_opportunities = float(items[6])
+            num_rev_opportunities = float(items[7])
+
+            num_changes = num_muts+num_revs
+            num_opportunities = num_mut_opportunities+num_rev_opportunities
+
+            sample_pair = (sample_1, sample_2)
+
+            if type not in substitution_rate_map:
+                substitution_rate_map[type] = {}
+
+            substitution_rate_map[type][sample_pair] = (num_muts, num_revs, num_mut_opportunities, num_rev_opportunities)
+
+        return substitution_rate_map
+
+    def calculate_mutrev_matrices_from_substitution_rate_map(self, substitution_rate_map, type, allowed_samples=[]):
+        # Rewritten to preserve order of allowed samples
+        # If allowed samples contains things that are not in DB, it returns zero opportunities
+
+        total_sample_set = set([])
+        for sample_1, sample_2 in substitution_rate_map[type].keys():
+            total_sample_set.add(sample_1)
+            total_sample_set.add(sample_2)
+
+        if len(allowed_samples)==0:
+            allowed_samples = list(sorted(total_sample_set))
+
+        # allows us to go from sample name to idx in allowed samples (to preserve order)
+        sample_idx_map = {allowed_samples[i]:i for i in xrange(0,len(allowed_samples))}
+
+        mut_difference_matrix = numpy.zeros((len(allowed_samples), len(allowed_samples)))*1.0
+        rev_difference_matrix = numpy.zeros_like(mut_difference_matrix)
+
+        mut_opportunity_matrix = numpy.zeros_like(mut_difference_matrix)
+        rev_opportunity_matrix = numpy.zeros_like(mut_difference_matrix)
+
+        for sample_pair in substitution_rate_map[type].keys():
+
+            sample_i = sample_pair[0]
+            sample_j = sample_pair[1]
+
+            if not ((sample_i in sample_idx_map) and (sample_j in sample_idx_map)):
+                continue
+
+            i = sample_idx_map[sample_i]
+            j = sample_idx_map[sample_j]
+
+            num_muts, num_revs, num_mut_opportunities, num_rev_opportunities = substitution_rate_map[type][sample_pair]
+
+            mut_difference_matrix[i,j] = num_muts
+            rev_difference_matrix[i,j] = num_revs
+
+            mut_opportunity_matrix[i,j] = num_mut_opportunities
+            rev_opportunity_matrix[i,j] = num_rev_opportunities
+
+        return allowed_samples, mut_difference_matrix, rev_difference_matrix, mut_opportunity_matrix, rev_opportunity_matrix
+
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -82,8 +163,8 @@ class ComputeDownSampledSFS():
         min_change = 0.8
 
         # Pre-computed substituion rates for species
-        substitution_rate_map = calculate_substitution_rates.load_substitution_rate_map(species)
-        dummy_samples, snp_difference_matrix, snp_opportunity_matrix = calculate_substitution_rates.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
+        substitution_rate_map = self.load_substitution_rate_map(species)
+        dummy_samples, snp_difference_matrix, snp_opportunity_matrix = self.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
         snp_samples = numpy.array(dummy_samples)
         substitution_rate = snp_difference_matrix*1.0/(snp_opportunity_matrix+(snp_opportunity_matrix==0))
 
