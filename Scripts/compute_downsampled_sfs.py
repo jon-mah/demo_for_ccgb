@@ -52,10 +52,13 @@ class ComputeDownSampledSFS():
             help='The file prefix for the output files')
         return parser
 
-    def load_substitution_rate_map(self, species_name):
+    def load_substitution_rate_map(self, species):
     # This definition is called whenever another script downstream uses the output of this data.
+        data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
+        substitution_rate_directory = '%ssubstitution_rates/' % data_directory
+        intermediate_filename_template = '%s%s.txt.gz'  
 
-        intermediate_filename = intermediate_filename_template % (substitution_rate_directory, species_name)
+        intermediate_filename = intermediate_filename_template % (substitution_rate_directory, species)
 
         substitution_rate_map = {}
 
@@ -66,7 +69,7 @@ class ComputeDownSampledSFS():
         file.readline() # header
         for line in file:
             items = line.split(",")
-            if items[0].strip()!=species_name:
+            if items[0].strip()!=species:
                 continue
 
             record_strs = [", ".join(['Species', 'Sample1', 'Sample2', 'Type', 'Num_muts', 'Num_revs', 'Num_mut_opportunities', 'Num_rev_opportunities'])]
@@ -133,6 +136,16 @@ class ComputeDownSampledSFS():
 
         return allowed_samples, mut_difference_matrix, rev_difference_matrix, mut_opportunity_matrix, rev_opportunity_matrix
 
+    def calculate_matrices_from_substitution_rate_map(self, substitution_rate_map, type, allowed_samples=[]):
+        # once the map is loaded, then we can compute rate matrices in this definition (so, it relies on the previous def)    
+
+        samples, mut_difference_matrix, rev_difference_matrix, mut_opportunity_matrix, rev_opportunity_matrix = self.calculate_mutrev_matrices_from_substitution_rate_map( substitution_rate_map, type, allowed_samples)
+
+        difference_matrix = mut_difference_matrix+rev_difference_matrix
+        opportunity_matrix = mut_opportunity_matrix+rev_opportunity_matrix
+    
+        return samples, difference_matrix, opportunity_matrix
+
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -162,8 +175,12 @@ class ComputeDownSampledSFS():
         low_divergence_threshold = 5e-04
         min_change = 0.8
 
+        snp_samples = diversity_utils.calculate_haploid_samples(species)
+        snp_samples = [s.decode("utf-8")  for s in snp_samples]
+
         # Pre-computed substituion rates for species
         substitution_rate_map = self.load_substitution_rate_map(species)
+        print(snp_samples)
         dummy_samples, snp_difference_matrix, snp_opportunity_matrix = self.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
         snp_samples = numpy.array(dummy_samples)
         substitution_rate = snp_difference_matrix*1.0/(snp_opportunity_matrix+(snp_opportunity_matrix==0))
