@@ -221,7 +221,7 @@ class ComputeDownSampledSFS():
 
         with open(output_matrix, 'w+') as f:
             header = 'Bacl' + '\t' + 'Dsim' + '\t' + 'Allele1' + '\t' + 'BAC' + '\t' + 'Allele2' + '\t' + 'BAC'+ '\t' + 'SNPid'
-                f.write(header + '\n')
+            f.write(header + '\n')
         for gene_name in allele_counts_map:
             for variant_type in allele_counts_map[gene_name].keys():
                 if variant_type not in allowed_variant_types:
@@ -263,7 +263,7 @@ def runModel(outFile, nuB_start, nuF_start, TB_start, TF_start):
 
 
     # Parse the data file to generate the data dictionary
-    dd = dadi.Misc.make_data_dict(‘AllData_forDadi.txt')
+    dd = dadi.Misc.make_data_dict('AllData_forDadi.txt')
 
 
     # Extract the spectrum for ['YRI','CEU'] from that dictionary, with both
