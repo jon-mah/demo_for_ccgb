@@ -432,19 +432,19 @@ class ComputeDownSampledSFS():
             '{0}{1}{2}_downsampled_sfs.csv'.format(
                 args['outprefix'], underscore, species)
         exponential_growth_demography = \
-            '{0}{1}{2}exponential_growth_demography.txt'.format(
+            '{0}{1}{2}_exponential_growth_demography.txt'.format(
                 args['outprefix'], underscore, species)
         two_epoch_demography = \
-            '{0}{1}{2}two_epoch_demography.txt'.format(
+            '{0}{1}{2}_two_epoch_demography.txt'.format(
                 args['outprefix'], underscore, species)
         bottleneck_growth_demography = \
-            '{0}{1}{2}bottleneck_growth_demography.txt'.format(
+            '{0}{1}{2}_bottleneck_growth_demography.txt'.format(
                 args['outprefix'], underscore, species)
         three_epoch_demography = \
-            '{0}{1}{2}three_epoch_demography.txt'.format(
+            '{0}{1}{2}_three_epoch_demography.txt'.format(
                 args['outprefix'], underscore, species)
         one_epoch_demography = \
-           '{0}{1}{2}one_epoch_demography.txt'.format(
+           '{0}{1}{2}_one_epoch_demography.txt'.format(
                 args['outprefix'], underscore, species)
         logfile = '{0}{1}log.log'.format(
             args['outprefix'], underscore, species)
