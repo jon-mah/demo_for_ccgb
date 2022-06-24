@@ -18,8 +18,8 @@
 # species=Bacteroides_massiliensis_44749
 # species=Bacteroides_ovatus_58035
 # species=Bacteroides_stercoris_56735
-# species=Bacteroides_thetaiotaomicron_56941
-species=Bacteroides_uniformis_57318
+species=Bacteroides_thetaiotaomicron_56941
+# species=Bacteroides_uniformis_57318
 # species=Bacteroides_vulgatus_57955
 # species=Bacteroides_xylanisolvens_57185
 # species=Barnesiella_intestinihominis_62208

@@ -455,6 +455,29 @@ class ComputeDownSampledSFS():
             if os.path.isfile(f):
                 os.remove(f)
 
+        # Set up to log everything to logfile.
+        logging.shutdown()
+        logging.captureWarnings(True)
+        logging.basicConfig(
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            level=logging.INFO)
+        logger = logging.getLogger(prog)
+        warning_logger = logging.getLogger("py.warnings")
+        logfile_handler = logging.FileHandler(logfile)
+        logger.addHandler(logfile_handler)
+        warning_logger.addHandler(logfile_handler)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(message)s')
+        logfile_handler.setFormatter(formatter)
+        logger.setLevel(logging.INFO)
+
+        # print some basic information
+        logger.info('Beginning execution of {0} in directory {1}\n'.format(
+            prog, os.getcwd()))
+        logger.info('Progress is being logged to {0}\n'.format(logfile))
+        logger.info('Parsed the following arguments:\n{0}\n'.format(
+            '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
+
         # Load core genes
         core_genes = parse_midas_data.load_core_genes(species)
 
