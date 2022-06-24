@@ -8,14 +8,23 @@ from math import log10
 main_dir = '/u/home/d/daisyche'
 data_directory = '/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data'
 
+data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
+#data_directory = os.path.expanduser("~/ben_nandita_hmp_data_071518/")
+#data_directory = os.path.expanduser("~/ben_nandita_hmp_data/")
+analysis_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/Analysis/")
+scripts_directory = os.path.expanduser("~/project-ngarud/demo_for_ccgb/microbiome_evolution-master/")
+patric_directory = os.path.expanduser("~/patric_db/")
+midas_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/midas_db_v1.2")
+
+
 # data_directory = os.path.expanduser("%s/dbd/data/" % main_dir)
-data_rarefied_directory = os.path.expanduser("%s/dbd/data_rarefied/" % main_dir)
-int_data_directory = os.path.expanduser("%s/glab/metagenomic_fastq_files/HMP1-2/midas_output_rarefied_v2" % main_dir)
+# data_rarefied_directory = os.path.expanduser("%s/dbd/data_rarefied/" % main_dir)
+# int_data_directory = os.path.expanduser("%s/glab/metagenomic_fastq_files/HMP1-2/midas_output_rarefied_v2" % main_dir)
 metadata_directory = os.path.expanduser("%s/dbd/scripts/metadata/" % main_dir)
-analysis_directory = os.path.expanduser("%s/dbd/analysis/" % main_dir)
-scripts_directory = os.path.expanduser("%s/dbd/scripts/" % main_dir)
-patric_directory = os.path.expanduser("%s/patric_db/" % main_dir)
-midas_directory = os.path.expanduser("%s/midas_db/" % main_dir)
+# analysis_directory = os.path.expanduser("%s/dbd/analysis/" % main_dir)
+# scripts_directory = os.path.expanduser("%s/dbd/scripts/" % main_dir)
+# patric_directory = os.path.expanduser("%s/patric_db/" % main_dir)
+# midas_directory = os.path.expanduser("%s/midas_db/" % main_dir)
 
 # We use this one to debug because it was the first one we looked at
 debug_species_name = 'Bacteroides_uniformis_57318'

@@ -15,8 +15,9 @@ import warnings
 import numpy
 import bz2
 import pandas as pd
-from utils import parse_midas_data, diversity_utils
+from utils import parse_midas_data, diversity_utils, clade_utils
 import numpy
+import gzip
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -55,7 +56,7 @@ class ComputeDownSampledSFS():
     def load_substitution_rate_map(self, species):
     # This definition is called whenever another script downstream uses the output of this data.
         data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
-        substitution_rate_directory = '%ssubstitution_rates/' % data_directory
+        substitution_rate_directory = '%s/substitution_rates/' % data_directory
         intermediate_filename_template = '%s%s.txt.gz'  
 
         intermediate_filename = intermediate_filename_template % (substitution_rate_directory, species)
@@ -180,7 +181,6 @@ class ComputeDownSampledSFS():
 
         # Pre-computed substituion rates for species
         substitution_rate_map = self.load_substitution_rate_map(species)
-        print(snp_samples)
         dummy_samples, snp_difference_matrix, snp_opportunity_matrix = self.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
         snp_samples = numpy.array(dummy_samples)
         substitution_rate = snp_difference_matrix*1.0/(snp_opportunity_matrix+(snp_opportunity_matrix==0))
