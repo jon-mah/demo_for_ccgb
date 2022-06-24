@@ -18,6 +18,8 @@ import pandas as pd
 from utils import parse_midas_data, diversity_utils, clade_utils
 import numpy
 import gzip
+import dadi
+
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -57,7 +59,7 @@ class ComputeDownSampledSFS():
     # This definition is called whenever another script downstream uses the output of this data.
         data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
         substitution_rate_directory = '%s/substitution_rates/' % data_directory
-        intermediate_filename_template = '%s%s.txt.gz'  
+        intermediate_filename_template = '%s%s.txt.gz'
 
         intermediate_filename = intermediate_filename_template % (substitution_rate_directory, species)
 
@@ -138,13 +140,13 @@ class ComputeDownSampledSFS():
         return allowed_samples, mut_difference_matrix, rev_difference_matrix, mut_opportunity_matrix, rev_opportunity_matrix
 
     def calculate_matrices_from_substitution_rate_map(self, substitution_rate_map, type, allowed_samples=[]):
-        # once the map is loaded, then we can compute rate matrices in this definition (so, it relies on the previous def)    
+        # once the map is loaded, then we can compute rate matrices in this definition (so, it relies on the previous def)
 
         samples, mut_difference_matrix, rev_difference_matrix, mut_opportunity_matrix, rev_opportunity_matrix = self.calculate_mutrev_matrices_from_substitution_rate_map( substitution_rate_map, type, allowed_samples)
 
         difference_matrix = mut_difference_matrix+rev_difference_matrix
         opportunity_matrix = mut_opportunity_matrix+rev_opportunity_matrix
-    
+
         return samples, difference_matrix, opportunity_matrix
 
     def main(self):
@@ -218,39 +220,58 @@ class ComputeDownSampledSFS():
         upper_threshold = 0.8
 
         with open(output_matrix, 'w+') as f:
-          header = 'Bacl' + '\t' + 'Dsim' + '\t' + 'Allele1' + '\t' + 'BAC' + '\t' + 'Allele2' + '\t' + 'BAC'+ '\t' + 'SNPid'
-          f.write(header + '\n')
+            header = 'Bacl' + '\t' + 'Dsim' + '\t' + 'Allele1' + '\t' + 'BAC' + '\t' + 'Allele2' + '\t' + 'BAC'+ '\t' + 'SNPid'
+                f.write(header + '\n')
         for gene_name in allele_counts_map:
-          for variant_type in allele_counts_map[gene_name].keys():
-            if variant_type not in allowed_variant_types:
-              continue
-            allele_counts = allele_counts_map[gene_name][variant_type]['alleles']
-          if len(allele_counts)==0:
-            continue
-          allele_counts = allele_counts
-          # passed_sites_matrix = boolean of whether a site passes or note
-          # genotype_matrix = 1 or 0, 1 --> alt allele, 0 --> reference or false in passed sites_matrix
-          # output alt ref fail depth
-          # For each site, you want to know (1) how many samples have alternate allele
-          # (freq>0.8, (2) how many samples have reference allele (freq>0.8),
-          # and (3) how many samples have 0 coverage
-          # site number --> gene + position within gene
-          genotype_matrix, passed_sites_matrix = diversity_utils.calculate_consensus_genotypes(
-            allele_counts, lower_threshold, upper_threshold)
-          num_sites = passed_sites_matrix.shape[0]
-          num_samples = passed_sites_matrix.shape[1]
-          with open(output_matrix, 'a+') as f:
-            for i in range(0, num_sites):
-              site_id = gene_name + '.site.' + str(i+1)
-              alts = int(sum(genotype_matrix[i]))
-              fails = int(sum(numpy.invert(passed_sites_matrix[i])))
-              refs = int(len(genotype_matrix[i]) - fails)
-              string = '-A-' + '\t' + '---' + '\t' + 'A' + '\t'
-              string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)
-              string = string + '\t' + site_id + '\n'
-              f.write(string)
+            for variant_type in allele_counts_map[gene_name].keys():
+                if variant_type not in allowed_variant_types:
+                    continue
+                allele_counts = allele_counts_map[gene_name][variant_type]['alleles']
+            if len(allele_counts)==0:
+                continue
+            allele_counts = allele_counts
+            # passed_sites_matrix = boolean of whether a site passes or note
+            # genotype_matrix = 1 or 0, 1 --> alt allele, 0 --> reference or false in passed sites_matrix
+            # output alt ref fail depth
+            # For each site, you want to know (1) how many samples have alternate allele
+            # (freq>0.8, (2) how many samples have reference allele (freq>0.8),
+            # and (3) how many samples have 0 coverage
+            # site number --> gene + position within gene
+            genotype_matrix, passed_sites_matrix = diversity_utils.calculate_consensus_genotypes(
+                allele_counts, lower_threshold, upper_threshold)
+            num_sites = passed_sites_matrix.shape[0]
+            num_samples = passed_sites_matrix.shape[1]
+            with open(output_matrix, 'a+') as f:
+                for i in range(0, num_sites):
+                    site_id = gene_name + '.site.' + str(i+1)
+                    alts = int(sum(genotype_matrix[i]))
+                    fails = int(sum(numpy.invert(passed_sites_matrix[i])))
+                    refs = int(len(genotype_matrix[i]) - fails)
+                    string = '-A-' + '\t' + '---' + '\t' + 'A' + '\t'
+                    string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)
+                    string = string + '\t' + site_id + '\n'
+                    f.write(string)
+
+            dadi_dict = dadi.Misc.make_data_dict(output_matrix)
+            fs = dadi.Spectrum.from_data_dict(dadi_dict, ['BAC'], [25], polarized=False)
+            print(fs)
 
 
+
+
+def runModel(outFile, nuB_start, nuF_start, TB_start, TF_start):
+
+
+    # Parse the data file to generate the data dictionary
+    dd = dadi.Misc.make_data_dict(‘AllData_forDadi.txt')
+
+
+    # Extract the spectrum for ['YRI','CEU'] from that dictionary, with both
+    # projected down to 130 samples.
+    fs = dadi.Spectrum.from_data_dict(dd, ['DME'], [130], polarized=False)
+
+    ns = fs.sample_sizes
+    print 'sample sizes:', ns
 
 
 
