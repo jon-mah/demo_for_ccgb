@@ -752,9 +752,9 @@ class ComputeDownSampledSFS():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(10):
+                for i in range(25):
                     # Start at initial guess
-                    p0 = initial_guess
+                    p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
                     p0 = dadi.Misc.perturb_params(
                         p0, fold=1, upper_bound=upper_bound,
@@ -765,7 +765,7 @@ class ComputeDownSampledSFS():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=10)
+                        verbose=len(p0), maxiter=50)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
@@ -807,11 +807,8 @@ class ComputeDownSampledSFS():
                     theta_nonsyn))
                 f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                     best_scaled_spectrum))
-
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
-
-
 
 
 if __name__ == '__main__':
