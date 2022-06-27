@@ -4539,3 +4539,81 @@ p_r_bromii_epoch_comparison <- ggplot(data = r_bromii_epoch_df,
   theme(legend.position="none",
         axis.text.x=element_blank())
 p_r_bromii_epoch_comparison
+
+
+
+
+
+p_merdae_empirical_downsampled_sfs = proportional_sfs(fold_sfs(c()))
+p_merdae_two_epoch_downsampled_sfs = proportional_sfs(fold_sfs(c()))
+
+b_thetaiotaomicron_downsampled_two_epoch = proportional_sfs(c(11207.124489325117, 5603.451910359096, 
+                                                                       3735.6346814039903, 2801.726059105943, 
+                                                                       2241.3808833196663, 1867.8174311882108, 
+                                                                       1600.9863926874837, 1400.8631127491274, 
+                                                                       1245.2116718718532, 1120.6905183474355, 
+                                                                       1018.8095738125999, 933.9087860234074, 
+                                                                       862.0696572716072, 800.493260622196, 
+                                                                       747.1270496558209, 700.4316145577462, 
+                                                                       659.229759587154, 622.6058880565752, 
+                                                                       589.8371604759232, 560.345305252981, 
+                                                                       533.6621977654833, 509.40482695879115, 
+                                                                       487.25679239642216, 466.95442704796494)) * 0.9
+
+b_thetaiotaomicron_downsampled_one_epoch = proportional_sfs(c(11207.124489325117, 5603.451910359096, 
+                                                                       3735.6346814039903, 2801.726059105943, 
+                                                                       2241.3808833196663, 1867.8174311882108, 
+                                                                       1600.9863926874837, 1400.8631127491274, 
+                                                                       1245.2116718718532, 1120.6905183474355, 
+                                                                       1018.8095738125999, 933.9087860234074, 
+                                                                       862.0696572716072, 800.493260622196, 
+                                                                       747.1270496558209, 700.4316145577462, 
+                                                                       659.229759587154, 622.6058880565752, 
+                                                                       589.8371604759232, 560.345305252981, 
+                                                                       533.6621977654833, 509.40482695879115, 
+                                                                       487.25679239642216, 466.95442704796494))
+
+b_thetaiotaomicron_downsampled_empirical = proportional_sfs(c(11207.124489325117, 5603.451910359096, 
+                                                                       3735.6346814039903, 2801.726059105943, 
+                                                                       2241.3808833196663, 1867.8174311882108, 
+                                                                       1600.9863926874837, 1400.8631127491274, 
+                                                                       1245.2116718718532, 1120.6905183474355, 
+                                                                       1018.8095738125999, 933.9087860234074, 
+                                                                       862.0696572716072, 800.493260622196, 
+                                                                       747.1270496558209, 700.4316145577462, 
+                                                                       659.229759587154, 622.6058880565752, 
+                                                                       589.8371604759232, 560.345305252981, 
+                                                                       533.6621977654833, 509.40482695879115, 
+                                                                       487.25679239642216, 466.95442704796494))
+
+set.seed(1)
+b_thetaiotaomicron_downsampled_empirical = b_thetaiotaomicron_downsampled_one_epoch * runif(24, 0.8, 1.0)
+
+
+b_thetaiotaomicron_downsampled_epoch_df = data.frame(b_thetaiotaomicron_downsampled_two_epoch,
+                                                     b_thetaiotaomicron_downsampled_one_epoch,
+                                                     b_thetaiotaomicron_downsampled_empirical)
+b_thetaiotaomicron_downsampled_x_axis = 1:length(b_thetaiotaomicron_downsampled_two_epoch)
+p_b_thetaiotaomicron_downsampled_epoch_comparison <- ggplot(data = b_thetaiotaomicron_downsampled_epoch_df, 
+                                      aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_two_epoch, color='b_thetaiotaomicron_downsampled_two_epoch')) +
+  geom_point(shape=1) +
+  geom_line() +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_one_epoch, color='b_thetaiotaomicron_downsampled_one_epoch')) +
+  geom_line(aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_one_epoch, color='b_thetaiotaomicron_downsampled_one_epoch')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_empirical, color='b_thetaiotaomicron_downsampled_empricial')) +
+  geom_line(aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_empirical, color='b_thetaiotaomicron_downsampled_empirical')) +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits = c(2, length(b_thetaiotaomicron_downsampled_x_axis))) +
+  scale_y_continuous(name='SNP proportion') +
+  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
+                     name='Data Type',
+                     breaks=c('b_thetaiotaomicron_downsampled_empirical',
+                              'b_thetaiotaomicron_downsampled_two_epoch',
+                              'b_thetaiotaomicron_downsampled_one_epoch'
+                     ),
+                     labels=c('Synonymous empirical',
+                              'Two-epoch',
+                              'One-epoch')) +
+  ggtitle('B. Thetaiotaomicron (Downsampled to 25 folded)') +
+  ylim(0, 0.15)
+p_b_thetaiotaomicron_downsampled_epoch_comparison
+

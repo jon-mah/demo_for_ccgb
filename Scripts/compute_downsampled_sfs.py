@@ -553,7 +553,7 @@ class ComputeDownSampledSFS():
                 for i in range(0, num_sites):
                     site_id = gene_name + '.site.' + str(i+1)
                     alts = int(sum(genotype_matrix[i]))
-                    fails = int(sum(numpy.invert(passed_sites_matrix[i])))
+                    fails = int(sum(numpy.invert(passed_sites_matrix[i]))) # HEY LOOK AT ME
                     refs = int(len(genotype_matrix[i]) - fails)
                     string = '-A-' + '\t' + '---' + '\t' + 'A' + '\t'
                     string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)

@@ -434,3 +434,91 @@ rho_mu_plot = ggplot(aes(x=species, y=rho_ratio), data = rho_mu) +
 
 
 rho_mu_plot
+
+# Number of QP samples per species
+
+species_list = c('Akkermansia_muciniphila_55200',
+                 'Alistipes_finegoldii_56071',
+                 'Alistipes_onderdonkii_55464',
+                 'Alistipes_putredinis_61533',
+                 'Alistipes_shahii_62199',
+                 'Bacteroidales_bacterium_58650',
+                 'Bacteroides_caccae_53434',
+                 'Bacteroides_cellulosilyticus',
+                 'Bacteroides_frgailis_5507',
+                 'Bacteroides_massiliensis_44749',
+                 'Bacteroides_ovatus_58035',
+                 'Bacteroides_stercoris',
+                 'Bacteroides_thetaiotaomicron_56941',
+                 'Bacteroides_uniformis_57318',
+                 'Bacteroides_vulgatus_57955',
+                 'Bacteroides_xylanisolvens_57185',
+                 'Barnesiella_intestinihominis_62208',
+                 'Coprococcus_sp_62244',
+                 'Dialest_invisus_61905',
+                 'Eubacterium_eligens_61678',
+                 'Eubacterium_rectale_56927',
+                 'Faecalibacterium_prausnitzii_57453',
+                 'Odoribacter_splanchnicus_62174',
+                 'Oscillibacter_sp_60799',
+                 'Parabacteroides_distasonis_56985',
+                 'Parabacteroides_merdae_56972',
+                 'Phasolarctobacterium_sp_59817',
+                 'Prevotella_copri_61740',
+                 'Ruminococcus_bicirculans_59300',
+                 'Ruminococcus_bromii_62047')
+
+num_qp_samples = c(9, 20, 26, 16, 27, 14, 15, 16, 14, 4, 23, 29, 33, 
+                   37, 24, 22, 20, 4, 16, 12, 33, 15, 15, 23, 23, 37, 
+                   10, 7, 30, 16)
+
+qp_samples_per_species_csv = 
+'Akkermansia_muciniphila_55200, 9
+Alistipes_finegoldii_56071, 20
+Alistipes_onderdonkii_55464, 26
+Alistipes_putredinis_61533, 16
+Alistipes_shahii_62199, 27
+Bacteroidales_bacterium_58650, 14
+Bacteroides_caccae_53434, 15
+Bacteroides_cellulosilyticus, 16
+Bacteroides_frgailis_5507, 14
+Bacteroides_massiliensis_44749, 4
+Bacteroides_ovatus_58035, 23
+Bacteroides_stercoris, 29
+Bacteroides_thetaiotaomicron_56941, 33
+Bacteroides_uniformis_57318, 37
+Bacteroides_vulgatus_57955, 24
+Bacteroides_xylanisolvens_57185, 22
+Barnesiella_intestinihominis_62208, 20
+Coprococcus_sp_62244, 4
+Dialest_invisus_61905, 16
+Eubacterium_eligens_61678, 12
+Eubacterium_rectale_56927, 33
+Faecalibacterium_prausnitzii_57453, 15
+Odoribacter_splanchnicus_62174, 15
+Oscillibacter_sp_60799, 23
+Parabacteroides_distasonis_56985, 23
+Parabacteroides_merdae_56972, 37
+Phasolarctobacterium_sp_59817, 10
+Prevotella_copri_61740, 7
+Ruminococcus_bicirculans_59300, 30
+Ruminococcus_bromii_62047, 16
+'
+qp_samples_per_species = data.frame(species_list, num_qp_samples)
+
+qp_samples_per_species_plot = ggplot(aes(x=species_list, y=num_qp_samples), 
+                                     data = qp_samples_per_species) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle('QP samples per species') +
+  xlab('Species') +
+  ylab('Number of QP samples')
+qp_samples_per_species_plot
+
+qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reorder(species_list, -num_qp_samples), y = num_qp_samples)) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle('QP samples per species') +
+  xlab('Species') +
+  ylab('Number of QP samples')
+qp_samples_per_species_plot_ordered
