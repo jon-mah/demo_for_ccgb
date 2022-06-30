@@ -382,119 +382,6 @@ class DemographicInference():
             height = 0
         return height
 
-    def one_epoch(self, params, ns, pts):
-        """Define a one-epoch demography.
-        params = (nu, T)
-            nu: Ratio of contemporary to ancient population size.
-            T: Time in the past at which size change occured,
-                in units of 2*N_a.
-        ns = (n1, )
-            n1: Number of samples in resulting Spectrum object.
-        pts: Number of grid points to use in integration.
-        """
-        xx = dadi.Numerics.default_grid(pts)  # Define likelihood surface.
-	phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
-
-        # Construct spectrum object
-        fs = dadi.Spectrum.from_phi(phi, ns, (xx, ))
-        return fs
-
-    def one_epoch_sel(self, params, ns, pts):
-        """Define a one-epoch demography.
-        params = (nu, T)
-            nu: Ratio of contemporary to ancient population size.
-            T: Time in the past at which size change occured,
-                in units of 2*N_a.
-            gamma: Parameter tuple describing a gamma distribution.
-        ns = (n1, )
-            n1: Number of samples in resulting Spectrum object.
-        pts: Number of grid points to use in integration.
-        """
-        xx = dadi.Numerics.default_grid(pts)
-        phi = dadi.PhiManip.phi_1D(xx)
-
-        fs = dadi.Spectrum.from_phi(phi, nx, (xx, ))
-        return fs
-
-    def one_pop(phi, xx, T, nu=1, gamma=0, h=0.5, theta0=1.0, initial_t=0,
-                frozen=False, beta=1):
-        """
-        Integrate a 1-dimensional phi foward.
-
-        phi: Initial 1-dimensional phi
-        xx: Grid upon (0,1) overwhich phi is defined.
-
-        nu, gamma, and theta0 may be functions of time.
-        nu: Population size
-        gamma: Selection coefficient on *all* segregating alleles
-        h: Dominance coefficient. h = 0.5 corresponds to genic selection.
-        Heterozygotes have fitness 1+2sh and homozygotes have fitness 1+2s.
-        theta0: Propotional to ancestral size. Typically constant.
-        beta: Breeding ratio, beta=Nf/Nm.
-
-        T: Time at which to halt integration
-        initial_t: Time at which to start integration. (Note that this only
-            matters if one of the demographic parameters is a function of time.)
-
-        frozen: If True, population is 'frozen' so that it does not change.
-            In the one_pop case, this is equivalent to not running the
-            integration at all.
-        """
-        phi = phi.copy()
-
-        # For a one population integration, freezing means just not integrating.
-        if frozen:
-            return phi
-
-        if T - initial_t == 0:
-            return phi
-        elif T - initial_t < 0:
-            raise ValueError('Final integration time T (%f) is less than '
-                            'intial_time (%f). Integration cannot be run '
-                            'backwards.' % (T, initial_t))
-
-        vars_to_check = (nu, gamma, h, theta0, beta)
-        if numpy.all([numpy.isscalar(var) for var in vars_to_check]):
-            return _one_pop_const_params(phi, xx, T, nu, gamma, h, theta0,
-                                     initial_t, beta)
-
-        nu_f = Misc.ensure_1arg_func(nu)
-        gamma_f = Misc.ensure_1arg_func(gamma)
-        h_f = Misc.ensure_1arg_func(h)
-        theta0_f = Misc.ensure_1arg_func(theta0)
-        beta_f = Misc.ensure_1arg_func(beta)
-
-        current_t = initial_t
-        nu, gamma, h = nu_f(current_t), gamma_f(current_t), h_f(current_t)
-        beta = beta_f(current_t)
-        dx = numpy.diff(xx)
-        while current_t < T:
-            dt = _compute_dt(dx,nu,[0],gamma,h)
-            this_dt = min(dt, T - current_t)
-
-            # Because this is an implicit method, I need the *next* time's params.
-            # So there's a little inconsistency here, in that I'm estimating dt
-            # using the last timepoints nu,gamma,h.
-            next_t = current_t + this_dt
-            nu, gamma, h = nu_f(next_t), gamma_f(next_t), h_f(next_t)
-            beta = beta_f(next_t)
-            theta0 = theta0_f(next_t)
-
-            if numpy.any(numpy.less([T,nu,theta0], 0)):
-                raise ValueError('A time, population size, migration rate, or '
-                             'theta0 is < 0. Has the model been mis-specified?')
-            if numpy.any(numpy.equal([nu], 0)):
-                raise ValueError('A population size is 0. Has the model been '
-                             'mis-specified?')
-
-            _inject_mutations_1D(phi, this_dt, xx, theta0)
-            # Do each step in C, since it will be faster to compute the a,b,c
-            # matrices there.
-            phi = int_c.implicit_1Dx(phi, xx, nu, gamma, h, beta, this_dt,
-                                 use_delj_trick=use_delj_trick)
-            current_t = next_t
-        return phi
-
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -526,30 +413,31 @@ class DemographicInference():
         exponential_growth_demography = \
             '{0}{1}exponential_growth_demography.txt'.format(
                 args['outprefix'], underscore)
+        exponential_growth_DFE = \
+            '{0}{1}exponential_growth_DFE.txt'.format(
+                args['outprefix'], underscore)
         two_epoch_demography = \
             '{0}{1}two_epoch_demography.txt'.format(
+                args['outprefix'], underscore)
+        two_epoch_DFE = \
+            '{0}{1}two_epoch_DFE.txt'.format(
                 args['outprefix'], underscore)
         bottleneck_growth_demography = \
             '{0}{1}bottleneck_growth_demography.txt'.format(
                 args['outprefix'], underscore)
+        bottleneck_growth_DFE = \
+            '{0}{1}bottleneck_growth_DFE.txt'.format(
+                args['outprefix'], underscore)
         three_epoch_demography = \
             '{0}{1}three_epoch_demography.txt'.format(
                 args['outprefix'], underscore)
-        one_epoch_demography = \
-           '{0}{1}one_epoch_demography.txt'.format(
-                args['outprefix'], underscore)
-        one_epoch_DFE = \
-           '{0}{1}one_epoch_DFE.txt'.format(
-                args['outprefix'], underscore)
-        inferred_DFE = \
-           '{0}{1}inferred_DFE.txt'.format(
+        three_epoch_DFE = \
+            '{0}{1}three_epoch_DFE.txt'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         to_remove = [logfile, exponential_growth_demography,
-                     two_epoch_demography,
-                     bottleneck_growth_demography,
-                     three_epoch_demography,
-                     one_epoch_demography]
+                     two_epoch_demography, bottleneck_growth_demography,
+                     three_epoch_demography]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -588,183 +476,53 @@ class DemographicInference():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
-                      'three_epoch']
-        model_LL_dict = {}
-        model_params_dict = {}
+        model_list = ['three_epoch']
         for model in model_list:
             if model == 'exponential_growth':
-                upper_bound = [80, 0.15]
+                upper_bound = [8, 0.00005]
                 lower_bound = [0, 0]
-                initial_guesses = []
-                initial_guesses.append([0.1, 0.00001])
-                initial_guesses.append([0.2, 0.00001])
-                initial_guesses.append([0.3, 0.00001])
-                initial_guesses.append([0.4, 0.00001])
-                initial_guesses.append([0.5, 0.00001])
-                initial_guesses.append([0.6, 0.00001])
-                initial_guesses.append([0.7, 0.00001])
-                initial_guesses.append([0.8, 0.00001])
-                initial_guesses.append([0.9, 0.00001])
-                initial_guesses.append([1, 0.00001])
-                initial_guesses.append([1.25, 0.00001])
-                initial_guesses.append([1.5, 0.00001])
-                initial_guesses.append([1.75, 0.00001])
-                initial_guesses.append([2, 0.00001])
-                initial_guesses.append([2.25, 0.00001])
-                initial_guesses.append([2.5, 0.00001])
-                initial_guesses.append([2.75, 0.00001])
-                initial_guesses.append([3, 0.00001])
-                initial_guesses.append([3.33, 0.00001])
-                initial_guesses.append([3.66, 0.00001])
-                initial_guesses.append([4, 0.00001])
-                initial_guesses.append([5, 0.00001])
-                initial_guesses.append([6, 0.00001])
-                initial_guesses.append([7, 0.00001])
-                initial_guesses.append([8, 0.00001])
+                initial_guess = [0.1, 0.00001]
                 demography_file = exponential_growth_demography
+                dfe_file = exponential_growth_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
+                func_sel = self.growth_sel
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
             elif model == 'two_epoch':
-                upper_bound = [80, 0.15]
+                upper_bound = [8, 0.00005]
                 lower_bound = [0, 0]
-                initial_guesses = []
-                initial_guesses.append([0.1, 0.000001])
-                initial_guesses.append([0.2, 0.000001])
-                initial_guesses.append([0.3, 0.000001])
-                initial_guesses.append([0.4, 0.000001])
-                initial_guesses.append([0.5, 0.000001])
-                initial_guesses.append([0.6, 0.000001])
-                initial_guesses.append([0.7, 0.000001])
-                initial_guesses.append([0.8, 0.000001])
-                initial_guesses.append([0.9, 0.000001])
-                initial_guesses.append([1, 0.000001])
-                initial_guesses.append([1.25, 0.000001])
-                initial_guesses.append([1.5, 0.000001])
-                initial_guesses.append([1.75, 0.000001])
-                initial_guesses.append([2, 0.000001])
-                initial_guesses.append([2.25, 0.000001])
-                initial_guesses.append([2.5, 0.000001])
-                initial_guesses.append([2.75, 0.000001])
-                initial_guesses.append([3, 0.000001])
-                initial_guesses.append([3.33, 0.000001])
-                initial_guesses.append([3.66, 0.000001])
-                initial_guesses.append([4, 0.000001])
-                initial_guesses.append([5, 0.000001])
-                initial_guesses.append([6, 0.000001])
-                initial_guesses.append([7, 0.000001])
-                initial_guesses.append([8, 0.000001])
+                initial_guess = [0.1, 0.00001]
                 demography_file = two_epoch_demography
+                dfe_file = two_epoch_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
+                func_sel = self.two_epoch_sel
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             elif model == 'bottleneck_growth':
-                upper_bound = [80, 80, 0.15]
+                upper_bound = [8, 8, 0.00005]
                 lower_bound = [0, 0, 0]
                 initial_guess = [0.1, 0.1, 0.00001]
-                initial_guesses = []
-                initial_guesses.append([0.1, 0.1, 0.000001])
-                initial_guesses.append([0.2, 0.2, 0.000001])
-                initial_guesses.append([0.3, 0.3, 0.000001])
-                initial_guesses.append([0.4, 0.4, 0.000001])
-                initial_guesses.append([0.5, 0.5, 0.000001])
-                initial_guesses.append([0.6, 0.6, 0.000001])
-                initial_guesses.append([0.7, 0.7, 0.000001])
-                initial_guesses.append([0.8, 0.8, 0.000001])
-                initial_guesses.append([0.9, 0.9, 0.000001])
-                initial_guesses.append([1, 1, 0.000001])
-                initial_guesses.append([1.25, 1.25, 0.000001])
-                initial_guesses.append([1.5, 1.5, 0.000001])
-                initial_guesses.append([1.75, 1.75, 0.000001])
-                initial_guesses.append([2, 2, 0.000001])
-                initial_guesses.append([2.25, 2.25, 0.000001])
-                initial_guesses.append([2.5, 2.5, 0.000001])
-                initial_guesses.append([2.75, 2.75, 0.000001])
-                initial_guesses.append([3, 3, 0.000001])
-                initial_guesses.append([3.33, 3.33, 0.000001])
-                initial_guesses.append([3.66, 3.66, 0.000001])
-                initial_guesses.append([4, 4, 0.000001])
-                initial_guesses.append([5, 5, 0.000001])
-                initial_guesses.append([6, 6, 0.000001])
-                initial_guesses.append([7, 7, 0.000001])
-                initial_guesses.append([8, 8, 0.000001])
                 demography_file = bottleneck_growth_demography
+                dfe_file = bottleneck_growth_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
+                func_sel = self.bottlegrowth_sel
                 logger.info('Beginning demographic inference for bottleneck + '
                             'growth demographic model.')
-            elif model == 'three_epoch':
-                upper_bound = [80, 80, 0.15, 0.15]
-                lower_bound = [0.0, 0.0, 0.0, 0.0]
-                initial_guesses = []
-                initial_guesses.append([0.1, 0.1, 0.000001, 0.000001])
-                initial_guesses.append([0.2, 0.2, 0.000001, 0.000001])
-                initial_guesses.append([0.3, 0.3, 0.000001, 0.000001])
-                initial_guesses.append([0.4, 0.4, 0.000001, 0.000001])
-                initial_guesses.append([0.5, 0.5, 0.000001, 0.000001])
-                initial_guesses.append([0.6, 0.6, 0.000001, 0.000001])
-                initial_guesses.append([0.7, 0.7, 0.000001, 0.000001])
-                initial_guesses.append([0.8, 0.8, 0.000001, 0.000001])
-                initial_guesses.append([0.9, 0.9, 0.000001, 0.000001])
-                initial_guesses.append([1, 1, 0.000001, 0.000001])
-                initial_guesses.append([1.25, 1.25, 0.000001, 0.000001])
-                initial_guesses.append([1.5, 1.5, 0.000001, 0.000001])
-                initial_guesses.append([1.75, 1.75, 0.000001, 0.000001])
-                initial_guesses.append([2, 2, 0.000001, 0.000001])
-                initial_guesses.append([2.25, 2.25, 0.000001, 0.000001])
-                initial_guesses.append([2.5, 2.5, 0.000001, 0.000001])
-                initial_guesses.append([2.75, 2.75, 0.000001, 0.000001])
-                initial_guesses.append([3, 3, 0.000001, 0.000001])
-                initial_guesses.append([3.33, 3.33, 0.000001, 0.000001])
-                initial_guesses.append([3.66, 3.66, 0.000001, 0.000001])
-                initial_guesses.append([4, 4, 0.000001, 0.000001])
-                initial_guesses.append([5, 5, 0.000001, 0.000001])
-                initial_guesses.append([6, 6, 0.000001, 0.000001])
-                initial_guesses.append([7, 7, 0.000001, 0.000001])
-                initial_guesses.append([8, 8, 0.000001, 0.000001])
+            else:
+                upper_bound = [8, 8, 0.00005, 0.00005]
+                lower_bound = [0, 0, 0, 0]
+                initial_guess = [0.1, 0.1, 0.00001, 0.00001]
                 demography_file = three_epoch_demography
+                dfe_file = three_epoch_dfe
                 func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
+                func_sel = self.three_epoch_sel
                 logger.info('Beginning demographic inference for three-epoch '
-                            'demographic model.')
-            elif model == 'one_epoch':
-                upper_bound = [80]
-                lower_bound = [0]
-                initial_guesses = []
-                initial_guesses.append([0.1])
-                initial_guesses.append([0.2])
-                initial_guesses.append([0.3])
-                initial_guesses.append([0.4])
-                initial_guesses.append([0.5])
-                initial_guesses.append([0.6])
-                initial_guesses.append([0.7])
-                initial_guesses.append([0.8])
-                initial_guesses.append([0.9])
-                initial_guesses.append([1])
-                initial_guesses.append([1.25])
-                initial_guesses.append([1.5])
-                initial_guesses.append([1.75])
-                initial_guesses.append([2])
-                initial_guesses.append([2.25])
-                initial_guesses.append([2.5])
-                initial_guesses.append([2.75])
-                initial_guesses.append([3])
-                initial_guesses.append([3.33])
-                initial_guesses.append([3.66])
-                initial_guesses.append([4])
-                initial_guesses.append([5])
-                initial_guesses.append([6])
-                initial_guesses.append([7])
-                initial_guesses.append([8])
-                # initial_guess = [0.1]
-                demography_file = one_epoch_demography
-                func_ex = dadi.Numerics.make_extrap_log_func(self.snm)
-                logger.info('Beginning demographic inference for one-epoch '
                             'demographic model.')
             with open(demography_file, 'w') as f:
                 max_likelihood = -1e25
                 for i in range(3):
                     # Start at initial guess
-                    p0 = initial_guesses[i]
+                    p0 = initial_guess
                     # Randomly perturb parameters before optimization.
                     p0 = dadi.Misc.perturb_params(
                         p0, fold=1, upper_bound=upper_bound,
@@ -817,212 +575,194 @@ class DemographicInference():
                     theta_nonsyn))
                 f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                     best_scaled_spectrum))
-            model_params_dict[model] = best_params
-            model_LL_dict[model] = max_likelihood
+            logger.info('Finished demographic inference.')
+            logger.info('Beginning DFE inference.')
 
-        logger.info('Finished demographic inference.')
-        logger.info('Beginning DFE inference.')
+            # Load in nonsynonymous data
+            nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs)
+            nonsyn_ns = nonsyn_data.sample_sizes
 
-        # Load in nonsynonymous data
-        nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs)
-        nonsyn_ns = nonsyn_data.sample_sizes
+            demog_params = best_params
 
-        # Use best fit demographic model for DFE inference
-        best_model = max(model_LL_dict, key=model_LL_dict.get)
+            mu = 5E-10
+            Ne = theta_syn / 4 / mu
+            if (model == 'exponential_growth' or model == 'two_epoch'):
+                Na = Ne / float(best_params[0])
+            else:
+                Na = Ne / float(best_params[1])
+            max_s = 0.5
+            max_gam = max_s * 2 * Na
 
-        if best_model == 'exponential_growth':
-            func_sel = self.growth_sel
-        elif best_model == 'two_epoch':
-            func_sel = self.two_epoch_sel
-        elif best_model == 'bottleneck_growth':
-            func_sel = self.bottlegrowth_sel
-        elif best_model == 'three_epoch':
-            func_sel = self.three_epoch_sel
-        else:
-            best_model == 'two_epoch'
-            func_sel = self.two_epoch_sel
+            pts_l = [1200, 1400, 1600]
 
-        demog_params = model_params_dict[best_model]
+            logger.info('Generating spectra object.')
 
-        mu = 5E-10
-        Ne = theta_syn / 4 / mu
-        if (best_model == 'exponential_growth' or best_model == 'two_epoch' or best_model == 'one_epoch'):
-            Na = Ne / float(demog_params[0])
-        else:
-            Na = Ne / float(demog_params[1])
-        max_s = 0.5
-        max_gam = max_s * 2 * Na
+            spectra = Selection.spectra(demog_params, nonsyn_ns,
+                                        func_sel,
+                                        pts_l=pts_l,
+                                        int_bounds=(1e-5, max_gam),
+                                        Npts=750, echo=True, mp=True)
 
-        pts_l = [1200, 1400, 1600]
+            # Assume gamma-distributed DFE
 
-        logger.info('Generating spectra object.')
+            BETAinit = 3 * max_gam
+            initial_guess = [1e-3, BETAinit]
+            upper_beta = 12 * max_gam
+            lower_bound = [1e-3, 0]
+            upper_bound = [100, upper_beta]
 
-        spectra = Selection.spectra(demog_params, nonsyn_ns,
-                                    func_sel,
-                                    pts_l=pts_l,
-                                    int_bounds=(1e-5, max_gam),
-                                    Npts=750, echo=True, mp=True)
-
-        # Assume gamma-distributed DFE
-        BETAinit = 3 * max_gam
-        initial_guess = [1e-3, BETAinit]
-        upper_beta = 12 * max_gam
-        lower_bound = [1e-3, 0]
-        upper_bound = [100, upper_beta]
-
-        gamma_max_likelihoods = []
-        gamma_guesses = dict()
-        for i in range(1):
-            p0 = initial_guess
-            p0 = dadi.Misc.perturb_params(p0, lower_bound=lower_bound,
-                                          upper_bound=upper_bound)
-            logger.info(
-                'Beginning optimization with guess, {0}.'.format(p0))
-            popt = numpy.copy(
-                Selection.optimize_log(p0, nonsyn_data,
-                                       spectra.integrate,
-                                       self.gamma_dist,
-                                       theta_nonsyn,
-                                       lower_bound=lower_bound,
-                                       upper_bound=upper_bound,
-                                       verbose=len(p0),
-                                       maxiter=5))
-            logger.info(
-                'Finished optomization, results are {0}.'.format(popt))
-
-        gamma_max_likelihoods.append(popt[0])
-        gamma_guesses[popt[0]] = popt
-
-        neugamma_vec = numpy.frompyfunc(self.neugamma, 4, 1)
-
-        initial_guess = [0.3, 0.09, BETAinit]
-        lower_bound = [0, 0, 0]
-        upper_bound = [1, 10, upper_beta]
-        neugamma_max_likelihoods = []
-        neugamma_guesses = dict()
-        for i in range(1):
-            p0_neugamma = initial_guess
-            p0_neugamma = dadi.Misc.perturb_params(p0_neugamma,
-                                                   lower_bound=lower_bound,
-                                                   upper_bound=upper_bound)
-            logger.info('Beginning optimization with guess, {0}.'.format(
-                p0_neugamma))
-            popt = numpy.copy(
-                Selection.optimize_log(p0_neugamma, nonsyn_data,
-                                       spectra.integrate,
-                                       neugamma_vec,
-                                       theta_nonsyn,
-                                       lower_bound=lower_bound,
-                                       upper_bound=upper_bound,
-                                       verbose=len(p0_neugamma),
-                                       maxiter=5))
-            logger.info(
-                'Finished optimization, results are {0}.'.format(popt))
-            neugamma_max_likelihoods.append(popt[0])
-            neugamma_guesses[popt[0]] = popt
-
-        mixunif_vec = numpy.frompyfunc(self.mixunif, 6, 1)
-
-        def constraint_func(x, *args):
-            return 1-sum(x)
-
-        initial_guess = [0.20, 0.20, 0.20, 0.20, 0.20]
-        lower_bound = [0, 0, 0, 0, 0]
-        upper_bound = [1, 1, 1, 1, 1]
-        mixunif_max_likelihoods = []
-        mixunif_guesses = dict()
-        for i in range(1):
-            p0_mixunif = initial_guess
-            p0_mixunif = dadi.Misc.perturb_params(
-                p0_mixunif, lower_bound=lower_bound,
-                upper_bound=upper_bound)
-            logger.info('Beginning optimization with guess, {0}.'.format(
-                p0_mixunif))
-            popt = numpy.copy(
-                Selection.optimize_cons(p0_mixunif, nonsyn_data,
-                                        spectra.integrate,
-                                        mixunif_vec,
-                                        theta_nonsyn,
-                                        lower_bound=lower_bound,
-                                        upper_bound=upper_bound,
-                                        verbose=len(p0_mixunif),
-                                        maxiter=5,
-                                        constraint=constraint_function))
-            logger.info(
-                'Finished optimization, results are {0}.'.format(popt))
-            mixunif_max_likelihoods.append(popt[0])
-            mixunif_guesses[popt[0]] = popt
-
-        logger.info('Finished DFE inference.')
-
-        gamma_max_likelihoods.sort(reverse=True)
-        neugamma_max_likelihoods.sort(reverse=True)
-        mixunif_max_likelihoods.sort(reverse=True)
-
-        logger.info('Integrating expected site-frequency spectrum.')
-
-        logger.info('Outputing results.')
-
-        with open(inferred_DFE, 'w') as f:
-            f.write('Best demographic model:{0}.\n'.format(best_model))
-            f.write('Assuming a gamma-distributed DFE...\n')
-            f.write('Outputting best 5 MLE estimates.\n')
+            gamma_max_likelihoods = []
+            gamma_guesses = dict()
             for i in range(1):
-                best_popt = gamma_guesses[gamma_max_likelihoods[i]]
-                expected_sfs = spectra.integrate(
-                    best_popt[1], self.gamma_dist, theta_nonsyn)
-                f.write('The population-scaled '
-                        'best-fit parameters: {0}.\n'.format(best_popt))
-                # Divide output scale parameter by 2 * N_a
-                f.write(
-                    'The non-scaled best-fit parameters: '
-                    '[{0}, array({1})].\n'.format(
-                        best_popt[0],
-                        numpy.divide(best_popt[1],
-                                     numpy.array([1, 2 * Na]))))
-                f.write('The expected SFS is: {0}.\n\n'.format(
-                    expected_sfs))
+                p0 = initial_guess
+                p0 = dadi.Misc.perturb_params(p0, lower_bound=lower_bound,
+                                              upper_bound=upper_bound)
+                logger.info(
+                    'Beginning optimization with guess, {0}.'.format(p0))
+                popt = numpy.copy(
+                    Selection.optimize_log(p0, nonsyn_data,
+                                           spectra.integrate,
+                                           self.gamma_dist,
+                                           theta_nonsyn,
+                                           lower_bound=lower_bound,
+                                           upper_bound=upper_bound,
+                                           verbose=len(p0),
+                                           maxiter=5))
+                logger.info(
+                    'Finished optomization, results are {0}.'.format(popt))
 
-            f.write('Assuming a neutral-gamma-distributed DFE...\n')
-            f.write('Outputting best 5 MLE estimates.\n')
-            for i in range(1):
-                best_popt_neugamma = neugamma_guesses[
-                    neugamma_max_likelihoods[i]]
-                expected_sfs_neugamma = spectra.integrate(
-                    best_popt_neugamma[1], neugamma_vec, theta_nonsyn)
-                f.write(
-                    'The population-scaled best-fit '
-                    'parameters: {0}.\n'.format(best_popt_neugamma))
-                # Divide output scale parameter by 2 * N_a
-                f.write(
-                    'The non-scaled best-fit parameters: '
-                    '[{0}, array({1})].\n'.format(
-                        best_popt_neugamma[0],
-                        numpy.divide(
-                            best_popt_neugamma[1],
-                            numpy.array([1, 1, 2 * Na]))))
-                f.write('The expected SFS is: {0}.\n\n'.format(
-                    expected_sfs_neugamma))
+            gamma_max_likelihoods.append(popt[0])
+            gamma_guesses[popt[0]] = popt
 
-            f.write('Assuming a mixed-uniform-distributed DFE...\n')
-            f.write('Outputting best 5 MLE estimates.\n')
+            neugamma_vec = numpy.frompyfunc(self.neugamma, 4, 1)
+
+            initial_guess = [0.3, 0.09, BETAinit]
+            lower_bound = [0, 0, 0]
+            upper_bound = [1, 10, upper_beta]
+            neugamma_max_likelihoods = []
+            neugamma_guesses = dict()
             for i in range(1):
-                best_popt_mixunif = mixunif_guesses[
-                    mixunif_max_likelihoods[i]]
-                expected_sfs_mixunif = spectra.integrate(
-                    best_popt_mixunif[1], mixunif_vec, theta_nonsyn)
-                f.write(
-                    'The population-scaled best-fit '
-                    'parameters: {0}.\n'.format(best_popt_mixunif))
-                f.write(
-                    'The non-scaled best-fit parameters: '
-                    '[{0}, array({1})].\n'.format(
-                        best_popt_mixunif[0],
-                        numpy.divide(
-                            best_popt_mixunif[1],
-                            numpy.array([1, 1, 1, 1, 1]))))
-                f.write('The expected SFS is: {0}.\n\n'.format(
-                    expected_sfs_mixunif))
+                p0_neugamma = initial_guess
+                p0_neugamma = dadi.Misc.perturb_params(p0_neugamma,
+                                                       lower_bound=lower_bound,
+                                                       upper_bound=upper_bound)
+                logger.info('Beginning optimization with guess, {0}.'.format(
+                    p0_neugamma))
+                popt = numpy.copy(
+                    Selection.optimize_log(p0_neugamma, nonsyn_data,
+                                           spectra.integrate,
+                                           neugamma_vec,
+                                           theta_nonsyn,
+                                           lower_bound=lower_bound,
+                                           upper_bound=upper_bound,
+                                           verbose=len(p0_neugamma),
+                                           maxiter=5))
+                logger.info(
+                    'Finished optimization, results are {0}.'.format(popt))
+                neugamma_max_likelihoods.append(popt[0])
+                neugamma_guesses[popt[0]] = popt
+
+            mixunif_vec = numpy.frompyfunc(self.mixunif, 6, 1)
+
+            def constraint_func(x, *args):
+                return 1-sum(x)
+
+            initial_guess = [0.20, 0.20, 0.20, 0.20, 0.20]
+            lower_bound = [0, 0, 0, 0, 0]
+            upper_bound = [1, 1, 1, 1, 1]
+            mixunif_max_likelihoods = []
+            mixunif_guesses = dict()
+            for i in range(1):
+                p0_mixunif = initial_guess
+                p0_mixunif = dadi.Misc.perturb_params(
+                    p0_mixunif, lower_bound=lower_bound,
+                    upper_bound=upper_bound)
+                logger.info('Beginning optimization with guess, {0}.'.format(
+                    p0_mixunif))
+                popt = numpy.copy(
+                    Selection.optimize_cons(p0_mixunif, nonsyn_data,
+                                            spectra.integrate,
+                                            mixunif_vec,
+                                            theta_nonsyn,
+                                            lower_bound=lower_bound,
+                                            upper_bound=upper_bound,
+                                            verbose=len(p0_mixunif),
+                                            maxiter=5,
+                                            constraint=constraint_function))
+                logger.info(
+                    'Finished optimization, results are {0}.'.format(popt))
+                mixunif_max_likelihoods.append(popt[0])
+                mixunif_guesses[popt[0]] = popt
+
+            logger.info('Finished DFE inference.')
+
+            gamma_max_likelihoods.sort(reverse=True)
+            neugamma_max_likelihoods.sort(reverse=True)
+            mixunif_max_likelihoods.sort(reverse=True)
+
+            logger.info('Integrating expected site-frequency spectrum.')
+
+            logger.info('Outputing results.')
+
+            with open(inferred_DFE, 'w') as f:
+                f.write('Assuming a gamma-distributed DFE...\n')
+                f.write('Outputting best 5 MLE estimates.\n')
+                for i in range(1):
+                    best_popt = gamma_guesses[gamma_max_likelihoods[i]]
+                    expected_sfs = spectra.integrate(
+                        best_popt[1], self.gamma_dist, theta_nonsyn)
+                    f.write('The population-scaled '
+                            'best-fit parameters: {0}.\n'.format(best_popt))
+                    # Divide output scale parameter by 2 * N_a
+                    f.write(
+                        'The non-scaled best-fit parameters: '
+                        '[{0}, array({1})].\n'.format(
+                            best_popt[0],
+                            numpy.divide(best_popt[1],
+                                         numpy.array([1, 2 * Na]))))
+                    f.write('The expected SFS is: {0}.\n\n'.format(
+                        expected_sfs))
+
+                f.write('Assuming a neutral-gamma-distributed DFE...\n')
+                f.write('Outputting best 5 MLE estimates.\n')
+                for i in range(1):
+                    best_popt_neugamma = neugamma_guesses[
+                        neugamma_max_likelihoods[i]]
+                    expected_sfs_neugamma = spectra.integrate(
+                        best_popt_neugamma[1], neugamma_vec, theta_nonsyn)
+                    f.write(
+                        'The population-scaled best-fit '
+                        'parameters: {0}.\n'.format(best_popt_neugamma))
+                    # Divide output scale parameter by 2 * N_a
+                    f.write(
+                        'The non-scaled best-fit parameters: '
+                        '[{0}, array({1})].\n'.format(
+                            best_popt_neugamma[0],
+                            numpy.divide(
+                                best_popt_neugamma[1],
+                                numpy.array([1, 1, 2 * Na]))))
+                    f.write('The expected SFS is: {0}.\n\n'.format(
+                        expected_sfs_neugamma))
+
+                f.write('Assuming a mixed-uniform-distributed DFE...\n')
+                f.write('Outputting best 5 MLE estimates.\n')
+                for i in range(1):
+                    best_popt_mixunif = mixunif_guesses[
+                        mixunif_max_likelihoods[i]]
+                    expected_sfs_mixunif = spectra.integrate(
+                        best_popt_mixunif[1], mixunif_vec, theta_nonsyn)
+                    f.write(
+                        'The population-scaled best-fit '
+                        'parameters: {0}.\n'.format(best_popt_mixunif))
+                    f.write(
+                        'The non-scaled best-fit parameters: '
+                        '[{0}, array({1})].\n'.format(
+                            best_popt_mixunif[0],
+                            numpy.divide(
+                                best_popt_mixunif[1],
+                                numpy.array([1, 1, 1, 1, 1]))))
+                    f.write('The expected SFS is: {0}.\n\n'.format(
+                        expected_sfs_mixunif))
 
         logger.info('Pipeline executed succesfully.')
 
