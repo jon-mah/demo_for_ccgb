@@ -468,41 +468,44 @@ species_list = c('Akkermansia_muciniphila_55200',
                  'Ruminococcus_bicirculans_59300',
                  'Ruminococcus_bromii_62047')
 
-num_qp_samples = c(9, 20, 26, 16, 27, 14, 15, 16, 14, 4, 23, 29, 33, 
-                   37, 24, 22, 20, 4, 16, 12, 33, 15, 15, 23, 23, 37, 
-                   10, 7, 30, 16)
+num_qp_samples = c(19, 39, 53, 33, 55,
+                   29, 31, 33, 29, 9, 
+                   47, 59, 67, 75, 49, 
+                   45, 41, 9, 33, 25, 
+                   67, 31, 31, 47, 47, 
+                   37, 21, 15, 61, 33)
 
 qp_samples_per_species_csv = 
-'Akkermansia_muciniphila_55200, 9
-Alistipes_finegoldii_56071, 20
-Alistipes_onderdonkii_55464, 26
-Alistipes_putredinis_61533, 16
-Alistipes_shahii_62199, 27
-Bacteroidales_bacterium_58650, 14
-Bacteroides_caccae_53434, 15
-Bacteroides_cellulosilyticus, 16
-Bacteroides_frgailis_5507, 14
-Bacteroides_massiliensis_44749, 4
-Bacteroides_ovatus_58035, 23
-Bacteroides_stercoris, 29
-Bacteroides_thetaiotaomicron_56941, 33
-Bacteroides_uniformis_57318, 37
-Bacteroides_vulgatus_57955, 24
-Bacteroides_xylanisolvens_57185, 22
-Barnesiella_intestinihominis_62208, 20
-Coprococcus_sp_62244, 4
-Dialest_invisus_61905, 16
-Eubacterium_eligens_61678, 12
-Eubacterium_rectale_56927, 33
-Faecalibacterium_prausnitzii_57453, 15
-Odoribacter_splanchnicus_62174, 15
-Oscillibacter_sp_60799, 23
-Parabacteroides_distasonis_56985, 23
+'Akkermansia_muciniphila_55200, 19
+Alistipes_finegoldii_56071, 39
+Alistipes_onderdonkii_55464, 53
+Alistipes_putredinis_61533, 33
+Alistipes_shahii_62199, 55
+Bacteroidales_bacterium_58650, 29
+Bacteroides_caccae_53434, 31
+Bacteroides_cellulosilyticus, 33
+Bacteroides_frgailis_5507, 29
+Bacteroides_massiliensis_44749, 9
+Bacteroides_ovatus_58035, 47
+Bacteroides_stercoris, 59
+Bacteroides_thetaiotaomicron_56941, 67
+Bacteroides_uniformis_57318, 75
+Bacteroides_vulgatus_57955, 49
+Bacteroides_xylanisolvens_57185, 45
+Barnesiella_intestinihominis_62208, 41
+Coprococcus_sp_62244, 9
+Dialest_invisus_61905, 33
+Eubacterium_eligens_61678, 25
+Eubacterium_rectale_56927, 67
+Faecalibacterium_prausnitzii_57453, 31
+Odoribacter_splanchnicus_62174, 31
+Oscillibacter_sp_60799, 47
+Parabacteroides_distasonis_56985, 47
 Parabacteroides_merdae_56972, 37
-Phasolarctobacterium_sp_59817, 10
-Prevotella_copri_61740, 7
-Ruminococcus_bicirculans_59300, 30
-Ruminococcus_bromii_62047, 16
+Phasolarctobacterium_sp_59817, 21
+Prevotella_copri_61740, 15
+Ruminococcus_bicirculans_59300, 61
+Ruminococcus_bromii_62047, 33
 '
 qp_samples_per_species = data.frame(species_list, num_qp_samples)
 
