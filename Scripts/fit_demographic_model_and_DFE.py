@@ -476,12 +476,38 @@ class DemographicInference():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        model_list = ['three_epoch']
+        model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
+                      'three_epoch']
         for model in model_list:
             if model == 'exponential_growth':
                 upper_bound = [8, 0.00005]
                 lower_bound = [0, 0]
-                initial_guess = [0.1, 0.00001]
+                initial_guesses = []
+                initial_guesses.append([0.1, 0.00001])
+                initial_guesses.append([0.2, 0.00001])
+                initial_guesses.append([0.3, 0.00001])
+                initial_guesses.append([0.4, 0.00001])
+                initial_guesses.append([0.5, 0.00001])
+                initial_guesses.append([0.6, 0.00001])
+                initial_guesses.append([0.7, 0.00001])
+                initial_guesses.append([0.8, 0.00001])
+                initial_guesses.append([0.9, 0.00001])
+                initial_guesses.append([1, 0.00001])
+                initial_guesses.append([1.25, 0.00001])
+                initial_guesses.append([1.5, 0.00001])
+                initial_guesses.append([1.75, 0.00001])
+                initial_guesses.append([2, 0.00001])
+                initial_guesses.append([2.25, 0.00001])
+                initial_guesses.append([2.5, 0.00001])
+                initial_guesses.append([2.75, 0.00001])
+                initial_guesses.append([3, 0.00001])
+                initial_guesses.append([3.33, 0.00001])
+                initial_guesses.append([3.66, 0.00001])
+                initial_guesses.append([4, 0.00001])
+                initial_guesses.append([5, 0.00001])
+                initial_guesses.append([6, 0.00001])
+                initial_guesses.append([7, 0.00001])
+                initial_guesses.append([8, 0.00001])
                 demography_file = exponential_growth_demography
                 dfe_file = exponential_growth_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
@@ -491,7 +517,32 @@ class DemographicInference():
             elif model == 'two_epoch':
                 upper_bound = [8, 0.00005]
                 lower_bound = [0, 0]
-                initial_guess = [0.1, 0.00001]
+                initial_guesses = []
+                initial_guesses.append([0.1, 0.000001])
+                initial_guesses.append([0.2, 0.000001])
+                initial_guesses.append([0.3, 0.000001])
+                initial_guesses.append([0.4, 0.000001])
+                initial_guesses.append([0.5, 0.000001])
+                initial_guesses.append([0.6, 0.000001])
+                initial_guesses.append([0.7, 0.000001])
+                initial_guesses.append([0.8, 0.000001])
+                initial_guesses.append([0.9, 0.000001])
+                initial_guesses.append([1, 0.000001])
+                initial_guesses.append([1.25, 0.000001])
+                initial_guesses.append([1.5, 0.000001])
+                initial_guesses.append([1.75, 0.000001])
+                initial_guesses.append([2, 0.000001])
+                initial_guesses.append([2.25, 0.000001])
+                initial_guesses.append([2.5, 0.000001])
+                initial_guesses.append([2.75, 0.000001])
+                initial_guesses.append([3, 0.000001])
+                initial_guesses.append([3.33, 0.000001])
+                initial_guesses.append([3.66, 0.000001])
+                initial_guesses.append([4, 0.000001])
+                initial_guesses.append([5, 0.000001])
+                initial_guesses.append([6, 0.000001])
+                initial_guesses.append([7, 0.000001])
+                initial_guesses.append([8, 0.000001])
                 demography_file = two_epoch_demography
                 dfe_file = two_epoch_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
@@ -501,7 +552,32 @@ class DemographicInference():
             elif model == 'bottleneck_growth':
                 upper_bound = [8, 8, 0.00005]
                 lower_bound = [0, 0, 0]
-                initial_guess = [0.1, 0.1, 0.00001]
+                initial_guesses = []
+                initial_guesses.append([0.1, 0.1, 0.000001])
+                initial_guesses.append([0.2, 0.2, 0.000001])
+                initial_guesses.append([0.3, 0.3, 0.000001])
+                initial_guesses.append([0.4, 0.4, 0.000001])
+                initial_guesses.append([0.5, 0.5, 0.000001])
+                initial_guesses.append([0.6, 0.6, 0.000001])
+                initial_guesses.append([0.7, 0.7, 0.000001])
+                initial_guesses.append([0.8, 0.8, 0.000001])
+                initial_guesses.append([0.9, 0.9, 0.000001])
+                initial_guesses.append([1, 1, 0.000001])
+                initial_guesses.append([1.25, 1.25, 0.000001])
+                initial_guesses.append([1.5, 1.5, 0.000001])
+                initial_guesses.append([1.75, 1.75, 0.000001])
+                initial_guesses.append([2, 2, 0.000001])
+                initial_guesses.append([2.25, 2.25, 0.000001])
+                initial_guesses.append([2.5, 2.5, 0.000001])
+                initial_guesses.append([2.75, 2.75, 0.000001])
+                initial_guesses.append([3, 3, 0.000001])
+                initial_guesses.append([3.33, 3.33, 0.000001])
+                initial_guesses.append([3.66, 3.66, 0.000001])
+                initial_guesses.append([4, 4, 0.000001])
+                initial_guesses.append([5, 5, 0.000001])
+                initial_guesses.append([6, 6, 0.000001])
+                initial_guesses.append([7, 7, 0.000001])
+                initial_guesses.append([8, 8, 0.000001])
                 demography_file = bottleneck_growth_demography
                 dfe_file = bottleneck_growth_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
@@ -511,9 +587,33 @@ class DemographicInference():
             else:
                 upper_bound = [8, 8, 0.00005, 0.00005]
                 lower_bound = [0, 0, 0, 0]
-                initial_guess = [0.1, 0.1, 0.00001, 0.00001]
+                initial_guesses.append([0.1, 0.1, 0.000001, 0.000001])
+                initial_guesses.append([0.2, 0.2, 0.000001, 0.000001])
+                initial_guesses.append([0.3, 0.3, 0.000001, 0.000001])
+                initial_guesses.append([0.4, 0.4, 0.000001, 0.000001])
+                initial_guesses.append([0.5, 0.5, 0.000001, 0.000001])
+                initial_guesses.append([0.6, 0.6, 0.000001, 0.000001])
+                initial_guesses.append([0.7, 0.7, 0.000001, 0.000001])
+                initial_guesses.append([0.8, 0.8, 0.000001, 0.000001])
+                initial_guesses.append([0.9, 0.9, 0.000001, 0.000001])
+                initial_guesses.append([1, 1, 0.000001, 0.000001])
+                initial_guesses.append([1.25, 1.25, 0.000001, 0.000001])
+                initial_guesses.append([1.5, 1.5, 0.000001, 0.000001])
+                initial_guesses.append([1.75, 1.75, 0.000001, 0.000001])
+                initial_guesses.append([2, 2, 0.000001, 0.000001])
+                initial_guesses.append([2.25, 2.25, 0.000001, 0.000001])
+                initial_guesses.append([2.5, 2.5, 0.000001, 0.000001])
+                initial_guesses.append([2.75, 2.75, 0.000001, 0.000001])
+                initial_guesses.append([3, 3, 0.000001, 0.000001])
+                initial_guesses.append([3.33, 3.33, 0.000001, 0.000001])
+                initial_guesses.append([3.66, 3.66, 0.000001, 0.000001])
+                initial_guesses.append([4, 4, 0.000001, 0.000001])
+                initial_guesses.append([5, 5, 0.000001, 0.000001])
+                initial_guesses.append([6, 6, 0.000001, 0.000001])
+                initial_guesses.append([7, 7, 0.000001, 0.000001])
+                initial_guesses.append([8, 8, 0.000001, 0.000001])
                 demography_file = three_epoch_demography
-                dfe_file = three_epoch_dfe
+                dfe_file = three_epoch_DFE
                 func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
                 func_sel = self.three_epoch_sel
                 logger.info('Beginning demographic inference for three-epoch '
@@ -522,7 +622,7 @@ class DemographicInference():
                 max_likelihood = -1e25
                 for i in range(3):
                     # Start at initial guess
-                    p0 = initial_guess
+                    p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
                     p0 = dadi.Misc.perturb_params(
                         p0, fold=1, upper_bound=upper_bound,
