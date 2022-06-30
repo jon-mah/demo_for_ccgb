@@ -18,7 +18,7 @@
 # species=Bacteroides_massiliensis_44749
 # species=Bacteroides_ovatus_58035
 # species=Bacteroides_stercoris_56735
-# species=Bacteroides_thetaiotaomicron_56941
+species=Bacteroides_thetaiotaomicron_56941
 # species=Bacteroides_uniformis_57318
 # species=Bacteroides_vulgatus_57955
 # species=Bacteroides_xylanisolvens_57185
@@ -30,7 +30,7 @@
 # species=Odoribacter_splanchnicus_62174
 # species=Oscillibacter_sp_60799
 # species=Parabacteroides_distasonis_56985
-species=Parabacteroides_merdae_56972
+# species=Parabacteroides_merdae_56972
 # species=Phascolarctobacterium_sp_59817
 # species=Prevotella_copri_61740
 # species=Ruminococcus_bicirculans_59300

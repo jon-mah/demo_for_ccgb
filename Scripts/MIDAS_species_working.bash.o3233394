@@ -1,0 +1,35 @@
+
+MIDAS: Metagenomic Intra-species Diversity Analysis System
+version 1.2.1; github.com/snayfach/MIDAS
+Copyright (C) 2015-2016 Stephen Nayfach
+Freely distributed under the GNU General Public License (GPLv3)
+
+===========Parameters===========
+Command: /usr/midas/software/MIDAS_mod/scripts/run_midas.py species /u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS893362/temp -1 /u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS893362/SRS893362.denovo_duplicates_marked.trimmed.1.fastq.gz -2 /u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS893362/SRS893362.denovo_duplicates_marked.trimmed.2.fastq.gz --remove_temp
+Script: run_midas.py species
+Database: /u/project/ngarud/Garud_lab/midas_db_v1.2
+Output directory: /u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS893362/temp
+Input reads (1st mate): /u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS893362/SRS893362.denovo_duplicates_marked.trimmed.1.fastq.gz
+Input reads (2nd mate): /u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS893362/SRS893362.denovo_duplicates_marked.trimmed.2.fastq.gz
+Remove temporary files: True
+Word size for database search: 28
+Minimum mapping alignment coverage: 0.75
+Number of reads to use from input: use all
+Number of threads for database search: 1
+================================
+
+Aligning reads to marker-genes database
+  39.13 minutes
+  0.72 Gb maximum memory
+
+Classifying reads
+  total alignments: 41544
+  uniquely mapped reads: 1057
+  ambiguously mapped reads: 484
+  0.01 minutes
+  0.74 Gb maximum memory
+
+Estimating species abundance
+  total marker-gene coverage: 15.094
+  0.0 minutes
+  0.74 Gb maximum memory

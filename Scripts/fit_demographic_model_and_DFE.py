@@ -399,6 +399,23 @@ class DemographicInference():
         fs = dadi.Spectrum.from_phi(phi, ns, (xx, ))
         return fs
 
+    def one_epoch_sel(self, params, ns, pts):
+        """Define a one-epoch demography.
+        params = (nu, T)
+            nu: Ratio of contemporary to ancient population size.
+            T: Time in the past at which size change occured,
+                in units of 2*N_a.
+            gamma: Parameter tuple describing a gamma distribution.
+        ns = (n1, )
+            n1: Number of samples in resulting Spectrum object.
+        pts: Number of grid points to use in integration.
+        """
+        xx = dadi.Numerics.default_grid(pts)
+        phi = dadi.PhiManip.phi_1D(xx)
+
+        fs = dadi.Spectrum.from_phi(phi, nx, (xx, ))
+        return fs
+
     def one_pop(phi, xx, T, nu=1, gamma=0, h=0.5, theta0=1.0, initial_t=0,
                 frozen=False, beta=1):
         """
@@ -529,11 +546,10 @@ class DemographicInference():
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         to_remove = [logfile, exponential_growth_demography,
-                     exponential_growth_DFE, two_epoch_demography,
-                     two_epoch_DFE, bottleneck_growth_demography,
-                     bottleneck_growth_DFE, three_epoch_demography,
-                     three_epoch_DFE, one_epoch_demography,
-                     one_epoch_DFE]
+                     two_epoch_demography,
+                     bottleneck_growth_demography,
+                     three_epoch_demography,
+                     one_epoch_demography]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -573,8 +589,9 @@ class DemographicInference():
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
         model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
-                      'three_epoch', 'one_epoch']
+                      'three_epoch']
         model_LL_dict = {}
+        model_params_dict = {}
         for model in model_list:
             if model == 'exponential_growth':
                 upper_bound = [80, 0.15]
@@ -605,7 +622,7 @@ class DemographicInference():
                 initial_guesses.append([6, 0.00001])
                 initial_guesses.append([7, 0.00001])
                 initial_guesses.append([8, 0.00001])
-                file = exponential_growth_demography
+                demography_file = exponential_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
                             'growth demographic model.')
@@ -638,7 +655,7 @@ class DemographicInference():
                 initial_guesses.append([6, 0.000001])
                 initial_guesses.append([7, 0.000001])
                 initial_guesses.append([8, 0.000001])
-                file = two_epoch_demography
+                demography_file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
@@ -672,7 +689,7 @@ class DemographicInference():
                 initial_guesses.append([6, 6, 0.000001])
                 initial_guesses.append([7, 7, 0.000001])
                 initial_guesses.append([8, 8, 0.000001])
-                file = bottleneck_growth_demography
+                demography_file = bottleneck_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
                 logger.info('Beginning demographic inference for bottleneck + '
                             'growth demographic model.')
@@ -705,7 +722,7 @@ class DemographicInference():
                 initial_guesses.append([6, 6, 0.000001, 0.000001])
                 initial_guesses.append([7, 7, 0.000001, 0.000001])
                 initial_guesses.append([8, 8, 0.000001, 0.000001])
-                file = three_epoch_demography
+                demography_file = three_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
                 logger.info('Beginning demographic inference for three-epoch '
                             'demographic model.')
@@ -739,7 +756,7 @@ class DemographicInference():
                 initial_guesses.append([7])
                 initial_guesses.append([8])
                 # initial_guess = [0.1]
-                file = one_epoch_demography
+                demography_file = one_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.snm)
                 logger.info('Beginning demographic inference for one-epoch '
                             'demographic model.')
@@ -800,7 +817,8 @@ class DemographicInference():
                     theta_nonsyn))
                 f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                     best_scaled_spectrum))
-            model_LL_dict[model] = best_params
+            model_params_dict[model] = best_params
+            model_LL_dict[model] = max_likelihood
 
         logger.info('Finished demographic inference.')
         logger.info('Beginning DFE inference.')
@@ -811,13 +829,24 @@ class DemographicInference():
 
         # Use best fit demographic model for DFE inference
         best_model = max(model_LL_dict, key=model_LL_dict.get)
-        print(model_LL_dict)
-        print(best_model)
-        demog_params = model_LL_dict[best_model]
+
+        if best_model == 'exponential_growth':
+            func_sel = self.growth_sel
+        elif best_model == 'two_epoch':
+            func_sel = self.two_epoch_sel
+        elif best_model == 'bottleneck_growth':
+            func_sel = self.bottlegrowth_sel
+        elif best_model == 'three_epoch':
+            func_sel = self.three_epoch_sel
+        else:
+            best_model == 'two_epoch'
+            func_sel = self.two_epoch_sel
+
+        demog_params = model_params_dict[best_model]
 
         mu = 5E-10
         Ne = theta_syn / 4 / mu
-        if (model == 'exponential_growth' or model == 'two_epoch'):
+        if (best_model == 'exponential_growth' or best_model == 'two_epoch' or best_model == 'one_epoch'):
             Na = Ne / float(demog_params[0])
         else:
             Na = Ne / float(demog_params[1])
@@ -935,6 +964,7 @@ class DemographicInference():
         logger.info('Outputing results.')
 
         with open(inferred_DFE, 'w') as f:
+            f.write('Best demographic model:{0}.\n'.format(best_model))
             f.write('Assuming a gamma-distributed DFE...\n')
             f.write('Outputting best 5 MLE estimates.\n')
             for i in range(1):

@@ -506,6 +506,7 @@ class ComputeDownSampledSFS():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # Load core genes
+        subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = parse_midas_data.load_core_genes(species)
 
         # Default parameters
@@ -514,7 +515,7 @@ class ComputeDownSampledSFS():
         min_change = 0.8
 
         snp_samples = diversity_utils.calculate_haploid_samples(species)
-        snp_samples = snp_samples[self.calculate_unique_samples(self, subject_sample_map, snp_samples)]
+        snp_samples = snp_samples[self.calculate_unique_samples(subject_sample_map, snp_samples)]
         snp_samples = snp_samples.ravel()
         snp_samples = [s.decode("utf-8")  for s in snp_samples]
 
