@@ -2,8 +2,9 @@
 #$ -cwd
 #$ -V
 #$ -m ea
-#$ -l h_data=5G
-#$ -l h_rt=02:00:00
+#$ -l highp
+#$ -l h_data=15G
+#$ -l h_rt=12:00:00
 
 # This script infers the demography of a given example synonymous sfs.
 # species=Akkermansia_muciniphila_55290

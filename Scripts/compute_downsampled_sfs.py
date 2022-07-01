@@ -554,7 +554,7 @@ class ComputeDownSampledSFS():
         # Pooled counts: for reference
         # synonymous_counts, synonymous_weights = diversity_utils.calculate_pooled_counts(allele_counts_map, passed_sites_map, allowed_variant_types = set(['4D']), allowed_genes=core_genes,pi_min_k=4)
         # Dive into internals of calculatealle_pooled_counts
-        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_samples=largest_clade_samples, allowed_genes=core_genes, debug=True)
+        snp_samples, allele_counts_map, passed_sites_map, final_line_number = parse_midas_data.parse_snps(species, allowed_variant_types=['1D','2D','3D','4D'], allowed_samples=largest_clade_samples, allowed_genes=core_genes, debug=False)
         allowed_variant_types = '4D'
         allowed_genes = core_genes
         pi_min_k = 4
@@ -602,7 +602,7 @@ class ComputeDownSampledSFS():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        model_list = ['one_epoch', 'two_epoch']
+        model_list = ['one_epoch', 'two_epoch', 'exponential_growth', 'bottleneck_growth', 'three_epoch']
         for model in model_list:
             if model == 'exponential_growth':
                 upper_bound = [80, 0.15]
