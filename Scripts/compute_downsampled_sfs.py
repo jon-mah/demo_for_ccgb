@@ -457,6 +457,14 @@ class ComputeDownSampledSFS():
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
 
+        # create output directory if needed
+        outdir = os.path.dirname(args['outprefix'])
+        if outdir:
+            if not os.path.isdir(outdir):
+                if os.path.isfile(outdir):
+                    os.remove(outdir)
+                os.mkdir(outdir)
+
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
@@ -591,19 +599,6 @@ class ComputeDownSampledSFS():
         syn_data.mask[1] = True
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
-
-        # Numpy options
-        numpy.set_printoptions(linewidth=numpy.inf)
-
-        # create output directory if needed
-        outdir = os.path.dirname(args['outprefix'])
-        if outdir:
-            if not os.path.isdir(outdir):
-                if os.path.isfile(outdir):
-                    os.remove(outdir)
-                os.mkdir(outdir)
-
-
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
