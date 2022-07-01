@@ -56,6 +56,10 @@ class ComputeDownSampledSFS():
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
+        parser.add_argument(
+            'sample_size', type=int,
+            help='The sample size that you want to downsample to.'
+        )
         return parser
 
     def load_substitution_rate_map(self, species):
@@ -448,6 +452,7 @@ class ComputeDownSampledSFS():
         # Assign arguments
         outprefix = args['outprefix']
         species = args['species']
+        sample_size = args['sample_size']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -582,7 +587,7 @@ class ComputeDownSampledSFS():
                     f.write(string)
 
         dadi_dict = dadi.Misc.make_data_dict(output_matrix)
-        syn_data = dadi.Spectrum.from_data_dict(dadi_dict, ['BAC'], [25], polarized=False)
+        syn_data = dadi.Spectrum.from_data_dict(dadi_dict, ['BAC'], [sample_size], polarized=False)
         syn_data.mask[1] = True
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]

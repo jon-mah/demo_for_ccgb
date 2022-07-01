@@ -36,4 +36,4 @@ species=Bacteroides_thetaiotaomicron_56941
 # species=Ruminococcus_bicirculans_59300
 # species=Ruminococcus_bromii_62047
 
-python compute_downsampled_sfs.py ${species} ../Data/
+python compute_downsampled_sfs.py ${species} ../Analysis/${species}_downsampled/ 20
