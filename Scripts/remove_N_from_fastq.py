@@ -28,7 +28,7 @@ class ArgumentParserNoArgHelp(argparse.ArgumentParser):
         sys.exit(2)
 
 
-class ComputePi():
+class removeNs():
     """Wrapper class to allow functions to reference each other."""
 
     def ExistingFile(self, fname):
@@ -38,7 +38,7 @@ class ComputePi():
         else:
             raise ValueError("%s must specify a valid file name" % fname)
 
-    def computePiParser(self):
+    def removeNsParser(self):
         """Return *argparse.ArgumentParser* for ``fitdadi_infer_DFE.py``."""
         parser = ArgumentParserNoArgHelp(
             description=(
@@ -59,7 +59,7 @@ class ComputePi():
     def main(self):
         """Execute main function."""
         # Parse command line arguments
-        parser = self.computePiParser()
+        parser = self.removeNsParser()
         args = vars(parser.parse_args())
         prog = parser.prog
 
@@ -114,20 +114,22 @@ class ComputePi():
         logger.info('Parsed the following arguments:\n{0}\n'.format(
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
-        # open post-processed MIDAS output
+        open post-processed MIDAS output
         # input_file = bz2.BZ2File(input_fastq_gz)
-        # with gzip.open(input_fastq_gz, 'rb') as input:
-        #     lines = input.readlines()
-        #     with gzip.open(output_fastq_gz, 'wb') as output:
-        #         for i in range(0, len(lines)-1):
-        #            if lines[i+1]:
-        #                 next_line = lines[i+1]
-        #                 if re.search('N', next_line):
-        #                     print('only N')
-        #                 else:
-        #                     print('not only N')
-        #                     output.write(lines[i])
-        #                     output.write(lines[i+1])
+        with gzip.open(input_fastq_gz, 'rb') as input:
+            lines = input.readlines()
+            with gzip.open(output_fastq_gz, 'wb') as output:
+                for i in range(0, len(lines)-3):
+                   if lines[i+1]:
+                        next_line = lines[i+1]
+                        if re.search('N', next_line):
+                            print('only N')
+                        else:
+                            print('not only N')
+                            output.write(lines[i])
+                            output.write(lines[i+1])
+                            output.write(lines[i+2])
+                            output.write(lines[i+3])
 
         # with gzip.open(input_fastq_gz, 'rb') as input:
         #     with gzip.open(output_fastq_gz, 'wb') as output:
@@ -135,4 +137,4 @@ class ComputePi():
         #             output.write(line)
 
 if __name__ == '__main__':
-    ComputePi().main()
+    removeNs().main()
