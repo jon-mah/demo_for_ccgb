@@ -1,0 +1,34 @@
+2022-07-10 03:09:26,386 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:09:26,387 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/compute_pi.log
+
+2022-07-10 03:09:26,387 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/SRS078673.denovo_duplicates_marked.trimmed.1.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/removed_SRS078673.denovo_duplicates_marked.trimmed.1.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+MemoryError
+2022-07-10 03:17:53,698 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:17:53,698 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/compute_pi.log
+
+2022-07-10 03:17:53,698 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/SRS078673.denovo_duplicates_marked.trimmed.2.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/removed_SRS078673.denovo_duplicates_marked.trimmed.2.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078673/
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+MemoryError

@@ -1,0 +1,40 @@
+2022-07-10 03:09:23,599 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:09:23,599 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/compute_pi.log
+
+2022-07-10 03:09:23,599 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/SRS097866_SRS097898.denovo_duplicates_marked.trimmed.1.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/removed_SRS097866_SRS097898.denovo_duplicates_marked.trimmed.1.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/gzip.py", line 399, in readline
+    return self._buffer.readline(size)
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/_compression.py", line 68, in readinto
+    data = self.read(len(byte_view))
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/gzip.py", line 496, in read
+    uncompress = self._decompressor.decompress(buf, size)
+MemoryError
+2022-07-10 03:14:58,506 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:14:58,506 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/compute_pi.log
+
+2022-07-10 03:14:58,506 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/SRS097866_SRS097898.denovo_duplicates_marked.trimmed.2.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/removed_SRS097866_SRS097898.denovo_duplicates_marked.trimmed.2.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS097866_SRS097898/
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+MemoryError

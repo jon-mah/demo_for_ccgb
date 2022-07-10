@@ -1,0 +1,28 @@
+2022-07-10 03:09:27,733 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:09:27,734 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/compute_pi.log
+
+2022-07-10 03:09:27,734 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/SRS101384_SRS1055018.denovo_duplicates_marked.trimmed.1.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/removed_SRS101384_SRS1055018.denovo_duplicates_marked.trimmed.1.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+MemoryError
+2022-07-10 03:17:44,302 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:17:44,302 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/compute_pi.log
+
+2022-07-10 03:17:44,302 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/SRS101384_SRS1055018.denovo_duplicates_marked.trimmed.2.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/removed_SRS101384_SRS1055018.denovo_duplicates_marked.trimmed.2.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS101384_SRS1055018/
+

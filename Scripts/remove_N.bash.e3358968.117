@@ -1,0 +1,26 @@
+2022-07-10 03:09:22,831 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:09:22,831 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/compute_pi.log
+
+2022-07-10 03:09:22,831 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/SRS043807_SRS048719.denovo_duplicates_marked.trimmed.1.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/removed_SRS043807_SRS048719.denovo_duplicates_marked.trimmed.1.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/gzip.py", line 399, in readline
+    return self._buffer.readline(size)
+MemoryError
+2022-07-10 03:17:29,370 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:17:29,370 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/compute_pi.log
+
+2022-07-10 03:17:29,370 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/SRS043807_SRS048719.denovo_duplicates_marked.trimmed.2.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/removed_SRS043807_SRS048719.denovo_duplicates_marked.trimmed.2.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS043807_SRS048719/
+

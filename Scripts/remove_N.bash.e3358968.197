@@ -1,0 +1,45 @@
+2022-07-10 03:09:23,312 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:09:23,312 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/compute_pi.log
+
+2022-07-10 03:09:23,312 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/SRS078250.denovo_duplicates_marked.trimmed.1.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/removed_SRS078250.denovo_duplicates_marked.trimmed.1.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+MemoryError
+2022-07-10 03:16:13,784 - INFO - Beginning execution of remove_N_from_fastq.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-07-10 03:16:13,784 - INFO - Progress is being logged to ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/compute_pi.log
+
+2022-07-10 03:16:13,784 - INFO - Parsed the following arguments:
+	input_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/SRS078250.denovo_duplicates_marked.trimmed.2.fastq.gz
+	output_fastq_gz = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/removed_SRS078250.denovo_duplicates_marked.trimmed.2.fastq.gz
+	outprefix = ../Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS078250/
+
+Traceback (most recent call last):
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/_compression.py", line 68, in readinto
+    data = self.read(len(byte_view))
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/gzip.py", line 494, in read
+    buf = self._fp.read(io.DEFAULT_BUFFER_SIZE)
+  File "/u/home/j/jonmah/project-ngarud/miniconda3/envs/py3/lib/python3.10/gzip.py", line 96, in read
+    return self._buffer[read:] + \
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 142, in <module>
+    removeNs().main()
+  File "/u/project/ngarud/jonmah/demo_for_ccgb/Scripts/remove_N_from_fastq.py", line 120, in main
+    lines = input.readlines()
+MemoryError
