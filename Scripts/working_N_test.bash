@@ -4,8 +4,9 @@
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=10G
-#$ -l time=00:20:00
+#$ -l highp
+#$ -l h_data=20G
+#$ -l time=01:00:00
 
 # module load python/2.7
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
@@ -55,4 +56,18 @@ OUTDIR=../Data/oral_microbiome_data/${file}/
 file_1=${OUTDIR}working_large_N_1.fastq.gz
 file_2=${OUTDIR}working_large_N_2.fastq.gz
 
+# singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2} --remove_temp
+
+# removed_working_large_N
+
+# file_1=${OUTDIR}removed_working_large_N_1.fastq.gz
+# file_2=${OUTDIR}removed_working_large_N_2.fastq.gz
+
+# removed_failed_N
+
+OUTDIR=../Data/oral_microbiome_data/test/SRS014530/
+file_1=${OUTDIR}/removed_SRS014530.denovo_duplicates_marked.trimmed.1.fastq.gz
+file_2=${OUTDIR}/removed_SRS014530.denovo_duplicates_marked.trimmed.2.fastq.gz
+
 singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2} --remove_temp
+

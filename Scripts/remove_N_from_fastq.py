@@ -114,27 +114,29 @@ class removeNs():
         logger.info('Parsed the following arguments:\n{0}\n'.format(
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
-        open post-processed MIDAS output
+        # open post-processed MIDAS output
         # input_file = bz2.BZ2File(input_fastq_gz)
         with gzip.open(input_fastq_gz, 'rb') as input:
             lines = input.readlines()
             with gzip.open(output_fastq_gz, 'wb') as output:
-                for i in range(0, len(lines)-3):
-                   if lines[i+1]:
-                        next_line = lines[i+1]
-                        if re.search('N', next_line):
-                            print('only N')
-                        else:
-                            print('not only N')
-                            output.write(lines[i])
-                            output.write(lines[i+1])
-                            output.write(lines[i+2])
-                            output.write(lines[i+3])
+                i = 0
+                while (i < len(lines)-3):
+                   # for i in range(0, len(lines)-3):
+                   next_line = lines[i+1].decode('utf-8')
+                   num_char = len(next_line)
+                   num_N = len(re.findall('N', next_line))
+                   frac_N = num_N / num_char
+                   if frac_N > 0.95:
+                       # print('too many N')
+                       i = i + 4
+                   else:
+                       # print('not only N')
+                       output.write(lines[i])
+                       output.write(lines[i+1])
+                       output.write(lines[i+2])
+                       output.write(lines[i+3])
+                       i = i + 4
 
-        # with gzip.open(input_fastq_gz, 'rb') as input:
-        #     with gzip.open(output_fastq_gz, 'wb') as output:
-        #         for line in input:
-        #             output.write(line)
 
 if __name__ == '__main__':
     removeNs().main()
