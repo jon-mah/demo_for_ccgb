@@ -4,8 +4,10 @@
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=10G
-#$ -l time=01:00:00
+#$ -l h_data=20G
+#$ -l time=04:00:00
+#$ -l highp
+#$ -pe shared 8
 #$ -t 1
 
 # module load python/2.7
@@ -25,23 +27,15 @@ do
 done < ../Data/oral_microbiome_data/file_list.txt
 
 OUTDIR=../Data/oral_microbiome_data/fastq_MIDAS_intermediate/${file}
-mkdir ${OUTDIR}/removed/
-file_1=${OUTDIR}/removed_${file}.denovo_duplicates_marked.trimmed.1.fastq.gz
-file_2=${OUTDIR}/removed_${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
 
-module load singularity
+file_1=${OUTDIR}/${file}.denovo_duplicates_marked.trimmed.1.fastq.gz
+file_2=${OUTDIR}/${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
 
-singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species ${OUTDIR}/removed/ -1 ${file_1} -2 ${file_2} --remove_temp
+module load python/2.7.18
+module load MIDAS_species
+. /u/local/apps/midas/1.3.2/python-2.7.18-MIDAS-VE/bin/activate
+run_midas.py species ${OUTDIR}/ -1 ${file_1} -2 ${file_2} --remove_temp
 
-# echo ${file_1}
-# echo ${file_2}
-# echo $OUTDIR
+# module load singularity
 
-# if [ -f "${OUTDIR}/species/species_profile.txt" ]
-# then
-# echo "File is found"
-# else
-#    # echo "File is not found"
-#    # singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species $OUTDIR -1 ${file_1} -2 ${file_2}  --remove_temp
-#    echo $SGE_TASK_ID >> species_errors.txt
-# fi
+# singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py species ${OUTDIR}/removed/ -1 ${file_1} -2 ${file_2} --remove_temp
