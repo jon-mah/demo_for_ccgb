@@ -357,7 +357,7 @@ class ComputeDownSampledSFS():
         pts: Number of grid points to use in integration.
         """
         xx = dadi.Numerics.default_grid(pts)  # Define likelihood surface.
-	phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
+        phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
 
         # Construct spectrum object
         fs = dadi.Spectrum.from_phi(phi, ns, (xx, ))
