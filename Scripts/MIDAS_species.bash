@@ -6,9 +6,9 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=20G
 #$ -l time=04:00:00
-#$ -l highp
 #$ -pe shared 8
-#$ -t 1
+#$ -l highp
+#$ -t 1-339
 
 # module load python/2.7
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
@@ -31,8 +31,11 @@ OUTDIR=../Data/oral_microbiome_data/fastq_MIDAS_intermediate/${file}
 file_1=${OUTDIR}/${file}.denovo_duplicates_marked.trimmed.1.fastq.gz
 file_2=${OUTDIR}/${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
 
+OUTDIR=../Data/oral_microbiome_data/midas_output/${file}/
+mkdir $OUTDIR
+
 module load python/2.7.18
-module load MIDAS_species
+module load midas
 . /u/local/apps/midas/1.3.2/python-2.7.18-MIDAS-VE/bin/activate
 run_midas.py species ${OUTDIR}/ -1 ${file_1} -2 ${file_2} --remove_temp
 

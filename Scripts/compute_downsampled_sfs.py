@@ -602,6 +602,7 @@ class ComputeDownSampledSFS():
         dadi_dict = dadi.Misc.make_data_dict(output_matrix)
         syn_data = dadi.Spectrum.from_data_dict(dadi_dict, ['BAC'], [sample_size], polarized=False)
         syn_data.mask[1] = True
+        syn_data.to_file(empirical_sfs)
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 
@@ -833,8 +834,6 @@ class ComputeDownSampledSFS():
                     theta_nonsyn))
                 f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                     best_scaled_spectrum))
-        with open(empirical_sfs, 'w') as f:
-            f.write(syn_data)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 

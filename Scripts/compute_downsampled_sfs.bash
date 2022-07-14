@@ -2,12 +2,11 @@
 #$ -cwd
 #$ -V
 #$ -m ea
-#$ -l highp
 #$ -l h_data=15G
-#$ -l h_rt=12:00:00
+#$ -l h_rt=00:10:00
 
 # This script infers the demography of a given example synonymous sfs.
-# species=Akkermansia_muciniphila_55290
+species=Akkermansia_muciniphila_55290
 # species=Alistipes_finegoldii_56071
 # species=Alistipes_onderdonkii_55464
 # species=Alistipes_putredinis_61533
@@ -29,7 +28,7 @@
 # species=Eubacterium_eligens_61678
 # species=Eubacterium_rectale_56927
 # species=Faecalibacterium_prausnitzii_57453
-species=Odoribacter_splanchnicus_62174
+# species=Odoribacter_splanchnicus_62174
 # species=Oscillibacter_sp_60799
 # species=Parabacteroides_distasonis_56985
 # species=Parabacteroides_merdae_56972
