@@ -11,6 +11,7 @@ import logging
 import time
 import argparse
 import warnings
+import random
 
 import numpy
 import bz2
@@ -453,6 +454,7 @@ class ComputeDownSampledSFS():
         outprefix = args['outprefix']
         species = args['species']
         sample_size = args['sample_size']
+        random.seed(1)
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -486,11 +488,14 @@ class ComputeDownSampledSFS():
         one_epoch_demography = \
            '{0}{1}{2}_one_epoch_demography.txt'.format(
                 args['outprefix'], underscore, species)
+        empirical_sfs = \
+           '{0}{1}{2}_empirical_sfs.txt'.format(
+                args['outprefix'], underscore, species)
         logfile = '{0}{1}log.log'.format(
             args['outprefix'], underscore, species)
         to_remove = [logfile, exponential_growth_demography,
                      two_epoch_demography, bottleneck_growth_demography,
-                     three_epoch_demography]
+                     three_epoch_demography, empirical_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -786,7 +791,7 @@ class ComputeDownSampledSFS():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=50)
+                        verbose=len(p0), maxiter=5)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
@@ -828,6 +833,8 @@ class ComputeDownSampledSFS():
                     theta_nonsyn))
                 f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                     best_scaled_spectrum))
+        with open(empirical_sfs, 'w') as f:
+            f.write(syn_data)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
