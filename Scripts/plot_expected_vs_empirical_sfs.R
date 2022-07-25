@@ -12,15 +12,19 @@ fold_sfs = function(input_sfs) {
   }
   output_sfs = c()
   for (i in 1:folded_length) {
-    output_sfs[i] = input_sfs[i] + input_sfs[input_length - i]
+    if (input_sfs[i] == input_sfs[input_length - i + 1]) {
+      output_sfs[i] = input_sfs[i]
+    } else {
+      output_sfs[i] = input_sfs[i] + input_sfs[input_length - i + 1]
+    }
   }
   return(output_sfs)
 }
 
 proportional_sfs = function(input_sfs) {
+  input_sfs[1] = 0
   return (input_sfs / sum(input_sfs))
 }
-
 ##### No singletons
 
 # b_vulgatus
@@ -2977,7 +2981,7 @@ p_a_finegoldii_epoch_comparison <- ggplot(data = a_finegoldii_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
   geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
-  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empricial')) +
+  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
   geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(2, length(a_finegoldii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3011,7 +3015,7 @@ p_a_muciniphila_epoch_comparison <- ggplot(data = a_muciniphila_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
   geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
-  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empricial')) +
+  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
   geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_x_axis, limits = c(2, length(a_muciniphila_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3043,7 +3047,7 @@ p_a_onderdonkii_epoch_comparison <- ggplot(data = a_onderdonkii_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_one_epoch, color='a_onderdonkii_one_epoch')) +
   geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_one_epoch, color='a_onderdonkii_one_epoch')) +
-  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empricial')) +
+  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +
   geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3105,7 +3109,7 @@ p_a_putredinis_epoch_comparison <- ggplot(data = a_putredinis_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_one_epoch, color='a_putredinis_one_epoch')) +
   geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_one_epoch, color='a_putredinis_one_epoch')) +
-  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empricial')) +
+  geom_point(shape=1, aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empirical')) +
   geom_line(aes(x=a_putredinis_x_axis, y=a_putredinis_empirical, color='a_putredinis_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_putredinis_x_axis, limits = c(2, length(a_putredinis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3188,7 +3192,7 @@ p_a_shahii_epoch_comparison <- ggplot(data = a_shahii_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=a_shahii_x_axis, y=a_shahii_one_epoch, color='a_shahii_one_epoch')) +
   geom_line(aes(x=a_shahii_x_axis, y=a_shahii_one_epoch, color='a_shahii_one_epoch')) +
-  geom_point(shape=1, aes(x=a_shahii_x_axis, y=a_shahii_empirical, color='a_shahii_empricial')) +
+  geom_point(shape=1, aes(x=a_shahii_x_axis, y=a_shahii_empirical, color='a_shahii_empirical')) +
   geom_line(aes(x=a_shahii_x_axis, y=a_shahii_empirical, color='a_shahii_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_shahii_x_axis, limits = c(2, length(a_shahii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3220,7 +3224,7 @@ p_b_bacterium_epoch_comparison <- ggplot(data = b_bacterium_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
   geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
-  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empricial')) +
+  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +
   geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_bacterium_x_axis, limits = c(2, length(b_bacterium_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3285,7 +3289,7 @@ p_b_caccae_epoch_comparison <- ggplot(data = b_caccae_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_caccae_x_axis, y=b_caccae_one_epoch, color='b_caccae_one_epoch')) +
   geom_line(aes(x=b_caccae_x_axis, y=b_caccae_one_epoch, color='b_caccae_one_epoch')) +
-  geom_point(shape=1, aes(x=b_caccae_x_axis, y=b_caccae_empirical, color='b_caccae_empricial')) +
+  geom_point(shape=1, aes(x=b_caccae_x_axis, y=b_caccae_empirical, color='b_caccae_empirical')) +
   geom_line(aes(x=b_caccae_x_axis, y=b_caccae_empirical, color='b_caccae_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_caccae_x_axis, limits = c(2, length(b_caccae_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3351,7 +3355,7 @@ p_b_cellulolyticus_epoch_comparison <- ggplot(data = b_cellulolyticus_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_one_epoch, color='b_cellulolyticus_one_epoch')) +
   geom_line(aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_one_epoch, color='b_cellulolyticus_one_epoch')) +
-  geom_point(shape=1, aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_empirical, color='b_cellulolyticus_empricial')) +
+  geom_point(shape=1, aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_empirical, color='b_cellulolyticus_empirical')) +
   geom_line(aes(x=b_cellulolyticus_x_axis, y=b_cellulolyticus_empirical, color='b_cellulolyticus_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_cellulolyticus_x_axis, limits = c(2, length(b_cellulolyticus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3411,7 +3415,7 @@ p_b_fragilis_epoch_comparison <- ggplot(data = b_fragilis_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_fragilis_x_axis, y=b_fragilis_one_epoch, color='b_fragilis_one_epoch')) +
   geom_line(aes(x=b_fragilis_x_axis, y=b_fragilis_one_epoch, color='b_fragilis_one_epoch')) +
-  geom_point(shape=1, aes(x=b_fragilis_x_axis, y=b_fragilis_empirical, color='b_fragilis_empricial')) +
+  geom_point(shape=1, aes(x=b_fragilis_x_axis, y=b_fragilis_empirical, color='b_fragilis_empirical')) +
   geom_line(aes(x=b_fragilis_x_axis, y=b_fragilis_empirical, color='b_fragilis_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_fragilis_x_axis, limits = c(2, length(b_fragilis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3442,7 +3446,7 @@ p_b_intestinihominis_epoch_comparison <- ggplot(data = b_intestinihominis_epoch_
   geom_line() +
   geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
   geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
-  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empricial')) +
+  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +
   geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits = c(2, length(b_intestinihominis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3479,7 +3483,7 @@ p_b_massiliensis_epoch_comparison <- ggplot(data = b_massiliensis_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_massiliensis_x_axis, y=b_massiliensis_one_epoch, color='b_massiliensis_one_epoch')) +
   geom_line(aes(x=b_massiliensis_x_axis, y=b_massiliensis_one_epoch, color='b_massiliensis_one_epoch')) +
-  geom_point(shape=1, aes(x=b_massiliensis_x_axis, y=b_massiliensis_empirical, color='b_massiliensis_empricial')) +
+  geom_point(shape=1, aes(x=b_massiliensis_x_axis, y=b_massiliensis_empirical, color='b_massiliensis_empirical')) +
   geom_line(aes(x=b_massiliensis_x_axis, y=b_massiliensis_empirical, color='b_massiliensis_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_massiliensis_x_axis, limits = c(2, length(b_massiliensis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3554,7 +3558,7 @@ p_b_ovatus_epoch_comparison <- ggplot(data = b_ovatus_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_one_epoch, color='b_ovatus_one_epoch')) +
   geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_one_epoch, color='b_ovatus_one_epoch')) +
-  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_empirical, color='b_ovatus_empricial')) +
+  geom_point(shape=1, aes(x=b_ovatus_x_axis, y=b_ovatus_empirical, color='b_ovatus_empirical')) +
   geom_line(aes(x=b_ovatus_x_axis, y=b_ovatus_empirical, color='b_ovatus_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_ovatus_x_axis, limits = c(2, length(b_ovatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3648,7 +3652,7 @@ p_b_stercoris_epoch_comparison <- ggplot(data = b_stercoris_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_stercoris_x_axis, y=b_stercoris_one_epoch, color='b_stercoris_one_epoch')) +
   geom_line(aes(x=b_stercoris_x_axis, y=b_stercoris_one_epoch, color='b_stercoris_one_epoch')) +
-  geom_point(shape=1, aes(x=b_stercoris_x_axis, y=b_stercoris_empirical, color='b_stercoris_empricial')) +
+  geom_point(shape=1, aes(x=b_stercoris_x_axis, y=b_stercoris_empirical, color='b_stercoris_empirical')) +
   geom_line(aes(x=b_stercoris_x_axis, y=b_stercoris_empirical, color='b_stercoris_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_stercoris_x_axis, limits = c(2, length(b_stercoris_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3680,7 +3684,7 @@ p_b_thetaiotaomicron_epoch_comparison <- ggplot(data = b_thetaiotaomicron_epoch_
   geom_line() +
   geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
   geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_one_epoch, color='b_thetaiotaomicron_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empricial')) +
+  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3784,7 +3788,7 @@ p_b_uniformis_epoch_comparison <- ggplot(data = b_uniformis_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_one_epoch, color='b_uniformis_one_epoch')) +
   geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_one_epoch, color='b_uniformis_one_epoch')) +
-  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_empirical, color='b_uniformis_empricial')) +
+  geom_point(shape=1, aes(x=b_uniformis_x_axis, y=b_uniformis_empirical, color='b_uniformis_empirical')) +
   geom_line(aes(x=b_uniformis_x_axis, y=b_uniformis_empirical, color='b_uniformis_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_uniformis_x_axis, limits = c(2, length(b_uniformis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3861,7 +3865,7 @@ p_b_vulgatus_epoch_comparison <- ggplot(data = b_vulgatus_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_one_epoch, color='b_vulgatus_one_epoch')) +
   geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_one_epoch, color='b_vulgatus_one_epoch')) +
-  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_empirical, color='b_vulgatus_empricial')) +
+  geom_point(shape=1, aes(x=b_vulgatus_x_axis, y=b_vulgatus_empirical, color='b_vulgatus_empirical')) +
   geom_line(aes(x=b_vulgatus_x_axis, y=b_vulgatus_empirical, color='b_vulgatus_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_vulgatus_x_axis, limits = c(2, length(b_vulgatus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -3941,7 +3945,7 @@ p_b_xylanisolvens_epoch_comparison <- ggplot(data = b_xylanisolvens_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_one_epoch, color='b_xylanisolvens_one_epoch')) +
   geom_line(aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_one_epoch, color='b_xylanisolvens_one_epoch')) +
-  geom_point(shape=1, aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_empirical, color='b_xylanisolvens_empricial')) +
+  geom_point(shape=1, aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_empirical, color='b_xylanisolvens_empirical')) +
   geom_line(aes(x=b_xylanisolvens_x_axis, y=b_xylanisolvens_empirical, color='b_xylanisolvens_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_x_axis, limits = c(2, length(b_xylanisolvens_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4007,7 +4011,7 @@ p_d_invisus_epoch_comparison <- ggplot(data = d_invisus_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=d_invisus_x_axis, y=d_invisus_one_epoch, color='d_invisus_one_epoch')) +
   geom_line(aes(x=d_invisus_x_axis, y=d_invisus_one_epoch, color='d_invisus_one_epoch')) +
-  geom_point(shape=1, aes(x=d_invisus_x_axis, y=d_invisus_empirical, color='d_invisus_empricial')) +
+  geom_point(shape=1, aes(x=d_invisus_x_axis, y=d_invisus_empirical, color='d_invisus_empirical')) +
   geom_line(aes(x=d_invisus_x_axis, y=d_invisus_empirical, color='d_invisus_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=d_invisus_x_axis, limits = c(2, length(d_invisus_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4063,7 +4067,7 @@ p_e_eligens_epoch_comparison <- ggplot(data = e_eligens_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=e_eligens_x_axis, y=e_eligens_one_epoch, color='e_eligens_one_epoch')) +
   geom_line(aes(x=e_eligens_x_axis, y=e_eligens_one_epoch, color='e_eligens_one_epoch')) +
-  geom_point(shape=1, aes(x=e_eligens_x_axis, y=e_eligens_empirical, color='e_eligens_empricial')) +
+  geom_point(shape=1, aes(x=e_eligens_x_axis, y=e_eligens_empirical, color='e_eligens_empirical')) +
   geom_line(aes(x=e_eligens_x_axis, y=e_eligens_empirical, color='e_eligens_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=e_eligens_x_axis, limits = c(2, length(e_eligens_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4158,7 +4162,7 @@ p_e_rectale_epoch_comparison <- ggplot(data = e_rectale_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_one_epoch, color='e_rectale_one_epoch')) +
   geom_line(aes(x=e_rectale_x_axis, y=e_rectale_one_epoch, color='e_rectale_one_epoch')) +
-  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_empirical, color='e_rectale_empricial')) +
+  geom_point(shape=1, aes(x=e_rectale_x_axis, y=e_rectale_empirical, color='e_rectale_empirical')) +
   geom_line(aes(x=e_rectale_x_axis, y=e_rectale_empirical, color='e_rectale_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=e_rectale_x_axis, limits = c(2, length(e_rectale_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4222,7 +4226,7 @@ p_f_prausnitzii_epoch_comparison <- ggplot(data = f_prausnitzii_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_one_epoch, color='f_prausnitzii_one_epoch')) +
   geom_line(aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_one_epoch, color='f_prausnitzii_one_epoch')) +
-  geom_point(shape=1, aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_empirical, color='f_prausnitzii_empricial')) +
+  geom_point(shape=1, aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_empirical, color='f_prausnitzii_empirical')) +
   geom_line(aes(x=f_prausnitzii_x_axis, y=f_prausnitzii_empirical, color='f_prausnitzii_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=f_prausnitzii_x_axis, limits = c(2, length(f_prausnitzii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4301,7 +4305,7 @@ p_o_sp_epoch_comparison <- ggplot(data = o_sp_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=o_sp_x_axis, y=o_sp_one_epoch, color='o_sp_one_epoch')) +
   geom_line(aes(x=o_sp_x_axis, y=o_sp_one_epoch, color='o_sp_one_epoch')) +
-  geom_point(shape=1, aes(x=o_sp_x_axis, y=o_sp_empirical, color='o_sp_empricial')) +
+  geom_point(shape=1, aes(x=o_sp_x_axis, y=o_sp_empirical, color='o_sp_empirical')) +
   geom_line(aes(x=o_sp_x_axis, y=o_sp_empirical, color='o_sp_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=o_sp_x_axis, limits = c(2, length(o_sp_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4344,7 +4348,7 @@ p_p_copri_epoch_comparison <- ggplot(data = p_copri_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=p_copri_x_axis, y=p_copri_one_epoch, color='p_copri_one_epoch')) +
   geom_line(aes(x=p_copri_x_axis, y=p_copri_one_epoch, color='p_copri_one_epoch')) +
-  geom_point(shape=1, aes(x=p_copri_x_axis, y=p_copri_empirical, color='p_copri_empricial')) +
+  geom_point(shape=1, aes(x=p_copri_x_axis, y=p_copri_empirical, color='p_copri_empirical')) +
   geom_line(aes(x=p_copri_x_axis, y=p_copri_empirical, color='p_copri_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=p_copri_x_axis, limits = c(2, length(p_copri_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4376,7 +4380,7 @@ p_p_distasonis_epoch_comparison <- ggplot(data = p_distasonis_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_one_epoch, color='p_distasonis_one_epoch')) +
   geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_one_epoch, color='p_distasonis_one_epoch')) +
-  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empricial')) +
+  geom_point(shape=1, aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empirical')) +
   geom_line(aes(x=p_distasonis_x_axis, y=p_distasonis_empirical, color='p_distasonis_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_x_axis, limits = c(2, length(p_distasonis_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4408,7 +4412,7 @@ p_p_merdae_epoch_comparison <- ggplot(data = p_merdae_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_one_epoch, color='p_merdae_one_epoch')) +
   geom_line(aes(x=p_merdae_x_axis, y=p_merdae_one_epoch, color='p_merdae_one_epoch')) +
-  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empricial')) +
+  geom_point(shape=1, aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empirical')) +
   geom_line(aes(x=p_merdae_x_axis, y=p_merdae_empirical, color='p_merdae_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=p_merdae_x_axis, limits = c(2, length(p_merdae_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4457,7 +4461,7 @@ p_p_sp_epoch_comparison <- ggplot(data = p_sp_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_one_epoch, color='p_sp_one_epoch')) +
   geom_line(aes(x=p_sp_x_axis, y=p_sp_one_epoch, color='p_sp_one_epoch')) +
-  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empricial')) +
+  geom_point(shape=1, aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empirical')) +
   geom_line(aes(x=p_sp_x_axis, y=p_sp_empirical, color='p_sp_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=p_sp_x_axis, limits = c(2, length(p_sp_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4522,7 +4526,7 @@ p_r_bromii_epoch_comparison <- ggplot(data = r_bromii_epoch_df,
   geom_line() +
   geom_point(shape=1, aes(x=r_bromii_x_axis, y=r_bromii_one_epoch, color='r_bromii_one_epoch')) +
   geom_line(aes(x=r_bromii_x_axis, y=r_bromii_one_epoch, color='r_bromii_one_epoch')) +
-  geom_point(shape=1, aes(x=r_bromii_x_axis, y=r_bromii_empirical, color='r_bromii_empricial')) +
+  geom_point(shape=1, aes(x=r_bromii_x_axis, y=r_bromii_empirical, color='r_bromii_empirical')) +
   geom_line(aes(x=r_bromii_x_axis, y=r_bromii_empirical, color='r_bromii_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=r_bromii_x_axis, limits = c(2, length(r_bromii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
@@ -4547,73 +4551,943 @@ p_r_bromii_epoch_comparison
 p_merdae_empirical_downsampled_sfs = proportional_sfs(fold_sfs(c()))
 p_merdae_two_epoch_downsampled_sfs = proportional_sfs(fold_sfs(c()))
 
-b_thetaiotaomicron_downsampled_two_epoch = proportional_sfs(c(11207.124489325117, 5603.451910359096, 
-                                                                       3735.6346814039903, 2801.726059105943, 
-                                                                       2241.3808833196663, 1867.8174311882108, 
-                                                                       1600.9863926874837, 1400.8631127491274, 
-                                                                       1245.2116718718532, 1120.6905183474355, 
-                                                                       1018.8095738125999, 933.9087860234074, 
-                                                                       862.0696572716072, 800.493260622196, 
-                                                                       747.1270496558209, 700.4316145577462, 
-                                                                       659.229759587154, 622.6058880565752, 
-                                                                       589.8371604759232, 560.345305252981, 
-                                                                       533.6621977654833, 509.40482695879115, 
-                                                                       487.25679239642216, 466.95442704796494)) * 0.9
+example_null_sfs = proportional_sfs(fold_sfs(c(11395.016421153823, 
+                                               5697.509294687101,
+                                               3798.3396167211836,
+                                               2848.7547698431354,
+                                               2279.0038585801676,
+                                               1899.1699154494872,
+                                               1627.8599542022703,
+                                               1424.377481668122,
+                                               1266.113334959331,
+                                               1139.5020163371091,
+                                               1035.910936328398,
+                                               949.5850352831061,
+                                               876.5400411349472,
+                                               813.9300452646684,
+                                               759.6680480177727,
+                                               712.188799653274,
+                                               670.2953444866343,
+                                               633.0567169853921,
+                                               599.7379443605873)))
+example_contraction_sfs = example_null_sfs * c(0.8, 0.84, 0.88, 0.92, 0.96, 1, 1.04, 1.08, 1.12, 1.16)
+example_expansion_sfs = example_null_sfs * c(1.20, 1.16, 1.12, 1.08, 1.04, 1, 0.96, 0.92, 0.88, 0.84)
+example_axis = 1:length(example_null_sfs)
+example_sfs_df = data.frame(example_expansion_sfs,
+                            example_null_sfs,
+                            example_contraction_sfs,
+                            example_axis)
+example_sfs_df
 
-b_thetaiotaomicron_downsampled_one_epoch = proportional_sfs(c(11207.124489325117, 5603.451910359096, 
-                                                                       3735.6346814039903, 2801.726059105943, 
-                                                                       2241.3808833196663, 1867.8174311882108, 
-                                                                       1600.9863926874837, 1400.8631127491274, 
-                                                                       1245.2116718718532, 1120.6905183474355, 
-                                                                       1018.8095738125999, 933.9087860234074, 
-                                                                       862.0696572716072, 800.493260622196, 
-                                                                       747.1270496558209, 700.4316145577462, 
-                                                                       659.229759587154, 622.6058880565752, 
-                                                                       589.8371604759232, 560.345305252981, 
-                                                                       533.6621977654833, 509.40482695879115, 
-                                                                       487.25679239642216, 466.95442704796494))
+names(example_sfs_df) = c('Expansion',
+                          'Null model',
+                          'Contraction',
+                          'example_axis')
 
-b_thetaiotaomicron_downsampled_empirical = proportional_sfs(c(11207.124489325117, 5603.451910359096, 
-                                                                       3735.6346814039903, 2801.726059105943, 
-                                                                       2241.3808833196663, 1867.8174311882108, 
-                                                                       1600.9863926874837, 1400.8631127491274, 
-                                                                       1245.2116718718532, 1120.6905183474355, 
-                                                                       1018.8095738125999, 933.9087860234074, 
-                                                                       862.0696572716072, 800.493260622196, 
-                                                                       747.1270496558209, 700.4316145577462, 
-                                                                       659.229759587154, 622.6058880565752, 
-                                                                       589.8371604759232, 560.345305252981, 
-                                                                       533.6621977654833, 509.40482695879115, 
-                                                                       487.25679239642216, 466.95442704796494))
+p_example_sfs_comparison <- ggplot(data = melt(example_sfs_df, id='example_axis'),
+                                                      aes(x=example_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('Example SFS') +
+  ylim(0, 0.175) +
+  ylab('Proportional Frequency')
+p_example_sfs_comparison
+
+
+b_thetaiotaomicron_downsampled_empirical = proportional_sfs(c(11329.94672695546, 
+                                                              6167.075485250698,
+                                                              4239.177625142324,
+                                                              3342.60586700556,
+                                                              2929.626632089841,
+                                                              2725.643057081244,
+                                                              2635.300969843948,
+                                                              2579.444903486481,
+                                                              2545.779751971833,
+                                                              1267.150917730179))
+
+b_thetaiotaomicron_downsampled_one_epoch = proportional_sfs(fold_sfs(c(11395.016421153823, 
+                                                                       5697.509294687101,
+                                                                       3798.3396167211836,
+                                                                       2848.7547698431354,
+                                                                       2279.0038585801676,
+                                                                       1899.1699154494872,
+                                                                       1627.8599542022703,
+                                                                       1424.377481668122,
+                                                                       1266.113334959331,
+                                                                       1139.5020163371091,
+                                                                       1035.910936328398,
+                                                                       949.5850352831061,
+                                                                       876.5400411349472,
+                                                                       813.9300452646684,
+                                                                       759.6680480177727,
+                                                                       712.188799653274,
+                                                                       670.2953444866343,
+                                                                       633.0567169853921,
+                                                                       599.7379443605873)))
+
+b_thetaiotaomicron_downsampled_two_epoch = proportional_sfs(fold_sfs(c(8664.919870727774,
+                                                                       5410.886429304165,
+                                                                       3793.1174736529974,
+                                                                       2881.691449665706,
+                                                                       2313.2722795865775,
+                                                                       1929.5172163186119,
+                                                                       1654.2900929663722,
+                                                                       1447.6034828585334,
+                                                                       1286.7826375194118,
+                                                                       1158.1101597985346,
+                                                                       1052.828809778185,
+                                                                       965.0934105406639,
+                                                                       890.8555390240017,
+                                                                       827.2230241899715,
+                                                                       772.0748319217155,
+                                                                       723.820160327517,
+                                                                       681.2425076585495,
+                                                                       643.3957044905935,
+                                                                       609.5327746634593)))
+
+b_thetaiotaomicron_downsampled_exponential = proportional_sfs(fold_sfs(c(10187.526135309816,
+                                                                         5227.044599884645,
+                                                                         3563.621850201483,
+                                                                         2727.3004953552727,
+                                                                         2222.9082682087164,
+                                                                         1885.0050092572908,
+                                                                         1642.5279426703821,
+                                                                         1459.8676681937545,
+                                                                         1317.1988255364213,
+                                                                         1202.6013280281009,
+                                                                         1108.4741630743192,
+                                                                         1029.739855850399,
+                                                                         962.8763478354583,
+                                                                         905.3630546950819,
+                                                                         855.3480686875307,
+                                                                         811.4398933124559,
+                                                                         772.5725127938603,
+                                                                         737.9153260169305,
+                                                                         706.8114463671081)))
+
+b_thetaiotaomicron_downsampled_bottleneck = proportional_sfs(fold_sfs(c(8717.037555032524,
+                                                                        5310.474345322664,
+                                                                        3748.8643888138054,
+                                                                        2873.723809926384,
+                                                                        2321.016005698025,
+                                                                        1942.9554470128837,
+                                                                        1669.1777593196819,
+                                                                        1462.2643030012487,
+                                                                        1300.6200461207936,
+                                                                        1170.9684986786854,
+                                                                        1064.7251166497713,
+                                                                        976.1057198156356,
+                                                                        901.0770666862816,
+                                                                        836.7441818986339,
+                                                                        780.9769787756552,
+                                                                        732.174217565379,
+                                                                        689.1094802578586,
+                                                                        650.8278440587161,
+                                                                        616.5748554746294)))
+
+b_thetaiotaomicron_downsampled_three_epoch = proportional_sfs(fold_sfs(c(8689.269010159136,
+                                                                         5417.315212120648,
+                                                                         3793.8944085777216,
+                                                                         2881.1151931885984,
+                                                                         2312.4701639083023,
+                                                                         1928.7523709984505,
+                                                                         1653.6077971646323,
+                                                                         1446.9991763032233,
+                                                                         1286.2435100988198,
+                                                                         1157.6244240487513,
+                                                                         1052.3870965152491,
+                                                                         964.6884724782393,
+                                                                         890.4817416585565,
+                                                                         826.8759246652239,
+                                                                         771.7508719243848,
+                                                                         723.5164477365333,
+                                                                         680.9566604946273,
+                                                                         643.1257377201415,
+                                                                         609.2770166692798)))
+
+b_thetaiotaomicron_downsampled_x_axis = 1:length(b_thetaiotaomicron_downsampled_one_epoch)
+
+b_thetaiotaomicron_downsampled_df = data.frame(b_thetaiotaomicron_downsampled_empirical,
+                                               b_thetaiotaomicron_downsampled_one_epoch,
+                                               b_thetaiotaomicron_downsampled_two_epoch,
+                                               b_thetaiotaomicron_downsampled_exponential,
+                                               b_thetaiotaomicron_downsampled_bottleneck,
+                                               b_thetaiotaomicron_downsampled_three_epoch,
+                                               b_thetaiotaomicron_downsampled_x_axis)
+
+
+names(b_thetaiotaomicron_downsampled_df) = c('Empirical',
+                                             'One-epoch',
+                                             'Two-epoch',
+                                             'Exponential Decay',
+                                             'Bottledecay',
+                                             'Three-epoch',
+                                             'x_axis')
+
+p_b_thetaiotaomicron_downsampled_comparison <- ggplot(data = melt(b_thetaiotaomicron_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Thetaiotaomicron (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_b_thetaiotaomicron_downsampled_comparison
+
+b_caccae_downsampled_empirical = proportional_sfs(fold_sfs(c(5187.149777861074,
+                                                             2340.194190194129,
+                                                             1663.885484545847,
+                                                             1315.744156620993,
+                                                             1100.451691324268,
+                                                             975.0639610732158,
+                                                             896.1809931950045,
+                                                             851.0420180532772,
+                                                             833.8011721737832,
+                                                             415.2647677825165,
+                                                             0, 0, 0, 0,
+                                                             0, 0, 0, 0,
+                                                             0, 0)))
+b_caccae_downsampled_one_epoch = proportional_sfs(fold_sfs(c(4164.799800293437,
+                                                             2082.4002963815055,
+                                                             1388.266896026572,
+                                                             1041.2001929635048,
+                                                             832.9601699794274,
+                                                             694.1334871535378,
+                                                             594.9715701665315,
+                                                             520.6001318419499,
+                                                             462.75567929840173,
+                                                             416.4801168048002,
+                                                             378.61829253120476,
+                                                             347.0667719238147,
+                                                             320.36933106046195,
+                                                             297.48580999656633,
+                                                             277.65342477263073,
+                                                             260.30008741899104,
+                                                             244.98831889992857,
+                                                             231.37785774320201,
+                                                             219.2000764706623)))
+
+b_caccae_downsampled_two_epoch = proportional_sfs(fold_sfs(c(4165.367371515875,
+                                                             2082.4003241314645,
+                                                             1388.2668913937873,
+                                                             1041.2001894857128,
+                                                             832.9601671972056,
+                                                             694.1334848350245,
+                                                             594.9715681792215,
+                                                             520.6001301030575,
+                                                             462.75567775273265,
+                                                             416.4801154136863,
+                                                             378.6182912665557,
+                                                             347.06677076455304,
+                                                             320.36932999037424,
+                                                             297.4858090029092,
+                                                             277.65342384521745,
+                                                             260.30008654954474,
+                                                             244.98831808162618,
+                                                             231.37785697036088,
+                                                             219.2000757384939)))
+
+b_caccae_downsampled_exponential = proportional_sfs(fold_sfs(c(4165.087292679176,
+                                                               2082.4003198187775,
+                                                               1388.2668921156442,
+                                                               1041.2001900259365,
+                                                               832.9601676293785,
+                                                               694.1334851951588,
+                                                               594.971568487908,
+                                                               520.600130373162,
+                                                               462.75567799281237,
+                                                               416.48011562976984,
+                                                               378.61829146298993,
+                                                               347.06677094462265,
+                                                               320.3693301565969,
+                                                               297.4858091572588,
+                                                               277.6534239892771,
+                                                               260.300086684597,
+                                                               244.98831820873414,
+                                                               231.3778570904073,
+                                                               219.2000758522252)))
+
+b_caccae_downsampled_bottleneck = proportional_sfs(fold_sfs(c(4164.836611048225,
+                                                              2082.4002965326013,
+                                                              1388.2668960013218,
+                                                              1041.200192944567,
+                                                              832.960169964289,
+                                                              694.1334871409225,
+                                                              594.9715701557099,
+                                                              520.600131832481,
+                                                              462.75567928999806,
+                                                              416.48011679722515,
+                                                              378.61829252431835,
+                                                              347.06677191750214,
+                                                              320.3693310546349,
+                                                              297.4858099911555,
+                                                              277.6534247675807,
+                                                              260.3000874142566,
+                                                              244.98831889547608,
+                                                              231.37785773899364,
+                                                              219.2000764666723)))
+
+b_caccae_downsampled_three_epoch = proportional_sfs(fold_sfs(c(4164.838134564714,
+                                                               2082.4002968223976,
+                                                               1388.2668959529146,
+                                                               1041.200192908247,
+                                                               832.960169935221,
+                                                               694.1334871167139,
+                                                               594.9715701349639,
+                                                               520.600131814332,
+                                                               462.7556792738426,
+                                                               416.48011678269114,
+                                                               378.61829251111635,
+                                                               347.0667719054003,
+                                                               320.3693310434595,
+                                                               297.48580998078256,
+                                                               277.6534247579032,
+                                                               260.30008740518394,
+                                                               244.98831888693363,
+                                                               231.37785773092907,
+                                                               219.20007645903218)))
+
+b_caccae_downsampled_x_axis = 1:length(b_caccae_downsampled_one_epoch)
+
+b_caccae_downsampled_df = data.frame(b_caccae_downsampled_empirical,
+                                     b_caccae_downsampled_one_epoch,
+                                     b_caccae_downsampled_two_epoch,
+                                     b_caccae_downsampled_exponential,
+                                     b_caccae_downsampled_bottleneck,
+                                     b_caccae_downsampled_three_epoch,
+                                     b_caccae_downsampled_x_axis)
+
+
+names(b_caccae_downsampled_df) = c('Empirical',
+                                   'One-epoch',
+                                   'Two-epoch',
+                                   'Exponential Decay',
+                                   'Bottledecay',
+                                   'Three-epoch',
+                                   'x_axis')
+
+p_b_caccae_downsampled_comparison <- ggplot(data = melt(b_caccae_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_caccae_downsampled_x_axis, limits=c(1.5, length(b_caccae_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Caccae (Downsampled to 20)') +
+  ylim(0, 0.35) +
+  ylab('Proportional Frequency')
+p_b_caccae_downsampled_comparison
+
+b_xylanisolvens_downsampled_empirical = proportional_sfs(c(2354.975426140429,
+                                                           1125.802067113204,
+                                                           809.8079494704909,
+                                                           689.0643046976489,
+                                                           622.4599121761868,
+                                                           562.9077350396836,
+                                                           521.9242943638338,
+                                                           498.4492947002323,
+                                                           483.0524634080177,
+                                                           240.2388435326407))
+b_xylanisolvens_downsampled_one_epoch = proportional_sfs(fold_sfs(c(2225.8375946491637,
+                                                                    1112.9190090884904,
+                                                                    741.9460230393622,
+                                                                    556.4595284726163,
+                                                                    445.16763111997324,
+                                                                    370.9730324378159,
+                                                                    317.97689015707357,
+                                                                    278.22978313422897,
+                                                                    247.31536628656738,
+                                                                    222.58383256325666,
+                                                                    202.34894111319673,
+                                                                    185.48653136871667,
+                                                                    171.21833832126538,
+                                                                    158.98845839321308,
+                                                                    148.38922896089073,
+                                                                    139.11490305652447,
+                                                                    130.93167417529625,
+                                                                    123.65769281345032,
+                                                                    117.14939357325068)))
+
+b_xylanisolvens_downsampled_two_epoch = proportional_sfs(fold_sfs(c(1359.6863003574406,
+                                                                    965.3075376219746,
+                                                                    723.5993828577376,
+                                                                    567.8076876951808,
+                                                                    462.57767040406213,
+                                                                    388.33180427053384,
+                                                                    333.8463155887522,
+                                                                    292.4615686309239,
+                                                                    260.08644207653657,
+                                                                    234.11944837616653,
+                                                                    212.8500253199528,
+                                                                    195.11723483702386,
+                                                                    180.10973948915293,
+                                                                    167.24523248423853,
+                                                                    156.09569159982058,
+                                                                    146.33975081587351,
+                                                                    137.73154092436772,
+                                                                    130.07979150964124,
+                                                                    123.23348754374621)))
+
+b_xylanisolvens_downsampled_exponential = proportional_sfs(fold_sfs(c(1471.7788637968586,
+                                                                      964.0716553129226,
+                                                                      709.5421431668157,
+                                                                      557.8114120428864,
+                                                                      457.73286474571,
+                                                                      387.12293625513655,
+                                                                      334.831176320659,
+                                                                      294.6586957914503,
+                                                                      262.89518612257683,
+                                                                      237.19016619459222,
+                                                                      215.98583820002648,
+                                                                      198.2109914402712,
+                                                                      183.10603082437856,
+                                                                      170.11811934271304,
+                                                                      158.83579775551664,
+                                                                      148.94681843378305,
+                                                                      140.21014611732625,
+                                                                      132.4368864351743,
+                                                                      125.47700079676537)))
+
+b_xylanisolvens_downsampled_bottleneck = proportional_sfs(fold_sfs(c(1465.744165007801,
+                                                                     962.2789104208188,
+                                                                     708.9563252183345,
+                                                                     557.689793069283,
+                                                                     457.8118945031863,
+                                                                     387.29172329342657,
+                                                                     335.0383660183017,
+                                                                     294.8791603523805,
+                                                                     263.11631899928165,
+                                                                     237.4056756918847,
+                                                                     216.1927354382082,
+                                                                     198.40805147459233,
+                                                                     183.29297574521172,
+                                                                     170.29517245023084,
+                                                                     159.003435752342,
+                                                                     149.10563245272243,
+                                                                     140.36076393967306,
+                                                                     132.57992968206156,
+                                                                     125.61306231381326)))
+
+b_xylanisolvens_downsampled_three_epoch = proportional_sfs(fold_sfs(c(1364.6304137024117,
+                                                                      967.6515403771731,
+                                                                      724.3260994248806,
+                                                                      567.8376389249792,
+                                                                      462.34620679493196,
+                                                                      388.02243464054624,
+                                                                      333.5304898159972,
+                                                                      292.16394577120883,
+                                                                      259.81321649305926,
+                                                                      233.87011252075382,
+                                                                      212.6220385762872,
+                                                                      194.90775798006155,
+                                                                      179.91620165640927,
+                                                                      167.06545921615134,
+                                                                      155.9278839679149,
+                                                                      146.18242534391038,
+                                                                      137.583468277351,
+                                                                      129.93994472032279,
+                                                                      123.10100102679405)))
+
+b_xylanisolvens_downsampled_x_axis = 1:length(b_xylanisolvens_downsampled_one_epoch)
+
+b_xylanisolvens_downsampled_df = data.frame(b_xylanisolvens_downsampled_empirical,
+                                            b_xylanisolvens_downsampled_one_epoch,
+                                            b_xylanisolvens_downsampled_two_epoch,
+                                            b_xylanisolvens_downsampled_exponential,
+                                            b_xylanisolvens_downsampled_bottleneck,
+                                            b_xylanisolvens_downsampled_three_epoch,
+                                            b_xylanisolvens_downsampled_x_axis)
+
+
+names(b_xylanisolvens_downsampled_df) = c('Empirical',
+                                          'One-epoch',
+                                          'Two-epoch',
+                                          'Exponential Decay',
+                                          'Bottledecay',
+                                          'Three-epoch',
+                                          'x_axis')
+
+p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_downsampled_df, id='x_axis'),
+                                                   aes(x=x_axis, 
+                                                       y=value,
+                                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_downsampled_x_axis, limits=c(1.5, length(b_xylanisolvens_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Xylanisolvens (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_b_xylanisolvens_downsampled_comparison
+
+p_distasonis_downsampled_empirical = proportional_sfs(c(10253.18489341513,
+                                                        5326.520737228057,
+                                                        3924.694937012874,
+                                                        3321.958570197894,
+                                                        2970.095360152478,
+                                                        2663.637872179951,
+                                                        2392.125470912756,
+                                                        2189.947401730031,
+                                                        2071.812959514204,
+                                                        1015.051256310989))
+p_distasonis_downsampled_one_epoch = proportional_sfs(fold_sfs(c(10370.62794846896,
+                                                                 5185.3149608854,
+                                                                 3456.876719705241,
+                                                                 2592.657591929825,
+                                                                 2074.1261124103685,
+                                                                 1728.4384573144455,
+                                                                 1481.5187019742843,
+                                                                 1296.3288840141513,
+                                                                 1152.2923576558514,
+                                                                 1037.0631354268614,
+                                                                 942.7846798420085,
+                                                                 864.2192992432484,
+                                                                 797.7408994050194,
+                                                                 740.7594130229144,
+                                                                 691.3754574066905,
+                                                                 648.1644955385626,
+                                                                 610.0371755811691,
+                                                                 576.1462238831897,
+                                                                 545.8227401934228)))
+
+p_distasonis_downsampled_two_epoch = proportional_sfs(fold_sfs(c(6931.691839453894,
+                                                                 4689.492705653522,
+                                                                 3416.492155883564,
+                                                                 2639.8291185084477,
+                                                                 2133.8690495070264,
+                                                                 1784.7018298145363,
+                                                                 1531.6892323376499,
+                                                                 1340.8172142166284,
+                                                                 1192.0160791844767,
+                                                                 1072.8682234736143,
+                                                                 975.3507127761554,
+                                                                 894.0761336433668,
+                                                                 825.3023641197204,
+                                                                 766.3525579330275,
+                                                                 715.2624849486353,
+                                                                 670.558606349042,
+                                                                 631.1139908478211,
+                                                                 596.0521060420045,
+                                                                 564.6809445707361)))
+
+p_distasonis_downsampled_exponential = proportional_sfs(fold_sfs(c(7541.64927226039,
+                                                                   4721.268606262877,
+                                                                   3381.8171579274135,
+                                                                   2613.7510694279035,
+                                                                   2121.2149403839044,
+                                                                   1780.8313785770192,
+                                                                   1532.6057669909985,
+                                                                   1344.0999367260074,
+                                                                   1196.3465586691011,
+                                                                   1077.563647554644,
+                                                                   980.0707562503293,
+                                                                   898.6596003564924,
+                                                                   829.6801460655271,
+                                                                   770.5020797751902,
+                                                                   719.1840308227328,
+                                                                   674.263072476118,
+                                                                   634.6165968554354,
+                                                                   599.3692201175459,
+                                                                   567.828538166552)))
+
+p_distasonis_downsampled_bottleneck = proportional_sfs(fold_sfs(c(7035.230103530886,
+                                                                  4712.253317785223,
+                                                                  3418.277674195643,
+                                                                  2637.139896925595,
+                                                                  2130.772797617157,
+                                                                  1781.9958168042124,
+                                                                  1529.4067947793546,
+                                                                  1338.8635774854824,
+                                                                  1190.3058443960797,
+                                                                  1071.3421119319341,
+                                                                  973.9692133606017,
+                                                                  892.8122124785056,
+                                                                  824.1366341117306,
+                                                                  765.2704549140931,
+                                                                  714.2526493020463,
+                                                                  669.6119275545597,
+                                                                  630.2230119833397,
+                                                                  595.2106296136772,
+                                                                  563.8837572560634)))
+
+p_distasonis_downsampled_three_epoch = proportional_sfs(fold_sfs(c(6925.836161470311,
+                                                                   4688.847769809574,
+                                                                   3416.493900487027,
+                                                                   2639.9128854435635,
+                                                                   2133.94935968573,
+                                                                   1784.7694871396504,
+                                                                   1531.7464374496985,
+                                                                   1340.866711674199,
+                                                                   1192.059807775802,
+                                                                   1072.9074669302804,
+                                                                   975.3863457282373,
+                                                                   894.1087818303629,
+                                                                   825.3324957335328,
+                                                                   766.3805356469674,
+                                                                   715.2885969943865,
+                                                                   670.5830862583323,
+                                                                   631.1370307292368,
+                                                                   596.0738659226591,
+                                                                   564.7015591930947)))
+
+p_distasonis_downsampled_x_axis = 1:length(p_distasonis_downsampled_one_epoch)
+
+p_distasonis_downsampled_df = data.frame(p_distasonis_downsampled_empirical,
+                                            p_distasonis_downsampled_one_epoch,
+                                            p_distasonis_downsampled_two_epoch,
+                                            p_distasonis_downsampled_exponential,
+                                            p_distasonis_downsampled_bottleneck,
+                                            p_distasonis_downsampled_three_epoch,
+                                            p_distasonis_downsampled_x_axis)
+
+
+names(p_distasonis_downsampled_df) = c('Empirical',
+                                          'One-epoch',
+                                          'Two-epoch',
+                                          'Exponential Decay',
+                                          'Bottledecay',
+                                          'Three-epoch',
+                                          'x_axis')
+
+p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsampled_df, id='x_axis'),
+                                                   aes(x=x_axis, 
+                                                       y=value,
+                                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_downsampled_x_axis, limits=c(1.5, length(p_distasonis_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. distasonis (Downsampled to 20)') +
+  ylim(0, 0.175) +
+  ylab('Proportional Frequency')
+p_p_distasonis_downsampled_comparison
+
+# TEMP
+set.seed(1)
+
+slant = c(0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.005, 1.01, 1.015, 1.02)
+a_muciniphila_downsampled_empirical = proportional_sfs(c(5077.572049689889,
+                                                         2897.685733107547,
+                                                         2551.161095426265,
+                                                         2177.475531714691,
+                                                         1900.65597590813,
+                                                         1803.938641069093,
+                                                         1709.461170713378,
+                                                         1667.074044795719,
+                                                         1644.899040090311,
+                                                         831.3130434782586))
+a_muciniphila_downsampled_one_epoch = proportional_sfs(fold_sfs(c(6886.940001190722,
+                                                                  3443.4706558117778,
+                                                                  2295.647156413293,
+                                                                  1721.7354019424029,
+                                                                  1377.3883473644435,
+                                                                  1147.823642929221,
+                                                                  983.8488529178377,
+                                                                  860.8677594430536,
+                                                                  765.2157970027287,
+                                                                  688.6942262918554,
+                                                                  626.0856677509366,
+                                                                  573.9118683394696,
+                                                                  529.7648067212152,
+                                                                  491.9244676557145,
+                                                                  459.12950663306884,
+                                                                  430.4339152707858,
+                                                                  405.1142753938644,
+                                                                  382.6079284217222,
+                                                                  362.4706702116887)))
+
+a_muciniphila_downsampled_two_epoch = slant * runif(10, 0.99, 1.01) * a_muciniphila_downsampled_one_epoch
+a_muciniphila_downsampled_two_epoch = proportional_sfs(a_muciniphila_downsampled_two_epoch)
+
+a_muciniphila_downsampled_exponential = slant * runif(10, 0.99, 1.01) * a_muciniphila_downsampled_one_epoch
+a_muciniphila_downsampled_exponential = proportional_sfs(a_muciniphila_downsampled_exponential)
+
+a_muciniphila_downsampled_bottleneck = slant * runif(10, 0.99, 1.01) * a_muciniphila_downsampled_one_epoch
+a_muciniphila_downsampled_bottleneck = proportional_sfs(a_muciniphila_downsampled_bottleneck)
+
+a_muciniphila_downsampled_three_epoch = slant * runif(10, 0.99, 1.01) * a_muciniphila_downsampled_one_epoch
+a_muciniphila_downsampled_three_epoch = proportional_sfs(a_muciniphila_downsampled_three_epoch)
+
+a_muciniphila_downsampled_x_axis = 1:length(a_muciniphila_downsampled_one_epoch)
+
+a_muciniphila_downsampled_df = data.frame(a_muciniphila_downsampled_empirical,
+                                          a_muciniphila_downsampled_one_epoch,
+                                          a_muciniphila_downsampled_two_epoch,
+                                          a_muciniphila_downsampled_exponential,
+                                          a_muciniphila_downsampled_bottleneck,
+                                          a_muciniphila_downsampled_three_epoch,
+                                          a_muciniphila_downsampled_x_axis)
+
+
+names(a_muciniphila_downsampled_df) = c('Empirical',
+                                        'One-epoch',
+                                        'Two-epoch',
+                                        'Exponential Decay',
+                                        'Bottledecay',
+                                        'Three-epoch',
+                                        'x_axis')
+
+p_a_muciniphila_downsampled_comparison <- ggplot(data = melt(a_muciniphila_downsampled_df, id='x_axis'),
+                                                 aes(x=x_axis, 
+                                                     y=value,
+                                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_downsampled_x_axis, limits=c(1.5, length(a_muciniphila_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. muciniphila (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_a_muciniphila_downsampled_comparison
 
 set.seed(1)
-b_thetaiotaomicron_downsampled_empirical = b_thetaiotaomicron_downsampled_one_epoch * runif(24, 0.8, 1.0)
+
+slant = c(0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.005, 1.01, 1.015, 1.02)
+a_onderdonkii_downsampled_empirical = proportional_sfs(c(4910.10537965788,
+                                                         2805.563162376791,
+                                                         2256.289305773703,
+                                                         2002.288576867122,
+                                                         1821.299683098343,
+                                                         1670.328917872756,
+                                                         1602.049864322833,
+                                                         1616.317384587173,
+                                                         1653.980849095998,
+                                                         834.211705170771))
+a_onderdonkii_downsampled_one_epoch = proportional_sfs(fold_sfs(c(6517.683620626054,
+                                                                  3258.8424303987704,
+                                                                  2172.561669987655,
+                                                                  1629.4212852662906,
+                                                                  1303.5370526396734,
+                                                                  1086.2808962461781,
+                                                                  931.0979263251377,
+                                                                  814.710697969918,
+                                                                  724.1872973347656,
+                                                                  651.7685761087049,
+                                                                  592.5168944558081,
+                                                                  543.1404924846635,
+                                                                  501.36045950073776,
+                                                                  465.54900215052,
+                                                                  434.5124053078858,
+                                                                  407.35538262817687,
+                                                                  383.3933033770975,
+                                                                  362.0936769835038,
+                                                                  343.0361161542878)))
+
+a_onderdonkii_downsampled_two_epoch = slant * runif(10, 0.99, 1.01) * a_onderdonkii_downsampled_one_epoch
+a_onderdonkii_downsampled_two_epoch = proportional_sfs(a_onderdonkii_downsampled_two_epoch)
+
+a_onderdonkii_downsampled_exponential = slant * runif(10, 0.99, 1.01) * a_onderdonkii_downsampled_one_epoch
+a_onderdonkii_downsampled_exponential = proportional_sfs(a_onderdonkii_downsampled_exponential)
+
+a_onderdonkii_downsampled_bottleneck = slant * runif(10, 0.99, 1.01) * a_onderdonkii_downsampled_one_epoch
+a_onderdonkii_downsampled_bottleneck = proportional_sfs(a_onderdonkii_downsampled_bottleneck)
+
+a_onderdonkii_downsampled_three_epoch = slant * runif(10, 0.99, 1.01) * a_onderdonkii_downsampled_one_epoch
+a_onderdonkii_downsampled_three_epoch = proportional_sfs(a_onderdonkii_downsampled_three_epoch)
+
+a_onderdonkii_downsampled_x_axis = 1:length(a_onderdonkii_downsampled_one_epoch)
+
+a_onderdonkii_downsampled_df = data.frame(a_onderdonkii_downsampled_empirical,
+                                          a_onderdonkii_downsampled_one_epoch,
+                                          a_onderdonkii_downsampled_two_epoch,
+                                          a_onderdonkii_downsampled_exponential,
+                                          a_onderdonkii_downsampled_bottleneck,
+                                          a_onderdonkii_downsampled_three_epoch,
+                                          a_onderdonkii_downsampled_x_axis)
 
 
-b_thetaiotaomicron_downsampled_epoch_df = data.frame(b_thetaiotaomicron_downsampled_two_epoch,
-                                                     b_thetaiotaomicron_downsampled_one_epoch,
-                                                     b_thetaiotaomicron_downsampled_empirical)
-b_thetaiotaomicron_downsampled_x_axis = 1:length(b_thetaiotaomicron_downsampled_two_epoch)
-p_b_thetaiotaomicron_downsampled_epoch_comparison <- ggplot(data = b_thetaiotaomicron_downsampled_epoch_df, 
-                                      aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_two_epoch, color='b_thetaiotaomicron_downsampled_two_epoch')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_one_epoch, color='b_thetaiotaomicron_downsampled_one_epoch')) +
-  geom_line(aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_one_epoch, color='b_thetaiotaomicron_downsampled_one_epoch')) +
-  geom_point(shape=1, aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_empirical, color='b_thetaiotaomicron_downsampled_empricial')) +
-  geom_line(aes(x=b_thetaiotaomicron_downsampled_x_axis, y=b_thetaiotaomicron_downsampled_empirical, color='b_thetaiotaomicron_downsampled_empirical')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits = c(2, length(b_thetaiotaomicron_downsampled_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange', 'red'),
-                     name='Data Type',
-                     breaks=c('b_thetaiotaomicron_downsampled_empirical',
-                              'b_thetaiotaomicron_downsampled_two_epoch',
-                              'b_thetaiotaomicron_downsampled_one_epoch'
-                     ),
-                     labels=c('Synonymous empirical',
-                              'Two-epoch',
-                              'One-epoch')) +
-  ggtitle('B. Thetaiotaomicron (Downsampled to 25 folded)') +
-  ylim(0, 0.15)
-p_b_thetaiotaomicron_downsampled_epoch_comparison
+names(a_onderdonkii_downsampled_df) = c('Empirical',
+                                        'One-epoch',
+                                        'Two-epoch',
+                                        'Exponential Decay',
+                                        'Bottledecay',
+                                        'Three-epoch',
+                                        'x_axis')
 
+p_a_onderdonkii_downsampled_comparison <- ggplot(data = melt(a_onderdonkii_downsampled_df, id='x_axis'),
+                                                 aes(x=x_axis, 
+                                                     y=value,
+                                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_downsampled_x_axis, limits=c(1.5, length(a_onderdonkii_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. onderdonkii (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_a_onderdonkii_downsampled_comparison
+
+set.seed(1)
+
+slant = c(0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.005, 1.01, 1.015, 1.02)
+b_intestinihominis_downsampled_empirical = proportional_sfs(c(9649.605066277722,
+                                                              5112.185476469527,
+                                                              4226.486034316246,
+                                                              3707.793290816517,
+                                                              3194.552778476499,
+                                                              2757.546121301762,
+                                                              2460.039052154916,
+                                                              2280.867257061911,
+                                                              2181.669145630998,
+                                                              1074.465576671515))
+b_intestinihominis_downsampled_one_epoch = proportional_sfs(fold_sfs(c(10819.410057244027,
+                                                                       5409.7060579696035,
+                                                                       3606.470787851692,
+                                                                       2704.8531452964585,
+                                                                       2163.882556785598,
+                                                                       1803.235495605267,
+                                                                       1545.630450131239,
+                                                                       1352.426664507741,
+                                                                       1202.157052133733,
+                                                                       1081.9413610427423,
+                                                                       983.5830672533307,
+                                                                       901.6178214432231,
+                                                                       832.262612542357,
+                                                                       772.815289785949,
+                                                                       721.2942759461317,
+                                                                       676.2133881018974,
+                                                                       636.4361334310571,
+                                                                       601.0785730718674,
+                                                                       569.4428605543651)))
+
+b_intestinihominis_downsampled_two_epoch = slant * runif(10, 0.99, 1.01) * b_intestinihominis_downsampled_one_epoch
+b_intestinihominis_downsampled_two_epoch = proportional_sfs(b_intestinihominis_downsampled_two_epoch)
+
+b_intestinihominis_downsampled_exponential = slant * runif(10, 0.99, 1.01) * b_intestinihominis_downsampled_one_epoch
+b_intestinihominis_downsampled_exponential = proportional_sfs(b_intestinihominis_downsampled_exponential)
+
+b_intestinihominis_downsampled_bottleneck = slant * runif(10, 0.99, 1.01) * b_intestinihominis_downsampled_one_epoch
+b_intestinihominis_downsampled_bottleneck = proportional_sfs(b_intestinihominis_downsampled_bottleneck)
+
+b_intestinihominis_downsampled_three_epoch = slant * runif(10, 0.99, 1.01) * b_intestinihominis_downsampled_one_epoch
+b_intestinihominis_downsampled_three_epoch = proportional_sfs(b_intestinihominis_downsampled_three_epoch)
+
+b_intestinihominis_downsampled_x_axis = 1:length(b_intestinihominis_downsampled_one_epoch)
+
+b_intestinihominis_downsampled_df = data.frame(b_intestinihominis_downsampled_empirical,
+                                               b_intestinihominis_downsampled_one_epoch,
+                                               b_intestinihominis_downsampled_two_epoch,
+                                               b_intestinihominis_downsampled_exponential,
+                                               b_intestinihominis_downsampled_bottleneck,
+                                               b_intestinihominis_downsampled_three_epoch,
+                                               b_intestinihominis_downsampled_x_axis)
+
+
+names(b_intestinihominis_downsampled_df) = c('Empirical',
+                                             'One-epoch',
+                                             'Two-epoch',
+                                             'Exponential Decay',
+                                             'Bottledecay',
+                                             'Three-epoch',
+                                             'x_axis')
+
+p_b_intestinihominis_downsampled_comparison <- ggplot(data = melt(b_intestinihominis_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_downsampled_x_axis, limits=c(1.5, length(b_intestinihominis_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_b_intestinihominis_downsampled_comparison
+
+set.seed(1)
+
+slant = c(0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.005, 1.01, 1.015, 1.02)
+p_merdaes_downsampled_empirical = proportional_sfs(c(5850.689245516496,
+                                                     3051.515048254135,
+                                                     2304.944024858156,
+                                                     1941.829394460647,
+                                                     1724.713015623807,
+                                                     1564.22931625277,
+                                                     1432.340525518066,
+                                                     1348.481735142471,
+                                                     1303.652340304023,
+                                                     643.6909689277928))
+p_merdaes_downsampled_one_epoch = proportional_sfs(fold_sfs(c(6138.167866533881,
+                                                              3069.0845172459435,
+                                                              2046.0563916572048,
+                                                              1534.5423246099776,
+                                                              1227.6338826922934,
+                                                              1023.0282535143128,
+                                                              876.881374523717,
+                                                              767.2712144195773,
+                                                              682.0188669153742,
+                                                              613.8169882358776,
+                                                              558.0154505225494,
+                                                              511.51416853561733,
+                                                              472.1669294163265,
+                                                              438.4407239795949,
+                                                              409.2113454894918,
+                                                              383.63563889400825,
+                                                              361.0688385650003,
+                                                              341.00946012499935,
+                                                              323.0615948548572)))
+
+p_merdaes_downsampled_two_epoch = slant * runif(10, 0.99, 1.01) * p_merdaes_downsampled_one_epoch
+p_merdaes_downsampled_two_epoch = proportional_sfs(p_merdaes_downsampled_two_epoch)
+
+p_merdaes_downsampled_exponential = slant * runif(10, 0.99, 1.01) * p_merdaes_downsampled_one_epoch
+p_merdaes_downsampled_exponential = proportional_sfs(p_merdaes_downsampled_exponential)
+
+p_merdaes_downsampled_bottleneck = slant * runif(10, 0.99, 1.01) * p_merdaes_downsampled_one_epoch
+p_merdaes_downsampled_bottleneck = proportional_sfs(p_merdaes_downsampled_bottleneck)
+
+p_merdaes_downsampled_three_epoch = slant * runif(10, 0.99, 1.01) * p_merdaes_downsampled_one_epoch
+p_merdaes_downsampled_three_epoch = proportional_sfs(p_merdaes_downsampled_three_epoch)
+
+p_merdaes_downsampled_x_axis = 1:length(p_merdaes_downsampled_one_epoch)
+
+p_merdaes_downsampled_df = data.frame(p_merdaes_downsampled_empirical,
+                                               p_merdaes_downsampled_one_epoch,
+                                               p_merdaes_downsampled_two_epoch,
+                                               p_merdaes_downsampled_exponential,
+                                               p_merdaes_downsampled_bottleneck,
+                                               p_merdaes_downsampled_three_epoch,
+                                               p_merdaes_downsampled_x_axis)
+
+
+names(p_merdaes_downsampled_df) = c('Empirical',
+                                             'One-epoch',
+                                             'Two-epoch',
+                                             'Exponential Decay',
+                                             'Bottledecay',
+                                             'Three-epoch',
+                                             'x_axis')
+
+p_p_merdaes_downsampled_comparison <- ggplot(data = melt(p_merdaes_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. merdae (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_p_merdaes_downsampled_comparison
+
+
+
+b_xylanisolvens_downsampled_three_epoch = fold_sfs(c(1364.6304137024117,
+                                                                      967.6515403771731,
+                                                                      724.3260994248806,
+                                                                      567.8376389249792,
+                                                                      462.34620679493196,
+                                                                      388.02243464054624,
+                                                                      333.5304898159972,
+                                                                      292.16394577120883,
+                                                                      259.81321649305926,
+                                                                      233.87011252075382,
+                                                                      212.6220385762872,
+                                                                      194.90775798006155,
+                                                                      179.91620165640927,
+                                                                      167.06545921615134,
+                                                                      155.9278839679149,
+                                                                      146.18242534391038,
+                                                                      137.583468277351,
+                                                                      129.93994472032279,
+                                                                      123.10100102679405))

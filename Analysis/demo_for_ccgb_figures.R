@@ -279,6 +279,33 @@ list_over_10 = c('Bifidobacterium_longum_57796',
 over_20_df = subset(pi_summary_df, 
                     species %in% list_over_20)
 
+species_labels_20 = c('E. eligens',
+                      'F. cf',
+                      'F. prausnitzii (57453)',
+                      'F. prausnitzii (61481)',
+                      'F. prausnitzii (62201)',
+                      'O. sp',
+                      'P. copri',
+                      'R. inulinivorans',
+                      'R. bromii',
+                      'R. torques')
+
+species_labels_10 = c('B. longum',
+                      'B. wexlerae',
+                      'B. crossotus',
+                      'C. sp',
+                      'E. coli',
+                      'E. eligens',
+                      'F. cf',
+                      'F. prausnitzii (57453)',
+                      'F. prausnitzii (61481)',
+                      'F. prausnitzii (62201)',
+                      'O. sp',
+                      'P. copri',
+                      'R. inulinivorans',
+                      'R. bromii',
+                      'R. torques')
+
 over_10_df = subset(pi_summary_df,
                     species %in% list_over_10)
 
@@ -286,9 +313,12 @@ over_10_df = subset(pi_summary_df,
 aggregate_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   geom_point(aes(x=species, y=aggregate_across_pi, color=cohort), size=3, shape=18) +
-  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  theme(axis.text.x = element_text(angle=50, vjust=1.0, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
+  scale_x_discrete(breaks=list_over_20,
+                   labels=species_labels_20) +
+  guides(fill=guide_legend(title="Cohort")) +
   ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20') +
   xlab('Species') +
   ylab('Average within-host pi')
@@ -300,9 +330,12 @@ aggregate_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_p
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
   # geom_jitter(aes(color=cohort), size=0.2) +
   geom_point(aes(x=species, y=aggregate_across_pi, color=cohort), size=3, shape=18) +
-  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+  theme(axis.text.x = element_text(angle=50, vjust=1.0, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
+  scale_x_discrete(breaks=list_over_10,
+                   labels=species_labels_10) +
+  guides(fill=guide_legend(title="Cohort")) +
   ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 10') +
   xlab('Species') +
   ylab('Average within-host pi')
@@ -525,3 +558,67 @@ qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reo
   xlab('Species') +
   ylab('Number of QP samples')
 qp_samples_per_species_plot_ordered
+
+set.seed(1)
+
+fold_sfs = function(input_sfs) {
+  input_length = length(input_sfs)
+  folded_length = length(input_sfs) / 2
+  if (input_length %% 2 == 1) {
+    folded_length = folded_length + 1
+  }
+  output_sfs = c()
+  for (i in 1:folded_length) {
+    output_sfs[i] = input_sfs[i] + input_sfs[input_length - i]
+  }
+  return(output_sfs)
+}
+
+proportional_sfs = function(input_sfs) {
+  return (input_sfs / sum(input_sfs))
+}
+
+example_null_sfs = proportional_sfs(fold_sfs(c(11395.016421153823, 
+                                               5697.509294687101,
+                                               3798.3396167211836,
+                                               2848.7547698431354,
+                                               2279.0038585801676,
+                                               1899.1699154494872,
+                                               1627.8599542022703,
+                                               1424.377481668122,
+                                               1266.113334959331,
+                                               1139.5020163371091,
+                                               1035.910936328398,
+                                               949.5850352831061,
+                                               876.5400411349472,
+                                               813.9300452646684,
+                                               759.6680480177727,
+                                               712.188799653274,
+                                               670.2953444866343,
+                                               633.0567169853921,
+                                               599.7379443605873)))
+example_contraction_sfs = example_null_sfs * c(0.8, 0.84, 0.88, 0.92, 0.96, 1, 1.04, 1.08, 1.12, 1.16)
+example_expansion_sfs = example_null_sfs * c(1.20, 1.16, 1.12, 1.08, 1.04, 1, 0.96, 0.92, 0.88, 0.84)
+example_axis = 1:length(example_null_sfs)
+example_sfs_df = data.frame(example_expansion_sfs,
+                            example_null_sfs,
+                            example_contraction_sfs,
+                            example_axis)
+example_sfs_df
+
+names(example_sfs_df) = c('Expansion',
+                          'Null model',
+                          'Contraction',
+                          'example_axis')
+
+p_example_sfs_comparison <- ggplot(data = melt(example_sfs_df, id='example_axis'),
+                                   aes(x=example_axis, 
+                                       y=value,
+                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('Example SFS') +
+  ylim(0, 0.175) +
+  ylab('Proportional Frequency')
+p_example_sfs_comparison
