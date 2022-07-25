@@ -29,8 +29,6 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from numpy.random import randint,binomial
 
-import config
-
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -131,7 +129,7 @@ class PlotQpVsNonQp():
         mpl.rcParams['legend.fontsize']  = 'small'
 
 
-        min_coverage = config.min_median_coverage
+        min_coverage = 20
 
         species_name = "Bacteroides_vulgatus_57955"
         sample_1 = '700023337' # complicated polyploid
