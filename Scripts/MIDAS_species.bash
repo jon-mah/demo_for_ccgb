@@ -6,7 +6,8 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
 #$ -l highp
-#$ -l time=12:00:00
+#$ -pe shared 8
+#$ -l time=72:00:00
 #$ -t 1-180
 
 # module load python/2.7

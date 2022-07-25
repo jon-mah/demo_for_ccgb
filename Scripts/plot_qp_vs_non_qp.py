@@ -71,8 +71,6 @@ class PlotQpVsNonQp():
 
         # Assign arguments
         outprefix = args['outprefix']
-        species = args['species']
-        sample_size = args['sample_size']
         random.seed(1)
 
         # Numpy options
@@ -90,10 +88,9 @@ class PlotQpVsNonQp():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         output_plot = \
-            '{0}{1}{2}_qp_vs_non_qp.jpg'.format(
+            '{0}{1}_qp_vs_non_qp.jpg'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}log.log'.format(
-            args['outprefix'], underscore)
+        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
