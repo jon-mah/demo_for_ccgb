@@ -88,9 +88,9 @@ class PlotQpVsNonQp():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         output_plot = \
-            '{0}{1}_qp_vs_non_qp.jpg'.format(
+            '{0}{1}qp_vs_non_qp.pdf'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
+        logfile = '{0}{1}qp_vs_non_qp.log'.format(args['outprefix'], underscore)
         to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
@@ -622,7 +622,7 @@ class PlotQpVsNonQp():
             #axis.set_xlim([1e-02,4e00])
             axis.set_xlim([5e-02,5])
         sys.stderr.write("Saving figure...\t")
-        copynum_fig.savefig('%s/supplemental_copynum_distributions.pdf' % parse_midas_data.analysis_directory, bbox_inches='tight')
+        # copynum_fig.savefig('%s/supplemental_copynum_distributions.pdf' % parse_midas_data.analysis_directory, bbox_inches='tight')
         sys.stderr.write("Done!\n")
 
 
@@ -686,7 +686,7 @@ class PlotQpVsNonQp():
 
             # Calculate which pairs of idxs belong to the same sample, which to the same subject
             # and which to different subjects
-            desired_same_sample_idxs, desired_same_subject_idxs, desired_diff_subject_idxs = parse_midas_data.calculate_ordered_subject_pairs(sample_order_map, desired_samples)
+            desired_same_sample_idxs, desired_same_subject_idxs, desired_diff_subject_idxs = sample_utils.calculate_ordered_subject_pairs(sample_order_map, desired_samples)
 
             for sample_pair_idx in xrange(0,len(desired_same_subject_idxs[0])):
 

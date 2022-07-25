@@ -5,7 +5,7 @@ from math import log10
 # Set up default source and output directories
 # ==========================================================================
 
-main_dir = '/u/home/d/daisyche'
+main_dir = '/u/home/j/jonmah/project-ngarud/'
 data_directory = '/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data'
 
 data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
@@ -20,7 +20,7 @@ midas_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/midas_db_v1.2"
 # data_directory = os.path.expanduser("%s/dbd/data/" % main_dir)
 # data_rarefied_directory = os.path.expanduser("%s/dbd/data_rarefied/" % main_dir)
 # int_data_directory = os.path.expanduser("%s/glab/metagenomic_fastq_files/HMP1-2/midas_output_rarefied_v2" % main_dir)
-metadata_directory = os.path.expanduser("%s/dbd/scripts/metadata/" % main_dir)
+metadata_directory = os.path.expanduser("%s/demo_for_ccgb/Scripts/metadata/" % main_dir)
 # analysis_directory = os.path.expanduser("%s/dbd/analysis/" % main_dir)
 # scripts_directory = os.path.expanduser("%s/dbd/scripts/" % main_dir)
 # patric_directory = os.path.expanduser("%s/patric_db/" % main_dir)
