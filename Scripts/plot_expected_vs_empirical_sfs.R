@@ -4739,6 +4739,59 @@ p_b_thetaiotaomicron_downsampled_comparison <- ggplot(data = melt(b_thetaiotaomi
   ylab('Proportional Frequency')
 p_b_thetaiotaomicron_downsampled_comparison
 
+b_thetaiotaomicron_downsampled_small_df = data.frame(b_thetaiotaomicron_downsampled_empirical,
+                                               b_thetaiotaomicron_downsampled_one_epoch,
+                                               b_thetaiotaomicron_downsampled_two_epoch,
+                                               b_thetaiotaomicron_downsampled_x_axis)
+
+
+names(b_thetaiotaomicron_downsampled_small_df) = c('Empirical',
+                                             'One-epoch',
+                                             'Two-epoch',
+                                             'x_axis')
+
+b_thetaiotaomicron_downsampled_one_epoch_delta = abs(b_thetaiotaomicron_downsampled_empirical - b_thetaiotaomicron_downsampled_one_epoch)
+b_thetaiotaomicron_downsampled_two_epoch_delta = abs(b_thetaiotaomicron_downsampled_empirical - b_thetaiotaomicron_downsampled_two_epoch)
+b_thetaiotaomicron_downsampled_delta_df = data.frame(b_thetaiotaomicron_downsampled_one_epoch_delta,
+                                                     b_thetaiotaomicron_downsampled_two_epoch_delta,
+                                                     b_thetaiotaomicron_downsampled_x_axis)
+names(b_thetaiotaomicron_downsampled_delta_df) = c('One-epoch Delta',
+                                                   'Two-epoch Delta',
+                                                   'x_axis')
+
+
+p_b_thetaiotaomicron_downsampled_delta <- ggplot(data = melt(b_thetaiotaomicron_downsampled_delta_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_line(aes(color=variable)) +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Thetaiotaomicron (Downsampled to 20)') +
+  ylab('Absolute difference in proportional frequency') +
+  geom_text(aes(label = paste0("One-Epoch Delta Sum = ", sum(b_thetaiotaomicron_downsampled_one_epoch_delta)), 
+                x = (9), 
+                y = 0.0025)) +
+  geom_text(aes(label = paste0("Two-Epoch Delta Sum = ", sum(b_thetaiotaomicron_downsampled_two_epoch_delta)), 
+                x = (9),
+                y = 0.0015)) 
+
+p_b_thetaiotaomicron_downsampled_delta
+
+
+p_b_thetaiotaomicron_downsampled_simple_comparison <- ggplot(data = melt(b_thetaiotaomicron_downsampled_small_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Thetaiotaomicron (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_b_thetaiotaomicron_downsampled_simple_comparison
+
+
 b_caccae_downsampled_empirical = proportional_sfs(fold_sfs(c(5187.149777861074,
                                                              2340.194190194129,
                                                              1663.885484545847,

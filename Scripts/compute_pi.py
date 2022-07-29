@@ -207,15 +207,16 @@ class ComputePi():
                        freq_p = freq_p / pair_denom
                        freq_q = freq_q / pair_denom
                        distributed_across_pi.append(2 * freq_p * freq_q)
+                       print(str(i) = ', ' + str(j) + str(2 * freq_p * freq_q))
             else:
                distributed_across_pi = [aggregate_across_pi]
 
-            distributed_across_pi = (sum(distributed_across_pi) / 
-                                     len(distributed_across_pi))
-            output_distributed = 'distributed_across_pi'
-            for i in range(len(freq_list)):
-                output_distributed += ', ' + str(distributed_across_pi)
-            f.write(output_distributed)
+            # distributed_across_pi = (sum(distributed_across_pi) /
+            #                          len(distributed_across_pi))
+            # output_distributed = 'distributed_across_pi'
+            # for i in range(len(freq_list)):
+            #     output_distributed += ', ' + str(distributed_across_pi)
+            # f.write(output_distributed)
 
 if __name__ == '__main__':
     ComputePi().main()
