@@ -28,8 +28,8 @@ file_extension_2='.denovo_duplicates_marked.trimmed.2.fastq.gz'
 input_2=${OUTDIR}${file_prefix}${file_extension_2}
 output_2=${OUTDIR}removed_${file_prefix}${file_extension_2}
 
-python remove_N_from_fastq.py $input_1 $output_1 $OUTDIR
-# python remove_N_from_fastq.py $input_2 $output_2 $OUTDIR
+# python remove_N_from_fastq.py $input_1 $output_1 $OUTDIR
+python remove_N_from_fastq.py $input_2 $output_2 $OUTDIR
 
 # OUTDIR=../Data/oral_microbiome_data/MIDAS_output/${file_prefix}
 

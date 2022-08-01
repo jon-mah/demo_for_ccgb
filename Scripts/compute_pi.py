@@ -207,7 +207,7 @@ class ComputePi():
                        freq_p = freq_p / pair_denom
                        freq_q = freq_q / pair_denom
                        distributed_across_pi.append(2 * freq_p * freq_q)
-                       print(str(i) = ', ' + str(j) + str(2 * freq_p * freq_q))
+                       print(str(i) + ', ' + str(j) + str(2 * freq_p * freq_q))
             else:
                distributed_across_pi = [aggregate_across_pi]
 
