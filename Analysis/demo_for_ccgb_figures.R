@@ -635,3 +635,37 @@ plot(theta, loglik(theta), type="l", lwd=3, main="logliklihood_Weibull, n=1000")
 x = runif(1000,1,10)
 fit <- fitdist(x, distr='gamma')
 llplot(fit, expand=5)
+
+
+nu = rnorm(1000, 2.49183094e-05, 1e-05)
+tau = rnorm(1000, 4.02384611e-06, 4e-06)
+temp_data = data.frame(nu, tau)
+
+library(hexbin)
+
+hexbin_temp = hexbin(temp_data)
+plot(hexbin_temp)
+
+library(gplots)
+hist2d(temp_data, nbins=25)
+qplot(nu, tau, data=temp_data, geom='bin2d')
+
+library(MASS)
+k = kde2d(nu, tau)
+image(k)
+
+h1 <- hist(temp_data$nu, breaks=25, plot=F)
+h2 <- hist(temp_data$tau, breaks=25, plot=F)
+top <- max(h1$counts, h2$counts)
+k <- kde2d(temp_data$nu, temp_data$tau, n=25)
+# margins
+oldpar <- par()
+par(mar=c(3,3,1,1))
+layout(matrix(c(2,0,1,3),2,2,byrow=T),c(3,1), c(1,3))
+image(k) #plot the image
+par(mar=c(0,2,1,0))
+barplot(h1$counts, axes=F, ylim=c(0, top), space=0, col='red')
+par(mar=c(2,0,0.5,1))
+barplot(h2$counts, axes=F, xlim=c(0, top), space=0, col='red', horiz=T)
+
+e_eligens_pi = read.csv('../Scripts/e_eligens_pi_values.txt', header=TRUE)

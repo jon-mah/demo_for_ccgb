@@ -124,7 +124,7 @@ class ComputePi():
         num_ids = len(site_ids)
         del depth_file
 
-        freq_list = []
+        count_list = []
         with open(output_matrix, 'w') as f:
             avg_pi_vals = []
             depth_per_sample = []
@@ -158,7 +158,8 @@ class ComputePi():
                 avg_pi_val = sum(pi_vals) / len(pi_vals)
                 depth_per_sample.append(len(pi_vals))
                 avg_pi_vals.append(avg_pi_val)
-                freq_list.append((this_p, this_q))
+                count_list.append((this_p * len(pi_vals),
+                                   this_q * len(pi_vals)))
                 del depths
                 del depths_bool
                 del pi_vals
@@ -181,40 +182,41 @@ class ComputePi():
             f.write(num_sites + '\n')
 
             # aggregate across host pi
-            total_freq_p = 0
-            total_freq_q = 0
-            for i in range(len(freq_list)):
-                total_freq_p += freq_list[i][0]
-                total_freq_q += freq_list[i][1]
-            total_denom = total_freq_p + total_freq_q
-            total_freq_p = total_freq_p / total_denom
-            total_freq_q = total_freq_q / total_denom
+            total_count_p = 0
+            total_count_q = 0
+            for i in range(len(count_list)):
+                total_count_p += count_list[i][0]
+                total_count_q += count_list[i][1]
+            total_denom = total_count_p + total_count_q
+            total_freq_p = total_count_p / total_denom
+            total_freq_q = total_count_q / total_denom
             aggregate_across_pi = 2 * total_freq_p * total_freq_q
-            print(len(freq_list))
+            print(len(count_list))
             output_aggregate = 'aggregate_across_pi'
-            for i in range(len(freq_list)):
+            for i in range(len(count_list)):
                 output_aggregate += ', ' + str(aggregate_across_pi)
             f.write(output_aggregate + '\n')
 
             # distributed across host pi
             distributed_across_pi = []
-            if len(freq_list) > 1:
-               for i in range(0, len(freq_list)):
-                   for j in range(i + 1, len(freq_list)):
-                       freq_p = freq_list[i][0] + freq_list[j][0]
-                       freq_q = freq_list[i][1] + freq_list[j][1]
-                       pair_denom = freq_p + freq_q
-                       freq_p = freq_p / pair_denom
-                       freq_q = freq_q / pair_denom
+            if len(count_list) > 1:
+               for i in range(0, len(count_list)):
+                   for j in range(i + 1, len(count_list)):
+                       count_p = count_list[i][0] + count_list[j][0]
+                       count_q = count_list[i][1] + count_list[j][1]
+                       pair_denom = count_p + count_q
+                       freq_p = count_p / pair_denom
+                       freq_q = count_q / pair_denom
                        distributed_across_pi.append(2 * freq_p * freq_q)
-                       print(str(i) + ', ' + str(j) + str(2 * freq_p * freq_q))
+                       print(str(i) + ', ' +
+                             str(j) + ', ' + str(2 * freq_p * freq_q))
             else:
                distributed_across_pi = [aggregate_across_pi]
 
             # distributed_across_pi = (sum(distributed_across_pi) /
             #                          len(distributed_across_pi))
             # output_distributed = 'distributed_across_pi'
-            # for i in range(len(freq_list)):
+            # for i in range(len(count_list)):
             #     output_distributed += ', ' + str(distributed_across_pi)
             # f.write(output_distributed)
 

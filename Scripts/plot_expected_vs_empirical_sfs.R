@@ -5544,3 +5544,54 @@ b_xylanisolvens_downsampled_three_epoch = fold_sfs(c(1364.6304137024117,
                                                                       137.583468277351,
                                                                       129.93994472032279,
                                                                       123.10100102679405))
+
+b_thetaiotaomicron_downsampled_empirical
+b_thetaiotaomicron_empirical
+b_thetaiotaomicron_downsampled_empirical_comparison = c(b_thetaiotaomicron_downsampled_empirical, integer(length(b_thetaiotaomicron_empirical) - length(b_thetaiotaomicron_downsampled_empirical)))
+b_thetaiotaomicron_downsample_comparison = data.frame(b_thetaiotaomicron_empirical, b_thetaiotaomicron_downsampled_empirical_comparison, b_thetaiotaomicron_x_axis)
+
+names(b_thetaiotaomicron_downsample_comparison) = c('empirical', 'downsampled', 'x_axis')
+
+p_downsample_comparison = ggplot(data = melt(b_thetaiotaomicron_downsample_comparison, id='x_axis'),
+                                 aes(x=x_axis, 
+                                     y=value,
+                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits=c(1.5, length(b_thetaiotaomicron_x_axis) + 0.5)) +
+  ggtitle('B. thetaiotaomicron (proportional SFS)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency')
+p_downsample_comparison
+
+b_thetaiotaomicron_downsampled_empirical = c(11329.94672695546, 
+                                             6167.075485250698,
+                                             4239.177625142324,
+                                             3342.60586700556,
+                                             2929.626632089841,
+                                             2725.643057081244,
+                                             2635.300969843948,
+                                             2579.444903486481,
+                                             2545.779751971833,
+                                             1267.150917730179)
+b_thetaiotaomicron_empirical = fold_sfs(c(9825, 5001, 3405, 3070, 2406, 2519, 1867, 1646, 1485, 1256, 1141, 1144,
+                                          1067, 994, 930, 927, 833, 934, 824, 834, 817, 810, 820, 760, 697, 733,
+                                          705, 736, 809, 686, 612, 485, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+
+b_thetaiotaomicron_downsampled_empirical_comparison = c(b_thetaiotaomicron_downsampled_empirical, integer(length(b_thetaiotaomicron_empirical) - length(b_thetaiotaomicron_downsampled_empirical)))
+b_thetaiotaomicron_downsample_comparison = data.frame(b_thetaiotaomicron_empirical, b_thetaiotaomicron_downsampled_empirical_comparison, b_thetaiotaomicron_x_axis)
+
+names(b_thetaiotaomicron_downsample_comparison) = c('empirical', 'downsampled', 'x_axis')
+
+p_downsample_comparison = ggplot(data = melt(b_thetaiotaomicron_downsample_comparison, id='x_axis'),
+                                 aes(x=x_axis, 
+                                     y=value,
+                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits=c(1.5, length(b_thetaiotaomicron_x_axis) + 0.5)) +
+  ggtitle('B. thetaiotaomicron (Counts)') +
+  ylab('Count')
+p_downsample_comparison
+
