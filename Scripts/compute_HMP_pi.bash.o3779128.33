@@ -1,0 +1,13 @@
+usage: compute_pi.py [-h] input_depth input_ref_freq outprefix
+
+Given a specified `*snps_ref_freq.txt.bz2, this script computes average Pi
+across samples matrix for that species.
+
+positional arguments:
+  input_depth     Annotated SNPs document in the format output by Midas
+  input_ref_freq  Reference SNP frequency document in the format output by
+                  Midas
+  outprefix       The file prefix for the output files
+
+options:
+  -h, --help      show this help message and exit

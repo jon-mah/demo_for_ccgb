@@ -5,7 +5,8 @@
 #$ -m a
 #$ -l h_data=1G
 #$ -l h_rt=01:00:00
-#$ -t 161-165
+#$ -tc 10
+#$ -t 1-165
 
 # There are 165 species
 path_to_data='../Analysis/'

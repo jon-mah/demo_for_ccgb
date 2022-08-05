@@ -11,6 +11,8 @@
 # 128 species
 path_to_data='/u/project/ngarud/Garud_lab/BIG_2021_microbiome_evolution/data/snps_just_africa/'
 
+SGE_TASK_ID=2
+
 i=0
 while read line;
 do

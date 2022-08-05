@@ -418,8 +418,7 @@ class PlotLikelihood():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
-                      'three_epoch', 'one_epoch']
+        model_list = ['two_epoch']
         for model in model_list:
             if model == 'exponential_growth':
                 upper_bound = [80, 0.15]
@@ -432,7 +431,7 @@ class PlotLikelihood():
             elif model == 'two_epoch':
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
-                initial_guess = []
+                initial_guess = [0.00575632, 0.00019757]
                 file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
@@ -463,65 +462,33 @@ class PlotLikelihood():
                 logger.info('Beginning demographic inference for one-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
-                max_likelihood = -1e25
-                for i in range(25):
-                    # Start at initial guess
-                    p0 = initial_guess
-                    # Randomly perturb parameters before optimization.
-                    # p0 = dadi.Misc.perturb_params(
-                    #     p0, fold=1, upper_bound=upper_bound,
-                    #     lower_bound=lower_bound)
-                    logger.info(
-                        'Beginning optimization with guess, {0}.'.format(p0))
-                    popt = dadi.Inference.optimize_log_lbfgsb(
-                        p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-                        lower_bound=lower_bound,
-                        upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=2)
-                    logger.info(
-                        'Finished optimization with guess, ' + str(p0) + '.')
-                    logger.info('Best fit parameters: {0}.'.format(popt))
-                    # Calculate the best-fit model allele-frequency spectrum.
-                    # Note, this spectrum needs to be multiplied by "theta".
-                    non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
-                    # Likelihood of the data given the model AFS.
-                    multinomial_ll_non_scaled_spectrum = \
-                        dadi.Inference.ll_multinom(
+                ll_grid = []
+                nu_prime = initial_guess[0]
+                tau_prime = initial_guess[1]
+                min_nu = 0.5 * nu_prime
+                max_nu = 0.5 * nu_prime
+                min_tau = 1.5 * tau_prime
+                max_tau = 1.5 * tau_prime
+                nu_grid = np.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
+                tau_grid = np.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
+                for i in range(len(nu_grid)):
+                    for j in range(len(tau_grid)):
+                        p0 = [nu_grid[i], tau_grid[j]]
+                        popt = dadi.Inference.optimize_log_lbfgsb(
+                            p0=p0, data=syn_data, model_fun=func_ex, pts=pts_l,
+                            lower_bound=lower_bound, upper_bound=upper_bound,
+                            verbose=len(p0), maxiter=1)
+                        non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
+                        loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
-                    logger.info(
-                        'Maximum log composite likelihood: {0}.'.format(
-                            multinomial_ll_non_scaled_spectrum))
-                    theta = dadi.Inference.optimal_sfs_scaling(
-                        non_scaled_spectrum, syn_data)
-                    logger.info(
-                        'Optimal value of theta: {0}.'.format(theta))
-                    if multinomial_ll_non_scaled_spectrum > max_likelihood:
-                        best_params = popt
-                        best_non_scaled_spectrum = non_scaled_spectrum
-                        max_likelihood = multinomial_ll_non_scaled_spectrum
-                        theta_syn = theta
-                best_scaled_spectrum = theta_syn * best_non_scaled_spectrum
-                theta_nonsyn = theta_syn * 2.14
-                poisson_ll = dadi.Inference.ll(
-                    model=best_scaled_spectrum, data=syn_data)
-                f.write('Best fit parameters: {0}.\n'.format(best_params))
-                f.write(
-                    'Maximum multinomial log composite '
-                    'likelihood: {0}.\n'.format(
-                        max_likelihood))
-                f.write(
-                    'Maximum poisson log composite likelihood: {0}.\n'.format(
-                        poisson_ll))
-                f.write('Non-scaled best-fit model spectrum: {0}.\n'.format(
-                    best_non_scaled_spectrum))
-                f.write('Optimal value of theta_syn: {0}.\n'.format(theta_syn))
-                f.write('Optimal value of theta_nonsyn: {0}.\n'.format(
-                    theta_nonsyn))
-                f.write('Scaled best-fit model spectrum: {0}.\n'.format(
-                    best_scaled_spectrum))
+                        ll_string = str(nu_grid[i]) + ', '
+                        ll_string += str(tau_grid[i]) + ', '
+                        ll_string += str(loglik)
+                        ll_grid.append(ll_string)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
 
 if __name__ == '__main__':
     PlotLikelihood().main()
+v

@@ -141,6 +141,7 @@ class ComputePi():
                 if len(depths_bool) < 1:
                     continue
                 ref_freq_file = bz2.BZ2File(input_ref_freq, "r")
+                # print(len(ref_freq_file.readlines()))
                 ref_freq_header = ref_freq_file.readline()
                 pi_vals = []
                 this_p = 0
@@ -150,25 +151,28 @@ class ComputePi():
                     items = line.split()
                     if depths_bool[j]:
                         p_val = float(items[i])
-                        this_p += p_val
-                        this_q += (1 - p_val)
+                        this_p += p_val * depths[j]
+                        this_q += (1 - p_val) * depths[j]
                         pi_val = 2 * p_val * (1 - p_val)
                         pi_vals.append(pi_val)
                     j += 1
+                print(this_p)
+                print(this_q)
                 avg_pi_val = sum(pi_vals) / len(pi_vals)
                 depth_per_sample.append(len(pi_vals))
+                print(this_p)
                 avg_pi_vals.append(avg_pi_val)
-                count_list.append((this_p * len(pi_vals),
-                                   this_q * len(pi_vals)))
+                count_list.append((this_p,
+                                   this_q))
                 del depths
                 del depths_bool
                 del pi_vals
                 del ref_freq_file
                 del depth_file
-            output_header = 'site id, ' + site_ids[0]
+            output_header = 'site id, ' + str(site_ids[0])
             if len(site_ids) > 1:
                 for id in site_ids[1:]:
-                    output_header += ', ' + id
+                    output_header += ', ' + str(id)
             output_pi_values = 'average pi, ' + str(avg_pi_vals[0])
             if len(avg_pi_vals) > 1:
                 for val in avg_pi_vals[1:]:
@@ -209,16 +213,21 @@ class ComputePi():
                        freq_q = count_q / pair_denom
                        distributed_across_pi.append(2 * freq_p * freq_q)
                        print(str(i) + ', ' +
-                             str(j) + ', ' + str(2 * freq_p * freq_q))
+                             str(j) + ', ' + str(2 * freq_p * freq_q)  +
+                             ', ' + str(count_p) + ', ' + str(count_q) + ', ' +
+                             str(freq_p) + ', ' + str(freq_q))
             else:
                distributed_across_pi = [aggregate_across_pi]
-
-            # distributed_across_pi = (sum(distributed_across_pi) /
-            #                          len(distributed_across_pi))
-            # output_distributed = 'distributed_across_pi'
-            # for i in range(len(count_list)):
-            #     output_distributed += ', ' + str(distributed_across_pi)
-            # f.write(output_distributed)
+            print(depth_per_sample)
+            print(distributed_across_pi)
+            distributed_across_pi = (sum(distributed_across_pi) /
+                                     len(distributed_across_pi))
+            print(distributed_across_pi)
+            output_distributed = 'distributed_across_pi'
+            
+            for i in range(len(count_list)):
+                output_distributed += ', ' + str(distributed_across_pi)
+            f.write(output_distributed)
 
 if __name__ == '__main__':
     ComputePi().main()
