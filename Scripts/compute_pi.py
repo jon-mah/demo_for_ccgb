@@ -30,6 +30,16 @@ class ArgumentParserNoArgHelp(argparse.ArgumentParser):
         self.print_help()
         sys.exit(2)
 
+class HumanHost(object):
+    """docstring for HumanHost."""
+
+    def __init__(self, avg_pi_val, daepths_bool, p_count, q_count):
+        self.avg_pi_val = avg_pi_val
+        self.depths_bool = depths_bool
+        self.p_count = p_count
+        self.q_count = q_count
+
+
 
 class ComputePi():
     """Wrapper class to allow functions to reference each other."""
@@ -121,10 +131,9 @@ class ComputePi():
         # open post-processed MIDAS output
         depth_file = bz2.BZ2File(input_depth, "r")
         site_ids = depth_file.readline().split()[1:]
-        num_ids = len(site_ids)
-        del depth_file
 
-        count_list = []
+        num_ids = len(site_ids)
+        host_list = []
         with open(output_matrix, 'w') as f:
             avg_pi_vals = []
             depth_per_sample = []
@@ -141,32 +150,35 @@ class ComputePi():
                 if len(depths_bool) < 1:
                     continue
                 ref_freq_file = bz2.BZ2File(input_ref_freq, "r")
-                # print(len(ref_freq_file.readlines()))
                 ref_freq_header = ref_freq_file.readline()
                 pi_vals = []
-                this_p = 0
-                this_q = 0
+                p_count = []
+                q_count = []
                 j = 0
                 for line in ref_freq_file:
                     items = line.split()
+                    this_pi_val = float(items[i])
+                    this_p = this_pi_val
+                    this_q = (1 - this_pi_val)
+                    p_count.append(this_p * depths[j])
+                    q_count.append(this_q * depths[j])
                     if depths_bool[j]:
-                        p_val = float(items[i])
-                        this_p += p_val * depths[j]
-                        this_q += (1 - p_val) * depths[j]
-                        pi_val = 2 * p_val * (1 - p_val)
+                        pi_val = 2 * this_p * this_q
                         pi_vals.append(pi_val)
                     j += 1
-                print(this_p)
-                print(this_q)
                 avg_pi_val = sum(pi_vals) / len(pi_vals)
                 depth_per_sample.append(len(pi_vals))
                 print(this_p)
                 avg_pi_vals.append(avg_pi_val)
-                count_list.append((this_p,
-                                   this_q))
+                host_list.append(HumanHost(avg_pi_val,
+                                           depths_bool,
+                                           p_count,
+                                           q_count))
                 del depths
                 del depths_bool
                 del pi_vals
+                del p_count
+                del q_count
                 del ref_freq_file
                 del depth_file
             output_header = 'site id, ' + str(site_ids[0])
@@ -186,48 +198,48 @@ class ComputePi():
             f.write(num_sites + '\n')
 
             # aggregate across host pi
-            total_count_p = 0
-            total_count_q = 0
-            for i in range(len(count_list)):
-                total_count_p += count_list[i][0]
-                total_count_q += count_list[i][1]
-            total_denom = total_count_p + total_count_q
-            total_freq_p = total_count_p / total_denom
-            total_freq_q = total_count_q / total_denom
-            aggregate_across_pi = 2 * total_freq_p * total_freq_q
-            print(len(count_list))
-            output_aggregate = 'aggregate_across_pi'
-            for i in range(len(count_list)):
-                output_aggregate += ', ' + str(aggregate_across_pi)
-            f.write(output_aggregate + '\n')
+            # total_count_p = 0
+            # total_count_q = 0
+            # for i in range(len(count_list)):
+            #     total_count_p += count_list[i][0]
+            #     total_count_q += count_list[i][1]
+            # total_denom = total_count_p + total_count_q
+            # total_freq_p = total_count_p / total_denom
+            # total_freq_q = total_count_q / total_denom
+            # aggregate_across_pi = 2 * total_freq_p * total_freq_q
+            # print(len(count_list))
+            # output_aggregate = 'aggregate_across_pi'
+            # for i in range(len(count_list)):
+            #     output_aggregate += ', ' + str(aggregate_across_pi)
+            # f.write(output_aggregate + '\n')
 
             # distributed across host pi
-            distributed_across_pi = []
-            if len(count_list) > 1:
-               for i in range(0, len(count_list)):
-                   for j in range(i + 1, len(count_list)):
-                       count_p = count_list[i][0] + count_list[j][0]
-                       count_q = count_list[i][1] + count_list[j][1]
-                       pair_denom = count_p + count_q
-                       freq_p = count_p / pair_denom
-                       freq_q = count_q / pair_denom
-                       distributed_across_pi.append(2 * freq_p * freq_q)
-                       print(str(i) + ', ' +
-                             str(j) + ', ' + str(2 * freq_p * freq_q)  +
-                             ', ' + str(count_p) + ', ' + str(count_q) + ', ' +
-                             str(freq_p) + ', ' + str(freq_q))
-            else:
-               distributed_across_pi = [aggregate_across_pi]
-            print(depth_per_sample)
-            print(distributed_across_pi)
-            distributed_across_pi = (sum(distributed_across_pi) /
-                                     len(distributed_across_pi))
-            print(distributed_across_pi)
-            output_distributed = 'distributed_across_pi'
-            
-            for i in range(len(count_list)):
-                output_distributed += ', ' + str(distributed_across_pi)
-            f.write(output_distributed)
+            # distributed_across_pi = []
+            # if len(count_list) > 1:
+            #    for i in range(0, len(count_list)):
+            #        for j in range(i + 1, len(count_list)):
+            #            count_p = count_list[i][0] + count_list[j][0]
+            #            count_q = count_list[i][1] + count_list[j][1]
+            #            pair_denom = count_p + count_q
+            #            freq_p = count_p / pair_denom
+            #            freq_q = count_q / pair_denom
+            #            distributed_across_pi.append(2 * freq_p * freq_q)
+            #            print(str(i) + ', ' +
+            #                  str(j) + ', ' + str(2 * freq_p * freq_q)  +
+            #                  ', ' + str(count_p) + ', ' + str(count_q) + ', ' +
+            #                  str(freq_p) + ', ' + str(freq_q))
+            # else:
+            #    distributed_across_pi = [aggregate_across_pi]
+            # print(depth_per_sample)
+            # print(distributed_across_pi)
+            # distributed_across_pi = (sum(distributed_across_pi) /
+            #                          len(distributed_across_pi))
+            # print(distributed_across_pi)
+            # output_distributed = 'distributed_across_pi'
+
+            # for i in range(len(count_list)):
+            #     output_distributed += ', ' + str(distributed_across_pi)
+            # f.write(output_distributed)
 
 if __name__ == '__main__':
     ComputePi().main()

@@ -354,6 +354,23 @@ better_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, 
   ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
 better_pi_comparison_20
 
+temp = subset(over_20_df, Cohort==" African", select=c(species, Cohort, average_pi, num_sites, num_samples, aggregate_across_pi, pairwise_across_pi))
+temp$aggregate_across_pi = temp$aggregate_across_pi / 2
+
+better_pi_comparison_20 <- ggplot(data=temp, aes(x=species, y=average_pi, fill=Cohort)) +
+  geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
+  geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
+  geom_point(aes(x=species, y=aggregate_across_pi, color=Cohort), size=4, shape=18, position=position_dodge(width=0.75)) +
+  theme_bw() +
+  theme(plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(angle=90, vjust=1.0, hjust=1)) +
+  xlab('Species') + 
+  ylab('Average within-host pi') +
+  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
+better_pi_comparison_20
+
 aggregate_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
@@ -628,44 +645,5 @@ loglik <- function(theta){
   out <- sum(dweibull(x,shape = k, scale=lambda, log = TRUE) )
   return(out)
 }
-
-theta<- c(0.5,1.5)
-plot(theta, loglik(theta), type="l", lwd=3, main="logliklihood_Weibull, n=1000")
-
-x = runif(1000,1,10)
-fit <- fitdist(x, distr='gamma')
-llplot(fit, expand=5)
-
-
-nu = rnorm(1000, 2.49183094e-05, 1e-05)
-tau = rnorm(1000, 4.02384611e-06, 4e-06)
-temp_data = data.frame(nu, tau)
-
-library(hexbin)
-
-hexbin_temp = hexbin(temp_data)
-plot(hexbin_temp)
-
-library(gplots)
-hist2d(temp_data, nbins=25)
-qplot(nu, tau, data=temp_data, geom='bin2d')
-
-library(MASS)
-k = kde2d(nu, tau)
-image(k)
-
-h1 <- hist(temp_data$nu, breaks=25, plot=F)
-h2 <- hist(temp_data$tau, breaks=25, plot=F)
-top <- max(h1$counts, h2$counts)
-k <- kde2d(temp_data$nu, temp_data$tau, n=25)
-# margins
-oldpar <- par()
-par(mar=c(3,3,1,1))
-layout(matrix(c(2,0,1,3),2,2,byrow=T),c(3,1), c(1,3))
-image(k) #plot the image
-par(mar=c(0,2,1,0))
-barplot(h1$counts, axes=F, ylim=c(0, top), space=0, col='red')
-par(mar=c(2,0,0.5,1))
-barplot(h2$counts, axes=F, xlim=c(0, top), space=0, col='red', horiz=T)
 
 e_eligens_pi = read.csv('../Scripts/e_eligens_pi_values.txt', header=TRUE)
