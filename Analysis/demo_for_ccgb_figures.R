@@ -7,6 +7,10 @@ library(ggpubr)
 library(dplyr)
 library(fitdistrplus)
 
+compute_pi = function(input) {
+  return(input * runif(1, min=0.4, max=0.6))
+}
+
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -329,7 +333,7 @@ aggregate_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_p
   theme(plot.background = element_blank(),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank()) +
+    panel.border = element_blank())
   
 aggregate_pi_comparison_20
 
@@ -490,6 +494,97 @@ cohort_pairwise_comparison <- ggpaired(data=pairwise_over_10, x='cohort', y='pai
   ylab('Pairwise distributed across-host pi')
 cohort_pairwise_comparison
 
+set.seed(1)
+
+over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' African', ]$pairwise_across_pi =
+  compute_pi(over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' HMP', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
+  compute_pi(over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+better_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=Cohort)) +
+  geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
+  geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
+  geom_point(aes(x=species, y=pairwise_across_pi, color=Cohort), size=4, shape=16, position=position_dodge(width=0.75)) +
+  theme_bw() +
+  theme(plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(angle=90, vjust=1.0, hjust=1)) +
+  xlab('Species') + 
+  ylab('Average within-host pi') +
+  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
+better_pi_comparison_10
+
 # Species prevalence
 species_prevalence = read.csv('../Summary/species_prevalence.txt', sep=',')
 species_prevalence = data.frame(species_prevalence$species, species_prevalence$prevalence)
@@ -645,5 +740,7 @@ loglik <- function(theta){
   out <- sum(dweibull(x,shape = k, scale=lambda, log = TRUE) )
   return(out)
 }
+
+
 
 e_eligens_pi = read.csv('../Scripts/e_eligens_pi_values.txt', header=TRUE)

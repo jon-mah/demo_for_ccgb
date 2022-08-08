@@ -380,9 +380,9 @@ class PlotLikelihood():
                      two_epoch_demography, bottleneck_growth_demography,
                      three_epoch_demography, one_epoch_demography,
                      expected_sfs_comparison]
-        for f in to_remove:
-            if os.path.isfile(f):
-                os.remove(f)
+        # for f in to_remove:
+        #     if os.path.isfile(f):
+        #         os.remove(f)
 
         # Set up to log everything to logfile.
         logging.shutdown()
@@ -420,46 +420,13 @@ class PlotLikelihood():
         # First set parameter bounds for optimization
         model_list = ['two_epoch']
         for model in model_list:
-            if model == 'exponential_growth':
-                upper_bound = [80, 0.15]
-                lower_bound = [0, 0]
-                initial_guess = []
-                file = exponential_growth_demography
-                func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
-                logger.info('Beginning demographic inference for exponential '
-                            'growth demographic model.')
             elif model == 'two_epoch':
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
-                initial_guess = [0.00575632, 0.00019757]
+                initial_guess = [0.5, 0.0001]
                 file = two_epoch_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
-                            'demographic model.')
-            elif model == 'bottleneck_growth':
-                upper_bound = [80, 80, 0.15]
-                lower_bound = [0, 0, 0]
-                initial_guess = [0.1, 0.1, 0.00001]
-                initial_guess = []
-                file = bottleneck_growth_demography
-                func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
-                logger.info('Beginning demographic inference for bottleneck + '
-                            'growth demographic model.')
-            elif model == 'three_epoch':
-                upper_bound = [80, 80, 0.15, 0.15]
-                lower_bound = [0.0, 0.0, 0.0, 0.0]
-                initial_guesses = []
-                file = three_epoch_demography
-                func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
-                logger.info('Beginning demographic inference for three-epoch '
-                            'demographic model.')
-            elif model == 'one_epoch':
-                upper_bound = [80]
-                lower_bound = [0]
-                initial_guess = [0.1]
-                file = one_epoch_demography
-                func_ex = dadi.Numerics.make_extrap_log_func(self.snm)
-                logger.info('Beginning demographic inference for one-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
                 ll_grid = []
@@ -469,13 +436,6 @@ class PlotLikelihood():
                 max_nu = 1.5 * nu_prime
                 min_tau = 0.5 * tau_prime
                 max_tau = 1.5 * tau_prime
-                print(initial_guess)
-                print(nu_prime)
-                print(tau_prime)
-                print(min_nu)
-                print(max_nu)
-                print(min_tau)
-                print(max_tau)
                 nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
                 tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
                 print(nu_grid)
@@ -493,7 +453,7 @@ class PlotLikelihood():
                         ll_string += str(tau_grid[j]) + ', '
                         ll_string += str(loglik)
                         ll_grid.append(ll_string)
-                        f.write(ll_string)
+                        # f.write(ll_string)
                         print(ll_string)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
@@ -501,4 +461,3 @@ class PlotLikelihood():
 
 if __name__ == '__main__':
     PlotLikelihood().main()
-
