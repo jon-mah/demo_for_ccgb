@@ -244,7 +244,7 @@ class PlotLikelihood():
         pts: Number of grid points to use in integration.
         """
         xx = dadi.Numerics.default_grid(pts)  # Define likelihood surface.
-	phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
+        phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
 
         # Construct spectrum object
         fs = dadi.Spectrum.from_phi(phi, ns, (xx, ))
@@ -466,29 +466,39 @@ class PlotLikelihood():
                 nu_prime = initial_guess[0]
                 tau_prime = initial_guess[1]
                 min_nu = 0.5 * nu_prime
-                max_nu = 0.5 * nu_prime
-                min_tau = 1.5 * tau_prime
+                max_nu = 1.5 * nu_prime
+                min_tau = 0.5 * tau_prime
                 max_tau = 1.5 * tau_prime
-                nu_grid = np.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
-                tau_grid = np.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
+                print(initial_guess)
+                print(nu_prime)
+                print(tau_prime)
+                print(min_nu)
+                print(max_nu)
+                print(min_tau)
+                print(max_tau)
+                nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
+                tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
+                print(nu_grid)
                 for i in range(len(nu_grid)):
                     for j in range(len(tau_grid)):
                         p0 = [nu_grid[i], tau_grid[j]]
                         popt = dadi.Inference.optimize_log_lbfgsb(
-                            p0=p0, data=syn_data, model_fun=func_ex, pts=pts_l,
+                            p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                             lower_bound=lower_bound, upper_bound=upper_bound,
                             verbose=len(p0), maxiter=1)
                         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
                         loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
                         ll_string = str(nu_grid[i]) + ', '
-                        ll_string += str(tau_grid[i]) + ', '
+                        ll_string += str(tau_grid[j]) + ', '
                         ll_string += str(loglik)
                         ll_grid.append(ll_string)
+                        f.write(ll_string)
+                        print(ll_string)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
 
 if __name__ == '__main__':
     PlotLikelihood().main()
-v
+

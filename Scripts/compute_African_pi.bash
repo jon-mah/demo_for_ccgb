@@ -3,15 +3,14 @@
 #$ -cwd
 #$ -V
 #$ -m a
-#$ -l h_data=5G
-#$ -l h_rt=12:00:00
+#$ -l highp
+#$ -l h_data=15G
+#$ -l h_rt=23:00:00
 #$ -t 1-128
 
 # African data
 # 128 species
 path_to_data='/u/project/ngarud/Garud_lab/BIG_2021_microbiome_evolution/data/snps_just_africa/'
-
-SGE_TASK_ID=2
 
 i=0
 while read line;

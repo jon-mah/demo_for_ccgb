@@ -3,7 +3,8 @@
 #$ -cwd
 #$ -V
 #$ -m a
-#$ -l h_data=5G
+#$ -l highp
+#$ -l h_data=30G
 #$ -l h_rt=23:00:00
 #$ -t 1-94
 

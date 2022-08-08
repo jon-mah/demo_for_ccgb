@@ -9,4 +9,4 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-python plot_likelihood.py ../Data/Bacteroides_thetaiotaomicron_56941_syn.sfs  ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled/ --mask_singletons
+python plot_likelihood.py ../Data/Bacteroides_thetaiotaomicron_56941_syn.sfs  temp ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled/ --mask_singletons

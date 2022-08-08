@@ -33,7 +33,7 @@ class ArgumentParserNoArgHelp(argparse.ArgumentParser):
 class HumanHost(object):
     """docstring for HumanHost."""
 
-    def __init__(self, avg_pi_val, daepths_bool, p_count, q_count):
+    def __init__(self, avg_pi_val, depths_bool, p_count, q_count):
         self.avg_pi_val = avg_pi_val
         self.depths_bool = depths_bool
         self.p_count = p_count
@@ -134,6 +134,7 @@ class ComputePi():
 
         num_ids = len(site_ids)
         host_list = []
+        logger.info('Computing average nucleotide diversity across sites.')
         with open(output_matrix, 'w') as f:
             avg_pi_vals = []
             depth_per_sample = []
@@ -168,12 +169,12 @@ class ComputePi():
                     j += 1
                 avg_pi_val = sum(pi_vals) / len(pi_vals)
                 depth_per_sample.append(len(pi_vals))
-                print(this_p)
                 avg_pi_vals.append(avg_pi_val)
                 host_list.append(HumanHost(avg_pi_val,
                                            depths_bool,
                                            p_count,
                                            q_count))
+                print(avg_pi_val)
                 del depths
                 del depths_bool
                 del pi_vals
@@ -181,10 +182,10 @@ class ComputePi():
                 del q_count
                 del ref_freq_file
                 del depth_file
-            output_header = 'site id, ' + str(site_ids[0])
+            output_header = 'site id, ' + str(site_ids[0].decode('utf-8'))
             if len(site_ids) > 1:
                 for id in site_ids[1:]:
-                    output_header += ', ' + str(id)
+                    output_header += ', ' + str(id.decode('utf-8'))
             output_pi_values = 'average pi, ' + str(avg_pi_vals[0])
             if len(avg_pi_vals) > 1:
                 for val in avg_pi_vals[1:]:
@@ -196,6 +197,32 @@ class ComputePi():
             f.write(output_header + '\n')
             f.write(output_pi_values + '\n')
             f.write(num_sites + '\n')
+            logger.info('Computing pairwise nucleotide diversity across sites.')
+            pairwise_string = 'pairwise_distributed_pi, '
+            if (len(host_list) == 1):
+                pairwise_string += str(host_list[i].avg_pi_val)
+                f.write(pairwise_string)
+            else:
+                pairwise_pi = []
+                for i in range(0, len(host_list)):
+                    for j in range(i + 1, len(host_list)):
+                        this_pairwise_pi = []
+                        for k in range(len(host_list[i].depths_bool)):
+                            if (host_list[i].depths_bool[k] and host_list[j].depths_bool[k]):
+                                num_p = host_list[i].p_count[k] + host_list[j].p_count[k]
+                                num_q = host_list[i].q_count[k] + host_list[j].q_count[k]
+                                total = num_p + num_q
+                                freq_p = num_p / total
+                                freq_q = num_q / total
+                                this_pairwise_pi.append(2 * freq_p * freq_q)
+                        this_pi = sum(this_pairwise_pi) / len(this_pairwise_pi)
+                        pairwise_pi.append(this_pi)
+                        print(str(i) + ', ' + str(j) + ', ' + str(this_pi))
+                        del this_pairwise_pi
+                logger.info('Computing average pairwise nucleotide diversity aggregated across hosts.')
+                average_pairwise_pi = sum(pairwise_pi) / len(pairwise_pi)
+                print(average_pairwise_pi)
+
 
             # aggregate across host pi
             # total_count_p = 0
