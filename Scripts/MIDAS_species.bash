@@ -4,9 +4,11 @@
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=5G
-#$ -l h_rt=2:00:00
-#$ -t 1-339
+#$ -l h_data=25G
+#$ -l highp
+#$ -pe shared 4
+#$ -l h_rt=48:00:00
+#$ -t 1-110
 
 # module load python/2.7
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
@@ -22,7 +24,7 @@ do
    then
       file=$line
    fi
-done < ../Data/oral_microbiome_data/file_list.txt
+done < ./failed_species_list.txt
 
 OUTDIR=../Data/oral_microbiome_data/fastq_MIDAS_intermediate/${file}
 
@@ -39,6 +41,6 @@ module load midas
 if [ ! -f "${OUTDIR}/species/species_profile.txt" ]
 then
    echo "Species Profile file is not found"
-   # run_midas.py species ${OUTDIR}/ -1 ${file_1} -2 ${file_2} --remove_temp
-   echo ${file} >> ./failed_species_list.txt
+   run_midas.py species ${OUTDIR}/ -1 ${file_1} -2 ${file_2} --remove_temp
+   # echo ${file} >> ./failed_species_list.txt
 fi
