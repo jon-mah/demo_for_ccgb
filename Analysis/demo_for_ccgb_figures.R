@@ -707,11 +707,15 @@ qp_samples_per_species_plot = ggplot(aes(x=species_list, y=num_qp_samples),
 qp_samples_per_species_plot
 
 qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reorder(species_list, -num_qp_samples), y = num_qp_samples)) +
-  geom_bar(stat = 'identity', position = 'dodge') +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  ggtitle('QP samples per species') +
+  geom_bar(stat = 'identity', position = 'dodge', color='#10549c', fill='#10549c') +
+  ggtitle('Number of Quasi-phaseable samples per species') +
   xlab('Species') +
-  ylab('Number of QP samples')
+  ylab('Number of Qausi-phaseable samples') +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 qp_samples_per_species_plot_ordered
 
 set.seed(1)
@@ -744,3 +748,182 @@ loglik <- function(theta){
 
 
 e_eligens_pi = read.csv('../Scripts/e_eligens_pi_values.txt', header=TRUE)
+
+b_thetaiotaomicron_downsampled_empirical = proportional_sfs(c(11329.94672695546, 
+                                                              6167.075485250698,
+                                                              4239.177625142324,
+                                                              3342.60586700556,
+                                                              2929.626632089841,
+                                                              2725.643057081244,
+                                                              2635.300969843948,
+                                                              2579.444903486481,
+                                                              2545.779751971833,
+                                                              1267.150917730179))
+
+b_thetaiotaomicron_downsampled_one_epoch = proportional_sfs(fold_sfs(c(11395.016421153823, 
+                                                                       5697.509294687101,
+                                                                       3798.3396167211836,
+                                                                       2848.7547698431354,
+                                                                       2279.0038585801676,
+                                                                       1899.1699154494872,
+                                                                       1627.8599542022703,
+                                                                       1424.377481668122,
+                                                                       1266.113334959331,
+                                                                       1139.5020163371091,
+                                                                       1035.910936328398,
+                                                                       949.5850352831061,
+                                                                       876.5400411349472,
+                                                                       813.9300452646684,
+                                                                       759.6680480177727,
+                                                                       712.188799653274,
+                                                                       670.2953444866343,
+                                                                       633.0567169853921,
+                                                                       599.7379443605873)))
+
+b_thetaiotaomicron_downsampled_two_epoch = proportional_sfs(fold_sfs(c(8664.919870727774,
+                                                                       5410.886429304165,
+                                                                       3793.1174736529974,
+                                                                       2881.691449665706,
+                                                                       2313.2722795865775,
+                                                                       1929.5172163186119,
+                                                                       1654.2900929663722,
+                                                                       1447.6034828585334,
+                                                                       1286.7826375194118,
+                                                                       1158.1101597985346,
+                                                                       1052.828809778185,
+                                                                       965.0934105406639,
+                                                                       890.8555390240017,
+                                                                       827.2230241899715,
+                                                                       772.0748319217155,
+                                                                       723.820160327517,
+                                                                       681.2425076585495,
+                                                                       643.3957044905935,
+                                                                       609.5327746634593)))
+
+b_thetaiotaomicron_downsampled_exponential = proportional_sfs(fold_sfs(c(10187.526135309816,
+                                                                         5227.044599884645,
+                                                                         3563.621850201483,
+                                                                         2727.3004953552727,
+                                                                         2222.9082682087164,
+                                                                         1885.0050092572908,
+                                                                         1642.5279426703821,
+                                                                         1459.8676681937545,
+                                                                         1317.1988255364213,
+                                                                         1202.6013280281009,
+                                                                         1108.4741630743192,
+                                                                         1029.739855850399,
+                                                                         962.8763478354583,
+                                                                         905.3630546950819,
+                                                                         855.3480686875307,
+                                                                         811.4398933124559,
+                                                                         772.5725127938603,
+                                                                         737.9153260169305,
+                                                                         706.8114463671081)))
+
+b_thetaiotaomicron_downsampled_bottleneck = proportional_sfs(fold_sfs(c(8717.037555032524,
+                                                                        5310.474345322664,
+                                                                        3748.8643888138054,
+                                                                        2873.723809926384,
+                                                                        2321.016005698025,
+                                                                        1942.9554470128837,
+                                                                        1669.1777593196819,
+                                                                        1462.2643030012487,
+                                                                        1300.6200461207936,
+                                                                        1170.9684986786854,
+                                                                        1064.7251166497713,
+                                                                        976.1057198156356,
+                                                                        901.0770666862816,
+                                                                        836.7441818986339,
+                                                                        780.9769787756552,
+                                                                        732.174217565379,
+                                                                        689.1094802578586,
+                                                                        650.8278440587161,
+                                                                        616.5748554746294)))
+
+b_thetaiotaomicron_downsampled_three_epoch = proportional_sfs(fold_sfs(c(8689.269010159136,
+                                                                         5417.315212120648,
+                                                                         3793.8944085777216,
+                                                                         2881.1151931885984,
+                                                                         2312.4701639083023,
+                                                                         1928.7523709984505,
+                                                                         1653.6077971646323,
+                                                                         1446.9991763032233,
+                                                                         1286.2435100988198,
+                                                                         1157.6244240487513,
+                                                                         1052.3870965152491,
+                                                                         964.6884724782393,
+                                                                         890.4817416585565,
+                                                                         826.8759246652239,
+                                                                         771.7508719243848,
+                                                                         723.5164477365333,
+                                                                         680.9566604946273,
+                                                                         643.1257377201415,
+                                                                         609.2770166692798)))
+
+b_thetaiotaomicron_downsampled_x_axis = 1:length(b_thetaiotaomicron_downsampled_one_epoch)
+
+b_thetaiotaomicron_downsampled_df = data.frame(b_thetaiotaomicron_downsampled_empirical,
+                                               b_thetaiotaomicron_downsampled_two_epoch,
+                                               b_thetaiotaomicron_downsampled_one_epoch,
+                                               b_thetaiotaomicron_downsampled_x_axis)
+
+
+names(b_thetaiotaomicron_downsampled_df) = c('Observed',
+                                             'Expected under two-epoch demography',
+                                             'Null expectation, i.e., standard neutral model',
+                                             'x_axis')
+
+p_b_thetaiotaomicron_downsampled_comparison <- ggplot(data = melt(b_thetaiotaomicron_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Thetaiotaomicron Site Frequency Spectrum, Downsampled to 20 samples') +
+  ylim(0, 0.25) +
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+
+p_b_thetaiotaomicron_downsampled_comparison
+
+b_thetaiotaomicron_downsampled_small_df = data.frame(b_thetaiotaomicron_downsampled_empirical,
+                                                     b_thetaiotaomicron_downsampled_one_epoch,
+                                                     b_thetaiotaomicron_downsampled_two_epoch,
+                                                     b_thetaiotaomicron_downsampled_x_axis)
+
+
+names(b_thetaiotaomicron_downsampled_small_df) = c('Empirical',
+                                                   'One-epoch',
+                                                   'Two-epoch',
+                                                   'x_axis')
+
+b_thetaiotaomicron_downsampled_one_epoch_delta = abs(b_thetaiotaomicron_downsampled_empirical - b_thetaiotaomicron_downsampled_one_epoch)
+b_thetaiotaomicron_downsampled_two_epoch_delta = abs(b_thetaiotaomicron_downsampled_empirical - b_thetaiotaomicron_downsampled_two_epoch)
+b_thetaiotaomicron_downsampled_delta_df = data.frame(b_thetaiotaomicron_downsampled_one_epoch_delta,
+                                                     b_thetaiotaomicron_downsampled_two_epoch_delta,
+                                                     b_thetaiotaomicron_downsampled_x_axis)
+names(b_thetaiotaomicron_downsampled_delta_df) = c('One-epoch Delta',
+                                                   'Two-epoch Delta',
+                                                   'x_axis')
+
+
+p_b_thetaiotaomicron_downsampled_delta <- ggplot(data = melt(b_thetaiotaomicron_downsampled_delta_df, id='x_axis'),
+                                                 aes(x=x_axis, 
+                                                     y=value,
+                                                     fill=variable)) +
+  geom_line(aes(color=variable)) +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Thetaiotaomicron (Downsampled to 20)') +
+  ylab('Absolute difference in proportional frequency') +
+  geom_text(aes(label = paste0("One-Epoch Delta Sum = ", sum(b_thetaiotaomicron_downsampled_one_epoch_delta)), 
+                x = (9), 
+                y = 0.0025)) +
+  geom_text(aes(label = paste0("Two-Epoch Delta Sum = ", sum(b_thetaiotaomicron_downsampled_two_epoch_delta)), 
+                x = (9),
+                y = 0.0015)) 
+
+p_b_thetaiotaomicron_downsampled_delta

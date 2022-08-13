@@ -432,10 +432,10 @@ class PlotLikelihood():
                 ll_grid = []
                 nu_prime = initial_guess[0]
                 tau_prime = initial_guess[1]
-                min_nu = 0.5 * nu_prime
-                max_nu = 1.5 * nu_prime
-                min_tau = 0.5 * tau_prime
-                max_tau = 1.5 * tau_prime
+                min_nu = 0.75 * nu_prime
+                max_nu = 1.25 * nu_prime
+                min_tau = 0.75 * tau_prime
+                max_tau = 1.25 * tau_prime
                 nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
                 tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
                 print(nu_grid)
@@ -454,7 +454,28 @@ class PlotLikelihood():
                         ll_string += str(loglik)
                         ll_grid.append(ll_string)
                         # f.write(ll_string)
-                        print(ll_string)
+                        # print(ll_string)
+                # generate 2 2d grids for the x & y bounds
+                i = 0
+                for element in ll_grid:
+                    x[i] = element
+                # y, x = np.meshgrid(np.linspace(-3, 3, 100), np.linspace(-3, 3, 100))
+
+                # z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
+                # x and y are bounds, so z should be the value *inside* those bounds.
+                # Therefore, remove the last value from the z array.
+                # z = z[:-1, :-1]
+                # z_min, z_max = -np.abs(z).max(), np.abs(z).max()
+
+                # fig, ax = plt.subplots()
+
+                # c = ax.pcolormesh(x, y, z, cmap='RdBu', vmin=z_min, vmax=z_max)
+                # ax.set_title('pcolormesh')
+                # set the limits of the plot to the limits of the data
+                # ax.axis([x.min(), x.max(), y.min(), y.max()])
+                # fig.colorbar(c, ax=ax)
+
+                #  plt.show()
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
