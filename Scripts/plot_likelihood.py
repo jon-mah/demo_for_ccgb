@@ -483,7 +483,7 @@ class PlotLikelihood():
                 # x and y are bounds, so z should be the value *inside* those bounds.
                 # Therefore, remove the last value from the z array.
                 # z = z[:-1, :-1]
-                z_min, z_max = -numpy.abs(z).max(), numpy.abs(z).max()
+                z_min, z_max = numpy.abs(z).min(), numpy.abs(z).max()
 
                 fig, ax = plt.subplots()
 
@@ -492,7 +492,9 @@ class PlotLikelihood():
                 # set the limits of the plot to the limits of the data
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 fig.colorbar(c, ax=ax)
-
+                ax.set_title('Log likelihood surface of B. Thetaiotaomicron')
+                ax.set_ylabel('tau')
+                ax.set_xlabel('nu')
                 plt.savefig(file)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
@@ -500,3 +502,4 @@ class PlotLikelihood():
 
 if __name__ == '__main__':
     PlotLikelihood().main()
+
