@@ -18,7 +18,8 @@ import scipy.stats.distributions
 import scipy.integrate
 import scipy.optimize
 import matplotlib
-
+matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
+import matplotlib.pyplot as plt
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -357,6 +358,9 @@ class PlotLikelihood():
         # Output files: logfile
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
+        output_plot = \
+            '{0}{1}likelihood_surface.jpg'.format(
+                args['outprefix'], underscore)
         exponential_growth_demography = \
             '{0}{1}exponential_growth_demography.txt'.format(
                 args['outprefix'], underscore)
@@ -420,11 +424,11 @@ class PlotLikelihood():
         # First set parameter bounds for optimization
         model_list = ['two_epoch']
         for model in model_list:
-            elif model == 'two_epoch':
+            if model == 'two_epoch':
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
-                initial_guess = [0.5, 0.0001]
-                file = two_epoch_demography
+                initial_guess = [0.00575632, 0.00019757]
+                file = output_plot
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
@@ -439,43 +443,57 @@ class PlotLikelihood():
                 nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
                 tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
                 print(nu_grid)
+                z_shape = (len(nu_grid), len(tau_grid))
+                z = numpy.ones(z_shape)
+                print(z)
                 for i in range(len(nu_grid)):
                     for j in range(len(tau_grid)):
                         p0 = [nu_grid[i], tau_grid[j]]
                         popt = dadi.Inference.optimize_log_lbfgsb(
                             p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                             lower_bound=lower_bound, upper_bound=upper_bound,
-                            verbose=len(p0), maxiter=1)
+                            verbose=len(p0), maxiter=0)
                         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
                         loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
-                        ll_string = str(nu_grid[i]) + ', '
-                        ll_string += str(tau_grid[j]) + ', '
-                        ll_string += str(loglik)
-                        ll_grid.append(ll_string)
+                        ll_array = [nu_grid[i], tau_grid[j], loglik]
+                        # ll_string = str(nu_grid[i]) + ', '
+                        # ll_string += str(tau_grid[j]) + ', '
+                        # ll_string += str(loglik)
+                        z[i,  j] = loglik
+                        ll_grid.append(ll_array)
+                        del ll_array
                         # f.write(ll_string)
                         # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
-                i = 0
+                x = []
+                y = []
+                print(z)
+                # z = []
+                # print(ll_grid)
+                # print(ll_grid[0])
                 for element in ll_grid:
-                    x[i] = element
-                # y, x = np.meshgrid(np.linspace(-3, 3, 100), np.linspace(-3, 3, 100))
-
+                    print(element)
+                    x.append(element[0])
+                    y.append(element[1])
+                    # z.append(element[2])
+                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, 5), 
+                                      numpy.linspace(min_tau, max_tau, 5))
                 # z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
                 # x and y are bounds, so z should be the value *inside* those bounds.
                 # Therefore, remove the last value from the z array.
                 # z = z[:-1, :-1]
-                # z_min, z_max = -np.abs(z).max(), np.abs(z).max()
+                z_min, z_max = -numpy.abs(z).max(), numpy.abs(z).max()
 
-                # fig, ax = plt.subplots()
+                fig, ax = plt.subplots()
 
-                # c = ax.pcolormesh(x, y, z, cmap='RdBu', vmin=z_min, vmax=z_max)
-                # ax.set_title('pcolormesh')
+                c = ax.pcolormesh(x, y, z, vmin=z_min, vmax=z_max)
+                ax.set_title('pcolormesh')
                 # set the limits of the plot to the limits of the data
-                # ax.axis([x.min(), x.max(), y.min(), y.max()])
-                # fig.colorbar(c, ax=ax)
+                ax.axis([x.min(), x.max(), y.min(), y.max()])
+                fig.colorbar(c, ax=ax)
 
-                #  plt.show()
+                plt.savefig(file)
         logger.info('Finished demographic inference.')
         logger.info('Pipeline executed succesfully.')
 
