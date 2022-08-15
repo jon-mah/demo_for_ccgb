@@ -54,8 +54,12 @@ class PlotLikelihood():
             help=('Synonynomous site-frequency spectrum from which the '
                   'demographic parameters should be inferred.'))
         parser.add_argument(
-            'input_prefix', type=str,
-            help='The file prefix for any input files.'
+            'nu_prime', type=float,
+            help='The MLE e stimate for nu.'
+        )
+        parser.add_argument(
+            'tau_prime', type=float,
+            help='The MLE estimate for tau.'
         )
         parser.add_argument(
             '--mask_singletons', dest='mask_singletons',
@@ -343,6 +347,8 @@ class PlotLikelihood():
         outprefix = args['outprefix']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
+        nu_prime = args['nu_prime']
+        tau_prime = args['tau_prime']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -361,29 +367,8 @@ class PlotLikelihood():
         output_plot = \
             '{0}{1}likelihood_surface.jpg'.format(
                 args['outprefix'], underscore)
-        exponential_growth_demography = \
-            '{0}{1}exponential_growth_demography.txt'.format(
-                args['outprefix'], underscore)
-        two_epoch_demography = \
-            '{0}{1}two_epoch_demography.txt'.format(
-                args['outprefix'], underscore)
-        bottleneck_growth_demography = \
-            '{0}{1}bottleneck_growth_demography.txt'.format(
-                args['outprefix'], underscore)
-        three_epoch_demography = \
-            '{0}{1}three_epoch_demography.txt'.format(
-                args['outprefix'], underscore)
-        one_epoch_demography = \
-           '{0}{1}one_epoch_demography.txt'.format(
-                args['outprefix'], underscore)
-        expected_sfs_comparison = \
-           '{0}{1}expected_sfs_comparison.txt'.format(
-                args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, exponential_growth_demography,
-                     two_epoch_demography, bottleneck_growth_demography,
-                     three_epoch_demography, one_epoch_demography,
-                     expected_sfs_comparison]
+        to_remove = [logfile, output_plot]
         # for f in to_remove:
         #     if os.path.isfile(f):
         #         os.remove(f)
@@ -427,21 +412,21 @@ class PlotLikelihood():
             if model == 'two_epoch':
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
-                initial_guess = [0.00575632, 0.00019757]
+                initial_guess = [nu_prime, tau_prime]
                 file = output_plot
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
                 ll_grid = []
-                nu_prime = initial_guess[0]
-                tau_prime = initial_guess[1]
+                # nu_prime = initial_guess[0]
+                # tau_prime = initial_guess[1]
                 min_nu = 0.75 * nu_prime
                 max_nu = 1.25 * nu_prime
                 min_tau = 0.75 * tau_prime
                 max_tau = 1.25 * tau_prime
-                nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
-                tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
+                nu_grid = numpy.arange(min_nu, max_nu, 0.05 * nu_prime).tolist()
+                tau_grid = numpy.arange(min_tau, max_tau, 0.05 * tau_prime).tolist()
                 print(nu_grid)
                 z_shape = (len(nu_grid), len(tau_grid))
                 z = numpy.ones(z_shape)
@@ -466,19 +451,8 @@ class PlotLikelihood():
                         # f.write(ll_string)
                         # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
-                x = []
-                y = []
-                print(z)
-                # z = []
-                # print(ll_grid)
-                # print(ll_grid[0])
-                for element in ll_grid:
-                    print(element)
-                    x.append(element[0])
-                    y.append(element[1])
-                    # z.append(element[2])
-                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, 5), 
-                                      numpy.linspace(min_tau, max_tau, 5))
+                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, 10),
+                                      numpy.linspace(min_tau, max_tau, 10))
                 # z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
                 # x and y are bounds, so z should be the value *inside* those bounds.
                 # Therefore, remove the last value from the z array.
@@ -492,14 +466,13 @@ class PlotLikelihood():
                 # set the limits of the plot to the limits of the data
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 fig.colorbar(c, ax=ax)
-                ax.set_title('Log likelihood surface of B. Thetaiotaomicron')
+                ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
                 plt.savefig(file)
-        logger.info('Finished demographic inference.')
+        logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
 
 
 if __name__ == '__main__':
     PlotLikelihood().main()
-
