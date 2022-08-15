@@ -456,7 +456,8 @@ class PlotLikelihood():
                 # z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
                 # x and y are bounds, so z should be the value *inside* those bounds.
                 # Therefore, remove the last value from the z array.
-                # z = z[:-1, :-1]
+                # z = z[:, :]
+                z = z[:-1, :]
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
 
                 fig, ax = plt.subplots()

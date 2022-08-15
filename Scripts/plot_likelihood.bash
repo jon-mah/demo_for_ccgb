@@ -14,4 +14,4 @@
 # python plot_likelihood.py ../Data/Bacteroides_thetaiotaomicron_56941_syn.sfs 0.00575632 0.00019757 ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled/ --mask_singletons
 # python plot_likelihood.py ../Data/Bacteroides_xylanisolvens_57185_syn.sfs 0.0034628  0.00024942 ../Analysis/Bacteroides_xylanisolvens_57185_downsampled/ --mask_singletons
 # python plot_likelihood.py ../Data/Barnesiella_intestinihominis_62208_syn.sfs 2.36014245e-05 1.98975801e-06 ../Analysis/Barnesiella_intestinihominis_62208_downsampled/ --mask_singletons
-# python plot_likelihood.py ../Data/Parabacteroides_distasonis_56985_syn.sfs 0.00238249 0.00013105 ../Analysis/Parabacteroides_distasonis_56985_downsampled/ --mask_singletons
+python plot_likelihood.py ../Data/Parabacteroides_distasonis_56985_syn.sfs 0.00238249 0.00013105 ../Analysis/Parabacteroides_distasonis_56985_downsampled/ --mask_singletons
