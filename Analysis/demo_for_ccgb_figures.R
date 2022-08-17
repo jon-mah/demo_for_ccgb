@@ -8,7 +8,7 @@ library(dplyr)
 library(fitdistrplus)
 
 compute_pi = function(input) {
-  return(input * runif(1, min=0.4, max=0.6))
+  return(input * runif(1, min=0.5, max=0.65))
 }
 
 

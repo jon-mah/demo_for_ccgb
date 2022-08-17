@@ -1199,31 +1199,29 @@ a_finegoldii_one_epoch = proportional_sfs(fold_sfs(c(5580.9300025725715, 2790.46
                                                      180.03009886676412, 174.40415872553487, 169.11918459916942, 164.14509125108614, 159.45523175743773, 155.02591996371225,
                                                      150.83603038071726)))
 
+a_finegoldii_x_axis = 1:length(a_finegoldii_empirical)
 a_finegoldii_df = data.frame(a_finegoldii_empirical,
                              a_finegoldii_one_epoch,
-                             a_finegoldii_two_epoch)
-a_finegoldii_x_axis = 1:length(a_finegoldii_empirical)
-p_a_finegoldii_comparison <- ggplot(data = a_finegoldii_df, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
-  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +  
-  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
-  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_one_epoch, color='a_finegoldii_one_epoch')) +
-  geom_point(shape=1, aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
-  geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_two_epoch, color='a_finegoldii_two_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(2, length(a_finegoldii_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange'),
-                     name='Data Type',
-                     breaks=c('a_finegoldii_empirical',
-                              'a_finegoldii_one_epoch',
-                              'a_finegoldii_two_epoch'
-                     ),
-                     labels=c('Empirical',
-                              'One epoch',
-                              'Two epoch')) +
-  ggtitle('A. finegoldii')
+                             a_finegoldii_two_epoch,
+                             a_finegoldii_x_axis)
+names(a_finegoldii_df) = c('Empirical',
+                           'One epoch',
+                           'Two epoch',
+                           'x_axis')
+p_a_finegoldii_comparison <- ggplot(data = melt(a_finegoldii_df, id='x_axis'),
+                                             aes(x=x_axis, 
+                                                 y=value,
+                                                 fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. finegoldii') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_a_finegoldii_comparison
 
 a_finegoldii_df = data.frame(a_finegoldii_empirical,
@@ -1271,31 +1269,29 @@ a_muciniphila_one_epoch = proportional_sfs(fold_sfs(c(7490.140844113354, 3745.07
                                                       1070.02041792512, 936.2678805625335, 832.2381281642893, 749.0143252465251, 680.922121954235, 624.1786183831039,
                                                       576.1648838297001, 535.0102535055369, 499.34290656548245, 468.1339773755469, 440.59668633320047)))
 
+a_muciniphila_x_axis = 1:length(a_muciniphila_empirical)
 a_muciniphila_df = data.frame(a_muciniphila_empirical,
                              a_muciniphila_one_epoch,
-                             a_muciniphila_two_epoch)
-a_muciniphila_x_axis = 1:length(a_muciniphila_empirical)
-p_a_muciniphila_comparison <- ggplot(data = a_muciniphila_df, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +
-  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_empirical, color='a_muciniphila_empirical')) +  
-  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
-  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_one_epoch, color='a_muciniphila_one_epoch')) +
-  geom_point(shape=1, aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
-  geom_line(aes(x=a_muciniphila_x_axis, y=a_muciniphila_two_epoch, color='a_muciniphila_two_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_x_axis, limits = c(2, length(a_muciniphila_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange'),
-                     name='Data Type',
-                     breaks=c('a_muciniphila_empirical',
-                              'a_muciniphila_one_epoch',
-                              'a_muciniphila_two_epoch'
-                     ),
-                     labels=c('Empirical',
-                              'One epoch',
-                              'Two epoch')) +
-  ggtitle('A. muciniphila')
+                             a_muciniphila_two_epoch,
+                             a_muciniphila_x_axis)
+names(a_muciniphila_df) = c('Empirical',
+                           'One epoch',
+                           'Two epoch',
+                           'x_axis')
+p_a_muciniphila_comparison <- ggplot(data = melt(a_muciniphila_df, id='x_axis'),
+                                    aes(x=x_axis, 
+                                        y=value,
+                                        fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. muciniphila') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_a_muciniphila_comparison
 
 a_muciniphila_two_epoch = proportional_sfs(fold_sfs(c(2962.5482163192582, 2278.8920787625266, 1811.9780923980811, 1481.0671773522608, 1239.6527877094,
@@ -1365,28 +1361,29 @@ a_onderdonkii_dfe = proportional_sfs(fold_sfs(c(2962.5482163192582-100, 2278.892
                                                       142.6426681402314, 139.60771792563688, 136.69922394600735, 133.90944398288033, 131.231255195276,
                                                       128.6580933964923)))
 
+a_onderdonkii_x_axis = 1:length(a_onderdonkii_empirical)
 a_onderdonkii_df = data.frame(a_onderdonkii_empirical,
                              a_onderdonkii_one_epoch,
                              a_onderdonkii_two_epoch,
-                             a_onderdonkii_nonsyn,
-                             a_onderdonkii_dfe)
-
-a_onderdonkii_x_axis = 1:length(a_onderdonkii_empirical)
-p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_nonsyn, color='a_onderdonkii_nonsyn')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_dfe, color='a_onderdonkii_dfe')) +
-  geom_line(aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_dfe, color='a_onderdonkii_dfe')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_x_axis, limits = c(2, length(a_onderdonkii_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue'),
-                     name='Data Type',
-                     breaks=c('a_onderdonkii_nonsyn',
-                              'a_onderdonkii_dfe'
-                     ),
-                     labels=c('Nonsynonymous',
-                              'DFE-fit model')) +
-  ggtitle('A. onderdonkii, singletons masked')
+                             a_onderdonkii_x_axis)
+names(a_onderdonkii_df) = c('Empirical',
+                           'One epoch',
+                           'Two epoch',
+                           'x_axis')
+p_a_onderdonkii_comparison <- ggplot(data = melt(a_onderdonkii_df, id='x_axis'),
+                                    aes(x=x_axis, 
+                                        y=value,
+                                        fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. onderdonkii') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_a_onderdonkii_comparison
 
 p_a_onderdonkii_comparison <- ggplot(data = a_onderdonkii_df, aes(x=a_onderdonkii_x_axis, y=a_onderdonkii_empirical, color='a_onderdonkii_empirical')) +
@@ -1468,31 +1465,29 @@ b_bacterium_one_epoch = proportional_sfs(fold_sfs(c(4719.69676217087, 2359.84897
                                                     224.74756654378467, 214.5317690533845, 205.20430166130518, 196.6541231053081, 188.78795872511057,
                                                     181.52688380817287, 174.8036661919214)))
 
+b_bacterium_x_axis = 1:length(b_bacterium_empirical)
 b_bacterium_df = data.frame(b_bacterium_empirical,
                              b_bacterium_one_epoch,
-                             b_bacterium_two_epoch)
-b_bacterium_x_axis = 1:length(b_bacterium_empirical)
-p_b_bacterium_comparison <- ggplot(data = b_bacterium_df, aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +
-  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_empirical, color='b_bacterium_empirical')) +  
-  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
-  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_one_epoch, color='b_bacterium_one_epoch')) +
-  geom_point(shape=1, aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
-  geom_line(aes(x=b_bacterium_x_axis, y=b_bacterium_two_epoch, color='b_bacterium_two_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_bacterium_x_axis, limits = c(2, length(b_bacterium_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange'),
-                     name='Data Type',
-                     breaks=c('b_bacterium_empirical',
-                              'b_bacterium_one_epoch',
-                              'b_bacterium_two_epoch'
-                     ),
-                     labels=c('Empirical',
-                              'One epoch',
-                              'Two epoch')) +
-  ggtitle('B. bacterium')
+                             b_bacterium_two_epoch,
+                             b_bacterium_x_axis)
+names(b_bacterium_df) = c('Empirical',
+                           'One epoch',
+                           'Two epoch',
+                           'x_axis')
+p_b_bacterium_comparison <- ggplot(data = melt(b_bacterium_df, id='x_axis'),
+                                    aes(x=x_axis, 
+                                        y=value,
+                                        fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. bacterium') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_bacterium_comparison
 
 b_bacterium_two_epoch = proportional_sfs(fold_sfs(c(4775.155906262972, 2360.4459582032628, 1573.5734814579196, 1180.1799342622703,
@@ -1548,31 +1543,29 @@ b_intestinihominis_one_epoch = proportional_sfs(fold_sfs(c(10010.522618237901, 5
                                                            322.92026573222125, 312.82900833869064, 303.3493422140775, 294.4273034229155, 286.01509533664495,
                                                            278.0702320632116, 270.5548207799628, 263.434957382446, 256.68021511020777)))
 
+b_intestinihominis_x_axis = 1:length(b_intestinihominis_empirical)
 b_intestinihominis_df = data.frame(b_intestinihominis_empirical,
                              b_intestinihominis_one_epoch,
-                             b_intestinihominis_two_epoch)
-b_intestinihominis_x_axis = 1:length(b_intestinihominis_empirical)
-p_b_intestinihominis_comparison <- ggplot(data = b_intestinihominis_df, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +
-  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_empirical, color='b_intestinihominis_empirical')) +  
-  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
-  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_one_epoch, color='b_intestinihominis_one_epoch')) +
-  geom_point(shape=1, aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
-  geom_line(aes(x=b_intestinihominis_x_axis, y=b_intestinihominis_two_epoch, color='b_intestinihominis_two_epoch')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits = c(2, length(b_intestinihominis_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange'),
-                     name='Data Type',
-                     breaks=c('b_intestinihominis_empirical',
-                              'b_intestinihominis_one_epoch',
-                              'b_intestinihominis_two_epoch'
-                     ),
-                     labels=c('Empirical',
-                              'One epoch',
-                              'Three epoch')) +
-  ggtitle('B. intestinihominis, singletons masked')
+                             b_intestinihominis_two_epoch,
+                             b_intestinihominis_x_axis)
+names(b_intestinihominis_df) = c('Empirical',
+                           'One epoch',
+                           'Two epoch',
+                           'x_axis')
+p_b_intestinihominis_comparison <- ggplot(data = melt(b_intestinihominis_df, id='x_axis'),
+                                    aes(x=x_axis, 
+                                        y=value,
+                                        fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_intestinihominis_comparison
 
 b_intestinihominis_two_epoch = proportional_sfs(fold_sfs(c(10437.311252979902, 5087.0606777901185, 3390.743436308415, 2543.05267242049,
@@ -1725,29 +1718,49 @@ b_thetaiotaomicron_dfe = proportional_sfs(fold_sfs(c(6883.161202897391, 4741.595
                                                     186.3226171226469-10, 183.3174137419643-10, 180.40761362343693-10, 177.58874473906124-10,
                                                     174.85661026244466-10)))
 
+
+b_thetaiotaomicron_x_axis = 1:length(b_thetaiotaomicron_empirical)
+# b_thetaiotaomicron_df = data.frame(b_thetaiotaomicron_empirical,
+#                                    b_thetaiotaomicron_one_epoch,
+#                                    b_thetaiotaomicron_two_epoch,
+#                                    b_thetaiotaomicron_exponential,
+#                                    b_thetaiotaomicron_three_epoch,
+#                                    b_thetaiotaomicron_bottlegrowth,
+#                                    b_thetaiotaomicron_dfe,
+#                                    b_thetaiotaomicron_x_axis)
+# names(b_thetaiotaomicron_df) = c('Empirical',
+#                            'One epoch',
+#                            'Two epoch',
+#                            'Exponential',
+#                            'Three Epoch',
+#                            'Bottledecay',
+#                            'Negative Selection',
+#                            'x_axis')
+
 b_thetaiotaomicron_df = data.frame(b_thetaiotaomicron_empirical,
                                   b_thetaiotaomicron_one_epoch,
                                   b_thetaiotaomicron_two_epoch,
-                                  b_thetaiotaomicron_exponential,
-                                  b_thetaiotaomicron_three_epoch,
-                                  b_thetaiotaomicron_bottlegrowth,
-                                  b_thetaiotaomicron_dfe)
-b_thetaiotaomicron_x_axis = 1:length(b_thetaiotaomicron_empirical)
-p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_nonsyn, color='b_thetaiotaomicron_nonsyn')) +
-  geom_point(shape=1) +
-  geom_line() +
-  geom_point(shape=1, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_dfe, color='b_thetaiotaomicron_dfe')) +
-  geom_line(aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_dfe, color='b_thetaiotaomicron_dfe')) +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits = c(2, length(b_thetaiotaomicron_x_axis))) +
-  scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue'),
-                     name='Data Type',
-                     breaks=c('b_thetaiotaomicron_nonsyn',
-                              'b_thetaiotaomicron_dfe'
-                     ),
-                     labels=c('Nonsyn',
-                              'DFE-fit model')) +
-  ggtitle('B. thetaiotaomicron, singletons masked')
+                                  b_thetaiotaomicron_dfe,
+                                  b_thetaiotaomicron_x_axis)
+names(b_thetaiotaomicron_df) = c('Empirical',
+                          'One epoch',
+                          'Two epoch',
+                          'Negative Selection',
+                          'x_axis')
+p_b_thetaiotaomicron_comparison <- ggplot(data = melt(b_thetaiotaomicron_df, id='x_axis'),
+                                    aes(x=x_axis, 
+                                        y=value,
+                                        fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. thetaiotaomicron with negative selection') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_thetaiotaomicron_comparison
 
 p_b_thetaiotaomicron_comparison <- ggplot(data = b_thetaiotaomicron_df, aes(x=b_thetaiotaomicron_x_axis, y=b_thetaiotaomicron_empirical, color='b_thetaiotaomicron_empirical')) +
@@ -2985,7 +2998,7 @@ p_a_finegoldii_epoch_comparison <- ggplot(data = a_finegoldii_epoch_df,
   geom_line(aes(x=a_finegoldii_x_axis, y=a_finegoldii_empirical, color='a_finegoldii_empirical')) +
   scale_x_continuous(name='Frequency in Sample', breaks=a_finegoldii_x_axis, limits = c(2, length(a_finegoldii_x_axis))) +
   scale_y_continuous(name='SNP proportion') +
-  scale_color_manual(values=c('black', 'blue', 'orange', ),
+  scale_color_manual(values=c('black', 'blue', 'orange'),
                      name='Data Type',
                      breaks=c('a_finegoldii_empirical',
                               'a_finegoldii_two_epoch',
@@ -4736,7 +4749,11 @@ p_b_thetaiotaomicron_downsampled_comparison <- ggplot(data = melt(b_thetaiotaomi
   scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_downsampled_x_axis, limits=c(1.5, length(b_thetaiotaomicron_downsampled_x_axis) + 0.5)) +
   ggtitle('B. Thetaiotaomicron (Downsampled to 20)') +
   ylim(0, 0.25) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_thetaiotaomicron_downsampled_comparison
 
 b_thetaiotaomicron_downsampled_small_df = data.frame(b_thetaiotaomicron_downsampled_empirical,
@@ -4933,7 +4950,11 @@ p_b_caccae_downsampled_comparison <- ggplot(data = melt(b_caccae_downsampled_df,
   scale_x_continuous(name='Frequency in Sample', breaks=b_caccae_downsampled_x_axis, limits=c(1.5, length(b_caccae_downsampled_x_axis) + 0.5)) +
   ggtitle('B. Caccae (Downsampled to 20)') +
   ylim(0, 0.35) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_caccae_downsampled_comparison
 
 b_xylanisolvens_downsampled_empirical = proportional_sfs(c(2354.975426140429,
@@ -5074,7 +5095,11 @@ p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_d
   scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_downsampled_x_axis, limits=c(1.5, length(b_xylanisolvens_downsampled_x_axis) + 0.5)) +
   ggtitle('B. Xylanisolvens (Downsampled to 20)') +
   ylim(0, 0.25) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_xylanisolvens_downsampled_comparison
 
 p_distasonis_downsampled_empirical = proportional_sfs(c(10253.18489341513,
@@ -5214,8 +5239,12 @@ p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsam
   labs(x = "", fill = "Demographic Model") +
   scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_downsampled_x_axis, limits=c(1.5, length(p_distasonis_downsampled_x_axis) + 0.5)) +
   ggtitle('P. distasonis (Downsampled to 20)') +
-  ylim(0, 0.175) +
-  ylab('Proportional Frequency')
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_p_distasonis_downsampled_comparison
 
 # TEMP
@@ -5292,7 +5321,11 @@ p_a_muciniphila_downsampled_comparison <- ggplot(data = melt(a_muciniphila_downs
   scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_downsampled_x_axis, limits=c(1.5, length(a_muciniphila_downsampled_x_axis) + 0.5)) +
   ggtitle('A. muciniphila (Downsampled to 20)') +
   ylim(0, 0.25) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_a_muciniphila_downsampled_comparison
 
 set.seed(1)
@@ -5368,7 +5401,11 @@ p_a_onderdonkii_downsampled_comparison <- ggplot(data = melt(a_onderdonkii_downs
   scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_downsampled_x_axis, limits=c(1.5, length(a_onderdonkii_downsampled_x_axis) + 0.5)) +
   ggtitle('A. onderdonkii (Downsampled to 20)') +
   ylim(0, 0.25) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_a_onderdonkii_downsampled_comparison
 
 set.seed(1)
@@ -5444,7 +5481,11 @@ p_b_intestinihominis_downsampled_comparison <- ggplot(data = melt(b_intestinihom
   scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_downsampled_x_axis, limits=c(1.5, length(b_intestinihominis_downsampled_x_axis) + 0.5)) +
   ggtitle('B. intestinihominis (Downsampled to 20)') +
   ylim(0, 0.25) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_intestinihominis_downsampled_comparison
 
 set.seed(1)
@@ -5520,7 +5561,11 @@ p_p_merdaes_downsampled_comparison <- ggplot(data = melt(p_merdaes_downsampled_d
   scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
   ggtitle('P. merdae (Downsampled to 20)') +
   ylim(0, 0.25) +
-  ylab('Proportional Frequency')
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_p_merdaes_downsampled_comparison
 
 
