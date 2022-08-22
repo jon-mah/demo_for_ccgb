@@ -421,12 +421,12 @@ class PlotLikelihood():
                 ll_grid = []
                 # nu_prime = initial_guess[0]
                 # tau_prime = initial_guess[1]
-                min_nu = 0.75 * nu_prime
-                max_nu = 1.25 * nu_prime
-                min_tau = 0.75 * tau_prime
-                max_tau = 1.25 * tau_prime
-                nu_grid = numpy.arange(min_nu, max_nu, 0.05 * nu_prime).tolist()
-                tau_grid = numpy.arange(min_tau, max_tau, 0.05 * tau_prime).tolist()
+                min_nu = 0.5 * nu_prime
+                max_nu = 1.5 * nu_prime
+                min_tau = 0.5 * tau_prime
+                max_tau = 1.5 * tau_prime
+                nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
+                tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
                 print(nu_grid)
                 z_shape = (len(nu_grid), len(tau_grid))
                 z = numpy.ones(z_shape)
@@ -457,7 +457,10 @@ class PlotLikelihood():
                 # x and y are bounds, so z should be the value *inside* those bounds.
                 # Therefore, remove the last value from the z array.
                 # z = z[:, :]
-                z = z[:-1, :]
+                len_x = len(x)
+                len_y = len(y)
+                z = z[:len_x, :len_y]
+                # z = z[:-1, :]
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
 
                 fig, ax = plt.subplots()

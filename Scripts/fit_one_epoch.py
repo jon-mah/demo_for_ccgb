@@ -238,7 +238,7 @@ class DemographicInference():
         pts: Number of grid points to use in integration.
         """
         xx = dadi.Numerics.default_grid(pts)  # Define likelihood surface.
-	phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
+	    phi = dadi.PhiManip.phi_1D(xx)  # Define initial phi.
 
         # Construct spectrum object
         fs = dadi.Spectrum.from_phi(phi, ns, (xx, ))
@@ -284,7 +284,7 @@ class DemographicInference():
 
         vars_to_check = (nu, gamma, h, theta0, beta)
         if numpy.all([numpy.isscalar(var) for var in vars_to_check]):
-            return _one_pop_const_params(phi, xx, T, nu, gamma, h, theta0, 
+            return _one_pop_const_params(phi, xx, T, nu, gamma, h, theta0,
                                      initial_t, beta)
 
         nu_f = Misc.ensure_1arg_func(nu)
@@ -319,7 +319,7 @@ class DemographicInference():
             _inject_mutations_1D(phi, this_dt, xx, theta0)
             # Do each step in C, since it will be faster to compute the a,b,c
             # matrices there.
-            phi = int_c.implicit_1Dx(phi, xx, nu, gamma, h, beta, this_dt, 
+            phi = int_c.implicit_1Dx(phi, xx, nu, gamma, h, beta, this_dt,
                                  use_delj_trick=use_delj_trick)
             current_t = next_t
         return phi
@@ -600,7 +600,7 @@ class DemographicInference():
                 initial_guesses.append([8])
                 # initial_guess = [0.1]
                 file = one_epoch_demography
-                func_ex = dadi.Numerics.make_extrap_log_func(self.snm) 
+                func_ex = dadi.Numerics.make_extrap_log_func(self.snm)
                 logger.info('Beginning demographic inference for one-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
@@ -666,4 +666,3 @@ class DemographicInference():
 
 if __name__ == '__main__':
     DemographicInference().main()
-
