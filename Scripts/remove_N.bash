@@ -3,10 +3,10 @@
 #$ -cwd
 #$ -V
 #$ -m a
-#$ -l h_data=30G
+#$ -l h_data=50G
 #$ -l highp
 #$ -l h_rt=02:00:00
-#$ -t 1-339
+#$ -t 1-60
 
 i=0
 while read line;
@@ -17,7 +17,7 @@ do
    then
       file_prefix=$line
    fi
-done < ../Data/oral_microbiome_data/file_list.txt
+done < ./failed_species_list.txt
 
 OUTDIR=../Data/oral_microbiome_data/fastq_MIDAS_intermediate/${file_prefix}/
 

@@ -425,15 +425,21 @@ class PlotLikelihood():
                 max_nu = 1.5 * nu_prime
                 min_tau = 0.5 * tau_prime
                 max_tau = 1.5 * tau_prime
-                nu_grid = numpy.arange(min_nu, max_nu, 0.1 * nu_prime).tolist()
-                tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
-                print(nu_grid)
-                z_shape = (len(nu_grid), len(tau_grid))
+                # nu_grid = numpy.arange(min_nu, max_nu, 0.05 * nu_prime).tolist()
+                # tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
+                # print(nu_grid)
+                nx = 25
+                ny = 25
+                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
+                                      numpy.linspace(min_tau, max_tau, ny),
+                                      indexing='ij')
+                z_shape = (nx, ny)
+                # z_shape = (len(nu_grid), len(tau_grid))
                 z = numpy.ones(z_shape)
-                print(z)
-                for i in range(len(nu_grid)):
-                    for j in range(len(tau_grid)):
-                        p0 = [nu_grid[i], tau_grid[j]]
+                # print(z)
+                for i in range(nx):
+                    for j in range(ny):
+                        p0 = [x[i, 0 ], y[0, j]]
                         popt = dadi.Inference.optimize_log_lbfgsb(
                             p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                             lower_bound=lower_bound, upper_bound=upper_bound,
@@ -441,7 +447,7 @@ class PlotLikelihood():
                         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
                         loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
-                        ll_array = [nu_grid[i], tau_grid[j], loglik]
+                        ll_array = [x[[i]], y[[j]], loglik]
                         # ll_string = str(nu_grid[i]) + ', '
                         # ll_string += str(tau_grid[j]) + ', '
                         # ll_string += str(loglik)
@@ -451,16 +457,6 @@ class PlotLikelihood():
                         # f.write(ll_string)
                         # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
-                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, 10),
-                                      numpy.linspace(min_tau, max_tau, 10))
-                # z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
-                # x and y are bounds, so z should be the value *inside* those bounds.
-                # Therefore, remove the last value from the z array.
-                # z = z[:, :]
-                len_x = len(x)
-                len_y = len(y)
-                z = z[:len_x, :len_y]
-                # z = z[:-1, :]
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
 
                 fig, ax = plt.subplots()
