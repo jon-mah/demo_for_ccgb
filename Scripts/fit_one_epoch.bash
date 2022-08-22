@@ -8,7 +8,7 @@
 # This script infers the demography of a given example synonymous sfs.
 # species=Akkermansia_muciniphila_55290
 # species=Alistipes_finegoldii_56071
-# species=Alistipes_onderdonkii_55464
+species=Alistipes_onderdonkii_55464
 # species=Alistipes_putredinis_61533
 # species=Alistipes_shahii_62199
 # species=Bacteroidales_bacterium_58650
@@ -22,7 +22,7 @@
 # species=Bacteroides_uniformis_57318
 # species=Bacteroides_vulgatus_57955
 # species=Bacteroides_xylanisolvens_57185
-species=Barnesiella_intestinihominis_62208
+# species=Barnesiella_intestinihominis_62208
 # species=Coprococcus_sp_62244
 # species=Dialister_invisus_61905
 # species=Eubacterium_eligens_61678

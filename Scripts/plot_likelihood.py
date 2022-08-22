@@ -365,7 +365,7 @@ class PlotLikelihood():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         output_plot = \
-            '{0}{1}full_likelihood_surface.jpg'.format(
+            '{0}{1}likelihood_surface.jpg'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         to_remove = [logfile, output_plot]
@@ -421,22 +421,18 @@ class PlotLikelihood():
                 ll_grid = []
                 # nu_prime = initial_guess[0]
                 # tau_prime = initial_guess[1]
-                # min_nu = 0.5 * nu_prime
-                # max_nu = 1.5 * nu_prime
-                min_nu = 0.1 * nu_prime
-                max_nu = 1.5
+                min_nu = 0.5 * nu_prime
+                max_nu = 1.5 * nu_prime
+                # min_nu = 0.1 * nu_prime
+                # max_nu = 1.5
                 min_tau = 0.5 * tau_prime
                 max_tau = 2 * tau_prime
-                # nu_grid = numpy.arange(min_nu, max_nu, 0.05 * nu_prime).tolist()
-                # tau_grid = numpy.arange(min_tau, max_tau, 0.1 * tau_prime).tolist()
-                # print(nu_grid)
-                nx = 25
-                ny = 25
+                nx = 5
+                ny = 5
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
                                       numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')
                 z_shape = (nx, ny)
-                # z_shape = (len(nu_grid), len(tau_grid))
                 z = numpy.ones(z_shape)
                 # print(z)
                 for i in range(nx):
