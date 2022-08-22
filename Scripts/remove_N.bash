@@ -5,6 +5,7 @@
 #$ -m a
 #$ -l h_data=50G
 #$ -l highp
+#$ -pe shared 4
 #$ -l h_rt=02:00:00
 #$ -t 1-60
 
