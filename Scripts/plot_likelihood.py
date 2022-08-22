@@ -405,6 +405,8 @@ class PlotLikelihood():
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 
+        ll_grid = []
+
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
         model_list = ['two_epoch']

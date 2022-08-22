@@ -5,9 +5,8 @@
 #$ -m a
 #$ -l h_data=50G
 #$ -l highp
-#$ -pe shared 4
-#$ -l h_rt=02:00:00
-#$ -t 51
+#$ -l h_rt=04:00:00
+#$ -t 1-60
 
 i=0
 while read line;
