@@ -423,7 +423,7 @@ class DemographicInference():
                 # print(model_sum)
                 model_data = numpy.divide(
                     numpy.ones(shape=syn_ns+1), numpy.arange(1, syn_ns+2))
-        syn_data_mask = numpy.zeros(syn_ns+1)
+                syn_data_mask = numpy.zeros(syn_ns+1)
                 syn_data_mask[0] = 1
                 model_data = numpy.ma.masked_array(model_data, syn_data_mask)
                 model_data = dadi.Spectrum(model_data)
