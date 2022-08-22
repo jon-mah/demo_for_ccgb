@@ -440,31 +440,31 @@ class DemographicInference():
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
                 initial_guesses = []
-                initial_guesses.append([0.1, 0.00001])
-                initial_guesses.append([0.2, 0.00001])
-                initial_guesses.append([0.3, 0.00001])
-                initial_guesses.append([0.4, 0.00001])
-                initial_guesses.append([0.5, 0.00001])
-                initial_guesses.append([0.6, 0.00001])
-                initial_guesses.append([0.7, 0.00001])
-                initial_guesses.append([0.8, 0.00001])
-                initial_guesses.append([0.9, 0.00001])
-                initial_guesses.append([1, 0.00001])
-                initial_guesses.append([1.25, 0.00001])
-                initial_guesses.append([1.5, 0.00001])
-                initial_guesses.append([1.75, 0.00001])
-                initial_guesses.append([2, 0.00001])
-                initial_guesses.append([2.25, 0.00001])
-                initial_guesses.append([2.5, 0.00001])
-                initial_guesses.append([2.75, 0.00001])
-                initial_guesses.append([3, 0.00001])
-                initial_guesses.append([3.33, 0.00001])
-                initial_guesses.append([3.66, 0.00001])
-                initial_guesses.append([4, 0.00001])
-                initial_guesses.append([5, 0.00001])
-                initial_guesses.append([6, 0.00001])
-                initial_guesses.append([7, 0.00001])
-                initial_guesses.append([8, 0.00001])
+                initial_guesses.append([0.000001, 0.000001])
+                initial_guesses.append([0.00001, 0.000001])
+                initial_guesses.append([0.0001, 0.000001])
+                initial_guesses.append([0.001, 0.000001])
+                initial_guesses.append([0.01, 0.000001])
+                initial_guesses.append([0.6, 0.000001])
+                initial_guesses.append([0.7, 0.000001])
+                initial_guesses.append([0.8, 0.000001])
+                initial_guesses.append([0.9, 0.000001])
+                initial_guesses.append([1, 0.000001])
+                initial_guesses.append([1.25, 0.000001])
+                initial_guesses.append([1.5, 0.000001])
+                initial_guesses.append([1.75, 0.000001])
+                initial_guesses.append([2, 0.000001])
+                initial_guesses.append([2.25, 0.000001])
+                initial_guesses.append([2.5, 0.000001])
+                initial_guesses.append([2.75, 0.000001])
+                initial_guesses.append([3, 0.000001])
+                initial_guesses.append([3.33, 0.000001])
+                initial_guesses.append([3.66, 0.000001])
+                initial_guesses.append([4, 0.000001])
+                initial_guesses.append([5, 0.000001])
+                initial_guesses.append([6, 0.000001])
+                initial_guesses.append([7, 0.000001])
+                initial_guesses.append([8, 0.000001])
                 file = exponential_growth_demography
                 func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
                 logger.info('Beginning demographic inference for exponential '
@@ -473,11 +473,11 @@ class DemographicInference():
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
                 initial_guesses = []
-                initial_guesses.append([0.1, 0.000001])
-                initial_guesses.append([0.2, 0.000001])
-                initial_guesses.append([0.3, 0.000001])
-                initial_guesses.append([0.4, 0.000001])
-                initial_guesses.append([0.5, 0.000001])
+                initial_guesses.append([0.000001, 0.000001])
+                initial_guesses.append([0.00001, 0.000001])
+                initial_guesses.append([0.0002, 0.000001])
+                initial_guesses.append([0.003, 0.000001])
+                initial_guesses.append([0.01, 0.000001])
                 initial_guesses.append([0.6, 0.000001])
                 initial_guesses.append([0.7, 0.000001])
                 initial_guesses.append([0.8, 0.000001])
@@ -507,11 +507,11 @@ class DemographicInference():
                 lower_bound = [0, 0, 0]
                 initial_guess = [0.1, 0.1, 0.00001]
                 initial_guesses = []
-                initial_guesses.append([0.1, 0.1, 0.000001])
-                initial_guesses.append([0.2, 0.2, 0.000001])
-                initial_guesses.append([0.3, 0.3, 0.000001])
-                initial_guesses.append([0.4, 0.4, 0.000001])
-                initial_guesses.append([0.5, 0.5, 0.000001])
+                initial_guesses.append([0.000001, 0.000001, 0.000001])
+                initial_guesses.append([0.00001, 0.00001, 0.000001])
+                initial_guesses.append([0.0001, 0.0001, 0.000001])
+                initial_guesses.append([0.001, 0.001, 0.000001])
+                initial_guesses.append([0.01, 0.01, 0.000001])
                 initial_guesses.append([0.6, 0.6, 0.000001])
                 initial_guesses.append([0.7, 0.7, 0.000001])
                 initial_guesses.append([0.8, 0.8, 0.000001])
@@ -540,11 +540,11 @@ class DemographicInference():
                 upper_bound = [80, 80, 0.15, 0.15]
                 lower_bound = [0.0, 0.0, 0.0, 0.0]
                 initial_guesses = []
-                initial_guesses.append([0.1, 0.1, 0.000001, 0.000001])
-                initial_guesses.append([0.2, 0.2, 0.000001, 0.000001])
-                initial_guesses.append([0.3, 0.3, 0.000001, 0.000001])
-                initial_guesses.append([0.4, 0.4, 0.000001, 0.000001])
-                initial_guesses.append([0.5, 0.5, 0.000001, 0.000001])
+                initial_guesses.append([0.000001, 0.000001, 0.000001, 0.000001])
+                initial_guesses.append([0.00001, 0.00001, 0.000001, 0.000001])
+                initial_guesses.append([0.0001, 0.0001, 0.000001, 0.000001])
+                initial_guesses.append([0.001, 0.001, 0.000001, 0.000001])
+                initial_guesses.append([0.01, 0.01, 0.000001, 0.000001])
                 initial_guesses.append([0.6, 0.6, 0.000001, 0.000001])
                 initial_guesses.append([0.7, 0.7, 0.000001, 0.000001])
                 initial_guesses.append([0.8, 0.8, 0.000001, 0.000001])
@@ -618,7 +618,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=lower_bound,
                         upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=50)
+                        verbose=len(p0), maxiter=15)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))

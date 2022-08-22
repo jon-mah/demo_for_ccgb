@@ -5488,6 +5488,33 @@ p_b_intestinihominis_downsampled_comparison <- ggplot(data = melt(b_intestinihom
         panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_intestinihominis_downsampled_comparison
 
+b_intestinihominis_downsampled_df = data.frame(b_intestinihominis_downsampled_empirical,
+                                               b_intestinihominis_downsampled_two_epoch,
+                                               b_intestinihominis_downsampled_one_epoch,
+                                               b_intestinihominis_downsampled_x_axis)
+
+
+names(b_intestinihominis_downsampled_df) = c('Empirical',
+                                             'Two-epoch',
+                                             'One-epoch',
+                                             'x_axis')
+
+p_b_intestinihominis_downsampled_comparison <- ggplot(data = melt(b_intestinihominis_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_downsampled_x_axis, limits=c(1.5, length(b_intestinihominis_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_intestinihominis_downsampled_comparison
+
 set.seed(1)
 
 slant = c(0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.005, 1.01, 1.015, 1.02)
@@ -5590,53 +5617,77 @@ b_xylanisolvens_downsampled_three_epoch = fold_sfs(c(1364.6304137024117,
                                                                       129.93994472032279,
                                                                       123.10100102679405))
 
-b_thetaiotaomicron_downsampled_empirical
-b_thetaiotaomicron_empirical
-b_thetaiotaomicron_downsampled_empirical_comparison = c(b_thetaiotaomicron_downsampled_empirical, integer(length(b_thetaiotaomicron_empirical) - length(b_thetaiotaomicron_downsampled_empirical)))
-b_thetaiotaomicron_downsample_comparison = data.frame(b_thetaiotaomicron_empirical, b_thetaiotaomicron_downsampled_empirical_comparison, b_thetaiotaomicron_x_axis)
+b_intestinihominis_empirical_count = fold_sfs(c(11221, 3674, 3165, 2285, 2580, 2319, 1852, 1668, 1481, 1604, 1608, 1403, 1319, 1228, 1090,
+                                                           1097, 1024, 1086, 984, 846, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+b_intestinihominis_downsampled_empirical_count = c(9649.605066277722,
+                                                              5112.185476469527,
+                                                              4226.486034316246,
+                                                              3707.793290816517,
+                                                              3194.552778476499,
+                                                              2757.546121301762,
+                                                              2460.039052154916,
+                                                              2280.867257061911,
+                                                              2181.669145630998,
+                                                              1074.465576671515)
 
-names(b_thetaiotaomicron_downsample_comparison) = c('empirical', 'downsampled', 'x_axis')
+b_intestinihominis_downsampled_empirical_count_comparison = c(b_intestinihominis_downsampled_empirical_count, integer(length(b_intestinihominis_empirical_count) - length(b_intestinihominis_downsampled_empirical_count)))
+b_intestinihominis_downsample_count_comparison = data.frame(b_intestinihominis_empirical_count, b_intestinihominis_downsampled_empirical_count_comparison, b_intestinihominis_x_axis)
 
-p_downsample_comparison = ggplot(data = melt(b_thetaiotaomicron_downsample_comparison, id='x_axis'),
+names(b_intestinihominis_downsample_count_comparison) = c('empirical', 'downsampled', 'x_axis')
+
+p_downsample_comparison = ggplot(data = melt(b_intestinihominis_downsample_count_comparison, id='x_axis'),
                                  aes(x=x_axis, 
                                      y=value,
                                      fill=variable)) +
   geom_bar(position='dodge2', stat='identity') +
   labs(x = "", fill = "Demographic Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits=c(1.5, length(b_thetaiotaomicron_x_axis) + 0.5)) +
-  ggtitle('B. thetaiotaomicron (proportional SFS)') +
-  ylim(0, 0.25) +
-  ylab('Proportional Frequency')
-p_downsample_comparison
-
-b_thetaiotaomicron_downsampled_empirical = c(11329.94672695546, 
-                                             6167.075485250698,
-                                             4239.177625142324,
-                                             3342.60586700556,
-                                             2929.626632089841,
-                                             2725.643057081244,
-                                             2635.300969843948,
-                                             2579.444903486481,
-                                             2545.779751971833,
-                                             1267.150917730179)
-b_thetaiotaomicron_empirical = fold_sfs(c(9825, 5001, 3405, 3070, 2406, 2519, 1867, 1646, 1485, 1256, 1141, 1144,
-                                          1067, 994, 930, 927, 833, 934, 824, 834, 817, 810, 820, 760, 697, 733,
-                                          705, 736, 809, 686, 612, 485, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-
-b_thetaiotaomicron_downsampled_empirical_comparison = c(b_thetaiotaomicron_downsampled_empirical, integer(length(b_thetaiotaomicron_empirical) - length(b_thetaiotaomicron_downsampled_empirical)))
-b_thetaiotaomicron_downsample_comparison = data.frame(b_thetaiotaomicron_empirical, b_thetaiotaomicron_downsampled_empirical_comparison, b_thetaiotaomicron_x_axis)
-
-names(b_thetaiotaomicron_downsample_comparison) = c('empirical', 'downsampled', 'x_axis')
-
-p_downsample_comparison = ggplot(data = melt(b_thetaiotaomicron_downsample_comparison, id='x_axis'),
-                                 aes(x=x_axis, 
-                                     y=value,
-                                     fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Demographic Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_thetaiotaomicron_x_axis, limits=c(1.5, length(b_thetaiotaomicron_x_axis) + 0.5)) +
-  ggtitle('B. thetaiotaomicron (Counts)') +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits=c(1.5, length(b_intestinihominis_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis (Count)') +
   ylab('Count')
 p_downsample_comparison
+
+
+b_intestinihominis_downsampled_empirical_comparison = c(b_intestinihominis_downsampled_empirical, integer(length(b_intestinihominis_empirical) - length(b_intestinihominis_downsampled_empirical)))
+b_intestinihominis_downsample_comparison = data.frame(b_intestinihominis_empirical, b_intestinihominis_downsampled_empirical_comparison, b_intestinihominis_x_axis)
+
+names(b_intestinihominis_downsample_comparison) = c('empirical', 'downsampled', 'x_axis')
+
+p_downsample_comparison = ggplot(data = melt(b_intestinihominis_downsample_comparison, id='x_axis'),
+                                 aes(x=x_axis, 
+                                     y=value,
+                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_x_axis, limits=c(1.5, length(b_intestinihominis_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis (Proportional)') +
+  ylab('Count')
+p_downsample_comparison
+
+b_intestinihominis_downsampled_one_epoch_delta = abs(b_intestinihominis_downsampled_empirical - b_intestinihominis_downsampled_one_epoch)
+b_intestinihominis_downsampled_two_epoch_delta = abs(b_intestinihominis_downsampled_empirical - b_intestinihominis_downsampled_two_epoch)
+b_intestinihominis_downsampled_delta_df = data.frame(b_intestinihominis_downsampled_one_epoch_delta,
+                                                     b_intestinihominis_downsampled_two_epoch_delta,
+                                                     b_intestinihominis_downsampled_x_axis)
+names(b_intestinihominis_downsampled_delta_df) = c('One-epoch Delta',
+                                                   'Two-epoch Delta',
+                                                   'x_axis')
+
+
+p_b_intestinihominis_downsampled_delta <- ggplot(data = melt(b_intestinihominis_downsampled_delta_df, id='x_axis'),
+                                                 aes(x=x_axis, 
+                                                     y=value,
+                                                     fill=variable)) +
+  geom_line(aes(color=variable)) +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_intestinihominis_downsampled_x_axis, limits=c(1.5, length(b_intestinihominis_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis (Downsampled to 20)') +
+  ylab('Absolute difference in proportional frequency') +
+  geom_text(aes(label = paste0("One-Epoch Delta Sum = ", sum(b_intestinihominis_downsampled_one_epoch_delta)), 
+                x = (9), 
+                y = 0.0025)) +
+  geom_text(aes(label = paste0("Two-Epoch Delta Sum = ", sum(b_intestinihominis_downsampled_two_epoch_delta)), 
+                x = (9),
+                y = 0.0015)) 
+
+p_b_intestinihominis_downsampled_delta
 
