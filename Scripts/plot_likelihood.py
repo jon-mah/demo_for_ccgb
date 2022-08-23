@@ -421,13 +421,13 @@ class PlotLikelihood():
                             'demographic model.')
             with open(file, 'w') as f:
                 min_nu = 0.1 * nu_prime
-                max_nu = 10 * nu_prime
+                max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
-                max_tau = 10 * tau_prime
+                max_tau = 1.9 * tau_prime
                 nx = 25
                 ny = 25
-                x, y = numpy.meshgrid(numpy.logspace(min_nu, max_nu, nx),
-                                      numpy.logspace(min_tau, max_tau, ny),
+                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
+                                      numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')
                 z_shape = (nx, ny)
                 z = numpy.ones(z_shape)
@@ -461,8 +461,8 @@ class PlotLikelihood():
                 # set the limits of the plot to the limits of the data
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 fig.colorbar(c, ax=ax)
-                ax.set_yscale('log')
-                ax.set_xscale('log')
+                # ax.set_yscale('log')
+                # ax.set_xscale('log')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
