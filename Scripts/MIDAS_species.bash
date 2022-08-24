@@ -6,7 +6,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
 #$ -l h_rt=02:00:00
-#$ -t 1-60
+#$ -t 6
 # module load python/2.7
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
 export PATH=$PATH:/u/project/ngarud/Garud_lab/MIDAS/scripts
