@@ -33,6 +33,23 @@ class ArgumentParserNoArgHelp(argparse.ArgumentParser):
         sys.exit(2)
 
 
+class MidpointNormalize(colors.Normalize):
+    def __init__(self, vmin=None, vmax=None, vcenter=None, clip=False):
+        self.vcenter = vcenter
+        super().__init__(vmin, vmax, clip)
+
+    def __call__(self, value, clip=None):
+        # I'm ignoring masked values and all kinds of edge cases to make a
+        # simple example...
+        # Note also that we must extrapolate beyond vmin/vmax
+        x, y = [self.vmin, self.vcenter, self.vmax], [0, 0.5, 1.]
+        return np.ma.masked_array(np.interp(value, x, y,
+                                            left=-np.inf, right=np.inf))
+
+    def inverse(self, value):
+        y, x = [self.vmin, self.vcenter, self.vmax], [0, 0.5, 1]
+        return np.interp(value, x, y, left=-np.inf, right=np.inf)
+
 class PlotLikelihood():
     """Wrapper class to allow functions to reference each other."""
 
@@ -465,10 +482,10 @@ class PlotLikelihood():
                 #        cmap='RdBu_r')
                 # set the limits of the plot to the limits of the data
                 # ax.axis([x.min(), x.max(), y.min(), y.max()])
-                
+
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
-                plt.pcolor(x, y, z, 
+                plt.pcolor(x, y, z,
                            norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
                                                              vmin=z_min,vmax=z_mid),
                            cmap='RdBu_r')
