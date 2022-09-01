@@ -493,7 +493,7 @@ class PlotLikelihood():
                 # pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
                 #                     cmap='RdBu_r', shading='auto')
                 plt.pcolor(x, y, z,
-                           norm=midnorm, cmap='nipy_spectral', shading='auto')
+                           norm=midnorm, cmap='plasma', shading='auto')
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
