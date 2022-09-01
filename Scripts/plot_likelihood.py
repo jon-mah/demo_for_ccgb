@@ -497,7 +497,7 @@ class PlotLikelihood():
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                v1 = numpy.linspace(z_min, z_max, 8, endpoint=True)
+                v1 = numpy.linspace(z_min, z_max, 10, endpoint=True)
                 cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
                 cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
                 # fig.colorbar(c, ax=ax)
