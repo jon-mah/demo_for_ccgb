@@ -470,7 +470,7 @@ class PlotLikelihood():
                 ax = fig.add_subplot(111)
                 plt.pcolor(x, y, z, 
                            norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
-                                                             vmin=z_min,vmax=z_mid),
+                                                             vmin=z_min,vmax=z_max),
                            cmap='RdBu_r')
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
