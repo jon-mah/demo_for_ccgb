@@ -468,7 +468,7 @@ class PlotLikelihood():
                 fig.colorbar(c, ax=ax)
                 # ax.set_yscale('log')
                 # ax.set_xscale('log')
-                ax.ticklabel_format(style='sci', axis='both')
+                ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
