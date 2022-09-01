@@ -460,7 +460,7 @@ class PlotLikelihood():
 
                 c = ax.pcolormesh(x, y, z,
                        norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
-                                              vmin=-1.0, vmax=1.0),
+                                              vmin=z_min, vmax=z_max),
                        cmap='RdBu_r')
                 # fig.colorbar(c, ax=ax)
                 ax.set_title('pcolormesh')
