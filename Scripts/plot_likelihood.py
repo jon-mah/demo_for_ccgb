@@ -485,10 +485,13 @@ class PlotLikelihood():
 
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
-                plt.pcolor(x, y, z,
-                           norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
-                                                             vmin=z_min,vmax=z_max),
-                           cmap='RdBu_r')
+                # plt.pcolor(x, y, z,
+                #            norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
+                #                                              vmin=z_min,vmax=z_max),
+                #             cmap='RdBu_r')
+                midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
+                pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
+                                    cmap=terrain_map, shading='auto')
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
