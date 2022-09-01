@@ -472,7 +472,7 @@ class PlotLikelihood():
                         # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
-                z_mid = (z_min + z_max) / 2
+                z_mid = 0.8 * z_max  + 0.2  * z_min
 
                 #  fig, ax = plt.subplots()
 
@@ -493,7 +493,7 @@ class PlotLikelihood():
                 # pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
                 #                     cmap='RdBu_r', shading='auto')
                 plt.pcolor(x, y, z,
-                           norm=midnorm, cmap='terrain', shading='auto')
+                           norm=midnorm, cmap='nipy_spectral', shading='auto')
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
