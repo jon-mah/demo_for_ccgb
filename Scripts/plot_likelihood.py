@@ -20,6 +20,8 @@ import scipy.optimize
 import matplotlib
 matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
 import matplotlib.pyplot as plt
+from matplotlib import ticker, cm
+
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -456,8 +458,11 @@ class PlotLikelihood():
 
                 fig, ax = plt.subplots()
 
-                c = ax.pcolormesh(x, y, z, cmap='RdBu', vmin=z_min, vmax=z_max)
-                fig.colorbar(c, ax=ax)
+                c = ax.pcolormesh(x, y, z,
+                       norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
+                                              vmin=-1.0, vmax=1.0),
+                       cmap='RdBu_r')
+                # fig.colorbar(c, ax=ax)
                 ax.set_title('pcolormesh')
                 # set the limits of the plot to the limits of the data
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
