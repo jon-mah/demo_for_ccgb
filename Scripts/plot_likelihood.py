@@ -33,7 +33,7 @@ class ArgumentParserNoArgHelp(argparse.ArgumentParser):
         sys.exit(2)
 
 
-class MidpointNormalize(colors.Normalize):
+class MidpointNormalize(matplotlib.colors.Normalize):
     def __init__(self, vmin=None, vmax=None, vcenter=None, clip=False):
         self.vcenter = vcenter
         super().__init__(vmin, vmax, clip)
@@ -43,12 +43,12 @@ class MidpointNormalize(colors.Normalize):
         # simple example...
         # Note also that we must extrapolate beyond vmin/vmax
         x, y = [self.vmin, self.vcenter, self.vmax], [0, 0.5, 1.]
-        return np.ma.masked_array(np.interp(value, x, y,
-                                            left=-np.inf, right=np.inf))
+        return numpy.ma.masked_array(numpy.interp(value, x, y,
+                                            left=-numpy.inf, right=numpy.inf))
 
     def inverse(self, value):
         y, x = [self.vmin, self.vcenter, self.vmax], [0, 0.5, 1]
-        return np.interp(value, x, y, left=-np.inf, right=np.inf)
+        return numpy.interp(value, x, y, left=-numpy.inf, right=numpy.inf)
 
 class PlotLikelihood():
     """Wrapper class to allow functions to reference each other."""
@@ -490,8 +490,10 @@ class PlotLikelihood():
                 #                                              vmin=z_min,vmax=z_max),
                 #             cmap='RdBu_r')
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
-                pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
-                                    cmap=terrain_map, shading='auto')
+                # pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
+                #                     cmap='RdBu_r', shading='auto')
+                plt.pcolor(x, y, z,
+                           norm=midnorm, cmap='terrain', shading='auto')
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
