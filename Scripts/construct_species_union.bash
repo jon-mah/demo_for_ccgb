@@ -3,13 +3,12 @@
 #$ -cwd
 #$ -V
 #$ -m a
-#$ -l h_data=15G
-#$ -l h_rt=2:00:00
+#$ -l h_data=10G
+#$ -l h_rt=00:05:00
 #$ -t 2-340
+#$ -tc 1
 
 # This script computes the species union of a given host
-
-# SGE_TASK_ID=2
 
 i=0
 while read line;
@@ -22,4 +21,4 @@ do
    fi
 done < ../HMP1-2_oral_host_srs_list.csv
 
-python3 construct_species_union.py ../HMP1-2_oral_host_srs_list.csv  $file
+python construct_species_union.py ../HMP1-2_oral_host_srs_list.csv $file

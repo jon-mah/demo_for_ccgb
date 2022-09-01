@@ -1,83 +1,32 @@
-2022-08-22 13:49:44,379 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2022-08-25 14:14:45,594 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2022-08-22 13:49:44,379 - INFO - Progress is being logged to ../Analysis/Alistipes_onderdonkii_55464_downsampled/log.log
+2022-08-25 14:14:45,595 - INFO - Progress is being logged to ../Analysis/Alistipes_onderdonkii_55464_downsampled/log.log
 
-2022-08-22 13:49:44,380 - INFO - Parsed the following arguments:
+2022-08-25 14:14:45,595 - INFO - Parsed the following arguments:
 	mask_doubletons = False
-	syn_input_sfs = ../Analysis/Alistipes_onderdonkii_55464_downsampled/Alistipes_onderdonkii_55464_empirical_sfs.txt
+	syn_input_sfs = ../Analysis/Alistipes_onderdonkii_55464_downsampled/empirical_sfs.txt
 	mask_singletons = True
 	outprefix = ../Analysis/Alistipes_onderdonkii_55464_downsampled/
 
-2022-08-22 13:49:44,422 - INFO - Beginning demographic inference for exponential growth demographic model.
-2022-08-22 13:49:44,448 - INFO - Beginning optimization with guess, [7.49512730e-07 1.73025895e-06].
-2022-08-22 13:49:45,305 - INFO - Finished optimization with guess, [7.49512730e-07 1.73025895e-06].
-2022-08-22 13:49:45,305 - INFO - Best fit parameters: [1.49375378e-06 5.01706328e-07].
-2022-08-22 13:49:45,341 - INFO - Maximum log composite likelihood: -51.1656627058.
-2022-08-22 13:49:45,342 - INFO - Optimal value of theta: 8678.31949136.
-2022-08-22 13:49:45,342 - INFO - Beginning optimization with guess, [5.50506990e-06 7.83158158e-07].
-2022-08-22 13:49:46,798 - INFO - Finished optimization with guess, [5.50506990e-06 7.83158158e-07].
-2022-08-22 13:49:46,798 - INFO - Best fit parameters: [2.62347221e-06 8.81535044e-07].
-2022-08-22 13:49:46,833 - INFO - Maximum log composite likelihood: -51.1656495461.
-2022-08-22 13:49:46,833 - INFO - Optimal value of theta: 8679.32319524.
-2022-08-22 13:49:46,834 - INFO - Beginning optimization with guess, [1.29566012e-04 1.37317388e-06].
-2022-08-22 13:49:47,545 - INFO - Finished optimization with guess, [1.29566012e-04 1.37317388e-06].
-2022-08-22 13:49:47,546 - INFO - Best fit parameters: [1.61776331e-05 5.76410288e-06].
-2022-08-22 13:49:47,580 - INFO - Maximum log composite likelihood: -51.3086697687.
-2022-08-22 13:49:47,580 - INFO - Optimal value of theta: 8816.31168351.
-2022-08-22 13:49:47,581 - INFO - Beginning optimization with guess, [9.34560450e-04 1.18137779e-06].
-2022-08-22 14:39:09,170 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
-
-2022-08-22 14:39:09,170 - INFO - Progress is being logged to ../Analysis/Alistipes_onderdonkii_55464_downsampled/log.log
-
-2022-08-22 14:39:09,170 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Alistipes_onderdonkii_55464_downsampled/Alistipes_onderdonkii_55464_empirical_sfs.txt
-	nu_prime = 2.22291146e-05
-	tau_prime = 3.89330882e-06
-	mask_singletons = True
-	mask_doubletons = False
-	outprefix = ../Analysis/Alistipes_onderdonkii_55464_downsampled/
-
-2022-08-22 14:39:09,193 - INFO - Beginning demographic inference for two-epoch demographic model.
-2022-08-22 14:42:44,899 - INFO - Finished plotting likelihood surface.
-2022-08-22 14:42:44,899 - INFO - Pipeline executed succesfully.
-2022-08-22 15:01:44,953 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
-
-2022-08-22 15:01:44,953 - INFO - Progress is being logged to ../Analysis/Alistipes_onderdonkii_55464_downsampled/log.log
-
-2022-08-22 15:01:44,954 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Alistipes_onderdonkii_55464_downsampled/Alistipes_onderdonkii_55464_empirical_sfs.txt
-	nu_prime = 2.22291146e-05
-	tau_prime = 3.89330882e-06
-	mask_singletons = True
-	mask_doubletons = False
-	outprefix = ../Analysis/Alistipes_onderdonkii_55464_downsampled/
-
-2022-08-22 15:01:44,957 - INFO - Beginning demographic inference for two-epoch demographic model.
-2022-08-22 15:06:07,137 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
-
-2022-08-22 15:06:07,137 - INFO - Progress is being logged to ../Analysis/Alistipes_onderdonkii_55464_downsampled/log.log
-
-2022-08-22 15:06:07,137 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Alistipes_onderdonkii_55464_downsampled/Alistipes_onderdonkii_55464_empirical_sfs.txt
-	nu_prime = 2.22291146e-05
-	tau_prime = 3.89330882e-06
-	mask_singletons = True
-	mask_doubletons = False
-	outprefix = ../Analysis/Alistipes_onderdonkii_55464_downsampled/
-
-2022-08-22 15:06:07,140 - INFO - Beginning demographic inference for two-epoch demographic model.
-2022-08-22 15:08:58,833 - INFO - Finished plotting likelihood surface.
-2022-08-22 15:08:58,834 - INFO - Pipeline executed succesfully.
-2022-08-22 15:22:57,800 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
-
-2022-08-22 15:22:57,801 - INFO - Progress is being logged to ../Analysis/Alistipes_onderdonkii_55464_downsampled/log.log
-
-2022-08-22 15:22:57,801 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Alistipes_onderdonkii_55464_downsampled/Alistipes_onderdonkii_55464_empirical_sfs.txt
-	nu_prime = 2.22291146e-05
-	tau_prime = 3.89330882e-06
-	mask_singletons = True
-	mask_doubletons = False
-	outprefix = ../Analysis/Alistipes_onderdonkii_55464_downsampled/
-
-2022-08-22 15:22:57,803 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-08-25 14:14:45,601 - INFO - Beginning demographic inference for exponential growth demographic model.
+2022-08-25 14:14:45,603 - INFO - Beginning optimization with guess, [7.88050133e-07 9.10206191e-07].
+2022-08-25 14:14:48,471 - INFO - Finished optimization with guess, [7.88050133e-07 9.10206191e-07].
+2022-08-25 14:14:48,472 - INFO - Best fit parameters: [1.13637961e-06 3.81679045e-07].
+2022-08-25 14:14:48,535 - INFO - Maximum log composite likelihood: -51.1656691821.
+2022-08-25 14:14:48,536 - INFO - Optimal value of theta: 8678.34312989.
+2022-08-25 14:14:48,536 - INFO - Beginning optimization with guess, [6.34388154e-06 8.50852927e-07].
+2022-08-25 14:14:52,668 - INFO - Finished optimization with guess, [6.34388154e-06 8.50852927e-07].
+2022-08-25 14:14:52,668 - INFO - Best fit parameters: [2.85645114e-06 9.59768106e-07].
+2022-08-25 14:14:52,732 - INFO - Maximum log composite likelihood: -51.1656435083.
+2022-08-25 14:14:52,733 - INFO - Optimal value of theta: 8679.19908525.
+2022-08-25 14:14:52,733 - INFO - Beginning optimization with guess, [1.54943180e-04 1.18175907e-06].
+2022-08-25 14:14:56,115 - INFO - Finished optimization with guess, [1.54943180e-04 1.18175907e-06].
+2022-08-25 14:14:56,116 - INFO - Best fit parameters: [2.33740457e-05 7.85181504e-06].
+2022-08-25 14:14:56,178 - INFO - Maximum log composite likelihood: -51.1652655306.
+2022-08-25 14:14:56,179 - INFO - Optimal value of theta: 8678.59959182.
+2022-08-25 14:14:56,179 - INFO - Beginning optimization with guess, [9.62583577e-04 1.29548497e-06].
+2022-08-25 14:14:57,865 - INFO - Finished optimization with guess, [9.62583577e-04 1.29548497e-06].
+2022-08-25 14:14:57,865 - INFO - Best fit parameters: [6.08395027e-05 2.05756286e-05].
+2022-08-25 14:14:57,929 - INFO - Maximum log composite likelihood: -51.1664501921.
+2022-08-25 14:14:57,930 - INFO - Optimal value of theta: 8693.8690929.
+2022-08-25 14:14:57,930 - INFO - Beginning optimization with guess, [5.12780637e-03 7.17466836e-07].

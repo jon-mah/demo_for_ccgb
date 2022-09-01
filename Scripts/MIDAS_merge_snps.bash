@@ -15,4 +15,6 @@ export MIDAS_DB=/u/project/ngarud/Garud_lab/midas_db_v1.2
 
 OUTDIR=../Data/oral_microbiome_data/merged_data
 module load singularity
-singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif merge_midas.py snps $OUTDIR/snps -i ../Data/oral_microbiome_data/fastq_MIDAS_intermediate -t dir --sample_depth 5 --site_depth 3 --min_samples 1 --site_prev 0.0
+singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif merge_midas.py snps $OUTDIR/snps -i ../Data/oral_microbiome_data/midas_output -t dir --sample_depth 5 --site_depth 3 --min_samples 1 --site_prev 0.0
+
+# merge_midas.py snps $OUTDIR/snps -i ../Data/oral_microbiome_data/midas_output -t dir –sample_depth 5 –site_depth 3 –min_samples 1 –site_prev 0.0

@@ -15,4 +15,12 @@ export MIDAS_DB=/u/project/ngarud/Garud_lab/midas_db_v1.2
 
 OUTDIR=../Data/oral_microbiome_data/merged_data
 module load singularity
-singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif merge_midas.py genes $OUTDIR/genes -i ../Data/oral_microbiome_data/fastq_MIDAS_intermediate -t dir --sample_depth 1 --min_samples 1
+singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif merge_midas.py genes $OUTDIR/genes -i ../Data/oral_microbiome_data/midas_output -t dir --sample_depth 1 --min_samples 1
+
+# module load python/2.7.18
+# module load midas
+# . /u/local/apps/midas/1.3.2/python-2.7.18-MIDAS-VE/bin/activate
+
+# run_midas.py species ${OUTDIR}/ -1 ${file_1} -2 ${file_2} --remove_temp
+
+# merge_midas.py genes $OUTDIR/genes -i ../Data/oral_microbiome_data/midas_output -t dir --sample_depth 1 --min_samples 1

@@ -6,6 +6,10 @@ JCM 20220824
 
 import sys
 import os
+os.environ["MKL_NUM_THREADS"] = "1" 
+os.environ["NUMEXPR_NUM_THREADS"] = "1" 
+os.environ["OMP_NUM_THREADS"] = "1" 
+
 import logging
 import time
 import argparse
@@ -76,9 +80,6 @@ class ConstructSpeciesUnion():
                 host_srs_dict[subject_id] = [SRS]
             else:
                 host_srs_dict[subject_id].append(SRS)
-
-        # Numpy options
-        numpy.set_printoptions(linewidth=numpy.inf)
 
         species_set = set()
         for file in host_srs_dict[input_host]:

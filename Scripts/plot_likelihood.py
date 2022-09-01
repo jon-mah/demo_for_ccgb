@@ -424,8 +424,8 @@ class PlotLikelihood():
                 max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
-                nx = 15
-                ny = 15
+                nx = 5
+                ny = 5
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
                                       numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')

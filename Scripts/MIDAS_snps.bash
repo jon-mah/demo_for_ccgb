@@ -6,10 +6,12 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l highp
-#$ -l time=48:00:00
-#$ -t 1-339
+#$ -l time=8:00:00
+#$ -t 148
 
-# 182, 276
+# 339 files
+
+# SGE_TASK_ID=1
 
 # module load python/2.7
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
@@ -43,8 +45,10 @@ file_1=${INDIR}/${file}.denovo_duplicates_marked.trimmed.1.fastq.gz
 file_2=${INDIR}/${file}.denovo_duplicates_marked.trimmed.2.fastq.gz
 species_union=../Data/oral_microbiome_data/species_union/${file}/species_union.txt
 
-module load python/2.7.18
-module load midas
-. /u/local/apps/midas/1.3.2/python-2.7.18-MIDAS-VE/bin/activate
+# module load python/2.7.18
+# module load midas
+# . /u/local/apps/midas/1.3.2/python-2.7.18-MIDAS-VE/bin/activate
 
-run_midas.py snps $OUTDIR -1 ${file_1} -2 ${file_2} --extra_species_file $species_unio --remove_temp
+singularity exec $H2_CONTAINER_LOC/MIDAS-mod.sif run_midas.py snps $OUTDIR -1 $file_1 -2 $file_2 --extra_species_file $species_union --remove_temp
+
+# run_midas.py snps $OUTDIR -1 ${file_1} -2 ${file_2} -extra_species_file $species_union --remove_temp
