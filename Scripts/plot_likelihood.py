@@ -455,6 +455,7 @@ class PlotLikelihood():
                         # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
+                z_mid = (z_min + z_max) / 2
 
                 fig, ax = plt.subplots()
 
@@ -462,13 +463,12 @@ class PlotLikelihood():
                        norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
                                               vmin=z_min, vmax=z_max),
                        cmap='RdBu_r')
-                # fig.colorbar(c, ax=ax)
-                ax.set_title('pcolormesh')
                 # set the limits of the plot to the limits of the data
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 fig.colorbar(c, ax=ax)
                 # ax.set_yscale('log')
                 # ax.set_xscale('log')
+                ax.ticklabel_format(style='sci', axis='both')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
@@ -479,3 +479,5 @@ class PlotLikelihood():
 
 if __name__ == '__main__':
     PlotLikelihood().main()
+
+
