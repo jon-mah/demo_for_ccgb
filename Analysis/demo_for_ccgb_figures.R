@@ -571,7 +571,89 @@ over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort=
 over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$pairwise_across_pi = 
   compute_pi(over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
 
-better_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=Cohort)) +
+over_10_df$ordered_pi = 0
+
+over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Bifidobacterium_longum_57796' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Blautia_wexlerae_56130' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Butyrivibrio_crossotus_61674' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Clostridium_sp_61482' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Eubacterium_eligens_61678' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Escherichia_coli_58110' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_cf_62236' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_61481' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_57453' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Faecalibacterium_prausnitzii_62201' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Oscillibacter_sp_60799' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Prevotella_copri_61740' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Roseburia_inulinivorans_61943' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Ruminococcus_bromii_62047' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_10_df[over_10_df$species=='Ruminococcus_torques_62045' & over_10_df$Cohort==' African', ]$pairwise_across_pi)
+
+better_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=reorder(species, ordered_pi), y=average_pi, fill=Cohort)) +
   geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
   geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
   geom_point(aes(x=species, y=pairwise_across_pi, color=Cohort), size=4, shape=16, position=position_dodge(width=0.75)) +

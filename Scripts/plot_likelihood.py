@@ -424,8 +424,8 @@ class PlotLikelihood():
                 max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
-                nx = 25
-                ny = 25
+                nx = 15
+                ny = 15
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
                                       numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')
@@ -456,7 +456,8 @@ class PlotLikelihood():
 
                 fig, ax = plt.subplots()
 
-                c = ax.pcolormesh(x, y, z, vmin=z_min, vmax=z_max)
+                c = ax.pcolormesh(x, y, z, cmap='RdBu', vmin=z_min, vmax=z_max)
+                fig.colorbar(c, ax=ax)
                 ax.set_title('pcolormesh')
                 # set the limits of the plot to the limits of the data
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
