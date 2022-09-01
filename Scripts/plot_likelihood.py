@@ -457,15 +457,29 @@ class PlotLikelihood():
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
                 z_mid = (z_min + z_max) / 2
 
-                fig, ax = plt.subplots()
+                #  fig, ax = plt.subplots()
 
-                c = ax.pcolormesh(x, y, z,
-                       norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
-                                              vmin=z_min, vmax=z_max),
-                       cmap='RdBu_r')
+                # c = ax.pcolormesh(x, y, z,
+                #        norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
+                #                               vmin=z_min, vmax=z_max),
+                #        cmap='RdBu_r')
                 # set the limits of the plot to the limits of the data
+                # ax.axis([x.min(), x.max(), y.min(), y.max()])
+                
+                fig = plt.figure()
+                ax = fig.add_subplot(111)
+                plt.pcolor(x, y, z, 
+                           norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
+                                                             vmin=z_min,vmax=z_max),
+                           cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                fig.colorbar(c, ax=ax)
+                v1 = numpy.linspace(z_min, z_max, 8, endpoint=True)
+                cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
+                cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
+                # fig.colorbar(c, ax=ax)
+                # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
+                # cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
+                # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
                 # ax.set_yscale('log')
                 # ax.set_xscale('log')
                 ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
@@ -479,5 +493,3 @@ class PlotLikelihood():
 
 if __name__ == '__main__':
     PlotLikelihood().main()
-
-
