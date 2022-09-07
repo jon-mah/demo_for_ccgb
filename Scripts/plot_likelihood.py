@@ -477,16 +477,8 @@ class PlotLikelihood():
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
                 mle = [numpy.mean(x), numpy.mean(y)]
-                print(mle)
-                # plt.pcolor(x, y, z,
-                #            norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
-                #                                              vmin=z_min,vmax=z_max),
-                #             cmap='RdBu_r')
+                plt.plot(mle, marker = 'o', ms = 20, mec = 'g', mfc = 'r')
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
-                # pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
-                #                     cmap='RdBu_r', shading='auto')
-                # plt.pcolor(x, y, z,
-                #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
                 bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
@@ -508,7 +500,6 @@ class PlotLikelihood():
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
-                plt.plot(mle, marker = 'o', ms = 20, mec = 'k', mfc = 'w')
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
