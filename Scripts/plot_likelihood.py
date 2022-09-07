@@ -443,8 +443,8 @@ class PlotLikelihood():
                 max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
-                nx = 15
-                ny = 15
+                nx = 20
+                ny = 20
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
                                       numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')
@@ -497,9 +497,7 @@ class PlotLikelihood():
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                v1 = numpy.linspace(z_min, z_max, 10, endpoint=True)
-                v_a = [z_max]
-                v1 = numpy.concatenate((v_a, v_b))
+                v1 = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
                 cbar=plt.colorbar(ticks=[z_min, z_max - 15, z_max - 10,
                                          z_max - 6, z_max - 3, z_max])
                 cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
