@@ -496,7 +496,7 @@ class PlotLikelihood():
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
-                norm = colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
+                norm = matplotlib.colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
                 plt.pcolor(x, y, z,
                            norm=norm, cmap='nipy_spectral', shading='auto')
                 cbar=plt.colorbar(ticks=[z_min, z_max - 15, z_max - 10,
