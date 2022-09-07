@@ -472,7 +472,7 @@ class PlotLikelihood():
                         # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
-                z_mid = 0.8 * z_max  + 0.2  * z_min
+                z_mid = z_max - 15
 
                 #  fig, ax = plt.subplots()
 
@@ -498,7 +498,10 @@ class PlotLikelihood():
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 v1 = numpy.linspace(z_min, z_max, 10, endpoint=True)
-                cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
+                v_a = [z_max]
+                v1 = numpy.concatenate((v_a, v_b))
+                cbar=plt.colorbar(ticks=[z_min, z_max - 15, z_max - 10,
+                                         z_max - 6, z_max - 3, z_max])
                 cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
                 # fig.colorbar(c, ax=ax)
                 # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
