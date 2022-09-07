@@ -474,15 +474,6 @@ class PlotLikelihood():
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
                 z_mid = z_max - 15
 
-                #  fig, ax = plt.subplots()
-
-                # c = ax.pcolormesh(x, y, z,
-                #        norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
-                #                               vmin=z_min, vmax=z_max),
-                #        cmap='RdBu_r')
-                # set the limits of the plot to the limits of the data
-                # ax.axis([x.min(), x.max(), y.min(), y.max()])
-
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
                 mle = [numpy.mean(x), numpy.mean(y)]
@@ -496,11 +487,12 @@ class PlotLikelihood():
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                bounds_1 = numpy.linspace(z_max, z_max  - 15, num=5)
-                bounds_2 = numpy.linspace(z_max - 15, z_min, num=5)
-                bounds = numpy.concatenate(bounds_1, bounds_2)
+                bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
+                bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
+                bounds = numpy.concatenate((bounds_1, bounds_2))
+                print(bounds)
                 # bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
-                norm = colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
+                norm = matplotlib.colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
                 plt.pcolor(x, y, z,
                            norm=norm, cmap='RdBu_r', shading='auto')
                 cbar=plt.colorbar(ticks=bounds)
