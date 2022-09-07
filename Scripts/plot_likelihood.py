@@ -477,6 +477,7 @@ class PlotLikelihood():
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
                 mle = [numpy.mean(x), numpy.mean(y)]
+                print(mle)
                 # plt.pcolor(x, y, z,
                 #            norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
                 #                                              vmin=z_min,vmax=z_max),
