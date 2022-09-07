@@ -442,7 +442,7 @@ class PlotLikelihood():
                 # min_nu = 0.1 * nu_prime
                 # max_nu = 1.9 * nu_prime
                 min_nu = 0.1 * nu_prime
-                max_nu = 1.0
+                max_nu = 2.0
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
                 nx = 20
