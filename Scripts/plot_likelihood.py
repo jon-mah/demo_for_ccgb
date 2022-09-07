@@ -507,7 +507,7 @@ class PlotLikelihood():
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
-                plt.plot(mle, 'go')
+                plt.plot(mle, marker = 'o', ms = 20, mec = 'k', mfc = 'w')
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
