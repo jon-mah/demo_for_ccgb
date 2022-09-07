@@ -492,15 +492,16 @@ class PlotLikelihood():
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
                 # pcm = ax.pcolormesh(x, y, z, rasterized=True, norm=midnorm,
                 #                     cmap='RdBu_r', shading='auto')
-                plt.pcolor(x, y, z,
-                           norm=midnorm, cmap='plasma', shading='auto')
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                v1 = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
+                bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
+                norm = colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
+                plt.pcolor(x, y, z,
+                           norm=norm, cmap='nipy_spectral', shading='auto')
                 cbar=plt.colorbar(ticks=[z_min, z_max - 15, z_max - 10,
                                          z_max - 6, z_max - 3, z_max])
-                cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
+                cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in bounds]) # add the labels
                 # fig.colorbar(c, ax=ax)
                 # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
                 # cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
