@@ -443,8 +443,8 @@ class PlotLikelihood():
                 max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
-                nx = 20
-                ny = 20
+                nx = 10
+                ny = 10
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
                                       numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')
@@ -485,6 +485,7 @@ class PlotLikelihood():
 
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
+                mle = [numpy.mean(x), numpy.mean(y)]
                 # plt.pcolor(x, y, z,
                 #            norm=matplotlib.colors.SymLogNorm(linthresh=0.03, linscale=0.03,
                 #                                              vmin=z_min,vmax=z_max),
@@ -495,12 +496,14 @@ class PlotLikelihood():
                 # plt.pcolor(x, y, z,
                 #             norm=matplotlib.colors.CenteredNorm(), cmap='RdBu_r')
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
-                norm = matplotlib.colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
+                bounds_1 = numpy.linspace(z_max, z_max  - 15, num=5)
+                bounds_2 = numpy.linspace(z_max - 15, z_min, num=5)
+                bounds = numpy.concatenate(bounds_1, bounds_2)
+                # bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
+                norm = colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
                 plt.pcolor(x, y, z,
-                           norm=norm, cmap='nipy_spectral', shading='auto')
-                cbar=plt.colorbar(ticks=[z_min, z_max - 15, z_max - 10,
-                                         z_max - 6, z_max - 3, z_max])
+                           norm=norm, cmap='RdBu_r', shading='auto')
+                cbar=plt.colorbar(ticks=bounds)
                 cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in bounds]) # add the labels
                 # fig.colorbar(c, ax=ax)
                 # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
@@ -512,6 +515,7 @@ class PlotLikelihood():
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
+                plt.plot(mle, 'go')
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
