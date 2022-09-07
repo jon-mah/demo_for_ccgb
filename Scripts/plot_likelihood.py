@@ -439,10 +439,10 @@ class PlotLikelihood():
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
-                min_nu = 0.1 * nu_prime
-                max_nu = 1.9 * nu_prime
                 # min_nu = 0.1 * nu_prime
-                # max_nu = 2.0
+                # max_nu = 1.9 * nu_prime
+                min_nu = 0.1 * nu_prime
+                max_nu = 1.0
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
                 nx = 20
@@ -479,7 +479,7 @@ class PlotLikelihood():
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
                 mle = [numpy.mean(x), numpy.mean(y)]
-                plt.plot(mle, marker = 'o', ms = 20, mec = 'g', mfc = 'r')
+                plt.plot(mle, marker = 'o', ms = 20, mec = 'g', mfc = 'g')
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
