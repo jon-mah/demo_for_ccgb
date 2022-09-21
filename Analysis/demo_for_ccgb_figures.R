@@ -671,11 +671,25 @@ better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, orde
   theme(plot.background = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
-  theme(axis.text.x = element_text(angle=90, vjust=1.0, hjust=1)) +
+  theme(axis.text.x = element_text(size=rel(1.5), angle=90, vjust=1.0, hjust=1)) +
+  theme(axis.text.y = element_text(size=rel(1.5))) +
+  theme(axis.title.x = element_text(size=rel(1.5))) +
+  theme(axis.title.y = element_text(size=rel(1.5))) +
+  theme(legend.text = element_text(size=rel(1.25))) +
+  theme(legend.title = element_text(size=rel(1.5))) +
   xlab('Species') + 
-  ylab('Average within-host pi') +
-  ggtitle('Pi within hosts and aggregated across hosts, Minimum #hosts >= 5')
+  ylab('Nucleotide Diversity') +
+  ylim(0, 0.03) +
+  stat_compare_means(method='wilcox.test', label = "p.signif", label.x = 1.5,
+                     label.y = 0.0275, size=9)
+  # stat_compare_means(method='wilcox.test', label='p.format')
 better_pi_comparison_iid
+
+distinct_iid_df = distinct(over_iid_df, pairwise_across_pi, .keep_all=TRUE)
+HMP_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' HMP', ]$pairwise_across_pi
+African_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' African', ]$pairwise_across_pi
+
+wilcox.test(HMP_distinct_pairwise, African_distinct_pairwise, paired=TRUE)
 
 # Species prevalence
 species_prevalence = read.csv('../Summary/species_prevalence.txt', sep=',')
