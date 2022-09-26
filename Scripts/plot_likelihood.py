@@ -441,8 +441,6 @@ class PlotLikelihood():
             with open(file, 'w') as f:
                 min_nu = 0.1 * nu_prime
                 max_nu = 1.9 * nu_prime
-                # min_nu = 0.1 * nu_prime
-                # max_nu = 1.0
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
                 nx = 5
