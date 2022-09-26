@@ -445,8 +445,8 @@ class PlotLikelihood():
                 # max_nu = 1.0
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
-                nx = 15
-                ny = 15
+                nx = 5
+                ny = 5
                 x_space = numpy.linspace(min_nu, max_nu, nx)
                 y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
                 x, y = numpy.meshgrid(x_space, y_space,
@@ -499,7 +499,7 @@ class PlotLikelihood():
                 # cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
                 # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
                 ax.set_yscale('log')
-                # ax.set_xscale('log')
+                ax.set_xscale('log')
                 plt.plot(mle, marker = 'o', ms = 20, mec = 'c', mfc = 'c')
                 # ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
                 ax.set_title('Log likelihood surface of given species.')

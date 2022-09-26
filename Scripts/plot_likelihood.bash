@@ -8,7 +8,7 @@
 #$ -l h_rt=04:00:00
 #$ -t 1-6
 
-# SGE_TASK_ID=6
+SGE_TASK_ID=6
 
 # This script infers the demography of a given example synonymous sfs.
 
