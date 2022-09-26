@@ -480,6 +480,7 @@ class PlotLikelihood():
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
                 mle = [mle_x, mle_y]
+                print(mle)
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
                 bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
@@ -498,7 +499,7 @@ class PlotLikelihood():
                 # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
                 ax.set_yscale('log')
                 ax.set_xscale('log')
-                plt.plot(mle, marker = 'o', ms = 20, mec = 'c', mfc = 'c')
+                plt.plot(mle_x, mle_y, 'co')
                 # ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
