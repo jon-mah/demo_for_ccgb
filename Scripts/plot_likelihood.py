@@ -439,14 +439,14 @@ class PlotLikelihood():
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
-                # min_nu = 0.1 * nu_prime
-                # max_nu = 1.9 * nu_prime
                 min_nu = 0.1 * nu_prime
-                max_nu = 1.0
+                max_nu = 1.9 * nu_prime
+                # min_nu = 0.1 * nu_prime
+                # max_nu = 1.0
                 min_tau = 0.1 * tau_prime
                 max_tau = 1.9 * tau_prime
-                nx = 20
-                ny = 20
+                nx = 25
+                ny = 25
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
                                       numpy.linspace(min_tau, max_tau, ny),
                                       indexing='ij')

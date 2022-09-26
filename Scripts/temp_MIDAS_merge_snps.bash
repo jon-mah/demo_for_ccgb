@@ -5,7 +5,7 @@
 #$ -l h_data=15G
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l time=4:00:00
+#$ -l time=1:00:00
 #$ -l highp
 #$ -t 1-21
 
