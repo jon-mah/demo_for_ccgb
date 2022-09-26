@@ -445,14 +445,14 @@ class PlotLikelihood():
                 # max_nu = 1.0
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
-                nx = 10
-                ny = 10
-                x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
-                                      numpy.logspace(min_tau, max_tau, ny),
+                nx = 15
+                ny = 15
+                x_space = numpy.linspace(min_nu, max_nu, nx)
+                y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
+                x, y = numpy.meshgrid(x_space, y_space,
                                       indexing='ij')
                 z_shape = (nx, ny)
                 z = numpy.ones(z_shape)
-                # print(z
                 max_ll = -100000
                 for i in range(nx):
                     for j in range(ny):
@@ -475,8 +475,6 @@ class PlotLikelihood():
                         z[i,  j] = loglik
                         ll_grid.append(ll_array)
                         del ll_array
-                        # f.write(ll_string)
-                        # print(ll_string)
                 # generate 2 2d grids for the x & y bounds
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
                 z_mid = z_max - 15
@@ -486,8 +484,8 @@ class PlotLikelihood():
                 mle = [mle_x, mle_y]
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                bounds_1 = numpy.linspace(z_min, z_mid, endpoint=False, num=4)
-                bounds_2 = numpy.linspace(z_mid, z_max, num=5)
+                bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
+                bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
                 bounds = numpy.concatenate((bounds_1, bounds_2))
                 print(bounds)
                 # bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
@@ -502,8 +500,8 @@ class PlotLikelihood():
                 # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
                 ax.set_yscale('log')
                 # ax.set_xscale('log')
-                plt.plot(mle, marker = 'o', ms = 20, mec = 'c’', mfc = 'c’')
-                ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
+                plt.plot(mle, marker = 'o', ms = 20, mec = 'c', mfc = 'c')
+                # ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
