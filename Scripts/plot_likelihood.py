@@ -444,15 +444,16 @@ class PlotLikelihood():
                 # min_nu = 0.1 * nu_prime
                 # max_nu = 1.0
                 min_tau = 0.1 * tau_prime
-                max_tau = 1.9 * tau_prime
-                nx = 25
-                ny = 25
+                max_tau = 10 * tau_prime
+                nx = 10
+                ny = 10
                 x, y = numpy.meshgrid(numpy.linspace(min_nu, max_nu, nx),
-                                      numpy.linspace(min_tau, max_tau, ny),
+                                      numpy.logspace(min_tau, max_tau, ny),
                                       indexing='ij')
                 z_shape = (nx, ny)
                 z = numpy.ones(z_shape)
-                # print(z)
+                # print(z
+                max_ll = -100000
                 for i in range(nx):
                     for j in range(ny):
                         p0 = [x[i, 0 ], y[0, j]]
@@ -463,6 +464,10 @@ class PlotLikelihood():
                         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
                         loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
+                        if loglik > max_ll:
+                            max_ll = loglik
+                            mle_x = x[i, 0]
+                            mle_y = y[0, j]
                         ll_array = [x[[i]], y[[j]], loglik]
                         # ll_string = str(nu_grid[i]) + ', '
                         # ll_string += str(tau_grid[j]) + ', '
@@ -478,12 +483,11 @@ class PlotLikelihood():
 
                 fig = plt.figure()
                 ax = fig.add_subplot(111)
-                mle = [numpy.mean(x), numpy.mean(y)]
-                plt.plot(mle, marker = 'o', ms = 20, mec = 'g', mfc = 'g')
+                mle = [mle_x, mle_y]
                 midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
                 ax.axis([x.min(), x.max(), y.min(), y.max()])
-                bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
-                bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
+                bounds_1 = numpy.linspace(z_min, z_mid, endpoint=False, num=4)
+                bounds_2 = numpy.linspace(z_mid, z_max, num=5)
                 bounds = numpy.concatenate((bounds_1, bounds_2))
                 print(bounds)
                 # bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
@@ -496,8 +500,9 @@ class PlotLikelihood():
                 # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
                 # cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
                 # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
-                # ax.set_yscale('log')
+                ax.set_yscale('log')
                 # ax.set_xscale('log')
+                plt.plot(mle, marker = 'o', ms = 20, mec = 'c’', mfc = 'c’')
                 ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
