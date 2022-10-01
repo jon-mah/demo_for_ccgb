@@ -504,6 +504,7 @@ class PlotLikelihood():
                 ax.set_yscale('log')
                 ax.set_xscale('log')
                 plt.plot(mle_x, mle_y, 'co')
+                plt.axvline(x = 1.0, color = 'm')
                 # ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
