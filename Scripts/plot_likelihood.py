@@ -383,13 +383,13 @@ class PlotLikelihood():
         # Output files: logfile
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        # output_plot = \
-        #     '{0}{1}likelihood_surface.jpg'.format(
-        #         args['outprefix'], underscore)
-        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         output_plot = \
-            '{0}{1}full_likelihood_surface.jpg'.format(
+            '{0}{1}likelihood_surface.jpg'.format(
                 args['outprefix'], underscore)
+        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
+        # output_plot = \
+        #     '{0}{1}full_likelihood_surface.jpg'.format(
+        #         args['outprefix'], underscore)
         to_remove = [logfile, output_plot]
         # for f in to_remove:
         #     if os.path.isfile(f):
@@ -443,10 +443,10 @@ class PlotLikelihood():
                             'demographic model.')
             with open(file, 'w') as f:
                 min_nu = 0.1 * nu_prime
-                # max_nu = 1.9 * nu_prime
+                max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
-                max_nu = 2.0
+                # max_nu = 2.0
                 nx = 50
                 ny = 50
                 x_space = numpy.linspace(min_nu, max_nu, nx)
