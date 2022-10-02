@@ -5,7 +5,8 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l h_rt=04:00:00
+#$ -l h_rt=08:00:00
+#$ -l highp
 #$ -t 1-6
 
 # SGE_TASK_ID=5
