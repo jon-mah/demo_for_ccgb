@@ -464,13 +464,15 @@ class PlotLikelihood():
                             lower_bound=lower_bound, upper_bound=upper_bound,
                             verbose=len(p0), maxiter=0)
                         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
+                        theta = dadi.Inference.optimal_sfs_scaling(
+                            non_scaled_spectrum, syn_data)
                         loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
                         if loglik > max_ll:
                             max_ll = loglik
                             mle_x = x[i, 0]
                             mle_y = y[0, j]
-                        ll_array = [x[[i]], y[[j]], loglik]
+                        ll_array = [x[[i, 0]], y[[0, j]], theta, loglik]
                         # ll_string = str(nu_grid[i]) + ', '
                         # ll_string += str(tau_grid[j]) + ', '
                         # ll_string += str(loglik)
