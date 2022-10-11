@@ -21,7 +21,7 @@ import matplotlib
 matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
 import matplotlib.pyplot as plt
 from matplotlib import ticker, cm
-
+import pandas as pd
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -477,6 +477,8 @@ class PlotLikelihood():
                         z[i,  j] = loglik
                         ll_grid.append(ll_array)
                         del ll_array
+                ll_df = pd.DataFrame(ll_grid)
+                ll_df.to_csv('ll_df.csv')
                 # generate 2 2d grids for the x & y bounds
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
                 z_mid = z_max - 15
@@ -509,7 +511,7 @@ class PlotLikelihood():
                 ax.set_title('Log likelihood surface of given species.')
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
-                matplotlib.pyplot.grid(color='k', linestyle='-', linewidth=2)
+                matplotlib.pyplot.grid(color='k', linestyle='-', linewidth=2, which='both')
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
