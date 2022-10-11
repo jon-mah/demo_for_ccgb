@@ -6,6 +6,7 @@ library(ggsignif)
 library(ggpubr)
 library(dplyr)
 library(fitdistrplus)
+library(scales)
 
 compute_pi = function(input) {
   return(input * runif(1, min=0.5, max=0.65))
@@ -677,11 +678,15 @@ better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, orde
   theme(axis.title.y = element_text(size=rel(1.5))) +
   theme(legend.text = element_text(size=rel(1.25))) +
   theme(legend.title = element_text(size=rel(1.5))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x,)),
+                limits = c(0.0001, 0.2)) +
   xlab('Species') + 
   ylab('Nucleotide Diversity') +
-  ylim(0, 0.03) +
-  stat_compare_means(method='wilcox.test', label = "p.signif", label.x = 1.5,
-                     label.y = 0.0275, size=9)
+  # ylim(0, 0.03) +
+  # stat_compare_means(method='wilcox.test', label = "p.signif", label.x = 0.75,
+  #                    label.y = 0.0275, size=6)
+  stat_compare_means(method='wilcox.test', label='p.signif', size=6)
   # stat_compare_means(method='wilcox.test', label='p.format')
 better_pi_comparison_iid
 
@@ -726,6 +731,14 @@ rho_mu_plot = ggplot(aes(x=species, y=rho_ratio), data = rho_mu) +
   xlab('Species') +
   ylab('Rho / mu')
 
+rho_mu_plot
+
+rho_mu_plot = ggplot(aes(x = reorder(species, -rho_ratio), y = rho_ratio), data = rho_mu) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle('Rate of recombination vs. mutation in commensal gut species') +
+  xlab('Species') +
+  ylab('Rho / mu')
 
 rho_mu_plot
 
