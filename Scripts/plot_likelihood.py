@@ -447,8 +447,8 @@ class PlotLikelihood():
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
                 # max_nu = 2.0
-                nx = 5
-                ny = 5
+                nx = 1
+                ny = 1
                 x_space = numpy.linspace(min_nu, max_nu, nx)
                 y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
                 x, y = numpy.meshgrid(x_space, y_space,
@@ -458,7 +458,8 @@ class PlotLikelihood():
                 max_ll = -100000
                 for i in range(nx):
                     for j in range(ny):
-                        p0 = [x[i, 0 ], y[0, j]]
+                        # p0 = [x[i, 0 ], y[0, j]]
+                        p0 = [nu_prime, tau_prime]
                         popt = dadi.Inference.optimize_log_lbfgsb(
                             p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                             lower_bound=lower_bound, upper_bound=upper_bound,
