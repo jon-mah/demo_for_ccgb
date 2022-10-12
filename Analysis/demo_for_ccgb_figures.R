@@ -1046,3 +1046,73 @@ p_b_thetaiotaomicron_downsampled_delta <- ggplot(data = melt(b_thetaiotaomicron_
                 y = 0.0015)) 
 
 p_b_thetaiotaomicron_downsampled_delta
+
+input_csv = read.csv('temp_output.txt', header=FALSE)
+names(input_csv) = c('likelihood', 'nu', 'tau')
+plot = ggplot(data=input_csv, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+plot
+
+
+input_csv_2 = read.csv('temp_output_2.txt', header=FALSE)
+names(input_csv_2) = c('likelihood', 'nu', 'tau')
+
+input_csv_2[input_csv_2$likelihood < -150, ]$likelihood = -150
+
+plot_2 = ggplot(data=input_csv_2, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+plot_2
+
+input_csv_3 = read.csv('temp_output/b_thetaiotaomicron_scatter.txt', header=FALSE)
+names(input_csv_3) = c('likelihood', 'nu', 'tau')
+
+input_csv_3[input_csv_3$likelihood < -150, ]$likelihood = -150
+
+input_csv_4 = read.csv('temp_output/b_xylanisolvens_scatter.txt', header=FALSE)
+names(input_csv_4) = c('likelihood', 'nu', 'tau')
+
+input_csv_4[input_csv_4$likelihood < -150, ]$likelihood = -150
+
+input_csv_5 = read.csv('temp_output/b_intestinihominis_scatter.txt', header=FALSE)
+names(input_csv_5) = c('likelihood', 'nu', 'tau')
+
+input_csv_5[input_csv_5$likelihood < -150, ]$likelihood = -150
+
+input_csv_6 = read.csv('temp_output/p_distasonis_scatter.txt', header=FALSE)
+names(input_csv_6) = c('likelihood', 'nu', 'tau')
+
+input_csv_6[input_csv_6$likelihood < -150, ]$likelihood = -150
+
+scatter_b_thetaiotaomicron = ggplot(data=input_csv_3, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+scatter_b_thetaiotaomicron
+
+scatter_b_xylanisolvens = ggplot(data=input_csv_4, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+scatter_b_xylanisolvens
+
+scatter_b_intestinihominis = ggplot(data=input_csv_5, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+scatter_b_intestinihominis
+
+scatter_p_distasonis = ggplot(data=input_csv_6, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+scatter_p_distasonis
