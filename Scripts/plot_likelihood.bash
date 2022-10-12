@@ -5,11 +5,11 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l h_rt=00:10:00
+#$ -l h_rt=12:00:00
 #$ -l highp
 #$ -t 1-6
 
-SGE_TASK_ID=5
+$ SGE_TASK_ID=5
 
 # This script infers the demography of a given example synonymous sfs.
 
