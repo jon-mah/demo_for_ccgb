@@ -447,8 +447,8 @@ class PlotLikelihood():
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
                 # max_nu = 2.0
-                nx = 50
-                ny = 50
+                nx = 1
+                ny = 1
                 x_space = numpy.linspace(min_nu, max_nu, nx)
                 y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
                 x, y = numpy.meshgrid(x_space, y_space,
@@ -470,10 +470,15 @@ class PlotLikelihood():
                             non_scaled_spectrum, syn_data)
                         loglik = dadi.Inference.ll_multinom(
                             model=non_scaled_spectrum, data=syn_data)
+                        theta = dadi.Inference.optimal_sfs_scaling(
+                            non_scaled_spectrum, syn_data)
                         if loglik > max_ll:
                             max_ll = loglik
                             mle_x = x[i, 0]
                             mle_y = y[0, j]
+                            best_non_scaled_spectrum = non_scaled_spectrum
+                            best_theta = theta
+                            best_scaled_spectrum = best_theta * best_non_scaled_spectrum
                         ll_array = [x[[i, 0]], y[[0, j]], theta, loglik]
                         # ll_string = str(nu_grid[i]) + ', '
                         # ll_string += str(tau_grid[j]) + ', '
@@ -516,10 +521,14 @@ class PlotLikelihood():
                 ax.set_ylabel('tau')
                 ax.set_xlabel('nu')
                 matplotlib.pyplot.grid(color='k', linestyle='-', linewidth=2, which='both')
-                plt.savefig(file)
+                # plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
         logger.info('The best fit parameters are: ' + str(mle)+ '.')
+        logger.info('Non-scaled best-fit model spectrum: {0}.\n'.format(
+            best_non_scaled_spectrum))
+        logger.info('Scaled best-fit model spectrum: {0}.\n'.format(
+            best_scaled_spectrum))
 
 if __name__ == '__main__':
     PlotLikelihood().main()

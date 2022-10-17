@@ -1096,11 +1096,20 @@ scatter_b_thetaiotaomicron = ggplot(data=input_csv_3, aes(x=nu, y=tau)) +
   scale_y_continuous(trans='log10')
 scatter_b_thetaiotaomicron
 
+input_csv_4 = input_csv_4[order(-input_csv_4$likelihood), ]
+
+input_csv_4[input_csv_4$tau < 0.0001, ]
+
+input_csv_4[input_csv_4$tau < 0.00001, ]
+
 scatter_b_xylanisolvens = ggplot(data=input_csv_4, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
+  scale_y_continuous(trans='log10') +
+  geom_point(aes(x=4.06991e-05, y=0.000467818), color='red', size=2) +
+  geom_point(aes(x=0.000631269, y=4.55855e-05), color='orange', size=2) +
+  geom_point(aes(x=0.001183690, y=2.92090e-06), color='violet', size=2)
 scatter_b_xylanisolvens
 
 scatter_b_intestinihominis = ggplot(data=input_csv_5, aes(x=nu, y=tau)) + 
