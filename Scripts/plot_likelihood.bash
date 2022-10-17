@@ -4,14 +4,24 @@
 #$ -N plot_likelihood
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=25G
-#$ -l h_rt=12:00:00
+#$ -l h_data=15G
+#$ -l h_rt=00:10:00
 #$ -l highp
-#$ -t 1-6
+#$ -t 1-3
 
 $ SGE_TASK_ID=5
 
 # This script infers the demography of a given example synonymous sfs.
+
+# i=0
+# while read line;
+#   do
+#     i=$((i+1))
+#     # echo $line
+#     if [ $i -eq $SGE_TASK_ID ]; then
+#         file=$line
+#     fi
+# done < ./likelihood_list.txt
 
 i=0
 while read line;
@@ -21,7 +31,7 @@ while read line;
     if [ $i -eq $SGE_TASK_ID ]; then
         file=$line
     fi
-done < ./likelihood_list.txt
+done < ./b_xylanisolvens_likelihood_list.txt
 
 python $file
 

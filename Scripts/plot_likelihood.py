@@ -391,9 +391,9 @@ class PlotLikelihood():
         #     '{0}{1}full_likelihood_surface.jpg'.format(
         #         args['outprefix'], underscore)
         to_remove = [logfile, output_plot]
-        # for f in to_remove:
-        #     if os.path.isfile(f):
-        #         os.remove(f)
+        for f in to_remove:
+            if os.path.isfile(f):
+                os.remove(f)
 
         # Set up to log everything to logfile.
         logging.shutdown()
@@ -492,35 +492,35 @@ class PlotLikelihood():
                 z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
                 z_mid = z_max - 15
 
-                fig = plt.figure()
-                ax = fig.add_subplot(111)
+                # fig = plt.figure()
+                # ax = fig.add_subplot(111)
                 mle = [mle_x, mle_y]
-                print(mle)
-                midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
-                ax.axis([x.min(), x.max(), y.min(), y.max()])
-                bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
-                bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
-                bounds = numpy.concatenate((bounds_1, bounds_2))
-                print(bounds)
+                # print(mle)
+                # midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
+                # ax.axis([x.min(), x.max(), y.min(), y.max()])
+                # bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
+                # bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
+                # bounds = numpy.concatenate((bounds_1, bounds_2))
+                # print(bounds)
                 # bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
-                norm = matplotlib.colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
-                plt.pcolor(x, y, z,
-                           norm=norm, cmap='RdBu_r', shading='auto')
-                cbar=plt.colorbar(ticks=bounds)
-                cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in bounds]) # add the labels
+                # norm = matplotlib.colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
+                # plt.pcolor(x, y, z,
+                #            norm=norm, cmap='RdBu_r', shading='auto')
+                # cbar=plt.colorbar(ticks=bounds)
+                # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in bounds]) # add the labels
                 # fig.colorbar(c, ax=ax)
                 # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
                 # cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
                 # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
-                ax.set_yscale('log')
-                ax.set_xscale('log')
-                plt.plot(mle_x, mle_y, 'co')
-                plt.axvline(x = 1.0, color = 'm')
+                # ax.set_yscale('log')
+                # ax.set_xscale('log')
+                # plt.plot(mle_x, mle_y, 'co')
+                # plt.axvline(x = 1.0, color = 'm')
                 # ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
-                ax.set_title('Log likelihood surface of given species.')
-                ax.set_ylabel('tau')
-                ax.set_xlabel('nu')
-                matplotlib.pyplot.grid(color='k', linestyle='-', linewidth=2, which='both')
+                # ax.set_title('Log likelihood surface of given species.')
+                # ax.set_ylabel('tau')
+                # ax.set_xlabel('nu')
+                # matplotlib.pyplot.grid(color='k', linestyle='-', linewidth=2, which='both')
                 # plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
