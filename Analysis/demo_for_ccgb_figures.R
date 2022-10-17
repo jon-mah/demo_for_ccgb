@@ -7,11 +7,33 @@ library(ggpubr)
 library(dplyr)
 library(fitdistrplus)
 library(scales)
+library(reshape2)
 
 compute_pi = function(input) {
   return(input * runif(1, min=0.5, max=0.65))
 }
 
+fold_sfs = function(input_sfs) {
+  input_length = length(input_sfs)
+  folded_length = length(input_sfs) / 2
+  if (input_length %% 2 == 1) {
+    folded_length = folded_length + 1
+  }
+  output_sfs = c()
+  for (i in 1:folded_length) {
+    if (input_sfs[i] == input_sfs[input_length - i + 1]) {
+      output_sfs[i] = input_sfs[i]
+    } else {
+      output_sfs[i] = input_sfs[i] + input_sfs[input_length - i + 1]
+    }
+  }
+  return(output_sfs)
+}
+
+proportional_sfs = function(input_sfs) {
+  input_sfs[1] = 0
+  return (input_sfs / sum(input_sfs))
+}
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -1102,14 +1124,208 @@ input_csv_4[input_csv_4$tau < 0.0001, ]
 
 input_csv_4[input_csv_4$tau < 0.00001, ]
 
+b_xylanisolvens_downsampled_empirical = c(2354.975426140429,
+                                          1125.802067113204, 809.8079494704909,
+                                          689.0643046976489, 622.4599121761868,
+                                          562.9077350396836, 521.9242943638338,
+                                          498.4492947002323, 483.0524634080177,
+                                          240.2388435326407)
+
+b_xylanisolvens_downsampled_red = fold_sfs(c(2225.8375688163587, 1112.9189983969616,
+                                             741.946017393644, 556.4595253498074,
+                                             445.1676295107077, 370.9730318372629,
+                                             317.9768902767878, 278.2297837939835,
+                                             247.31536736626893, 222.58383397882884,
+                                             202.34894280359518, 185.486533288166,
+                                             171.21834043457568, 158.98846067272606,
+                                             148.38923138441444, 139.11490560600612,
+                                             130.93167683575913, 123.6576955724437,
+                                             117.14939642030969))
+
+b_xylanisolvens_downsampled_orange = fold_sfs(c(1354.6450720818552, 964.1121714611451,
+                                                723.3597958043349, 567.8574193786202,
+                                                462.71067502604933, 388.4800696665438,
+                                                333.988234526398, 292.59153993815636,
+                                                260.2041943786457, 234.22626049010108,
+                                                212.9474333685768, 195.20663452063698,
+                                                180.19229972042848, 167.32190788610325,
+                                                156.16725916101194, 146.40684653213373,
+                                                137.79469013723616, 130.13943250581772,
+                                                123.28998955486668))
+
+b_xylanisolvens_downsampled_violet = fold_sfs(c(2150.301238110714, 1111.0540590328678,
+                                                742.1488683045079, 556.7010970246465,
+                                                445.36807402550346, 371.14075768398175,
+                                                318.1207296252597, 278.35565159531444,
+                                                247.4272504985305, 222.68452850602046,
+                                                202.4404829010326, 185.57044467799253,
+                                                171.29579676175558, 159.06038408863958,
+                                                148.45635961048444, 139.17783804093617,
+                                                130.990907102119, 123.71363502234682,
+                                                117.2023914555424))
+
+b_xylanisolvens_downsampled_one_epoch = fold_sfs(c(2225.8375946491637, 1112.9190090884904,
+                                                   741.9460230393622, 556.4595284726163,
+                                                   445.16763111997324, 370.9730324378159,
+                                                   317.97689015707357, 278.22978313422897,
+                                                   247.31536628656738, 222.58383256325666,
+                                                   202.34894111319673, 185.48653136871667,
+                                                   171.21833832126538, 158.98845839321308,
+                                                   148.38922896089073, 139.11490305652447,
+                                                   130.93167417529625, 123.65769281345032,
+                                                   117.14939357325068))
+
+b_xylanisolvens_downsampled_two_epoch = fold_sfs(c(1354.7424693587352, 964.1545370204719,
+                                                   723.3720688058446, 567.8574177822163,
+                                                   462.70629991290303, 388.4744983802059,
+                                                   333.98264785739957, 292.58632056979917,
+                                                   260.1994236208664, 234.22191614360744,
+                                                   212.94346498536052, 195.20298995814255,
+                                                   180.18893310882493, 167.31878094576342,
+                                                   156.1643404299584, 146.4041101466808,
+                                                   137.79211469511313, 130.13700013878122,
+                                                   123.28768520619438))
+
+b_xylanisolvens_downsampled_x_axis = 1:length(b_xylanisolvens_downsampled_empirical)
+
+b_xylanisolvens_downsampled_df = data.frame(b_xylanisolvens_downsampled_empirical,
+                                            b_xylanisolvens_downsampled_red,
+                                            b_xylanisolvens_downsampled_orange,
+                                            b_xylanisolvens_downsampled_violet,
+                                            b_xylanisolvens_downsampled_x_axis,
+                                            b_xylanisolvens_downsampled_one_epoch,
+                                            b_xylanisolvens_downsampled_two_epoch)
+
+
+names(b_xylanisolvens_downsampled_df) = c('Empirical',
+                                          'Red',
+                                          'Orange',
+                                          'Violet',
+                                          'x_axis',
+                                          'One epoch',
+                                          'Two epoch')
+
+p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_downsampled_df, id='x_axis'),
+                                                   aes(x=x_axis, 
+                                                       y=value,
+                                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Parameter Estimate") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_downsampled_x_axis, limits=c(0.5, length(b_xylanisolvens_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Xylanisolvens (Downsampled, Raw Counts)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(values = c('black', 'red', 'orange', 'violet', 'blue', 'green')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_xylanisolvens_downsampled_comparison
+
+b_xylanisolvens_downsampled_empirical = proportional_sfs(c(2354.975426140429,
+                                          1125.802067113204, 809.8079494704909,
+                                          689.0643046976489, 622.4599121761868,
+                                          562.9077350396836, 521.9242943638338,
+                                          498.4492947002323, 483.0524634080177,
+                                          240.2388435326407))
+
+b_xylanisolvens_downsampled_red = proportional_sfs(fold_sfs(c(2225.8375688163587, 1112.9189983969616,
+                                             741.946017393644, 556.4595253498074,
+                                             445.1676295107077, 370.9730318372629,
+                                             317.9768902767878, 278.2297837939835,
+                                             247.31536736626893, 222.58383397882884,
+                                             202.34894280359518, 185.486533288166,
+                                             171.21834043457568, 158.98846067272606,
+                                             148.38923138441444, 139.11490560600612,
+                                             130.93167683575913, 123.6576955724437,
+                                             117.14939642030969)))
+
+b_xylanisolvens_downsampled_orange = proportional_sfs(fold_sfs(c(1354.6450720818552, 964.1121714611451,
+                                                723.3597958043349, 567.8574193786202,
+                                                462.71067502604933, 388.4800696665438,
+                                                333.988234526398, 292.59153993815636,
+                                                260.2041943786457, 234.22626049010108,
+                                                212.9474333685768, 195.20663452063698,
+                                                180.19229972042848, 167.32190788610325,
+                                                156.16725916101194, 146.40684653213373,
+                                                137.79469013723616, 130.13943250581772,
+                                                123.28998955486668)))
+
+b_xylanisolvens_downsampled_violet = proportional_sfs(fold_sfs(c(2150.301238110714, 1111.0540590328678,
+                                                742.1488683045079, 556.7010970246465,
+                                                445.36807402550346, 371.14075768398175,
+                                                318.1207296252597, 278.35565159531444,
+                                                247.4272504985305, 222.68452850602046,
+                                                202.4404829010326, 185.57044467799253,
+                                                171.29579676175558, 159.06038408863958,
+                                                148.45635961048444, 139.17783804093617,
+                                                130.990907102119, 123.71363502234682,
+                                                117.2023914555424)))
+
+b_xylanisolvens_downsampled_one_epoch = proportional_sfs(fold_sfs(c(2225.8375946491637, 1112.9190090884904,
+                                                   741.9460230393622, 556.4595284726163,
+                                                   445.16763111997324, 370.9730324378159,
+                                                   317.97689015707357, 278.22978313422897,
+                                                   247.31536628656738, 222.58383256325666,
+                                                   202.34894111319673, 185.48653136871667,
+                                                   171.21833832126538, 158.98845839321308,
+                                                   148.38922896089073, 139.11490305652447,
+                                                   130.93167417529625, 123.65769281345032,
+                                                   117.14939357325068)))
+
+b_xylanisolvens_downsampled_two_epoch = proportional_sfs(fold_sfs(c(1354.7424693587352, 964.1545370204719,
+                                                   723.3720688058446, 567.8574177822163,
+                                                   462.70629991290303, 388.4744983802059,
+                                                   333.98264785739957, 292.58632056979917,
+                                                   260.1994236208664, 234.22191614360744,
+                                                   212.94346498536052, 195.20298995814255,
+                                                   180.18893310882493, 167.31878094576342,
+                                                   156.1643404299584, 146.4041101466808,
+                                                   137.79211469511313, 130.13700013878122,
+                                                   123.28768520619438)))
+
+b_xylanisolvens_downsampled_x_axis = 1:length(b_xylanisolvens_downsampled_empirical)
+
+b_xylanisolvens_downsampled_df = data.frame(b_xylanisolvens_downsampled_empirical,
+                                            b_xylanisolvens_downsampled_red,
+                                            b_xylanisolvens_downsampled_orange,
+                                            b_xylanisolvens_downsampled_violet,
+                                            b_xylanisolvens_downsampled_x_axis,
+                                            b_xylanisolvens_downsampled_one_epoch,
+                                            b_xylanisolvens_downsampled_two_epoch)
+
+
+names(b_xylanisolvens_downsampled_df) = c('Empirical',
+                                          'Red',
+                                          'Orange',
+                                          'Violet',
+                                          'x_axis',
+                                          'One epoch',
+                                          'Two epoch')
+
+p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_downsampled_df, id='x_axis'),
+                                                   aes(x=x_axis, 
+                                                       y=value,
+                                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_downsampled_x_axis, limits=c(1.5, length(b_xylanisolvens_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. Xylanisolvens (Downsampled, Proportional)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(values = c('black', 'red', 'orange', 'violet', 'blue', 'green')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_xylanisolvens_downsampled_comparison
+
+
 scatter_b_xylanisolvens = ggplot(data=input_csv_4, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  geom_point(aes(x=4.06991e-05, y=0.000467818), color='red', size=2) +
-  geom_point(aes(x=0.000631269, y=4.55855e-05), color='orange', size=2) +
-  geom_point(aes(x=0.001183690, y=2.92090e-06), color='violet', size=2)
+  geom_point(aes(x=4.06991e-05, y=0.000467818), color='red', size=3) +
+  geom_point(aes(x=0.000631269, y=4.55855e-05), color='orange', size=3) +
+  geom_point(aes(x=0.001183690, y=2.92090e-06), color='violet', size=3) +
+  geom_point(aes(x=8.48466166e-06, y=6.13311336e-07), color='green', size=3)
 scatter_b_xylanisolvens
 
 scatter_b_intestinihominis = ggplot(data=input_csv_5, aes(x=nu, y=tau)) + 

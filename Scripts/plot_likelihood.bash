@@ -7,11 +7,21 @@
 #$ -l h_data=15G
 #$ -l h_rt=00:10:00
 #$ -l highp
-#$ -t 1-3
+#$ -t 1-6
 
 $ SGE_TASK_ID=5
 
 # This script infers the demography of a given example synonymous sfs.
+
+i=0
+while read line;
+ do
+   i=$((i+1))
+   # echo $line
+   if [ $i -eq $SGE_TASK_ID ]; then
+       file=$line
+   fi
+done < ./likelihood_list.txt
 
 # i=0
 # while read line;
@@ -21,19 +31,9 @@ $ SGE_TASK_ID=5
 #     if [ $i -eq $SGE_TASK_ID ]; then
 #         file=$line
 #     fi
-# done < ./likelihood_list.txt
+# done < ./b_xylanisolvens_likelihood_list.txt
 
-i=0
-while read line;
-  do
-    i=$((i+1))
-    # echo $line
-    if [ $i -eq $SGE_TASK_ID ]; then
-        file=$line
-    fi
-done < ./b_xylanisolvens_likelihood_list.txt
-
-python $file
+# python $file
 
 # python plot_likelihood.py ../Analysis/Akkermansia_muciniphila_55290_downsampled/empirical_sfs.txt 2.49183094e-05 4.02384611e-06 ../Analysis/Akkermansia_muciniphila_55290_downsampled/ --mask_singletons
 # python plot_likelihood.py ../Analysis/Alistipes_onderdonkii_55464_downsampled/empirical_sfs.txt 2.22291146e-05 3.89330882e-06 ../Analysis/Alistipes_onderdonkii_55464_downsampled/ --mask_singletons

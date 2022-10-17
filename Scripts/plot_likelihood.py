@@ -443,12 +443,12 @@ class PlotLikelihood():
                             'demographic model.')
             with open(file, 'w') as f:
                 min_nu = 0.1 * nu_prime
-                max_nu = 1.9 * nu_prime
+                # max_nu = 1.9 * nu_prime
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
-                # max_nu = 2.0
-                nx = 1
-                ny = 1
+                max_nu = 5.0
+                nx = 15
+                ny = 15
                 x_space = numpy.linspace(min_nu, max_nu, nx)
                 y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
                 x, y = numpy.meshgrid(x_space, y_space,
