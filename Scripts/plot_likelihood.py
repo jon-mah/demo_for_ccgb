@@ -88,7 +88,7 @@ class PlotLikelihood():
             '--mask_doubletons', dest='mask_doubletons',
             help=('Boolean flag for masking doublestons in Spectrum.'),
             action='store_true')
-        parser.set_defaults(mask_singletons=False)
+        parser.set_defaults(mask_singletons=True)
         parser.set_defaults(mask_doubletons=False)
         parser.add_argument(
             'outprefix', type=str,

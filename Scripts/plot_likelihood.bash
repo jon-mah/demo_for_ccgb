@@ -5,11 +5,11 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=00:10:00
+#$ -l h_rt=00:30:00
 #$ -l highp
 #$ -t 1-6
 
-$ SGE_TASK_ID=5
+# SGE_TASK_ID=5
 
 # This script infers the demography of a given example synonymous sfs.
 
@@ -33,7 +33,7 @@ done < ./expansion_likelihood_list.txt
 #     fi
 # done < ./b_xylanisolvens_likelihood_list.txt
 
-# python $file
+python $file
 
 # python plot_likelihood.py ../Analysis/Akkermansia_muciniphila_55290_downsampled/empirical_sfs.txt 2.49183094e-05 4.02384611e-06 ../Analysis/Akkermansia_muciniphila_55290_downsampled/ --mask_singletons
 # python plot_likelihood.py ../Analysis/Alistipes_onderdonkii_55464_downsampled/empirical_sfs.txt 2.22291146e-05 3.89330882e-06 ../Analysis/Alistipes_onderdonkii_55464_downsampled/ --mask_singletons
