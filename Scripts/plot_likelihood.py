@@ -525,6 +525,7 @@ class PlotLikelihood():
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
         logger.info('The best fit parameters are: ' + str(mle)+ '.')
+        logger.info('The likelihood of the mle is: ' + str(max_ll) + '.')
         logger.info('Non-scaled best-fit model spectrum: {0}.\n'.format(
             best_non_scaled_spectrum))
         logger.info('Scaled best-fit model spectrum: {0}.\n'.format(
