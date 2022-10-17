@@ -21,7 +21,7 @@ while read line;
    if [ $i -eq $SGE_TASK_ID ]; then
        file=$line
    fi
-done < ./likelihood_list.txt
+done < ./expansion_likelihood_list.txt
 
 # i=0
 # while read line;
