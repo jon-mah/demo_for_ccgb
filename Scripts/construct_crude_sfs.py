@@ -53,10 +53,10 @@ class ConstructCrudeSFS():
         parser.add_argument(
             '--min_depth', type=int,
             help=('The minimum depth necessary to call a consensus allele'),
-            default=2))
+            default=2)
         parser.add_argument(
             'outprefix', type=str,
-            help='The file prefix for the output files')
+            help='The file prefix for the output files.')
         return parser
 
     def main(self):
