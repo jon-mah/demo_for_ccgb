@@ -1316,7 +1316,6 @@ p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_d
         panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 p_b_xylanisolvens_downsampled_comparison
 
-
 scatter_b_xylanisolvens = ggplot(data=input_csv_4, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
@@ -1341,3 +1340,238 @@ scatter_p_distasonis = ggplot(data=input_csv_6, aes(x=nu, y=tau)) +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10')
 scatter_p_distasonis
+
+a_muciniphila_exp_scatter = read.csv('temp_output/a_muciniphila_expansion_scatter.txt', header=FALSE)
+names(a_muciniphila_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$likelihood < -85, ]$likelihood = -85
+
+exp_scatter_a_muciniphila = ggplot(data=a_muciniphila_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('A. muciniphila rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_a_muciniphila
+
+a_muciniphila_expansion = a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$nu > 1.0, ]
+a_muciniphila_contraction = a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$nu <= 1.0, ]
+
+a_muciniphila_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = a_muciniphila_expansion) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = a_muciniphila_contraction) +
+  scale_fill_manual(name = "Demographic Change", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('A. muciniphila histogram of likelihoods')
+a_muciniphila_hist
+
+a_onderdonkii_exp_scatter = read.csv('temp_output/a_onderdonkii_expansion_scatter.txt', header=FALSE)
+names(a_onderdonkii_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$likelihood < -75, ]$likelihood = -75
+
+exp_scatter_a_onderdonkii = ggplot(data=a_onderdonkii_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('A. onderonkii rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_a_onderdonkii
+
+a_onderdonkii_expansion = a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$nu > 1.0, ]
+a_onderdonkii_contraction = a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$nu <= 1.0, ]
+
+a_onderdonkii_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = a_onderdonkii_expansion) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = a_onderdonkii_contraction) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('A. onderdonkii histogram of likelihoods')
+a_onderdonkii_hist
+
+b_intestinihominis_exp_scatter = read.csv('temp_output/b_intestinihominis_expansion_scatter.txt', header=FALSE)
+names(b_intestinihominis_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$likelihood < -75, ]$likelihood = -75
+
+exp_scatter_b_intestinihominis = ggplot(data=b_intestinihominis_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('B. intestinihominis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_b_intestinihominis
+
+b_intestinihominis_expansion = b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$nu > 1.0, ]
+b_intestinihominis_contraction = b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$nu <= 1.0, ]
+
+b_intestinihominis_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_intestinihominis_expansion) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_intestinihominis_contraction) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('B. intestinihominis histogram of likelihoods')
+b_intestinihominis_hist
+
+b_thetaiotaomicron_exp_scatter = read.csv('temp_output/b_thetaiotaomicron_expansion_scatter.txt', header=FALSE)
+names(b_thetaiotaomicron_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$likelihood < -75, ]$likelihood = -75
+
+exp_scatter_b_thetaiotaomicron = ggplot(data=b_thetaiotaomicron_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('B. thetaiotaomicron rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_b_thetaiotaomicron
+
+b_thetaiotaomicron_expansion = b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$nu > 1.0, ]
+b_thetaiotaomicron_contraction = b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$nu <= 1.0, ]
+
+b_thetaiotaomicron_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_thetaiotaomicron_expansion) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_thetaiotaomicron_contraction) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('B. thetaiotaomicron histogram of likelihoods')
+b_thetaiotaomicron_hist
+
+b_xylanisolvens_exp_scatter = read.csv('temp_output/b_xylanisolvens_expansion_scatter.txt', header=FALSE)
+names(b_xylanisolvens_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$likelihood < -55, ]$likelihood = -55
+
+exp_scatter_b_xylanisolvens = ggplot(data=b_xylanisolvens_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('B. xylanisolvens rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_b_xylanisolvens
+
+b_xylanisolvens_expansion = b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$nu > 1.0, ]
+b_xylanisolvens_contraction = b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$nu <= 1.0, ]
+
+b_xylanisolvens_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_xylanisolvens_expansion) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_xylanisolvens_contraction) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10()  +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('B. xylanisolvens histogram of likelihoods')
+b_xylanisolvens_hist
+
+p_distasonis_exp_scatter = read.csv('temp_output/p_distasonis_expansion_scatter.txt', header=FALSE)
+names(p_distasonis_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+p_distasonis_exp_scatter[p_distasonis_exp_scatter$likelihood < -75, ]$likelihood = -75
+
+exp_scatter_p_distasonis = ggplot(data=p_distasonis_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('P. distasonis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_p_distasonis
+
+p_distasonis_expansion = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu > 1.0, ]
+p_distasonis_contraction = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu <= 1.0, ]
+
+p_distasonis_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = p_distasonis_expansion) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = p_distasonis_contraction) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('P. distasonis histogram of likelihoods')
+p_distasonis_hist
+
+input_csv_5 = read.csv('temp_output/b_intestinihominis_scatter.txt', header=FALSE)
+names(input_csv_5) = c('likelihood', 'nu', 'tau')
+
+b_intestinihominis_exp_scatter = read.csv('temp_output/b_intestinihominis_expansion_scatter.txt', header=FALSE)
+names(b_intestinihominis_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+b_intestinihominis_all = rbind(input_csv_5, b_intestinihominis_exp_scatter)
+
+exp_scatter_b_intestinihominis_all = ggplot(data=b_intestinihominis_all, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('P. distasonis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_b_intestinihominis_all
+
+b_intestinihominis_all_expansion = b_intestinihominis_all[b_intestinihominis_all$nu > 1.0, ]
+b_intestinihominis_all_contraction = b_intestinihominis_all[b_intestinihominis_all$nu <= 1.0, ]
+
+b_intestinihominis_all_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_intestinihominis_all_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_intestinihominis_all_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('B. intestinihominis histogram of likelihoods')
+b_intestinihominis_all_hist
+
+b_intestinihominis_all[b_intestinihominis_all$likelihood < -75, ]$likelihood = -75
+
+exp_scatter_b_intestinihominis_all = ggplot(data=b_intestinihominis_all, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('B. intestinihominis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_b_intestinihominis_all
+
+input_csv_4 = read.csv('temp_output/b_xylanisolvens_scatter.txt', header=FALSE)
+names(input_csv_4) = c('likelihood', 'nu', 'tau')
+
+b_xylanisolvens_exp_scatter = read.csv('temp_output/b_xylanisolvens_expansion_scatter.txt', header=FALSE)
+names(b_xylanisolvens_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+b_xylanisolvens_all = rbind(input_csv_4, b_xylanisolvens_exp_scatter)
+
+b_xylanisolvens_all_expansion = b_xylanisolvens_all[b_xylanisolvens_all$nu > 1.0, ]
+b_xylanisolvens_all_contraction = b_xylanisolvens_all[b_xylanisolvens_all$nu <= 1.0, ]
+
+b_xylanisolvens_all_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_xylanisolvens_all_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_xylanisolvens_all_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('B. xylanisolvens histogram of likelihoods')
+b_xylanisolvens_all_hist
+
+b_xylanisolvens_all[b_xylanisolvens_all$likelihood < -55, ]$likelihood = -55
+
+exp_scatter_b_xylanisolvens_all = ggplot(data=b_xylanisolvens_all, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('B. xylanisolvens rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+exp_scatter_b_xylanisolvens_all
