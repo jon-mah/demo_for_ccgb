@@ -447,8 +447,8 @@ class PlotLikelihood():
                 min_tau = 0.1 * tau_prime
                 max_tau = 10 * tau_prime
                 max_nu = 5.0
-                nx = 25
-                ny = 25
+                nx = 1
+                ny = 1
                 x_space = numpy.linspace(min_nu, max_nu, nx)
                 y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
                 x, y = numpy.meshgrid(x_space, y_space,
@@ -479,6 +479,9 @@ class PlotLikelihood():
                             best_non_scaled_spectrum = non_scaled_spectrum
                             best_theta = theta
                             best_scaled_spectrum = best_theta * best_non_scaled_spectrum
+                            best_time = mle_y * 2 * best_theta / 4 / mle_x
+                            best_low_time = best_time / 6.93E-10
+                            best_high_time = best_time / 4.08E-10
                         ll_array = [x[[i, 0]], y[[0, j]], theta, loglik]
                         # ll_string = str(nu_grid[i]) + ', '
                         # ll_string += str(tau_grid[j]) + ', '
@@ -530,6 +533,9 @@ class PlotLikelihood():
             best_non_scaled_spectrum))
         logger.info('Scaled best-fit model spectrum: {0}.\n'.format(
             best_scaled_spectrum))
+        logger.info('Scaled best-fit theta: ' + str(best_theta) + '.')
+        logger.info('Best low estimate for time is: ' + str(best_low_time) + ' generations.')
+        logger.info('Best high estimate for time is: ' + str(best_high_time) + ' generations.')
 
 if __name__ == '__main__':
     PlotLikelihood().main()
