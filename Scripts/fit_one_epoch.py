@@ -412,8 +412,9 @@ class DemographicInference():
 
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
-        model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
-                      'three_epoch', 'one_epoch']
+        # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
+        #               'three_epoch', 'one_epoch']
+        model_list = ['one_epoch']
         # Fit different one-epoch models and compute likelihood
         method_list = ['expectation']
         for method in method_list:
