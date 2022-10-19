@@ -9,7 +9,7 @@
 #$ -l highp
 #$ -t 1-6
 
-# SGE_TASK_ID=5
+# SGE_TASK_ID=1
 
 # This script infers the demography of a given example synonymous sfs.
 
