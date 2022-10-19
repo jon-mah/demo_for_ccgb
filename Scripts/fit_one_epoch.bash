@@ -4,8 +4,10 @@
 #$ -m ea
 #$ -l h_data=25G
 #$ -l highp
-#$ -l h_rt=24:00:00
-#$ -t 1-30
+#$ -l h_rt=00:10:00
+#$ -t 25
+
+# SGE_TASK_ID=25
 
 i=0
 while read line;

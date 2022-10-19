@@ -370,10 +370,11 @@ class DemographicInference():
            '{0}{1}expected_sfs_comparison.txt'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, exponential_growth_demography,
-                     two_epoch_demography, bottleneck_growth_demography,
-                     three_epoch_demography, one_epoch_demography,
-                     expected_sfs_comparison]
+        # to_remove = [logfile, exponential_growth_demography,
+        #              two_epoch_demography, bottleneck_growth_demography,
+        #              three_epoch_demography, one_epoch_demography,
+        #              expected_sfs_comparison]
+        to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
