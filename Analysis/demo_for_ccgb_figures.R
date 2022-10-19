@@ -1341,10 +1341,11 @@ scatter_p_distasonis = ggplot(data=input_csv_6, aes(x=nu, y=tau)) +
   scale_y_continuous(trans='log10')
 scatter_p_distasonis
 
-a_muciniphila_exp_scatter = read.csv('temp_output/a_muciniphila_expansion_scatter.txt', header=FALSE)
+# a_muciniphila_exp_scatter = read.csv('temp_output/a_muciniphila_expansion_scatter.txt', header=FALSE)
+a_muciniphila_exp_scatter = read.csv('likelihood_surfaces/a_muciniphila_likelihood_surface.csv', header=FALSE)
 names(a_muciniphila_exp_scatter) = c('likelihood', 'nu', 'tau')
 
-a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$likelihood < -85, ]$likelihood = -85
+a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$likelihood < -100, ]$likelihood = -85
 
 exp_scatter_a_muciniphila = ggplot(data=a_muciniphila_exp_scatter, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
@@ -1368,7 +1369,8 @@ a_muciniphila_hist = ggplot() +
   ggtitle('A. muciniphila histogram of likelihoods')
 a_muciniphila_hist
 
-a_onderdonkii_exp_scatter = read.csv('temp_output/a_onderdonkii_expansion_scatter.txt', header=FALSE)
+# a_onderdonkii_exp_scatter = read.csv('temp_output/a_onderdonkii_expansion_scatter.txt', header=FALSE)
+a_onderdonkii_exp_scatter = read.csv('likelihood_surfaces/a_onderdonkii_likelihood_surface.csv', header=FALSE)
 names(a_onderdonkii_exp_scatter) = c('likelihood', 'nu', 'tau')
 
 a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$likelihood < -75, ]$likelihood = -75
@@ -1395,7 +1397,8 @@ a_onderdonkii_hist = ggplot() +
   ggtitle('A. onderdonkii histogram of likelihoods')
 a_onderdonkii_hist
 
-b_intestinihominis_exp_scatter = read.csv('temp_output/b_intestinihominis_expansion_scatter.txt', header=FALSE)
+# b_intestinihominis_exp_scatter = read.csv('temp_output/b_intestinihominis_expansion_scatter.txt', header=FALSE)
+b_intestinihominis_exp_scatter = read.csv('likelihood_surfaces/b_intestinihominis_likelihood_surface.csv', header=FALSE)
 names(b_intestinihominis_exp_scatter) = c('likelihood', 'nu', 'tau')
 
 b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$likelihood < -75, ]$likelihood = -75
@@ -1422,7 +1425,8 @@ b_intestinihominis_hist = ggplot() +
   ggtitle('B. intestinihominis histogram of likelihoods')
 b_intestinihominis_hist
 
-b_thetaiotaomicron_exp_scatter = read.csv('temp_output/b_thetaiotaomicron_expansion_scatter.txt', header=FALSE)
+# b_thetaiotaomicron_exp_scatter = read.csv('temp_output/b_thetaiotaomicron_expansion_scatter.txt', header=FALSE)
+b_thetaiotaomicron_exp_scatter = read.csv('likelihood_surfaces/b_thetaiotaomicron_likelihood_surface.csv', header=FALSE)
 names(b_thetaiotaomicron_exp_scatter) = c('likelihood', 'nu', 'tau')
 
 b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$likelihood < -75, ]$likelihood = -75
@@ -1449,7 +1453,8 @@ b_thetaiotaomicron_hist = ggplot() +
   ggtitle('B. thetaiotaomicron histogram of likelihoods')
 b_thetaiotaomicron_hist
 
-b_xylanisolvens_exp_scatter = read.csv('temp_output/b_xylanisolvens_expansion_scatter.txt', header=FALSE)
+# b_xylanisolvens_exp_scatter = read.csv('temp_output/b_xylanisolvens_expansion_scatter.txt', header=FALSE)
+b_xylanisolvens_exp_scatter = read.csv('likelihood_surfaces/b_xylanisolvens_likelihood_surface.csv', header=FALSE)
 names(b_xylanisolvens_exp_scatter) = c('likelihood', 'nu', 'tau')
 
 b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$likelihood < -55, ]$likelihood = -55
@@ -1476,10 +1481,14 @@ b_xylanisolvens_hist = ggplot() +
   ggtitle('B. xylanisolvens histogram of likelihoods')
 b_xylanisolvens_hist
 
-p_distasonis_exp_scatter = read.csv('temp_output/p_distasonis_expansion_scatter.txt', header=FALSE)
+# p_distasonis_exp_scatter = read.csv('temp_output/p_distasonis_expansion_scatter.txt', header=FALSE)
+p_distasonis_exp_scatter = read.csv('likelihood_surfaces/p_distasonis_likelihood_surface.csv', header=FALSE)
 names(p_distasonis_exp_scatter) = c('likelihood', 'nu', 'tau')
 
 p_distasonis_exp_scatter[p_distasonis_exp_scatter$likelihood < -75, ]$likelihood = -75
+
+p_distasonis_good_likelihood = p_distasonis_exp_scatter[p_distasonis_exp_scatter$likelihood > -60, ]
+fit = lm(log(p_distasonis_good_likelihood$tau) ~ log(p_distasonis_good_likelihood$nu))
 
 exp_scatter_p_distasonis = ggplot(data=p_distasonis_exp_scatter, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
@@ -1487,7 +1496,11 @@ exp_scatter_p_distasonis = ggplot(data=p_distasonis_exp_scatter, aes(x=nu, y=tau
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('P. distasonis rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  geom_abline(intercept = -1.2, slope = 1.05, col='violet') +
+  geom_point(aes(x=0.01, y=0.000467818), color='red', size=3, shape=15) +
+  geom_point(aes(x=0.001, y=4.5e-05), color='orange', size=3, shape=15) +
+  geom_point(aes(x=0.1, y=0.008), color='green', size=3, shape=15)
 exp_scatter_p_distasonis
 
 p_distasonis_expansion = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu > 1.0, ]
@@ -1575,3 +1588,4 @@ exp_scatter_b_xylanisolvens_all = ggplot(data=b_xylanisolvens_all, aes(x=nu, y=t
   ggtitle('B. xylanisolvens rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
 exp_scatter_b_xylanisolvens_all
+

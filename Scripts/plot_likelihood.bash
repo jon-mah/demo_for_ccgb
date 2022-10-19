@@ -13,15 +13,15 @@
 
 # This script infers the demography of a given example synonymous sfs.
 
-i=0
-while read line;
- do
-   i=$((i+1))
-   # echo $line
-   if [ $i -eq $SGE_TASK_ID ]; then
-       file=$line
-   fi
-done < ./expansion_likelihood_list.txt
+# i=0
+# while read line;
+#  do
+#    i=$((i+1))
+#    # echo $line
+#    if [ $i -eq $SGE_TASK_ID ]; then
+#         file=$line
+#    fi
+# done < ./expansion_likelihood_list.txt
 
 # i=0
 # while read line;
@@ -32,6 +32,16 @@ done < ./expansion_likelihood_list.txt
 #         file=$line
 #     fi
 # done < ./b_xylanisolvens_likelihood_list.txt
+
+i=0
+while read line;
+ do
+   i=$((i+1))
+   # echo $line
+   if [ $i -eq $SGE_TASK_ID ]; then
+       file=$line
+   fi
+done < ./p_distasonis_likelihood_list.txt
 
 python $file
 
