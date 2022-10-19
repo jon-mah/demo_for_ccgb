@@ -45,10 +45,15 @@ class ConstructCrudeSFS():
                 'This script constructs a crude SFS using consensus alleles.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
-            'input_species', type=str,
-            help=('Species for which to construct a crude SFS.'))
-        parser.set_defaults(mask_singletons=False)
-        parser.set_defaults(mask_doubletons=False)
+            'inprefix', type=str,
+            help=('The file prefix for the input files.'))
+        parser.add_argument(
+            'species', type=str,
+            help=('The species for which we are constructing an SFS.'))
+        parser.add_argument(
+            '--min_depth', type=int,
+            help=('The minimum depth necessary to call a consensus allele'),
+            default=2))
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
@@ -62,8 +67,10 @@ class ConstructCrudeSFS():
         prog = parser.prog
 
         # Assign arguments
+        inprefix = args['inprefix']
+        species = args['species']
+        min_depth = args['min_depth']
         outprefix = args['outprefix']
-        input_species = args['input_species']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -75,6 +82,13 @@ class ConstructCrudeSFS():
                 if os.path.isfile(outdir):
                     os.remove(outdir)
                 os.mkdir(outdir)
+
+        indir = os.path.dirname(args['inprefix'])
+        if indir:
+            if not os.path.isdir(indir):
+                if os.path.isfile(indir):
+                    os.remove(indir)
+                os.mkdir(indir)
 
         # Output files: logfile
         # Remove output files if they already exist
@@ -108,7 +122,9 @@ class ConstructCrudeSFS():
         logger.info('Parsed the following arguments:\n{0}\n'.format(
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
-        # Construct initial Spectrum object from input synonymous sfs.
+        # Grab species-specific data from input directory
+        snps_depth = '{0}{1}/snps_depth.txt'.format(args['inprefix'], species)
+        snps_alt_allele = '{0}{1}/snps_alt_allele.txt'.format(args['inprefix'], species)
 
 
 

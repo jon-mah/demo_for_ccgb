@@ -1498,23 +1498,314 @@ exp_scatter_p_distasonis = ggplot(data=p_distasonis_exp_scatter, aes(x=nu, y=tau
   ggtitle('P. distasonis rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red') +
   geom_abline(intercept = -1.2, slope = 1.05, col='violet') +
-  geom_point(aes(x=0.01, y=0.000467818), color='red', size=3, shape=15) +
-  geom_point(aes(x=0.001, y=4.5e-05), color='orange', size=3, shape=15) +
-  geom_point(aes(x=0.1, y=0.008), color='green', size=3, shape=15)
-exp_scatter_p_distasonis
+  geom_point(aes(x=0.1, y=0.006), color='red', size=3, shape=15) +
+  geom_point(aes(x=0.01, y=0.00045), color='orange', size=3, shape=15) +
+  geom_point(aes(x=0.001, y=4.5e-05), color='green', size=3, shape=15) +
+  geom_point(aes(x=5.63834969e-04, y=3.09685202e-05), color='violet', size=3, shape=15)
+  exp_scatter_p_distasonis
 
 p_distasonis_expansion = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu > 1.0, ]
 p_distasonis_contraction = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu <= 1.0, ]
 
 p_distasonis_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = p_distasonis_expansion) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = p_distasonis_contraction) +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = p_distasonis_expansion, bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = p_distasonis_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
   ggtitle('P. distasonis histogram of likelihoods')
 p_distasonis_hist
+
+p_distasonis_downsampled_empirical = c(10253.18489341513,
+                                       5326.520737228057,
+                                       3924.694937012874,
+                                       3321.958570197894,
+                                       2970.095360152478,
+                                       2663.637872179951,
+                                       2392.125470912756,
+                                       2189.947401730031,
+                                       2071.812959514204,
+                                       1015.051256310989)
+
+p_distasonis_downsampled_red = fold_sfs(c(7077.17815103975,
+                                          4726.656795917924,
+                                          3423.1328638052682,
+                                          2637.6250607421644,
+                                          2129.45750111715,
+                                          1780.0818044961181,
+                                          1527.400302135002,
+                                          1336.951929919985,
+                                          1188.5425471222807,
+                                          1069.729660523428,
+                                          972.4935085410946,
+                                          891.4557973258138,
+                                          822.8832225432012,
+                                          764.106106077283,
+                                          713.1657676828243,
+                                          668.5929265692381,
+                                          629.2639375745741,
+                                          594.3048331458824,
+                                          563.0256333394243))
+
+p_distasonis_downsampled_orange = fold_sfs(c(4449.654131052629,
+                                             3652.8866688511757,
+                                             3042.074440063343,
+                                             2568.5691269367353,
+                                             2197.985023907023,
+                                             1905.063736777304,
+                                             1671.0984264156718,
+                                             1482.1761127747545,
+                                             1327.9114641514925,
+                                             1200.522083540078,
+                                             1094.150174932085,
+                                             1004.3640328005865,
+                                             927.7912979410152,
+                                             861.848898930354,
+                                             804.5439696858973,
+                                             754.3268777067542,
+                                             709.9825176381233,
+                                             670.5497121868409,
+                                             635.2612712292624))
+
+p_distasonis_downsampled_violet = fold_sfs(c(7015.378947471712,
+                                             4714.614313079614,
+                                             3421.498263322795,
+                                             2638.540153376612,
+                                             2130.903155622198,
+                                             1781.5232462632164,
+                                             1528.7138384333805,
+                                             1338.1267394879326,
+                                             1189.5950267851217,
+                                             1070.6794907741141,
+                                             973.3577958861454,
+                                             892.2483035727298,
+                                             823.6148375615049,
+                                             764.7854826640892,
+                                             713.7998577436606,
+                                             669.1873873043774,
+                                             629.823430329617,
+                                             594.8332430321193,
+                                             563.5262321902541))
+
+p_distasonis_downsampled_one_epoch = fold_sfs(c(10370.627948469039,
+                                                5185.314960885411,
+                                                3456.8767197052484,
+                                                2592.6575919298302,
+                                                2074.126112410343,
+                                                1728.4384573144491,
+                                                1481.5187019742768,
+                                                1296.3288840141815,
+                                                1152.2923576558376,
+                                                1037.0631354268637,
+                                                942.7846798420104,
+                                                864.219299243238,
+                                                797.7408994050211,
+                                                740.7594130229054,
+                                                691.375457406692,
+                                                648.164495538564,
+                                                610.037175581179,
+                                                576.1462238831828,
+                                                545.8227401934395))
+
+p_distasonis_downsampled_two_epoch = fold_sfs(c(6928.279335504198,
+                                                4689.46319955322,
+                                                3416.6003600771573,
+                                                2639.874501783247,
+                                                2133.875848052315,
+                                                1784.6932438175231,
+                                                1531.6759559795496,
+                                                1340.8033169923415,
+                                                1192.0028890612432,
+                                                1072.8560569470897,
+                                                975.339551782675,
+                                                894.0658697998036,
+                                                825.2928794526885,
+                                                766.3437476426332,
+                                                715.2542611351579,
+                                                670.5508962940819,
+                                                631.1067342710417,
+                                                596.0452525974625,
+                                                564.6744518323502))
+
+p_distasonis_downsampled_x_axis = 1:length(p_distasonis_downsampled_empirical)
+
+p_distasonis_downsampled_df = data.frame(p_distasonis_downsampled_empirical,
+                                         p_distasonis_downsampled_red,
+                                         p_distasonis_downsampled_orange,
+                                         p_distasonis_downsampled_green,
+                                         p_distasonis_downsampled_x_axis,
+                                         p_distasonis_downsampled_one_epoch,
+                                         p_distasonis_downsampled_two_epoch)
+
+
+names(p_distasonis_downsampled_df) = c('Empirical',
+                                       'Red',
+                                       'Orange',
+                                       'green',
+                                       'x_axis',
+                                       'One epoch',
+                                       'Two epoch')
+
+p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsampled_df, id='x_axis'),
+                                                aes(x=x_axis, 
+                                                    y=value,
+                                                    fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Parameter Estimate") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_downsampled_x_axis, limits=c(0.5, length(p_distasonis_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. distasonis (Downsampled, Raw Counts)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(values = c('black', 'red', 'orange', 'green', 'blue', 'violet')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_p_distasonis_downsampled_comparison
+
+p_distasonis_downsampled_empirical = proportional_sfs(c(10253.18489341513,
+                                       5326.520737228057,
+                                       3924.694937012874,
+                                       3321.958570197894,
+                                       2970.095360152478,
+                                       2663.637872179951,
+                                       2392.125470912756,
+                                       2189.947401730031,
+                                       2071.812959514204,
+                                       1015.051256310989))
+
+p_distasonis_downsampled_red = proportional_sfs(fold_sfs(c(7077.17815103975,
+                                          4726.656795917924,
+                                          3423.1328638052682,
+                                          2637.6250607421644,
+                                          2129.45750111715,
+                                          1780.0818044961181,
+                                          1527.400302135002,
+                                          1336.951929919985,
+                                          1188.5425471222807,
+                                          1069.729660523428,
+                                          972.4935085410946,
+                                          891.4557973258138,
+                                          822.8832225432012,
+                                          764.106106077283,
+                                          713.1657676828243,
+                                          668.5929265692381,
+                                          629.2639375745741,
+                                          594.3048331458824,
+                                          563.0256333394243)))
+
+p_distasonis_downsampled_orange = proportional_sfs(fold_sfs(c(4449.654131052629,
+                                             3652.8866688511757,
+                                             3042.074440063343,
+                                             2568.5691269367353,
+                                             2197.985023907023,
+                                             1905.063736777304,
+                                             1671.0984264156718,
+                                             1482.1761127747545,
+                                             1327.9114641514925,
+                                             1200.522083540078,
+                                             1094.150174932085,
+                                             1004.3640328005865,
+                                             927.7912979410152,
+                                             861.848898930354,
+                                             804.5439696858973,
+                                             754.3268777067542,
+                                             709.9825176381233,
+                                             670.5497121868409,
+                                             635.2612712292624)))
+
+p_distasonis_downsampled_violet = proportional_sfs(fold_sfs(c(7015.378947471712,
+                                             4714.614313079614,
+                                             3421.498263322795,
+                                             2638.540153376612,
+                                             2130.903155622198,
+                                             1781.5232462632164,
+                                             1528.7138384333805,
+                                             1338.1267394879326,
+                                             1189.5950267851217,
+                                             1070.6794907741141,
+                                             973.3577958861454,
+                                             892.2483035727298,
+                                             823.6148375615049,
+                                             764.7854826640892,
+                                             713.7998577436606,
+                                             669.1873873043774,
+                                             629.823430329617,
+                                             594.8332430321193,
+                                             563.5262321902541)))
+
+p_distasonis_downsampled_one_epoch = proportional_sfs(fold_sfs(c(10370.627948469039,
+                                                5185.314960885411,
+                                                3456.8767197052484,
+                                                2592.6575919298302,
+                                                2074.126112410343,
+                                                1728.4384573144491,
+                                                1481.5187019742768,
+                                                1296.3288840141815,
+                                                1152.2923576558376,
+                                                1037.0631354268637,
+                                                942.7846798420104,
+                                                864.219299243238,
+                                                797.7408994050211,
+                                                740.7594130229054,
+                                                691.375457406692,
+                                                648.164495538564,
+                                                610.037175581179,
+                                                576.1462238831828,
+                                                545.8227401934395)))
+
+p_distasonis_downsampled_two_epoch = proportional_sfs(fold_sfs(c(6928.279335504198,
+                                                4689.46319955322,
+                                                3416.6003600771573,
+                                                2639.874501783247,
+                                                2133.875848052315,
+                                                1784.6932438175231,
+                                                1531.6759559795496,
+                                                1340.8033169923415,
+                                                1192.0028890612432,
+                                                1072.8560569470897,
+                                                975.339551782675,
+                                                894.0658697998036,
+                                                825.2928794526885,
+                                                766.3437476426332,
+                                                715.2542611351579,
+                                                670.5508962940819,
+                                                631.1067342710417,
+                                                596.0452525974625,
+                                                564.6744518323502)))
+
+p_distasonis_downsampled_x_axis = 1:length(p_distasonis_downsampled_empirical)
+
+p_distasonis_downsampled_df = data.frame(p_distasonis_downsampled_empirical,
+                                         p_distasonis_downsampled_red,
+                                         p_distasonis_downsampled_orange,
+                                         p_distasonis_downsampled_green,
+                                         p_distasonis_downsampled_x_axis,
+                                         p_distasonis_downsampled_one_epoch,
+                                         p_distasonis_downsampled_two_epoch)
+
+
+names(p_distasonis_downsampled_df) = c('Empirical',
+                                       'Red',
+                                       'Orange',
+                                       'green',
+                                       'x_axis',
+                                       'One epoch',
+                                       'Two epoch')
+
+p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsampled_df, id='x_axis'),
+                                                aes(x=x_axis, 
+                                                    y=value,
+                                                    fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Parameter Estimate") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_downsampled_x_axis, limits=c(0.5, length(p_distasonis_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. distasonis (Downsampled, Proportional SFS)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(values = c('black', 'red', 'orange', 'green', 'blue', 'violet')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_p_distasonis_downsampled_comparison
 
 input_csv_5 = read.csv('temp_output/b_intestinihominis_scatter.txt', header=FALSE)
 names(input_csv_5) = c('likelihood', 'nu', 'tau')
