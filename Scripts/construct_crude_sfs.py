@@ -94,7 +94,7 @@ class ConstructCrudeSFS():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        consensus_sfs_file = '{0}{1}consensus_sfs_file.txt'.format(args['outprefix'], underscore)
+        consensus_sfs_file = '{0}{1}consensus_sfs_{2}.txt'.format(args['outprefix'], underscore, str(min_depth))
         folded_sfs_file = '{0}{1}folded_sfs.txt'.format(args['outprefix'], underscore)
         to_remove = [logfile, consensus_sfs_file, folded_sfs_file]
         for f in to_remove:
@@ -149,6 +149,7 @@ class ConstructCrudeSFS():
                     alt_elements = alt_line.split('\t')
                     if alt_elements[0] != depth_elements[0]:
                         break
+                    iter += 1
                     A_counter = 0
                     C_counter = 0
                     G_counter = 0
@@ -185,12 +186,19 @@ class ConstructCrudeSFS():
         depth_handle.close()
         alt_handle.close()
         with open(consensus_sfs_file, 'w') as f:
-            f.write(n_tons)
-        folded_sfs = 0 * (len(n_tons) / 2)
-        for i in range(len(folded_sfs)):
+            f.write(str(n_tons))
+        folded_sfs = [0] * int(len(n_tons) / 2 + 1)
+        for i in range(len(folded_sfs) - 1):
             folded_sfs[i] = n_tons[i] + n_tons[-i]
+        folded_sfs[-1] = n_tons[int(len(n_tons) / 2)]
         with open(folded_sfs_file, 'w') as f:
-            f.write(folded_sfs)
+            f.write(str(folded_sfs))
+        logger.info('There are: ' + str(iter) + ' snps.')
+        logger.info('The consensus SFS is: ' + str(n_tons) + '.')
+        logger.info('The sum of these bins is: ' + str(sum(n_tons)) + '.')
+        logger.info('The folded consensus SFS is: ' + str(folded_sfs) + '.')
+        logger.info('The sum of these bins is: ' + str(sum(folded_sfs)) + '.')
+
 
 if __name__ == '__main__':
     ConstructCrudeSFS().main()
