@@ -125,8 +125,23 @@ class ConstructCrudeSFS():
         # Grab species-specific data from input directory
         snps_depth = '{0}{1}/snps_depth.txt'.format(args['inprefix'], species)
         snps_alt_allele = '{0}{1}/snps_alt_allele.txt'.format(args['inprefix'], species)
-
-
+        depth_handle = open(snps_depth, 'r')
+        alt_handle = open(snps_alt_allele, 'r')
+        iter = 0
+        while True:
+            # Read line by line
+            depth_line = depth_handle.readLine()
+            if not depth_line:
+                break
+            else:
+                alt_line = alt_handle.readLine()
+                iter = iter + 1
+                if iter > 100:
+                    break
+                print(depth_line)
+                print(alt_line)
+        depth_handle.close()
+        alt_handle.close()
 
 if __name__ == '__main__':
     ConstructCrudeSFS().main()
