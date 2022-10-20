@@ -130,11 +130,11 @@ class ConstructCrudeSFS():
         iter = 0
         while True:
             # Read line by line
-            depth_line = depth_handle.readLine()
+            depth_line = depth_handle.readline()
             if not depth_line:
                 break
             else:
-                alt_line = alt_handle.readLine()
+                alt_line = alt_handle.readline()
                 iter = iter + 1
                 if iter > 100:
                     break
