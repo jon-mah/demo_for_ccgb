@@ -95,7 +95,7 @@ class ConstructCrudeSFS():
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         consensus_sfs_file = '{0}{1}consensus_sfs_{2}.txt'.format(args['outprefix'], underscore, str(min_depth))
-        folded_sfs_file = '{0}{1}folded_sfs.txt'.format(args['outprefix'], underscore)
+        folded_sfs_file = '{0}{1}folded_sfs_{2}.txt'.format(args['outprefix'], underscore, str(min_depth))
         to_remove = [logfile, consensus_sfs_file, folded_sfs_file]
         for f in to_remove:
             if os.path.isfile(f):
