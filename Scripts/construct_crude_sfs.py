@@ -135,11 +135,15 @@ class ConstructCrudeSFS():
                 break
             else:
                 alt_line = alt_handle.readline()
-                iter = iter + 1
-                if iter > 100:
-                    break
-                print(depth_line)
-                print(alt_line)
+                depth_elements = depth_line.split('\t')
+                if depth_elements[0] == 'site_id':
+                    continue
+                else:
+                    iter = iter + 1
+                    if iter > 100:
+                        break
+                    print(depth_line)
+                    print(alt_line)
         depth_handle.close()
         alt_handle.close()
 
