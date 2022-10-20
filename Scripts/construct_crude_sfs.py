@@ -127,6 +127,10 @@ class ConstructCrudeSFS():
         snps_alt_allele = '{0}{1}/snps_alt_allele.txt'.format(args['inprefix'], species)
         depth_handle = open(snps_depth, 'r')
         alt_handle = open(snps_alt_allele, 'r')
+        depth_header = depth_handle.readline()
+        num_hosts = len(depth_header.split('\t') - 1)
+        alt_header = alt_handle.readline()
+        n_tons = [0] * num_hosts
         iter = 0
         while True:
             # Read line by line
@@ -136,16 +140,45 @@ class ConstructCrudeSFS():
             else:
                 alt_line = alt_handle.readline()
                 depth_elements = depth_line.split('\t')
-                if depth_elements[0] == 'site_id':
-                    continue
+                # if depth_elements[0] == 'site_id':
+                #     continue
                 else:
                     iter = iter + 1
-                    if iter > 100:
+                    if iter > 10:
                         break
+                    alt_elements = alt_line.split('\t')
+                    if alt_elements[0] != depth_elements[0]:
+                        break
+                    A_counter = 0
+                    C_counter = 0
+                    G_counter = 0
+                    T_counter = 0
+                    for i in range(num_hosts):
+                        if depth_elements[i+1] < min_depth:
+                            continue
+                        else:
+                            if alt_elements[i+1] == 'NA':
+                                continue
+                            elif alt_elements[i+1] == 'A':
+                                A_counter += 1
+                            elif alt_elements[i+1] == 'C':
+                                C_counter += 1
+                            elif alt_elements[i+1] == 'G':
+                                G_counter += 1
+                            elif alt_elements[i+1] = = 'T':
+                                T_counter += 1
+                            else:
+                                # Something weird is happening
+                                continue
+                        n_tons[A_counter] += 1
+                        n_tons[C_counter] += 1
+                        n_tons[G_counter] += 1
+                        n_tons[T_counter] += 1
                     print(depth_line)
                     print(alt_line)
         depth_handle.close()
         alt_handle.close()
+        print(n_tons)
 
 if __name__ == '__main__':
     ConstructCrudeSFS().main()
