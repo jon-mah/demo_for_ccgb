@@ -94,7 +94,9 @@ class ConstructCrudeSFS():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile]
+        consensus_sfs_file = '{0}{1}consensus_sfs_file.txt'.format(args['outprefix'], underscore)
+        folded_sfs_file = '{0}{1}folded_sfs.txt'.format(args['outprefix'], underscore)
+        to_remove = [logfile, consensus_sfs_file, folded_sfs_file]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -144,9 +146,6 @@ class ConstructCrudeSFS():
                     print('Error.')
                     break
                 else:
-                    iter = iter + 1
-                    if iter > 100:
-                        break
                     alt_elements = alt_line.split('\t')
                     if alt_elements[0] != depth_elements[0]:
                         break
@@ -181,11 +180,17 @@ class ConstructCrudeSFS():
                             n_tons[G_counter] += 1
                         if T_counter != 0:
                             n_tons[T_counter] += 1
-                    print(depth_line)
-                    print(alt_line)
+                    # print(depth_line)
+                    # print(alt_line)
         depth_handle.close()
         alt_handle.close()
-        print(n_tons)
+        with open(consensus_sfs_file, 'w') as f:
+            f.write(n_tons)
+        folded_sfs = 0 * (len(n_tons) / 2)
+        for i in range(len(folded_sfs)):
+            folded_sfs[i] = n_tons[i] + n_tons[-i]
+        with open(folded_sfs_file, 'w') as f:
+            f.write(folded_sfs)
 
 if __name__ == '__main__':
     ConstructCrudeSFS().main()
