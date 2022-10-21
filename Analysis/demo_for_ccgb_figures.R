@@ -1880,3 +1880,103 @@ exp_scatter_b_xylanisolvens_all = ggplot(data=b_xylanisolvens_all, aes(x=nu, y=t
   geom_vline(xintercept=1.0, color='red')
 exp_scatter_b_xylanisolvens_all
 
+v_parvula_oral_one_epoch_2 = proportional_sfs(c(533195.9297199068, 266598.0764088201,
+                               177732.05396665598, 133299.04187614407,
+                               106639.23452515142, 88866.02958238604,
+                               76170.88316942671, 66649.52334163418,
+                               59244.02123907864, 53319.61954508698,
+                               48472.381785085236, 44433.016975866674,
+                               41015.092898196555, 38085.44368114568,
+                               35546.414352666456, 33324.76368370745,
+                               31364.483675567713, 29622.01255147318,
+                               28062.959435016688, 26659.81162506927,
+                               25390.29693500079, 24236.19266665555,
+                               23182.445286773807, 22216.510184303766,
+                               21327.849885964075, 20507.548068201926,
+                               19748.009344293878, 19042.723382756965,
+                               18386.07782886752, 17773.208641863515,
+                               17199.879399143636, 16662.383230935386,
+                               16157.462585010686, 15682.243150581435,
+                               15234.179109522138, 14811.007512384256,
+                               14410.71005290687, 14031.48087811749,
+                               13671.699350732346, 13329.906897197858,
+                               13004.78724381764, 12695.149476295623,
+                               12399.913463061392, 12118.09726632265,
+                               11848.806231646535, 11591.223500638438,
+                               11344.601734766824, 11108.25587371059,
+                               10881.556780440458))
+
+v_parvula_oral_empirical_3 = proportional_sfs(c(795220, 233911, 156293, 126410, 
+                                                107267, 92917, 81655, 72138, 
+                                                64346, 57615, 51309, 46193, 
+                                                41466, 37124, 33061, 29362, 
+                                                25900, 22550, 19426, 16618, 
+                                                13985, 11588, 9345, 7441, 
+                                                6036, 5367, 4744, 4220, 3718, 
+                                                3293, 2922, 2590, 2273, 1977, 
+                                                1727, 1486, 1281, 1037, 840, 
+                                                676, 548, 409, 286, 205, 134, 
+                                                78, 36, 9, 0))
+v_parvula_oral_empirical_5 = proportional_sfs(c(720360, 205661, 134710, 107184, 
+                                                89695, 76446, 65977, 57266, 
+                                                50036, 43853, 38286, 33419, 
+                                                29065, 25272, 21725, 18373, 
+                                                15464, 12801, 10453, 8511, 
+                                                6818, 5510, 4527, 3789, 3250, 
+                                                2832, 2453, 2110, 1814, 1579, 
+                                                1326, 1125, 937, 774, 628, 512, 
+                                                407, 302, 233, 174, 130, 80, 
+                                                54, 35, 7, 0, 0, 0, 0))
+v_parvula_oral_empirical_25 = proportional_sfs(c(128313, 24049, 10858, 6850, 
+                                                 4667, 3238, 2294, 1661, 1245, 
+                                                 926, 696, 532, 404, 310, 226, 
+                                                 160, 112, 78, 62, 44, 36, 29, 
+                                                 19, 15, 8, 7, 1, 0, 0, 0, 0, 
+                                                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                                 0, 0, 0, 0, 0, 0, 0, 0))
+
+
+
+v_parvula_oral_empirical_2 = proportional_sfs(c(824738, 246463, 166389, 135571, 115494, 
+                               100588, 88836, 78900, 70867, 63892, 57554, 
+                               52059, 47060, 42478, 38346, 34471, 30767, 
+                               27316, 24065, 21011, 18113, 15327, 12730, 
+                               10198, 8020, 7088, 6334, 5699, 5124, 4586, 
+                               4086, 3685, 3247, 2885, 2528, 2223, 1949, 
+                               1673, 1404, 1170, 962, 776, 586, 433, 297, 
+                               179, 97, 31, 0))
+
+v_parvula_oral_x_axis = 1:length(v_parvula_oral_empirical_2)
+
+v_parvula_oral_df = data.frame(v_parvula_oral_empirical_2,
+                               v_parvula_oral_empirical_3,
+                               v_parvula_oral_empirical_5,
+                               v_parvula_oral_empirical_25,
+                               v_parvula_oral_one_epoch_2,
+                               v_parvula_oral_x_axis)
+
+
+names(v_parvula_oral_df) = c('Empirical (Consensus of 2 reads)',
+                             'Empirical (Consensus of 3 reads)',
+                             'Empirical (Consensus of 5 reads)',
+                             'Empirical (Consensus of 25 reads)',
+                             'One Epoch',
+                             'x_axis')
+
+p_v_parvula_oral_comparison <- ggplot(data = melt(v_parvula_oral_df, id='x_axis'),
+                                                aes(x=x_axis, 
+                                                    y=value,
+                                                    fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_oral_x_axis, limits=c(0.5, length(v_parvula_oral_x_axis) + 0.5)) +
+  ggtitle('V. Parvula (oral)') +
+  ylab('Proportional SFS') +
+  scale_fill_manual(values = c('black', 'red', 'orange', 'blue', 'green')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlim(0, 20)
+p_v_parvula_oral_comparison
+
+                               
