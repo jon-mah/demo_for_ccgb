@@ -1,15 +1,13 @@
-2022-10-20 13:03:25,489 - INFO - Beginning execution of construct_crude_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2022-10-20 20:42:33,417 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2022-10-20 13:03:25,489 - INFO - Progress is being logged to ../Data/oral_microbiome_data/Veillonella_parvula_57794_sfs/log.log
+2022-10-20 20:42:33,418 - INFO - Progress is being logged to ../Analysis/Veillonella_parvula_57794_oral/log.log
 
-2022-10-20 13:03:25,489 - INFO - Parsed the following arguments:
-	inprefix = ../Data/oral_microbiome_data/merged_data/snps/
-	species = Veillonella_parvula_57794
-	min_depth = 25
-	outprefix = ../Data/oral_microbiome_data/Veillonella_parvula_57794_sfs/
+2022-10-20 20:42:33,418 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/oral_microbiome_data/Veillonella_parvula_57794_sfs/folded_sfs_10.txt
+	nu_prime = 1.0
+	tau_prime = 0.1
+	mask_singletons = True
+	mask_doubletons = False
+	outprefix = ../Analysis/Veillonella_parvula_57794_oral/
 
-2022-10-20 13:03:45,588 - INFO - There are: 2163473 snps.
-2022-10-20 13:03:45,589 - INFO - The consensus SFS is: [0, 128313, 24049, 10858, 6850, 4667, 3238, 2294, 1661, 1245, 926, 696, 532, 404, 310, 226, 160, 112, 78, 62, 44, 36, 29, 19, 15, 8, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].
-2022-10-20 13:03:45,589 - INFO - The sum of these bins is: 186840.
-2022-10-20 13:03:45,589 - INFO - The folded consensus SFS is: [0, 128313, 24049, 10858, 6850, 4667, 3238, 2294, 1661, 1245, 926, 696, 532, 404, 310, 226, 160, 112, 78, 62, 44, 36, 29, 20, 22, 8].
-2022-10-20 13:03:45,589 - INFO - The sum of these bins is: 186840.
+2022-10-20 20:42:33,424 - INFO - Beginning demographic inference for two-epoch demographic model.

@@ -192,11 +192,12 @@ class ConstructCrudeSFS():
             folded_sfs[i] = n_tons[i] + n_tons[-i]
         folded_sfs[-1] = n_tons[int(len(n_tons) / 2)]
         with open(folded_sfs_file, 'w') as f:
-            sfs_header = str(len(folded_sfs) + 1) + ' folded "' + str(species) + '"\n'
+            sfs_header = str(len(folded_sfs) * 2 + 1) + ' folded "' + str(species) + '"\n'
             f.write(sfs_header)
             f.write(' '.join(str(x) for x in folded_sfs))
-            f.write('\n')
-            sfs_last_line = '1 ' + '0 ' * int(len(folded_sfs) / 2) + '1 ' * int(len(folded_sfs) / 2)
+            f.write(' 0' * len(folded_sfs) + '\n')
+            sfs_last_line = '1 ' + '0 ' * int(len(folded_sfs)) + '1 ' * int(len(folded_sfs))
+            f.write(sfs_last_line)
         logger.info('There are: ' + str(iter) + ' snps.')
         logger.info('The consensus SFS is: ' + str(n_tons) + '.')
         logger.info('The sum of these bins is: ' + str(sum(n_tons)) + '.')

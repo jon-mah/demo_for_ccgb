@@ -5,9 +5,9 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=00:15:00
+#$ -l h_rt=00:30:00
 #$ -l highp
-#$ -t 1-3
+#$ -t 1-4
 
 # SGE_TASK_ID=5
 
@@ -35,13 +35,23 @@
 
 i=0
 while read line;
- do
-   i=$((i+1))
-   # echo $line
-   if [ $i -eq $SGE_TASK_ID ]; then
-       file=$line
-   fi
-done < ./p_distasonis_likelihood_list.txt
+  do
+    i=$((i+1))
+    # echo $line
+    if [ $i -eq $SGE_TASK_ID ]; then
+        file=$line
+    fi
+done < ./oral_likelihood_list.txt
+
+# i=0
+# while read line;
+#   do
+#     i=$((i+1))
+#     # echo $line
+#     if [ $i -eq $SGE_TASK_ID ]; then
+#       file=$line
+#     fi
+# done < ./p_distasonis_likelihood_list.txt
 
 python $file
 
