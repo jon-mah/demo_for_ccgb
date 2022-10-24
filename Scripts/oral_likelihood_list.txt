@@ -1,4 +1,4 @@
-plot_likelihood.py ../Data/oral_microbiome_data/Veillonella_parvula_57794_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Veillonella_parvula_57794_oral/
-plot_likelihood.py ../Data/oral_microbiome_data/Veillonella_parvula_58184_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Veillonella_parvula_58184_oral/
-plot_likelihood.py ../Data/oral_microbiome_data/Streptococcus_mitis_58558_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Streptococcus_mitis_58558_oral/
-plot_likelihood.py ../Data/oral_microbiome_data/Rothia_dentocariosa_57938_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Rothia_dentocariosa_57938_oral/
+plot_likelihood.py ../Data/oral_microbiome_data/Veillonella_parvula_57794_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Veillonella_parvula_57794_oral/masked/ --mask_singletons
+plot_likelihood.py ../Data/oral_microbiome_data/Veillonella_parvula_58184_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Veillonella_parvula_58184_oral/masked/ --mask_singletons
+plot_likelihood.py ../Data/oral_microbiome_data/Streptococcus_mitis_58558_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Streptococcus_mitis_58558_oral/masked/ --mask_singletons
+plot_likelihood.py ../Data/oral_microbiome_data/Rothia_dentocariosa_57938_sfs/folded_sfs_10.txt 1.0 0.1 ../Analysis/Rothia_dentocariosa_57938_oral/masked/ --mask_singletons
