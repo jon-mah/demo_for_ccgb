@@ -16,7 +16,7 @@ compute_pi = function(input) {
 fold_sfs = function(input_sfs) {
   input_length = length(input_sfs)
   folded_length = length(input_sfs) / 2
-  if (input_length %% 2 == 1) {
+  if (input_length %% 2 == 0) {
     folded_length = folded_length + 1
   }
   output_sfs = c()
@@ -1979,4 +1979,325 @@ p_v_parvula_oral_comparison <- ggplot(data = melt(v_parvula_oral_df, id='x_axis'
   xlim(0, 20)
 p_v_parvula_oral_comparison
 
-                               
+r_dentocariosa_oral_one_epoch = fold_sfs(c(951114.4815822426, 475557.4616614596,
+                                           317038.3133282258, 237778.73732606266,
+                                           190222.99154268324, 158519.1609458688,
+                                           135873.56762016407, 118889.37259696763,
+                                           105679.44311237053, 95111.49950657596,
+                                           86465.0001772562, 79259.58405586075,
+                                           73162.69347938352, 67936.78725984688,
+                                           63407.66852602308, 59444.68962444547,
+                                           55947.94352596653, 52839.724763465674,
+                                           50058.68691551159, 47555.752844950766,
+                                           45291.19344075527, 43232.50306662274,
+                                           41352.82924038331, 39629.79489356523,
+                                           38044.603288649065, 36581.349493882284,
+                                           35226.48486370244, 33968.39627333969,
+                                           32797.07240833427, 31703.836796154403, 
+                                           30681.13250911168, 29722.347235478494,
+                                           28821.670155856475, 27973.9740766597,
+                                           27174.71776928199, 26419.864586074786,
+                                           25705.814273727883, 25029.345552964463,
+                                           24387.567532128276, 23777.87840872247,
+                                           23197.930214645694, 22645.59859780419,
+                                           22118.95682025201, 21616.253302038913,
+                                           21135.892159208677, 20676.416280324673,
+                                           20236.49256343459, 19814.8989984131, 
+                                           19410.513331065427, 19022.303087531,
+                                           18649.31677229116, 18290.676081792797,
+                                           17945.568999540596, 17613.243658409814,
+                                           17293.002872521305))
+
+r_dentocariosa_oral_empirical = c(1879581, 466275, 252716, 198281, 169840,
+                                  149731, 133607, 120134, 108749, 98885,
+                                  89971, 81748, 74340, 67643, 61239,
+                                  55540, 50341, 45532, 41170, 37463,
+                                  34136, 31458, 29108, 27482, 26203, 25358,
+                                  12522)
+
+v_parvula_57794_oral_one_epoch = fold_sfs(c(192915.39801457713, 96457.74084795856,
+                                            64305.16166891719, 48228.871746191086,
+                                            38583.09775698042, 32152.581749022753,
+                                            27559.35602013867, 24114.43671719602,
+                                            21435.055032221626, 19291.549680162247,
+                                            17537.77257040912, 16076.29164249202,
+                                            14839.653931439825, 13779.67874796683,
+                                            12861.033586587158, 12057.219068177628,
+                                            11347.970961641195, 10717.528198343038,
+                                            10153.447829358403, 9645.775495547008,
+                                            9186.452906173454, 8768.886914273913,
+                                            8387.63100713675, 8038.146424169574, 
+                                            7716.620606473912, 7419.827542674221,
+                                            7145.01914900523, 6889.839925097284,
+                                            6652.25926718339, 6430.517318664945,
+                                            6223.081301213808, 6028.610033793568,
+                                            5845.9249027652295, 5673.985954918654,
+                                            5511.872088838762, 5358.7645477118185,
+                                            5213.933088974779, 5076.724337702164,
+                                            4946.551931782002, 4822.888145312663,
+                                            4705.256737847131, 4593.226825171151, 
+                                            4486.407605322549, 4384.443803790756,
+                                            4287.011726021442, 4193.815824812751,
+                                            4104.585705916302, 4019.0735079377782,
+                                            3937.051603065967, 3858.310573714491,
+                                            3782.6574272055827))
+
+v_parvula_57794_oral_empirical = c(459619, 120910, 72187, 51366, 38321,
+                                   28972, 21993, 16579, 12581, 9700,
+                                   7541, 5979, 4792, 3934, 3259,
+                                   2702, 2266, 1884, 1571, 1346, 1132,
+                                   991, 897, 821, 406)
+
+v_parvula_58184_oral_one_epoch = fold_sfs(c(69043.39672070208, 34521.70543416088,
+                                            23014.470787206337, 17260.853414981935,
+                                            13808.682974709625, 11507.236002576044,
+                                            9863.345298569835, 8630.427262380157,
+                                            7671.491004842555, 6904.341992418668,
+                                            6276.674612836755, 5753.618457906803,
+                                            5311.03247579973, 4931.673058062742,
+                                            4602.89489182875, 4315.213992445896,
+                                            4061.377901062254, 3835.7458163474153,
+                                            3633.8644740930326, 3452.1712629314193,
+                                            3287.782164137087))
+
+v_parvula_58184_oral_empirical = c(156458, 30681, 16968, 12064, 9254,
+                                   7392, 6134, 5374, 4964, 2399)
+
+r_dentocariosa_oral_x_axis = 1:length(r_dentocariosa_oral_empirical)
+
+r_dentocariosa_oral_df = data.frame(r_dentocariosa_oral_empirical,
+                                    r_dentocariosa_oral_one_epoch,
+                                    r_dentocariosa_oral_x_axis)
+
+
+names(r_dentocariosa_oral_df) = c('Empirical (Consensus of >= 10 reads)',
+                                  'One Epoch',
+                                  'x_axis')
+
+p_r_dentocariosa_oral_comparison <- ggplot(data = melt(r_dentocariosa_oral_df, id='x_axis'),
+                                           aes(x=x_axis, 
+                                               y=value,
+                                               fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=r_dentocariosa_oral_x_axis, limits=c(0.5, length(r_dentocariosa_oral_x_axis) + 0.5)) +
+  ggtitle('R. dentocariosa (oral)') +
+  ylab('Raw Counts') +
+  scale_fill_manual(values = c('black', 'red')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+p_r_dentocariosa_oral_comparison
+
+r_dentocariosa_oral_x_axis = 1:length(r_dentocariosa_oral_empirical)
+
+r_dentocariosa_oral_df = data.frame(proportional_sfs(r_dentocariosa_oral_empirical),
+                                    proportional_sfs(r_dentocariosa_oral_one_epoch),
+                                    r_dentocariosa_oral_x_axis)
+
+
+names(r_dentocariosa_oral_df) = c('Empirical (Consensus of >= 10 reads)',
+                                  'One Epoch',
+                                  'x_axis')
+
+p_r_dentocariosa_oral_comparison <- ggplot(data = melt(r_dentocariosa_oral_df, id='x_axis'),
+                                           aes(x=x_axis, 
+                                               y=value,
+                                               fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=r_dentocariosa_oral_x_axis, limits=c(0.5, length(r_dentocariosa_oral_x_axis) + 0.5)) +
+  ggtitle('R. dentocariosa (oral)') +
+  ylab('Proportional SFS') +
+  scale_fill_manual(values = c('black', 'red')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+p_r_dentocariosa_oral_comparison
+
+v_parvula_57794_oral_x_axis = 1:length(v_parvula_57794_oral_empirical)
+
+v_parvula_57794_oral_df = data.frame(v_parvula_57794_oral_empirical,
+                                    v_parvula_57794_oral_one_epoch,
+                                    v_parvula_57794_oral_x_axis)
+
+
+names(v_parvula_57794_oral_df) = c('Empirical (Consensus of >= 10 reads)',
+                                  'One Epoch',
+                                  'x_axis')
+
+p_v_parvula_57794_oral_comparison <- ggplot(data = melt(v_parvula_57794_oral_df, id='x_axis'),
+                                           aes(x=x_axis, 
+                                               y=value,
+                                               fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_57794_oral_x_axis, limits=c(0.5, length(v_parvula_57794_oral_x_axis) + 0.5)) +
+  ggtitle('V. parvula 57794 (oral)') +
+  ylab('Raw Counts') +
+  scale_fill_manual(values = c('black', 'red')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+p_v_parvula_57794_oral_comparison
+
+v_parvula_57794_oral_x_axis = 1:length(v_parvula_57794_oral_empirical)
+
+v_parvula_57794_oral_df = data.frame(proportional_sfs(v_parvula_57794_oral_empirical),
+                                    proportional_sfs(v_parvula_57794_oral_one_epoch),
+                                    v_parvula_57794_oral_x_axis)
+
+
+names(v_parvula_57794_oral_df) = c('Empirical (Consensus of >= 10 reads)',
+                                  'One Epoch',
+                                  'x_axis')
+
+p_v_parvula_57794_oral_comparison <- ggplot(data = melt(v_parvula_57794_oral_df, id='x_axis'),
+                                           aes(x=x_axis, 
+                                               y=value,
+                                               fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_57794_oral_x_axis, limits=c(0.5, length(v_parvula_57794_oral_x_axis) + 0.5)) +
+  ggtitle('V. parvula 57794 (oral)') +
+  ylab('Proportional SFS') +
+  scale_fill_manual(values = c('black', 'red')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+p_v_parvula_57794_oral_comparison
+
+v_parvula_58184_oral_x_axis = 1:length(v_parvula_58184_oral_empirical)
+
+v_parvula_58184_oral_df = data.frame(v_parvula_58184_oral_empirical,
+                                    v_parvula_58184_oral_one_epoch,
+                                    v_parvula_58184_oral_x_axis)
+
+
+names(v_parvula_58184_oral_df) = c('Empirical (Consensus of >= 10 reads)',
+                                  'One Epoch',
+                                  'x_axis')
+
+p_v_parvula_58184_oral_comparison <- ggplot(data = melt(v_parvula_58184_oral_df, id='x_axis'),
+                                           aes(x=x_axis, 
+                                               y=value,
+                                               fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_58184_oral_x_axis, limits=c(0.5, length(v_parvula_58184_oral_x_axis) + 0.5)) +
+  ggtitle('V. parvula 58184 (oral)') +
+  ylab('Raw Counts') +
+  scale_fill_manual(values = c('black', 'red')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+p_v_parvula_58184_oral_comparison
+
+v_parvula_58184_oral_x_axis = 1:length(v_parvula_58184_oral_empirical)
+
+v_parvula_58184_oral_df = data.frame(proportional_sfs(v_parvula_58184_oral_empirical),
+                                    proportional_sfs(v_parvula_58184_oral_one_epoch),
+                                    v_parvula_58184_oral_x_axis)
+
+
+names(v_parvula_58184_oral_df) = c('Empirical (Consensus of >= 10 reads)',
+                                  'One Epoch',
+                                  'x_axis')
+
+p_v_parvula_58184_oral_comparison <- ggplot(data = melt(v_parvula_58184_oral_df, id='x_axis'),
+                                           aes(x=x_axis, 
+                                               y=value,
+                                               fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_58184_oral_x_axis, limits=c(0.5, length(v_parvula_58184_oral_x_axis) + 0.5)) +
+  ggtitle('V. parvula 58184 (oral)') +
+  ylab('Proportional SFS') +
+  scale_fill_manual(values = c('black', 'red')) +
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+p_v_parvula_58184_oral_comparison
+
+r_dentocariosa_exp_scatter = read.csv('r_dentocariosa_likelihood/r_dentocariosa_likelihood.csv', header=FALSE)
+names(r_dentocariosa_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+r_dentocariosa_exp_scatter_expansion = r_dentocariosa_exp_scatter[r_dentocariosa_exp_scatter$nu > 1.0, ]
+r_dentocariosa_exp_scatter_contraction = r_dentocariosa_exp_scatter[r_dentocariosa_exp_scatter$nu <= 1.0, ]
+
+r_dentocariosa_exp_scatter_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = r_dentocariosa_exp_scatter_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = r_dentocariosa_exp_scatter_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('R. dentocariosa histogram of likelihoods')
+r_dentocariosa_exp_scatter_hist
+
+r_dentocariosa_exp_scatter[r_dentocariosa_exp_scatter$likelihood < -100000, ]$likelihood = -100000
+
+scatter_r_dentocariosa_exp_scatter = ggplot(data=r_dentocariosa_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('R. dentocariosa rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+scatter_r_dentocariosa_exp_scatter
+
+v_parvula_57794_exp_scatter = read.csv('v_parvula_57794_likelihood/v_parvula_57794_likelihood.csv', header=FALSE)
+names(v_parvula_57794_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+v_parvula_57794_exp_scatter_expansion = v_parvula_57794_exp_scatter[v_parvula_57794_exp_scatter$nu > 1.0, ]
+v_parvula_57794_exp_scatter_contraction = v_parvula_57794_exp_scatter[v_parvula_57794_exp_scatter$nu <= 1.0, ]
+
+v_parvula_57794_exp_scatter_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = v_parvula_57794_exp_scatter_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = v_parvula_57794_exp_scatter_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 57794 histogram of likelihoods')
+v_parvula_57794_exp_scatter_hist
+
+v_parvula_57794_exp_scatter[v_parvula_57794_exp_scatter$likelihood < -90000, ]$likelihood = -100000
+
+scatter_v_parvula_57794_exp_scatter = ggplot(data=v_parvula_57794_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 57794 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+scatter_v_parvula_57794_exp_scatter
+
+v_parvula_58184_exp_scatter = read.csv('v_parvula_58184_likelihood/v_parvula_58184_likelihood.csv', header=FALSE)
+names(v_parvula_58184_exp_scatter) = c('likelihood', 'nu', 'tau')
+
+v_parvula_58184_exp_scatter_expansion = v_parvula_58184_exp_scatter[v_parvula_58184_exp_scatter$nu > 1.0, ]
+v_parvula_58184_exp_scatter_contraction = v_parvula_58184_exp_scatter[v_parvula_58184_exp_scatter$nu <= 1.0, ]
+
+v_parvula_58184_exp_scatter_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = v_parvula_58184_exp_scatter_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = v_parvula_58184_exp_scatter_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+v_parvula_58184_exp_scatter_hist
+
+v_parvula_58184_exp_scatter[v_parvula_58184_exp_scatter$likelihood < -7000, ]$likelihood = -100000
+
+scatter_v_parvula_58184_exp_scatter = ggplot(data=v_parvula_58184_exp_scatter, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+scatter_v_parvula_58184_exp_scatter
+
+
