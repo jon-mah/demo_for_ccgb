@@ -9,6 +9,7 @@
 #$ -l time=00:10:00
 #$ -t 1-123
 
+# SGE_TASK_ID=1
 
 i=0
 while read line;
