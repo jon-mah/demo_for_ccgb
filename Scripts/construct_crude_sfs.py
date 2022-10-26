@@ -191,6 +191,8 @@ class ConstructCrudeSFS():
         for i in range(len(folded_sfs) - 1):
             folded_sfs[i] = n_tons[i] + n_tons[-i]
         folded_sfs[-1] = n_tons[int(len(n_tons) / 2)]
+        if len(n_tons) % 2 == 1:
+            folded_sfs[-1] += n_tons[int(len(n_tons) / 2) + 1]
         with open(folded_sfs_file, 'w') as f:
             sfs_header = str(len(folded_sfs) * 2 + 1) + ' folded "' + str(species) + '"\n'
             f.write(sfs_header)
