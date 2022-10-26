@@ -197,8 +197,8 @@ class ConstructCrudeSFS():
             sfs_header = str(len(n_tons)) + ' folded "' + str(species) + '"\n'
             f.write(sfs_header)
             f.write(' '.join(str(x) for x in folded_sfs))
-            f.write(' 0' * len(folded_sfs) + '\n')
-            sfs_last_line = '1 ' + '0 ' * int(len(folded_sfs)) + '1 ' * int(len(folded_sfs))
+            f.write(' 0' * int(len(folded_sfs) - 1) + '\n')
+            sfs_last_line = '1 ' + '0 ' * int(len(folded_sfs) - 1) + '1 ' * int(len(folded_sfs) - 1)
             f.write(sfs_last_line)
         logger.info('There are: ' + str(iter) + ' snps.')
         logger.info('The consensus SFS is: ' + str(n_tons) + '.')
