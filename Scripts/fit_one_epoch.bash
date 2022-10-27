@@ -20,7 +20,9 @@ do
 done < ../Data/good_species_list.txt
 
 # Downsampled analysis
-python fit_one_epoch.py ../Analysis/${species}_downsampled/empirical_sfs.txt ../Analysis/${species}_downsampled/ --mask_singletons
+# python fit_one_epoch.py ../Analysis/${species}_downsampled/empirical_sfs.txt ../Analysis/${species}_downsampled/ --mask_singletons
+
+python fit_one_epoch.py ../Data/aina_folded_synonymous_sfs.txt ../Analysis/aina_test/
 
 # Original analysis
 # python fit_one_epoch.py ../Data/${species}_syn.sfs ../Analysis/${species}/ --mask_singletons
