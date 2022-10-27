@@ -201,7 +201,7 @@ class ConstructCrudeSFS():
             sfs_last_line = '1 ' + '0 ' * int(len(folded_sfs) - 1) + '1 ' * int(len(folded_sfs) - 1)
             f.write(sfs_last_line)
         logger.info('There are: ' + str(iter) + ' snps.')
-        logger.info('There are: ' + str(int(len(n_tons) - 1))  + ' hosts.'
+        logger.info('There are: ' + str(int(len(n_tons) - 1))  + ' hosts.')
         logger.info('The consensus SFS is: ' + str(n_tons) + '.')
         logger.info('The sum of these bins is: ' + str(sum(n_tons)) + '.')
         logger.info('The folded consensus SFS is: ' + str(folded_sfs) + '.')

@@ -434,21 +434,20 @@ class PlotLikelihood():
         model_list = ['two_epoch']
         for model in model_list:
             if model == 'two_epoch':
-                upper_bound = [80, 0.15]
-                lower_bound = [0, 0]
+                #upper_bound = [80, 0.15]
+                #lower_bound = [0, 0]
                 initial_guess = [nu_prime, tau_prime]
                 file = output_plot
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
-                min_nu = 0.1 * nu_prime
-                # max_nu = 1.9 * nu_prime
+                min_nu = 0.01 * nu_prime
+                max_nu = 100 * nu_prime
                 min_tau = 0.01 * tau_prime
                 max_tau = 100 * tau_prime
-                max_nu = 10.0
-                nx = 5
-                ny = 5
+                nx = 25
+                ny = 25
                 # x_space = numpy.linspace(min_nu, max_nu, nx)
                 # y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
                 # x, y = numpy.meshgrid(x_space, y_space,
@@ -457,14 +456,14 @@ class PlotLikelihood():
                 y = numpy.random.uniform(min_tau, max_tau, ny)
                 z_shape = (nx, ny)
                 z = numpy.ones(z_shape)
-                max_ll = -100000
+                max_ll = -10000000
                 for i in range(nx):
                     for j in range(ny):
                         p0 = [x[i], y[j]]
                         # p0 = [nu_prime, tau_prime]
                         popt = dadi.Inference.optimize_log_lbfgsb(
                             p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-                            lower_bound=lower_bound, upper_bound=upper_bound,
+                            lower_bound=None, upper_bound=None,
                             verbose=len(p0), maxiter=0)
                         print(popt)
                         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
@@ -488,8 +487,8 @@ class PlotLikelihood():
                         z[i,  j] = loglik
                         ll_grid.append(ll_array)
                         del ll_array
-                ll_df = pd.DataFrame(ll_grid)
-                ll_df.to_csv('ll_df.csv')
+                # ll_df = pd.DataFrame(ll_grid)
+                # ll_df.to_csv('ll_df.csv')
                 # generate 2 2d grids for the x & y bounds
                 # z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
                 # z_mid = z_max - 15

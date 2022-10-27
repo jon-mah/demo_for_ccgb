@@ -9,15 +9,15 @@
 
 # SGE_TASK_ID=25
 
-i=0
-while read line;
-do
-   i=$((i+1))
-   if [ $i -eq $SGE_TASK_ID ]
-   then
-      species=$line
-   fi
-done < ../Data/good_species_list.txt
+# i=0
+# while read line;
+# do
+#    i=$((i+1))
+#    if [ $i -eq $SGE_TASK_ID ]
+#     then
+#       species=$line
+#    fi
+# done < ../Data/good_species_list.txt
 
 # Downsampled analysis
 # python fit_one_epoch.py ../Analysis/${species}_downsampled/empirical_sfs.txt ../Analysis/${species}_downsampled/ --mask_singletons

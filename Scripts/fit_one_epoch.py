@@ -618,9 +618,9 @@ class DemographicInference():
                         'Beginning optimization with guess, {0}.'.format(p0))
                     popt = dadi.Inference.optimize_log_lbfgsb(
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-                        lower_bound=lower_bound,
-                        upper_bound=upper_bound,
-                        verbose=len(p0), maxiter=25)
+                        lower_bound=None,
+                        upper_bound=None,
+                        verbose=len(p0), maxiter=5)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
