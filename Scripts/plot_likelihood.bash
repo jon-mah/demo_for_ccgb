@@ -9,7 +9,7 @@
 #$ -l highp
 #$ -t 1-23
 
-# SGE_TASK_ID=1
+SGE_TASK_ID=1
 
 i=0
 while read line;
@@ -21,4 +21,4 @@ while read line;
     fi
 done < ./oral_sfs_list.txt
 
-plot_likelihood.py ../Data/oral_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 1.0 1.0 ../Analysis/${species}_oral/masked/ --mask_singletons
+python plot_likelihood.py ../Data/oral_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 1.0 1.0 ../Analysis/${species}_oral/masked/ --mask_singletons
