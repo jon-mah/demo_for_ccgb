@@ -1,0 +1,24 @@
+2022-10-27 16:06:33,876 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-10-27 16:06:33,876 - INFO - Progress is being logged to ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled/likelihood_surface_unmasked/log.log
+
+2022-10-27 16:06:33,876 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled/empirical_sfs.txt
+	nu_prime = 0.1
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled/likelihood_surface_unmasked/
+
+2022-10-27 16:06:33,878 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-27 18:32:53,683 - INFO - Finished plotting likelihood surface.
+2022-10-27 18:32:53,704 - INFO - Pipeline executed succesfully.
+2022-10-27 18:32:53,704 - INFO - The best fit parameters are: [6.5393291634523925, 1.2970917445575947].
+2022-10-27 18:32:53,704 - INFO - The likelihood of the mle is: -43.04880616017863.
+2022-10-27 18:32:53,719 - INFO - Non-scaled best-fit model spectrum: [-- 2.2115037862946436 1.007455320696519 0.6151905732844738 0.4250786050418321 0.3152542312962287 0.24514262354504188 0.19739155814457546 0.16335465969474694 0.13825263508450875 0.11923789748802659 0.10451496220972145 0.09290074192588403 0.08358786752442321 0.07600951739981024 0.0697583807153183 0.06453606755075228 0.06012042586260906 0.05634379868313364 0.05307818840081771 --].
+
+2022-10-27 18:32:53,719 - INFO - Scaled best-fit model spectrum: [-- 12226.036356975157 5569.597237498314 3401.0081113387164 2349.9966457309565 1742.845622695411 1355.2419157860047 1091.2558148856017 903.0868592160717 764.3132937262008 659.1925724262192 577.7985711545575 513.5907319782893 462.10561053023883 420.209600799844 385.6509331409151 356.7799942742576 332.36864297873626 311.49000759535767 293.4364685117999 --].
+
+2022-10-27 18:32:53,719 - INFO - Scaled best-fit theta: 5528.381381367553.
+2022-10-27 18:32:53,720 - INFO - Best low estimate for time is: 791174465085.6213 generations.
+2022-10-27 18:32:53,720 - INFO - Best high estimate for time is: 1343833098785.1362 generations.

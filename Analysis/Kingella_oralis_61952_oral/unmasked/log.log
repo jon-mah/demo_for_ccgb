@@ -1,0 +1,24 @@
+2022-10-27 16:05:38,549 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-10-27 16:05:38,549 - INFO - Progress is being logged to ../Analysis/Kingella_oralis_61952_oral/unmasked/log.log
+
+2022-10-27 16:05:38,549 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/oral_microbiome_sfs/Kingella_oralis_61952_sfs/folded_sfs_10.txt
+	nu_prime = 0.1
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Kingella_oralis_61952_oral/unmasked/
+
+2022-10-27 16:05:38,551 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-27 16:31:16,804 - INFO - Finished plotting likelihood surface.
+2022-10-27 16:31:16,805 - INFO - Pipeline executed succesfully.
+2022-10-27 16:31:16,805 - INFO - The best fit parameters are: [5.756933424476801, 70.25628548709179].
+2022-10-27 16:31:16,805 - INFO - The likelihood of the mle is: -16.825577449266348.
+2022-10-27 16:31:16,808 - INFO - Non-scaled best-fit model spectrum: [-- 11.2438322159687 0.9241092586950125 0.35442065553751323 0.25099364316692435 0.20003739650628471 --].
+
+2022-10-27 16:31:16,808 - INFO - Scaled best-fit model spectrum: [-- 76784.73518548305 6310.791850004169 2420.357726528798 1714.049094083846 1366.0661439001415 --].
+
+2022-10-27 16:31:16,808 - INFO - Scaled best-fit theta: 6829.053805732883.
+2022-10-27 16:31:16,808 - INFO - Best low estimate for time is: 60130010770420.516 generations.
+2022-10-27 16:31:16,808 - INFO - Best high estimate for time is: 102132591823287.8 generations.

@@ -1,0 +1,24 @@
+2022-10-27 16:05:38,850 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-10-27 16:05:38,850 - INFO - Progress is being logged to ../Analysis/Fusobacterium_nucleatum_57855_oral/unmasked/log.log
+
+2022-10-27 16:05:38,850 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/oral_microbiome_sfs/Fusobacterium_nucleatum_57855_sfs/folded_sfs_10.txt
+	nu_prime = 0.1
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Fusobacterium_nucleatum_57855_oral/unmasked/
+
+2022-10-27 16:05:38,851 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-27 18:54:32,038 - INFO - Finished plotting likelihood surface.
+2022-10-27 18:54:32,039 - INFO - Pipeline executed succesfully.
+2022-10-27 18:54:32,039 - INFO - The best fit parameters are: [8.170618735879408, 5.153343332164857].
+2022-10-27 18:54:32,039 - INFO - The likelihood of the mle is: -306.84122331901744.
+2022-10-27 18:54:32,039 - INFO - Non-scaled best-fit model spectrum: [-- 8.57681624683424 2.138751023997212 0.7841842784490655 0.38186498852912804 0.23837247942212691 0.17731493791972913 0.14556093232654557 0.12559415880525576 0.11121343961549905 --].
+
+2022-10-27 18:54:32,039 - INFO - Scaled best-fit model spectrum: [-- 219411.85514813883 54713.46434038616 20060.978614998585 9768.858646146768 6098.037595894087 4536.065406415222 3723.7353908157365 3212.945991398911 2845.0588658057045 --].
+
+2022-10-27 18:54:32,039 - INFO - Scaled best-fit theta: 25581.969909769865.
+2022-10-27 18:54:32,039 - INFO - Best low estimate for time is: 11641391248944.432 generations.
+2022-10-27 18:54:32,039 - INFO - Best high estimate for time is: 19773245430192.38 generations.

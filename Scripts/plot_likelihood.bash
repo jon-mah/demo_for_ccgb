@@ -1,13 +1,13 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N plot_likelihood
+#$ -N plot_likelihood_gut_unmasked
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
 #$ -l h_rt=12:00:00
 #$ -l highp
-#$ -t 1-23
+#$ -t 1-30
 
 # SGE_TASK_ID=21
 
@@ -21,4 +21,24 @@ while read line;
     fi
 done < ./oral_sfs_list.txt
 
-python plot_likelihood.py ../Data/oral_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.1 1.0 ../Analysis/${species}_oral/masked/ --mask_singletons
+# python plot_likelihood.py ../Data/oral_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.1 1.0 ../Analysis/${species}_oral/masked/ --mask_singletons
+
+# Oral with singletons
+# python plot_likelihood.py ../Data/oral_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.1 1.0 ../Analysis/${species}_oral/unmasked/
+
+
+i=0
+while read line;
+  do
+    i=$((i+1))
+    # echo $line
+    if [ $i -eq $SGE_TASK_ID ]; then
+        species=$line
+    fi
+done < ./gut_sfs_list.txt
+
+# Gut without singletons
+# python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.1 1.0 ../Analysis/${species}_downsampled/likelihood_surface_masked/ --mask_singletons
+
+# Gut with singletons
+python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.1 1.0 ../Analysis/${species}_downsampled/likelihood_surface_unmasked/

@@ -1,0 +1,24 @@
+2022-10-27 16:05:39,007 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-10-27 16:05:39,007 - INFO - Progress is being logged to ../Analysis/Haemophilus_haemolyticus_58348_oral/unmasked/log.log
+
+2022-10-27 16:05:39,007 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/oral_microbiome_sfs/Haemophilus_haemolyticus_58348_sfs/folded_sfs_10.txt
+	nu_prime = 0.1
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Haemophilus_haemolyticus_58348_oral/unmasked/
+
+2022-10-27 16:05:39,008 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-27 16:59:13,216 - INFO - Finished plotting likelihood surface.
+2022-10-27 16:59:13,217 - INFO - Pipeline executed succesfully.
+2022-10-27 16:59:13,217 - INFO - The best fit parameters are: [3.2063154914908676, 61.17683509519472].
+2022-10-27 16:59:13,217 - INFO - The likelihood of the mle is: -23.777044894583014.
+2022-10-27 16:59:13,221 - INFO - Non-scaled best-fit model spectrum: [-- 25.04194185822484 4.854087779159829 1.3102769158062213 0.474664077139369 0.24871835991489574 0.17591699865170465 0.14423383004197368 --].
+
+2022-10-27 16:59:13,221 - INFO - Scaled best-fit model spectrum: [-- 97349.57656819 18870.07775201074 5093.650630728348 1845.2381681603279 966.8829661665125 683.8705012113736 560.7034135327139 --].
+
+2022-10-27 16:59:13,221 - INFO - Scaled best-fit theta: 3887.461168919544.
+2022-10-27 16:59:13,221 - INFO - Best low estimate for time is: 53515992711013.64 generations.
+2022-10-27 16:59:13,221 - INFO - Best high estimate for time is: 90898487619442.28 generations.

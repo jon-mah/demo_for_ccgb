@@ -1,0 +1,24 @@
+2022-10-27 16:05:38,885 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-10-27 16:05:38,885 - INFO - Progress is being logged to ../Analysis/Streptococcus_sp_61583_oral/unmasked/log.log
+
+2022-10-27 16:05:38,885 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/oral_microbiome_sfs/Streptococcus_sp_61583_sfs/folded_sfs_10.txt
+	nu_prime = 0.1
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Streptococcus_sp_61583_oral/unmasked/
+
+2022-10-27 16:05:38,886 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-27 17:10:00,488 - INFO - Finished plotting likelihood surface.
+2022-10-27 17:10:00,490 - INFO - Pipeline executed succesfully.
+2022-10-27 17:10:00,490 - INFO - The best fit parameters are: [3.7201797116450357, 74.3620834108431].
+2022-10-27 17:10:00,490 - INFO - The likelihood of the mle is: -128.62892170970326.
+2022-10-27 17:10:00,490 - INFO - Non-scaled best-fit model spectrum: [-- 47.35442903156869 8.64711491828929 2.1485471316821623 0.677993286949319 0.2997937197010809 0.18867807651361024 0.14725203434647244 0.1257482328932633 0.11120882233962749 --].
+
+2022-10-27 17:10:00,490 - INFO - Scaled best-fit model spectrum: [-- 103850.8183841303 18963.58966396383 4711.879807764559 1486.8758667049822 657.4638059013348 413.78120395073176 322.93165789021964 275.77266083427645 243.88694885976716 --].
+
+2022-10-27 17:10:00,491 - INFO - Scaled best-fit theta: 2193.0539657631275.
+2022-10-27 17:10:00,491 - INFO - Best low estimate for time is: 31628144730235.215 generations.
+2022-10-27 17:10:00,491 - INFO - Best high estimate for time is: 53721334063855.41 generations.

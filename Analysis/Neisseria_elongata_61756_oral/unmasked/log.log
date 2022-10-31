@@ -1,0 +1,24 @@
+2022-10-27 16:05:39,690 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2022-10-27 16:05:39,691 - INFO - Progress is being logged to ../Analysis/Neisseria_elongata_61756_oral/unmasked/log.log
+
+2022-10-27 16:05:39,691 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/oral_microbiome_sfs/Neisseria_elongata_61756_sfs/folded_sfs_10.txt
+	nu_prime = 0.1
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Neisseria_elongata_61756_oral/unmasked/
+
+2022-10-27 16:05:39,693 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-27 22:20:09,280 - INFO - Finished plotting likelihood surface.
+2022-10-27 22:20:09,331 - INFO - Pipeline executed succesfully.
+2022-10-27 22:20:09,331 - INFO - The best fit parameters are: [3.0533214819872656, 86.90420996076475].
+2022-10-27 22:20:09,332 - INFO - The likelihood of the mle is: -17.392989884445342.
+2022-10-27 22:20:09,332 - INFO - Non-scaled best-fit model spectrum: [-- 401.25835021326 57.6830575787971 9.91170804504787 1.756468073402135 0.3906694211935726 --].
+
+2022-10-27 22:20:09,332 - INFO - Scaled best-fit model spectrum: [-- 71659.08007711577 10301.380245258519 1770.0912146092119 313.6804162652948 69.76804675120644 --].
+
+2022-10-27 22:20:09,332 - INFO - Scaled best-fit theta: 178.5858912070753.
+2022-10-27 22:20:09,332 - INFO - Best low estimate for time is: 3667348632590.556 generations.
+2022-10-27 22:20:09,332 - INFO - Best high estimate for time is: 6229099515650.136 generations.
