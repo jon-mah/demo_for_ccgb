@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N plot_likelihood_gut_unmasked
+#$ -N plot_likelihood_gut_masked
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
@@ -38,7 +38,7 @@ while read line;
 done < ./gut_sfs_list.txt
 
 # Gut without singletons
-# python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.1 1.0 ../Analysis/${species}_downsampled/likelihood_surface_masked/ --mask_singletons
+python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.01 0.01 ../Analysis/${species}_downsampled/likelihood_surface_masked/ --mask_singletons
 
 # Gut with singletons
-python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.1 1.0 ../Analysis/${species}_downsampled/likelihood_surface_unmasked/
+# python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.01 0.01 ../Analysis/${species}_downsampled/likelihood_surface_unmasked/
