@@ -1,15 +1,15 @@
-2022-10-27 16:06:35,961 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2022-10-31 19:26:57,921 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2022-10-27 16:06:35,961 - INFO - Progress is being logged to ../Analysis/Phascolarctobacterium_sp_59817_downsampled/likelihood_surface_unmasked/log.log
+2022-10-31 19:26:57,921 - INFO - Progress is being logged to ../Analysis/Phascolarctobacterium_sp_59817_downsampled/likelihood_surface_unmasked/log.log
 
-2022-10-27 16:06:35,962 - INFO - Parsed the following arguments:
+2022-10-31 19:26:57,921 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Phascolarctobacterium_sp_59817_downsampled/empirical_sfs.txt
-	nu_prime = 0.1
-	tau_prime = 1.0
-	mask_singletons = False
+	nu_prime = 0.01
+	tau_prime = 0.01
+	mask_singletons = True
 	mask_doubletons = False
 	outprefix = ../Analysis/Phascolarctobacterium_sp_59817_downsampled/likelihood_surface_unmasked/
 
-2022-10-27 16:06:35,964 - INFO - Beginning demographic inference for two-epoch demographic model.
-2022-10-27 16:06:36,901 - WARNING - Warning: converting a masked element to nan.
-2022-10-27 16:06:37,820 - WARNING - Warning: converting a masked element to nan.
+2022-10-31 19:26:57,945 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-31 19:26:58,065 - WARNING - Warning: converting a masked element to nan.
+2022-10-31 19:26:58,175 - WARNING - Warning: converting a masked element to nan.

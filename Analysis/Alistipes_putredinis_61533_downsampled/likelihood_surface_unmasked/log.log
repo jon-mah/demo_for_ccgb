@@ -1,13 +1,24 @@
-2022-10-27 16:06:34,032 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2022-10-31 19:05:09,938 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2022-10-27 16:06:34,033 - INFO - Progress is being logged to ../Analysis/Alistipes_putredinis_61533_downsampled/likelihood_surface_unmasked/log.log
+2022-10-31 19:05:09,939 - INFO - Progress is being logged to ../Analysis/Alistipes_putredinis_61533_downsampled/likelihood_surface_unmasked/log.log
 
-2022-10-27 16:06:34,033 - INFO - Parsed the following arguments:
+2022-10-31 19:05:09,939 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Alistipes_putredinis_61533_downsampled/empirical_sfs.txt
-	nu_prime = 0.1
-	tau_prime = 1.0
-	mask_singletons = False
+	nu_prime = 0.01
+	tau_prime = 0.01
+	mask_singletons = True
 	mask_doubletons = False
 	outprefix = ../Analysis/Alistipes_putredinis_61533_downsampled/likelihood_surface_unmasked/
 
-2022-10-27 16:06:34,041 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-31 19:05:09,952 - INFO - Beginning demographic inference for two-epoch demographic model.
+2022-10-31 19:12:17,625 - INFO - Finished plotting likelihood surface.
+2022-10-31 19:12:17,626 - INFO - Pipeline executed succesfully.
+2022-10-31 19:12:17,626 - INFO - The best fit parameters are: [0.5455871822301617, 0.4614137586938294].
+2022-10-31 19:12:17,626 - INFO - The likelihood of the mle is: -43.657301298181665.
+2022-10-31 19:12:17,626 - INFO - Non-scaled best-fit model spectrum: [-- 5.966155114439386 2.240084570662305 1.138120950916946 0.6641735118708664 0.42465052318986557 0.2919357934298645 0.21366771713141033 0.16520508156188413 0.13388455156598153 0.1127957957374694 0.0980031853702076 0.0871930944484711 0.07897152534050308 0.07248130719809699 0.067185642436942 0.06274223175252494 0.05892849479661988 0.05559642285209776 0.05264498900113996 --].
+
+2022-10-31 19:12:17,626 - INFO - Scaled best-fit model spectrum: [-- 5508.882095252549 2068.394392446606 1050.8902313927374 613.2682602956811 392.10339306776416 269.5605183808981 197.29126022720197 152.54301948307932 123.62303607690514 104.1506175483165 90.49177951424821 80.51022268501346 72.91879169051067 66.92601311986101 62.03623197511988 57.93338431331564 54.41194934734552 51.33526241528004 48.61003975764026 --].
+
+2022-10-31 19:12:17,626 - INFO - Scaled best-fit theta: 923.3554927058237.
+2022-10-31 19:12:17,626 - INFO - Best low estimate for time is: 563419778395.1461 generations.
+2022-10-31 19:12:17,626 - INFO - Best high estimate for time is: 956985064774.1085 generations.
