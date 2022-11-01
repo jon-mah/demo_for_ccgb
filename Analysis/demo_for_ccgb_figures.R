@@ -1069,1240 +1069,1921 @@ p_b_thetaiotaomicron_downsampled_delta <- ggplot(data = melt(b_thetaiotaomicron_
 
 p_b_thetaiotaomicron_downsampled_delta
 
-input_csv = read.csv('temp_output.txt', header=FALSE)
-names(input_csv) = c('likelihood', 'nu', 'tau')
-plot = ggplot(data=input_csv, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-plot
+# Oral Data
 
+actinomyces_sp_masked_surface = read.csv('oral_likelihood_surfaces/actinomyces_sp_masked.csv', header=FALSE)
+names(actinomyces_sp_masked_surface) = c('likelihood', 'nu', 'tau')
 
-input_csv_2 = read.csv('temp_output_2.txt', header=FALSE)
-names(input_csv_2) = c('likelihood', 'nu', 'tau')
+actinomyces_sp_masked_surface_expansion = actinomyces_sp_masked_surface[actinomyces_sp_masked_surface$nu > 1.0, ]
+actinomyces_sp_masked_surface_contraction = actinomyces_sp_masked_surface[actinomyces_sp_masked_surface$nu <= 1.0, ]
 
-input_csv_2[input_csv_2$likelihood < -150, ]$likelihood = -150
-
-plot_2 = ggplot(data=input_csv_2, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-plot_2
-
-input_csv_3 = read.csv('temp_output/b_thetaiotaomicron_scatter.txt', header=FALSE)
-names(input_csv_3) = c('likelihood', 'nu', 'tau')
-
-input_csv_3[input_csv_3$likelihood < -150, ]$likelihood = -150
-
-input_csv_4 = read.csv('temp_output/b_xylanisolvens_scatter.txt', header=FALSE)
-names(input_csv_4) = c('likelihood', 'nu', 'tau')
-
-input_csv_4[input_csv_4$likelihood < -150, ]$likelihood = -150
-
-input_csv_5 = read.csv('temp_output/b_intestinihominis_scatter.txt', header=FALSE)
-names(input_csv_5) = c('likelihood', 'nu', 'tau')
-
-input_csv_5[input_csv_5$likelihood < -150, ]$likelihood = -150
-
-input_csv_6 = read.csv('temp_output/p_distasonis_scatter.txt', header=FALSE)
-names(input_csv_6) = c('likelihood', 'nu', 'tau')
-
-input_csv_6[input_csv_6$likelihood < -150, ]$likelihood = -150
-
-scatter_b_thetaiotaomicron = ggplot(data=input_csv_3, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-scatter_b_thetaiotaomicron
-
-input_csv_4 = input_csv_4[order(-input_csv_4$likelihood), ]
-
-input_csv_4[input_csv_4$tau < 0.0001, ]
-
-input_csv_4[input_csv_4$tau < 0.00001, ]
-
-b_xylanisolvens_downsampled_empirical = c(2354.975426140429,
-                                          1125.802067113204, 809.8079494704909,
-                                          689.0643046976489, 622.4599121761868,
-                                          562.9077350396836, 521.9242943638338,
-                                          498.4492947002323, 483.0524634080177,
-                                          240.2388435326407)
-
-b_xylanisolvens_downsampled_red = fold_sfs(c(2225.8375688163587, 1112.9189983969616,
-                                             741.946017393644, 556.4595253498074,
-                                             445.1676295107077, 370.9730318372629,
-                                             317.9768902767878, 278.2297837939835,
-                                             247.31536736626893, 222.58383397882884,
-                                             202.34894280359518, 185.486533288166,
-                                             171.21834043457568, 158.98846067272606,
-                                             148.38923138441444, 139.11490560600612,
-                                             130.93167683575913, 123.6576955724437,
-                                             117.14939642030969))
-
-b_xylanisolvens_downsampled_orange = fold_sfs(c(1354.6450720818552, 964.1121714611451,
-                                                723.3597958043349, 567.8574193786202,
-                                                462.71067502604933, 388.4800696665438,
-                                                333.988234526398, 292.59153993815636,
-                                                260.2041943786457, 234.22626049010108,
-                                                212.9474333685768, 195.20663452063698,
-                                                180.19229972042848, 167.32190788610325,
-                                                156.16725916101194, 146.40684653213373,
-                                                137.79469013723616, 130.13943250581772,
-                                                123.28998955486668))
-
-b_xylanisolvens_downsampled_violet = fold_sfs(c(2150.301238110714, 1111.0540590328678,
-                                                742.1488683045079, 556.7010970246465,
-                                                445.36807402550346, 371.14075768398175,
-                                                318.1207296252597, 278.35565159531444,
-                                                247.4272504985305, 222.68452850602046,
-                                                202.4404829010326, 185.57044467799253,
-                                                171.29579676175558, 159.06038408863958,
-                                                148.45635961048444, 139.17783804093617,
-                                                130.990907102119, 123.71363502234682,
-                                                117.2023914555424))
-
-b_xylanisolvens_downsampled_one_epoch = fold_sfs(c(2225.8375946491637, 1112.9190090884904,
-                                                   741.9460230393622, 556.4595284726163,
-                                                   445.16763111997324, 370.9730324378159,
-                                                   317.97689015707357, 278.22978313422897,
-                                                   247.31536628656738, 222.58383256325666,
-                                                   202.34894111319673, 185.48653136871667,
-                                                   171.21833832126538, 158.98845839321308,
-                                                   148.38922896089073, 139.11490305652447,
-                                                   130.93167417529625, 123.65769281345032,
-                                                   117.14939357325068))
-
-b_xylanisolvens_downsampled_two_epoch = fold_sfs(c(1354.7424693587352, 964.1545370204719,
-                                                   723.3720688058446, 567.8574177822163,
-                                                   462.70629991290303, 388.4744983802059,
-                                                   333.98264785739957, 292.58632056979917,
-                                                   260.1994236208664, 234.22191614360744,
-                                                   212.94346498536052, 195.20298995814255,
-                                                   180.18893310882493, 167.31878094576342,
-                                                   156.1643404299584, 146.4041101466808,
-                                                   137.79211469511313, 130.13700013878122,
-                                                   123.28768520619438))
-
-b_xylanisolvens_downsampled_x_axis = 1:length(b_xylanisolvens_downsampled_empirical)
-
-b_xylanisolvens_downsampled_df = data.frame(b_xylanisolvens_downsampled_empirical,
-                                            b_xylanisolvens_downsampled_red,
-                                            b_xylanisolvens_downsampled_orange,
-                                            b_xylanisolvens_downsampled_violet,
-                                            b_xylanisolvens_downsampled_x_axis,
-                                            b_xylanisolvens_downsampled_one_epoch,
-                                            b_xylanisolvens_downsampled_two_epoch)
-
-
-names(b_xylanisolvens_downsampled_df) = c('Empirical',
-                                          'Red',
-                                          'Orange',
-                                          'Violet',
-                                          'x_axis',
-                                          'One epoch',
-                                          'Two epoch')
-
-p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_downsampled_df, id='x_axis'),
-                                                   aes(x=x_axis, 
-                                                       y=value,
-                                                       fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Parameter Estimate") +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_downsampled_x_axis, limits=c(0.5, length(b_xylanisolvens_downsampled_x_axis) + 0.5)) +
-  ggtitle('B. Xylanisolvens (Downsampled, Raw Counts)') +
-  ylab('Proportional Frequency') +
-  scale_fill_manual(values = c('black', 'red', 'orange', 'violet', 'blue', 'green')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
-p_b_xylanisolvens_downsampled_comparison
-
-b_xylanisolvens_downsampled_empirical = proportional_sfs(c(2354.975426140429,
-                                          1125.802067113204, 809.8079494704909,
-                                          689.0643046976489, 622.4599121761868,
-                                          562.9077350396836, 521.9242943638338,
-                                          498.4492947002323, 483.0524634080177,
-                                          240.2388435326407))
-
-b_xylanisolvens_downsampled_red = proportional_sfs(fold_sfs(c(2225.8375688163587, 1112.9189983969616,
-                                             741.946017393644, 556.4595253498074,
-                                             445.1676295107077, 370.9730318372629,
-                                             317.9768902767878, 278.2297837939835,
-                                             247.31536736626893, 222.58383397882884,
-                                             202.34894280359518, 185.486533288166,
-                                             171.21834043457568, 158.98846067272606,
-                                             148.38923138441444, 139.11490560600612,
-                                             130.93167683575913, 123.6576955724437,
-                                             117.14939642030969)))
-
-b_xylanisolvens_downsampled_orange = proportional_sfs(fold_sfs(c(1354.6450720818552, 964.1121714611451,
-                                                723.3597958043349, 567.8574193786202,
-                                                462.71067502604933, 388.4800696665438,
-                                                333.988234526398, 292.59153993815636,
-                                                260.2041943786457, 234.22626049010108,
-                                                212.9474333685768, 195.20663452063698,
-                                                180.19229972042848, 167.32190788610325,
-                                                156.16725916101194, 146.40684653213373,
-                                                137.79469013723616, 130.13943250581772,
-                                                123.28998955486668)))
-
-b_xylanisolvens_downsampled_violet = proportional_sfs(fold_sfs(c(2150.301238110714, 1111.0540590328678,
-                                                742.1488683045079, 556.7010970246465,
-                                                445.36807402550346, 371.14075768398175,
-                                                318.1207296252597, 278.35565159531444,
-                                                247.4272504985305, 222.68452850602046,
-                                                202.4404829010326, 185.57044467799253,
-                                                171.29579676175558, 159.06038408863958,
-                                                148.45635961048444, 139.17783804093617,
-                                                130.990907102119, 123.71363502234682,
-                                                117.2023914555424)))
-
-b_xylanisolvens_downsampled_one_epoch = proportional_sfs(fold_sfs(c(2225.8375946491637, 1112.9190090884904,
-                                                   741.9460230393622, 556.4595284726163,
-                                                   445.16763111997324, 370.9730324378159,
-                                                   317.97689015707357, 278.22978313422897,
-                                                   247.31536628656738, 222.58383256325666,
-                                                   202.34894111319673, 185.48653136871667,
-                                                   171.21833832126538, 158.98845839321308,
-                                                   148.38922896089073, 139.11490305652447,
-                                                   130.93167417529625, 123.65769281345032,
-                                                   117.14939357325068)))
-
-b_xylanisolvens_downsampled_two_epoch = proportional_sfs(fold_sfs(c(1354.7424693587352, 964.1545370204719,
-                                                   723.3720688058446, 567.8574177822163,
-                                                   462.70629991290303, 388.4744983802059,
-                                                   333.98264785739957, 292.58632056979917,
-                                                   260.1994236208664, 234.22191614360744,
-                                                   212.94346498536052, 195.20298995814255,
-                                                   180.18893310882493, 167.31878094576342,
-                                                   156.1643404299584, 146.4041101466808,
-                                                   137.79211469511313, 130.13700013878122,
-                                                   123.28768520619438)))
-
-b_xylanisolvens_downsampled_x_axis = 1:length(b_xylanisolvens_downsampled_empirical)
-
-b_xylanisolvens_downsampled_df = data.frame(b_xylanisolvens_downsampled_empirical,
-                                            b_xylanisolvens_downsampled_red,
-                                            b_xylanisolvens_downsampled_orange,
-                                            b_xylanisolvens_downsampled_violet,
-                                            b_xylanisolvens_downsampled_x_axis,
-                                            b_xylanisolvens_downsampled_one_epoch,
-                                            b_xylanisolvens_downsampled_two_epoch)
-
-
-names(b_xylanisolvens_downsampled_df) = c('Empirical',
-                                          'Red',
-                                          'Orange',
-                                          'Violet',
-                                          'x_axis',
-                                          'One epoch',
-                                          'Two epoch')
-
-p_b_xylanisolvens_downsampled_comparison <- ggplot(data = melt(b_xylanisolvens_downsampled_df, id='x_axis'),
-                                                   aes(x=x_axis, 
-                                                       y=value,
-                                                       fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Demographic Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=b_xylanisolvens_downsampled_x_axis, limits=c(1.5, length(b_xylanisolvens_downsampled_x_axis) + 0.5)) +
-  ggtitle('B. Xylanisolvens (Downsampled, Proportional)') +
-  ylab('Proportional Frequency') +
-  scale_fill_manual(values = c('black', 'red', 'orange', 'violet', 'blue', 'green')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
-p_b_xylanisolvens_downsampled_comparison
-
-scatter_b_xylanisolvens = ggplot(data=input_csv_4, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10') +
-  geom_point(aes(x=4.06991e-05, y=0.000467818), color='red', size=3) +
-  geom_point(aes(x=0.000631269, y=4.55855e-05), color='orange', size=3) +
-  geom_point(aes(x=0.001183690, y=2.92090e-06), color='violet', size=3) +
-  geom_point(aes(x=8.48466166e-06, y=6.13311336e-07), color='green', size=3)
-scatter_b_xylanisolvens
-
-scatter_b_intestinihominis = ggplot(data=input_csv_5, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-scatter_b_intestinihominis
-
-scatter_p_distasonis = ggplot(data=input_csv_6, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-scatter_p_distasonis
-
-# a_muciniphila_exp_scatter = read.csv('temp_output/a_muciniphila_expansion_scatter.txt', header=FALSE)
-a_muciniphila_exp_scatter = read.csv('likelihood_surfaces/a_muciniphila_likelihood_surface.csv', header=FALSE)
-names(a_muciniphila_exp_scatter) = c('likelihood', 'nu', 'tau')
-
-a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$likelihood < -100, ]$likelihood = -85
-
-exp_scatter_a_muciniphila = ggplot(data=a_muciniphila_exp_scatter, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10') +
-  ggtitle('A. muciniphila rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
-exp_scatter_a_muciniphila
-
-a_muciniphila_expansion = a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$nu > 1.0, ]
-a_muciniphila_contraction = a_muciniphila_exp_scatter[a_muciniphila_exp_scatter$nu <= 1.0, ]
-
-a_muciniphila_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = a_muciniphila_expansion) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = a_muciniphila_contraction) +
-  scale_fill_manual(name = "Demographic Change", values = c(expansion = "red", contraction = "green")) +
-  scale_y_log10() +
-  xlab('Likelihood') +
-  ylab('Count') +
-  ggtitle('A. muciniphila histogram of likelihoods')
-a_muciniphila_hist
-
-# a_onderdonkii_exp_scatter = read.csv('temp_output/a_onderdonkii_expansion_scatter.txt', header=FALSE)
-a_onderdonkii_exp_scatter = read.csv('likelihood_surfaces/a_onderdonkii_likelihood_surface.csv', header=FALSE)
-names(a_onderdonkii_exp_scatter) = c('likelihood', 'nu', 'tau')
-
-a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$likelihood < -75, ]$likelihood = -75
-
-exp_scatter_a_onderdonkii = ggplot(data=a_onderdonkii_exp_scatter, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10') +
-  ggtitle('A. onderonkii rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
-exp_scatter_a_onderdonkii
-
-a_onderdonkii_expansion = a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$nu > 1.0, ]
-a_onderdonkii_contraction = a_onderdonkii_exp_scatter[a_onderdonkii_exp_scatter$nu <= 1.0, ]
-
-a_onderdonkii_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = a_onderdonkii_expansion) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = a_onderdonkii_contraction) +
+actinomyces_sp_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = actinomyces_sp_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = actinomyces_sp_masked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('A. onderdonkii histogram of likelihoods')
-a_onderdonkii_hist
+  ggtitle('Actinomyces sp. histogram of likelihoods [singletons masked]')
+actinomyces_sp_masked_surface_hist
 
-# b_intestinihominis_exp_scatter = read.csv('temp_output/b_intestinihominis_expansion_scatter.txt', header=FALSE)
-b_intestinihominis_exp_scatter = read.csv('likelihood_surfaces/b_intestinihominis_likelihood_surface.csv', header=FALSE)
-names(b_intestinihominis_exp_scatter) = c('likelihood', 'nu', 'tau')
+actinomyces_sp_masked_surface_cutoff = quantile(actinomyces_sp_masked_surface$likelihood, 0.80)
 
-b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$likelihood < -75, ]$likelihood = -75
+actinomyces_sp_masked_surface[actinomyces_sp_masked_surface$likelihood < actinomyces_sp_masked_surface_cutoff, ]$likelihood = actinomyces_sp_masked_surface_cutoff
 
-exp_scatter_b_intestinihominis = ggplot(data=b_intestinihominis_exp_scatter, aes(x=nu, y=tau)) + 
+actinomyces_sp_masked_surface_scatter = ggplot(data=actinomyces_sp_masked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('B. intestinihominis rough likelihood surface') +
+  ggtitle('Actinomyces sp. rough likelihood surface [singletons masked]') +
   geom_vline(xintercept=1.0, color='red')
-exp_scatter_b_intestinihominis
+actinomyces_sp_masked_surface_scatter
 
-b_intestinihominis_expansion = b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$nu > 1.0, ]
-b_intestinihominis_contraction = b_intestinihominis_exp_scatter[b_intestinihominis_exp_scatter$nu <= 1.0, ]
+actinomyces_sp_unmasked_surface = read.csv('oral_likelihood_surfaces/actinomyces_sp_unmasked.csv', header=FALSE)
+names(actinomyces_sp_unmasked_surface) = c('likelihood', 'nu', 'tau')
 
-b_intestinihominis_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_intestinihominis_expansion) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_intestinihominis_contraction) +
+actinomyces_sp_unmasked_surface_expansion = actinomyces_sp_unmasked_surface[actinomyces_sp_unmasked_surface$nu > 1.0, ]
+actinomyces_sp_unmasked_surface_contraction = actinomyces_sp_unmasked_surface[actinomyces_sp_unmasked_surface$nu <= 1.0, ]
+
+actinomyces_sp_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = actinomyces_sp_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = actinomyces_sp_unmasked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('B. intestinihominis histogram of likelihoods')
-b_intestinihominis_hist
+  ggtitle('Actinomyces sp. histogram of likelihoods')
+actinomyces_sp_unmasked_surface_hist
 
-# b_thetaiotaomicron_exp_scatter = read.csv('temp_output/b_thetaiotaomicron_expansion_scatter.txt', header=FALSE)
-b_thetaiotaomicron_exp_scatter = read.csv('likelihood_surfaces/b_thetaiotaomicron_likelihood_surface.csv', header=FALSE)
-names(b_thetaiotaomicron_exp_scatter) = c('likelihood', 'nu', 'tau')
+actinomyces_sp_unmasked_surface_cutoff = quantile(actinomyces_sp_unmasked_surface$likelihood, 0.80)
 
-b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$likelihood < -75, ]$likelihood = -75
+actinomyces_sp_unmasked_surface[actinomyces_sp_unmasked_surface$likelihood < actinomyces_sp_unmasked_surface_cutoff, ]$likelihood = actinomyces_sp_unmasked_surface_cutoff
 
-exp_scatter_b_thetaiotaomicron = ggplot(data=b_thetaiotaomicron_exp_scatter, aes(x=nu, y=tau)) + 
+actinomyces_sp_unmasked_surface_scatter = ggplot(data=actinomyces_sp_unmasked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('B. thetaiotaomicron rough likelihood surface') +
+  ggtitle('Actinomyces sp. rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
-exp_scatter_b_thetaiotaomicron
+actinomyces_sp_unmasked_surface_scatter
 
-b_thetaiotaomicron_expansion = b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$nu > 1.0, ]
-b_thetaiotaomicron_contraction = b_thetaiotaomicron_exp_scatter[b_thetaiotaomicron_exp_scatter$nu <= 1.0, ]
+aggregatibacter_sp_masked_surface = read.csv('oral_likelihood_surfaces/aggregatibacter_sp_masked.csv', header=FALSE)
+names(aggregatibacter_sp_masked_surface) = c('likelihood', 'nu', 'tau')
 
-b_thetaiotaomicron_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_thetaiotaomicron_expansion) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_thetaiotaomicron_contraction) +
+aggregatibacter_sp_masked_surface_expansion = aggregatibacter_sp_masked_surface[aggregatibacter_sp_masked_surface$nu > 1.0, ]
+aggregatibacter_sp_masked_surface_contraction = aggregatibacter_sp_masked_surface[aggregatibacter_sp_masked_surface$nu <= 1.0, ]
+
+aggregatibacter_sp_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = aggregatibacter_sp_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = aggregatibacter_sp_masked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('B. thetaiotaomicron histogram of likelihoods')
-b_thetaiotaomicron_hist
+  ggtitle('Aggregatibacter sp. histogram of likelihoods [singletons masked]')
+aggregatibacter_sp_masked_surface_hist
 
-# b_xylanisolvens_exp_scatter = read.csv('temp_output/b_xylanisolvens_expansion_scatter.txt', header=FALSE)
-b_xylanisolvens_exp_scatter = read.csv('likelihood_surfaces/b_xylanisolvens_likelihood_surface.csv', header=FALSE)
-names(b_xylanisolvens_exp_scatter) = c('likelihood', 'nu', 'tau')
+aggregatibacter_sp_masked_surface_cutoff = quantile(aggregatibacter_sp_masked_surface$likelihood, 0.80)
 
-b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$likelihood < -55, ]$likelihood = -55
+aggregatibacter_sp_masked_surface[aggregatibacter_sp_masked_surface$likelihood < aggregatibacter_sp_masked_surface_cutoff, ]$likelihood = aggregatibacter_sp_masked_surface_cutoff
 
-exp_scatter_b_xylanisolvens = ggplot(data=b_xylanisolvens_exp_scatter, aes(x=nu, y=tau)) + 
+aggregatibacter_sp_masked_surface_scatter = ggplot(data=aggregatibacter_sp_masked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('B. xylanisolvens rough likelihood surface') +
+  ggtitle('Aggregatibacter sp. rough likelihood surface [singletons masked]') +
   geom_vline(xintercept=1.0, color='red')
-exp_scatter_b_xylanisolvens
+aggregatibacter_sp_masked_surface_scatter
 
-b_xylanisolvens_expansion = b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$nu > 1.0, ]
-b_xylanisolvens_contraction = b_xylanisolvens_exp_scatter[b_xylanisolvens_exp_scatter$nu <= 1.0, ]
+aggregatibacter_sp_unmasked_surface = read.csv('oral_likelihood_surfaces/aggregatibacter_sp_unmasked.csv', header=FALSE)
+names(aggregatibacter_sp_unmasked_surface) = c('likelihood', 'nu', 'tau')
 
-b_xylanisolvens_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_xylanisolvens_expansion) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_xylanisolvens_contraction) +
-  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
-  scale_y_log10()  +
-  xlab('Likelihood') +
-  ylab('Count') +
-  ggtitle('B. xylanisolvens histogram of likelihoods')
-b_xylanisolvens_hist
+aggregatibacter_sp_unmasked_surface_expansion = aggregatibacter_sp_unmasked_surface[aggregatibacter_sp_unmasked_surface$nu > 1.0, ]
+aggregatibacter_sp_unmasked_surface_contraction = aggregatibacter_sp_unmasked_surface[aggregatibacter_sp_unmasked_surface$nu <= 1.0, ]
 
-# p_distasonis_exp_scatter = read.csv('temp_output/p_distasonis_expansion_scatter.txt', header=FALSE)
-p_distasonis_exp_scatter = read.csv('likelihood_surfaces/p_distasonis_likelihood_surface.csv', header=FALSE)
-names(p_distasonis_exp_scatter) = c('likelihood', 'nu', 'tau')
-
-p_distasonis_exp_scatter[p_distasonis_exp_scatter$likelihood < -75, ]$likelihood = -75
-
-p_distasonis_good_likelihood = p_distasonis_exp_scatter[p_distasonis_exp_scatter$likelihood > -60, ]
-fit = lm(log(p_distasonis_good_likelihood$tau) ~ log(p_distasonis_good_likelihood$nu))
-
-exp_scatter_p_distasonis = ggplot(data=p_distasonis_exp_scatter, aes(x=nu, y=tau)) + 
-  geom_point(aes(color=likelihood)) +
-  scale_fill_brewer(palette = "Accent") +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10') +
-  ggtitle('P. distasonis rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red') +
-  geom_abline(intercept = -1.2, slope = 1.05, col='violet') +
-  geom_point(aes(x=0.1, y=0.006), color='red', size=3, shape=15) +
-  geom_point(aes(x=0.01, y=0.00045), color='orange', size=3, shape=15) +
-  geom_point(aes(x=0.001, y=4.5e-05), color='green', size=3, shape=15) +
-  geom_point(aes(x=5.63834969e-04, y=3.09685202e-05), color='violet', size=3, shape=15)
-  exp_scatter_p_distasonis
-
-p_distasonis_expansion = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu > 1.0, ]
-p_distasonis_contraction = p_distasonis_exp_scatter[p_distasonis_exp_scatter$nu <= 1.0, ]
-
-p_distasonis_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = p_distasonis_expansion, bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = p_distasonis_contraction, bins=100) +
+aggregatibacter_sp_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = aggregatibacter_sp_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = aggregatibacter_sp_unmasked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('P. distasonis histogram of likelihoods')
-p_distasonis_hist
+  ggtitle('Aggregatibacter sp. histogram of likelihoods')
+aggregatibacter_sp_unmasked_surface_hist
 
-p_distasonis_downsampled_empirical = c(10253.18489341513,
-                                       5326.520737228057,
-                                       3924.694937012874,
-                                       3321.958570197894,
-                                       2970.095360152478,
-                                       2663.637872179951,
-                                       2392.125470912756,
-                                       2189.947401730031,
-                                       2071.812959514204,
-                                       1015.051256310989)
+aggregatibacter_sp_unmasked_surface_cutoff = quantile(aggregatibacter_sp_unmasked_surface$likelihood, 0.80)
 
-p_distasonis_downsampled_red = fold_sfs(c(7077.17815103975,
-                                          4726.656795917924,
-                                          3423.1328638052682,
-                                          2637.6250607421644,
-                                          2129.45750111715,
-                                          1780.0818044961181,
-                                          1527.400302135002,
-                                          1336.951929919985,
-                                          1188.5425471222807,
-                                          1069.729660523428,
-                                          972.4935085410946,
-                                          891.4557973258138,
-                                          822.8832225432012,
-                                          764.106106077283,
-                                          713.1657676828243,
-                                          668.5929265692381,
-                                          629.2639375745741,
-                                          594.3048331458824,
-                                          563.0256333394243))
+aggregatibacter_sp_unmasked_surface[aggregatibacter_sp_unmasked_surface$likelihood < aggregatibacter_sp_unmasked_surface_cutoff, ]$likelihood = aggregatibacter_sp_unmasked_surface_cutoff
 
-p_distasonis_downsampled_orange = fold_sfs(c(4449.654131052629,
-                                             3652.8866688511757,
-                                             3042.074440063343,
-                                             2568.5691269367353,
-                                             2197.985023907023,
-                                             1905.063736777304,
-                                             1671.0984264156718,
-                                             1482.1761127747545,
-                                             1327.9114641514925,
-                                             1200.522083540078,
-                                             1094.150174932085,
-                                             1004.3640328005865,
-                                             927.7912979410152,
-                                             861.848898930354,
-                                             804.5439696858973,
-                                             754.3268777067542,
-                                             709.9825176381233,
-                                             670.5497121868409,
-                                             635.2612712292624))
-
-p_distasonis_downsampled_violet = fold_sfs(c(7015.378947471712,
-                                             4714.614313079614,
-                                             3421.498263322795,
-                                             2638.540153376612,
-                                             2130.903155622198,
-                                             1781.5232462632164,
-                                             1528.7138384333805,
-                                             1338.1267394879326,
-                                             1189.5950267851217,
-                                             1070.6794907741141,
-                                             973.3577958861454,
-                                             892.2483035727298,
-                                             823.6148375615049,
-                                             764.7854826640892,
-                                             713.7998577436606,
-                                             669.1873873043774,
-                                             629.823430329617,
-                                             594.8332430321193,
-                                             563.5262321902541))
-
-p_distasonis_downsampled_one_epoch = fold_sfs(c(10370.627948469039,
-                                                5185.314960885411,
-                                                3456.8767197052484,
-                                                2592.6575919298302,
-                                                2074.126112410343,
-                                                1728.4384573144491,
-                                                1481.5187019742768,
-                                                1296.3288840141815,
-                                                1152.2923576558376,
-                                                1037.0631354268637,
-                                                942.7846798420104,
-                                                864.219299243238,
-                                                797.7408994050211,
-                                                740.7594130229054,
-                                                691.375457406692,
-                                                648.164495538564,
-                                                610.037175581179,
-                                                576.1462238831828,
-                                                545.8227401934395))
-
-p_distasonis_downsampled_two_epoch = fold_sfs(c(6928.279335504198,
-                                                4689.46319955322,
-                                                3416.6003600771573,
-                                                2639.874501783247,
-                                                2133.875848052315,
-                                                1784.6932438175231,
-                                                1531.6759559795496,
-                                                1340.8033169923415,
-                                                1192.0028890612432,
-                                                1072.8560569470897,
-                                                975.339551782675,
-                                                894.0658697998036,
-                                                825.2928794526885,
-                                                766.3437476426332,
-                                                715.2542611351579,
-                                                670.5508962940819,
-                                                631.1067342710417,
-                                                596.0452525974625,
-                                                564.6744518323502))
-
-p_distasonis_downsampled_x_axis = 1:length(p_distasonis_downsampled_empirical)
-
-p_distasonis_downsampled_df = data.frame(p_distasonis_downsampled_empirical,
-                                         p_distasonis_downsampled_red,
-                                         p_distasonis_downsampled_orange,
-                                         p_distasonis_downsampled_green,
-                                         p_distasonis_downsampled_x_axis,
-                                         p_distasonis_downsampled_one_epoch,
-                                         p_distasonis_downsampled_two_epoch)
-
-
-names(p_distasonis_downsampled_df) = c('Empirical',
-                                       'Red',
-                                       'Orange',
-                                       'green',
-                                       'x_axis',
-                                       'One epoch',
-                                       'Two epoch')
-
-p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsampled_df, id='x_axis'),
-                                                aes(x=x_axis, 
-                                                    y=value,
-                                                    fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Parameter Estimate") +
-  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_downsampled_x_axis, limits=c(0.5, length(p_distasonis_downsampled_x_axis) + 0.5)) +
-  ggtitle('P. distasonis (Downsampled, Raw Counts)') +
-  ylab('Proportional Frequency') +
-  scale_fill_manual(values = c('black', 'red', 'orange', 'green', 'blue', 'violet')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
-p_p_distasonis_downsampled_comparison
-
-p_distasonis_downsampled_empirical = proportional_sfs(c(10253.18489341513,
-                                       5326.520737228057,
-                                       3924.694937012874,
-                                       3321.958570197894,
-                                       2970.095360152478,
-                                       2663.637872179951,
-                                       2392.125470912756,
-                                       2189.947401730031,
-                                       2071.812959514204,
-                                       1015.051256310989))
-
-p_distasonis_downsampled_red = proportional_sfs(fold_sfs(c(7077.17815103975,
-                                          4726.656795917924,
-                                          3423.1328638052682,
-                                          2637.6250607421644,
-                                          2129.45750111715,
-                                          1780.0818044961181,
-                                          1527.400302135002,
-                                          1336.951929919985,
-                                          1188.5425471222807,
-                                          1069.729660523428,
-                                          972.4935085410946,
-                                          891.4557973258138,
-                                          822.8832225432012,
-                                          764.106106077283,
-                                          713.1657676828243,
-                                          668.5929265692381,
-                                          629.2639375745741,
-                                          594.3048331458824,
-                                          563.0256333394243)))
-
-p_distasonis_downsampled_orange = proportional_sfs(fold_sfs(c(4449.654131052629,
-                                             3652.8866688511757,
-                                             3042.074440063343,
-                                             2568.5691269367353,
-                                             2197.985023907023,
-                                             1905.063736777304,
-                                             1671.0984264156718,
-                                             1482.1761127747545,
-                                             1327.9114641514925,
-                                             1200.522083540078,
-                                             1094.150174932085,
-                                             1004.3640328005865,
-                                             927.7912979410152,
-                                             861.848898930354,
-                                             804.5439696858973,
-                                             754.3268777067542,
-                                             709.9825176381233,
-                                             670.5497121868409,
-                                             635.2612712292624)))
-
-p_distasonis_downsampled_violet = proportional_sfs(fold_sfs(c(7015.378947471712,
-                                             4714.614313079614,
-                                             3421.498263322795,
-                                             2638.540153376612,
-                                             2130.903155622198,
-                                             1781.5232462632164,
-                                             1528.7138384333805,
-                                             1338.1267394879326,
-                                             1189.5950267851217,
-                                             1070.6794907741141,
-                                             973.3577958861454,
-                                             892.2483035727298,
-                                             823.6148375615049,
-                                             764.7854826640892,
-                                             713.7998577436606,
-                                             669.1873873043774,
-                                             629.823430329617,
-                                             594.8332430321193,
-                                             563.5262321902541)))
-
-p_distasonis_downsampled_one_epoch = proportional_sfs(fold_sfs(c(10370.627948469039,
-                                                5185.314960885411,
-                                                3456.8767197052484,
-                                                2592.6575919298302,
-                                                2074.126112410343,
-                                                1728.4384573144491,
-                                                1481.5187019742768,
-                                                1296.3288840141815,
-                                                1152.2923576558376,
-                                                1037.0631354268637,
-                                                942.7846798420104,
-                                                864.219299243238,
-                                                797.7408994050211,
-                                                740.7594130229054,
-                                                691.375457406692,
-                                                648.164495538564,
-                                                610.037175581179,
-                                                576.1462238831828,
-                                                545.8227401934395)))
-
-p_distasonis_downsampled_two_epoch = proportional_sfs(fold_sfs(c(6928.279335504198,
-                                                4689.46319955322,
-                                                3416.6003600771573,
-                                                2639.874501783247,
-                                                2133.875848052315,
-                                                1784.6932438175231,
-                                                1531.6759559795496,
-                                                1340.8033169923415,
-                                                1192.0028890612432,
-                                                1072.8560569470897,
-                                                975.339551782675,
-                                                894.0658697998036,
-                                                825.2928794526885,
-                                                766.3437476426332,
-                                                715.2542611351579,
-                                                670.5508962940819,
-                                                631.1067342710417,
-                                                596.0452525974625,
-                                                564.6744518323502)))
-
-p_distasonis_downsampled_x_axis = 1:length(p_distasonis_downsampled_empirical)
-
-p_distasonis_downsampled_df = data.frame(p_distasonis_downsampled_empirical,
-                                         p_distasonis_downsampled_red,
-                                         p_distasonis_downsampled_orange,
-                                         p_distasonis_downsampled_green,
-                                         p_distasonis_downsampled_x_axis,
-                                         p_distasonis_downsampled_one_epoch,
-                                         p_distasonis_downsampled_two_epoch)
-
-
-names(p_distasonis_downsampled_df) = c('Empirical',
-                                       'Red',
-                                       'Orange',
-                                       'green',
-                                       'x_axis',
-                                       'One epoch',
-                                       'Two epoch')
-
-p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsampled_df, id='x_axis'),
-                                                aes(x=x_axis, 
-                                                    y=value,
-                                                    fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Parameter Estimate") +
-  scale_x_continuous(name='Frequency in Sample', breaks=p_distasonis_downsampled_x_axis, limits=c(0.5, length(p_distasonis_downsampled_x_axis) + 0.5)) +
-  ggtitle('P. distasonis (Downsampled, Proportional SFS)') +
-  ylab('Proportional Frequency') +
-  scale_fill_manual(values = c('black', 'red', 'orange', 'green', 'blue', 'violet')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
-p_p_distasonis_downsampled_comparison
-
-input_csv_5 = read.csv('temp_output/b_intestinihominis_scatter.txt', header=FALSE)
-names(input_csv_5) = c('likelihood', 'nu', 'tau')
-
-b_intestinihominis_exp_scatter = read.csv('temp_output/b_intestinihominis_expansion_scatter.txt', header=FALSE)
-names(b_intestinihominis_exp_scatter) = c('likelihood', 'nu', 'tau')
-
-b_intestinihominis_all = rbind(input_csv_5, b_intestinihominis_exp_scatter)
-
-exp_scatter_b_intestinihominis_all = ggplot(data=b_intestinihominis_all, aes(x=nu, y=tau)) + 
+aggregatibacter_sp_unmasked_surface_scatter = ggplot(data=aggregatibacter_sp_unmasked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('P. distasonis rough likelihood surface') +
+  ggtitle('Aggregatibacter sp. rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
-exp_scatter_b_intestinihominis_all
+aggregatibacter_sp_unmasked_surface_scatter
 
-b_intestinihominis_all_expansion = b_intestinihominis_all[b_intestinihominis_all$nu > 1.0, ]
-b_intestinihominis_all_contraction = b_intestinihominis_all[b_intestinihominis_all$nu <= 1.0, ]
+capnocytophaga_gingivalis_masked_surface = read.csv('oral_likelihood_surfaces/capnocytophaga_gingivalis_masked.csv', header=FALSE)
+names(capnocytophaga_gingivalis_masked_surface) = c('likelihood', 'nu', 'tau')
 
-b_intestinihominis_all_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_intestinihominis_all_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_intestinihominis_all_contraction, bins=100) +
+capnocytophaga_gingivalis_masked_surface_expansion = capnocytophaga_gingivalis_masked_surface[capnocytophaga_gingivalis_masked_surface$nu > 1.0, ]
+capnocytophaga_gingivalis_masked_surface_contraction = capnocytophaga_gingivalis_masked_surface[capnocytophaga_gingivalis_masked_surface$nu <= 1.0, ]
+
+capnocytophaga_gingivalis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = capnocytophaga_gingivalis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = capnocytophaga_gingivalis_masked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('B. intestinihominis histogram of likelihoods')
-b_intestinihominis_all_hist
+  ggtitle('Capnocytophaga gingivalis histogram of likelihoods [singletons masked]')
+capnocytophaga_gingivalis_masked_surface_hist
 
-b_intestinihominis_all[b_intestinihominis_all$likelihood < -75, ]$likelihood = -75
+capnocytophaga_gingivalis_masked_surface_cutoff = quantile(capnocytophaga_gingivalis_masked_surface$likelihood, 0.80)
 
-exp_scatter_b_intestinihominis_all = ggplot(data=b_intestinihominis_all, aes(x=nu, y=tau)) + 
+capnocytophaga_gingivalis_masked_surface[capnocytophaga_gingivalis_masked_surface$likelihood < capnocytophaga_gingivalis_masked_surface_cutoff, ]$likelihood = capnocytophaga_gingivalis_masked_surface_cutoff
+
+capnocytophaga_gingivalis_masked_surface_scatter = ggplot(data=capnocytophaga_gingivalis_masked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('B. intestinihominis rough likelihood surface') +
+  ggtitle('Capnocytophaga gingivalis rough likelihood surface [singletons masked]') +
   geom_vline(xintercept=1.0, color='red')
-exp_scatter_b_intestinihominis_all
+capnocytophaga_gingivalis_masked_surface_scatter
 
-input_csv_4 = read.csv('temp_output/b_xylanisolvens_scatter.txt', header=FALSE)
-names(input_csv_4) = c('likelihood', 'nu', 'tau')
+capnocytophaga_gingivalis_unmasked_surface = read.csv('oral_likelihood_surfaces/capnocytophaga_gingivalis_unmasked.csv', header=FALSE)
+names(capnocytophaga_gingivalis_unmasked_surface) = c('likelihood', 'nu', 'tau')
 
-b_xylanisolvens_exp_scatter = read.csv('temp_output/b_xylanisolvens_expansion_scatter.txt', header=FALSE)
-names(b_xylanisolvens_exp_scatter) = c('likelihood', 'nu', 'tau')
+capnocytophaga_gingivalis_unmasked_surface_expansion = capnocytophaga_gingivalis_unmasked_surface[capnocytophaga_gingivalis_unmasked_surface$nu > 1.0, ]
+capnocytophaga_gingivalis_unmasked_surface_contraction = capnocytophaga_gingivalis_unmasked_surface[capnocytophaga_gingivalis_unmasked_surface$nu <= 1.0, ]
 
-b_xylanisolvens_all = rbind(input_csv_4, b_xylanisolvens_exp_scatter)
-
-b_xylanisolvens_all_expansion = b_xylanisolvens_all[b_xylanisolvens_all$nu > 1.0, ]
-b_xylanisolvens_all_contraction = b_xylanisolvens_all[b_xylanisolvens_all$nu <= 1.0, ]
-
-b_xylanisolvens_all_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = b_xylanisolvens_all_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = b_xylanisolvens_all_contraction, bins=100) +
+capnocytophaga_gingivalis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = capnocytophaga_gingivalis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = capnocytophaga_gingivalis_unmasked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('B. xylanisolvens histogram of likelihoods')
-b_xylanisolvens_all_hist
+  ggtitle('Capnocytophaga gingivalis histogram of likelihoods')
+capnocytophaga_gingivalis_unmasked_surface_hist
 
-b_xylanisolvens_all[b_xylanisolvens_all$likelihood < -55, ]$likelihood = -55
+capnocytophaga_gingivalis_unmasked_surface_cutoff = quantile(capnocytophaga_gingivalis_unmasked_surface$likelihood, 0.80)
 
-exp_scatter_b_xylanisolvens_all = ggplot(data=b_xylanisolvens_all, aes(x=nu, y=tau)) + 
+capnocytophaga_gingivalis_unmasked_surface[capnocytophaga_gingivalis_unmasked_surface$likelihood < capnocytophaga_gingivalis_unmasked_surface_cutoff, ]$likelihood = capnocytophaga_gingivalis_unmasked_surface_cutoff
+
+capnocytophaga_gingivalis_unmasked_surface_scatter = ggplot(data=capnocytophaga_gingivalis_unmasked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('B. xylanisolvens rough likelihood surface') +
+  ggtitle('Capnocytophaga gingivalis rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
-exp_scatter_b_xylanisolvens_all
+capnocytophaga_gingivalis_unmasked_surface_scatter
 
-v_parvula_oral_one_epoch_2 = proportional_sfs(c(533195.9297199068, 266598.0764088201,
-                               177732.05396665598, 133299.04187614407,
-                               106639.23452515142, 88866.02958238604,
-                               76170.88316942671, 66649.52334163418,
-                               59244.02123907864, 53319.61954508698,
-                               48472.381785085236, 44433.016975866674,
-                               41015.092898196555, 38085.44368114568,
-                               35546.414352666456, 33324.76368370745,
-                               31364.483675567713, 29622.01255147318,
-                               28062.959435016688, 26659.81162506927,
-                               25390.29693500079, 24236.19266665555,
-                               23182.445286773807, 22216.510184303766,
-                               21327.849885964075, 20507.548068201926,
-                               19748.009344293878, 19042.723382756965,
-                               18386.07782886752, 17773.208641863515,
-                               17199.879399143636, 16662.383230935386,
-                               16157.462585010686, 15682.243150581435,
-                               15234.179109522138, 14811.007512384256,
-                               14410.71005290687, 14031.48087811749,
-                               13671.699350732346, 13329.906897197858,
-                               13004.78724381764, 12695.149476295623,
-                               12399.913463061392, 12118.09726632265,
-                               11848.806231646535, 11591.223500638438,
-                               11344.601734766824, 11108.25587371059,
-                               10881.556780440458))
+capnocytophaga_sputigena_masked_surface = read.csv('oral_likelihood_surfaces/capnocytophaga_sputigena_masked.csv', header=FALSE)
+names(capnocytophaga_sputigena_masked_surface) = c('likelihood', 'nu', 'tau')
 
-v_parvula_oral_empirical_3 = proportional_sfs(c(795220, 233911, 156293, 126410, 
-                                                107267, 92917, 81655, 72138, 
-                                                64346, 57615, 51309, 46193, 
-                                                41466, 37124, 33061, 29362, 
-                                                25900, 22550, 19426, 16618, 
-                                                13985, 11588, 9345, 7441, 
-                                                6036, 5367, 4744, 4220, 3718, 
-                                                3293, 2922, 2590, 2273, 1977, 
-                                                1727, 1486, 1281, 1037, 840, 
-                                                676, 548, 409, 286, 205, 134, 
-                                                78, 36, 9, 0))
-v_parvula_oral_empirical_5 = proportional_sfs(c(720360, 205661, 134710, 107184, 
-                                                89695, 76446, 65977, 57266, 
-                                                50036, 43853, 38286, 33419, 
-                                                29065, 25272, 21725, 18373, 
-                                                15464, 12801, 10453, 8511, 
-                                                6818, 5510, 4527, 3789, 3250, 
-                                                2832, 2453, 2110, 1814, 1579, 
-                                                1326, 1125, 937, 774, 628, 512, 
-                                                407, 302, 233, 174, 130, 80, 
-                                                54, 35, 7, 0, 0, 0, 0))
-v_parvula_oral_empirical_25 = proportional_sfs(c(128313, 24049, 10858, 6850, 
-                                                 4667, 3238, 2294, 1661, 1245, 
-                                                 926, 696, 532, 404, 310, 226, 
-                                                 160, 112, 78, 62, 44, 36, 29, 
-                                                 19, 15, 8, 7, 1, 0, 0, 0, 0, 
-                                                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                                                 0, 0, 0, 0, 0, 0, 0, 0))
+capnocytophaga_sputigena_masked_surface_expansion = capnocytophaga_sputigena_masked_surface[capnocytophaga_sputigena_masked_surface$nu > 1.0, ]
+capnocytophaga_sputigena_masked_surface_contraction = capnocytophaga_sputigena_masked_surface[capnocytophaga_sputigena_masked_surface$nu <= 1.0, ]
 
-
-
-v_parvula_oral_empirical_2 = proportional_sfs(c(824738, 246463, 166389, 135571, 115494, 
-                               100588, 88836, 78900, 70867, 63892, 57554, 
-                               52059, 47060, 42478, 38346, 34471, 30767, 
-                               27316, 24065, 21011, 18113, 15327, 12730, 
-                               10198, 8020, 7088, 6334, 5699, 5124, 4586, 
-                               4086, 3685, 3247, 2885, 2528, 2223, 1949, 
-                               1673, 1404, 1170, 962, 776, 586, 433, 297, 
-                               179, 97, 31, 0))
-
-v_parvula_oral_x_axis = 1:length(v_parvula_oral_empirical_2)
-
-v_parvula_oral_df = data.frame(v_parvula_oral_empirical_2,
-                               v_parvula_oral_empirical_3,
-                               v_parvula_oral_empirical_5,
-                               v_parvula_oral_empirical_25,
-                               v_parvula_oral_one_epoch_2,
-                               v_parvula_oral_x_axis)
-
-
-names(v_parvula_oral_df) = c('Empirical (Consensus of 2 reads)',
-                             'Empirical (Consensus of 3 reads)',
-                             'Empirical (Consensus of 5 reads)',
-                             'Empirical (Consensus of 25 reads)',
-                             'One Epoch',
-                             'x_axis')
-
-p_v_parvula_oral_comparison <- ggplot(data = melt(v_parvula_oral_df, id='x_axis'),
-                                                aes(x=x_axis, 
-                                                    y=value,
-                                                    fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_oral_x_axis, limits=c(0.5, length(v_parvula_oral_x_axis) + 0.5)) +
-  ggtitle('V. Parvula (oral)') +
-  ylab('Proportional SFS') +
-  scale_fill_manual(values = c('black', 'red', 'orange', 'blue', 'green')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-  xlim(0, 20)
-p_v_parvula_oral_comparison
-
-r_dentocariosa_oral_one_epoch = fold_sfs(c(951114.4815822426, 475557.4616614596,
-                                           317038.3133282258, 237778.73732606266,
-                                           190222.99154268324, 158519.1609458688,
-                                           135873.56762016407, 118889.37259696763,
-                                           105679.44311237053, 95111.49950657596,
-                                           86465.0001772562, 79259.58405586075,
-                                           73162.69347938352, 67936.78725984688,
-                                           63407.66852602308, 59444.68962444547,
-                                           55947.94352596653, 52839.724763465674,
-                                           50058.68691551159, 47555.752844950766,
-                                           45291.19344075527, 43232.50306662274,
-                                           41352.82924038331, 39629.79489356523,
-                                           38044.603288649065, 36581.349493882284,
-                                           35226.48486370244, 33968.39627333969,
-                                           32797.07240833427, 31703.836796154403, 
-                                           30681.13250911168, 29722.347235478494,
-                                           28821.670155856475, 27973.9740766597,
-                                           27174.71776928199, 26419.864586074786,
-                                           25705.814273727883, 25029.345552964463,
-                                           24387.567532128276, 23777.87840872247,
-                                           23197.930214645694, 22645.59859780419,
-                                           22118.95682025201, 21616.253302038913,
-                                           21135.892159208677, 20676.416280324673,
-                                           20236.49256343459, 19814.8989984131, 
-                                           19410.513331065427, 19022.303087531,
-                                           18649.31677229116, 18290.676081792797,
-                                           17945.568999540596, 17613.243658409814,
-                                           17293.002872521305))
-
-r_dentocariosa_oral_empirical = c(1879581, 466275, 252716, 198281, 169840,
-                                  149731, 133607, 120134, 108749, 98885,
-                                  89971, 81748, 74340, 67643, 61239,
-                                  55540, 50341, 45532, 41170, 37463,
-                                  34136, 31458, 29108, 27482, 26203, 25358,
-                                  12522)
-
-v_parvula_57794_oral_one_epoch = fold_sfs(c(192915.39801457713, 96457.74084795856,
-                                            64305.16166891719, 48228.871746191086,
-                                            38583.09775698042, 32152.581749022753,
-                                            27559.35602013867, 24114.43671719602,
-                                            21435.055032221626, 19291.549680162247,
-                                            17537.77257040912, 16076.29164249202,
-                                            14839.653931439825, 13779.67874796683,
-                                            12861.033586587158, 12057.219068177628,
-                                            11347.970961641195, 10717.528198343038,
-                                            10153.447829358403, 9645.775495547008,
-                                            9186.452906173454, 8768.886914273913,
-                                            8387.63100713675, 8038.146424169574, 
-                                            7716.620606473912, 7419.827542674221,
-                                            7145.01914900523, 6889.839925097284,
-                                            6652.25926718339, 6430.517318664945,
-                                            6223.081301213808, 6028.610033793568,
-                                            5845.9249027652295, 5673.985954918654,
-                                            5511.872088838762, 5358.7645477118185,
-                                            5213.933088974779, 5076.724337702164,
-                                            4946.551931782002, 4822.888145312663,
-                                            4705.256737847131, 4593.226825171151, 
-                                            4486.407605322549, 4384.443803790756,
-                                            4287.011726021442, 4193.815824812751,
-                                            4104.585705916302, 4019.0735079377782,
-                                            3937.051603065967, 3858.310573714491,
-                                            3782.6574272055827))
-
-v_parvula_57794_oral_empirical = c(459619, 120910, 72187, 51366, 38321,
-                                   28972, 21993, 16579, 12581, 9700,
-                                   7541, 5979, 4792, 3934, 3259,
-                                   2702, 2266, 1884, 1571, 1346, 1132,
-                                   991, 897, 821, 406)
-
-v_parvula_58184_oral_one_epoch = fold_sfs(c(69043.39672070208, 34521.70543416088,
-                                            23014.470787206337, 17260.853414981935,
-                                            13808.682974709625, 11507.236002576044,
-                                            9863.345298569835, 8630.427262380157,
-                                            7671.491004842555, 6904.341992418668,
-                                            6276.674612836755, 5753.618457906803,
-                                            5311.03247579973, 4931.673058062742,
-                                            4602.89489182875, 4315.213992445896,
-                                            4061.377901062254, 3835.7458163474153,
-                                            3633.8644740930326, 3452.1712629314193,
-                                            3287.782164137087))
-
-v_parvula_58184_oral_empirical = c(156458, 30681, 16968, 12064, 9254,
-                                   7392, 6134, 5374, 4964, 2399)
-
-r_dentocariosa_oral_x_axis = 1:length(r_dentocariosa_oral_empirical)
-
-r_dentocariosa_oral_df = data.frame(r_dentocariosa_oral_empirical,
-                                    r_dentocariosa_oral_one_epoch,
-                                    r_dentocariosa_oral_x_axis)
-
-
-names(r_dentocariosa_oral_df) = c('Empirical (Consensus of >= 10 reads)',
-                                  'One Epoch',
-                                  'x_axis')
-
-p_r_dentocariosa_oral_comparison <- ggplot(data = melt(r_dentocariosa_oral_df, id='x_axis'),
-                                           aes(x=x_axis, 
-                                               y=value,
-                                               fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=r_dentocariosa_oral_x_axis, limits=c(0.5, length(r_dentocariosa_oral_x_axis) + 0.5)) +
-  ggtitle('R. dentocariosa (oral)') +
-  ylab('Raw Counts') +
-  scale_fill_manual(values = c('black', 'red')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-p_r_dentocariosa_oral_comparison
-
-r_dentocariosa_oral_x_axis = 1:length(r_dentocariosa_oral_empirical)
-
-r_dentocariosa_oral_df = data.frame(proportional_sfs(r_dentocariosa_oral_empirical),
-                                    proportional_sfs(r_dentocariosa_oral_one_epoch),
-                                    r_dentocariosa_oral_x_axis)
-
-
-names(r_dentocariosa_oral_df) = c('Empirical (Consensus of >= 10 reads)',
-                                  'One Epoch',
-                                  'x_axis')
-
-p_r_dentocariosa_oral_comparison <- ggplot(data = melt(r_dentocariosa_oral_df, id='x_axis'),
-                                           aes(x=x_axis, 
-                                               y=value,
-                                               fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=r_dentocariosa_oral_x_axis, limits=c(0.5, length(r_dentocariosa_oral_x_axis) + 0.5)) +
-  ggtitle('R. dentocariosa (oral)') +
-  ylab('Proportional SFS') +
-  scale_fill_manual(values = c('black', 'red')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-p_r_dentocariosa_oral_comparison
-
-v_parvula_57794_oral_x_axis = 1:length(v_parvula_57794_oral_empirical)
-
-v_parvula_57794_oral_df = data.frame(v_parvula_57794_oral_empirical,
-                                    v_parvula_57794_oral_one_epoch,
-                                    v_parvula_57794_oral_x_axis)
-
-
-names(v_parvula_57794_oral_df) = c('Empirical (Consensus of >= 10 reads)',
-                                  'One Epoch',
-                                  'x_axis')
-
-p_v_parvula_57794_oral_comparison <- ggplot(data = melt(v_parvula_57794_oral_df, id='x_axis'),
-                                           aes(x=x_axis, 
-                                               y=value,
-                                               fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_57794_oral_x_axis, limits=c(0.5, length(v_parvula_57794_oral_x_axis) + 0.5)) +
-  ggtitle('V. parvula 57794 (oral)') +
-  ylab('Raw Counts') +
-  scale_fill_manual(values = c('black', 'red')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-p_v_parvula_57794_oral_comparison
-
-v_parvula_57794_oral_x_axis = 1:length(v_parvula_57794_oral_empirical)
-
-v_parvula_57794_oral_df = data.frame(proportional_sfs(v_parvula_57794_oral_empirical),
-                                    proportional_sfs(v_parvula_57794_oral_one_epoch),
-                                    v_parvula_57794_oral_x_axis)
-
-
-names(v_parvula_57794_oral_df) = c('Empirical (Consensus of >= 10 reads)',
-                                  'One Epoch',
-                                  'x_axis')
-
-p_v_parvula_57794_oral_comparison <- ggplot(data = melt(v_parvula_57794_oral_df, id='x_axis'),
-                                           aes(x=x_axis, 
-                                               y=value,
-                                               fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_57794_oral_x_axis, limits=c(0.5, length(v_parvula_57794_oral_x_axis) + 0.5)) +
-  ggtitle('V. parvula 57794 (oral)') +
-  ylab('Proportional SFS') +
-  scale_fill_manual(values = c('black', 'red')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-p_v_parvula_57794_oral_comparison
-
-v_parvula_58184_oral_x_axis = 1:length(v_parvula_58184_oral_empirical)
-
-v_parvula_58184_oral_df = data.frame(v_parvula_58184_oral_empirical,
-                                    v_parvula_58184_oral_one_epoch,
-                                    v_parvula_58184_oral_x_axis)
-
-
-names(v_parvula_58184_oral_df) = c('Empirical (Consensus of >= 10 reads)',
-                                  'One Epoch',
-                                  'x_axis')
-
-p_v_parvula_58184_oral_comparison <- ggplot(data = melt(v_parvula_58184_oral_df, id='x_axis'),
-                                           aes(x=x_axis, 
-                                               y=value,
-                                               fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_58184_oral_x_axis, limits=c(0.5, length(v_parvula_58184_oral_x_axis) + 0.5)) +
-  ggtitle('V. parvula 58184 (oral)') +
-  ylab('Raw Counts') +
-  scale_fill_manual(values = c('black', 'red')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-p_v_parvula_58184_oral_comparison
-
-v_parvula_58184_oral_x_axis = 1:length(v_parvula_58184_oral_empirical)
-
-v_parvula_58184_oral_df = data.frame(proportional_sfs(v_parvula_58184_oral_empirical),
-                                    proportional_sfs(v_parvula_58184_oral_one_epoch),
-                                    v_parvula_58184_oral_x_axis)
-
-
-names(v_parvula_58184_oral_df) = c('Empirical (Consensus of >= 10 reads)',
-                                  'One Epoch',
-                                  'x_axis')
-
-p_v_parvula_58184_oral_comparison <- ggplot(data = melt(v_parvula_58184_oral_df, id='x_axis'),
-                                           aes(x=x_axis, 
-                                               y=value,
-                                               fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "Model") +
-  scale_x_continuous(name='Frequency in Sample', breaks=v_parvula_58184_oral_x_axis, limits=c(0.5, length(v_parvula_58184_oral_x_axis) + 0.5)) +
-  ggtitle('V. parvula 58184 (oral)') +
-  ylab('Proportional SFS') +
-  scale_fill_manual(values = c('black', 'red')) +
-  theme(panel.border = element_blank()) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-p_v_parvula_58184_oral_comparison
-
-r_dentocariosa_exp_scatter = read.csv('r_dentocariosa_likelihood/r_dentocariosa_likelihood.csv', header=FALSE)
-names(r_dentocariosa_exp_scatter) = c('likelihood', 'nu', 'tau')
-
-r_dentocariosa_exp_scatter_expansion = r_dentocariosa_exp_scatter[r_dentocariosa_exp_scatter$nu > 1.0, ]
-r_dentocariosa_exp_scatter_contraction = r_dentocariosa_exp_scatter[r_dentocariosa_exp_scatter$nu <= 1.0, ]
-
-r_dentocariosa_exp_scatter_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = r_dentocariosa_exp_scatter_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = r_dentocariosa_exp_scatter_contraction, bins=100) +
+capnocytophaga_sputigena_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = capnocytophaga_sputigena_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = capnocytophaga_sputigena_masked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
-  ggtitle('R. dentocariosa histogram of likelihoods')
-r_dentocariosa_exp_scatter_hist
+  ggtitle('Capnocytophaga sputigena histogram of likelihoods [singletons masked]')
+capnocytophaga_sputigena_masked_surface_hist
 
-r_dentocariosa_exp_scatter[r_dentocariosa_exp_scatter$likelihood < -100000, ]$likelihood = -100000
+capnocytophaga_sputigena_masked_surface_cutoff = quantile(capnocytophaga_sputigena_masked_surface$likelihood, 0.80)
 
-scatter_r_dentocariosa_exp_scatter = ggplot(data=r_dentocariosa_exp_scatter, aes(x=nu, y=tau)) + 
+capnocytophaga_sputigena_masked_surface[capnocytophaga_sputigena_masked_surface$likelihood < capnocytophaga_sputigena_masked_surface_cutoff, ]$likelihood = capnocytophaga_sputigena_masked_surface_cutoff
+
+capnocytophaga_sputigena_masked_surface_scatter = ggplot(data=capnocytophaga_sputigena_masked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('R. dentocariosa rough likelihood surface') +
+  ggtitle('Capnocytophaga sputigena rough likelihood surface [singletons masked]') +
   geom_vline(xintercept=1.0, color='red')
-scatter_r_dentocariosa_exp_scatter
+capnocytophaga_sputigena_masked_surface_scatter
 
-v_parvula_57794_exp_scatter = read.csv('v_parvula_57794_likelihood/v_parvula_57794_likelihood.csv', header=FALSE)
-names(v_parvula_57794_exp_scatter) = c('likelihood', 'nu', 'tau')
+capnocytophaga_sputigena_unmasked_surface = read.csv('oral_likelihood_surfaces/capnocytophaga_sputigena_unmasked.csv', header=FALSE)
+names(capnocytophaga_sputigena_unmasked_surface) = c('likelihood', 'nu', 'tau')
 
-v_parvula_57794_exp_scatter_expansion = v_parvula_57794_exp_scatter[v_parvula_57794_exp_scatter$nu > 1.0, ]
-v_parvula_57794_exp_scatter_contraction = v_parvula_57794_exp_scatter[v_parvula_57794_exp_scatter$nu <= 1.0, ]
+capnocytophaga_sputigena_unmasked_surface_expansion = capnocytophaga_sputigena_unmasked_surface[capnocytophaga_sputigena_unmasked_surface$nu > 1.0, ]
+capnocytophaga_sputigena_unmasked_surface_contraction = capnocytophaga_sputigena_unmasked_surface[capnocytophaga_sputigena_unmasked_surface$nu <= 1.0, ]
 
-v_parvula_57794_exp_scatter_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = v_parvula_57794_exp_scatter_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = v_parvula_57794_exp_scatter_contraction, bins=100) +
+capnocytophaga_sputigena_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = capnocytophaga_sputigena_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = capnocytophaga_sputigena_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Capnocytophaga sputigena histogram of likelihoods')
+capnocytophaga_sputigena_unmasked_surface_hist
+
+capnocytophaga_sputigena_unmasked_surface_cutoff = quantile(capnocytophaga_sputigena_unmasked_surface$likelihood, 0.80)
+
+capnocytophaga_sputigena_unmasked_surface[capnocytophaga_sputigena_unmasked_surface$likelihood < capnocytophaga_sputigena_unmasked_surface_cutoff, ]$likelihood = capnocytophaga_sputigena_unmasked_surface_cutoff
+
+capnocytophaga_sputigena_unmasked_surface_scatter = ggplot(data=capnocytophaga_sputigena_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Capnocytophaga sputigena rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+capnocytophaga_sputigena_unmasked_surface_scatter
+
+corynebacterium_matruchotii_masked_surface = read.csv('oral_likelihood_surfaces/corynebacterium_matruchotii_masked.csv', header=FALSE)
+names(corynebacterium_matruchotii_masked_surface) = c('likelihood', 'nu', 'tau')
+
+corynebacterium_matruchotii_masked_surface_expansion = corynebacterium_matruchotii_masked_surface[corynebacterium_matruchotii_masked_surface$nu > 1.0, ]
+corynebacterium_matruchotii_masked_surface_contraction = corynebacterium_matruchotii_masked_surface[corynebacterium_matruchotii_masked_surface$nu <= 1.0, ]
+
+corynebacterium_matruchotii_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = corynebacterium_matruchotii_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = corynebacterium_matruchotii_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Corynebacterium matruchotii histogram of likelihoods [singletons masked]')
+corynebacterium_matruchotii_masked_surface_hist
+
+corynebacterium_matruchotii_masked_surface_cutoff = quantile(corynebacterium_matruchotii_masked_surface$likelihood, 0.80)
+
+corynebacterium_matruchotii_masked_surface[corynebacterium_matruchotii_masked_surface$likelihood < corynebacterium_matruchotii_masked_surface_cutoff, ]$likelihood = corynebacterium_matruchotii_masked_surface_cutoff
+
+corynebacterium_matruchotii_masked_surface_scatter = ggplot(data=corynebacterium_matruchotii_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Corynebacterium matruchotii rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+corynebacterium_matruchotii_masked_surface_scatter
+
+corynebacterium_matruchotii_unmasked_surface = read.csv('oral_likelihood_surfaces/corynebacterium_matruchotii_unmasked.csv', header=FALSE)
+names(corynebacterium_matruchotii_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+corynebacterium_matruchotii_unmasked_surface_expansion = corynebacterium_matruchotii_unmasked_surface[corynebacterium_matruchotii_unmasked_surface$nu > 1.0, ]
+corynebacterium_matruchotii_unmasked_surface_contraction = corynebacterium_matruchotii_unmasked_surface[corynebacterium_matruchotii_unmasked_surface$nu <= 1.0, ]
+
+corynebacterium_matruchotii_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = corynebacterium_matruchotii_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = corynebacterium_matruchotii_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Corynebacterium matruchotii histogram of likelihoods')
+corynebacterium_matruchotii_unmasked_surface_hist
+
+corynebacterium_matruchotii_unmasked_surface_cutoff = quantile(corynebacterium_matruchotii_unmasked_surface$likelihood, 0.80)
+
+corynebacterium_matruchotii_unmasked_surface[corynebacterium_matruchotii_unmasked_surface$likelihood < corynebacterium_matruchotii_unmasked_surface_cutoff, ]$likelihood = corynebacterium_matruchotii_unmasked_surface_cutoff
+
+corynebacterium_matruchotii_unmasked_surface_scatter = ggplot(data=corynebacterium_matruchotii_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Corynebacterium matruchotii rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+corynebacterium_matruchotii_unmasked_surface_scatter
+
+fusobacterium_nucleatum_masked_surface = read.csv('oral_likelihood_surfaces/fusobacterium_nucleatum_masked.csv', header=FALSE)
+names(fusobacterium_nucleatum_masked_surface) = c('likelihood', 'nu', 'tau')
+
+fusobacterium_nucleatum_masked_surface_expansion = fusobacterium_nucleatum_masked_surface[fusobacterium_nucleatum_masked_surface$nu > 1.0, ]
+fusobacterium_nucleatum_masked_surface_contraction = fusobacterium_nucleatum_masked_surface[fusobacterium_nucleatum_masked_surface$nu <= 1.0, ]
+
+fusobacterium_nucleatum_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = fusobacterium_nucleatum_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = fusobacterium_nucleatum_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Fusobacterium nucleatum histogram of likelihoods [singletons masked]')
+fusobacterium_nucleatum_masked_surface_hist
+
+fusobacterium_nucleatum_masked_surface_cutoff = quantile(fusobacterium_nucleatum_masked_surface$likelihood, 0.80)
+
+fusobacterium_nucleatum_masked_surface[fusobacterium_nucleatum_masked_surface$likelihood < fusobacterium_nucleatum_masked_surface_cutoff, ]$likelihood = fusobacterium_nucleatum_masked_surface_cutoff
+
+fusobacterium_nucleatum_masked_surface_scatter = ggplot(data=fusobacterium_nucleatum_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Fusobacterium nucleatum rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+fusobacterium_nucleatum_masked_surface_scatter
+
+fusobacterium_nucleatum_unmasked_surface = read.csv('oral_likelihood_surfaces/fusobacterium_nucleatum_unmasked.csv', header=FALSE)
+names(fusobacterium_nucleatum_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+fusobacterium_nucleatum_unmasked_surface_expansion = fusobacterium_nucleatum_unmasked_surface[fusobacterium_nucleatum_unmasked_surface$nu > 1.0, ]
+fusobacterium_nucleatum_unmasked_surface_contraction = fusobacterium_nucleatum_unmasked_surface[fusobacterium_nucleatum_unmasked_surface$nu <= 1.0, ]
+
+fusobacterium_nucleatum_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = fusobacterium_nucleatum_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = fusobacterium_nucleatum_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Fusobacterium nucleatum histogram of likelihoods')
+fusobacterium_nucleatum_unmasked_surface_hist
+
+fusobacterium_nucleatum_unmasked_surface_cutoff = quantile(fusobacterium_nucleatum_unmasked_surface$likelihood, 0.80)
+
+fusobacterium_nucleatum_unmasked_surface[fusobacterium_nucleatum_unmasked_surface$likelihood < fusobacterium_nucleatum_unmasked_surface_cutoff, ]$likelihood = fusobacterium_nucleatum_unmasked_surface_cutoff
+
+fusobacterium_nucleatum_unmasked_surface_scatter = ggplot(data=fusobacterium_nucleatum_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Fusobacterium nucleatum rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+fusobacterium_nucleatum_unmasked_surface_scatter
+
+granulicatella_adiacens_masked_surface = read.csv('oral_likelihood_surfaces/granulicatella_adiacens_masked.csv', header=FALSE)
+names(granulicatella_adiacens_masked_surface) = c('likelihood', 'nu', 'tau')
+
+granulicatella_adiacens_masked_surface_expansion = granulicatella_adiacens_masked_surface[granulicatella_adiacens_masked_surface$nu > 1.0, ]
+granulicatella_adiacens_masked_surface_contraction = granulicatella_adiacens_masked_surface[granulicatella_adiacens_masked_surface$nu <= 1.0, ]
+
+granulicatella_adiacens_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = granulicatella_adiacens_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = granulicatella_adiacens_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Granulicatella adiacens histogram of likelihoods [singletons masked]')
+granulicatella_adiacens_masked_surface_hist
+
+granulicatella_adiacens_masked_surface_cutoff = quantile(granulicatella_adiacens_masked_surface$likelihood, 0.80)
+
+granulicatella_adiacens_masked_surface[granulicatella_adiacens_masked_surface$likelihood < granulicatella_adiacens_masked_surface_cutoff, ]$likelihood = granulicatella_adiacens_masked_surface_cutoff
+
+granulicatella_adiacens_masked_surface_scatter = ggplot(data=granulicatella_adiacens_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Granulicatella adiacens rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+granulicatella_adiacens_masked_surface_scatter
+
+granulicatella_adiacens_unmasked_surface = read.csv('oral_likelihood_surfaces/granulicatella_adiacens_unmasked.csv', header=FALSE)
+names(granulicatella_adiacens_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+granulicatella_adiacens_unmasked_surface_expansion = granulicatella_adiacens_unmasked_surface[granulicatella_adiacens_unmasked_surface$nu > 1.0, ]
+granulicatella_adiacens_unmasked_surface_contraction = granulicatella_adiacens_unmasked_surface[granulicatella_adiacens_unmasked_surface$nu <= 1.0, ]
+
+granulicatella_adiacens_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = granulicatella_adiacens_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = granulicatella_adiacens_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Granulicatella adiacens histogram of likelihoods')
+granulicatella_adiacens_unmasked_surface_hist
+
+granulicatella_adiacens_unmasked_surface_cutoff = quantile(granulicatella_adiacens_unmasked_surface$likelihood, 0.80)
+
+granulicatella_adiacens_unmasked_surface[granulicatella_adiacens_unmasked_surface$likelihood < granulicatella_adiacens_unmasked_surface_cutoff, ]$likelihood = granulicatella_adiacens_unmasked_surface_cutoff
+
+granulicatella_adiacens_unmasked_surface_scatter = ggplot(data=granulicatella_adiacens_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Granulicatella adiacens rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+granulicatella_adiacens_unmasked_surface_scatter
+
+haemophilus_haemolyticus_58348_masked_surface = read.csv('oral_likelihood_surfaces/haemophilus_haemolyticus_58348_masked.csv', header=FALSE)
+names(haemophilus_haemolyticus_58348_masked_surface) = c('likelihood', 'nu', 'tau')
+
+haemophilus_haemolyticus_58348_masked_surface_expansion = haemophilus_haemolyticus_58348_masked_surface[haemophilus_haemolyticus_58348_masked_surface$nu > 1.0, ]
+haemophilus_haemolyticus_58348_masked_surface_contraction = haemophilus_haemolyticus_58348_masked_surface[haemophilus_haemolyticus_58348_masked_surface$nu <= 1.0, ]
+
+haemophilus_haemolyticus_58348_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = haemophilus_haemolyticus_58348_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = haemophilus_haemolyticus_58348_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Haemophilus haemolyticus 58348 histogram of likelihoods [singletons masked]')
+haemophilus_haemolyticus_58348_masked_surface_hist
+
+haemophilus_haemolyticus_58348_masked_surface_cutoff = quantile(haemophilus_haemolyticus_58348_masked_surface$likelihood, 0.80)
+
+haemophilus_haemolyticus_58348_masked_surface[haemophilus_haemolyticus_58348_masked_surface$likelihood < haemophilus_haemolyticus_58348_masked_surface_cutoff, ]$likelihood = haemophilus_haemolyticus_58348_masked_surface_cutoff
+
+haemophilus_haemolyticus_58348_masked_surface_scatter = ggplot(data=haemophilus_haemolyticus_58348_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Haemophilus haemolyticus 58348 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+haemophilus_haemolyticus_58348_masked_surface_scatter
+
+haemophilus_haemolyticus_58348_unmasked_surface = read.csv('oral_likelihood_surfaces/haemophilus_haemolyticus_58348_unmasked.csv', header=FALSE)
+names(haemophilus_haemolyticus_58348_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+haemophilus_haemolyticus_58348_unmasked_surface_expansion = haemophilus_haemolyticus_58348_unmasked_surface[haemophilus_haemolyticus_58348_unmasked_surface$nu > 1.0, ]
+haemophilus_haemolyticus_58348_unmasked_surface_contraction = haemophilus_haemolyticus_58348_unmasked_surface[haemophilus_haemolyticus_58348_unmasked_surface$nu <= 1.0, ]
+
+haemophilus_haemolyticus_58348_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = haemophilus_haemolyticus_58348_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = haemophilus_haemolyticus_58348_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Haemophilus haemolyticus 58348 histogram of likelihoods')
+haemophilus_haemolyticus_58348_unmasked_surface_hist
+
+haemophilus_haemolyticus_58348_unmasked_surface_cutoff = quantile(haemophilus_haemolyticus_58348_unmasked_surface$likelihood, 0.80)
+
+haemophilus_haemolyticus_58348_unmasked_surface[haemophilus_haemolyticus_58348_unmasked_surface$likelihood < haemophilus_haemolyticus_58348_unmasked_surface_cutoff, ]$likelihood = haemophilus_haemolyticus_58348_unmasked_surface_cutoff
+
+haemophilus_haemolyticus_58348_unmasked_surface_scatter = ggplot(data=haemophilus_haemolyticus_58348_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Haemophilus haemolyticus 58348 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+haemophilus_haemolyticus_58348_unmasked_surface_scatter
+
+haemophilus_haemolyticus_58350_masked_surface = read.csv('oral_likelihood_surfaces/haemophilus_haemolyticus_58350_masked.csv', header=FALSE)
+names(haemophilus_haemolyticus_58350_masked_surface) = c('likelihood', 'nu', 'tau')
+
+haemophilus_haemolyticus_58350_masked_surface_expansion = haemophilus_haemolyticus_58350_masked_surface[haemophilus_haemolyticus_58350_masked_surface$nu > 1.0, ]
+haemophilus_haemolyticus_58350_masked_surface_contraction = haemophilus_haemolyticus_58350_masked_surface[haemophilus_haemolyticus_58350_masked_surface$nu <= 1.0, ]
+
+haemophilus_haemolyticus_58350_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = haemophilus_haemolyticus_58350_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = haemophilus_haemolyticus_58350_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Haemophilus haemolyticus 58350 histogram of likelihoods [singletons masked]')
+haemophilus_haemolyticus_58350_masked_surface_hist
+
+haemophilus_haemolyticus_58350_masked_surface_cutoff = quantile(haemophilus_haemolyticus_58350_masked_surface$likelihood, 0.80)
+
+haemophilus_haemolyticus_58350_masked_surface[haemophilus_haemolyticus_58350_masked_surface$likelihood < haemophilus_haemolyticus_58350_masked_surface_cutoff, ]$likelihood = haemophilus_haemolyticus_58350_masked_surface_cutoff
+
+haemophilus_haemolyticus_58350_masked_surface_scatter = ggplot(data=haemophilus_haemolyticus_58350_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Haemophilus haemolyticus 58350 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+haemophilus_haemolyticus_58350_masked_surface_scatter
+
+haemophilus_haemolyticus_58350_unmasked_surface = read.csv('oral_likelihood_surfaces/haemophilus_haemolyticus_58350_unmasked.csv', header=FALSE)
+names(haemophilus_haemolyticus_58350_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+haemophilus_haemolyticus_58350_unmasked_surface_expansion = haemophilus_haemolyticus_58350_unmasked_surface[haemophilus_haemolyticus_58350_unmasked_surface$nu > 1.0, ]
+haemophilus_haemolyticus_58350_unmasked_surface_contraction = haemophilus_haemolyticus_58350_unmasked_surface[haemophilus_haemolyticus_58350_unmasked_surface$nu <= 1.0, ]
+
+haemophilus_haemolyticus_58350_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = haemophilus_haemolyticus_58350_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = haemophilus_haemolyticus_58350_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Haemophilus haemolyticus 58350 histogram of likelihoods')
+haemophilus_haemolyticus_58350_unmasked_surface_hist
+
+haemophilus_haemolyticus_58350_unmasked_surface_cutoff = quantile(haemophilus_haemolyticus_58350_unmasked_surface$likelihood, 0.80)
+
+haemophilus_haemolyticus_58350_unmasked_surface[haemophilus_haemolyticus_58350_unmasked_surface$likelihood < haemophilus_haemolyticus_58350_unmasked_surface_cutoff, ]$likelihood = haemophilus_haemolyticus_58350_unmasked_surface_cutoff
+
+haemophilus_haemolyticus_58350_unmasked_surface_scatter = ggplot(data=haemophilus_haemolyticus_58350_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Haemophilus haemolyticus 58350 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+haemophilus_haemolyticus_58350_unmasked_surface_scatter
+
+kingella_oralis_masked_surface = read.csv('oral_likelihood_surfaces/kingella_oralis_masked.csv', header=FALSE)
+names(kingella_oralis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+kingella_oralis_masked_surface_expansion = kingella_oralis_masked_surface[kingella_oralis_masked_surface$nu > 1.0, ]
+kingella_oralis_masked_surface_contraction = kingella_oralis_masked_surface[kingella_oralis_masked_surface$nu <= 1.0, ]
+
+kingella_oralis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = kingella_oralis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = kingella_oralis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Kingella oralis histogram of likelihoods [singletons masked]')
+kingella_oralis_masked_surface_hist
+
+kingella_oralis_masked_surface_cutoff = quantile(kingella_oralis_masked_surface$likelihood, 0.80)
+
+kingella_oralis_masked_surface[kingella_oralis_masked_surface$likelihood < kingella_oralis_masked_surface_cutoff, ]$likelihood = kingella_oralis_masked_surface_cutoff
+
+kingella_oralis_masked_surface_scatter = ggplot(data=kingella_oralis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Kingella oralis rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+kingella_oralis_masked_surface_scatter
+
+kingella_oralis_unmasked_surface = read.csv('oral_likelihood_surfaces/kingella_oralis_unmasked.csv', header=FALSE)
+names(kingella_oralis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+kingella_oralis_unmasked_surface_expansion = kingella_oralis_unmasked_surface[kingella_oralis_unmasked_surface$nu > 1.0, ]
+kingella_oralis_unmasked_surface_contraction = kingella_oralis_unmasked_surface[kingella_oralis_unmasked_surface$nu <= 1.0, ]
+
+kingella_oralis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = kingella_oralis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = kingella_oralis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Kingella oralis histogram of likelihoods')
+kingella_oralis_unmasked_surface_hist
+
+kingella_oralis_unmasked_surface_cutoff = quantile(kingella_oralis_unmasked_surface$likelihood, 0.80)
+
+kingella_oralis_unmasked_surface[kingella_oralis_unmasked_surface$likelihood < kingella_oralis_unmasked_surface_cutoff, ]$likelihood = kingella_oralis_unmasked_surface_cutoff
+
+kingella_oralis_unmasked_surface_scatter = ggplot(data=kingella_oralis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Kingella oralis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+kingella_oralis_unmasked_surface_scatter
+
+lautropia_mirabilis_masked_surface = read.csv('oral_likelihood_surfaces/lautropia_mirabilis_masked.csv', header=FALSE)
+names(lautropia_mirabilis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+lautropia_mirabilis_masked_surface_expansion = lautropia_mirabilis_masked_surface[lautropia_mirabilis_masked_surface$nu > 1.0, ]
+lautropia_mirabilis_masked_surface_contraction = lautropia_mirabilis_masked_surface[lautropia_mirabilis_masked_surface$nu <= 1.0, ]
+
+lautropia_mirabilis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = lautropia_mirabilis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = lautropia_mirabilis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Lautropia mirabilis histogram of likelihoods [singletons masked]')
+lautropia_mirabilis_masked_surface_hist
+
+lautropia_mirabilis_masked_surface_cutoff = quantile(lautropia_mirabilis_masked_surface$likelihood, 0.80)
+
+lautropia_mirabilis_masked_surface[lautropia_mirabilis_masked_surface$likelihood < lautropia_mirabilis_masked_surface_cutoff, ]$likelihood = lautropia_mirabilis_masked_surface_cutoff
+
+lautropia_mirabilis_masked_surface_scatter = ggplot(data=lautropia_mirabilis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Lautropia mirabilis rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+lautropia_mirabilis_masked_surface_scatter
+
+lautropia_mirabilis_unmasked_surface = read.csv('oral_likelihood_surfaces/lautropia_mirabilis_unmasked.csv', header=FALSE)
+names(lautropia_mirabilis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+lautropia_mirabilis_unmasked_surface_expansion = lautropia_mirabilis_unmasked_surface[lautropia_mirabilis_unmasked_surface$nu > 1.0, ]
+lautropia_mirabilis_unmasked_surface_contraction = lautropia_mirabilis_unmasked_surface[lautropia_mirabilis_unmasked_surface$nu <= 1.0, ]
+
+lautropia_mirabilis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = lautropia_mirabilis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = lautropia_mirabilis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Lautropia mirabilis histogram of likelihoods')
+lautropia_mirabilis_unmasked_surface_hist
+
+lautropia_mirabilis_unmasked_surface_cutoff = quantile(lautropia_mirabilis_unmasked_surface$likelihood, 0.80)
+
+lautropia_mirabilis_unmasked_surface[lautropia_mirabilis_unmasked_surface$likelihood < lautropia_mirabilis_unmasked_surface_cutoff, ]$likelihood = lautropia_mirabilis_unmasked_surface_cutoff
+
+lautropia_mirabilis_unmasked_surface_scatter = ggplot(data=lautropia_mirabilis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Lautropia mirabilis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+lautropia_mirabilis_unmasked_surface_scatter
+
+neisseria_cinerea_masked_surface = read.csv('oral_likelihood_surfaces/neisseria_cinerea_masked.csv', header=FALSE)
+names(neisseria_cinerea_masked_surface) = c('likelihood', 'nu', 'tau')
+
+neisseria_cinerea_masked_surface_expansion = neisseria_cinerea_masked_surface[neisseria_cinerea_masked_surface$nu > 1.0, ]
+neisseria_cinerea_masked_surface_contraction = neisseria_cinerea_masked_surface[neisseria_cinerea_masked_surface$nu <= 1.0, ]
+
+neisseria_cinerea_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = neisseria_cinerea_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = neisseria_cinerea_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Neisseria cinerea histogram of likelihoods [singletons masked]')
+neisseria_cinerea_masked_surface_hist
+
+neisseria_cinerea_masked_surface_cutoff = quantile(neisseria_cinerea_masked_surface$likelihood, 0.80)
+
+neisseria_cinerea_masked_surface[neisseria_cinerea_masked_surface$likelihood < neisseria_cinerea_masked_surface_cutoff, ]$likelihood = neisseria_cinerea_masked_surface_cutoff
+
+neisseria_cinerea_masked_surface_scatter = ggplot(data=neisseria_cinerea_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Neisseria cinerea rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+neisseria_cinerea_masked_surface_scatter
+
+neisseria_cinerea_unmasked_surface = read.csv('oral_likelihood_surfaces/neisseria_cinerea_unmasked.csv', header=FALSE)
+names(neisseria_cinerea_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+neisseria_cinerea_unmasked_surface_expansion = neisseria_cinerea_unmasked_surface[neisseria_cinerea_unmasked_surface$nu > 1.0, ]
+neisseria_cinerea_unmasked_surface_contraction = neisseria_cinerea_unmasked_surface[neisseria_cinerea_unmasked_surface$nu <= 1.0, ]
+
+neisseria_cinerea_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = neisseria_cinerea_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = neisseria_cinerea_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Neisseria cinerea histogram of likelihoods')
+neisseria_cinerea_unmasked_surface_hist
+
+neisseria_cinerea_unmasked_surface_cutoff = quantile(neisseria_cinerea_unmasked_surface$likelihood, 0.80)
+
+neisseria_cinerea_unmasked_surface[neisseria_cinerea_unmasked_surface$likelihood < neisseria_cinerea_unmasked_surface_cutoff, ]$likelihood = neisseria_cinerea_unmasked_surface_cutoff
+
+neisseria_cinerea_unmasked_surface_scatter = ggplot(data=neisseria_cinerea_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Neisseria cinerea rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+neisseria_cinerea_unmasked_surface_scatter
+
+neisseria_elongata_masked_surface = read.csv('oral_likelihood_surfaces/neisseria_elongata_masked.csv', header=FALSE)
+names(neisseria_elongata_masked_surface) = c('likelihood', 'nu', 'tau')
+
+neisseria_elongata_masked_surface_expansion = neisseria_elongata_masked_surface[neisseria_elongata_masked_surface$nu > 2.0, ]
+neisseria_elongata_masked_surface_contraction = neisseria_elongata_masked_surface[neisseria_elongata_masked_surface$nu <= 2.0, ]
+
+neisseria_elongata_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = neisseria_elongata_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = neisseria_elongata_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Neisseria elongata histogram of likelihoods [singletons masked]')
+neisseria_elongata_masked_surface_hist
+
+neisseria_elongata_masked_surface_cutoff = quantile(neisseria_elongata_masked_surface$likelihood, 0.80)
+
+neisseria_elongata_masked_surface[neisseria_elongata_masked_surface$likelihood < neisseria_elongata_masked_surface_cutoff, ]$likelihood = neisseria_elongata_masked_surface_cutoff
+
+neisseria_elongata_masked_surface_scatter = ggplot(data=neisseria_elongata_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Neisseria elongata rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+neisseria_elongata_masked_surface_scatter
+
+neisseria_elongata_unmasked_surface = read.csv('oral_likelihood_surfaces/neisseria_elongata_unmasked.csv', header=FALSE)
+names(neisseria_elongata_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+neisseria_elongata_unmasked_surface_expansion = neisseria_elongata_unmasked_surface[neisseria_elongata_unmasked_surface$nu > 1.0, ]
+neisseria_elongata_unmasked_surface_contraction = neisseria_elongata_unmasked_surface[neisseria_elongata_unmasked_surface$nu <= 1.0, ]
+
+neisseria_elongata_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = neisseria_elongata_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = neisseria_elongata_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Neisseria elongata histogram of likelihoods')
+neisseria_elongata_unmasked_surface_hist
+
+neisseria_elongata_unmasked_surface_cutoff = quantile(neisseria_elongata_unmasked_surface$likelihood, 0.80)
+
+neisseria_elongata_unmasked_surface[neisseria_elongata_unmasked_surface$likelihood < neisseria_elongata_unmasked_surface_cutoff, ]$likelihood = neisseria_elongata_unmasked_surface_cutoff
+
+neisseria_elongata_unmasked_surface_scatter = ggplot(data=neisseria_elongata_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Neisseria elongata rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+neisseria_elongata_unmasked_surface_scatter
+
+neisseria_subflava_masked_surface = read.csv('oral_likelihood_surfaces/neisseria_subflava_masked.csv', header=FALSE)
+names(neisseria_subflava_masked_surface) = c('likelihood', 'nu', 'tau')
+
+neisseria_subflava_masked_surface_expansion = neisseria_subflava_masked_surface[neisseria_subflava_masked_surface$nu > 1.0, ]
+neisseria_subflava_masked_surface_contraction = neisseria_subflava_masked_surface[neisseria_subflava_masked_surface$nu <= 1.0, ]
+
+neisseria_subflava_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = neisseria_subflava_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = neisseria_subflava_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Neisseria subflava histogram of likelihoods [singletons masked]')
+neisseria_subflava_masked_surface_hist
+
+neisseria_subflava_masked_surface_cutoff = quantile(neisseria_subflava_masked_surface$likelihood, 0.80)
+
+neisseria_subflava_masked_surface[neisseria_subflava_masked_surface$likelihood < neisseria_subflava_masked_surface_cutoff, ]$likelihood = neisseria_subflava_masked_surface_cutoff
+
+neisseria_subflava_masked_surface_scatter = ggplot(data=neisseria_subflava_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Neisseria subflava rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+neisseria_subflava_masked_surface_scatter
+
+neisseria_subflava_unmasked_surface = read.csv('oral_likelihood_surfaces/neisseria_subflava_unmasked.csv', header=FALSE)
+names(neisseria_subflava_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+neisseria_subflava_unmasked_surface_expansion = neisseria_subflava_unmasked_surface[neisseria_subflava_unmasked_surface$nu > 1.0, ]
+neisseria_subflava_unmasked_surface_contraction = neisseria_subflava_unmasked_surface[neisseria_subflava_unmasked_surface$nu <= 1.0, ]
+
+neisseria_subflava_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = neisseria_subflava_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = neisseria_subflava_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Neisseria subflava histogram of likelihoods')
+neisseria_subflava_unmasked_surface_hist
+
+neisseria_subflava_unmasked_surface_cutoff = quantile(neisseria_subflava_unmasked_surface$likelihood, 0.80)
+
+neisseria_subflava_unmasked_surface[neisseria_subflava_unmasked_surface$likelihood < neisseria_subflava_unmasked_surface_cutoff, ]$likelihood = neisseria_subflava_unmasked_surface_cutoff
+
+neisseria_subflava_unmasked_surface_scatter = ggplot(data=neisseria_subflava_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Neisseria subflava rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+neisseria_subflava_unmasked_surface_scatter
+
+rothia_dentocariosa_masked_surface = read.csv('oral_likelihood_surfaces/rothia_dentocariosa_masked.csv', header=FALSE)
+names(rothia_dentocariosa_masked_surface) = c('likelihood', 'nu', 'tau')
+
+rothia_dentocariosa_masked_surface_expansion = rothia_dentocariosa_masked_surface[rothia_dentocariosa_masked_surface$nu > 1.0, ]
+rothia_dentocariosa_masked_surface_contraction = rothia_dentocariosa_masked_surface[rothia_dentocariosa_masked_surface$nu <= 1.0, ]
+
+rothia_dentocariosa_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = rothia_dentocariosa_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = rothia_dentocariosa_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Rothia dentocariosa histogram of likelihoods [singletons masked]')
+rothia_dentocariosa_masked_surface_hist
+
+rothia_dentocariosa_masked_surface_cutoff = quantile(rothia_dentocariosa_masked_surface$likelihood, 0.80)
+
+rothia_dentocariosa_masked_surface[rothia_dentocariosa_masked_surface$likelihood < rothia_dentocariosa_masked_surface_cutoff, ]$likelihood = rothia_dentocariosa_masked_surface_cutoff
+
+rothia_dentocariosa_masked_surface_scatter = ggplot(data=rothia_dentocariosa_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Rothia dentocariosa rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+rothia_dentocariosa_masked_surface_scatter
+
+rothia_dentocariosa_unmasked_surface = read.csv('oral_likelihood_surfaces/rothia_dentocariosa_unmasked.csv', header=FALSE)
+names(rothia_dentocariosa_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+rothia_dentocariosa_unmasked_surface_expansion = rothia_dentocariosa_unmasked_surface[rothia_dentocariosa_unmasked_surface$nu > 1.0, ]
+rothia_dentocariosa_unmasked_surface_contraction = rothia_dentocariosa_unmasked_surface[rothia_dentocariosa_unmasked_surface$nu <= 1.0, ]
+
+rothia_dentocariosa_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = rothia_dentocariosa_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = rothia_dentocariosa_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Rothia dentocariosa histogram of likelihoods')
+rothia_dentocariosa_unmasked_surface_hist
+
+rothia_dentocariosa_unmasked_surface_cutoff = quantile(rothia_dentocariosa_unmasked_surface$likelihood, 0.80)
+
+rothia_dentocariosa_unmasked_surface[rothia_dentocariosa_unmasked_surface$likelihood < rothia_dentocariosa_unmasked_surface_cutoff, ]$likelihood = rothia_dentocariosa_unmasked_surface_cutoff
+
+rothia_dentocariosa_unmasked_surface_scatter = ggplot(data=rothia_dentocariosa_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Rothia dentocariosa rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+rothia_dentocariosa_unmasked_surface_scatter
+
+rothia_mucilaginosa_masked_surface = read.csv('oral_likelihood_surfaces/rothia_mucilaginosa_masked.csv', header=FALSE)
+names(rothia_mucilaginosa_masked_surface) = c('likelihood', 'nu', 'tau')
+
+rothia_mucilaginosa_masked_surface_expansion = rothia_mucilaginosa_masked_surface[rothia_mucilaginosa_masked_surface$nu > 1.0, ]
+rothia_mucilaginosa_masked_surface_contraction = rothia_mucilaginosa_masked_surface[rothia_mucilaginosa_masked_surface$nu <= 1.0, ]
+
+rothia_mucilaginosa_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = rothia_mucilaginosa_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = rothia_mucilaginosa_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Rothia mucilaginosa histogram of likelihoods [singletons masked]')
+rothia_mucilaginosa_masked_surface_hist
+
+rothia_mucilaginosa_masked_surface_cutoff = quantile(rothia_mucilaginosa_masked_surface$likelihood, 0.80)
+
+rothia_mucilaginosa_masked_surface[rothia_mucilaginosa_masked_surface$likelihood < rothia_mucilaginosa_masked_surface_cutoff, ]$likelihood = rothia_mucilaginosa_masked_surface_cutoff
+
+rothia_mucilaginosa_masked_surface_scatter = ggplot(data=rothia_mucilaginosa_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Rothia mucilaginosa rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+rothia_mucilaginosa_masked_surface_scatter
+
+rothia_mucilaginosa_unmasked_surface = read.csv('oral_likelihood_surfaces/rothia_mucilaginosa_unmasked.csv', header=FALSE)
+names(rothia_mucilaginosa_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+rothia_mucilaginosa_unmasked_surface_expansion = rothia_mucilaginosa_unmasked_surface[rothia_mucilaginosa_unmasked_surface$nu > 1.0, ]
+rothia_mucilaginosa_unmasked_surface_contraction = rothia_mucilaginosa_unmasked_surface[rothia_mucilaginosa_unmasked_surface$nu <= 1.0, ]
+
+rothia_mucilaginosa_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = rothia_mucilaginosa_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = rothia_mucilaginosa_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Rothia mucilaginosa histogram of likelihoods')
+rothia_mucilaginosa_unmasked_surface_hist
+
+rothia_mucilaginosa_unmasked_surface_cutoff = quantile(rothia_mucilaginosa_unmasked_surface$likelihood, 0.80)
+
+rothia_mucilaginosa_unmasked_surface[rothia_mucilaginosa_unmasked_surface$likelihood < rothia_mucilaginosa_unmasked_surface_cutoff, ]$likelihood = rothia_mucilaginosa_unmasked_surface_cutoff
+
+rothia_mucilaginosa_unmasked_surface_scatter = ggplot(data=rothia_mucilaginosa_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Rothia mucilaginosa rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+rothia_mucilaginosa_unmasked_surface_scatter
+
+streptococcus_australis_masked_surface = read.csv('oral_likelihood_surfaces/streptococcus_australis_masked.csv', header=FALSE)
+names(streptococcus_australis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_australis_masked_surface_expansion = streptococcus_australis_masked_surface[streptococcus_australis_masked_surface$nu > 1.0, ]
+streptococcus_australis_masked_surface_contraction = streptococcus_australis_masked_surface[streptococcus_australis_masked_surface$nu <= 1.0, ]
+
+streptococcus_australis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_australis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_australis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus australis histogram of likelihoods [singletons masked]')
+streptococcus_australis_masked_surface_hist
+
+streptococcus_australis_masked_surface_cutoff = quantile(streptococcus_australis_masked_surface$likelihood, 0.80)
+
+streptococcus_australis_masked_surface[streptococcus_australis_masked_surface$likelihood < streptococcus_australis_masked_surface_cutoff, ]$likelihood = streptococcus_australis_masked_surface_cutoff
+
+streptococcus_australis_masked_surface_scatter = ggplot(data=streptococcus_australis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus australis rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_australis_masked_surface_scatter
+
+streptococcus_australis_unmasked_surface = read.csv('oral_likelihood_surfaces/streptococcus_australis_unmasked.csv', header=FALSE)
+names(streptococcus_australis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_australis_unmasked_surface_expansion = streptococcus_australis_unmasked_surface[streptococcus_australis_unmasked_surface$nu > 1.0, ]
+streptococcus_australis_unmasked_surface_contraction = streptococcus_australis_unmasked_surface[streptococcus_australis_unmasked_surface$nu <= 1.0, ]
+
+streptococcus_australis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_australis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_australis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus australis histogram of likelihoods')
+streptococcus_australis_unmasked_surface_hist
+
+streptococcus_australis_unmasked_surface_cutoff = quantile(streptococcus_australis_unmasked_surface$likelihood, 0.80)
+
+streptococcus_australis_unmasked_surface[streptococcus_australis_unmasked_surface$likelihood < streptococcus_australis_unmasked_surface_cutoff, ]$likelihood = streptococcus_australis_unmasked_surface_cutoff
+
+streptococcus_australis_unmasked_surface_scatter = ggplot(data=streptococcus_australis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus australis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_australis_unmasked_surface_scatter
+
+streptococcus_mitis_masked_surface = read.csv('oral_likelihood_surfaces/streptococcus_mitis_masked.csv', header=FALSE)
+names(streptococcus_mitis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_mitis_masked_surface_expansion = streptococcus_mitis_masked_surface[streptococcus_mitis_masked_surface$nu > 1.0, ]
+streptococcus_mitis_masked_surface_contraction = streptococcus_mitis_masked_surface[streptococcus_mitis_masked_surface$nu <= 1.0, ]
+
+streptococcus_mitis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_mitis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_mitis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus mitis histogram of likelihoods [singletons masked]')
+streptococcus_mitis_masked_surface_hist
+
+streptococcus_mitis_masked_surface_cutoff = quantile(streptococcus_mitis_masked_surface$likelihood, 0.80)
+
+streptococcus_mitis_masked_surface[streptococcus_mitis_masked_surface$likelihood < streptococcus_mitis_masked_surface_cutoff, ]$likelihood = streptococcus_mitis_masked_surface_cutoff
+
+streptococcus_mitis_masked_surface_scatter = ggplot(data=streptococcus_mitis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus mitis rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_mitis_masked_surface_scatter
+
+streptococcus_mitis_unmasked_surface = read.csv('oral_likelihood_surfaces/streptococcus_mitis_unmasked.csv', header=FALSE)
+names(streptococcus_mitis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_mitis_unmasked_surface_expansion = streptococcus_mitis_unmasked_surface[streptococcus_mitis_unmasked_surface$nu > 1.0, ]
+streptococcus_mitis_unmasked_surface_contraction = streptococcus_mitis_unmasked_surface[streptococcus_mitis_unmasked_surface$nu <= 1.0, ]
+
+streptococcus_mitis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_mitis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_mitis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus mitis histogram of likelihoods')
+streptococcus_mitis_unmasked_surface_hist
+
+streptococcus_mitis_unmasked_surface_cutoff = quantile(streptococcus_mitis_unmasked_surface$likelihood, 0.80)
+
+streptococcus_mitis_unmasked_surface[streptococcus_mitis_unmasked_surface$likelihood < streptococcus_mitis_unmasked_surface_cutoff, ]$likelihood = streptococcus_mitis_unmasked_surface_cutoff
+
+streptococcus_mitis_unmasked_surface_scatter = ggplot(data=streptococcus_mitis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus mitis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_mitis_unmasked_surface_scatter
+
+streptococcus_salivarius_masked_surface = read.csv('oral_likelihood_surfaces/streptococcus_salivarius_masked.csv', header=FALSE)
+names(streptococcus_salivarius_masked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_salivarius_masked_surface_expansion = streptococcus_salivarius_masked_surface[streptococcus_salivarius_masked_surface$nu > 1.0, ]
+streptococcus_salivarius_masked_surface_contraction = streptococcus_salivarius_masked_surface[streptococcus_salivarius_masked_surface$nu <= 1.0, ]
+
+streptococcus_salivarius_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_salivarius_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_salivarius_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus salivarius histogram of likelihoods [singletons masked]')
+streptococcus_salivarius_masked_surface_hist
+
+streptococcus_salivarius_masked_surface_cutoff = quantile(streptococcus_salivarius_masked_surface$likelihood, 0.80)
+
+streptococcus_salivarius_masked_surface[streptococcus_salivarius_masked_surface$likelihood < streptococcus_salivarius_masked_surface_cutoff, ]$likelihood = streptococcus_salivarius_masked_surface_cutoff
+
+streptococcus_salivarius_masked_surface_scatter = ggplot(data=streptococcus_salivarius_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus salivarius rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_salivarius_masked_surface_scatter
+
+streptococcus_salivarius_unmasked_surface = read.csv('oral_likelihood_surfaces/streptococcus_salivarius_unmasked.csv', header=FALSE)
+names(streptococcus_salivarius_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_salivarius_unmasked_surface_expansion = streptococcus_salivarius_unmasked_surface[streptococcus_salivarius_unmasked_surface$nu > 1.0, ]
+streptococcus_salivarius_unmasked_surface_contraction = streptococcus_salivarius_unmasked_surface[streptococcus_salivarius_unmasked_surface$nu <= 1.0, ]
+
+streptococcus_salivarius_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_salivarius_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_salivarius_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus salivarius histogram of likelihoods')
+streptococcus_salivarius_unmasked_surface_hist
+
+streptococcus_salivarius_unmasked_surface_cutoff = quantile(streptococcus_salivarius_unmasked_surface$likelihood, 0.80)
+
+streptococcus_salivarius_unmasked_surface[streptococcus_salivarius_unmasked_surface$likelihood < streptococcus_salivarius_unmasked_surface_cutoff, ]$likelihood = streptococcus_salivarius_unmasked_surface_cutoff
+
+streptococcus_salivarius_unmasked_surface_scatter = ggplot(data=streptococcus_salivarius_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus salivarius rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_salivarius_unmasked_surface_scatter
+
+streptococcus_sanguinis_masked_surface = read.csv('oral_likelihood_surfaces/streptococcus_sanguinis_masked.csv', header=FALSE)
+names(streptococcus_sanguinis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_sanguinis_masked_surface_expansion = streptococcus_sanguinis_masked_surface[streptococcus_sanguinis_masked_surface$nu > 1.0, ]
+streptococcus_sanguinis_masked_surface_contraction = streptococcus_sanguinis_masked_surface[streptococcus_sanguinis_masked_surface$nu <= 1.0, ]
+
+streptococcus_sanguinis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_sanguinis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_sanguinis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus sanguinis histogram of likelihoods [singletons masked]')
+streptococcus_sanguinis_masked_surface_hist
+
+streptococcus_sanguinis_masked_surface_cutoff = quantile(streptococcus_sanguinis_masked_surface$likelihood, 0.80)
+
+streptococcus_sanguinis_masked_surface[streptococcus_sanguinis_masked_surface$likelihood < streptococcus_sanguinis_masked_surface_cutoff, ]$likelihood = streptococcus_sanguinis_masked_surface_cutoff
+
+streptococcus_sanguinis_masked_surface_scatter = ggplot(data=streptococcus_sanguinis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus sanguinis rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_sanguinis_masked_surface_scatter
+
+streptococcus_sanguinis_unmasked_surface = read.csv('oral_likelihood_surfaces/streptococcus_sanguinis_unmasked.csv', header=FALSE)
+names(streptococcus_sanguinis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_sanguinis_unmasked_surface_expansion = streptococcus_sanguinis_unmasked_surface[streptococcus_sanguinis_unmasked_surface$nu > 1.0, ]
+streptococcus_sanguinis_unmasked_surface_contraction = streptococcus_sanguinis_unmasked_surface[streptococcus_sanguinis_unmasked_surface$nu <= 1.0, ]
+
+streptococcus_sanguinis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_sanguinis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_sanguinis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus sanguinis histogram of likelihoods')
+streptococcus_sanguinis_unmasked_surface_hist
+
+streptococcus_sanguinis_unmasked_surface_cutoff = quantile(streptococcus_sanguinis_unmasked_surface$likelihood, 0.80)
+
+streptococcus_sanguinis_unmasked_surface[streptococcus_sanguinis_unmasked_surface$likelihood < streptococcus_sanguinis_unmasked_surface_cutoff, ]$likelihood = streptococcus_sanguinis_unmasked_surface_cutoff
+
+streptococcus_sanguinis_unmasked_surface_scatter = ggplot(data=streptococcus_sanguinis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus sanguinis rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_sanguinis_unmasked_surface_scatter
+
+streptococcus_sp_masked_surface = read.csv('oral_likelihood_surfaces/streptococcus_sp_masked.csv', header=FALSE)
+names(streptococcus_sp_masked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_sp_masked_surface_expansion = streptococcus_sp_masked_surface[streptococcus_sp_masked_surface$nu > 1.0, ]
+streptococcus_sp_masked_surface_contraction = streptococcus_sp_masked_surface[streptococcus_sp_masked_surface$nu <= 1.0, ]
+
+streptococcus_sp_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_sp_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_sp_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus sp. histogram of likelihoods [singletons masked]')
+streptococcus_sp_masked_surface_hist
+
+streptococcus_sp_masked_surface_cutoff = quantile(streptococcus_sp_masked_surface$likelihood, 0.80)
+
+streptococcus_sp_masked_surface[streptococcus_sp_masked_surface$likelihood < streptococcus_sp_masked_surface_cutoff, ]$likelihood = streptococcus_sp_masked_surface_cutoff
+
+streptococcus_sp_masked_surface_scatter = ggplot(data=streptococcus_sp_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus sp. rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_sp_masked_surface_scatter
+
+streptococcus_sp_unmasked_surface = read.csv('oral_likelihood_surfaces/streptococcus_sp_unmasked.csv', header=FALSE)
+names(streptococcus_sp_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+streptococcus_sp_unmasked_surface_expansion = streptococcus_sp_unmasked_surface[streptococcus_sp_unmasked_surface$nu > 1.0, ]
+streptococcus_sp_unmasked_surface_contraction = streptococcus_sp_unmasked_surface[streptococcus_sp_unmasked_surface$nu <= 1.0, ]
+
+streptococcus_sp_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = streptococcus_sp_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = streptococcus_sp_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('Streptococcus sp. histogram of likelihoods')
+streptococcus_sp_unmasked_surface_hist
+
+streptococcus_sp_unmasked_surface_cutoff = quantile(streptococcus_sp_unmasked_surface$likelihood, 0.80)
+
+streptococcus_sp_unmasked_surface[streptococcus_sp_unmasked_surface$likelihood < streptococcus_sp_unmasked_surface_cutoff, ]$likelihood = streptococcus_sp_unmasked_surface_cutoff
+
+streptococcus_sp_unmasked_surface_scatter = ggplot(data=streptococcus_sp_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('Streptococcus sp. rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+streptococcus_sp_unmasked_surface_scatter
+
+
+veillonella_parvula_57794_masked_surface = read.csv('oral_likelihood_surfaces/veillonella_parvula_57794_masked.csv', header=FALSE)
+names(veillonella_parvula_57794_masked_surface) = c('likelihood', 'nu', 'tau')
+
+veillonella_parvula_57794_masked_surface_expansion = veillonella_parvula_57794_masked_surface[veillonella_parvula_57794_masked_surface$nu > 1.0, ]
+veillonella_parvula_57794_masked_surface_contraction = veillonella_parvula_57794_masked_surface[veillonella_parvula_57794_masked_surface$nu <= 1.0, ]
+
+veillonella_parvula_57794_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = veillonella_parvula_57794_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = veillonella_parvula_57794_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 57794 histogram of likelihoods [singletons masked]')
+veillonella_parvula_57794_masked_surface_hist
+
+veillonella_parvula_57794_masked_surface_cutoff = quantile(veillonella_parvula_57794_masked_surface$likelihood, 0.80)
+
+veillonella_parvula_57794_masked_surface[veillonella_parvula_57794_masked_surface$likelihood < veillonella_parvula_57794_masked_surface_cutoff, ]$likelihood = veillonella_parvula_57794_masked_surface_cutoff
+
+veillonella_parvula_57794_masked_surface_scatter = ggplot(data=veillonella_parvula_57794_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 57794 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+veillonella_parvula_57794_masked_surface_scatter
+
+veillonella_parvula_57794_unmasked_surface = read.csv('oral_likelihood_surfaces/veillonella_parvula_57794_unmasked.csv', header=FALSE)
+names(veillonella_parvula_57794_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+veillonella_parvula_57794_unmasked_surface_expansion = veillonella_parvula_57794_unmasked_surface[veillonella_parvula_57794_unmasked_surface$nu > 1.0, ]
+veillonella_parvula_57794_unmasked_surface_contraction = veillonella_parvula_57794_unmasked_surface[veillonella_parvula_57794_unmasked_surface$nu <= 1.0, ]
+
+veillonella_parvula_57794_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = veillonella_parvula_57794_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = veillonella_parvula_57794_unmasked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
   ggtitle('V. parvula 57794 histogram of likelihoods')
-v_parvula_57794_exp_scatter_hist
+veillonella_parvula_57794_unmasked_surface_hist
 
-v_parvula_57794_exp_scatter[v_parvula_57794_exp_scatter$likelihood < -90000, ]$likelihood = -100000
+veillonella_parvula_57794_unmasked_surface_cutoff = quantile(veillonella_parvula_57794_unmasked_surface$likelihood, 0.80)
 
-scatter_v_parvula_57794_exp_scatter = ggplot(data=v_parvula_57794_exp_scatter, aes(x=nu, y=tau)) + 
+veillonella_parvula_57794_unmasked_surface[veillonella_parvula_57794_unmasked_surface$likelihood < veillonella_parvula_57794_unmasked_surface_cutoff, ]$likelihood = veillonella_parvula_57794_unmasked_surface_cutoff
+
+veillonella_parvula_57794_unmasked_surface_scatter = ggplot(data=veillonella_parvula_57794_unmasked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('V. parvula 57794 rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
-scatter_v_parvula_57794_exp_scatter
+veillonella_parvula_57794_unmasked_surface_scatter
 
-v_parvula_58184_exp_scatter = read.csv('v_parvula_58184_likelihood/v_parvula_58184_likelihood.csv', header=FALSE)
-names(v_parvula_58184_exp_scatter) = c('likelihood', 'nu', 'tau')
+veillonella_parvula_58184_masked_surface = read.csv('oral_likelihood_surfaces/veillonella_parvula_58184_masked.csv', header=FALSE)
+names(veillonella_parvula_58184_masked_surface) = c('likelihood', 'nu', 'tau')
 
-v_parvula_58184_exp_scatter_expansion = v_parvula_58184_exp_scatter[v_parvula_58184_exp_scatter$nu > 1.0, ]
-v_parvula_58184_exp_scatter_contraction = v_parvula_58184_exp_scatter[v_parvula_58184_exp_scatter$nu <= 1.0, ]
+veillonella_parvula_58184_masked_surface_expansion = veillonella_parvula_58184_masked_surface[veillonella_parvula_58184_masked_surface$nu > 1.0, ]
+veillonella_parvula_58184_masked_surface_contraction = veillonella_parvula_58184_masked_surface[veillonella_parvula_58184_masked_surface$nu <= 1.0, ]
 
-v_parvula_58184_exp_scatter_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = v_parvula_58184_exp_scatter_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = v_parvula_58184_exp_scatter_contraction, bins=100) +
+veillonella_parvula_58184_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = veillonella_parvula_58184_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = veillonella_parvula_58184_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+veillonella_parvula_58184_masked_surface_hist
+
+veillonella_parvula_58184_masked_surface_cutoff = quantile(veillonella_parvula_58184_masked_surface$likelihood, 0.80)
+
+veillonella_parvula_58184_masked_surface[veillonella_parvula_58184_masked_surface$likelihood < veillonella_parvula_58184_masked_surface_cutoff, ]$likelihood = veillonella_parvula_58184_masked_surface_cutoff
+
+veillonella_parvula_58184_masked_surface_scatter = ggplot(data=veillonella_parvula_58184_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+veillonella_parvula_58184_masked_surface_scatter
+
+veillonella_parvula_58184_unmasked_surface = read.csv('oral_likelihood_surfaces/veillonella_parvula_58184_unmasked.csv', header=FALSE)
+names(veillonella_parvula_58184_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+veillonella_parvula_58184_unmasked_surface_expansion = veillonella_parvula_58184_unmasked_surface[veillonella_parvula_58184_unmasked_surface$nu > 1.0, ]
+veillonella_parvula_58184_unmasked_surface_contraction = veillonella_parvula_58184_unmasked_surface[veillonella_parvula_58184_unmasked_surface$nu <= 1.0, ]
+
+veillonella_parvula_58184_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = veillonella_parvula_58184_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = veillonella_parvula_58184_unmasked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
   ggtitle('V. parvula 58184 histogram of likelihoods')
-v_parvula_58184_exp_scatter_hist
+veillonella_parvula_58184_unmasked_surface_hist
 
-v_parvula_58184_exp_scatter[v_parvula_58184_exp_scatter$likelihood < -7000, ]$likelihood = -100000
+veillonella_parvula_58184_unmasked_surface_cutoff = quantile(veillonella_parvula_58184_unmasked_surface$likelihood, 0.80)
 
-scatter_v_parvula_58184_exp_scatter = ggplot(data=v_parvula_58184_exp_scatter, aes(x=nu, y=tau)) + 
+veillonella_parvula_58184_unmasked_surface[veillonella_parvula_58184_unmasked_surface$likelihood < veillonella_parvula_58184_unmasked_surface_cutoff, ]$likelihood = veillonella_parvula_58184_unmasked_surface_cutoff
+
+veillonella_parvula_58184_unmasked_surface_scatter = ggplot(data=veillonella_parvula_58184_unmasked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('V. parvula 58184 rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
-scatter_v_parvula_58184_exp_scatter
+veillonella_parvula_58184_unmasked_surface_scatter
 
+# Gut Data likelihood surfaces
 
+akkermansia_muciniphila_masked_surface = read.csv('gut_likelihood_surfaces/akkermansia_muciniphila_masked.csv', header=FALSE)
+names(akkermansia_muciniphila_masked_surface) = c('likelihood', 'nu', 'tau')
 
+akkermansia_muciniphila_masked_surface_expansion = akkermansia_muciniphila_masked_surface[akkermansia_muciniphila_masked_surface$nu > 1.0, ]
+akkermansia_muciniphila_masked_surface_contraction = akkermansia_muciniphila_masked_surface[akkermansia_muciniphila_masked_surface$nu <= 1.0, ]
 
+akkermansia_muciniphila_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = akkermansia_muciniphila_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = akkermansia_muciniphila_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+akkermansia_muciniphila_masked_surface_hist
 
-aina_syn_sfs = c(34327, 17482, 11285, 8676, 6795, 5728, 4921, 4236, 3866, 3426, 3168, 2948, 2758, 2560, 2242, 2147, 1965, 1900, 1794, 1716, 1521, 1574, 1492, 1497, 1409, 1310, 1242, 1176, 1121, 1151, 1091, 1094, 1032, 977, 954, 995, 880, 911, 851, 820, 812, 836, 778, 767, 779, 728, 712, 716, 678, 687, 662, 681, 647, 654, 637, 598, 617, 614, 594, 554, 556, 553, 517, 583, 492, 563, 513, 508, 511, 478, 432, 489, 501, 454, 443, 437, 450, 431, 451, 396, 388, 408, 374, 418, 410, 360, 384, 403, 343, 385, 377, 371, 364, 335, 433, 335, 352, 304, 355, 284)
-folded_aina_syn_sfs = folded_sfs(c(34327, 17482, 11285, 8676, 6795, 5728, 4921, 4236, 3866, 3426, 3168, 2948, 2758, 2560, 2242, 2147, 1965, 1900, 1794, 1716, 1521, 1574, 1492, 1497, 1409, 1310, 1242, 1176, 1121, 1151, 1091, 1094, 1032, 977, 954, 995, 880, 911, 851, 820, 812, 836, 778, 767, 779, 728, 712, 716, 678, 687, 662, 681, 647, 654, 637, 598, 617, 614, 594, 554, 556, 553, 517, 583, 492, 563, 513, 508, 511, 478, 432, 489, 501, 454, 443, 437, 450, 431, 451, 396, 388, 408, 374, 418, 410, 360, 384, 403, 343, 385, 377, 371, 364, 335, 433, 335, 352, 304, 355, 284))
+akkermansia_muciniphila_masked_surface_cutoff = quantile(akkermansia_muciniphila_masked_surface$likelihood, 0.80)
+
+akkermansia_muciniphila_masked_surface[akkermansia_muciniphila_masked_surface$likelihood < akkermansia_muciniphila_masked_surface_cutoff, ]$likelihood = akkermansia_muciniphila_masked_surface_cutoff
+
+akkermansia_muciniphila_masked_surface_scatter = ggplot(data=akkermansia_muciniphila_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+akkermansia_muciniphila_masked_surface_scatter
+
+akkermansia_muciniphila_unmasked_surface = read.csv('gut_likelihood_surfaces/akkermansia_muciniphila_unmasked.csv', header=FALSE)
+names(akkermansia_muciniphila_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+akkermansia_muciniphila_unmasked_surface_expansion = akkermansia_muciniphila_unmasked_surface[akkermansia_muciniphila_unmasked_surface$nu > 1.0, ]
+akkermansia_muciniphila_unmasked_surface_contraction = akkermansia_muciniphila_unmasked_surface[akkermansia_muciniphila_unmasked_surface$nu <= 1.0, ]
+
+akkermansia_muciniphila_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = akkermansia_muciniphila_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = akkermansia_muciniphila_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+akkermansia_muciniphila_unmasked_surface_hist
+
+akkermansia_muciniphila_unmasked_surface_cutoff = quantile(akkermansia_muciniphila_unmasked_surface$likelihood, 0.80)
+
+akkermansia_muciniphila_unmasked_surface[akkermansia_muciniphila_unmasked_surface$likelihood < akkermansia_muciniphila_unmasked_surface_cutoff, ]$likelihood = akkermansia_muciniphila_unmasked_surface_cutoff
+
+akkermansia_muciniphila_unmasked_surface_scatter = ggplot(data=akkermansia_muciniphila_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+akkermansia_muciniphila_unmasked_surface_scatter
+
+alistipes_finegoldii_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_finegoldii_masked.csv', header=FALSE)
+names(alistipes_finegoldii_masked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_finegoldii_masked_surface_expansion = alistipes_finegoldii_masked_surface[alistipes_finegoldii_masked_surface$nu > 1.0, ]
+alistipes_finegoldii_masked_surface_contraction = alistipes_finegoldii_masked_surface[alistipes_finegoldii_masked_surface$nu <= 1.0, ]
+
+alistipes_finegoldii_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_finegoldii_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_finegoldii_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+alistipes_finegoldii_masked_surface_hist
+
+alistipes_finegoldii_masked_surface_cutoff = quantile(alistipes_finegoldii_masked_surface$likelihood, 0.80)
+
+alistipes_finegoldii_masked_surface[alistipes_finegoldii_masked_surface$likelihood < alistipes_finegoldii_masked_surface_cutoff, ]$likelihood = alistipes_finegoldii_masked_surface_cutoff
+
+alistipes_finegoldii_masked_surface_scatter = ggplot(data=alistipes_finegoldii_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_finegoldii_masked_surface_scatter
+
+alistipes_finegoldii_unmasked_surface = read.csv('gut_likelihood_surfaces/alistipes_finegoldii_unmasked.csv', header=FALSE)
+names(alistipes_finegoldii_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_finegoldii_unmasked_surface_expansion = alistipes_finegoldii_unmasked_surface[alistipes_finegoldii_unmasked_surface$nu > 1.0, ]
+alistipes_finegoldii_unmasked_surface_contraction = alistipes_finegoldii_unmasked_surface[alistipes_finegoldii_unmasked_surface$nu <= 1.0, ]
+
+alistipes_finegoldii_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_finegoldii_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_finegoldii_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+alistipes_finegoldii_unmasked_surface_hist
+
+alistipes_finegoldii_unmasked_surface_cutoff = quantile(alistipes_finegoldii_unmasked_surface$likelihood, 0.80)
+
+alistipes_finegoldii_unmasked_surface[alistipes_finegoldii_unmasked_surface$likelihood < alistipes_finegoldii_unmasked_surface_cutoff, ]$likelihood = alistipes_finegoldii_unmasked_surface_cutoff
+
+alistipes_finegoldii_unmasked_surface_scatter = ggplot(data=alistipes_finegoldii_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_finegoldii_unmasked_surface_scatter
+
+alistipes_onderdonkii_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_onderdonkii_masked.csv', header=FALSE)
+names(alistipes_onderdonkii_masked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_onderdonkii_masked_surface_expansion = alistipes_onderdonkii_masked_surface[alistipes_onderdonkii_masked_surface$nu > 1.0, ]
+alistipes_onderdonkii_masked_surface_contraction = alistipes_onderdonkii_masked_surface[alistipes_onderdonkii_masked_surface$nu <= 1.0, ]
+
+alistipes_onderdonkii_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_onderdonkii_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_onderdonkii_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+alistipes_onderdonkii_masked_surface_hist
+
+alistipes_onderdonkii_masked_surface_cutoff = quantile(alistipes_onderdonkii_masked_surface$likelihood, 0.80)
+
+alistipes_onderdonkii_masked_surface[alistipes_onderdonkii_masked_surface$likelihood < alistipes_onderdonkii_masked_surface_cutoff, ]$likelihood = alistipes_onderdonkii_masked_surface_cutoff
+
+alistipes_onderdonkii_masked_surface_scatter = ggplot(data=alistipes_onderdonkii_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_onderdonkii_masked_surface_scatter
+
+alistipes_onderdonkii_unmasked_surface = read.csv('gut_likelihood_surfaces/alistipes_onderdonkii_unmasked.csv', header=FALSE)
+names(alistipes_onderdonkii_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_onderdonkii_unmasked_surface_expansion = alistipes_onderdonkii_unmasked_surface[alistipes_onderdonkii_unmasked_surface$nu > 1.0, ]
+alistipes_onderdonkii_unmasked_surface_contraction = alistipes_onderdonkii_unmasked_surface[alistipes_onderdonkii_unmasked_surface$nu <= 1.0, ]
+
+alistipes_onderdonkii_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_onderdonkii_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_onderdonkii_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+alistipes_onderdonkii_unmasked_surface_hist
+
+alistipes_onderdonkii_unmasked_surface_cutoff = quantile(alistipes_onderdonkii_unmasked_surface$likelihood, 0.80)
+
+alistipes_onderdonkii_unmasked_surface[alistipes_onderdonkii_unmasked_surface$likelihood < alistipes_onderdonkii_unmasked_surface_cutoff, ]$likelihood = alistipes_onderdonkii_unmasked_surface_cutoff
+
+alistipes_onderdonkii_unmasked_surface_scatter = ggplot(data=alistipes_onderdonkii_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_onderdonkii_unmasked_surface_scatter
+
+alistipes_putredinis_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_putredinis_masked.csv', header=FALSE)
+names(alistipes_putredinis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_putredinis_masked_surface_expansion = alistipes_putredinis_masked_surface[alistipes_putredinis_masked_surface$nu > 1.0, ]
+alistipes_putredinis_masked_surface_contraction = alistipes_putredinis_masked_surface[alistipes_putredinis_masked_surface$nu <= 1.0, ]
+
+alistipes_putredinis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_putredinis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_putredinis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+alistipes_putredinis_masked_surface_hist
+
+alistipes_putredinis_masked_surface_cutoff = quantile(alistipes_putredinis_masked_surface$likelihood, 0.80)
+
+alistipes_putredinis_masked_surface[alistipes_putredinis_masked_surface$likelihood < alistipes_putredinis_masked_surface_cutoff, ]$likelihood = alistipes_putredinis_masked_surface_cutoff
+
+alistipes_putredinis_masked_surface_scatter = ggplot(data=alistipes_putredinis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_putredinis_masked_surface_scatter
+
+alistipes_putredinis_unmasked_surface = read.csv('gut_likelihood_surfaces/alistipes_putredinis_unmasked.csv', header=FALSE)
+names(alistipes_putredinis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_putredinis_unmasked_surface_expansion = alistipes_putredinis_unmasked_surface[alistipes_putredinis_unmasked_surface$nu > 1.0, ]
+alistipes_putredinis_unmasked_surface_contraction = alistipes_putredinis_unmasked_surface[alistipes_putredinis_unmasked_surface$nu <= 1.0, ]
+
+alistipes_putredinis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_putredinis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_putredinis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+alistipes_putredinis_unmasked_surface_hist
+
+alistipes_putredinis_unmasked_surface_cutoff = quantile(alistipes_putredinis_unmasked_surface$likelihood, 0.80)
+
+alistipes_putredinis_unmasked_surface[alistipes_putredinis_unmasked_surface$likelihood < alistipes_putredinis_unmasked_surface_cutoff, ]$likelihood = alistipes_putredinis_unmasked_surface_cutoff
+
+alistipes_putredinis_unmasked_surface_scatter = ggplot(data=alistipes_putredinis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_putredinis_unmasked_surface_scatter
+
+alistipes_shahii_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_shahii_masked.csv', header=FALSE)
+names(alistipes_shahii_masked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_shahii_masked_surface_expansion = alistipes_shahii_masked_surface[alistipes_shahii_masked_surface$nu > 1.0, ]
+alistipes_shahii_masked_surface_contraction = alistipes_shahii_masked_surface[alistipes_shahii_masked_surface$nu <= 1.0, ]
+
+alistipes_shahii_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_shahii_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_shahii_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+alistipes_shahii_masked_surface_hist
+
+alistipes_shahii_masked_surface_cutoff = quantile(alistipes_shahii_masked_surface$likelihood, 0.80)
+
+alistipes_shahii_masked_surface[alistipes_shahii_masked_surface$likelihood < alistipes_shahii_masked_surface_cutoff, ]$likelihood = alistipes_shahii_masked_surface_cutoff
+
+alistipes_shahii_masked_surface_scatter = ggplot(data=alistipes_shahii_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_shahii_masked_surface_scatter
+
+alistipes_shahii_unmasked_surface = read.csv('gut_likelihood_surfaces/alistipes_shahii_unmasked.csv', header=FALSE)
+names(alistipes_shahii_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+alistipes_shahii_unmasked_surface_expansion = alistipes_shahii_unmasked_surface[alistipes_shahii_unmasked_surface$nu > 1.0, ]
+alistipes_shahii_unmasked_surface_contraction = alistipes_shahii_unmasked_surface[alistipes_shahii_unmasked_surface$nu <= 1.0, ]
+
+alistipes_shahii_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = alistipes_shahii_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = alistipes_shahii_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+alistipes_shahii_unmasked_surface_hist
+
+alistipes_shahii_unmasked_surface_cutoff = quantile(alistipes_shahii_unmasked_surface$likelihood, 0.80)
+
+alistipes_shahii_unmasked_surface[alistipes_shahii_unmasked_surface$likelihood < alistipes_shahii_unmasked_surface_cutoff, ]$likelihood = alistipes_shahii_unmasked_surface_cutoff
+
+alistipes_shahii_unmasked_surface_scatter = ggplot(data=alistipes_shahii_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+alistipes_shahii_unmasked_surface_scatter
+
+bacteroidales_bacterium_masked_surface = read.csv('gut_likelihood_surfaces/bacteroidales_bacterium_masked.csv', header=FALSE)
+names(bacteroidales_bacterium_masked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroidales_bacterium_masked_surface_expansion = bacteroidales_bacterium_masked_surface[bacteroidales_bacterium_masked_surface$nu > 1.0, ]
+bacteroidales_bacterium_masked_surface_contraction = bacteroidales_bacterium_masked_surface[bacteroidales_bacterium_masked_surface$nu <= 1.0, ]
+
+bacteroidales_bacterium_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroidales_bacterium_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroidales_bacterium_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+bacteroidales_bacterium_masked_surface_hist
+
+bacteroidales_bacterium_masked_surface_cutoff = quantile(bacteroidales_bacterium_masked_surface$likelihood, 0.80)
+
+bacteroidales_bacterium_masked_surface[bacteroidales_bacterium_masked_surface$likelihood < bacteroidales_bacterium_masked_surface_cutoff, ]$likelihood = bacteroidales_bacterium_masked_surface_cutoff
+
+bacteroidales_bacterium_masked_surface_scatter = ggplot(data=bacteroidales_bacterium_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroidales_bacterium_masked_surface_scatter
+
+bacteroidales_bacterium_unmasked_surface = read.csv('gut_likelihood_surfaces/bacteroidales_bacterium_unmasked.csv', header=FALSE)
+names(bacteroidales_bacterium_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroidales_bacterium_unmasked_surface_expansion = bacteroidales_bacterium_unmasked_surface[bacteroidales_bacterium_unmasked_surface$nu > 1.0, ]
+bacteroidales_bacterium_unmasked_surface_contraction = bacteroidales_bacterium_unmasked_surface[bacteroidales_bacterium_unmasked_surface$nu <= 1.0, ]
+
+bacteroidales_bacterium_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroidales_bacterium_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroidales_bacterium_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+bacteroidales_bacterium_unmasked_surface_hist
+
+bacteroidales_bacterium_unmasked_surface_cutoff = quantile(bacteroidales_bacterium_unmasked_surface$likelihood, 0.80)
+
+bacteroidales_bacterium_unmasked_surface[bacteroidales_bacterium_unmasked_surface$likelihood < bacteroidales_bacterium_unmasked_surface_cutoff, ]$likelihood = bacteroidales_bacterium_unmasked_surface_cutoff
+
+bacteroidales_bacterium_unmasked_surface_scatter = ggplot(data=bacteroidales_bacterium_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroidales_bacterium_unmasked_surface_scatter
+
+bacteroides_caccae_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_caccae_masked.csv', header=FALSE)
+names(bacteroides_caccae_masked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroides_caccae_masked_surface_expansion = bacteroides_caccae_masked_surface[bacteroides_caccae_masked_surface$nu > 1.0, ]
+bacteroides_caccae_masked_surface_contraction = bacteroides_caccae_masked_surface[bacteroides_caccae_masked_surface$nu <= 1.0, ]
+
+bacteroides_caccae_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_caccae_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_caccae_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+bacteroides_caccae_masked_surface_hist
+
+bacteroides_caccae_masked_surface_cutoff = quantile(bacteroides_caccae_masked_surface$likelihood, 0.80)
+
+bacteroides_caccae_masked_surface[bacteroides_caccae_masked_surface$likelihood < bacteroides_caccae_masked_surface_cutoff, ]$likelihood = bacteroides_caccae_masked_surface_cutoff
+
+bacteroides_caccae_masked_surface_scatter = ggplot(data=bacteroides_caccae_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroides_caccae_masked_surface_scatter
+
+bacteroides_caccae_unmasked_surface = read.csv('gut_likelihood_surfaces/bacteroides_caccae_unmasked.csv', header=FALSE)
+names(bacteroides_caccae_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroides_caccae_unmasked_surface_expansion = bacteroides_caccae_unmasked_surface[bacteroides_caccae_unmasked_surface$nu > 1.0, ]
+bacteroides_caccae_unmasked_surface_contraction = bacteroides_caccae_unmasked_surface[bacteroides_caccae_unmasked_surface$nu <= 1.0, ]
+
+bacteroides_caccae_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_caccae_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_caccae_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+bacteroides_caccae_unmasked_surface_hist
+
+bacteroides_caccae_unmasked_surface_cutoff = quantile(bacteroides_caccae_unmasked_surface$likelihood, 0.80)
+
+bacteroides_caccae_unmasked_surface[bacteroides_caccae_unmasked_surface$likelihood < bacteroides_caccae_unmasked_surface_cutoff, ]$likelihood = bacteroides_caccae_unmasked_surface_cutoff
+
+bacteroides_caccae_unmasked_surface_scatter = ggplot(data=bacteroides_caccae_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroides_caccae_unmasked_surface_scatter
+
+bacteroides_cellulosilyticus_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_cellulosilyticus_masked.csv', header=FALSE)
+names(bacteroides_cellulosilyticus_masked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroides_cellulosilyticus_masked_surface_expansion = bacteroides_cellulosilyticus_masked_surface[bacteroides_cellulosilyticus_masked_surface$nu > 1.0, ]
+bacteroides_cellulosilyticus_masked_surface_contraction = bacteroides_cellulosilyticus_masked_surface[bacteroides_cellulosilyticus_masked_surface$nu <= 1.0, ]
+
+bacteroides_cellulosilyticus_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_cellulosilyticus_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_cellulosilyticus_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+bacteroides_cellulosilyticus_masked_surface_hist
+
+bacteroides_cellulosilyticus_masked_surface_cutoff = quantile(bacteroides_cellulosilyticus_masked_surface$likelihood, 0.80)
+
+bacteroides_cellulosilyticus_masked_surface[bacteroides_cellulosilyticus_masked_surface$likelihood < bacteroides_cellulosilyticus_masked_surface_cutoff, ]$likelihood = bacteroides_cellulosilyticus_masked_surface_cutoff
+
+bacteroides_cellulosilyticus_masked_surface_scatter = ggplot(data=bacteroides_cellulosilyticus_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroides_cellulosilyticus_masked_surface_scatter
+
+bacteroides_cellulosilyticus_unmasked_surface = read.csv('gut_likelihood_surfaces/bacteroides_cellulosilyticus_unmasked.csv', header=FALSE)
+names(bacteroides_cellulosilyticus_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroides_cellulosilyticus_unmasked_surface_expansion = bacteroides_cellulosilyticus_unmasked_surface[bacteroides_cellulosilyticus_unmasked_surface$nu > 1.0, ]
+bacteroides_cellulosilyticus_unmasked_surface_contraction = bacteroides_cellulosilyticus_unmasked_surface[bacteroides_cellulosilyticus_unmasked_surface$nu <= 1.0, ]
+
+bacteroides_cellulosilyticus_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_cellulosilyticus_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_cellulosilyticus_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+bacteroides_cellulosilyticus_unmasked_surface_hist
+
+bacteroides_cellulosilyticus_unmasked_surface_cutoff = quantile(bacteroides_cellulosilyticus_unmasked_surface$likelihood, 0.80)
+
+bacteroides_cellulosilyticus_unmasked_surface[bacteroides_cellulosilyticus_unmasked_surface$likelihood < bacteroides_cellulosilyticus_unmasked_surface_cutoff, ]$likelihood = bacteroides_cellulosilyticus_unmasked_surface_cutoff
+
+bacteroides_cellulosilyticus_unmasked_surface_scatter = ggplot(data=bacteroides_cellulosilyticus_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroides_cellulosilyticus_unmasked_surface_scatter
+
+bacteroides_fragilis_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_fragilis_masked.csv', header=FALSE)
+names(bacteroides_fragilis_masked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroides_fragilis_masked_surface_expansion = bacteroides_fragilis_masked_surface[bacteroides_fragilis_masked_surface$nu > 1.0, ]
+bacteroides_fragilis_masked_surface_contraction = bacteroides_fragilis_masked_surface[bacteroides_fragilis_masked_surface$nu <= 1.0, ]
+
+bacteroides_fragilis_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_fragilis_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_fragilis_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+bacteroides_fragilis_masked_surface_hist
+
+bacteroides_fragilis_masked_surface_cutoff = quantile(bacteroides_fragilis_masked_surface$likelihood, 0.80)
+
+bacteroides_fragilis_masked_surface[bacteroides_fragilis_masked_surface$likelihood < bacteroides_fragilis_masked_surface_cutoff, ]$likelihood = bacteroides_fragilis_masked_surface_cutoff
+
+bacteroides_fragilis_masked_surface_scatter = ggplot(data=bacteroides_fragilis_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroides_fragilis_masked_surface_scatter
+
+bacteroides_fragilis_unmasked_surface = read.csv('gut_likelihood_surfaces/bacteroides_fragilis_unmasked.csv', header=FALSE)
+names(bacteroides_fragilis_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+bacteroides_fragilis_unmasked_surface_expansion = bacteroides_fragilis_unmasked_surface[bacteroides_fragilis_unmasked_surface$nu > 1.0, ]
+bacteroides_fragilis_unmasked_surface_contraction = bacteroides_fragilis_unmasked_surface[bacteroides_fragilis_unmasked_surface$nu <= 1.0, ]
+
+bacteroides_fragilis_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_fragilis_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_fragilis_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+bacteroides_fragilis_unmasked_surface_hist
+
+bacteroides_fragilis_unmasked_surface_cutoff = quantile(bacteroides_fragilis_unmasked_surface$likelihood, 0.80)
+
+bacteroides_fragilis_unmasked_surface[bacteroides_fragilis_unmasked_surface$likelihood < bacteroides_fragilis_unmasked_surface_cutoff, ]$likelihood = bacteroides_fragilis_unmasked_surface_cutoff
+
+bacteroides_fragilis_unmasked_surface_scatter = ggplot(data=bacteroides_fragilis_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+bacteroides_fragilis_unmasked_surface_scatter
+
+ruminococcus_bromii_masked_surface = read.csv('gut_likelihood_surfaces/ruminococcus_bromii_masked.csv', header=FALSE)
+names(ruminococcus_bromii_masked_surface) = c('likelihood', 'nu', 'tau')
+
+ruminococcus_bromii_masked_surface_expansion = ruminococcus_bromii_masked_surface[ruminococcus_bromii_masked_surface$nu > 1.0, ]
+ruminococcus_bromii_masked_surface_contraction = ruminococcus_bromii_masked_surface[ruminococcus_bromii_masked_surface$nu <= 1.0, ]
+
+ruminococcus_bromii_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = ruminococcus_bromii_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = ruminococcus_bromii_masked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods [singletons masked]')
+ruminococcus_bromii_masked_surface_hist
+
+ruminococcus_bromii_masked_surface_cutoff = quantile(ruminococcus_bromii_masked_surface$likelihood, 0.80)
+
+ruminococcus_bromii_masked_surface[ruminococcus_bromii_masked_surface$likelihood < ruminococcus_bromii_masked_surface_cutoff, ]$likelihood = ruminococcus_bromii_masked_surface_cutoff
+
+ruminococcus_bromii_masked_surface_scatter = ggplot(data=ruminococcus_bromii_masked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface [singletons masked]') +
+  geom_vline(xintercept=1.0, color='red')
+ruminococcus_bromii_masked_surface_scatter
+
+ruminococcus_bromii_unmasked_surface = read.csv('gut_likelihood_surfaces/ruminococcus_bromii_unmasked.csv', header=FALSE)
+names(ruminococcus_bromii_unmasked_surface) = c('likelihood', 'nu', 'tau')
+
+ruminococcus_bromii_unmasked_surface_expansion = ruminococcus_bromii_unmasked_surface[ruminococcus_bromii_unmasked_surface$nu > 1.0, ]
+ruminococcus_bromii_unmasked_surface_contraction = ruminococcus_bromii_unmasked_surface[ruminococcus_bromii_unmasked_surface$nu <= 1.0, ]
+
+ruminococcus_bromii_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = ruminococcus_bromii_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = ruminococcus_bromii_unmasked_surface_contraction, bins=100) +
+  scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+  scale_y_log10() +
+  xlab('Likelihood') +
+  ylab('Count') +
+  ggtitle('V. parvula 58184 histogram of likelihoods')
+ruminococcus_bromii_unmasked_surface_hist
+
+ruminococcus_bromii_unmasked_surface_cutoff = quantile(ruminococcus_bromii_unmasked_surface$likelihood, 0.80)
+
+ruminococcus_bromii_unmasked_surface[ruminococcus_bromii_unmasked_surface$likelihood < ruminococcus_bromii_unmasked_surface_cutoff, ]$likelihood = ruminococcus_bromii_unmasked_surface_cutoff
+
+ruminococcus_bromii_unmasked_surface_scatter = ggplot(data=ruminococcus_bromii_unmasked_surface, aes(x=nu, y=tau)) + 
+  geom_point(aes(color=likelihood)) +
+  scale_fill_brewer(palette = "Accent") +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  ggtitle('V. parvula 58184 rough likelihood surface') +
+  geom_vline(xintercept=1.0, color='red')
+ruminococcus_bromii_unmasked_surface_scatter
