@@ -16,6 +16,7 @@ import dadi
 import scipy.stats.distributions
 import scipy.integrate
 import scipy.optimize
+import bz2
 
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
@@ -125,22 +126,26 @@ class ConstructCrudeSFS():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # Grab species-specific data from input directory
-        snps_depth = '{0}{1}/snps_depth.txt'.format(args['inprefix'], species)
-        snps_alt_allele = '{0}{1}/snps_alt_allele.txt'.format(args['inprefix'], species)
-        depth_handle = open(snps_depth, 'r')
-        alt_handle = open(snps_alt_allele, 'r')
-        depth_header = depth_handle.readline()
+        # snps_depth = '{0}{1}/snps_depth.txt'.format(args['inprefix'], species)
+        snps_depth = '{0}{1}/snps_depth.txt.bz2'.format(args['inprefix'], species)
+        # snps_alt_allele = '{0}{1}/snps_alt_allele.txt'.format(args['inprefix'], species)
+        snps_alt_allele = '{0}{1}/snps_alt_allele.txt.bz2'.format(args['inprefix'], species)
+        # depth_handle = open(snps_depth, 'r')
+        # alt_handle = open(snps_alt_allele, 'r')
+        depth_handle = bz2.open(snps_depth, 'r')
+        alt_handle = bz2.open(snps_alt_allele, 'r')
+        depth_header = depth_handle.readline().decode()
         num_hosts = len(depth_header.split('\t')) - 1
         alt_header = alt_handle.readline()
         n_tons = [0] * (num_hosts + 1)
         iter = 0
         while True:
             # Read line by line
-            depth_line = depth_handle.readline()
+            depth_line = depth_handle.readline().decode()
             if not depth_line:
                 break
             else:
-                alt_line = alt_handle.readline()
+                alt_line = alt_handle.readline().decode()
                 depth_elements = depth_line.split('\t')
                 if depth_elements[0] == 'site_id':
                     print('Error.')
