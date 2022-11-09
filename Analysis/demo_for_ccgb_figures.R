@@ -4015,3 +4015,470 @@ ruminococcus_bromii_unmasked_surface_scatter = ggplot(data=ruminococcus_bromii_u
   ggtitle('Ruminococcus bromii rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
 ruminococcus_bromii_unmasked_surface_scatter
+
+plot_histogram = function(input) {
+  species_surface = read.csv(input, header=FALSE)
+  names(species_surface) = c('likelihood', 'nu', 'tau')
+  species_surface_expansion = species_surface[species_surface$nu > 1.0, ]
+  species_surface_contraction = species_surface[species_surface$nu <= 1.0, ]
+  
+  species_surface_hist = ggplot(data=species_surface) +
+    geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = species_surface_expansion,  bins=100) +
+    geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = species_surface_contraction, bins=100) +
+    scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
+    scale_y_log10() +
+    xlab('Likelihood') +
+    ylab('Count')
+  return(species_surface_hist)
+}
+
+plot_likelihood_surface = function(input) {
+  species_surface = read.csv(input, header=FALSE)
+  names(species_surface) = c('likelihood', 'nu', 'tau')
+  
+  species_surface_cutoff = quantile(species_surface$likelihood, 0.80)
+  
+  species_surface[species_surface$likelihood < species_surface_cutoff, ]$likelihood = species_surface_cutoff
+  
+  species_surface_scatter = ggplot(data=species_surface, aes(x=nu, y=tau)) + 
+    geom_point(aes(color=likelihood)) +
+    scale_fill_brewer(palette = "Accent") +
+    scale_x_continuous(trans='log10') +
+    scale_y_continuous(trans='log10') +
+    geom_vline(xintercept=1.0, color='red')
+  return(species_surface_scatter)
+}
+
+# Gut Consensus Unmasked
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Akkermansia_muciniphila_55290_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Akkermansia muciniphila 55290 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Akkermansia_muciniphila_55290_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Akkermansia muciniphila 55290 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Alistipes_finegoldii_56071_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Alistipes finegoldii 56071 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Alistipes_finegoldii_56071_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Alistipes finegoldii 56071 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Alistipes_onderdonkii_55464_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Alistipes onderdonkii 55464 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Alistipes_onderdonkii_55464_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Alistipes onderdonkii 55464 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Alistipes_putredinis_61533_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Alistipes_putredinis_61533 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Alistipes_putredinis_61533_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Alistipes_putredinis_61533 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Alistipes_shahii_62199_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Alistipes shahii 62199 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Alistipes_shahii_62199_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Alistipes shahii 62199 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroidales_bacterium_58650_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroidales bacterium 58650 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroidales_bacterium_58650_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroidales bacterium 58650 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_caccae_53434_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides caccae 53434 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_caccae_53434_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides caccae 53434 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_cellulosilyticus_58046_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides cellulosilyticus 58046 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_cellulosilyticus_58046_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides cellulosilyticus 58046 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_fragilis_54507_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides fragilis 54507 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_fragilis_54507_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides fragilis 54507 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_massiliensis_44749_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides massiliensis 44749 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_massiliensis_44749_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides massiliensis 44749 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_ovatus_58035_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides ovatus 58035 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_ovatus_58035_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides ovatus 58035 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_stercoris_56735_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides stercoris 56735 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_stercoris_56735_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides stercoris 56735 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_thetaiotaomicron_56941_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides thetaiotaomicron 56941 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_thetaiotaomicron_56941_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides thetaiotaomicron 56941 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_uniformis_57318_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides uniformis 57318 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_uniformis_57318_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides uniformis 57318 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_vulgatus_57955_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides vulgatus 57955 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_vulgatus_57955_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides vulgatus 57955 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Bacteroides_xylanisolvens_57185_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Bacteroides xylanisolvens 57185 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Bacteroides_xylanisolvens_57185_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Bacteroides xylanisolvens 57185 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Barnesiella_intestinihominis_62208_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Barnesiella intestinihominis 62208 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Barnesiella_intestinihominis_62208_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Barnesiella intestinihominis 62208 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Coprococcus_sp_62244_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Coprococcus sp 62244 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Coprococcus_sp_62244_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Coprococcus sp 62244 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Dialister_invisus_61905_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Dialister invisus 61905 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Dialister_invisus_61905_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Dialister invisus 61905 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Eubacterium_eligens_61678_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Eubacterium eligens 61678 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Eubacterium_eligens_61678_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Eubacterium eligens 61678 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Eubacterium_rectale_56927_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Eubacterium rectale 56927 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Eubacterium_rectale_56927_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Eubacterium rectale 56927 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Faecalibacterium_prausnitzii_57453_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Faecalibacterium prausnitzii 57453 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Faecalibacterium_prausnitzii_57453_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Faecalibacterium prausnitzii 57453 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Oscillibacter_sp_60799_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Oscillibacter sp 60799 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Oscillibacter_sp_60799_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Oscillibacter sp 60799 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Parabacteroides_distasonis_56985_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Parabacteroides distasonis 56985 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Parabacteroides_distasonis_56985_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Parabacteroides distasonis 56985 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Parabacteroides_merdae_56972_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Parabacteroides merdae 56972 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Parabacteroides_merdae_56972_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Parabacteroides merdae 56972 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Phascolarctobacterium_sp_59817_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Phascolarctobacterium sp 59817 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Phascolarctobacterium_sp_59817_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Phascolarctobacterium  sp 59817 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Prevotella_copri_61740_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Prevotella copri 61740 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Prevotella_copri_61740_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Prevotella  copri 61740 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Ruminococcus_bicirculans_59300_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Ruminococcus bicirculans 59300 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Ruminococcus_bicirculans_59300_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Ruminococcus bicirculans 59300 gut consensus likelihood surface')
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Ruminococcus_bromii_62047_unmasked.csv')
+gut_consensus_hist + 
+  ggtitle('Ruminococcus bromii 62047 gut consensus likelihood histogram')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Ruminococcus_bromii_62047_unmasked.csv')
+gut_consensus_likelihood +
+  ggtitle('Ruminococcus bromii 62047 gut consensus likelihood surface')
+
+a_muciniphila_gut_consensus_empirical = c(7699923, 3000825, 1167628, 463693,
+                                          211570, 126150, 97358, 84953,
+                                          77668, 72333, 68129, 64402,
+                                          61411, 58488, 55759, 53536,
+                                          51265, 49002, 47183, 45447,
+                                          43719, 42139, 40591, 39294,
+                                          38102, 37023, 35967, 34902,
+                                          33938, 33162, 32358, 31692,
+                                          30997, 30325, 29692, 29301,
+                                          28916, 28501, 28179, 27927,
+                                          27628, 27498, 27361, 27206,
+                                          27041, 26982, 26907, 26913,
+                                          13485)
+a_muciniphila_gut_consensus_one_epoch = fold_sfs(c(2804780.988914795,
+                                                   1402391.590278085,
+                                                   934927.7518795277,
+                                                   701195.8193095237,
+                                                   560956.6589321734,
+                                                   467463.8850613571,
+                                                   400683.33216453483,
+                                                   350597.9174184588,
+                                                   311642.5947914722,
+                                                   280478.3366570959,
+                                                   254980.3072496627,
+                                                   233731.9493903648,
+                                                   215752.56964682377,
+                                                   200341.67270970455,
+                                                   186985.5620184747,
+                                                   175298.9651525649,
+                                                   164987.2620255456,
+                                                   155821.30368119033,
+                                                   147620.18304876125,
+                                                   140239.17447162524,
+                                                   133561.11908484463,
+                                                   127490.15963529033,
+                                                   121947.10969643321,
+                                                   116865.98057948503,
+                                                   112191.34178587019,
+                                                   107876.29058601073,
+                                                   103880.87280284682,
+                                                   100170.84199890273,
+                                                   96716.67538324631,
+                                                   93492.78653706444,
+                                                   90476.89051494091,
+                                                   87649.48798963078,
+                                                   84993.44318870867,
+                                                   82493.6363129736,
+                                                   80136.67554027055,
+                                                   77910.65702869574,
+                                                   75804.9638381529,
+                                                   73810.09660120425,
+                                                   71917.53024450107,
+                                                   70119.59220202516,
+                                                   68409.35845079499,
+                                                   66780.56439857648,
+                                                   65227.528205910385,
+                                                   63745.0845641893,
+                                                   62328.52730335468,
+                                                   60973.559485524995,
+                                                   59676.24986966238,
+                                                   58432.99481814265,
+                                                   57240.48486784485,
+                                                   56095.675312696054,
+                                                   54995.76024710481,
+                                                   53938.149604361315,
+                                                   52920.4487944998,
+                                                   51940.44060458105,
+                                                   50996.06907351641,
+                                                   50085.42509458669,
+                                                   49206.733533468156,
+                                                   48358.341678893274,
+                                                   47538.70886782404,
+                                                   46746.397148079195,
+                                                   45980.06285943587,
+                                                   45238.44902941616,
+                                                   44520.37849333091,
+                                                   43824.74765927403,
+                                                   43150.52084868983,
+                                                   42496.72515142186,
+                                                   41862.445741504576,
+                                                   41246.82160625833,
+                                                   40649.04164678274,
+                                                   40068.341112691516,
+                                                   39503.99833812217,
+                                                   38955.33174976168,
+                                                   38421.69712078076,
+                                                   37902.48504742179,
+                                                   37397.118627456504, 
+                                                   36905.05132193872,
+                                                   36425.76498355223,
+                                                   35958.7680366366,
+                                                   35503.59379544257,
+                                                   35059.79890850492,
+                                                   34626.96191825705,
+                                                   34204.68192604247,
+                                                   33792.577353615605,
+                                                   33390.28479313126,
+                                                   32997.45793828596,
+                                                   32613.766590039424,
+                                                   32238.895730930286,
+                                                   31872.544662458513,
+                                                   31514.426200677404,
+                                                   31164.26592535934,
+                                                   30821.801478711943,
+                                                   30486.781909796475,
+                                                   30158.967061270996,
+                                                   29838.126995246683,
+                                                   29524.04145543704,
+                                                   29216.499362897295,
+                                                   28915.298342969614))
+
+
+a_muciniphila_gut_consensus_x_axis = 1:length(a_muciniphila_gut_consensus_one_epoch)
+a_muciniphila_gut_consensus_df = data.frame(a_muciniphila_gut_consensus_empirical,
+                                                     a_muciniphila_gut_consensus_one_epoch,
+                                                     a_muciniphila_gut_consensus_x_axis)
+
+
+names(a_muciniphila_gut_consensus_df) = c('Empirical',
+                                          'One-epoch',
+                                          'x_axis')
+
+p_a_muciniphila_gut_consensus_comparison <- ggplot(data = melt(a_muciniphila_gut_consensus_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=a_muciniphila_gut_consensus_x_axis, limits=c(0.5, length(a_muciniphila_gut_consensus_x_axis) + 0.5)) +
+  ggtitle('A. muciniphila Consensus Site Frequency Spectrum') +
+  ylab('Number of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+
+p_a_muciniphila_gut_consensus_comparison
+
+a_muciniphila_gut_consensus_df = data.frame(proportional_sfs(a_muciniphila_gut_consensus_empirical),
+                                            proportional_sfs(a_muciniphila_gut_consensus_one_epoch),
+                                            a_muciniphila_gut_consensus_x_axis)
+
+names(a_muciniphila_gut_consensus_df) = c('Empirical',
+                                          'One-epoch',
+                                          'x_axis')
+
+p_a_muciniphila_gut_consensus_comparison <- ggplot(data = melt(a_muciniphila_gut_consensus_df, id='x_axis'),
+                                                   aes(x=x_axis, 
+                                                       y=value,
+                                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=a_muciniphila_gut_consensus_x_axis, limits=c(0.5, length(a_muciniphila_gut_consensus_x_axis) + 0.5)) +
+  ggtitle('A. muciniphila Consensus Site Frequency Spectrum') +
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+
+p_a_muciniphila_gut_consensus_comparison
+
+gut_consensus_hist = 
+  plot_histogram('./gut_consensus/Akkermansia_muciniphila_55290_masked.csv')
+gut_consensus_hist + 
+  ggtitle('Akkermansia muciniphila 55290 gut consensus likelihood histogram (singletons masked)')
+gut_consensus_likelihood =
+  plot_likelihood_surface('./gut_consensus/Akkermansia_muciniphila_55290_masked.csv')
+gut_consensus_likelihood +
+  ggtitle('Akkermansia muciniphila 55290 gut consensus likelihood surface (singletons masked)')
+
+
