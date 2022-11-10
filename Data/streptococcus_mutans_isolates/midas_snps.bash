@@ -7,7 +7,7 @@
 #$ -l h_data=25G
 #$ -l time=02:00:00
 #$ -l highp
-#$ -t 1-27
+#$ -t 13-20
 
 #  SGE_TASK_ID=1
 
@@ -20,7 +20,8 @@ do
    then
       file_name=$line
    fi
-done < ../streptococcus_mutans_genbank_accessions.txt
+done < ./SraAccList.txt
+# done < ../streptococcus_mutans_genbank_accessions.txt
 
 # fastq-dump $file_name
 # gzip ${file_name}.fastq
@@ -34,7 +35,8 @@ module load midas
 . /u/local/apps/midas/1.3.2/python-2.7.18-MIDAS-VE/bin/activate
 
 # run_midas.py species -h
-run_midas.py snps ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fasta.gz --remove_temp
+# run_midas.py snps ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fasta.gz --remove_temp
+run_midas.py snps ${OUTDIR}/ -1 SRA_accessions/${file_name}.fastq.gz --remove_temp
 
 module load singularity
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
