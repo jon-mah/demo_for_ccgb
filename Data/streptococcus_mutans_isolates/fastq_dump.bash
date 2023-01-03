@@ -4,11 +4,12 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l h_rt=4:00:00
-#$ -l highp
-#$ -t 1-100
+#$ -l h_rt=2:00:00
+#$ -t 7-9
 
-#SGE_TASK_ID=1
+# 329 lines
+
+# SGE_TASK_ID=1
 
 i=0
 while read line;
@@ -22,4 +23,4 @@ do
 done < ./SraAccList.txt
 
 # mkdir $file
-fastq-dump $file -O fastq_MIDAS_intermediate/${file}
+fastq-dump $file --gzip -O fastq_MIDAS_intermediate/

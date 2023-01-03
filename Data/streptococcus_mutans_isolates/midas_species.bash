@@ -5,11 +5,10 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l time=02:00:00
-#$ -l highp
-#$ -t 13-20
+#$ -l time=2:00:00
+#$ -t 10-329
 
-#  SGE_TASK_ID=1
+# SGE_TASK_ID=1
 
 i=0
 while read line;
@@ -22,14 +21,6 @@ do
    fi
 done < ./SraAccList.txt
 
-# done < ../streptococcus_mutans_genbank_accessions.txt
-
-
-# fastq-dump $file_name
-# gzip ${file_name}.fastq
-
-# run_midas.py ${file_name}.fastq.gz
-
 OUTDIR=./midas_output/${file_name}
 
 module load python/2.7.18
@@ -38,7 +29,7 @@ module load midas
 
 # run_midas.py species -h
 # run_midas.py species ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fasta.gz --remove_temp
-run_midas.py species ${OUTDIR}/ -1 SRA_accessions/${file_name}.fastq.gz --remove_temp
+run_midas.py species ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fastq.gz --remove_temp
 
 # module load singularity
 # export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
