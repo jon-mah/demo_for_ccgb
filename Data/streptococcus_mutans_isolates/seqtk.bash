@@ -23,4 +23,4 @@ do
 done < ./SraAccList.txt
 
 # mkdir $file
-fastq-dump $file -O fastq_MIDAS_intermediate/
+seqtk seq -a fastq_MIDAS_intermediate/${file}.fastq > fasta_MUMmer/${file}.fasta
