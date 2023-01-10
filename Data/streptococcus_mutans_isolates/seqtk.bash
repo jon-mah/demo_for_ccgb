@@ -9,7 +9,7 @@
 
 # 329 lines
 
-# SGE_TASK_ID=1
+# SGE_TASK_ID=5
 
 i=0
 while read line;
@@ -24,3 +24,4 @@ done < ./SraAccList.txt
 
 # mkdir $file
 seqtk seq -a fastq_MIDAS_intermediate/${file}.fastq > fasta_MUMmer/${file}.fasta
+# seqtk seq -a ${file}.fastq ../fasta_MUMmer/$file}.fasta
