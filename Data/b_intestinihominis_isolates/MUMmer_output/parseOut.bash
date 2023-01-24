@@ -8,4 +8,6 @@
 #$ -l time=12:00:00
 #$ -l highp
 
-parseOut output.parse names.txt output.dist 1206233
+#  parseOut output.parse names.txt output.dist 1206233
+# parseOut output.parse names.txt output.dist 500
+parseOut output.parse temp_names.txt output.dist 27

@@ -5,9 +5,9 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l time=02:00:00
+#$ -l time=04:00:00
 #$ -l highp
-#$ -t 1-329
+#$ -t 1-331
 
 # 329 lines
 
@@ -32,12 +32,13 @@ module load midas
 
 # run_midas.py species -h
 # run_midas.py genes ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fasta.gz --remove_temp
-run_midas.py genes ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fastq.gz --species_id Streptococcus_mutans_56116 --remove_temp
+run_midas.py genes ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fastq --species_id Streptococcus_mutans_56116 --remove_temp
+# run_midas.py  genes ${OUTDIR}/ -1 fastq_MIDAS_intermediate/SRR10389217.fastq --species_id Streptococcus_mutans_56116 --remove_temp
 
-module load singularity
-export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
-export PATH=$PATH:/u/project/ngarud/Garud_lab/MIDAS/scripts
-export MIDAS_DB=/u/project/ngarud/Garud_lab/midas_db_v1.2
+# module load singularity
+# export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
+# export PATH=$PATH:/u/project/ngarud/Garud_lab/MIDAS/scripts
+# export MIDAS_DB=/u/project/ngarud/Garud_lab/midas_db_v1.2
 
 # file_1=/u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS014530/SRS014530.denovo_duplicates_marked.trimmed.1.fastq.gz
 # file_2=/u/project/ngarud/jonmah/demo_for_ccgb/Data/oral_microbiome_data/fastq_MIDAS_intermediate/SRS014530/SRS014530.denovo_duplicates_marked.trimmed.2.fastq.gz

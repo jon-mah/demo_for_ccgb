@@ -7,9 +7,9 @@
 #$ -l h_data=25G
 #$ -l time=02:00:00
 #$ -l highp
-#$ -t 1-20
+#$ -t 1-331
 
-#  SGE_TASK_ID=1
+# SGE_TASK_ID=1
 
 i=0
 while read line;
@@ -36,7 +36,8 @@ module load midas
 
 # run_midas.py species -h
 # run_midas.py snps ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fasta.gz --remove_temp
-run_midas.py snps ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fastq.gz --species_id Streptococcus_mutans_56116 --remove_temp --species_cov 0.1
+run_midas.py snps ${OUTDIR}/ -1 fastq_MIDAS_intermediate/${file_name}.fastq --species_id Streptococcus_mutans_56116 --remove_temp
+# run_midas.py snps ${OUTDIR}/ -1 fastq_MIDAS_intermediate/SRR10389217.fastq.gz --species_id Streptococcus_mutans_56116 --remove_temp
 
 module load singularity
 export PYTHONPATH=$PYTHONPATH:/u/project/ngarud/Garud_lab/MIDAS
