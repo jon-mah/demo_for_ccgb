@@ -41,14 +41,14 @@ class ParseSnps():
                 'Parses a given `*.snps` file into human-readable format.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
-            'input_snps', type=ExistingFile,
+            'input_snps', type=self.ExistingFile,
             help='The input `*.snps` file output by MUMmer.')
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files.')
         return parser
 
-    def main(snps_file):
+    def main(self):
         """Execute main function."""
         # Parse command line arguments
         parser = self.ParseSnpsParser()
@@ -102,9 +102,10 @@ class ParseSnps():
         logger.info('Parsed the following arguments:\n{0}\n'.format(
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
-        # Initialize dict object for snps
+        # Initialize dict object for snps, queries
         snps_dict = {}
 
+        logger.info('Parsing input snps.')
         # Open output input file and read into snps dict
         with open(input_snps, 'r') as f:
             for line in f:
@@ -116,14 +117,17 @@ class ParseSnps():
                 query_contig = line[-1]
 
                 if position not in snps_dict:
-                    snps_dict[position] = [ref_allele, ref_contig, {query_contig: alt_allele}]
+                    snps_dict[position] = [ref_contig, ref_allele, {query_contig: alt_allele}]
                 else:
                     snps_dict[position][2][query_contig] = alt_allele
 
+        logger.info('Outputting parsed output.')
         with open(output_tsv, 'w') as f:
-            f.write('Position\tRef_Allele\tRef_Contig\t' + '\t'.join(snps_dict[position][2].keys()) + '\n')
+            f.write('Position\tRef_Contig\tRef_Allele\tQuery_Contig\n')
             for position, values in snps_dict.items():
-                f.write(position + '\t' + values[0] + '\t' + values[1] + '\t' + '\t'.join(values[2].values()) + '\n')
+                f.write(position + '\t' + str(values[0]) + '\t' + str(values[1]) + '\t' + str(values[2]) + '\n')
+        # print(snps_dict.items())
+        logger.info('Pipeline executed successfully.')
 
 
 if __name__ == '__main__':

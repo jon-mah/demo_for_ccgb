@@ -4,18 +4,17 @@
 #$ -V # Same environment
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=60G
-#$ -l highp
-#$ -l time=72:00:00
+#$ -l h_data=20G
+#$ -l time=2:00:00
 
-REFERENCE_GENOME="../fasta_MUMmer/reference.fasta"
+# REFERENCE_GENOME="../fasta_MUMmer/reference.fasta"
 # QUERY_GENOME="../fasta_MUMmer/temp_query.fasta"
-QUERY_GENOME="../fasta_MUMmer/query.fasta"
+# QUERY_GENOME="../fasta_MUMmer/query.fasta"
 # QUERY_GENOME=$file_name
-# DELTA=${OUTDIR}.delta
+DELTA=out.delta
 
 # Run nucmer to align the genomes
 # nucmer -p $OUTDIR $REFERENCE_GENOME $QUERY_GENOME
-# dnadiff -p $OUTDIR -d $DELTA
+dnadiff -d $DELTA
 # dnadiff -p $OUTDIR $REFERENCE_GENOME $QUERY_GENOME
-dnadiff $REFERENCE_GENOME $QUERY_GENOME
+# dnadiff $REFERENCE_GENOME $QUERY_GENOME-
