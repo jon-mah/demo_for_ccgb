@@ -445,8 +445,9 @@ class DemographicInference():
         pts_l = [1200, 1400, 1600]
 
         # Optomize parameters for these models.
-        model_list = ['two_epoch', 'three_epoch', 'exponential_growth',
-                      'bottleneck_growth', 'one_epoch']
+        # model_list = ['two_epoch', 'three_epoch', 'exponential_growth',
+        #               'bottleneck_growth', 'one_epoch']
+        model_list = ['two_epoch']
         model_LL_dict = {} # Track best log likelihood of each model
         model_params_dict = {} # Track best params of each model
         for model in model_list:
@@ -628,7 +629,7 @@ class DemographicInference():
                             'demographic model.')
             with open(demography_file, 'w') as f:
                 max_likelihood = -1e25 # Assume impossibly low likelihood
-                for i in range(25):
+                for i in range(3):
                     # Start at initial guess i from one of 25
                     p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
@@ -738,7 +739,7 @@ class DemographicInference():
         logger.info('Generating spectra object.')
 
         spectra = DFE.Cache1D(demog_params, nonsyn_ns,
-            func_sel, pts_l=pts_l,
+            func_sel, pts=pts_l,
             gamma_bounds=(1e-5, 500),
             gamma_pts=100, verbose=True)
 
@@ -752,7 +753,7 @@ class DemographicInference():
         # Track DFE inferences to find best MLE
         gamma_max_likelihoods = []
         gamma_guesses = dict()
-        for i in range(25):
+        for i in range(3):
             p0 = initial_guess
             # Randomly perturb around initial guess
             p0 = dadi.Misc.perturb_params(p0, lower_bound=lower_bound,

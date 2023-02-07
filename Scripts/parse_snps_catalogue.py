@@ -44,7 +44,7 @@ class ParseSnpsCatalogues():
                 'Parses a given `*.snps catalogue` file into human-readable format.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
-            'input_snps catalogue', type=self.ExistingFile,
+            'input_snps_catalogue', type=self.ExistingFile,
             help='The input `*.snps catalogue` file output by MUMmer.')
         parser.add_argument(
             'outprefix', type=str,
@@ -59,7 +59,7 @@ class ParseSnpsCatalogues():
         prog = parser.prog
 
         # Assign arguments
-        input_snps catalogue  = args['input_snps catalogue']
+        input_snps_catalogue  = args['input_snps_catalogue']
         outprefix = args['outprefix']
 
         # create output directory if needed
@@ -77,7 +77,7 @@ class ParseSnpsCatalogues():
             '{0}{1}output_sfs.txt'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}parse_snps_catalogue.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, output_tsv]
+        to_remove = [logfile, output_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -110,7 +110,7 @@ class ParseSnpsCatalogues():
 
         logger.info('Parsing input snps catalogue.')
         # Open snps catalogue
-        df = pd.read_table(parsed_snps_catalogue, na_values='255')
+        df = pd.read_table(input_snps_catalogue, na_values='255')
         df = df.drop(columns=['Pos'])
         # Set index based on first four rows
         df.set_index(['Contig', 'Ref', 'Alt'], inplace=True)
@@ -127,8 +127,8 @@ class ParseSnpsCatalogues():
         logger.info('Formatting SFS.')
 
         # Max bins for the dictionary
-        max_bins =  int(max(sfs_dict.keys()))
-        num_bins = max_bins + 1 # For Dadi formatting, which includes  0-tons
+        max_bins =  int(len(df.axes[1]))
+        num_bins = max_bins + 1 # For Dadi formatting, which includes 0-tons
         sfs_list = []
         mask_list = [1] + [0] * max_bins # For Dadi formatting
         for i in range(num_bins):
@@ -140,8 +140,8 @@ class ParseSnpsCatalogues():
         logger.info('Outputting SFS.')
 
         with open(output_sfs, 'w') as f:
-            f.write((str(num_bins)  + ' unfolded "output_sfs"')
-            f.write(' '.join(map(str, sfs_list)))
+            f.write((str(num_bins)  + ' unfolded "output_sfs"\n'))
+            f.write(' '.join(map(str, sfs_list)) + '\n')
             f.write(' '.join(map(str, mask_list)))
 
         logger.info('Pipeline executed successfully.')
