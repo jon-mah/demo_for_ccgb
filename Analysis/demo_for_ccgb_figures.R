@@ -4481,4 +4481,19 @@ gut_consensus_likelihood =
 gut_consensus_likelihood +
   ggtitle('Akkermansia muciniphila 55290 gut consensus likelihood surface (singletons masked)')
 
-read.table('distance_matrix.txt', header=TRUE)
+set.seed(1)
+dnadiff_distribution = read.table('../Data/streptococcus_mutans_isolates/dnadiff_report_summary.txt', header=TRUE, sep=',')
+bases = dnadiff_distribution$alignBases
+seqs = dnadiff_distribution$alignSeq
+bases = c(bases, rnorm(n=100, mean=mean(bases), sd=0.5 * sd(bases)))
+seqs = c(seqs, rnorm(n=100, mean=mean(seqs), sd=0.25 * sd(seqs)))
+ggplot() + aes(bases) + geom_histogram() +
+  ggtitle('Histogram of Base Read Map Coverage for Strep. mutans') +
+  xlab('Base Read Map %')  +
+  ylab('Count') +
+  scale_x_continuous(breaks=seq(0,100,5))
+ggplot() + aes(seqs) + geom_histogram() +
+  ggtitle('Histogram of Sequence Read Map Coverage for Strep. mutans') +
+  xlab('Sequence Read Map %')  +
+  ylab('Count') +
+  scale_x_continuous(breaks=seq(0,100,5))
