@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N consensus_gut_masked_contraction
+#$ -N gut_unmasked
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
@@ -41,10 +41,10 @@ done < ./gut_sfs_list.txt
 # python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.01 0.01 ../Analysis/${species}_downsampled/likelihood_surface_masked/ --mask_singletons
 
 # Gut with singletons
-# python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.01 0.01 ../Analysis/${species}_downsampled/likelihood_surface_unmasked/
+python plot_likelihood.py ../Analysis/${species}_downsampled/empirical_sfs.txt 0.1 0.0001 ../Analysis/${species}_downsampled/likelihood_surface_unmasked/
 
 # Consensus gut without singletons
-python plot_likelihood.py ../Data/gut_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.001 0.01 ../Data/gut_microbiome_sfs/${species}_sfs/masked/ --mask_singletons
+# python plot_likelihood.py ../Data/gut_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.001 0.01 ../Data/gut_microbiome_sfs/${species}_sfs/masked/ --mask_singletons
 
 # Consensus gut with singletons
 # python plot_likelihood.py ../Data/gut_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.001 0.01 ../Data/gut_microbiome_sfs/${species}_sfs/unmasked/
