@@ -5,7 +5,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
 #$ -l h_rt=2:00:00
-#$ -t 259
+#$ -t 1-329
 
 # 329 lines
 
