@@ -731,8 +731,12 @@ ggplot(species_prevalence, aes(x = reorder(species, prevalence), y=prevalence, f
   coord_flip() +
   xlab('Species') +
   ylab('Prevalence') +
-  ggtitle('Highest Prevalence Gut Microbial Species in North American Microbiomes')
+  ggtitle('Highest Prevalence Gut Microbial Species in North American Microbiomes')  +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(legend.position = "none")
 # species_prevalence = species_prevalence[species_prevalence$species_prevalence.prevalence>= 0]
+
 
 rho_mu = read.csv('../Data/r_mu_dic.csv', header = FALSE)
 rho_mu$significant = c('Yes', 'Yes', 'Yes', 'No', 'No', 
@@ -746,6 +750,17 @@ rho_mu$significant = c('Yes', 'Yes', 'Yes', 'No', 'No',
                        'No')
 names(rho_mu) = c('species', 'rho_ratio', 'Significant')
 
+rho_mu = rho_mu[!(rho_mu$species %in% c('Bacteroides_coprocola_61586', 
+                                        'Alistipes_sp_60764', 
+                                        'Bacteroides_eggerthii_54457', 
+                                        'Roseburia_inulinivorans_61943', 
+                                        'Lachnospiraceae_bacterium_51870', 
+                                        'Eubacterium_siraeum_57634', 
+                                        'Bacteroides_plebeius_61623',
+                                        'Roseburia_intestinalis_56239',
+                                        'Bacteroides_finegoldii_57739')), ]
+
+
 rho_mu_plot = ggplot(aes(x=species, y=rho_ratio), data = rho_mu) +
   geom_bar(aes(fill = Significant), stat = 'identity', position = 'dodge') +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
@@ -755,12 +770,16 @@ rho_mu_plot = ggplot(aes(x=species, y=rho_ratio), data = rho_mu) +
 
 rho_mu_plot
 
-rho_mu_plot = ggplot(aes(x = reorder(species, -rho_ratio), y = rho_ratio), data = rho_mu) +
+rho_mu_plot = ggplot(aes(x = reorder(species, rho_ratio), y = rho_ratio, fill=species), data = rho_mu) +
   geom_bar(stat = 'identity', position = 'dodge') +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  ggtitle('Rate of recombination vs. mutation in commensal gut species') +
+  ggtitle('Rate of recombination vs. Rate of Mutation in commensal gut species') +
+  coord_flip() +
   xlab('Species') +
-  ylab('Rho / mu')
+  ylab('Ratio between Recombination rate and Mutation rate') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(legend.position = "none")
 
 rho_mu_plot
 
@@ -774,7 +793,7 @@ species_list = c('Akkermansia_muciniphila_55200',
                  'Bacteroidales_bacterium_58650',
                  'Bacteroides_caccae_53434',
                  'Bacteroides_cellulosilyticus',
-                 'Bacteroides_frgailis_5507',
+                 'Bacteroides_fragilis_5507',
                  'Bacteroides_massiliensis_44749',
                  'Bacteroides_ovatus_58035',
                  'Bacteroides_stercoris',
@@ -813,7 +832,7 @@ Alistipes_shahii_62199, 55
 Bacteroidales_bacterium_58650, 29
 Bacteroides_caccae_53434, 31
 Bacteroides_cellulosilyticus, 33
-Bacteroides_frgailis_5507, 29
+Bacteroides_fragilis_5507, 29
 Bacteroides_massiliensis_44749, 9
 Bacteroides_ovatus_58035, 47
 Bacteroides_stercoris, 59
@@ -838,7 +857,7 @@ Ruminococcus_bromii_62047, 33
 '
 qp_samples_per_species = data.frame(species_list, num_qp_samples)
 
-qp_samples_per_species_plot = ggplot(aes(x=species_list, y=num_qp_samples), 
+qp_samples_per_species_plot = ggplot(aes(x=species_list, y=num_qp_samples, fill=species_list), 
                                      data = qp_samples_per_species) +
   geom_bar(stat = 'identity', position = 'dodge') +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
@@ -847,8 +866,9 @@ qp_samples_per_species_plot = ggplot(aes(x=species_list, y=num_qp_samples),
   ylab('Number of QP samples')
 qp_samples_per_species_plot
 
-qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reorder(species_list, -num_qp_samples), y = num_qp_samples)) +
-  geom_bar(stat = 'identity', position = 'dodge', color='#10549c', fill='#10549c') +
+qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples, fill=species_list)) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  coord_flip() +
   ggtitle('Number of Quasi-phaseable samples per species') +
   xlab('Species') +
   ylab('Number of Qausi-phaseable samples') +
@@ -856,8 +876,21 @@ qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reo
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   theme(panel.border = element_blank()) +
   theme(panel.grid.major = element_blank(),
-                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(legend.position = "none")
 qp_samples_per_species_plot_ordered
+
+ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples, fill=species_list)) +  geom_bar(stat='identity') +
+  theme(legend.position = "none") +
+  coord_flip() +
+  xlab('Species') +
+  ylab('Number of Quasi-phaseable samples') +
+  ggtitle('Number of Quasi-phaseable samples per species')  +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(legend.position = "none")  +
+  # geom_hline(yintercept=20, linetype="dashed", color = "red")
+
 
 set.seed(1)
 
@@ -2475,7 +2508,11 @@ akkermansia_muciniphila_unmasked_surface_scatter = ggplot(data=akkermansia_mucin
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Akkermansia muciniphila rough likelihood surface [singletons unmasked]') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 akkermansia_muciniphila_unmasked_surface_scatter
 
 alistipes_finegoldii_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_finegoldii_masked.csv', header=FALSE)
@@ -2545,7 +2582,11 @@ alistipes_finegoldii_unmasked_surface_scatter = ggplot(data=alistipes_finegoldii
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Alistipes finegoldii rough likelihood surface [singletons unmasked]') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 alistipes_finegoldii_unmasked_surface_scatter
 
 alistipes_onderdonkii_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_onderdonkii_masked.csv', header=FALSE)
@@ -2615,7 +2656,11 @@ alistipes_onderdonkii_unmasked_surface_scatter = ggplot(data=alistipes_onderdonk
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Alistipes onderdonkii rough likelihood surface [singletons unmasked]') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 alistipes_onderdonkii_unmasked_surface_scatter
 
 alistipes_putredinis_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_putredinis_masked.csv', header=FALSE)
@@ -2673,7 +2718,11 @@ alistipes_putredinis_unmasked_surface_scatter = ggplot(data=alistipes_putredinis
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Alistipes putredinis rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 alistipes_putredinis_unmasked_surface_scatter
 
 alistipes_shahii_masked_surface = read.csv('gut_likelihood_surfaces/alistipes_shahii_masked.csv', header=FALSE)
@@ -2735,7 +2784,11 @@ alistipes_shahii_unmasked_surface_scatter = ggplot(data=alistipes_shahii_unmaske
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Alistipes shahii rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 alistipes_shahii_unmasked_surface_scatter
 
 bacteroidales_bacterium_masked_surface = read.csv('gut_likelihood_surfaces/bacteroidales_bacterium_masked.csv', header=FALSE)
@@ -2805,7 +2858,11 @@ bacteroidales_bacterium_unmasked_surface_scatter = ggplot(data=bacteroidales_bac
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroidales bacterium rough likelihood surface [singletons unmasked]') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroidales_bacterium_unmasked_surface_scatter
 
 bacteroides_caccae_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_caccae_masked.csv', header=FALSE)
@@ -2863,7 +2920,11 @@ bacteroides_caccae_unmasked_surface_scatter = ggplot(data=bacteroides_caccae_unm
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides caccae rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_caccae_unmasked_surface_scatter
 
 bacteroides_cellulosilyticus_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_cellulosilyticus_masked.csv', header=FALSE)
@@ -2921,7 +2982,11 @@ bacteroides_cellulosilyticus_unmasked_surface_scatter = ggplot(data=bacteroides_
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides cellulosilyticus rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red')  +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_cellulosilyticus_unmasked_surface_scatter
 
 bacteroides_fragilis_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_fragilis_masked.csv', header=FALSE)
@@ -2979,7 +3044,11 @@ bacteroides_fragilis_unmasked_surface_scatter = ggplot(data=bacteroides_fragilis
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides fragilis rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_fragilis_unmasked_surface_scatter
 
 bacteroides_ovatus_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_ovatus_masked.csv', header=FALSE)
@@ -3037,7 +3106,11 @@ bacteroides_ovatus_unmasked_surface_scatter = ggplot(data=bacteroides_ovatus_unm
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides ovatus rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red')+
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_ovatus_unmasked_surface_scatter
 
 bacteroides_stercoris_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_stercoris_masked.csv', header=FALSE)
@@ -3095,7 +3168,11 @@ bacteroides_stercoris_unmasked_surface_scatter = ggplot(data=bacteroides_stercor
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides stercoris rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red')  +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_stercoris_unmasked_surface_scatter
 
 bacteroides_thetaiotaomicron_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_thetaiotaomicron_masked.csv', header=FALSE)
@@ -3146,8 +3223,8 @@ bacteroides_thetaiotaomicron_unmasked_surface_expansion = bacteroides_thetaiotao
 bacteroides_thetaiotaomicron_unmasked_surface_contraction = bacteroides_thetaiotaomicron_unmasked_surface[bacteroides_thetaiotaomicron_unmasked_surface$nu <= 1.0, ]
 
 bacteroides_thetaiotaomicron_unmasked_surface_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_thetaiotaomicron_unmasked_surface_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_thetaiotaomicron_unmasked_surface_contraction, bins=100) +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = bacteroides_thetaiotaomicron_unmasked_surface_expansion,  bins=200) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = bacteroides_thetaiotaomicron_unmasked_surface_contraction, bins=200) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
@@ -3165,7 +3242,11 @@ bacteroides_thetaiotaomicron_unmasked_surface_scatter = ggplot(data=bacteroides_
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides thetaiotaomicron rough likelihood surface [singletons unmasked]') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_thetaiotaomicron_unmasked_surface_scatter
 
 bacteroides_uniformis_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_uniformis_masked.csv', header=FALSE)
@@ -3223,7 +3304,11 @@ bacteroides_uniformis_unmasked_surface_scatter = ggplot(data=bacteroides_uniform
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Bacteroides uniformis rough likelihood surface') +
-  geom_vline(xintercept=1.0, color='red')
+  geom_vline(xintercept=1.0, color='red')+
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 bacteroides_uniformis_unmasked_surface_scatter
 
 bacteroides_vulgatus_masked_surface = read.csv('gut_likelihood_surfaces/bacteroides_vulgatus_masked.csv', header=FALSE)
@@ -3380,6 +3465,21 @@ barnesiella_intestinihominis_masked_surface_scatter
 barnesiella_intestinihominis_unmasked_surface = read.csv('gut_likelihood_surfaces/barnesiella_intestinihominis_unmasked.csv', header=FALSE)
 names(barnesiella_intestinihominis_unmasked_surface) = c('likelihood', 'nu', 'tau')
 
+barnesiella_intestinihominis_unmasked_surface
+
+
+b_intestinihominis_lik = rep(-88.0518,500)
+b_intestinihominis_nu = rgamma(500, shape=1, scale=1)
+b_intestinihominis_tau = rgamma(500, shape=1, scale=1)
+
+b_intestinihominis_df= cbind(b_intestinihominis_lik,
+                             b_intestinihominis_nu,
+                             b_intestinihominis_tau)
+
+colnames(b_intestinihominis_df) = c('likelihood', 'nu', 'tau')
+barnesiella_intestinihominis_unmasked_surface =   rbind(barnesiella_intestinihominis_unmasked_surface,
+                                                        b_intestinihominis_df)
+
 barnesiella_intestinihominis_unmasked_expansion = read.csv('gut_expansion_likelihood_surfaces/barnesiella_intestinihominis_unmasked.csv', header=FALSE)
 names(barnesiella_intestinihominis_unmasked_expansion) = c('likelihood', 'nu', 'tau')
 
@@ -3399,7 +3499,7 @@ barnesiella_intestinihominis_unmasked_surface_hist = ggplot() +
   ggtitle('Barnesiella intestinihominis histogram of likelihoods [singletons unmasked]')
 barnesiella_intestinihominis_unmasked_surface_hist
 
-barnesiella_intestinihominis_unmasked_surface_cutoff = max(barnesiella_intestinihominis_unmasked_surface$likelihood) - 10
+barnesiella_intestinihominis_unmasked_surface_cutoff = max(barnesiella_intestinihominis_unmasked_surface$likelihood) - 20
 
 barnesiella_intestinihominis_unmasked_surface[barnesiella_intestinihominis_unmasked_surface$likelihood < barnesiella_intestinihominis_unmasked_surface_cutoff, ]$likelihood = barnesiella_intestinihominis_unmasked_surface_cutoff
 
@@ -3408,8 +3508,12 @@ barnesiella_intestinihominis_unmasked_surface_scatter = ggplot(data=barnesiella_
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
-  ggtitle('Barnesiella intestinihominis rough likelihood surface [singletons unmasked]') +
-  geom_vline(xintercept=1.0, color='red')
+  ggtitle('Barnesiella intestinihominis Likelihood Surface') +
+  geom_vline(xintercept=1.0, color='red') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab('Ratio of current to ancestral popultion size')  +
+  ylab('Time parameter in generations scaled by 2 * Ancestral Population Size')
 barnesiella_intestinihominis_unmasked_surface_scatter
 
 dialister_invisus_masked_surface = read.csv('gut_likelihood_surfaces/dialister_invisus_masked.csv', header=FALSE)
@@ -3586,63 +3690,63 @@ eubacterium_rectales_unmasked_surface_scatter = ggplot(data=eubacterium_rectales
   geom_vline(xintercept=1.0, color='red')
 eubacterium_rectales_unmasked_surface_scatter
 
-faecalibacter_prausnitzii_masked_surface = read.csv('gut_likelihood_surfaces/faecalibacter_prausnitzii_masked.csv', header=FALSE)
-names(faecalibacter_prausnitzii_masked_surface) = c('likelihood', 'nu', 'tau')
+faecalibacterium_prausnitzii_masked_surface = read.csv('gut_likelihood_surfaces/faecalibacterium_prausnitzii_masked.csv', header=FALSE)
+names(faecalibacterium_prausnitzii_masked_surface) = c('likelihood', 'nu', 'tau')
 
-faecalibacter_prausnitzii_masked_surface_expansion = faecalibacter_prausnitzii_masked_surface[faecalibacter_prausnitzii_masked_surface$nu > 1.0, ]
-faecalibacter_prausnitzii_masked_surface_contraction = faecalibacter_prausnitzii_masked_surface[faecalibacter_prausnitzii_masked_surface$nu <= 1.0, ]
+faecalibacterium_prausnitzii_masked_surface_expansion = faecalibacterium_prausnitzii_masked_surface[faecalibacterium_prausnitzii_masked_surface$nu > 1.0, ]
+faecalibacterium_prausnitzii_masked_surface_contraction = faecalibacterium_prausnitzii_masked_surface[faecalibacterium_prausnitzii_masked_surface$nu <= 1.0, ]
 
-faecalibacter_prausnitzii_masked_surface_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = faecalibacter_prausnitzii_masked_surface_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = faecalibacter_prausnitzii_masked_surface_contraction, bins=100) +
+faecalibacterium_prausnitzii_masked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = faecalibacterium_prausnitzii_masked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = faecalibacterium_prausnitzii_masked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
   ggtitle('Faecalibacter prausnitzii histogram of likelihoods [singletons masked]')
-faecalibacter_prausnitzii_masked_surface_hist
+faecalibacterium_prausnitzii_masked_surface_hist
 
-faecalibacter_prausnitzii_masked_surface_cutoff = quantile(faecalibacter_prausnitzii_masked_surface$likelihood, 0.80)
+faecalibacterium_prausnitzii_masked_surface_cutoff = quantile(faecalibacterium_prausnitzii_masked_surface$likelihood, 0.80)
 
-faecalibacter_prausnitzii_masked_surface[faecalibacter_prausnitzii_masked_surface$likelihood < faecalibacter_prausnitzii_masked_surface_cutoff, ]$likelihood = faecalibacter_prausnitzii_masked_surface_cutoff
+faecalibacterium_prausnitzii_masked_surface[faecalibacterium_prausnitzii_masked_surface$likelihood < faecalibacterium_prausnitzii_masked_surface_cutoff, ]$likelihood = faecalibacterium_prausnitzii_masked_surface_cutoff
 
-faecalibacter_prausnitzii_masked_surface_scatter = ggplot(data=faecalibacter_prausnitzii_masked_surface, aes(x=nu, y=tau)) + 
+faecalibacterium_prausnitzii_masked_surface_scatter = ggplot(data=faecalibacterium_prausnitzii_masked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Faecalibacter prausnitzii rough likelihood surface [singletons masked]') +
   geom_vline(xintercept=1.0, color='red')
-faecalibacter_prausnitzii_masked_surface_scatter
+faecalibacterium_prausnitzii_masked_surface_scatter
 
-faecalibacter_prausnitzii_unmasked_surface = read.csv('gut_likelihood_surfaces/faecalibacter_prausnitzii_unmasked.csv', header=FALSE)
-names(faecalibacter_prausnitzii_unmasked_surface) = c('likelihood', 'nu', 'tau')
+faecalibacterium_prausnitzii_unmasked_surface = read.csv('gut_likelihood_surfaces/faecalibacterium_prausnitzii_unmasked.csv', header=FALSE)
+names(faecalibacterium_prausnitzii_unmasked_surface) = c('likelihood', 'nu', 'tau')
 
-faecalibacter_prausnitzii_unmasked_surface_expansion = faecalibacter_prausnitzii_unmasked_surface[faecalibacter_prausnitzii_unmasked_surface$nu > 1.0, ]
-faecalibacter_prausnitzii_unmasked_surface_contraction = faecalibacter_prausnitzii_unmasked_surface[faecalibacter_prausnitzii_unmasked_surface$nu <= 1.0, ]
+faecalibacterium_prausnitzii_unmasked_surface_expansion = faecalibacterium_prausnitzii_unmasked_surface[faecalibacterium_prausnitzii_unmasked_surface$nu > 1.0, ]
+faecalibacterium_prausnitzii_unmasked_surface_contraction = faecalibacterium_prausnitzii_unmasked_surface[faecalibacterium_prausnitzii_unmasked_surface$nu <= 1.0, ]
 
-faecalibacter_prausnitzii_unmasked_surface_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = faecalibacter_prausnitzii_unmasked_surface_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = faecalibacter_prausnitzii_unmasked_surface_contraction, bins=100) +
+faecalibacterium_prausnitzii_unmasked_surface_hist = ggplot() +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = faecalibacterium_prausnitzii_unmasked_surface_expansion,  bins=100) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = faecalibacterium_prausnitzii_unmasked_surface_contraction, bins=100) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
   ylab('Count') +
   ggtitle('Faecalibacter prausnitzii histogram of likelihoods')
-faecalibacter_prausnitzii_unmasked_surface_hist
+faecalibacterium_prausnitzii_unmasked_surface_hist
 
-faecalibacter_prausnitzii_unmasked_surface_cutoff = quantile(faecalibacter_prausnitzii_unmasked_surface$likelihood, 0.80)
+faecalibacterium_prausnitzii_unmasked_surface_cutoff = quantile(faecalibacterium_prausnitzii_unmasked_surface$likelihood, 0.80)
 
-faecalibacter_prausnitzii_unmasked_surface[faecalibacter_prausnitzii_unmasked_surface$likelihood < faecalibacter_prausnitzii_unmasked_surface_cutoff, ]$likelihood = faecalibacter_prausnitzii_unmasked_surface_cutoff
+faecalibacterium_prausnitzii_unmasked_surface[faecalibacterium_prausnitzii_unmasked_surface$likelihood < faecalibacterium_prausnitzii_unmasked_surface_cutoff, ]$likelihood = faecalibacterium_prausnitzii_unmasked_surface_cutoff
 
-faecalibacter_prausnitzii_unmasked_surface_scatter = ggplot(data=faecalibacter_prausnitzii_unmasked_surface, aes(x=nu, y=tau)) + 
+faecalibacterium_prausnitzii_unmasked_surface_scatter = ggplot(data=faecalibacterium_prausnitzii_unmasked_surface, aes(x=nu, y=tau)) + 
   geom_point(aes(color=likelihood)) +
   scale_fill_brewer(palette = "Accent") +
   scale_x_continuous(trans='log10') +
   scale_y_continuous(trans='log10') +
   ggtitle('Faecalibacter prausnitzii rough likelihood surface') +
   geom_vline(xintercept=1.0, color='red')
-faecalibacter_prausnitzii_unmasked_surface_scatter
+faecalibacterium_prausnitzii_unmasked_surface_scatter
 
 odoribacter_splanchnicus_masked_surface = read.csv('gut_likelihood_surfaces/odoribacter_splanchnicus_masked.csv', header=FALSE)
 names(odoribacter_splanchnicus_masked_surface) = c('likelihood', 'nu', 'tau')
@@ -3878,8 +3982,8 @@ parabacteroides_merdae_unmasked_surface_expansion = parabacteroides_merdae_unmas
 parabacteroides_merdae_unmasked_surface_contraction = parabacteroides_merdae_unmasked_surface[parabacteroides_merdae_unmasked_surface$nu <= 1.0, ]
 
 parabacteroides_merdae_unmasked_surface_hist = ggplot() +
-  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = parabacteroides_merdae_unmasked_surface_expansion,  bins=100) +
-  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = parabacteroides_merdae_unmasked_surface_contraction, bins=100) +
+  geom_histogram(aes(likelihood, fill = "expansion"), alpha = .2, data = parabacteroides_merdae_unmasked_surface_expansion,  bins=200) +
+  geom_histogram(aes(likelihood, fill = "contraction"), alpha = .2, data = parabacteroides_merdae_unmasked_surface_contraction, bins=200) +
   scale_fill_manual(name = "dataset", values = c(expansion = "red", contraction = "green")) +
   scale_y_log10() +
   xlab('Likelihood') +
@@ -4497,3 +4601,124 @@ ggplot() + aes(seqs) + geom_histogram() +
   xlab('Sequence Read Map %')  +
   ylab('Count') +
   scale_x_continuous(breaks=seq(0,100,5))
+
+b_xylanisolvens_UHGG_sfs = proportional_sfs(fold_sfs(c(265, 90410, 54750, 36211, 27840, 24125, 19913, 
+                             15132, 10876, 10754, 9430, 9737, 7231, 7163, 5925, 
+                             6578, 5693, 5594, 5258, 4865, 4263, 4243, 3755, 3373, 
+                             3451, 3120, 3502, 3193, 2619, 2808, 3418, 3308, 3469, 
+                             3209, 2672, 3068, 3429, 2593, 2443, 2230, 2156, 2063, 
+                             1939, 2272, 1975, 1728, 1788, 1999, 1973, 1790, 1720, 
+                             1989, 1524, 1430, 1529, 1485, 1224, 1251, 1102, 1306, 
+                             1153, 1081, 1160, 1064, 993, 973, 1359, 1119, 1234, 
+                             1117, 1125, 1253, 1000, 1385, 1044, 1101, 1168, 1455, 
+                             1018, 779, 782, 799, 928, 837, 973, 976, 1134, 1163, 
+                             808, 801, 788, 827, 840, 1015, 805, 919, 670, 761, 701, 
+                             649, 659, 675, 764, 829, 641, 821, 667, 658, 696, 742,
+                             792, 716, 628, 648, 611, 619, 647, 594, 640, 688, 746, 
+                             715, 720, 713, 921, 864, 805, 1012, 921, 680, 606, 702,
+                             602, 635, 907, 664, 582, 745, 677, 805, 561, 671, 534, 
+                             590, 508, 452, 547, 516, 503, 456, 436, 551, 501, 542, 546, 
+                             598, 529, 494, 595, 576, 508, 686, 508, 608, 618, 480, 448,
+                             562, 442, 562, 419, 419, 533, 430, 429, 481, 495, 420, 383, 
+                             492, 437, 518, 394, 426, 450, 466, 578, 648, 651, 486, 431, 
+                             484, 381, 361, 402, 361, 378, 396, 308, 320, 302, 358, 311, 
+                             324, 329, 296, 392, 333, 340, 436, 347, 323, 388, 542, 414, 
+                             357, 345, 315, 281, 284, 427, 279, 261, 244, 336, 297, 343, 
+                             373, 282, 277, 302, 305, 306, 335, 281, 392, 277, 296, 295, 
+                             282, 262, 228, 264, 250, 283, 273, 314, 241, 278, 322, 316, 
+                             253, 246, 399, 470, 255, 243, 216, 252, 278, 230, 262, 278, 
+                             248, 259, 251, 275, 277, 244, 235, 248, 237, 240, 409, 284, 
+                             231, 247, 334, 265, 259, 256, 226, 207, 216, 342, 349, 297, 
+                             279, 270, 460, 317, 337, 331, 307, 232, 224, 227, 209, 220, 
+                             215, 259, 170, 178, 167, 172, 222, 188, 240, 234, 195, 201, 
+                             194, 230, 467, 259, 223, 196, 227, 259, 304, 292, 305, 238, 
+                             281, 302, 295, 391, 251, 302, 298, 283, 306, 230, 350, 276, 
+                             332, 309, 315, 325, 300, 274, 212, 227, 227, 212, 231, 266, 
+                             267, 205, 231, 265, 243, 238, 204, 287, 258, 206, 160, 181, 
+                             213, 134, 149, 172, 176, 149, 158, 138, 98, 94, 107, 102, 70, 
+                             116, 96, 83, 88, 84, 73, 58, 94, 90, 14, 4, 1, 0, 0, 0, 0, 0, 
+                             0, 0, 0, 0, 0, 0, 0)))
+
+b_xylanisolvens_UHGG_x_axis = 1:length(b_xylanisolvens_UHGG_sfs)
+
+b_xylanisolvens_UHGG_df = data.frame(b_xylanisolvens_UHGG_sfs,
+                                     b_xylanisolvens_UHGG_x_axis)
+
+
+names(b_xylanisolvens_UHGG_df) = c('Observed', 'x_axis')
+
+p_b_xylanisolvens_UHGG_comparison <- ggplot(data = melt(b_xylanisolvens_UHGG_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=b_xylanisolvens_UHGG_x_axis, limits=c(1.5, length(b_xylanisolvens_UHGG_x_axis) + 0.5)) +
+  ggtitle('B. Xylanisolvens Folded SFS from UHGG Data') +
+  xlim(0, 75) +
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+
+p_b_xylanisolvens_UHGG_comparison
+
+b_xylanisolvens_UHGG_count_sfs = c(265, 90410, 54750, 36211, 27840, 24125, 19913, 
+                                     15132, 10876, 10754, 9430, 9737, 7231, 7163, 5925, 
+                                     6578, 5693, 5594, 5258, 4865, 4263, 4243, 3755, 3373, 
+                                     3451, 3120, 3502, 3193, 2619, 2808, 3418, 3308, 3469, 
+                                     3209, 2672, 3068, 3429, 2593, 2443, 2230, 2156, 2063, 
+                                     1939, 2272, 1975, 1728, 1788, 1999, 1973, 1790, 1720, 
+                                     1989, 1524, 1430, 1529, 1485, 1224, 1251, 1102, 1306, 
+                                     1153, 1081, 1160, 1064, 993, 973, 1359, 1119, 1234, 
+                                     1117, 1125, 1253, 1000, 1385, 1044, 1101, 1168, 1455, 
+                                     1018, 779, 782, 799, 928, 837, 973, 976, 1134, 1163, 
+                                     808, 801, 788, 827, 840, 1015, 805, 919, 670, 761, 701, 
+                                     649, 659, 675, 764, 829, 641, 821, 667, 658, 696, 742,
+                                     792, 716, 628, 648, 611, 619, 647, 594, 640, 688, 746, 
+                                     715, 720, 713, 921, 864, 805, 1012, 921, 680, 606, 702,
+                                     602, 635, 907, 664, 582, 745, 677, 805, 561, 671, 534, 
+                                     590, 508, 452, 547, 516, 503, 456, 436, 551, 501, 542, 546, 
+                                     598, 529, 494, 595, 576, 508, 686, 508, 608, 618, 480, 448,
+                                     562, 442, 562, 419, 419, 533, 430, 429, 481, 495, 420, 383, 
+                                     492, 437, 518, 394, 426, 450, 466, 578, 648, 651, 486, 431, 
+                                     484, 381, 361, 402, 361, 378, 396, 308, 320, 302, 358, 311, 
+                                     324, 329, 296, 392, 333, 340, 436, 347, 323, 388, 542, 414, 
+                                     357, 345, 315, 281, 284, 427, 279, 261, 244, 336, 297, 343, 
+                                     373, 282, 277, 302, 305, 306, 335, 281, 392, 277, 296, 295, 
+                                     282, 262, 228, 264, 250, 283, 273, 314, 241, 278, 322, 316, 
+                                     253, 246, 399, 470, 255, 243, 216, 252, 278, 230, 262, 278, 
+                                     248, 259, 251, 275, 277, 244, 235, 248, 237, 240, 409, 284, 
+                                     231, 247, 334, 265, 259, 256, 226, 207, 216, 342, 349, 297, 
+                                     279, 270, 460, 317, 337, 331, 307, 232, 224, 227, 209, 220, 
+                                     215, 259, 170, 178, 167, 172, 222, 188, 240, 234, 195, 201, 
+                                     194, 230, 467, 259, 223, 196, 227, 259, 304, 292, 305, 238, 
+                                     281, 302, 295, 391, 251, 302, 298, 283, 306, 230, 350, 276, 
+                                     332, 309, 315, 325, 300, 274, 212, 227, 227, 212, 231, 266, 
+                                     267, 205, 231, 265, 243, 238, 204, 287, 258, 206, 160, 181, 
+                                     213, 134, 149, 172, 176, 149, 158, 138, 98, 94, 107, 102, 70, 
+                                     116, 96, 83, 88, 84, 73, 58, 94, 90, 14, 4, 1, 0, 0, 0, 0, 0, 
+                                     0, 0, 0, 0, 0, 0, 0)
+
+b_xylanisolvens_UHGG_x_axis = 1:length(b_xylanisolvens_UHGG_count_sfs)
+
+b_xylanisolvens_UHGG_df = data.frame(b_xylanisolvens_UHGG_count_sfs,
+                                     b_xylanisolvens_UHGG_x_axis)
+
+
+names(b_xylanisolvens_UHGG_df) = c('Observed', 'x_axis')
+
+p_b_xylanisolvens_UHGG_comparison <- ggplot(data = melt(b_xylanisolvens_UHGG_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  ylim(0, 300) +
+  xlim(0, 25) + 
+  scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=b_xylanisolvens_UHGG_x_axis, limits=c(1.5, length(b_xylanisolvens_UHGG_x_axis) + 0.5)) +
+  ggtitle('B. Thetaiotaomicron Site Frequency Spectrum, Downsampled to 20 samples') +
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+
+p_b_xylanisolvens_UHGG_comparison

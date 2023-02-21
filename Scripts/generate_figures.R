@@ -108,17 +108,6 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# Test for R. bicirculans (downsampled to 10)
-r_bicirculans_downsampled_10_empirical = read_input_sfs(
-  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_10/empirical_sfs.txt'
-)
-r_bicirculans_downsampled_10_one_epoch = sfs_from_demography(
-  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_10/one_epoch_demography.txt'
-)
-r_bicirculans_downsampled_10_two_epoch = sfs_from_demography(
-  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_10/two_epoch_demography.txt'
-)
-
 # A. finegoldii
 plot_likelihood_surface('../Analysis/qp_gut_14/a_finegoldii_14.csv')
 a_finegoldii_14_empirical =  read_input_sfs(
@@ -131,50 +120,602 @@ a_finegoldii_14_two_epoch = sfs_from_demography(
   '..Analysis/Alistipes_finegoldii_56071_downsampled_14/two_epoch_demography.txt'
 )
 
-
+# A. muciniphila
 plot_likelihood_surface('../Analysis/qp_gut_14/a_muciniphila_14.csv')
+a_muciniphila_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+a_muciniphila_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+a_muciniphila_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(a_muciniphila_14_empirical,
+            a_muciniphila_14_one_epoch,
+            a_muciniphila_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(a_muciniphila_14_empirical),
+            proportional_sfs(a_muciniphila_14_one_epoch),
+            proportional_sfs(a_muciniphila_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# A. onderdonkii
 plot_likelihood_surface('../Analysis/qp_gut_14/a_onderdonkii_14.csv')
+a_onderdonkii_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+a_onderdonkii_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+a_onderdonkii_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(a_onderdonkii_14_empirical,
+            a_onderdonkii_14_one_epoch,
+            a_onderdonkii_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(a_onderdonkii_14_empirical),
+            proportional_sfs(a_onderdonkii_14_one_epoch),
+            proportional_sfs(a_onderdonkii_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# A. putredinis
 plot_likelihood_surface('../Analysis/qp_gut_14/a_putredinis_14.csv')
+a_putredinis_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+a_putredinis_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+a_putredinis_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(a_putredinis_14_empirical,
+            a_putredinis_14_one_epoch,
+            a_putredinis_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(a_putredinis_14_empirical),
+            proportional_sfs(a_putredinis_14_one_epoch),
+            proportional_sfs(a_putredinis_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+
+# A. shahii
 plot_likelihood_surface('../Analysis/qp_gut_14/a_shahii_14.csv')
+a_shahii_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+a_shahii_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+a_shahii_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(a_shahii_14_empirical,
+            a_shahii_14_one_epoch,
+            a_shahii_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(a_shahii_14_empirical),
+            proportional_sfs(a_shahii_14_one_epoch),
+            proportional_sfs(a_shahii_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# B. bacterium
 plot_likelihood_surface('../Analysis/qp_gut_14/b_bacterium_14.csv')
+b_bacterium_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_bacterium_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_bacterium_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_bacterium_14_empirical,
+            b_bacterium_14_one_epoch,
+            b_bacterium_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_bacterium_14_empirical),
+            proportional_sfs(b_bacterium_14_one_epoch),
+            proportional_sfs(b_bacterium_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+# B. caccae
 plot_likelihood_surface('../Analysis/qp_gut_14/b_caccae_14.csv')
+b_caccae_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_caccae_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_caccae_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_caccae_14_empirical,
+            b_caccae_14_one_epoch,
+            b_caccae_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_caccae_14_empirical),
+            proportional_sfs(b_caccae_14_one_epoch),
+            proportional_sfs(b_caccae_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+# B. cellulosilyticus
 plot_likelihood_surface('../Analysis/qp_gut_14/b_cellulosilyticus_14.csv')
+b_cellulosilyticus_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_cellulosilyticus_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_cellulosilyticus_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_cellulosilyticus_14_empirical,
+            b_cellulosilyticus_14_one_epoch,
+            b_cellulosilyticus_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_cellulosilyticus_14_empirical),
+            proportional_sfs(b_cellulosilyticus_14_one_epoch),
+            proportional_sfs(b_cellulosilyticus_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+#  B. fragilis
 plot_likelihood_surface('../Analysis/qp_gut_14/b_fragilis_14.csv')
+b_fragilis_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_fragilis_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_fragilis_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_fragilis_14_empirical,
+            b_fragilis_14_one_epoch,
+            b_fragilis_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_fragilis_14_empirical),
+            proportional_sfs(b_fragilis_14_one_epoch),
+            proportional_sfs(b_fragilis_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# B. intestinihominis
 plot_likelihood_surface('../Analysis/qp_gut_14/b_intestinihominis_14.csv')
+b_intestinihominis_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_intestinihominis_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_intestinihominis_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_intestinihominis_14_empirical,
+            b_intestinihominis_14_one_epoch,
+            b_intestinihominis_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_intestinihominis_14_empirical),
+            proportional_sfs(b_intestinihominis_14_one_epoch),
+            proportional_sfs(b_intestinihominis_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+
+# B. ovatus
 plot_likelihood_surface('../Analysis/qp_gut_14/b_ovatus_14.csv')
+b_ovatus_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_ovatus_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_ovatus_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_ovatus_14_empirical,
+            b_ovatus_14_one_epoch,
+            b_ovatus_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_ovatus_14_empirical),
+            proportional_sfs(b_ovatus_14_one_epoch),
+            proportional_sfs(b_ovatus_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# B. thetaiotaomicron
 plot_likelihood_surface('../Analysis/qp_gut_14/b_thetaiotaomicron_14.csv')
+b_thetaiotaomicron_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_thetaiotaomicron_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_thetaiotaomicron_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_thetaiotaomicron_14_empirical,
+            b_thetaiotaomicron_14_one_epoch,
+            b_thetaiotaomicron_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_thetaiotaomicron_14_empirical),
+            proportional_sfs(b_thetaiotaomicron_14_one_epoch),
+            proportional_sfs(b_thetaiotaomicron_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# B. uniformis
 plot_likelihood_surface('../Analysis/qp_gut_14/b_uniformis_14.csv')
+b_uniformis_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_uniformis_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_uniformis_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_uniformis_14_empirical,
+            b_uniformis_14_one_epoch,
+            b_uniformis_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_uniformis_14_empirical),
+            proportional_sfs(b_uniformis_14_one_epoch),
+            proportional_sfs(b_uniformis_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# B. vulgatus
 plot_likelihood_surface('../Analysis/qp_gut_14/b_vulgatus_14.csv')
+b_vulgatus_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_vulgatus_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_vulgatus_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_vulgatus_14_empirical,
+            b_vulgatus_14_one_epoch,
+            b_vulgatus_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_vulgatus_14_empirical),
+            proportional_sfs(b_vulgatus_14_one_epoch),
+            proportional_sfs(b_vulgatus_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+
+# B. xylanisolvens
 plot_likelihood_surface('../Analysis/qp_gut_14/b_xylanisolvens_14.csv')
+b_xylanisolvens_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+b_xylanisolvens_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+b_xylanisolvens_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(b_xylanisolvens_14_empirical,
+            b_xylanisolvens_14_one_epoch,
+            b_xylanisolvens_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(b_xylanisolvens_14_empirical),
+            proportional_sfs(b_xylanisolvens_14_one_epoch),
+            proportional_sfs(b_xylanisolvens_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+
+# D. invisus
 plot_likelihood_surface('../Analysis/qp_gut_14/d_invisus_14.csv')
+d_invisus_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+d_invisus_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+d_invisus_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(d_invisus_14_empirical,
+            d_invisus_14_one_epoch,
+            d_invisus_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(d_invisus_14_empirical),
+            proportional_sfs(d_invisus_14_one_epoch),
+            proportional_sfs(d_invisus_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
 
 
+# E. eligens
 plot_likelihood_surface('../Analysis/qp_gut_14/e_eligens_14.csv')
 e_eligens_14_empirical =  read_input_sfs(
-  '../Analysis/Eubacterium_eligens_61678_downsampled_16/empirical_sfs.txt'
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
 )
 e_eligens_14_one_epoch = sfs_from_demography(
-  '../Analysis/Eubacterium_eligens_61678_downsampled_16/one_epoch_demography.txt'
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
 )
 e_eligens_14_two_epoch = sfs_from_demography(
-  '../Analysis/Eubacterium_eligens_61678_downsampled_16/two_epoch_demography.txt'
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
 )
 compare_sfs(e_eligens_14_empirical,
             e_eligens_14_one_epoch,
-            e_eligens_14_two_epoch)
+            e_eligens_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
 
 compare_sfs(proportional_sfs(e_eligens_14_empirical),
             proportional_sfs(e_eligens_14_one_epoch),
-            proportional_sfs(e_eligens_14_two_epoch))
+            proportional_sfs(e_eligens_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
 
+
+
+# E. rectale
 plot_likelihood_surface('../Analysis/qp_gut_14/e_rectale_14.csv')
+e_rectale_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+e_rectale_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+e_rectale_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(e_rectale_14_empirical,
+            e_rectale_14_one_epoch,
+            e_rectale_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(e_rectale_14_empirical),
+            proportional_sfs(e_rectale_14_one_epoch),
+            proportional_sfs(e_rectale_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# F. prausnitzii
 plot_likelihood_surface('../Analysis/qp_gut_14/f_prausnitzii_14.csv')
+f_prausnitzii_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+f_prausnitzii_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+f_prausnitzii_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(f_prausnitzii_14_empirical,
+            f_prausnitzii_14_one_epoch,
+            f_prausnitzii_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(f_prausnitzii_14_empirical),
+            proportional_sfs(f_prausnitzii_14_one_epoch),
+            proportional_sfs(f_prausnitzii_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# Oscillibacter sp.
 plot_likelihood_surface('../Analysis/qp_gut_14/o_sp_14.csv')
+o_sp_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+o_sp_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+o_sp_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(o_sp_14_empirical,
+            o_sp_14_one_epoch,
+            o_sp_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(o_sp_14_empirical),
+            proportional_sfs(o_sp_14_one_epoch),
+            proportional_sfs(o_sp_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# o. splanchnicus
 plot_likelihood_surface('../Analysis/qp_gut_14/o_splanchnicus_14.csv')
+o_splanchnicus_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+o_splanchnicus_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+o_splanchnicus_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(o_splanchnicus_14_empirical,
+            o_splanchnicus_14_one_epoch,
+            o_splanchnicus_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(o_splanchnicus_14_empirical),
+            proportional_sfs(o_splanchnicus_14_one_epoch),
+            proportional_sfs(o_splanchnicus_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# P. copri
 plot_likelihood_surface('../Analysis/qp_gut_14/p_copri_14.csv')
+p_copri_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+p_copri_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+p_copri_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(p_copri_14_empirical,
+            p_copri_14_one_epoch,
+            p_copri_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(p_copri_14_empirical),
+            proportional_sfs(p_copri_14_one_epoch),
+            proportional_sfs(p_copri_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# P. distasonis
 plot_likelihood_surface('../Analysis/qp_gut_14/p_distasonis_14.csv')
+p_distasonis_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+p_distasonis_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+p_distasonis_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(p_distasonis_14_empirical,
+            p_distasonis_14_one_epoch,
+            p_distasonis_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(p_distasonis_14_empirical),
+            proportional_sfs(p_distasonis_14_one_epoch),
+            proportional_sfs(p_distasonis_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# P. merdae
 plot_likelihood_surface('../Analysis/qp_gut_14/p_merdae_14.csv')
+p_merdae_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+p_merdae_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+p_merdae_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(p_merdae_14_empirical,
+            p_merdae_14_one_epoch,
+            p_merdae_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(p_merdae_14_empirical),
+            proportional_sfs(p_merdae_14_one_epoch),
+            proportional_sfs(p_merdae_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# Phascolarctobacterium sp.
 plot_likelihood_surface('../Analysis/qp_gut_14/p_sp_14.csv')
+p_sp_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+p_sp_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+p_sp_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(p_sp_14_empirical,
+            p_sp_14_one_epoch,
+            p_sp_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(p_sp_14_empirical),
+            proportional_sfs(p_sp_14_one_epoch),
+            proportional_sfs(p_sp_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+
+# R. bicirculans
 plot_likelihood_surface('../Analysis/qp_gut_14/r_bicirculans_14.csv')
+r_bicirculans_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+r_bicirculans_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+r_bicirculans_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(r_bicirculans_14_empirical,
+            r_bicirculans_14_one_epoch,
+            r_bicirculans_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(r_bicirculans_14_empirical),
+            proportional_sfs(r_bicirculans_14_one_epoch),
+            proportional_sfs(r_bicirculans_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
+
+# R. bromii
 plot_likelihood_surface('../Analysis/qp_gut_14/r_bromii_14.csv')
+r_bromii_14_empirical =  read_input_sfs(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
+)
+r_bromii_14_one_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/one_epoch_demography.txt'
+)
+r_bromii_14_two_epoch = sfs_from_demography(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/two_epoch_demography.txt'
+)
+compare_sfs(r_bromii_14_empirical,
+            r_bromii_14_one_epoch,
+            r_bromii_14_two_epoch) +
+  ylab('Raw Count of Segregating Sites') +
+  ggtitle('E. eligens Downsampled to 14')
+
+compare_sfs(proportional_sfs(r_bromii_14_empirical),
+            proportional_sfs(r_bromii_14_one_epoch),
+            proportional_sfs(r_bromii_14_two_epoch)) +
+  ggtitle('E. eligens Downsampled to 14')
 
