@@ -458,9 +458,9 @@ class EvaluateDemography():
             # Start at initial guess
             p0 = initial_guess
             # Randomly perturb parameters before optimization.
-            p0 = dadi.Misc.perturb_params(
-                p0, fold=1, upper_bound=None,
-                lower_bound=None)
+            # p0 = dadi.Misc.perturb_params(
+            #      p0, fold=1, upper_bound=None,
+            #      lower_bound=None)
             logger.info(
                 'Beginning optimization with guess, {0}.'.format(p0))
             popt = dadi.Inference.optimize_log_lbfgsb(
