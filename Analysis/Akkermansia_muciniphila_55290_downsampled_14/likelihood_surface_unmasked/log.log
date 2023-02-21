@@ -1,0 +1,24 @@
+2023-02-17 23:29:27,771 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-17 23:29:27,771 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface_unmasked/log.log
+
+2023-02-17 23:29:27,772 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_sfs.txt
+	nu_prime = 1.0
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface_unmasked/
+
+2023-02-17 23:29:27,773 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-18 00:32:05,320 - INFO - Finished plotting likelihood surface.
+2023-02-18 00:32:05,322 - INFO - Pipeline executed succesfully.
+2023-02-18 00:32:05,322 - INFO - The best fit parameters are: [3.123157183030117e-05, 0.0008178803030476059].
+2023-02-18 00:32:05,322 - INFO - The likelihood of the mle is: -35.260314318554265.
+2023-02-18 00:32:05,323 - INFO - Non-scaled best-fit model spectrum: [-- 5.742042132986748e-05 3.2504702665877306e-05 2.419946111927862e-05 2.0046840305288315e-05 1.7555267792951416e-05 1.5894219432471082e-05 1.4707756301932127e-05 1.3817908940226274e-05 1.312580542446459e-05 1.2572122600891991e-05 1.2119109371655772e-05 1.1741598338175093e-05 1.142216591681988e-05 --].
+
+2023-02-18 00:32:05,323 - INFO - Scaled best-fit model spectrum: [-- 4906.012549876606 2777.2084480657304 2067.6069106040795 1712.8061383966096 1499.9256730264574 1358.0053611629553 1256.6337084725164 1180.6049677754725 1121.4715017454284 1074.1647279846904 1035.4591849667227 1003.2045650061107 975.912193551654 --].
+
+2023-02-18 00:32:05,323 - INFO - Scaled best-fit theta: 85440204.65633056.
+2023-02-18 00:32:05,323 - INFO - Best low estimate for time is: 1.614339810570862e+18 generations.
+2023-02-18 00:32:05,323 - INFO - Best high estimate for time is: 2.742003648837273e+18 generations.

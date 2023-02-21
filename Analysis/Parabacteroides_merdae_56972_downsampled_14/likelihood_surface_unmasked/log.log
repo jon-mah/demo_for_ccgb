@@ -1,0 +1,24 @@
+2023-02-17 23:51:03,510 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-17 23:51:03,510 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface_unmasked/log.log
+
+2023-02-17 23:51:03,511 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_sfs.txt
+	nu_prime = 1.0
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface_unmasked/
+
+2023-02-17 23:51:03,523 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-18 00:12:40,068 - INFO - Finished plotting likelihood surface.
+2023-02-18 00:12:40,069 - INFO - Pipeline executed succesfully.
+2023-02-18 00:12:40,069 - INFO - The best fit parameters are: [2.2815871487255442e-05, 0.0002771905069768277].
+2023-02-18 00:12:40,069 - INFO - The likelihood of the mle is: -35.348658458083264.
+2023-02-18 00:12:40,069 - INFO - Non-scaled best-fit model spectrum: [-- 2.3441267607535843e-05 1.214530329802506e-05 8.379980959515844e-06 6.497319772415646e-06 5.367723049759091e-06 4.614658559787475e-06 4.076755345775491e-06 3.6733279292952956e-06 3.35955104452896e-06 3.108529531975722e-06 2.9031482901291063e-06 2.7319972513145878e-06 2.587177137910471e-06 --].
+
+2023-02-18 00:12:40,069 - INFO - Scaled best-fit model spectrum: [-- 5447.608210759218 2822.4947164210716 1947.456675354395 1509.93765067385 1247.4262334494542 1072.418620060759 947.4131803249215 853.6590991353713 780.7392569827215 722.4033821590149 674.6740290305233 634.8995671739382 601.2442524498434 --].
+
+2023-02-18 00:12:40,069 - INFO - Scaled best-fit theta: 232393926.04382598.
+2023-02-18 00:12:40,069 - INFO - Best low estimate for time is: 2.0370553680970473e+18 generations.
+2023-02-18 00:12:40,069 - INFO - Best high estimate for time is: 3.459998456106014e+18 generations.

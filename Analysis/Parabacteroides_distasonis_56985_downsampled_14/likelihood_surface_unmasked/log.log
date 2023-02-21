@@ -1,0 +1,24 @@
+2023-02-17 23:50:55,129 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-17 23:50:55,129 - INFO - Progress is being logged to ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface_unmasked/log.log
+
+2023-02-17 23:50:55,129 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_sfs.txt
+	nu_prime = 1.0
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface_unmasked/
+
+2023-02-17 23:50:55,131 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-18 00:11:54,965 - INFO - Finished plotting likelihood surface.
+2023-02-18 00:11:54,966 - INFO - Pipeline executed succesfully.
+2023-02-18 00:11:54,966 - INFO - The best fit parameters are: [4.7318621659320446e-05, 0.0009231023189969081].
+2023-02-18 00:11:54,966 - INFO - The likelihood of the mle is: -42.73719792196425.
+2023-02-18 00:11:54,966 - INFO - Non-scaled best-fit model spectrum: [-- 6.163251763068488e-05 3.1496748604277456e-05 2.14514898557955e-05 1.6428860433999447e-05 1.3415282753229111e-05 1.1406230944188126e-05 9.971193919348715e-06 8.894916134776436e-06 8.057811177112449e-06 7.388127198328181e-06 6.840203931483237e-06 6.383601198611956e-06 5.997245030346924e-06 --].
+
+2023-02-18 00:11:54,966 - INFO - Scaled best-fit model spectrum: [-- 9620.866905782588 4916.658250153647 3348.5883226454926 2564.553351468044 2094.1323644387307 1780.5183696733789 1556.508370543042 1388.5008687066224 1257.8283650760663 1153.2903601964695 1067.7592635035724 996.4833479536923 936.1729563617155 --].
+
+2023-02-18 00:11:54,967 - INFO - Scaled best-fit theta: 156100501.4176585.
+2023-02-18 00:11:54,967 - INFO - Best low estimate for time is: 2.1971455321007122e+18 generations.
+2023-02-18 00:11:54,967 - INFO - Best high estimate for time is: 3.7319163082004746e+18 generations.

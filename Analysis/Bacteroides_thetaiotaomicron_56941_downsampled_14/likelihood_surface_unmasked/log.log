@@ -1,0 +1,24 @@
+2023-02-17 23:44:15,136 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-17 23:44:15,137 - INFO - Progress is being logged to ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface_unmasked/log.log
+
+2023-02-17 23:44:15,137 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_sfs.txt
+	nu_prime = 1.0
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface_unmasked/
+
+2023-02-17 23:44:15,139 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-18 00:32:53,981 - INFO - Finished plotting likelihood surface.
+2023-02-18 00:32:53,983 - INFO - Pipeline executed succesfully.
+2023-02-18 00:32:53,983 - INFO - The best fit parameters are: [6.143893853025727e-05, 0.0011669158994742912].
+2023-02-18 00:32:53,983 - INFO - The likelihood of the mle is: -47.143770843498714.
+2023-02-18 00:32:53,983 - INFO - Non-scaled best-fit model spectrum: [-- 8.01614582969365e-05 4.102313638405002e-05 2.7977025954393555e-05 2.145397067771539e-05 1.7540137475688583e-05 1.493091531258293e-05 1.3067185172195164e-05 1.1669387546200448e-05 1.0582211596566198e-05 9.712470820435991e-06 9.000864715975202e-06 8.407859615290104e-06 7.906086055984453e-06 --].
+
+2023-02-18 00:32:53,983 - INFO - Scaled best-fit model spectrum: [-- 10520.65111465081 5384.010155187283 3671.7960918502117 2815.6890520642896 2302.024823465366 1959.582000669337 1714.9799812518806 1531.5284639715424 1388.8439481288679 1274.6963332993457 1181.3028283015228 1103.4749056805751 1037.6205079666922 --].
+
+2023-02-18 00:32:53,983 - INFO - Scaled best-fit theta: 131243260.01754977.
+2023-02-18 00:32:53,983 - INFO - Best low estimate for time is: 1.7984966475147653e+18 generations.
+2023-02-18 00:32:53,984 - INFO - Best high estimate for time is: 3.05479945276405e+18 generations.

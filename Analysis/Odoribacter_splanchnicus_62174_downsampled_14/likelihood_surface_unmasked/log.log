@@ -1,0 +1,24 @@
+2023-02-17 23:50:01,587 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-17 23:50:01,587 - INFO - Progress is being logged to ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface_unmasked/log.log
+
+2023-02-17 23:50:01,587 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_sfs.txt
+	nu_prime = 1.0
+	tau_prime = 1.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface_unmasked/
+
+2023-02-17 23:50:01,589 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-18 00:39:03,410 - INFO - Finished plotting likelihood surface.
+2023-02-18 00:39:03,412 - INFO - Pipeline executed succesfully.
+2023-02-18 00:39:03,412 - INFO - The best fit parameters are: [7.208255107913705e-05, 0.0015116674856196894].
+2023-02-18 00:39:03,412 - INFO - The likelihood of the mle is: -32.4275322329745.
+2023-02-18 00:39:03,413 - INFO - Non-scaled best-fit model spectrum: [-- 3.5925616760172094e-05 1.7962811045623607e-05 1.1975207706490206e-05 8.981406008536206e-06 7.185124973234921e-06 5.98760426999794e-06 5.132232328162565e-06 4.490703362295014e-06 3.991736380450574e-06 3.59256278744667e-06 3.265966204523915e-06 2.9938023791679127e-06 2.763509905787799e-06 --].
+
+2023-02-18 00:39:03,413 - INFO - Scaled best-fit model spectrum: [-- 2933.4677681677463 1466.7341017354884 977.822762476486 733.3670905290502 586.6936860109404 488.9114152677496 419.0669352712117 366.68357449882916 325.9409598795222 293.34686756935713 266.67897330345403 244.45572757122838 225.65144224964337 --].
+
+2023-02-18 00:39:03,413 - INFO - Scaled best-fit theta: 81653929.22133076.
+2023-02-18 00:39:03,413 - INFO - Best low estimate for time is: 1.2354921242436324e+18 generations.
+2023-02-18 00:39:03,413 - INFO - Best high estimate for time is: 2.098519711031464e+18 generations.
