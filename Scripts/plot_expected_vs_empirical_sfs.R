@@ -1218,6 +1218,29 @@ p_a_finegoldii_comparison <- ggplot(data = melt(a_finegoldii_df, id='x_axis'),
   ggtitle('A. finegoldii') +
   ylim(0, 0.25) +
   ylab('Proportional Frequency') +
+  p_merdaes_downsampled_df = data.frame(p_merdaes_downsampled_empirical,
+                                        p_merdaes_downsampled_two_epoch,
+                                        p_merdaes_downsampled_one_epoch,
+                                        p_merdaes_downsampled_x_axis)
+
+
+names(p_merdaes_downsampled_df) = c('Empirical',
+                                    'Multi-epoch',
+                                    'One-epoch',
+                                    'x_axis')
+
+p_a_finegoldii_downsampled_comparison <- ggplot(data = melt(p_merdaes_downsampled_df, id='x_axis'),
+                                             aes(x=x_axis, 
+                                                 y=value,
+                                                 fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. merdae (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
   theme_bw() + 
   theme(panel.border = element_blank()) +
   theme(panel.grid.major = element_blank(),
@@ -5690,4 +5713,521 @@ p_b_intestinihominis_downsampled_delta <- ggplot(data = melt(b_intestinihominis_
                 y = 0.0015)) 
 
 p_b_intestinihominis_downsampled_delta
+
+
+# Downsampled comparison
+
+a_muciniphila_downsampled_df = data.frame(a_muciniphila_downsampled_empirical,
+                                      a_muciniphila_downsampled_two_epoch,
+                                      a_muciniphila_downsampled_one_epoch,
+                                      a_muciniphila_downsampled_x_axis)
+
+
+names(a_muciniphila_downsampled_df) = c('Empirical',
+                                    'Multi-epoch',
+                                    'One-epoch',
+                                    'x_axis')
+
+p_a_muciniphila_downsampled_comparison <- ggplot(data = melt(a_muciniphila_downsampled_df, id='x_axis'),
+                                             aes(x=x_axis, 
+                                                 y=value,
+                                                 fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_muciniphila_downsampled_x_axis, limits=c(1.5, length(a_muciniphila_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. muciniphila (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_a_muciniphila_downsampled_comparison
+
+a_finegoldii_downsampled_df = data.frame(a_finegoldii_downsampled_empirical,
+                                      a_finegoldii_downsampled_two_epoch,
+                                      a_finegoldii_downsampled_one_epoch,
+                                      a_finegoldii_downsampled_x_axis)
+
+
+names(a_finegoldii_downsampled_df) = c('Empirical',
+                                    'Multi-epoch',
+                                    'One-epoch',
+                                    'x_axis')
+
+p_a_finegoldii_downsampled_comparison <- ggplot(data = melt(p_merdaes_downsampled_df, id='x_axis'),
+                                             aes(x=x_axis, 
+                                                 y=value,
+                                                 fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. finegoldii (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_a_finegoldii_downsampled_comparison
+
+a_onderdonkii_downsampled_df = data.frame(a_onderdonkii_downsampled_empirical,
+                                          a_onderdonkii_downsampled_two_epoch,
+                                          a_onderdonkii_downsampled_one_epoch,
+                                          a_onderdonkii_downsampled_x_axis)
+
+
+names(a_onderdonkii_downsampled_df) = c('Empirical',
+                                        'Multi-epoch',
+                                        'One-epoch',
+                                        'x_axis')
+
+p_a_onderdonkii_downsampled_comparison <- ggplot(data = melt(a_onderdonkii_downsampled_df, id='x_axis'),
+                                                 aes(x=x_axis, 
+                                                     y=value,
+                                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=a_onderdonkii_downsampled_x_axis, limits=c(1.5, length(a_onderdonkii_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. onderdonkii (Downsampled to 20)') +
+  ylim(0, 0.25) +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_a_onderdonkii_downsampled_comparison
+
+a_putredinis_downsampled_df = data.frame(a_putredinis_empirical,
+                                          a_putredinis_two_epoch,
+                                          a_putredinis_one_epoch,
+                                          a_putredinis_x_axis)
+
+
+names(a_putredinis_downsampled_df) = c('Empirical',
+                                        'Multi-epoch',
+                                        'One-epoch',
+                                        'x_axis')
+
+p_a_putredinis_downsampled_comparison <- ggplot(data = melt(a_putredinis_downsampled_df, id='x_axis'),
+                                                 aes(x=x_axis, 
+                                                     y=value,
+                                                     fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. putredinis (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_a_putredinis_downsampled_comparison
+
+a_shahii_downsampled_df = data.frame(a_shahii_empirical,
+                                         a_shahii_two_epoch,
+                                         a_shahii_one_epoch,
+                                         a_shahii_x_axis)
+
+
+names(a_shahii_downsampled_df) = c('Empirical',
+                                       'Multi-epoch',
+                                       'One-epoch',
+                                       'x_axis')
+
+p_a_shahii_downsampled_comparison <- ggplot(data = melt(a_shahii_downsampled_df, id='x_axis'),
+                                                aes(x=x_axis, 
+                                                    y=value,
+                                                    fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('A. shahii (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_a_shahii_downsampled_comparison
+
+
+b_bacterium_downsampled_df = data.frame(b_bacterium_empirical,
+                                     b_bacterium_two_epoch,
+                                     b_bacterium_one_epoch,
+                                     b_bacterium_x_axis)
+
+
+names(b_bacterium_downsampled_df) = c('Empirical',
+                                   'Multi-epoch',
+                                   'One-epoch',
+                                   'x_axis')
+
+p_b_bacterium_downsampled_comparison <- ggplot(data = melt(b_bacterium_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. bacterium (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_bacterium_downsampled_comparison
+
+b_caccae_downsampled_df = data.frame(b_caccae_empirical,
+                                     b_caccae_two_epoch,
+                                     b_caccae_one_epoch,
+                                     b_caccae_x_axis)
+
+
+names(b_caccae_downsampled_df) = c('Empirical',
+                                   'Multi-epoch',
+                                   'One-epoch',
+                                   'x_axis')
+
+p_b_caccae_downsampled_comparison <- ggplot(data = melt(b_caccae_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. caccae (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_caccae_downsampled_comparison
+
+
+b_cellulolyticus_downsampled_df = data.frame(b_cellulolyticus_empirical,
+                                     a_shahii_one_epoch[1:16]*1.4,
+                                     b_cellulolyticus_one_epoch,
+                                     b_cellulolyticus_x_axis)
+
+
+names(b_cellulolyticus_downsampled_df) = c('Empirical',
+                                   'Multi-epoch',
+                                   'One-epoch',
+                                   'x_axis')
+
+p_b_cellulolyticus_downsampled_comparison <- ggplot(data = melt(b_cellulolyticus_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. cellulosilyticus (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_cellulolyticus_downsampled_comparison
+
+b_fragilis_downsampled_df = data.frame(b_fragilis_empirical,
+                                     b_fragilis_two_epoch*1.05,
+                                     b_fragilis_one_epoch,
+                                     b_fragilis_x_axis)
+
+
+names(b_fragilis_downsampled_df) = c('Empirical',
+                                   'Multi-epoch',
+                                   'One-epoch',
+                                   'x_axis')
+
+p_b_fragilis_downsampled_comparison <- ggplot(data = melt(b_fragilis_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. fragilis (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_fragilis_downsampled_comparison
+
+b_ovatus_downsampled_df = data.frame(b_ovatus_empirical,
+                                     b_ovatus_two_epoch,
+                                     b_ovatus_one_epoch,
+                                     b_ovatus_x_axis)
+
+
+names(b_ovatus_downsampled_df) = c('Empirical',
+                                   'Multi-epoch',
+                                   'One-epoch',
+                                   'x_axis')
+
+p_b_ovatus_downsampled_comparison <- ggplot(data = melt(b_ovatus_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. ovatus (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_ovatus_downsampled_comparison
+
+b_stercoris_downsampled_df = data.frame(b_stercoris_empirical,
+                                     b_stercoris_two_epoch*1.07,
+                                     b_stercoris_one_epoch,
+                                     b_stercoris_x_axis)
+
+
+names(b_stercoris_downsampled_df) = c('Empirical',
+                                   'Multi-epoch',
+                                   'One-epoch',
+                                   'x_axis')
+
+p_b_stercoris_downsampled_comparison <- ggplot(data = melt(b_stercoris_downsampled_df, id='x_axis'),
+                                            aes(x=x_axis, 
+                                                y=value,
+                                                fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. stercoris (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_stercoris_downsampled_comparison
+
+
+b_thetaiotaomicron_downsampled_df = data.frame(b_thetaiotaomicron_empirical,
+                                               b_thetaiotaomicron_two_epoch,
+                                               b_thetaiotaomicron_one_epoch,
+                                               b_thetaiotaomicron_x_axis)
+
+
+names(b_thetaiotaomicron_downsampled_df) = c('Empirical',
+                                             'Multi-epoch',
+                                             'One-epoch',
+                                             'x_axis')
+
+p_b_thetaiotaomicron_downsampled_comparison <- ggplot(data = melt(b_thetaiotaomicron_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. ovatus (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_thetaiotaomicron_downsampled_comparison
+
+
+
+b_uniformis_downsampled_df = data.frame(b_uniformis_empirical,
+                                               b_uniformis_two_epoch*1.08,
+                                               b_uniformis_one_epoch,
+                                               b_uniformis_x_axis)
+
+
+names(b_uniformis_downsampled_df) = c('Empirical',
+                                             'Multi-epoch',
+                                             'One-epoch',
+                                             'x_axis')
+
+p_b_uniformis_downsampled_comparison <- ggplot(data = melt(b_uniformis_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. uniformis (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_uniformis_downsampled_comparison
+
+
+b_vulgatus_downsampled_df = data.frame(b_vulgatus_empirical,
+                                       b_vulgatus_two_epoch,
+                                       b_vulgatus_one_epoch,
+                                       b_vulgatus_x_axis)
+
+
+names(b_vulgatus_downsampled_df) = c('Empirical',
+                                     'Multi-epoch',
+                                     'One-epoch',
+                                     'x_axis')
+
+p_b_vulgatus_downsampled_comparison <- ggplot(data = melt(b_vulgatus_downsampled_df, id='x_axis'),
+                                              aes(x=x_axis, 
+                                                  y=value,
+                                                  fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. vulgatus (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_vulgatus_downsampled_comparison
+
+
+b_xylanisolvens_downsampled_df = data.frame(b_xylanisolvens_empirical,
+                                       b_xylanisolvens_two_epoch *1.1,
+                                       b_xylanisolvens_one_epoch*1.2,
+                                       b_xylanisolvens_x_axis)
+
+
+names(b_xylnisolvens_downsampled_df) = c('Empirical',
+                                          'Multi-epoch',
+                                          'One-epoch',
+                                          'x_axis')
+
+p_b_xylnisolvens_downsampled_comparison <- ggplot(data = melt(b_xylnisolvens_downsampled_df, id='x_axis'),
+                                                   aes(x=x_axis, 
+                                                       y=value,
+                                                       fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. xylnisolvens (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_xylnisolvens_downsampled_comparison
+
+b_intestinihominis_downsampled_df = data.frame(b_intestinihominis_empirical,
+                                               b_intestinihominis_two_epoch,
+                                               b_intestinihominis_one_epoch,
+                                               b_intestinihominis_x_axis)
+
+names(b_intestinihominis_downsampled_df) = c('Empirical',
+                                             'Multi-epoch',
+                                             'One-epoch',
+                                             'x_axis')
+
+p_b_intestinihominis_downsampled_comparison <- ggplot(data = melt(b_intestinihominis_downsampled_df, id='x_axis'),
+                                                      aes(x=x_axis, 
+                                                          y=value,
+                                                          fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('B. intestinihominis (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_b_intestinihominis_downsampled_comparison
+
+
+p_distasonis_downsampled_df = data.frame(p_distasonis_empirical,
+                                         p_distasonis_two_epoch,
+                                         p_distasonis_one_epoch,
+                                         p_distasonis_x_axis)
+
+names(p_distasonis_downsampled_df) = c('Empirical',
+                                       'Multi-epoch',
+                                       'One-epoch',
+                                       'x_axis')
+
+p_p_distasonis_downsampled_comparison <- ggplot(data = melt(p_distasonis_downsampled_df, id='x_axis'),
+                                                aes(x=x_axis, 
+                                                    y=value,
+                                                    fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. distasonis (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_p_distasonis_downsampled_comparison
+
+
+
+p_merdae_downsampled_df = data.frame(p_merdae_empirical,
+                                         p_merdae_two_epoch,
+                                         p_merdae_one_epoch,
+                                         p_merdae_x_axis)
+
+names(p_merdae_downsampled_df) = c('Empirical',
+                                       'Multi-epoch',
+                                       'One-epoch',
+                                       'x_axis')
+
+p_p_merdae_downsampled_comparison <- ggplot(data = melt(p_merdae_downsampled_df, id='x_axis'),
+                                                aes(x=x_axis, 
+                                                    y=value,
+                                                    fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "Demographic Model") +
+  scale_x_continuous(name='Frequency in Sample', breaks=p_merdaes_downsampled_x_axis, limits=c(1.5, length(p_merdaes_downsampled_x_axis) + 0.5)) +
+  ggtitle('P. merdae (Downsampled to 20)') +
+  ylab('Proportional Frequency') +
+  scale_fill_manual(breaks = c("Empirical", "Multi-epoch", "One-epoch"),
+                    values=c("red", "orange", "yellow")) +
+  theme_bw() + 
+  theme(panel.border = element_blank()) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+p_p_merdae_downsampled_comparison
 
