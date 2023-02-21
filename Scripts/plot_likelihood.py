@@ -88,7 +88,7 @@ class PlotLikelihood():
             '--mask_doubletons', dest='mask_doubletons',
             help=('Boolean flag for masking doublestons in Spectrum.'),
             action='store_true')
-        parser.set_defaults(mask_singletons=True)
+        parser.set_defaults(mask_singletons=False)
         parser.set_defaults(mask_doubletons=False)
         parser.add_argument(
             'outprefix', type=str,
@@ -446,14 +446,12 @@ class PlotLikelihood():
                 max_nu = 100 * nu_prime
                 min_tau = 0.01 * tau_prime
                 max_tau = 100 * tau_prime
-                nx = 15
-                ny = 15
-                # x_space = numpy.linspace(min_nu, max_nu, nx)
-                # y_space = numpy.logspace(numpy.log10(min_tau), numpy.log10(max_tau), ny, base=10)
-                # x, y = numpy.meshgrid(x_space, y_space,
-                #                       indexing='ij')
-                x = numpy.random.uniform(min_nu, max_nu, nx)
-                y = numpy.random.uniform(min_tau, max_tau, ny)
+                nx = 10
+                ny = 10
+                # x = numpy.random.uniform(min_nu, max_nu, nx)
+                # y = numpy.random.uniform(min_tau, max_tau, ny)
+                x = numpy.random.gamma(shape=1, scale=0.001, size=nx)
+                y = numpy.random.gamma(shape=1, scale=0.001, size=ny)
                 z_shape = (nx, ny)
                 z = numpy.ones(z_shape)
                 max_ll = -10000000
@@ -487,42 +485,7 @@ class PlotLikelihood():
                         z[i,  j] = loglik
                         ll_grid.append(ll_array)
                         del ll_array
-                # ll_df = pd.DataFrame(ll_grid)
-                # ll_df.to_csv('ll_df.csv')
-                # generate 2 2d grids for the x & y bounds
-                # z_min, z_max = -numpy.abs(z).max(), -numpy.abs(z).min()
-                # z_mid = z_max - 15
-
-                # fig = plt.figure()
-                # ax = fig.add_subplot(111)
                 mle = [mle_x, mle_y]
-                # print(mle)
-                # midnorm = MidpointNormalize(vmin=z_min, vcenter=z_mid, vmax=z_max)
-                # ax.axis([x.min(), x.max(), y.min(), y.max()])
-                # bounds_1 = numpy.linspace(z_min, z_max - 15, endpoint=False, num=4)
-                # bounds_2 = numpy.linspace(z_max - 15, z_max, num=5)
-                # bounds = numpy.concatenate((bounds_1, bounds_2))
-                # print(bounds)
-                # bounds = [z_min, z_max - 15, z_max - 10, z_max - 6, z_max - 3, z_max]
-                # norm = matplotlib.colors.BoundaryNorm(boundaries=bounds, ncolors=256, extend='both')
-                # plt.pcolor(x, y, z,
-                #            norm=norm, cmap='RdBu_r', shading='auto')
-                # cbar=plt.colorbar(ticks=bounds)
-                # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in bounds]) # add the labels
-                # fig.colorbar(c, ax=ax)
-                # v1 = numpy.linspace(z.min(), z.max(), 8, endpoint=True)
-                # cbar=plt.colorbar(ticks=v1)              # the mystery step ???????????
-                # cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in v1]) # add the labels
-                # ax.set_yscale('log')
-                # ax.set_xscale('log')
-                # plt.plot(mle_x, mle_y, 'co')
-                # plt.axvline(x = 1.0, color = 'm')
-                # ax.ticklabel_format(style='sci', scilimits = (0, 0), axis='both')
-                # ax.set_title('Log likelihood surface of given species.')
-                # ax.set_ylabel('tau')
-                # ax.set_xlabel('nu')
-                # matplotlib.pyplot.grid(color='k', linestyle='-', linewidth=2, which='both')
-                # plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
         logger.info('The best fit parameters are: ' + str(mle)+ '.')

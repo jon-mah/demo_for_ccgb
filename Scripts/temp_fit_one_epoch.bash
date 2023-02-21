@@ -8,7 +8,7 @@
 #$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -N downsample_14_one_epoch
+#$ -N downsample_18_one_epoch
 
 
 # SGE_TASK_ID=1
@@ -56,9 +56,9 @@ done < ./gut_sfs_list.txt
 # Downsampled analysis
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_10/empirical_sfs.txt ../Analysis/${species}_downsampled_10/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_12/empirical_sfs.txt ../Analysis/${species}_downsampled_12/
-python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt ../Analysis/${species}_downsampled_14/
+# python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt ../Analysis/${species}_downsampled_14/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_16/empirical_sfs.txt ../Analysis/${species}_downsampled_16/
-# python fit_one_epoch.py ../Analysis/${species}_downsampled_18/empirical_sfs.txt ../Analysis/${species}_downsampled_18/
+python fit_one_epoch.py ../Analysis/${species}_downsampled_18/empirical_sfs.txt ../Analysis/${species}_downsampled_18/
 
 # Original analysis
 # python fit_one_epoch.py ../Data/${species}_syn.sfs ../Analysis/${species}/ --mask_singletons

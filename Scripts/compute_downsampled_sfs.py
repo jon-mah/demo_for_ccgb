@@ -326,7 +326,8 @@ class ComputeDownSampledSFS():
 
         dadi_dict = dadi.Misc.make_data_dict(output_matrix)
         syn_data = dadi.Spectrum.from_data_dict(dadi_dict, ['BAC'], [sample_size], polarized=False)
-        syn_data.mask[1] = True
+        # syn_data.mask[1] = True
+        syn_data.mask[1] = False
         syn_data.to_file(empirical_sfs)
         logger.info('Finished downsampling.')
         logger.info('Pipeline executed succesfully.')

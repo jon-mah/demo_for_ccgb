@@ -415,7 +415,8 @@ class DemographicInference():
         # First set parameter bounds for optimization
         # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
         #               'three_epoch', 'one_epoch']
-        model_list = ['two_epoch', 'one_epoch']
+        # model_list = ['two_epoch', 'one_epoch']
+        model_list = ['one_epoch']
         # Fit different one-epoch models and compute likelihood
         method_list = ['expectation']
         for method in method_list:
@@ -607,13 +608,13 @@ class DemographicInference():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(5):
+                for i in range(25):
                     # Start at initial guess
                     p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
                     p0 = dadi.Misc.perturb_params(
-                        p0, fold=1, upper_bound=upper_bound,
-                        lower_bound=lower_bound)
+                        p0, fold=1, upper_bound=None,
+                        lower_bound=None)
                     logger.info(
                         'Beginning optimization with guess, {0}.'.format(p0))
                     popt = dadi.Inference.optimize_log_lbfgsb(
