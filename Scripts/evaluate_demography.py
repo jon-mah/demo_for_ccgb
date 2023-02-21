@@ -72,7 +72,7 @@ class EvaluateDemography():
             help=('Synonynomous site-frequency spectrum from which the '
                   'demographic parameters should be inferred.'))
         parser.add_argument(
-            'model_type', type=String,
+            'model_type', type=str,
             help=('Model specification for which the dmeographic '
                   'parameters should be evaluated.'))
         parser.add_argument(
@@ -386,10 +386,10 @@ class EvaluateDemography():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         logfile = '{0}{1}evaluate_demography.log'.format(args['outprefix'], underscore)
-        # output_plot = \
-        #     '{0}{1}full_likelihood_surface.jpg'.format(
-        #         args['outprefix'], underscore)
-        to_remove = [logfile]
+        output_file = \
+            '{0}{1}{2}_demography.txt'.format(
+                args['outprefix'], underscore, model_type)
+        to_remove = [logfile, output_file]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -428,33 +428,33 @@ class EvaluateDemography():
 
         initial_guess = [nu, tau]
         if model_type == 'exponential_growth':
-            file = exponential_growth_demography
+            # file = exponential_growth_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
             logger.info('Beginning demographic evaluation for exponential '
                         'growth demographic model.')
-        elif model == 'two_epoch':
-            file = two_epoch_demography
+        elif model_type == 'two_epoch':
+            # file = two_epoch_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
             logger.info('Beginning demographic evaluation for two-epoch '
                         'demographic model.')
-        elif model == 'bottleneck_growth':
-            file = bottleneck_growth_demography
+        elif model_type == 'bottleneck_growth':
+            # file = bottleneck_growth_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.bottlegrowth)
             logger.info('Beginning demographic evaluation for bottleneck + '
                         'growth demographic model.')
-        elif model == 'three_epoch':
-            file = three_epoch_demography
+        elif model_type == 'three_epoch':
+            # file = three_epoch_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.three_epoch)
             logger.info('Beginning demographic evaluation for three-epoch '
                         'demographic model.')
-        elif model == 'one_epoch':
+        elif model_type == 'one_epoch':
             # initial_guess = [0.1]
-            file = one_epoch_demography
+            # file = one_epoch_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.snm)
             logger.info('Beginning demographic evaluation for one-epoch '
                         'demographic model.')
 
-        with open(file, 'w') as f:
+        with open(output_file, 'w') as f:
             # Start at initial guess
             p0 = initial_guess
             # Randomly perturb parameters before optimization.
@@ -487,25 +487,25 @@ class EvaluateDemography():
                 'Optimal value of theta: {0}.'.format(theta))
             params = popt
             theta_syn = theta
-        scaled_spectrum = theta_syn * non_scaled_spectrum
-        theta_nonsyn = theta_syn * 2.14
-        poisson_ll = dadi.Inference.ll(
-            model=caled_spectrum, data=syn_data)
-        f.write('Best fit parameters: {0}.\n'.format(best_params))
-        f.write(
-            'Maximum multinomial log composite '
-            'likelihood: {0}.\n'.format(
-                multinomial_ll_non_scaled_spectrum))
-        f.write(
-            'Maximum poisson log composite likelihood: {0}.\n'.format(
-                poisson_ll))
-        f.write('Non-scaled best-fit model spectrum: {0}.\n'.format(
-            non_scaled_spectrum))
-        f.write('Optimal value of theta_syn: {0}.\n'.format(theta_syn))
-        f.write('Optimal value of theta_nonsyn: {0}.\n'.format(
-            theta_nonsyn))
-        f.write('Scaled best-fit model spectrum: {0}.\n'.format(
-            scaled_spectrum))
+            scaled_spectrum = theta_syn * non_scaled_spectrum
+            theta_nonsyn = theta_syn * 2.14
+            poisson_ll = dadi.Inference.ll(
+                model=scaled_spectrum, data=syn_data)
+            f.write('Best fit parameters: {0}.\n'.format(params))
+            f.write(
+                'Maximum multinomial log composite '
+                'likelihood: {0}.\n'.format(
+                    multinomial_ll_non_scaled_spectrum))
+            f.write(
+                'Maximum poisson log composite likelihood: {0}.\n'.format(
+                    poisson_ll))
+            f.write('Non-scaled best-fit model spectrum: {0}.\n'.format(
+                non_scaled_spectrum))
+            f.write('Optimal value of theta_syn: {0}.\n'.format(theta_syn))
+            f.write('Optimal value of theta_nonsyn: {0}.\n'.format(
+                theta_nonsyn))
+            f.write('Scaled best-fit model spectrum: {0}.\n'.format(
+                scaled_spectrum))
         logger.info('Finished demographic evaluation.')
         logger.info('Pipeline executed succesfully.')
 
