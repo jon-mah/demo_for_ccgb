@@ -1,8 +1,8 @@
-2023-02-21 13:13:23,886 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-02-21 15:05:17,490 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-02-21 13:13:23,886 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318_downsampled_14/evaluate_demography.log
+2023-02-21 15:05:17,490 - INFO - Progress is being logged to ../Analysis/Bacteroides_uniformis_57318_downsampled_14/evaluate_demography.log
 
-2023-02-21 13:13:23,886 - INFO - Parsed the following arguments:
+2023-02-21 15:05:17,490 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_sfs.txt
 	model_type = two_epoch
 	nu = 1.74006
@@ -11,11 +11,11 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_uniformis_57318_downsampled_14/
 
-2023-02-21 13:13:23,916 - INFO - Beginning demographic evaluation for two-epoch demographic model.
-2023-02-21 13:13:23,918 - INFO - Beginning optimization with guess, [3.11423211 1.00716781].
-2023-02-21 13:13:24,354 - INFO - Finished optimization with guess, [3.11423211 1.00716781].
-2023-02-21 13:13:24,354 - INFO - Best fit parameters: [1.1766945  1.26717733].
-2023-02-21 13:13:24,441 - INFO - Maximum log composite likelihood: -53.04010313771846.
-2023-02-21 13:13:24,441 - INFO - Optimal value of theta: 2047.381572995703.
-2023-02-21 13:13:24,444 - INFO - Finished demographic evaluation.
-2023-02-21 13:13:24,444 - INFO - Pipeline executed succesfully.
+2023-02-21 15:05:17,500 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 15:05:17,501 - INFO - Beginning optimization with guess, [1.74006, 1.18761].
+2023-02-21 15:05:17,873 - INFO - Finished optimization with guess, [1.74006, 1.18761].
+2023-02-21 15:05:17,874 - INFO - Best fit parameters: [1.74302183 1.18682219].
+2023-02-21 15:05:17,918 - INFO - Maximum log composite likelihood: -30.333326260901686.
+2023-02-21 15:05:17,919 - INFO - Optimal value of theta: 1610.550777637419.
+2023-02-21 15:05:17,921 - INFO - Finished demographic evaluation.
+2023-02-21 15:05:17,921 - INFO - Pipeline executed succesfully.
