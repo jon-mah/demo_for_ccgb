@@ -1,0 +1,21 @@
+2023-02-21 13:12:46,324 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 13:12:46,324 - INFO - Progress is being logged to ../Analysis/Alistipes_finegoldii_56071_downsampled_14/evaluate_demography.log
+
+2023-02-21 13:12:46,324 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 0.0536736
+	tau = 0.192409
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Alistipes_finegoldii_56071_downsampled_14/
+
+2023-02-21 13:12:46,336 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 13:12:46,356 - INFO - Beginning optimization with guess, [0.10336116 0.09935373].
+2023-02-21 13:12:46,936 - INFO - Finished optimization with guess, [0.10336116 0.09935373].
+2023-02-21 13:12:46,936 - INFO - Best fit parameters: [0.14303139 0.25581571].
+2023-02-21 13:12:47,047 - INFO - Maximum log composite likelihood: -110.15613528923768.
+2023-02-21 13:12:47,048 - INFO - Optimal value of theta: 22530.218579690743.
+2023-02-21 13:12:47,050 - INFO - Finished demographic evaluation.
+2023-02-21 13:12:47,050 - INFO - Pipeline executed succesfully.
