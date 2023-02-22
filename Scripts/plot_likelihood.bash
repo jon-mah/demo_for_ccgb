@@ -1,12 +1,11 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N gut_downsample_20
+#$ -N gut_downsample_20_0_001
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=4:00:00
-#$ -l highp
+#$ -l h_rt=1:00:00
 #$ -t 1-30
 
 # SGE_TASK_ID=21
@@ -38,4 +37,4 @@ while read line;
 done < ./gut_sfs_list.txt
 
 # Gut with singletons
-python plot_likelihood.py ../Analysis/${species}_downsampled_20/empirical_sfs.txt 1.0 1.0 ../Analysis/${species}_downsampled_20/likelihood_surface_unmasked/
+python plot_likelihood.py ../Analysis/${species}_downsampled_20/empirical_sfs.txt 1.0 0.001 ../Analysis/${species}_downsampled_20/likelihood_surface_unmasked/

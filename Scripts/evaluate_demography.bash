@@ -4,7 +4,7 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=00:10:00
+#$ -l h_rt=00:30:00
 
 # Downsampled to 10
 python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_10/empirical_sfs.txt two_epoch 0.40622 0.166818 ../Analysis/Akkermansia_muciniphila_55290_downsampled_10/

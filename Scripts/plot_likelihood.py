@@ -73,12 +73,12 @@ class PlotLikelihood():
             help=('Synonynomous site-frequency spectrum from which the '
                   'demographic parameters should be inferred.'))
         parser.add_argument(
-            'nu_prime', type=float,
-            help='The MLE e stimate for nu.'
+            'input_shape', type=float,
+            help='The shape parameter for a gamma distribution.'
         )
         parser.add_argument(
-            'tau_prime', type=float,
-            help='The MLE estimate for tau.'
+            'input_scale', type=float,
+            help='The scale parameter for a gamma distribution.'
         )
         parser.add_argument(
             '--mask_singletons', dest='mask_singletons',
@@ -366,8 +366,8 @@ class PlotLikelihood():
         outprefix = args['outprefix']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
-        nu_prime = args['nu_prime']
-        tau_prime = args['tau_prime']
+        input_shape = args['input_shape']
+        input_scale = args['input_scale']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -436,20 +436,13 @@ class PlotLikelihood():
             if model == 'two_epoch':
                 #upper_bound = [80, 0.15]
                 #lower_bound = [0, 0]
-                initial_guess = [nu_prime, tau_prime]
                 file = output_plot
                 func_ex = dadi.Numerics.make_extrap_log_func(self.two_epoch)
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
-                min_nu = 0.01 * nu_prime
-                max_nu = 100 * nu_prime
-                min_tau = 0.01 * tau_prime
-                max_tau = 100 * tau_prime
                 nx = 10
                 ny = 10
-                # x = numpy.random.uniform(min_nu, max_nu, nx)
-                # y = numpy.random.uniform(min_tau, max_tau, ny)
                 x = numpy.random.gamma(shape=1, scale=0.001, size=nx)
                 y = numpy.random.gamma(shape=1, scale=0.001, size=ny)
                 z_shape = (nx, ny)
@@ -458,7 +451,6 @@ class PlotLikelihood():
                 for i in range(nx):
                     for j in range(ny):
                         p0 = [x[i], y[j]]
-                        # p0 = [nu_prime, tau_prime]
                         popt = dadi.Inference.optimize_log_lbfgsb(
                             p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                             lower_bound=None, upper_bound=None,

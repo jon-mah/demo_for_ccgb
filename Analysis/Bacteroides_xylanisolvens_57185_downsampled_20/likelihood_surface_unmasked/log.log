@@ -1,13 +1,24 @@
-2023-02-09 11:26:40,163 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-02-21 19:12:46,396 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-02-09 11:26:40,164 - INFO - Progress is being logged to ../Analysis/Bacteroides_xylanisolvens_57185_downsampled/likelihood_surface_unmasked/log.log
+2023-02-21 19:12:46,396 - INFO - Progress is being logged to ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_20/likelihood_surface_unmasked/log.log
 
-2023-02-09 11:26:40,164 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled/empirical_sfs.txt
-	nu_prime = 0.001
-	tau_prime = 0.0001
-	mask_singletons = True
+2023-02-21 19:12:46,396 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_20/empirical_sfs.txt
+	nu_prime = 1.0
+	tau_prime = 1.0
+	mask_singletons = False
 	mask_doubletons = False
-	outprefix = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled/likelihood_surface_unmasked/
+	outprefix = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_20/likelihood_surface_unmasked/
 
-2023-02-09 11:26:40,207 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-21 19:12:46,404 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-21 19:51:56,512 - INFO - Finished plotting likelihood surface.
+2023-02-21 19:51:56,513 - INFO - Pipeline executed succesfully.
+2023-02-21 19:51:56,513 - INFO - The best fit parameters are: [6.639475104750399e-05, 0.001084969605262016].
+2023-02-21 19:51:56,513 - INFO - The likelihood of the mle is: -37.47355424782313.
+2023-02-21 19:51:56,514 - INFO - Non-scaled best-fit model spectrum: [-- 8.423016610395885e-05 4.360215873584796e-05 3.0059485078665462e-05 2.3288148193635648e-05 1.9225346040156002e-05 1.6516811254765397e-05 1.4582143537525914e-05 1.3131142738139878e-05 1.2002586550777618e-05 1.10997415918965e-05 1.0361050253769998e-05 9.745474131233807e-06 9.224602020701421e-06 8.77814020532246e-06 8.39120662607034e-06 8.05263973867173e-06 7.75390424456775e-06 7.488361578210826e-06 7.250770766801841e-06 --].
+
+2023-02-21 19:51:56,514 - INFO - Scaled best-fit model spectrum: [-- 1846.7596429632313 955.9841897979603 659.0589393237074 510.5963128491565 421.51873647194844 362.1336851941456 319.7157911307294 287.9023703319833 263.15859837901417 243.3635806195029 227.1676568197704 213.67105349040577 202.25085052310942 192.4621049833186 183.97852538562216 176.55539311588723 170.00557041043274 164.18350567524558 158.97428975719245 --].
+
+2023-02-21 19:51:56,514 - INFO - Scaled best-fit theta: 21925157.32052478.
+2023-02-21 19:51:56,514 - INFO - Best low estimate for time is: 2.5850164614390864e+17 generations.
+2023-02-21 19:51:56,514 - INFO - Best high estimate for time is: 4.390726489650213e+17 generations.

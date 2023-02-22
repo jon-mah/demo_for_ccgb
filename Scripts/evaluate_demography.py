@@ -506,6 +506,21 @@ class EvaluateDemography():
                 theta_nonsyn))
             f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                 scaled_spectrum))
+            logger.info('Converting and interpreting Tau estimates.')
+            allele_sum = numpy.sum(scaled_spectrum)
+            generations = 2 * tau * theta / 4 / nu
+            f.write(
+                'Low estimate for years using allele count is ' + 
+                str(generations / 6.93E-10 / allele_sum / 365) + '.\n')
+            f.write(
+                'High estimate for years using allele count is ' +
+                str(generations / 4.08E-10 / allele_sum / 365) + '.\n')
+            f.write(
+                'Low estimate for years using 1,000,000 sites is ' +
+                str(generations / 6.93E-10 / 1000000 / 365) + '.\n')
+            f.write(
+                'High estimate for years ugin 1,000,000 sites is ' +
+                str(generations / 4.08E-10 / 1000000 / 365) + '.\n')
         logger.info('Finished demographic evaluation.')
         logger.info('Pipeline executed succesfully.')
 
