@@ -1,0 +1,21 @@
+2023-02-21 20:39:06,954 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:39:06,955 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_18/evaluate_demography.log
+
+2023-02-21 20:39:06,955 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_18/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 0.391512
+	tau = 0.240012
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Akkermansia_muciniphila_55290_downsampled_18/
+
+2023-02-21 20:39:06,957 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:39:06,958 - INFO - Beginning optimization with guess, [0.391512, 0.240012].
+2023-02-21 20:39:07,561 - INFO - Finished optimization with guess, [0.391512, 0.240012].
+2023-02-21 20:39:07,562 - INFO - Best fit parameters: [0.39990273 0.24130878].
+2023-02-21 20:39:07,632 - INFO - Maximum log composite likelihood: -47.87682619383213.
+2023-02-21 20:39:07,632 - INFO - Optimal value of theta: 9878.115910765257.
+2023-02-21 20:39:07,635 - INFO - Finished demographic evaluation.
+2023-02-21 20:39:07,635 - INFO - Pipeline executed succesfully.

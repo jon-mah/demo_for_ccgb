@@ -1,0 +1,21 @@
+2023-02-21 20:32:21,130 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:32:21,130 - INFO - Progress is being logged to ../Analysis/Dialister_invisus_61905_downsampled_10/evaluate_demography.log
+
+2023-02-21 20:32:21,130 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Dialister_invisus_61905_downsampled_10/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 1.57348
+	tau = 0.0827088
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Dialister_invisus_61905_downsampled_10/
+
+2023-02-21 20:32:21,156 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:32:21,157 - INFO - Beginning optimization with guess, [1.57348, 0.0827088].
+2023-02-21 20:32:21,538 - INFO - Finished optimization with guess, [1.57348, 0.0827088].
+2023-02-21 20:32:21,539 - INFO - Best fit parameters: [3.71524226 0.03367929].
+2023-02-21 20:32:21,570 - INFO - Maximum log composite likelihood: -25.348565642298126.
+2023-02-21 20:32:21,570 - INFO - Optimal value of theta: 7440.013139768053.
+2023-02-21 20:32:21,573 - INFO - Finished demographic evaluation.
+2023-02-21 20:32:21,573 - INFO - Pipeline executed succesfully.

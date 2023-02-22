@@ -1,0 +1,21 @@
+2023-02-21 20:35:13,180 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:35:13,180 - INFO - Progress is being logged to ../Analysis/Ruminococcus_bicirculans_59300_downsampled_12/evaluate_demography.log
+
+2023-02-21 20:35:13,181 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_12/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 310.657
+	tau = 252.905
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_12/
+
+2023-02-21 20:35:13,185 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:35:13,187 - INFO - Beginning optimization with guess, [310.657, 252.905].
+2023-02-21 20:35:15,817 - INFO - Finished optimization with guess, [310.657, 252.905].
+2023-02-21 20:35:15,818 - INFO - Best fit parameters: [310.58497059 252.85972939].
+2023-02-21 20:35:15,871 - INFO - Maximum log composite likelihood: -32.647348690927174.
+2023-02-21 20:35:15,871 - INFO - Optimal value of theta: 72.07816810404306.
+2023-02-21 20:35:15,874 - INFO - Finished demographic evaluation.
+2023-02-21 20:35:15,874 - INFO - Pipeline executed succesfully.

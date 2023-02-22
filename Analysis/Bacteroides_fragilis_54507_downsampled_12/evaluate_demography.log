@@ -1,0 +1,21 @@
+2023-02-21 20:33:56,899 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:33:56,899 - INFO - Progress is being logged to ../Analysis/Bacteroides_fragilis_54507_downsampled_12/evaluate_demography.log
+
+2023-02-21 20:33:56,899 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_fragilis_54507_downsampled_12/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 2.40281
+	tau = 0.406655
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Bacteroides_fragilis_54507_downsampled_12/
+
+2023-02-21 20:33:56,902 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:33:56,903 - INFO - Beginning optimization with guess, [2.40281, 0.406655].
+2023-02-21 20:33:57,271 - INFO - Finished optimization with guess, [2.40281, 0.406655].
+2023-02-21 20:33:57,272 - INFO - Best fit parameters: [2.62497469 0.39973603].
+2023-02-21 20:33:57,313 - INFO - Maximum log composite likelihood: -36.002883587269025.
+2023-02-21 20:33:57,314 - INFO - Optimal value of theta: 4891.938896280969.
+2023-02-21 20:33:57,316 - INFO - Finished demographic evaluation.
+2023-02-21 20:33:57,316 - INFO - Pipeline executed succesfully.

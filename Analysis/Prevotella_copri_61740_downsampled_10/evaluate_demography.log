@@ -1,0 +1,21 @@
+2023-02-21 20:32:54,814 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:32:54,814 - INFO - Progress is being logged to ../Analysis/Prevotella_copri_61740_downsampled_10/evaluate_demography.log
+
+2023-02-21 20:32:54,815 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Prevotella_copri_61740_downsampled_10/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 3.47521
+	tau = 0.358743
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Prevotella_copri_61740_downsampled_10/
+
+2023-02-21 20:32:54,817 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:32:54,818 - INFO - Beginning optimization with guess, [3.47521, 0.358743].
+2023-02-21 20:32:55,113 - INFO - Finished optimization with guess, [3.47521, 0.358743].
+2023-02-21 20:32:55,114 - INFO - Best fit parameters: [3.66499476 0.35632787].
+2023-02-21 20:32:55,146 - INFO - Maximum log composite likelihood: -28.123816419558352.
+2023-02-21 20:32:55,146 - INFO - Optimal value of theta: 6778.128542672523.
+2023-02-21 20:32:55,148 - INFO - Finished demographic evaluation.
+2023-02-21 20:32:55,149 - INFO - Pipeline executed succesfully.

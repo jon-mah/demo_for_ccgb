@@ -1,0 +1,21 @@
+2023-02-21 20:32:38,220 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:32:38,220 - INFO - Progress is being logged to ../Analysis/Odoribacter_splanchnicus_62174_downsampled_10/evaluate_demography.log
+
+2023-02-21 20:32:38,220 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_10/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 9.55467
+	tau = 31.6094
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_10/
+
+2023-02-21 20:32:38,235 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:32:38,237 - INFO - Beginning optimization with guess, [9.55467, 31.6094].
+2023-02-21 20:32:39,522 - INFO - Finished optimization with guess, [9.55467, 31.6094].
+2023-02-21 20:32:39,523 - INFO - Best fit parameters: [ 9.56092354 31.57483823].
+2023-02-21 20:32:39,652 - INFO - Maximum log composite likelihood: -23.058212912611452.
+2023-02-21 20:32:39,652 - INFO - Optimal value of theta: 317.0610873600259.
+2023-02-21 20:32:39,655 - INFO - Finished demographic evaluation.
+2023-02-21 20:32:39,655 - INFO - Pipeline executed succesfully.

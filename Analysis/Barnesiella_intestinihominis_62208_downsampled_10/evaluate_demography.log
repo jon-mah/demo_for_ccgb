@@ -1,0 +1,21 @@
+2023-02-21 20:32:18,247 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-02-21 20:32:18,247 - INFO - Progress is being logged to ../Analysis/Barnesiella_intestinihominis_62208_downsampled_10/evaluate_demography.log
+
+2023-02-21 20:32:18,247 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Barnesiella_intestinihominis_62208_downsampled_10/empirical_sfs.txt
+	model_type = two_epoch
+	nu = 0.149372
+	tau = 0.00621968
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Barnesiella_intestinihominis_62208_downsampled_10/
+
+2023-02-21 20:32:18,250 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-02-21 20:32:18,251 - INFO - Beginning optimization with guess, [0.149372, 0.00621968].
+2023-02-21 20:32:18,553 - INFO - Finished optimization with guess, [0.149372, 0.00621968].
+2023-02-21 20:32:18,554 - INFO - Best fit parameters: [0.14868631 0.00624108].
+2023-02-21 20:32:18,586 - INFO - Maximum log composite likelihood: -27.792933283950333.
+2023-02-21 20:32:18,586 - INFO - Optimal value of theta: 11263.664160600581.
+2023-02-21 20:32:18,589 - INFO - Finished demographic evaluation.
+2023-02-21 20:32:18,589 - INFO - Pipeline executed succesfully.
