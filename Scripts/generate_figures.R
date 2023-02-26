@@ -66,13 +66,22 @@ plot_likelihood_surface = function(input) {
   
   species_surface[species_surface$likelihood < species_surface_cutoff, ]$likelihood = species_surface_cutoff
   
+  # species_surface_scatter = ggplot(data = species_surface) +
+  #   geom_tile(aes(x = nu, y = tau, fill = likelihood))
+    # stat_contour(aes(x = nu, y = tau, z = likelihood))
+    # scale_x_continuous(trans='log10') +
+    # scale_y_continuous(trans='log10')
+  
+  
   species_surface_scatter = ggplot(data=species_surface, aes(x=nu, y=tau)) + 
-    geom_point(aes(color=likelihood)) +
-    scale_fill_brewer(palette = "Accent") +
-    scale_x_continuous(trans='log10') +
-    scale_y_continuous(trans='log10') +
-    geom_vline(xintercept=1.0, color='red') +
-    theme_bw()
+   geom_point(aes(color=likelihood)) +
+   scale_fill_brewer(palette = "Greys") +
+   scale_x_continuous(trans='log10') +
+   scale_y_continuous(trans='log10') +
+   geom_vline(xintercept=1.0, color='red') +
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
   return(species_surface_scatter)
 }
 
@@ -4481,3 +4490,79 @@ compare_sfs(proportional_sfs(r_bromii_30_empirical),
             proportional_sfs(r_bromii_30_one_epoch),
             proportional_sfs(r_bromii_30_two_epoch)) +
   ggtitle('R. bromii Downsampled to 30')
+
+
+
+
+
+
+install.packages('demodelr')
+library(demodelr)
+
+# Gause model equation
+gause_model <- volume ~ K / (1 + exp(log(K / 0.45 - 1) - b * time))
+
+
+# Identify the ranges of the parameters that we wish to investigate
+kParam <- seq(5, 20, length.out = 100)
+bParam <- seq(0, 1, length.out = 100)
+
+
+# Allow for all the possible combinations of parameters
+gause_parameters <- expand.grid(K = kParam, b = bParam)
+
+# Now compute the likelihood
+gause_likelihood <- compute_likelihood(
+  model = gause_model,
+  data = yeast,
+  parameters = gause_parameters,
+  logLikely = FALSE
+)
+
+gause_likelihood$opt_value
+gause_likelihood$likelihood
+my_likelihood <- gause_likelihood$likelihood
+
+# Make a contour plot
+ggplot(data = my_likelihood) +
+  geom_tile(aes(x = K, y = b, fill = l_hood)) +
+  stat_contour(aes(x = K, y = b, z = l_hood))
+
+species_surface = read.csv('../Analysis/qp_gut_14/a_finegoldii_14.csv', header=FALSE)
+names(species_surface) = c('likelihood', 'nu', 'tau')
+species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+print(head(species_surface, 1))
+species_surface_quantile = quantile(species_surface$likelihood, 0.95)
+species_surface_max_minus = max(species_surface$likelihood) - 5
+species_surface_cutoff = max(c(species_surface_quantile, species_surface_max_minus))
+
+# species_surface[species_surface$likelihood < species_surface_cutoff, ]$likelihood = species_surface_cutoff
+
+species_surface = species_surface[species_surface$likelihood > species_surface_cutoff, ]
+# as_tibble(species_surface)
+
+#temp_plot = ggplot(species_surface, aes(nu, tau))
+
+# temp_plot + geom_point()
+
+temp_plot + stat_bin2d(aes(fill = likelihood)) +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+
+ggplot(data=species_surface, aes(x=nu, y=tau, fill=likelihood)) +
+  stat_bin_2d(aes(fill=after_stat(count))) + 
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+
+plot_likelihood_surface('../Analysis/qp_gut_14/a_finegoldii_14.csv')
+
+
+plot <- ggplot(species_surface, aes(nu, tau)) +
+  scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10')
+
+plot + geom_point()
+
+plot + stat_bin2d(aes(fill = after_stat(count)))
+
+plot + stat_bin2d(aes(fill = after_stat(density)))
