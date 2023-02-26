@@ -16,7 +16,7 @@ import random
 import numpy
 import pandas as pd
 import numpy
-# import dadi
+import dadi
 
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):

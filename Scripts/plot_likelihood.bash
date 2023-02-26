@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N gut_downsample_20_0_001
+#$ -N gut_downsample_14_0_005
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
@@ -37,4 +37,4 @@ while read line;
 done < ./gut_sfs_list.txt
 
 # Gut with singletons
-python plot_likelihood.py ../Analysis/${species}_downsampled_20/empirical_sfs.txt 1.0 0.001 ../Analysis/${species}_downsampled_20/likelihood_surface_unmasked/
+python plot_likelihood.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt 1.0 0.005 ../Analysis/${species}_downsampled_14/likelihood_surface_unmasked/

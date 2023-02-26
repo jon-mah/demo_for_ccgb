@@ -1,24 +1,24 @@
-2023-02-17 23:29:27,771 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-02-22 23:30:39,865 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-02-17 23:29:27,771 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface_unmasked/log.log
+2023-02-22 23:30:39,865 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface_unmasked/log.log
 
-2023-02-17 23:29:27,772 - INFO - Parsed the following arguments:
+2023-02-22 23:30:39,865 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_sfs.txt
-	nu_prime = 1.0
-	tau_prime = 1.0
+	input_shape = 1.0
+	input_scale = 0.005
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface_unmasked/
 
-2023-02-17 23:29:27,773 - INFO - Beginning demographic inference for two-epoch demographic model.
-2023-02-18 00:32:05,320 - INFO - Finished plotting likelihood surface.
-2023-02-18 00:32:05,322 - INFO - Pipeline executed succesfully.
-2023-02-18 00:32:05,322 - INFO - The best fit parameters are: [3.123157183030117e-05, 0.0008178803030476059].
-2023-02-18 00:32:05,322 - INFO - The likelihood of the mle is: -35.260314318554265.
-2023-02-18 00:32:05,323 - INFO - Non-scaled best-fit model spectrum: [-- 5.742042132986748e-05 3.2504702665877306e-05 2.419946111927862e-05 2.0046840305288315e-05 1.7555267792951416e-05 1.5894219432471082e-05 1.4707756301932127e-05 1.3817908940226274e-05 1.312580542446459e-05 1.2572122600891991e-05 1.2119109371655772e-05 1.1741598338175093e-05 1.142216591681988e-05 --].
+2023-02-22 23:30:39,878 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-02-22 23:44:22,688 - INFO - Finished plotting likelihood surface.
+2023-02-22 23:44:22,689 - INFO - Pipeline executed succesfully.
+2023-02-22 23:44:22,689 - INFO - The best fit parameters are: [7.837111199105547e-05, 0.0016355718552131793].
+2023-02-22 23:44:22,689 - INFO - The likelihood of the mle is: -35.26031760850037.
+2023-02-22 23:44:22,690 - INFO - Non-scaled best-fit model spectrum: [-- 0.00013411480805850686 7.592022716708123e-05 5.652202886654155e-05 4.682292960808218e-05 4.100346998653876e-05 3.712383018583111e-05 3.435265885486209e-05 3.227428031776728e-05 3.065776364337747e-05 2.936455027295524e-05 2.8306466578203058e-05 2.742473014024977e-05 2.667864543835705e-05 --].
 
-2023-02-18 00:32:05,323 - INFO - Scaled best-fit model spectrum: [-- 4906.012549876606 2777.2084480657304 2067.6069106040795 1712.8061383966096 1499.9256730264574 1358.0053611629553 1256.6337084725164 1180.6049677754725 1121.4715017454284 1074.1647279846904 1035.4591849667227 1003.2045650061107 975.912193551654 --].
+2023-02-22 23:44:22,690 - INFO - Scaled best-fit model spectrum: [-- 4905.986096052996 2777.1995075174714 2067.6038071723588 1712.805953042176 1499.9272381326412 1358.0080929204114 1256.6372732747257 1180.6091571186487 1121.4761766267814 1074.1697911025701 1035.4645655569313 1003.2102099969172 975.9180621203996 --].
 
-2023-02-18 00:32:05,323 - INFO - Scaled best-fit theta: 85440204.65633056.
-2023-02-18 00:32:05,323 - INFO - Best low estimate for time is: 1.614339810570862e+18 generations.
-2023-02-18 00:32:05,323 - INFO - Best high estimate for time is: 2.742003648837273e+18 generations.
+2023-02-22 23:44:22,690 - INFO - Scaled best-fit theta: 36580495.22699079.
+2023-02-22 23:44:22,690 - INFO - Best low estimate for time is: 5.5080765849001594e+17 generations.
+2023-02-22 23:44:22,690 - INFO - Best high estimate for time is: 9.355630081705418e+17 generations.

@@ -1,24 +1,13 @@
-2023-02-17 23:49:44,181 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-02-22 23:30:39,829 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-02-17 23:49:44,181 - INFO - Progress is being logged to ../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface_unmasked/log.log
+2023-02-22 23:30:39,829 - INFO - Progress is being logged to ../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface_unmasked/log.log
 
-2023-02-17 23:49:44,181 - INFO - Parsed the following arguments:
+2023-02-22 23:30:39,829 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_sfs.txt
-	nu_prime = 1.0
-	tau_prime = 1.0
+	input_shape = 1.0
+	input_scale = 0.005
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface_unmasked/
 
-2023-02-17 23:49:44,193 - INFO - Beginning demographic inference for two-epoch demographic model.
-2023-02-18 00:37:14,239 - INFO - Finished plotting likelihood surface.
-2023-02-18 00:37:14,248 - INFO - Pipeline executed succesfully.
-2023-02-18 00:37:14,248 - INFO - The best fit parameters are: [0.0002822700682731978, 0.0004687529390202727].
-2023-02-18 00:37:14,248 - INFO - The likelihood of the mle is: -228.2727693715433.
-2023-02-18 00:37:14,249 - INFO - Non-scaled best-fit model spectrum: [-- 455.42834872104686 227.38163997340297 151.3660574120199 113.35826969363391 90.55359999077127 75.35048930492935 64.49112663157479 56.34660646712685 50.01198130916036 44.94428265603716 40.79798509752614 37.34273836009538 34.419069177415494 --].
-
-2023-02-18 00:37:14,249 - INFO - Scaled best-fit model spectrum: [-- 10941.913941189106 5462.967650964855 3636.6519090665274 2723.4941237036933 2175.5995228368456 1810.3365144404445 1549.4344160934959 1353.757886553932 1201.5650695656875 1079.8108513707245 980.1937959388532 897.179612582211 826.936869285209 --].
-
-2023-02-18 00:37:14,249 - INFO - Scaled best-fit theta: 24.025544241847598.
-2023-02-18 00:37:14,249 - INFO - Best low estimate for time is: 28786520880.31204 generations.
-2023-02-18 00:37:14,249 - INFO - Best high estimate for time is: 48894752377.58883 generations.
+2023-02-22 23:30:39,833 - INFO - Beginning demographic inference for two-epoch demographic model.
