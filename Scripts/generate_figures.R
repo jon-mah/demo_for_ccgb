@@ -40,6 +40,15 @@ read_input_sfs = function(input_file)  {
   return(output_sfs)
 }
 
+read_input_sfs_original = function(input_file)  {
+  ## Reads input SFS in Dadi Format
+  this_file = file(input_file)
+  on.exit(close(this_file))
+  sfs_string = readLines(this_file)[2]
+  output_sfs = as.numeric(unlist(strsplit(sfs_string, ' ')))
+  return(output_sfs)
+}
+
 sfs_from_demography = function(input_file) {
   ## Reads input SFS from output *demography.txt
   this_file = file(input_file)
@@ -113,6 +122,29 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
   return(p_input_comparison)
 }
 
+plot_original_empirical_sfs = function(input) {
+  x_axis = 0:(length(input)-1)
+  
+  input_df = data.frame(input,
+                        x_axis)
+  
+  names(input_df) = c('Empirical',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                               aes(x=x_axis, 
+                                   y=value,
+                                   fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
+    ylab('Number of Segregating Sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+
+  return(p_input_comparison)
+}
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Downsampled to 10
@@ -127,6 +159,9 @@ a_finegoldii_10_one_epoch = sfs_from_demography(
 )
 a_finegoldii_10_two_epoch = sfs_from_demography(
   '../Analysis/Alistipes_finegoldii_56071_downsampled_10/two_epoch_demography.txt'
+)
+a_finegoldii_original_empirical = read_input_sfs_original(
+  '../Analysis/Alistipes_finegoldii_56071_downsampled_10/original_empirical_sfs.txt'
 )
 
 compare_sfs(a_finegoldii_10_empirical,
@@ -151,6 +186,9 @@ a_muciniphila_10_one_epoch = sfs_from_demography(
 a_muciniphila_10_two_epoch = sfs_from_demography(
   '../Analysis/Akkermansia_muciniphila_55290_downsampled_10/two_epoch_demography.txt'
 )
+a_muciniphila_original_empirical = read_input_sfs_original(
+  '../Analysis/Akkermansia_muciniphila_55290_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(a_muciniphila_10_empirical,
             a_muciniphila_10_one_epoch,
             a_muciniphila_10_two_epoch) +
@@ -173,6 +211,9 @@ a_onderdonkii_10_one_epoch = sfs_from_demography(
 )
 a_onderdonkii_10_two_epoch = sfs_from_demography(
   '../Analysis/Alistipes_onderdonkii_55464_downsampled_10/two_epoch_demography.txt'
+)
+a_onderdonkii_original_empirical = read_input_sfs_original(
+  '../Analysis/Alistipes_onderdonkii_55464_downsampled_10/original_empirical_sfs.txt'
 )
 
 compare_sfs(a_onderdonkii_10_empirical,
@@ -4490,6 +4531,34 @@ compare_sfs(proportional_sfs(r_bromii_30_empirical),
             proportional_sfs(r_bromii_30_one_epoch),
             proportional_sfs(r_bromii_30_two_epoch)) +
   ggtitle('R. bromii Downsampled to 30')
+
+plot_original_empirical_sfs(a_muciniphila_original_empirical) + ggtitle('A. muciniphila full empirical SFS (unfolded)')
+
+plot_original_empirical_sfs(fold_sfs(a_muciniphila_original_empirical)) + ggtitle('A. mucinaphila full empirical SFS (folded)')
+a_muciniphila_garud_good_empirical = read_input_sfs_original('../Data/Akkermansia_muciniphila_55290_syn.sfs')
+plot_original_empirical_sfs(fold_sfs(a_muciniphila_garud_good_empirical)) + ggtitle('A. muciniphila folded SFS (Garud/Good code base)')
+
+temp_x_axis = 0:(length(fold_sfs(a_muciniphila_original_empirical))-1)
+
+compare_sfs(temp_x_axis,
+            fold_sfs(a_muciniphila_original_empirical),
+            fold_sfs(c(a_muciniphila_garud_good_empirical, 0, 0, 0, 0, 0, 0)))
+
+plot_original_empirical_sfs(a_finegoldii_original_empirical) + ggtitle('A. finegoldii full empirical SFS (unfolded)')
+plot_original_empirical_sfs(a_onderdonkii_original_empirical) + ggtitle('A. onderdonkii full empirical SFS (unfolded)')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
