@@ -191,7 +191,6 @@ class ComputeDownSampledSFS():
         # Assign arguments
         outprefix = args['outprefix']
         species = args['species']
-        sample_size = args['sample_size']
         random.seed(1)
 
         # Numpy options

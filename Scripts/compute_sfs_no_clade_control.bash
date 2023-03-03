@@ -4,8 +4,9 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l h_rt=00:05:00
+#$ -l h_rt=04:00:00
 #$ -t 1-30
+#$ -l highp
 #$ -N compute_sfs_no_clade_control
 
 # SGE_TASK_ID=1
