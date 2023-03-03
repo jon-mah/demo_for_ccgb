@@ -4548,6 +4548,27 @@ plot_original_empirical_sfs(a_finegoldii_original_empirical) + ggtitle('A. fineg
 plot_original_empirical_sfs(a_onderdonkii_original_empirical) + ggtitle('A. onderdonkii full empirical SFS (unfolded)')
 
 
+b_fragilis_1 = read_input_sfs_original('../Data/UHGG_SFS/1__output_sfs.txt')
+b_fragilis_2 = read_input_sfs_original('../Data/UHGG_SFS/2__output_sfs.txt')
+b_fragilis_3 = read_input_sfs_original('../Data/UHGG_SFS/3__output_sfs.txt')
+b_fragilis_4 = read_input_sfs_original('../Data/UHGG_SFS/4__output_sfs.txt')
+b_fragilis_5 = read_input_sfs_original('../Data/UHGG_SFS/5__output_sfs.txt')
+b_fragilis = b_fragilis_1 + b_fragilis_2 + b_fragilis_3 + b_fragilis_4 + b_fragilis_5
+
+plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 20) + ggtitle('B. fragilis synonymous SFS (no clade control)')
+
+plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 50) + ggtitle('B. fragilis synonymous SFS (no clade control)')
+
+
+plot_original_empirical_sfs(proportional_sfs(b_fragilis)) + ggtitle('B. fragilis synonymous SFS (no clade control)') +
+  ylab('Proportion of Segregating Sites')
+
+
+plot_original_empirical_sfs(b_fragilis_1) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 1)')
+plot_original_empirical_sfs(b_fragilis_2) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 2)')
+plot_original_empirical_sfs(b_fragilis_3) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 3)')
+plot_original_empirical_sfs(b_fragilis_4) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 4)')
+plot_original_empirical_sfs(b_fragilis_5) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 5)')
 
 
 
@@ -4555,83 +4576,3 @@ plot_original_empirical_sfs(a_onderdonkii_original_empirical) + ggtitle('A. onde
 
 
 
-
-
-
-
-
-
-
-
-
-
-install.packages('demodelr')
-library(demodelr)
-
-# Gause model equation
-gause_model <- volume ~ K / (1 + exp(log(K / 0.45 - 1) - b * time))
-
-
-# Identify the ranges of the parameters that we wish to investigate
-kParam <- seq(5, 20, length.out = 100)
-bParam <- seq(0, 1, length.out = 100)
-
-
-# Allow for all the possible combinations of parameters
-gause_parameters <- expand.grid(K = kParam, b = bParam)
-
-# Now compute the likelihood
-gause_likelihood <- compute_likelihood(
-  model = gause_model,
-  data = yeast,
-  parameters = gause_parameters,
-  logLikely = FALSE
-)
-
-gause_likelihood$opt_value
-gause_likelihood$likelihood
-my_likelihood <- gause_likelihood$likelihood
-
-# Make a contour plot
-ggplot(data = my_likelihood) +
-  geom_tile(aes(x = K, y = b, fill = l_hood)) +
-  stat_contour(aes(x = K, y = b, z = l_hood))
-
-species_surface = read.csv('../Analysis/qp_gut_14/a_finegoldii_14.csv', header=FALSE)
-names(species_surface) = c('likelihood', 'nu', 'tau')
-species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
-print(head(species_surface, 1))
-species_surface_quantile = quantile(species_surface$likelihood, 0.95)
-species_surface_max_minus = max(species_surface$likelihood) - 5
-species_surface_cutoff = max(c(species_surface_quantile, species_surface_max_minus))
-
-# species_surface[species_surface$likelihood < species_surface_cutoff, ]$likelihood = species_surface_cutoff
-
-species_surface = species_surface[species_surface$likelihood > species_surface_cutoff, ]
-# as_tibble(species_surface)
-
-#temp_plot = ggplot(species_surface, aes(nu, tau))
-
-# temp_plot + geom_point()
-
-temp_plot + stat_bin2d(aes(fill = likelihood)) +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-
-ggplot(data=species_surface, aes(x=nu, y=tau, fill=likelihood)) +
-  stat_bin_2d(aes(fill=after_stat(count))) + 
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-
-plot_likelihood_surface('../Analysis/qp_gut_14/a_finegoldii_14.csv')
-
-
-plot <- ggplot(species_surface, aes(nu, tau)) +
-  scale_x_continuous(trans='log10') +
-  scale_y_continuous(trans='log10')
-
-plot + geom_point()
-
-plot + stat_bin2d(aes(fill = after_stat(count)))
-
-plot + stat_bin2d(aes(fill = after_stat(density)))
