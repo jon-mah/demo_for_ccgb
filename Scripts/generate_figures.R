@@ -239,6 +239,9 @@ a_putredinis_10_one_epoch = sfs_from_demography(
 a_putredinis_10_two_epoch = sfs_from_demography(
   '../Analysis/Alistipes_putredinis_61533_downsampled_10/two_epoch_demography.txt'
 )
+a_putredinis_original_empirical = read_input_sfs_original(
+  '../Analysis/Alistipes_putredinis_61533_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(a_putredinis_10_empirical,
             a_putredinis_10_one_epoch,
             a_putredinis_10_two_epoch) +
@@ -263,6 +266,9 @@ a_shahii_10_one_epoch = sfs_from_demography(
 a_shahii_10_two_epoch = sfs_from_demography(
   '../Analysis/Alistipes_shahii_62199_downsampled_10/two_epoch_demography.txt'
 )
+a_shahii_original_empirical = read_input_sfs_original(
+  '../Analysis/Alistipes_shahii_62199_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(a_shahii_10_empirical,
             a_shahii_10_one_epoch,
             a_shahii_10_two_epoch) +
@@ -286,6 +292,9 @@ b_bacterium_10_one_epoch = sfs_from_demography(
 b_bacterium_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroidales_bacterium_58650_downsampled_10/two_epoch_demography.txt'
 )
+b_bacterium_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroidales_bacterium_58650_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(b_bacterium_10_empirical,
             b_bacterium_10_one_epoch,
             b_bacterium_10_two_epoch) +
@@ -308,6 +317,9 @@ b_caccae_10_one_epoch = sfs_from_demography(
 b_caccae_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_caccae_53434_downsampled_10/two_epoch_demography.txt'
 )
+b_caccae_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_caccae_53434_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(b_caccae_10_empirical,
             b_caccae_10_one_epoch,
             b_caccae_10_two_epoch) +
@@ -329,6 +341,9 @@ b_cellulosilyticus_10_one_epoch = sfs_from_demography(
 )
 b_cellulosilyticus_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_10/two_epoch_demography.txt'
+)
+b_cellulosilyticus_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(b_cellulosilyticus_10_empirical,
             b_cellulosilyticus_10_one_epoch,
@@ -353,6 +368,9 @@ b_fragilis_10_one_epoch = sfs_from_demography(
 b_fragilis_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_fragilis_54507_downsampled_10/two_epoch_demography.txt'
 )
+b_fragilis_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_fragilis_54507_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(b_fragilis_10_empirical,
             b_fragilis_10_one_epoch,
             b_fragilis_10_two_epoch) +
@@ -375,6 +393,9 @@ b_intestinihominis_10_one_epoch = sfs_from_demography(
 )
 b_intestinihominis_10_two_epoch = sfs_from_demography(
   '../Analysis/Barnesiella_intestinihominis_62208_downsampled_10/two_epoch_demography.txt'
+)
+b_intestinihominis_original_empirical = read_input_sfs_original(
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(b_intestinihominis_10_empirical,
             b_intestinihominis_10_one_epoch,
@@ -400,6 +421,9 @@ b_ovatus_10_one_epoch = sfs_from_demography(
 b_ovatus_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_ovatus_58035_downsampled_10/two_epoch_demography.txt'
 )
+b_ovatus_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_ovatus_58035_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(b_ovatus_10_empirical,
             b_ovatus_10_one_epoch,
             b_ovatus_10_two_epoch) +
@@ -422,6 +446,9 @@ b_thetaiotaomicron_10_one_epoch = sfs_from_demography(
 )
 b_thetaiotaomicron_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_10/two_epoch_demography.txt'
+)
+b_thetaiotaomicron_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(b_thetaiotaomicron_10_empirical,
             b_thetaiotaomicron_10_one_epoch,
@@ -446,6 +473,9 @@ b_uniformis_10_one_epoch = sfs_from_demography(
 b_uniformis_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_uniformis_57318_downsampled_10/two_epoch_demography.txt'
 )
+b_uniformis_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(b_uniformis_10_empirical,
             b_uniformis_10_one_epoch,
             b_uniformis_10_two_epoch) +
@@ -468,6 +498,9 @@ b_vulgatus_10_one_epoch = sfs_from_demography(
 )
 b_vulgatus_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_vulgatus_57955_downsampled_10/two_epoch_demography.txt'
+)
+b_vulgatus_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(b_vulgatus_10_empirical,
             b_vulgatus_10_one_epoch,
@@ -493,6 +526,9 @@ b_xylanisolvens_10_one_epoch = sfs_from_demography(
 b_xylanisolvens_10_two_epoch = sfs_from_demography(
   '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_10/two_epoch_demography.txt'
 )
+b_xylanisolvens_original_empirical = read_input_sfs_original(
+  '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(b_xylanisolvens_10_empirical,
             b_xylanisolvens_10_one_epoch,
             b_xylanisolvens_10_two_epoch) +
@@ -517,6 +553,9 @@ d_invisus_10_one_epoch = sfs_from_demography(
 d_invisus_10_two_epoch = sfs_from_demography(
   '../Analysis/Dialister_invisus_61905_downsampled_10/two_epoch_demography.txt'
 )
+d_invisus_original_empirical = read_input_sfs_original(
+  '../Analysis/Dialister_invisus_61905_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(d_invisus_10_empirical,
             d_invisus_10_one_epoch,
             d_invisus_10_two_epoch) +
@@ -539,6 +578,9 @@ e_eligens_10_one_epoch = sfs_from_demography(
 )
 e_eligens_10_two_epoch = sfs_from_demography(
   '../Analysis/Eubacterium_eligens_61678_downsampled_10/two_epoch_demography.txt'
+)
+e_eligens_original_empirical = read_input_sfs_original(
+  '../Analysis/Eubacterium_eligens_61678_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(e_eligens_10_empirical,
             e_eligens_10_one_epoch,
@@ -564,6 +606,9 @@ e_rectale_10_one_epoch = sfs_from_demography(
 e_rectale_10_two_epoch = sfs_from_demography(
   '../Analysis/Eubacterium_rectale_56927_downsampled_10/two_epoch_demography.txt'
 )
+e_rectale_original_empirical = read_input_sfs_original(
+  '../Analysis/Eubacterium_rectale_56927_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(e_rectale_10_empirical,
             e_rectale_10_one_epoch,
             e_rectale_10_two_epoch) +
@@ -586,6 +631,9 @@ f_prausnitzii_10_one_epoch = sfs_from_demography(
 )
 f_prausnitzii_10_two_epoch = sfs_from_demography(
   '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_10/two_epoch_demography.txt'
+)
+f_prausnitzii_original_empirical = read_input_sfs_original(
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(f_prausnitzii_10_empirical,
             f_prausnitzii_10_one_epoch,
@@ -610,6 +658,9 @@ o_sp_10_one_epoch = sfs_from_demography(
 o_sp_10_two_epoch = sfs_from_demography(
   '../Analysis/Oscillibacter_sp_60799_downsampled_10/two_epoch_demography.txt'
 )
+o_sp_original_empirical = read_input_sfs_original(
+  '../Analysis/Oscillibacter_sp_60799_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(o_sp_10_empirical,
             o_sp_10_one_epoch,
             o_sp_10_two_epoch) +
@@ -632,6 +683,9 @@ o_splanchnicus_10_one_epoch = sfs_from_demography(
 )
 o_splanchnicus_10_two_epoch = sfs_from_demography(
   '../Analysis/Odoribacter_splanchnicus_62174_downsampled_10/two_epoch_demography.txt'
+)
+o_splanchnicus_original_empirical = read_input_sfs_original(
+  '../Analysis/Odoribacter_splanchnicus_62174_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(o_splanchnicus_10_empirical,
             o_splanchnicus_10_one_epoch,
@@ -656,6 +710,9 @@ p_copri_10_one_epoch = sfs_from_demography(
 p_copri_10_two_epoch = sfs_from_demography(
   '../Analysis/Prevotella_copri_61740_downsampled_10/two_epoch_demography.txt'
 )
+p_copri_original_empirical = read_input_sfs_original(
+  '../Analysis/Prevotella_copri_61740_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(p_copri_10_empirical,
             p_copri_10_one_epoch,
             p_copri_10_two_epoch) +
@@ -678,6 +735,9 @@ p_distasonis_10_one_epoch = sfs_from_demography(
 )
 p_distasonis_10_two_epoch = sfs_from_demography(
   '../Analysis/Parabacteroides_distasonis_56985_downsampled_10/two_epoch_demography.txt'
+)
+p_distasonis_original_empirical = read_input_sfs_original(
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(p_distasonis_10_empirical,
             p_distasonis_10_one_epoch,
@@ -702,6 +762,9 @@ p_merdae_10_one_epoch = sfs_from_demography(
 p_merdae_10_two_epoch = sfs_from_demography(
   '../Analysis/Parabacteroides_merdae_56972_downsampled_10/two_epoch_demography.txt'
 )
+p_merdae_original_empirical = read_input_sfs_original(
+  '../Analysis/Parabacteroides_merdae_56972_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(p_merdae_10_empirical,
             p_merdae_10_one_epoch,
             p_merdae_10_two_epoch) +
@@ -724,6 +787,9 @@ p_sp_10_one_epoch = sfs_from_demography(
 )
 p_sp_10_two_epoch = sfs_from_demography(
   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_10/two_epoch_demography.txt'
+)
+p_sp_original_empirical = read_input_sfs_original(
+  '../Analysis/Phascolarctobacterium_sp_59817_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(p_sp_10_empirical,
             p_sp_10_one_epoch,
@@ -748,6 +814,9 @@ r_bicirculans_10_one_epoch = sfs_from_demography(
 r_bicirculans_10_two_epoch = sfs_from_demography(
   '../Analysis/Ruminococcus_bicirculans_59300_downsampled_10/two_epoch_demography.txt'
 )
+r_bicirculans_original_empirical = read_input_sfs_original(
+  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_10/original_empirical_sfs.txt'
+)
 compare_sfs(r_bicirculans_10_empirical,
             r_bicirculans_10_one_epoch,
             r_bicirculans_10_two_epoch) +
@@ -769,6 +838,9 @@ r_bromii_10_one_epoch = sfs_from_demography(
 )
 r_bromii_10_two_epoch = sfs_from_demography(
   '../Analysis/Ruminococcus_bromii_62047_downsampled_10/two_epoch_demography.txt'
+)
+r_bromii_original_empirical = read_input_sfs_original(
+  '../Analysis/Ruminococcus_bromii_62047_downsampled_10/original_empirical_sfs.txt'
 )
 compare_sfs(r_bromii_10_empirical,
             r_bromii_10_one_epoch,
@@ -1410,7 +1482,7 @@ compare_sfs(proportional_sfs(r_bromii_12_empirical),
 
 # A. finegoldii
 plot_likelihood_surface('../Analysis/qp_gut_14/a_finegoldii_14.csv')
-a_finegoldii_14_empirical =  read_input_sfs(
+a_finegoldii_14_empirical = read_input_sfs_original(
   '../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_sfs.txt'
 )
 a_finegoldii_14_one_epoch = sfs_from_demography(
@@ -1433,7 +1505,7 @@ compare_sfs(proportional_sfs(a_finegoldii_14_empirical),
 
 # A. muciniphila
 plot_likelihood_surface('../Analysis/qp_gut_14/a_muciniphila_14.csv')
-a_muciniphila_14_empirical =  read_input_sfs(
+a_muciniphila_14_empirical = read_input_sfs_original(
   '../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_sfs.txt'
 )
 a_muciniphila_14_one_epoch = sfs_from_demography(
@@ -1456,7 +1528,7 @@ compare_sfs(proportional_sfs(a_muciniphila_14_empirical),
 
 # A. onderdonkii
 plot_likelihood_surface('../Analysis/qp_gut_14/a_onderdonkii_14.csv')
-a_onderdonkii_14_empirical =  read_input_sfs(
+a_onderdonkii_14_empirical = read_input_sfs_original(
   '../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_sfs.txt'
 )
 a_onderdonkii_14_one_epoch = sfs_from_demography(
@@ -1480,7 +1552,7 @@ compare_sfs(proportional_sfs(a_onderdonkii_14_empirical),
 
 # A. putredinis
 plot_likelihood_surface('../Analysis/qp_gut_14/a_putredinis_14.csv')
-a_putredinis_14_empirical =  read_input_sfs(
+a_putredinis_14_empirical = read_input_sfs_original(
   '../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_sfs.txt'
 )
 a_putredinis_14_one_epoch = sfs_from_demography(
@@ -1504,7 +1576,7 @@ compare_sfs(proportional_sfs(a_putredinis_14_empirical),
 
 # A. shahii
 plot_likelihood_surface('../Analysis/qp_gut_14/a_shahii_14.csv')
-a_shahii_14_empirical =  read_input_sfs(
+a_shahii_14_empirical = read_input_sfs_original(
   '../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_sfs.txt'
 )
 a_shahii_14_one_epoch = sfs_from_demography(
@@ -1527,7 +1599,7 @@ compare_sfs(proportional_sfs(a_shahii_14_empirical),
 
 # B. bacterium
 plot_likelihood_surface('../Analysis/qp_gut_14/b_bacterium_14.csv')
-b_bacterium_14_empirical =  read_input_sfs(
+b_bacterium_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_sfs.txt'
 )
 b_bacterium_14_one_epoch = sfs_from_demography(
@@ -1549,7 +1621,7 @@ compare_sfs(proportional_sfs(b_bacterium_14_empirical),
 
 # B. caccae
 plot_likelihood_surface('../Analysis/qp_gut_14/b_caccae_14.csv')
-b_caccae_14_empirical =  read_input_sfs(
+b_caccae_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_sfs.txt'
 )
 b_caccae_14_one_epoch = sfs_from_demography(
@@ -1571,7 +1643,7 @@ compare_sfs(proportional_sfs(b_caccae_14_empirical),
 
 # B. cellulosilyticus
 plot_likelihood_surface('../Analysis/qp_gut_14/b_cellulosilyticus_14.csv')
-b_cellulosilyticus_14_empirical =  read_input_sfs(
+b_cellulosilyticus_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_sfs.txt'
 )
 b_cellulosilyticus_14_one_epoch = sfs_from_demography(
@@ -1594,7 +1666,7 @@ compare_sfs(proportional_sfs(b_cellulosilyticus_14_empirical),
 
 #  B. fragilis
 plot_likelihood_surface('../Analysis/qp_gut_14/b_fragilis_14.csv')
-b_fragilis_14_empirical =  read_input_sfs(
+b_fragilis_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_sfs.txt'
 )
 b_fragilis_14_one_epoch = sfs_from_demography(
@@ -1617,7 +1689,7 @@ compare_sfs(proportional_sfs(b_fragilis_14_empirical),
 
 # B. intestinihominis
 plot_likelihood_surface('../Analysis/qp_gut_14/b_intestinihominis_14.csv')
-b_intestinihominis_14_empirical =  read_input_sfs(
+b_intestinihominis_14_empirical = read_input_sfs_original(
   '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_sfs.txt'
 )
 b_intestinihominis_14_one_epoch = sfs_from_demography(
@@ -1641,7 +1713,7 @@ compare_sfs(proportional_sfs(b_intestinihominis_14_empirical),
 
 # B. ovatus
 plot_likelihood_surface('../Analysis/qp_gut_14/b_ovatus_14.csv')
-b_ovatus_14_empirical =  read_input_sfs(
+b_ovatus_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_ovatus_58035_downsampled_14/empirical_sfs.txt'
 )
 b_ovatus_14_one_epoch = sfs_from_demography(
@@ -1664,7 +1736,7 @@ compare_sfs(proportional_sfs(b_ovatus_14_empirical),
 
 # B. thetaiotaomicron
 plot_likelihood_surface('../Analysis/qp_gut_14/b_thetaiotaomicron_14.csv')
-b_thetaiotaomicron_14_empirical =  read_input_sfs(
+b_thetaiotaomicron_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_sfs.txt'
 )
 b_thetaiotaomicron_14_one_epoch = sfs_from_demography(
@@ -1687,7 +1759,7 @@ compare_sfs(proportional_sfs(b_thetaiotaomicron_14_empirical),
 
 # B. uniformis
 plot_likelihood_surface('../Analysis/qp_gut_14/b_uniformis_14.csv')
-b_uniformis_14_empirical =  read_input_sfs(
+b_uniformis_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_sfs.txt'
 )
 b_uniformis_14_one_epoch = sfs_from_demography(
@@ -1710,7 +1782,7 @@ compare_sfs(proportional_sfs(b_uniformis_14_empirical),
 
 # B. vulgatus
 plot_likelihood_surface('../Analysis/qp_gut_14/b_vulgatus_14.csv')
-b_vulgatus_14_empirical =  read_input_sfs(
+b_vulgatus_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_sfs.txt'
 )
 b_vulgatus_14_one_epoch = sfs_from_demography(
@@ -1734,7 +1806,7 @@ compare_sfs(proportional_sfs(b_vulgatus_14_empirical),
 
 # B. xylanisolvens
 plot_likelihood_surface('../Analysis/qp_gut_14/b_xylanisolvens_14.csv')
-b_xylanisolvens_14_empirical =  read_input_sfs(
+b_xylanisolvens_14_empirical = read_input_sfs_original(
   '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_sfs.txt'
 )
 b_xylanisolvens_14_one_epoch = sfs_from_demography(
@@ -1758,7 +1830,7 @@ compare_sfs(proportional_sfs(b_xylanisolvens_14_empirical),
 
 # D. invisus
 plot_likelihood_surface('../Analysis/qp_gut_14/d_invisus_14.csv')
-d_invisus_14_empirical =  read_input_sfs(
+d_invisus_14_empirical = read_input_sfs_original(
   '../Analysis/Dialister_invisus_61905_downsampled_14/empirical_sfs.txt'
 )
 d_invisus_14_one_epoch = sfs_from_demography(
@@ -1781,7 +1853,7 @@ compare_sfs(proportional_sfs(d_invisus_14_empirical),
 
 # E. eligens
 plot_likelihood_surface('../Analysis/qp_gut_14/e_eligens_14.csv')
-e_eligens_14_empirical =  read_input_sfs(
+e_eligens_14_empirical = read_input_sfs_original(
   '../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_sfs.txt'
 )
 e_eligens_14_one_epoch = sfs_from_demography(
@@ -1805,7 +1877,7 @@ compare_sfs(proportional_sfs(e_eligens_14_empirical),
 
 # E. rectale
 plot_likelihood_surface('../Analysis/qp_gut_14/e_rectale_14.csv')
-e_rectale_14_empirical =  read_input_sfs(
+e_rectale_14_empirical = read_input_sfs_original(
   '../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_sfs.txt'
 )
 e_rectale_14_one_epoch = sfs_from_demography(
@@ -1828,7 +1900,7 @@ compare_sfs(proportional_sfs(e_rectale_14_empirical),
 
 # F. prausnitzii
 plot_likelihood_surface('../Analysis/qp_gut_14/f_prausnitzii_14.csv')
-f_prausnitzii_14_empirical =  read_input_sfs(
+f_prausnitzii_14_empirical = read_input_sfs_original(
   '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_sfs.txt'
 )
 f_prausnitzii_14_one_epoch = sfs_from_demography(
@@ -1851,7 +1923,7 @@ compare_sfs(proportional_sfs(f_prausnitzii_14_empirical),
 
 # Oscillibacter sp.
 plot_likelihood_surface('../Analysis/qp_gut_14/o_sp_14.csv')
-o_sp_14_empirical =  read_input_sfs(
+o_sp_14_empirical = read_input_sfs_original(
   '../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_sfs.txt'
 )
 o_sp_14_one_epoch = sfs_from_demography(
@@ -1874,7 +1946,7 @@ compare_sfs(proportional_sfs(o_sp_14_empirical),
 
 # o. splanchnicus
 plot_likelihood_surface('../Analysis/qp_gut_14/o_splanchnicus_14.csv')
-o_splanchnicus_14_empirical =  read_input_sfs(
+o_splanchnicus_14_empirical = read_input_sfs_original(
   '../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_sfs.txt'
 )
 o_splanchnicus_14_one_epoch = sfs_from_demography(
@@ -1897,7 +1969,7 @@ compare_sfs(proportional_sfs(o_splanchnicus_14_empirical),
 
 # P. copri
 plot_likelihood_surface('../Analysis/qp_gut_14/p_copri_14.csv')
-p_copri_14_empirical =  read_input_sfs(
+p_copri_14_empirical = read_input_sfs_original(
   '../Analysis/Prevotella_copri_61740_downsampled_14/empirical_sfs.txt'
 )
 p_copri_14_one_epoch = sfs_from_demography(
@@ -1920,7 +1992,7 @@ compare_sfs(proportional_sfs(p_copri_14_empirical),
 
 # P. distasonis
 plot_likelihood_surface('../Analysis/qp_gut_14/p_distasonis_14.csv')
-p_distasonis_14_empirical =  read_input_sfs(
+p_distasonis_14_empirical = read_input_sfs_original(
   '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_sfs.txt'
 )
 p_distasonis_14_one_epoch = sfs_from_demography(
@@ -1943,7 +2015,7 @@ compare_sfs(proportional_sfs(p_distasonis_14_empirical),
 
 # P. merdae
 plot_likelihood_surface('../Analysis/qp_gut_14/p_merdae_14.csv')
-p_merdae_14_empirical =  read_input_sfs(
+p_merdae_14_empirical = read_input_sfs_original(
   '../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_sfs.txt'
 )
 p_merdae_14_one_epoch = sfs_from_demography(
@@ -1966,7 +2038,7 @@ compare_sfs(proportional_sfs(p_merdae_14_empirical),
 
 # Phascolarctobacterium sp.
 plot_likelihood_surface('../Analysis/qp_gut_14/p_sp_14.csv')
-p_sp_14_empirical =  read_input_sfs(
+p_sp_14_empirical = read_input_sfs_original(
   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_sfs.txt'
 )
 p_sp_14_one_epoch = sfs_from_demography(
@@ -1989,7 +2061,7 @@ compare_sfs(proportional_sfs(p_sp_14_empirical),
 
 # R. bicirculans
 plot_likelihood_surface('../Analysis/qp_gut_14/r_bicirculans_14.csv')
-r_bicirculans_14_empirical =  read_input_sfs(
+r_bicirculans_14_empirical = read_input_sfs_original(
   '../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_sfs.txt'
 )
 r_bicirculans_14_one_epoch = sfs_from_demography(
@@ -2011,7 +2083,7 @@ compare_sfs(proportional_sfs(r_bicirculans_14_empirical),
 
 # R. bromii
 plot_likelihood_surface('../Analysis/qp_gut_14/r_bromii_14.csv')
-r_bromii_14_empirical =  read_input_sfs(
+r_bromii_14_empirical = read_input_sfs_original(
   '../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_sfs.txt'
 )
 r_bromii_14_one_epoch = sfs_from_demography(
@@ -4532,6 +4604,8 @@ compare_sfs(proportional_sfs(r_bromii_30_empirical),
             proportional_sfs(r_bromii_30_two_epoch)) +
   ggtitle('R. bromii Downsampled to 30')
 
+# Original empirical SFS with Clade Control
+
 plot_original_empirical_sfs(a_muciniphila_original_empirical) + ggtitle('A. muciniphila full empirical SFS (unfolded)')
 
 plot_original_empirical_sfs(fold_sfs(a_muciniphila_original_empirical)) + ggtitle('A. mucinaphila full empirical SFS (folded)')
@@ -4544,10 +4618,262 @@ compare_sfs(temp_x_axis,
             fold_sfs(a_muciniphila_original_empirical),
             fold_sfs(c(a_muciniphila_garud_good_empirical, 0, 0, 0, 0, 0, 0)))
 
-plot_original_empirical_sfs(a_finegoldii_original_empirical) + ggtitle('A. finegoldii full empirical SFS (unfolded)')
-plot_original_empirical_sfs(a_onderdonkii_original_empirical) + ggtitle('A. onderdonkii full empirical SFS (unfolded)')
+plot_original_empirical_sfs(a_muciniphila_original_empirical) + ggtitle('A. muciniphila full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(a_finegoldii_original_empirical) + ggtitle('A. finegoldii full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(a_onderdonkii_original_empirical) + ggtitle('A. onderdonkii full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(a_putredinis_original_empirical) + ggtitle('A. putredinis full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(a_shahii_original_empirical) + ggtitle('A. shahii full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_bacterium_original_empirical) + ggtitle('B. bacterium full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_caccae_original_empirical) + ggtitle('B. caccae full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_cellulosilyticus_original_empirical) + ggtitle('B. cellulosilyticus full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_fragilis_original_empirical) + ggtitle('B. fragilis full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_massiliensis_original_empirical) + ggtitle('B. massiliensis full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_ovatus_original_empirical) + ggtitle('B. ovatus full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_stercoris_original_empirical) + ggtitle('B. stercoris full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_thetaiotaomicron_original_empirical) + ggtitle('B. thetaiotaomicron full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_uniformis_original_empirical) + ggtitle('B. uniformis full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_vulgatus_original_empirical) + ggtitle('B. vulgatus full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_xylanisolvens_original_empirical) + ggtitle('B. xylanisolvens full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(b_intestinihominis_original_empirical) + ggtitle('B. intestinihominis full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(c_sp_original_empirical) + ggtitle('Coprococcus sp full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(d_invisus_original_empirical) + ggtitle('D. invisus full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(e_eligens_original_empirical) + ggtitle('E. eligens full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(e_rectale_original_empirical) + ggtitle('E. rectale full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(f_prausnitzii_original_empirical) + ggtitle('F. prausnitzii full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(o_splanchnicus_original_empirical) + ggtitle('O. splanchnicus full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(o_sp_original_empirical) + ggtitle('Oscillibacter sp full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(p_distasonis_original_empirical) + ggtitle('P. distasonis full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(p_merdae_original_empirical) + ggtitle('P. merdae full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(p_sp_original_empirical) + ggtitle('Phascolarctobacterium sp. full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(p_copri_original_empirical) + ggtitle('P. copri full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(r_bicirculans_original_empirical) + ggtitle('R. bicirculans full empirical SFS (unfolded + Clade Control)')
+plot_original_empirical_sfs(r_bromii_original_empirical) + ggtitle('R. bromii full empirical SFS (unfolded + Clade Control)')
+
+## Folded
+
+plot_original_empirical_sfs(fold_sfs(a_muciniphila_original_empirical)) + ggtitle('A. muciniphila full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_finegoldii_original_empirical)) + ggtitle('A. finegoldii full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_onderdonkii_original_empirical)) + ggtitle('A. onderdonkii full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_putredinis_original_empirical)) + ggtitle('A. putredinis full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_shahii_original_empirical)) + ggtitle('A. shahii full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_bacterium_original_empirical)) + ggtitle('B. bacterium full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_caccae_original_empirical)) + ggtitle('B. caccae full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_cellulosilyticus_original_empirical)) + ggtitle('B. cellulosilyticus full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_fragilis_original_empirical)) + ggtitle('B. fragilis full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_massiliensis_original_empirical)) + ggtitle('B. massiliensis full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_ovatus_original_empirical)) + ggtitle('B. ovatus full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_stercoris_original_empirical)) + ggtitle('B. stercoris full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_thetaiotaomicron_original_empirical)) + ggtitle('B. thetaiotaomicron full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_uniformis_original_empirical)) + ggtitle('B. uniformis full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_vulgatus_original_empirical)) + ggtitle('B. vulgatus full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_xylanisolvens_original_empirical)) + ggtitle('B. xylanisolvens full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_intestinihominis_original_empirical)) + ggtitle('B. intestinihominis full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(c_sp_original_empirical)) + ggtitle('Coprococcus sp full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(d_invisus_original_empirical)) + ggtitle('D. invisus full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(e_eligens_original_empirical)) + ggtitle('E. eligens full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(e_rectale_original_empirical)) + ggtitle('E. rectale full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(f_prausnitzii_original_empirical)) + ggtitle('F. prausnitzii full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(o_splanchnicus_original_empirical)) + ggtitle('O. splanchnicus full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(o_sp_original_empirical)) + ggtitle('Oscillibacter sp full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_distasonis_original_empirical)) + ggtitle('P. distasonis full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_merdae_original_empirical)) + ggtitle('P. merdae full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_sp_original_empirical)) + ggtitle('Phascolarctobacterium sp. full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_copri_original_empirical)) + ggtitle('P. copri full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(r_bicirculans_original_empirical)) + ggtitle('R. bicirculans full empirical SFS (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(r_bromii_original_empirical)) + ggtitle('R. bromii full empirical SFS (folded + Clade Control)')
 
 
+# SFS without Clade Control
+a_muciniphila_no_clade_control = read_input_sfs_original('../Analysis/Akkermansia_muciniphila_55290_no_clade_control/empirical_sfs.txt')
+a_finegoldii_no_clade_control = read_input_sfs_original('../Analysis/Alistipes_finegoldii_56071_no_clade_control/empirical_sfs.txt')
+a_onderdonkii_no_clade_control = read_input_sfs_original('../Analysis/Alistipes_onderdonkii_55464_no_clade_control/empirical_sfs.txt')
+a_putredinis_no_clade_control = read_input_sfs_original('../Analysis/Alistipes_putredinis_61533_no_clade_control/empirical_sfs.txt')
+a_shahii_no_clade_control = read_input_sfs_original('../Analysis/Alistipes_shahii_62199_no_clade_control/empirical_sfs.txt')
+b_bacterium_no_clade_control = read_input_sfs_original('../Analysis/Bacteroidales_bacterium_58650_no_clade_control/empirical_sfs.txt')
+b_caccae_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_caccae_53434_no_clade_control/empirical_sfs.txt')
+b_cellulosilyticus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_cellulosilyticus_58046_no_clade_control/empirical_sfs.txt')
+b_fragilis_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_fragilis_54507_no_clade_control/empirical_sfs.txt')
+b_massiliensis_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_massiliensis_44749_no_clade_control/empirical_sfs.txt')
+b_ovatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_ovatus_58035_no_clade_control/empirical_sfs.txt')
+b_stercoris_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_stercoris_56735_no_clade_control/empirical_sfs.txt')
+b_thetaiotaomicron_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_thetaiotaomicron_56941_no_clade_control/empirical_sfs.txt')
+b_uniformis_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_uniformis_57318_no_clade_control/empirical_sfs.txt')
+b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_vulgatus_57955_no_clade_control/empirical_sfs.txt')
+b_xylanisolvens_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_xylanisolvens_57185_no_clade_control/empirical_sfs.txt')
+b_intestinihominis_no_clade_control = read_input_sfs_original('../Analysis/Barnesiella_intestinihominis_62208_no_clade_control/empirical_sfs.txt')
+c_sp_no_clade_control = read_input_sfs_original('../Analysis/Coprococcus_sp_62244_no_clade_control/empirical_sfs.txt')
+d_invisus_no_clade_control = read_input_sfs_original('../Analysis/Dialister_invisus_61905_no_clade_control/empirical_sfs.txt')
+e_eligens_no_clade_control = read_input_sfs_original('../Analysis/Eubacterium_eligens_61678_no_clade_control/empirical_sfs.txt')
+e_rectale_no_clade_control = read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_no_clade_control/empirical_sfs.txt')
+f_prausnitzii_no_clade_control = read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_no_clade_control/empirical_sfs.txt')
+o_splanchnicus_no_clade_control = read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_no_clade_control/empirical_sfs.txt')
+o_sp_no_clade_control = read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_no_clade_control/empirical_sfs.txt')
+p_distasonis_no_clade_control = read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_no_clade_control/empirical_sfs.txt')
+p_merdae_no_clade_control = read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_no_clade_control/empirical_sfs.txt')
+p_sp_no_clade_control = read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_no_clade_control/empirical_sfs.txt')
+p_copri_no_clade_control = read_input_sfs_original('../Analysis/Prevotella_copri_61740_no_clade_control/empirical_sfs.txt')
+r_bicirculans_no_clade_control = read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_no_clade_control/empirical_sfs.txt')
+r_bromii_no_clade_control = read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_no_clade_control/empirical_sfs.txt')
+
+# Plotting SFS without Clade Control
+plot_original_empirical_sfs(a_muciniphila_no_clade_control) + ggtitle('A. muciniphila full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(a_finegoldii_no_clade_control) + ggtitle('A. finegoldii full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(a_onderdonkii_no_clade_control) + ggtitle('A. onderdonkii full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(a_putredinis_no_clade_control) + ggtitle('A. putredinis full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(a_shahii_no_clade_control) + ggtitle('A. shahii full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_bacterium_no_clade_control) + ggtitle('B. bacterium full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_caccae_no_clade_control) + ggtitle('B. caccae full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_cellulosilyticus_no_clade_control) + ggtitle('B. cellulosilyticus full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_fragilis_no_clade_control) + ggtitle('B. fragilis full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_massiliensis_no_clade_control) + ggtitle('B. massiliensis full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_ovatus_no_clade_control) + ggtitle('B. ovatus full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_stercoris_no_clade_control) + ggtitle('B. stercoris full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_thetaiotaomicron_no_clade_control) + ggtitle('B. thetaiotaomicron full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_uniformis_no_clade_control) + ggtitle('B. uniformis full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_vulgatus_no_clade_control) + ggtitle('B. vulgatus full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_xylanisolvens_no_clade_control) + ggtitle('B. xylanisolvens full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(b_intestinihominis_no_clade_control) + ggtitle('B. intestinihominis full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(c_sp_no_clade_control) + ggtitle('Coprococcus sp full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(d_invisus_no_clade_control) + ggtitle('D. invisus full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(e_eligens_no_clade_control) + ggtitle('E. eligens full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(e_rectale_no_clade_control) + ggtitle('E. rectale full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(f_prausnitzii_no_clade_control) + ggtitle('F. prausnitzii full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(o_splanchnicus_no_clade_control) + ggtitle('O. splanchnicus full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(o_sp_no_clade_control) + ggtitle('Oscillibacter sp full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(p_distasonis_no_clade_control) + ggtitle('P. distasonis full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(p_merdae_no_clade_control) + ggtitle('P. merdae full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(p_sp_no_clade_control) + ggtitle('Phascolarctobacterium sp. full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(p_copri_no_clade_control) + ggtitle('P. copri full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(r_bicirculans_no_clade_control) + ggtitle('R. bicirculans full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(r_bromii_no_clade_control) + ggtitle('R. bromii full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous()
+
+## Folded
+
+# Plotting SFS without Clade Control
+plot_original_empirical_sfs(fold_sfs(a_muciniphila_no_clade_control)) + ggtitle('A. muciniphila full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(a_finegoldii_no_clade_control)) + ggtitle('A. finegoldii full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(a_onderdonkii_no_clade_control)) + ggtitle('A. onderdonkii full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(a_putredinis_no_clade_control)) + ggtitle('A. putredinis full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(a_shahii_no_clade_control)) + ggtitle('A. shahii full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_bacterium_no_clade_control)) + ggtitle('B. bacterium full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_caccae_no_clade_control)) + ggtitle('B. caccae full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_cellulosilyticus_no_clade_control)) + ggtitle('B. cellulosilyticus full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_fragilis_no_clade_control)) + ggtitle('B. fragilis full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_massiliensis_no_clade_control)) + ggtitle('B. massiliensis full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_ovatus_no_clade_control)) + ggtitle('B. ovatus full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_stercoris_no_clade_control)) + ggtitle('B. stercoris full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_thetaiotaomicron_no_clade_control)) + ggtitle('B. thetaiotaomicron full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_uniformis_no_clade_control)) + ggtitle('B. uniformis full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_vulgatus_no_clade_control)) + ggtitle('B. vulgatus full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_xylanisolvens_no_clade_control)) + ggtitle('B. xylanisolvens full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(b_intestinihominis_no_clade_control)) + ggtitle('B. intestinihominis full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(c_sp_no_clade_control)) + ggtitle('Coprococcus sp full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(d_invisus_no_clade_control)) + ggtitle('D. invisus full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(e_eligens_no_clade_control)) + ggtitle('E. eligens full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(e_rectale_no_clade_control)) + ggtitle('E. rectale full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(f_prausnitzii_no_clade_control)) + ggtitle('F. prausnitzii full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(o_splanchnicus_no_clade_control)) + ggtitle('O. splanchnicus full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(o_sp_no_clade_control)) + ggtitle('Oscillibacter sp full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(p_distasonis_no_clade_control)) + ggtitle('P. distasonis full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(p_merdae_no_clade_control)) + ggtitle('P. merdae full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(p_sp_no_clade_control)) + ggtitle('Phascolarctobacterium sp. full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(p_copri_no_clade_control)) + ggtitle('P. copri full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(r_bicirculans_no_clade_control)) + ggtitle('R. bicirculans full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+plot_original_empirical_sfs(fold_sfs(r_bromii_no_clade_control)) + ggtitle('R. bromii full empirical SFS (folded with no Clade Control)') +
+  scale_x_continuous()
+
+# Plot SFS downsampled to 14
+plot_original_empirical_sfs(fold_sfs(a_muciniphila_14_empirical)) + ggtitle('A. muciniphila downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_finegoldii_14_empirical)) + ggtitle('A. finegoldii downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_onderdonkii_14_empirical)) + ggtitle('A. onderdonkii downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_putredinis_14_empirical)) + ggtitle('A. putredinis downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(a_shahii_14_empirical)) + ggtitle('A. shahii downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_bacterium_14_empirical)) + ggtitle('B. bacterium downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_caccae_14_empirical)) + ggtitle('B. caccae downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_cellulosilyticus_14_empirical)) + ggtitle('B. cellulosilyticus downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_fragilis_14_empirical)) + ggtitle('B. fragilis downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_massiliensis_14_empirical)) + ggtitle('B. massiliensis downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_ovatus_14_empirical)) + ggtitle('B. ovatus downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_stercoris_14_empirical)) + ggtitle('B. stercoris downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_thetaiotaomicron_14_empirical)) + ggtitle('B. thetaiotaomicron downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_uniformis_14_empirical)) + ggtitle('B. uniformis downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_vulgatus_14_empirical)) + ggtitle('B. vulgatus downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_xylanisolvens_14_empirical)) + ggtitle('B. xylanisolvens downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(b_intestinihominis_14_empirical)) + ggtitle('B. intestinihominis downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(c_sp_14_empirical)) + ggtitle('Coprococcus sp downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(d_invisus_14_empirical)) + ggtitle('D. invisus downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(e_eligens_14_empirical)) + ggtitle('E. eligens downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(e_rectale_14_empirical)) + ggtitle('E. rectale downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(f_prausnitzii_14_empirical)) + ggtitle('F. prausnitzii downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(o_splanchnicus_14_empirical)) + ggtitle('O. splanchnicus downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(o_sp_14_empirical)) + ggtitle('Oscillibacter sp downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_distasonis_14_empirical)) + ggtitle('P. distasonis downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_merdae_14_empirical)) + ggtitle('P. merdae downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_sp_14_empirical)) + ggtitle('Phascolarctobacterium sp. downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(p_copri_14_empirical)) + ggtitle('P. copri downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(r_bicirculans_14_empirical)) + ggtitle('R. bicirculans downsampled to 14 (folded + Clade Control)')
+plot_original_empirical_sfs(fold_sfs(r_bromii_14_empirical)) + ggtitle('R. bromii full empirical SFS (folded + Clade Control))')
+
+# B. fragilis UHGG test
 b_fragilis_1 = read_input_sfs_original('../Data/UHGG_SFS/1__output_sfs.txt')
 b_fragilis_2 = read_input_sfs_original('../Data/UHGG_SFS/2__output_sfs.txt')
 b_fragilis_3 = read_input_sfs_original('../Data/UHGG_SFS/3__output_sfs.txt')

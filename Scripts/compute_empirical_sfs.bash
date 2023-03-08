@@ -20,4 +20,5 @@ do
    fi
 done < ../Data/good_species_list.txt
 
-python compute_empirical_sfs.py ../Analysis/${species}_downsampled_10/downsampled_sfs.csv ../Analysis/${species}_downsampled_10/
+python compute_empirical_sfs.py ../Analysis/${species}_downsampled_10/syn_sfs.csv ../Analysis/${species}_downsampled_10/syn
+python compute_empirical_sfs.py ../Analysis/${species}_downsampled_10/nonsyn_sfs.csv ../Analysis/${species}_downsampled_10/nonsyn

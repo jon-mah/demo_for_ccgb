@@ -212,15 +212,22 @@ class ComputeDownSampledSFS():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        output_matrix = \
-            '{0}{1}downsampled_sfs.csv'.format(
+        output_syn_matrix = \
+            '{0}{1}syn_sfs.csv'.format(
                 args['outprefix'], underscore, species)
-        empirical_sfs = \
-           '{0}{1}empirical_sfs.txt'.format(
+        downsampled_syn_sfs = \
+           '{0}{1}downsampled_syn_sfs.txt'.format(
+                args['outprefix'], underscore, species)
+        output_nonsyn_matrix = \
+            '{0}{1}nonsyn_sfs.csv'.format(
+                args['outprefix'], underscore, species)
+        downsampled_nonsyn_sfs = \
+           '{0}{1}downsampled_syn_sfs.txt'.format(
                 args['outprefix'], underscore, species)
         logfile = '{0}{1}downsampling.log'.format(
             args['outprefix'], underscore, species)
-        to_remove = [output_matrix, logfile, empirical_sfs]
+        to_remove = [output_syn_matrix, logfile, downsampled_syn_sfs,
+                     output_nonsyn_matrix, downsampled_nonsyn_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -291,7 +298,9 @@ class ComputeDownSampledSFS():
         lower_threshold = 0.2
         upper_threshold = 0.8
 
-        with open(output_matrix, 'w+') as f:
+        logger.info('Formatting intermediate files.')
+        # Compute donwsampled synonymous SFS
+        with open(output_syn_matrix, 'w+') as f:
             header = 'Bacl' + '\t' + 'Dsim' + '\t' + 'Allele1' + '\t' + 'BAC' + '\t' + 'Allele2' + '\t' + 'BAC'+ '\t' + 'SNPid'
             f.write(header + '\n')
         for gene_name in allele_counts_map:
@@ -313,7 +322,7 @@ class ComputeDownSampledSFS():
                 allele_counts, lower_threshold, upper_threshold)
             num_sites = passed_sites_matrix.shape[0]
             num_samples = passed_sites_matrix.shape[1]
-            with open(output_matrix, 'a+') as f:
+            with open(output_syn_matrix, 'a+') as f:
                 for i in range(0, num_sites):
                     site_id = gene_name + '.site.' + str(i+1)
                     alts = int(sum(genotype_matrix[i]))
@@ -324,11 +333,49 @@ class ComputeDownSampledSFS():
                     string = string + '\t' + site_id + '\n'
                     f.write(string)
 
-        dadi_dict = dadi.Misc.make_data_dict(output_matrix)
-        syn_data = dadi.Spectrum.from_data_dict(dadi_dict, ['BAC'], [sample_size], polarized=False)
+        # Downsample the nonsynonmous SFS
+        allowed_variant_types = '1D'
+        with open(output_nonsyn_matrix, 'w+') as f:
+            header = 'Bacl' + '\t' + 'Dsim' + '\t' + 'Allele1' + '\t' + 'BAC' + '\t' + 'Allele2' + '\t' + 'BAC'+ '\t' + 'SNPid'
+            f.write(header + '\n')
+        for gene_name in allele_counts_map:
+            for variant_type in allele_counts_map[gene_name].keys():
+                if variant_type not in allowed_variant_types:
+                    continue
+                allele_counts = allele_counts_map[gene_name][variant_type]['alleles']
+            if len(allele_counts)==0:
+                continue
+            allele_counts = allele_counts
+            # passed_sites_matrix = boolean of whether a site passes or note
+            # genotype_matrix = 1 or 0, 1 --> alt allele, 0 --> reference or false in passed sites_matrix
+            # output alt ref fail depth
+            # For each site, you want to know (1) how many samples have alternate allele
+            # (freq>0.8, (2) how many samples have reference allele (freq>0.8),
+            # and (3) how many samples have 0 coverage
+            # site number --> gene + position within gene
+            genotype_matrix, passed_sites_matrix = diversity_utils.calculate_consensus_genotypes(
+                allele_counts, lower_threshold, upper_threshold)
+            num_sites = passed_sites_matrix.shape[0]
+            num_samples = passed_sites_matrix.shape[1]
+            with open(output_nonsyn_matrix, 'a+') as f:
+                for i in range(0, num_sites):
+                    site_id = gene_name + '.site.' + str(i+1)
+                    alts = int(sum(genotype_matrix[i]))
+                    fails = int(sum(numpy.invert(passed_sites_matrix[i])))
+                    refs = int(len(genotype_matrix[i]) - fails - alts)
+                    string = '-A-' + '\t' + '---' + '\t' + 'A' + '\t'
+                    string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)
+                    string = string + '\t' + site_id + '\n'
+                    f.write(string)
+
+        logger.info('Formatting output SFSs.')
+        dadi_syn_dict = dadi.Misc.make_data_dict(output_syn_matrix)
+        syn_data = dadi.Spectrum.from_data_dict(dadi_syn_dict, ['BAC'], [sample_size], polarized=False)
+        dadi_nonsyn_dict = dadi.Misc.make_data_dict(output_nonsyn_matrix)
+        nonsyn_data = dadi.Spectrum.from_data_dict(dadi_nonsyn_dict, ['BAC'], [sample_size], polarized=False)
         # syn_data.mask[1] = True
         syn_data.mask[1] = False
-        syn_data.to_file(empirical_sfs)
+        syn_data.to_file(downsampled_syn_sfs)
         logger.info('Finished downsampling.')
         logger.info('Pipeline executed succesfully.')
 
