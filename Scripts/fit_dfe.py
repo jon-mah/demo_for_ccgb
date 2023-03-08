@@ -173,15 +173,46 @@ class DFEInference():
                               verbose=True, cpus=1)
 
         logger.info('Fitting DFE.')
-        sel_params = [0.2, 10.]
-        lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
-        p0 = dadi.Misc.perturb_params(sel_params,
-                                      lower_bound=lower_bound,
-                                      upper_bound=upper_bound)
-        popt = dadi.Inference.optimize(p0, nonsyn_data, spectra.integrate, pts=None,
-                                       func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                                       verbose=len(sel_params), maxiter=10,
-                                       multinom=False)
+        #sel_params = [0.2, 10.]
+        initial_guesses = []
+        initial_guesses.append([0.2, 0.001])
+        initial_guesses.append([0.2, 0.01])
+        initial_guesses.append([0.2, 0.1])
+        initial_guesses.append([0.2, 1.])
+        initial_guesses.append([0.2, 10.])
+        initial_guesses.append([0.2, 100])
+        initial_guesses.append([0.2, 1000])
+        initial_guesses.append([0.2, 10000])
+        initial_guesses.append([1., 0.001])
+        initial_guesses.append([1., 0.01])
+        initial_guesses.append([1., 0.1])
+        initial_guesses.append([1., 1.])
+        initial_guesses.append([1., 10.])
+        initial_guesses.append([1., 100])
+        initial_guesses.append([1., 1000])
+        initial_guesses.append([1., 10000])
+        initial_guesses.append([5., 0.001])
+        initial_guesses.append([5., 0.01])
+        initial_guesses.append([5., 0.1])
+        initial_guesses.append([5., 1.])
+        initial_guesses.append([5., 10.])
+        initial_guesses.append([5., 100])
+        initial_guesses.append([5., 1000])
+        initial_guesses.append([5., 10000])
+
+
+        for i in range(1):
+            sel_params = initial_guesses[i]
+            lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
+            p0 = dadi.Misc.perturb_params(
+                sel_params, lower_bound=None, upper_bound=None)
+            popt = dadi.Inference.optimize_log_lbfgsb(p0, nonsyn_data,
+                spectra.integrate, pts=None,
+                func_args=[DFE.PDFs.gamma, theta_nonsyn],
+                verbose=len(sel_params), maxiter=10,
+                multinom=True)
+
+        print(popt)
 
         logger.info('Integrating expected site-frequency spectrum.')
         model_sfs = spectra.integrate(
