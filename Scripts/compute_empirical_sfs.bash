@@ -8,7 +8,7 @@
 #$ -t 1-30
 #$ -N compute_empirical_sfs
 
-# SGE_TASK_ID=1
+SGE_TASK_ID=1
 
 i=0
 while read line;
@@ -20,5 +20,7 @@ do
    fi
 done < ../Data/good_species_list.txt
 
-python compute_empirical_sfs.py ../Analysis/${species}_downsampled_10/syn_sfs.csv ../Analysis/${species}_downsampled_10/syn
-python compute_empirical_sfs.py ../Analysis/${species}_downsampled_10/nonsyn_sfs.csv ../Analysis/${species}_downsampled_10/nonsyn
+sample_size=10
+
+python compute_empirical_sfs.py ../Analysis/${species}_downsampled_${sample_size}/syn_sfs.csv ../Analysis/${species}_downsampled_${sample_size}/syn
+python compute_empirical_sfs.py ../Analysis/${species}_downsampled_${sample_size}/nonsyn_sfs.csv ../Analysis/${species}_downsampled_${sample_size}/nonsyn

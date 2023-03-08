@@ -22,4 +22,6 @@ do
   fi
 done < ../Data/good_species_list.txt
 
-python fit_dfe.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt ../Analysis/${species}_downsampled_14/empirical_nonsyn_sfs.txt ../Analysis/${species}_downsampled_14/two_epoch_demography.txt ../Analysis/${species}_downsampled_14/
+sample_size=14
+
+python fit_dfe.py ../Analysis/${species}_downsampled_${sample_size}/downsampled_syn_sfs.txt ../Analysis/${species}_downsampled_${sample_size}/downsampled_nonsyn_sfs.txt ../Analysis/${species}_downsampled_${sample_size}/two_epoch_demography.txt ../Analysis/${species}_downsampled_${sample_size}/

@@ -222,7 +222,7 @@ class ComputeDownSampledSFS():
             '{0}{1}nonsyn_sfs.csv'.format(
                 args['outprefix'], underscore, species)
         downsampled_nonsyn_sfs = \
-           '{0}{1}downsampled_syn_sfs.txt'.format(
+           '{0}{1}downsampled_nonsyn_sfs.txt'.format(
                 args['outprefix'], underscore, species)
         logfile = '{0}{1}downsampling.log'.format(
             args['outprefix'], underscore, species)
@@ -373,9 +373,8 @@ class ComputeDownSampledSFS():
         syn_data = dadi.Spectrum.from_data_dict(dadi_syn_dict, ['BAC'], [sample_size], polarized=False)
         dadi_nonsyn_dict = dadi.Misc.make_data_dict(output_nonsyn_matrix)
         nonsyn_data = dadi.Spectrum.from_data_dict(dadi_nonsyn_dict, ['BAC'], [sample_size], polarized=False)
-        # syn_data.mask[1] = True
-        syn_data.mask[1] = False
         syn_data.to_file(downsampled_syn_sfs)
+        nonsyn_data.to_file(downsampled_nonsyn_sfs)
         logger.info('Finished downsampling.')
         logger.info('Pipeline executed succesfully.')
 

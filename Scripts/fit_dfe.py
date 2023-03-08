@@ -93,7 +93,7 @@ class DFEInference():
         mask_doubletons = args['mask_doubletons']
 
         # Numpy options
-        numpy.set_printoptions(linewidth=numpy.inf)
+        np.set_printoptions(linewidth=np.inf)
 
         # create output directory if needed
         outdir = os.path.dirname(args['outprefix'])
@@ -140,7 +140,7 @@ class DFEInference():
 
         # Construct initial Spectrum object from input sfs's.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs)
-        nonsyn_dad = dadi.Spectrum.from_file(nonsyn_input_sfs)
+        nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs)
         if mask_singletons:
             syn_data.mask[1] = True
         if mask_doubletons:
@@ -148,24 +148,48 @@ class DFEInference():
         syn_ns = syn_data.sample_sizes # Number of samples.
         nonsyn_ns = nonsyn_data.sample_sizes # Number of samples
 
-        logger.info('Loading input demography')
+        logger.info('Loading input demography.')
         with open(input_demography, 'r') as f:
             lines = [line for line in f]
 
         for line in lines:
             if 'Best fit parameters:' in line:
-                demog_params = str(line.split(': ')[1])[:-1]
-                demog_params = as.literal_eval(demog_params)
-        print(demog_params)
-
+                demog_params = str(line.split(': ')[1])
+                demog_params = demog_params[1:-3].split(' ')
+                demog_params = [float(i) for i in demog_params]
+            if 'Optimal value of theta_syn:' in line:
+                theta_syn = str(line.split(': ')[1])
+                theta_syn = theta_syn[0:-2]
+                theta_syn = float(theta_syn)
+        logger.info('Input demographic parameters are: ' +
+                    str(demog_params) + '.')
+        logger.info('Input theta_syn is: ' + str(theta_syn) + '.')
+        theta_nonsyn = theta_syn * 2.31
 
         pts_l = [1200, 1400, 1600]
+        logger.info('Generating spectrum from input demography.')
+        spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
+                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+                              verbose=True, cpus=1)
 
+        logger.info('Fitting DFE.')
+        sel_params = [0.2, 10.]
+        lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
+        p0 = dadi.Misc.perturb_params(sel_params,
+                                      lower_bound=lower_bound,
+                                      upper_bound=upper_bound)
+        popt = dadi.Inference.optimize(p0, nonsyn_data, spectra.integrate, pts=None,
+                                       func_args=[DFE.PDFs.gamma, theta_nonsyn],
+                                       verbose=len(sel_params), maxiter=10,
+                                       multinom=False)
 
-        # theta_nonsyn = theta_syn * 2.31
         logger.info('Integrating expected site-frequency spectrum.')
-        # model_sfs = spectra.integrate(
-        #    popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
+        model_sfs = spectra.integrate(
+            popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
+
+        print(nonsyn_data)
+        print(model_sfs)
+        print(model_sfs.fold())
 
         logger.info('Outputting results.')
 
@@ -174,20 +198,20 @@ class DFEInference():
         #     f.write('Outputting MLE estimates in order.\n')
         #     for i in range(25):
         #         best_popt = gamma_guesses[gamma_max_likelihoods[i]]
-        #        # Compute model SFS under inferred DFE
+        #         # Compute model SFS under inferred DFE
         #         expected_sfs = spectra.integrate(
         #             best_popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
         #         f.write('The population-scaled '
-        #                'best-fit parameters: {0}.\n'.format(best_popt))
-        #        # Divide output scale parameter by 2 * N_a
+        #                 'best-fit parameters: {0}.\n'.format(best_popt))
+        #         # Divide output scale parameter by 2 * N_a
         #         f.write(
         #             'The non-scaled best-fit parameters: '
-        #            '[{0}, array({1})].\n'.format(
+        #             '[{0}, array({1})].\n'.format(
         #                best_popt[0],
         #                numpy.divide(best_popt[1],
         #                              numpy.array([1, 2 * Na]))))
-        #        f.write('The expected SFS is: {0}.\n\n'.format(
-        #            expected_sfs))
+        #         f.write('The expected SFS is: {0}.\n\n'.format(
+        #             expected_sfs))
         logger.info('Pipeline executed succesfully.')
 
 if __name__ == '__main__':
