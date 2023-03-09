@@ -173,7 +173,7 @@ class DFEInference():
                               verbose=True, cpus=1)
 
         logger.info('Fitting DFE.')
-        #sel_params = [0.2, 10.]
+        # sel_params = [0.2, 10.]
         initial_guesses = []
         initial_guesses.append([0.2, 0.001])
         initial_guesses.append([0.2, 0.01])
@@ -199,50 +199,73 @@ class DFEInference():
         initial_guesses.append([5., 100])
         initial_guesses.append([5., 1000])
         initial_guesses.append([5., 10000])
+        initial_guesses.append([1., 1.])
 
-
-        for i in range(1):
+        max_ll = -100000000000
+        for i in range(25):
             sel_params = initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
             p0 = dadi.Misc.perturb_params(
-                sel_params, lower_bound=None, upper_bound=None)
-            popt = dadi.Inference.optimize_log_lbfgsb(p0, nonsyn_data,
+                sel_params, lower_bound=lower_bound,
+                upper_bound=upper_bound)
+            popt = dadi.Inference.optimize_log(p0, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
                 verbose=len(sel_params), maxiter=10,
-                multinom=True)
+                multinom=False)
+            model_sfs = spectra.integrate(
+                popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
+            this_ll = dadi.Inference.ll(model_sfs, nonsyn_data)
+            if this_ll > max_ll:
+                best_model = model_sfs
+                max_ll = this_ll
+                best_params = popt
 
-        print(popt)
+        logger.info('Computing intermediate summary statistics.')
 
-        logger.info('Integrating expected site-frequency spectrum.')
-        model_sfs = spectra.integrate(
-            popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
+        # Compute L_syn from input_syn_sfs
+        # L_syn is given as the sum of allele counts for the input
+        # synonymous SFS.
+        with open(syn_input_sfs, 'r') as f:
+            syn_sfs_lines = [line for line in f]
+            syn_sfs_array = syn_sfs_lines[1].split(' ')
+            syn_sfs_array = [float(i) for i in syn_sfs_array]
 
-        print(nonsyn_data)
-        print(model_sfs)
-        print(model_sfs.fold())
+        # Compute scaling factor of params, i.e., 2 * Na
+        L_syn = np.sum(syn_sfs_array)
+        mu_high = 6.93E-10 # High estimate of mutation rate
+        mu_low = 4.08E-10 # Low estimate of mutation rate
+        Ne_low = theta_syn / 4 / L_syn / mu_high
+        Ne_high = theta_syn / 4 / L_syn / mu_low
+        Na_low = Ne_low / float(demog_params[0])
+        Na_high = Ne_high / float(demog_params[0])
 
         logger.info('Outputting results.')
 
-        # with open(inferred_DFE, 'w') as f:
-        #     f.write('Assuming a gamma-distributed DFE...\n')
-        #     f.write('Outputting MLE estimates in order.\n')
-        #     for i in range(25):
-        #         best_popt = gamma_guesses[gamma_max_likelihoods[i]]
-        #         # Compute model SFS under inferred DFE
-        #         expected_sfs = spectra.integrate(
-        #             best_popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
-        #         f.write('The population-scaled '
-        #                 'best-fit parameters: {0}.\n'.format(best_popt))
-        #         # Divide output scale parameter by 2 * N_a
-        #         f.write(
-        #             'The non-scaled best-fit parameters: '
-        #             '[{0}, array({1})].\n'.format(
-        #                best_popt[0],
-        #                numpy.divide(best_popt[1],
-        #                              numpy.array([1, 2 * Na]))))
-        #         f.write('The expected SFS is: {0}.\n\n'.format(
-        #             expected_sfs))
+        with open(inferred_DFE, 'w') as f:
+            f.write('Assuming a gamma-distributed DFE...\n')
+            f.write('The maximum likelihood is: ' + 
+                    str(max_ll) +  '.\n')
+            f.write('The maximum likelihood scaled ' +
+                    'gamma-distributed DFE is parameterized ' +
+                    'as: ' + str(best_params)  + '.\n')
+            # Non-scaled params are divided by
+            f.write(
+                'The maximum likelihood parameters have a high '
+                'estimate of: '
+                '[{0}].\n'.format(
+                    np.divide(best_params,
+                              np.array([1, 2 * Na_low]))))
+            f.write(
+                'The maximum likelihood parameters have a low '
+                'estimate of: '
+                '[{0}].\n'.format(
+                    np.divide(best_params,
+                              np.array([1, 2 * Na_high]))))
+            f.write('The empirical nonsynonymous SFS is: ' +
+                    str(nonsyn_data) + '.\n')
+            f.write('The best fit model SFS is: ' +
+                    str(best_model.fold()) + '.\n')
         logger.info('Pipeline executed succesfully.')
 
 if __name__ == '__main__':

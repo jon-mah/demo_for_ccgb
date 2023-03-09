@@ -1,8 +1,8 @@
-2023-03-08 14:16:41,078 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-03-09 11:56:42,574 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-03-08 14:16:41,078 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/log.log
+2023-03-09 11:56:42,574 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/log.log
 
-2023-03-08 14:16:41,078 - INFO - Parsed the following arguments:
+2023-03-09 11:56:42,574 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/downsampled_syn_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/downsampled_nonsyn_sfs.txt
 	input_demography = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/two_epoch_demography.txt
@@ -10,11 +10,26 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/
 
-2023-03-08 14:16:41,079 - INFO - Loading input demography.
-2023-03-08 14:16:41,080 - INFO - Input demographic parameters are: [0.41438585, 0.18521499].
-2023-03-08 14:16:41,080 - INFO - Input theta_syn is: 9498.708216934592.
-2023-03-08 14:16:41,080 - INFO - Generating spectrum from input demography.
-2023-03-08 14:16:46,674 - INFO - Fitting DFE.
-2023-03-08 14:16:47,552 - INFO - Integrating expected site-frequency spectrum.
-2023-03-08 14:16:47,600 - INFO - Outputting results.
-2023-03-08 14:16:47,600 - INFO - Pipeline executed succesfully.
+2023-03-09 11:56:42,575 - INFO - Loading input demography.
+2023-03-09 11:56:42,575 - INFO - Input demographic parameters are: [0.41438585, 0.18521499].
+2023-03-09 11:56:42,575 - INFO - Input theta_syn is: 9498.708216934592.
+2023-03-09 11:56:42,576 - INFO - Generating spectrum from input demography.
+2023-03-09 11:56:46,386 - INFO - Fitting DFE.
+2023-03-09 11:56:46,599 - WARNING - Warning: converting a masked element to nan.
+2023-03-09 11:56:50,836 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-03-09 11:56:54,139 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-03-09 11:56:57,617 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 11:57:15,701 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 11:57:29,386 - INFO - Computing intermediate summary statistics.
+2023-03-09 11:57:29,389 - INFO - Outputting results.
+2023-03-09 11:57:29,409 - INFO - Pipeline executed succesfully.
