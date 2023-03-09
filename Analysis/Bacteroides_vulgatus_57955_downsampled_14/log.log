@@ -1,138 +1,62 @@
-2023-02-17 16:53:42,295 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-03-09 13:09:38,153 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-02-17 16:53:42,295 - INFO - Progress is being logged to ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/log.log
+2023-03-09 13:09:38,153 - INFO - Progress is being logged to ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/log.log
 
-2023-02-17 16:53:42,295 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_sfs.txt
+2023-03-09 13:09:38,153 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/downsampled_syn_sfs.txt
+	nonsyn_input_sfs = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/downsampled_nonsyn_sfs.txt
+	input_demography = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/
 
-2023-02-17 16:53:42,310 - INFO - Beginning demographic inference for one-epoch demographic model.
-2023-02-17 16:53:42,312 - INFO - Beginning optimization with guess, [0.05134747].
-2023-02-17 16:53:42,418 - INFO - Finished optimization with guess, [0.05134747].
-2023-02-17 16:53:42,418 - INFO - Best fit parameters: [0.05134747].
-2023-02-17 16:53:42,472 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:42,473 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:42,473 - INFO - Beginning optimization with guess, [0.27958205].
-2023-02-17 16:53:42,579 - INFO - Finished optimization with guess, [0.27958205].
-2023-02-17 16:53:42,580 - INFO - Best fit parameters: [0.27958205].
-2023-02-17 16:53:42,617 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:42,618 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:42,618 - INFO - Beginning optimization with guess, [0.20717656].
-2023-02-17 16:53:42,682 - INFO - Finished optimization with guess, [0.20717656].
-2023-02-17 16:53:42,682 - INFO - Best fit parameters: [0.20717656].
-2023-02-17 16:53:42,713 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:42,714 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:42,714 - INFO - Beginning optimization with guess, [0.45417516].
-2023-02-17 16:53:42,776 - INFO - Finished optimization with guess, [0.45417516].
-2023-02-17 16:53:42,776 - INFO - Best fit parameters: [0.45417516].
-2023-02-17 16:53:42,807 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:42,808 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:42,808 - INFO - Beginning optimization with guess, [0.38586471].
-2023-02-17 16:53:42,870 - INFO - Finished optimization with guess, [0.38586471].
-2023-02-17 16:53:42,870 - INFO - Best fit parameters: [0.38586471].
-2023-02-17 16:53:42,901 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:42,902 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:42,902 - INFO - Beginning optimization with guess, [0.3089715].
-2023-02-17 16:53:42,965 - INFO - Finished optimization with guess, [0.3089715].
-2023-02-17 16:53:42,965 - INFO - Best fit parameters: [0.3089715].
-2023-02-17 16:53:42,996 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:42,996 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:42,997 - INFO - Beginning optimization with guess, [1.3844524].
-2023-02-17 16:53:43,059 - INFO - Finished optimization with guess, [1.3844524].
-2023-02-17 16:53:43,059 - INFO - Best fit parameters: [1.3844524].
-2023-02-17 16:53:43,090 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,091 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,091 - INFO - Beginning optimization with guess, [0.41704947].
-2023-02-17 16:53:43,153 - INFO - Finished optimization with guess, [0.41704947].
-2023-02-17 16:53:43,153 - INFO - Best fit parameters: [0.41704947].
-2023-02-17 16:53:43,184 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,185 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,185 - INFO - Beginning optimization with guess, [0.55500843].
-2023-02-17 16:53:43,255 - INFO - Finished optimization with guess, [0.55500843].
-2023-02-17 16:53:43,256 - INFO - Best fit parameters: [0.55500843].
-2023-02-17 16:53:43,287 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,287 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,288 - INFO - Beginning optimization with guess, [1.97172849].
-2023-02-17 16:53:43,351 - INFO - Finished optimization with guess, [1.97172849].
-2023-02-17 16:53:43,351 - INFO - Best fit parameters: [1.97172849].
-2023-02-17 16:53:43,382 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,382 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,383 - INFO - Beginning optimization with guess, [1.92977904].
-2023-02-17 16:53:43,445 - INFO - Finished optimization with guess, [1.92977904].
-2023-02-17 16:53:43,445 - INFO - Best fit parameters: [1.92977904].
-2023-02-17 16:53:43,476 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,476 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,477 - INFO - Beginning optimization with guess, [0.91633801].
-2023-02-17 16:53:43,538 - INFO - Finished optimization with guess, [0.91633801].
-2023-02-17 16:53:43,539 - INFO - Best fit parameters: [0.91633801].
-2023-02-17 16:53:43,570 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,570 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,571 - INFO - Beginning optimization with guess, [2.73654906].
-2023-02-17 16:53:43,633 - INFO - Finished optimization with guess, [2.73654906].
-2023-02-17 16:53:43,633 - INFO - Best fit parameters: [2.73654906].
-2023-02-17 16:53:43,664 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,664 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,664 - INFO - Beginning optimization with guess, [1.09768217].
-2023-02-17 16:53:43,727 - INFO - Finished optimization with guess, [1.09768217].
-2023-02-17 16:53:43,727 - INFO - Best fit parameters: [1.09768217].
-2023-02-17 16:53:43,758 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,758 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,759 - INFO - Beginning optimization with guess, [3.1501057].
-2023-02-17 16:53:43,821 - INFO - Finished optimization with guess, [3.1501057].
-2023-02-17 16:53:43,821 - INFO - Best fit parameters: [3.1501057].
-2023-02-17 16:53:43,852 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,852 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,852 - INFO - Beginning optimization with guess, [2.40822755].
-2023-02-17 16:53:43,914 - INFO - Finished optimization with guess, [2.40822755].
-2023-02-17 16:53:43,915 - INFO - Best fit parameters: [2.40822755].
-2023-02-17 16:53:43,945 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:43,946 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:43,946 - INFO - Beginning optimization with guess, [2.20039931].
-2023-02-17 16:53:44,008 - INFO - Finished optimization with guess, [2.20039931].
-2023-02-17 16:53:44,008 - INFO - Best fit parameters: [2.20039931].
-2023-02-17 16:53:44,039 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,040 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,040 - INFO - Beginning optimization with guess, [1.98323379].
-2023-02-17 16:53:44,102 - INFO - Finished optimization with guess, [1.98323379].
-2023-02-17 16:53:44,103 - INFO - Best fit parameters: [1.98323379].
-2023-02-17 16:53:44,134 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,134 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,134 - INFO - Beginning optimization with guess, [4.21008689].
-2023-02-17 16:53:44,196 - INFO - Finished optimization with guess, [4.21008689].
-2023-02-17 16:53:44,197 - INFO - Best fit parameters: [4.21008689].
-2023-02-17 16:53:44,227 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,228 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,228 - INFO - Beginning optimization with guess, [5.98797818].
-2023-02-17 16:53:44,290 - INFO - Finished optimization with guess, [5.98797818].
-2023-02-17 16:53:44,291 - INFO - Best fit parameters: [5.98797818].
-2023-02-17 16:53:44,321 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,322 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,322 - INFO - Beginning optimization with guess, [4.70619527].
-2023-02-17 16:53:44,384 - INFO - Finished optimization with guess, [4.70619527].
-2023-02-17 16:53:44,384 - INFO - Best fit parameters: [4.70619527].
-2023-02-17 16:53:44,415 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,416 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,416 - INFO - Beginning optimization with guess, [2.57760098].
-2023-02-17 16:53:44,478 - INFO - Finished optimization with guess, [2.57760098].
-2023-02-17 16:53:44,478 - INFO - Best fit parameters: [2.57760098].
-2023-02-17 16:53:44,509 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,509 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,510 - INFO - Beginning optimization with guess, [6.89736161].
-2023-02-17 16:53:44,571 - INFO - Finished optimization with guess, [6.89736161].
-2023-02-17 16:53:44,572 - INFO - Best fit parameters: [6.89736161].
-2023-02-17 16:53:44,602 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,603 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,603 - INFO - Beginning optimization with guess, [8.16443859].
-2023-02-17 16:53:44,665 - INFO - Finished optimization with guess, [8.16443859].
-2023-02-17 16:53:44,665 - INFO - Best fit parameters: [8.16443859].
-2023-02-17 16:53:44,696 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,696 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,697 - INFO - Beginning optimization with guess, [8.16371808].
-2023-02-17 16:53:44,759 - INFO - Finished optimization with guess, [8.16371808].
-2023-02-17 16:53:44,759 - INFO - Best fit parameters: [8.16371808].
-2023-02-17 16:53:44,790 - INFO - Maximum log composite likelihood: -34.81032024811884.
-2023-02-17 16:53:44,790 - INFO - Optimal value of theta: 2499.926529015405.
-2023-02-17 16:53:44,792 - INFO - Finished demographic inference.
-2023-02-17 16:53:44,792 - INFO - Pipeline executed succesfully.
+2023-03-09 13:09:38,155 - INFO - Loading input demography.
+2023-03-09 13:09:38,157 - INFO - Input demographic parameters are: [1.27235083, 0.0433207].
+2023-03-09 13:09:38,157 - INFO - Input theta_syn is: 2455.069261509098.
+2023-03-09 13:09:38,157 - INFO - Generating spectrum from input demography.
+2023-03-09 13:09:41,539 - INFO - Fitting DFE.
+2023-03-09 13:09:42,263 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:09:46,962 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:09:48,958 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:09:58,975 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:09:59,826 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:10:03,030 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:10:03,847 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:10:20,300 - WARNING - Warning: converting a masked element to nan.
+2023-03-09 13:10:21,073 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-03-09 13:10:21,265 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-03-09 13:10:23,439 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:11:03,895 - WARNING - Warning: converting a masked element to nan.
+2023-03-09 13:11:42,967 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:11:43,068 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:11:57,723 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:11:57,817 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:12:30,348 - WARNING - Warning: converting a masked element to nan.
+2023-03-09 13:12:54,325 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-03-09 13:13:07,261 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:13:09,243 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-03-09 13:13:25,488 - WARNING - Warning: converting a masked element to nan.
+2023-03-09 13:13:26,438 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-03-09 13:14:00,164 - INFO - Computing intermediate summary statistics.
+2023-03-09 13:14:00,166 - INFO - Outputting results.
+2023-03-09 13:14:00,177 - INFO - Pipeline executed succesfully.

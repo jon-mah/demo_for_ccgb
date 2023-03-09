@@ -1,16 +1,16 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -m ea
+#$ -m a
 #$ -l h_data=25G
 #$ -l highp
-#$ -l h_rt=00:30:00
+#$ -l h_rt=01:00:00
 #$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -N downsample_14_one_epoch
+#$ -N fit_dfe
 
-SGE_TASK_ID=1
+# SGE_TASK_ID=13
 
 i=0
 while read line;

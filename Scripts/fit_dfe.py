@@ -154,9 +154,9 @@ class DFEInference():
 
         for line in lines:
             if 'Best fit parameters:' in line:
-                demog_params = str(line.split(': ')[1])
-                demog_params = demog_params[1:-3].split(' ')
-                demog_params = [float(i) for i in demog_params]
+                demog_params = str(line.split(': ')[1]).strip()
+                demog_params = demog_params[1:-3].split()
+                demog_params = [float(i.strip()) for i in demog_params]
             if 'Optimal value of theta_syn:' in line:
                 theta_syn = str(line.split(': ')[1])
                 theta_syn = theta_syn[0:-2]
@@ -211,7 +211,7 @@ class DFEInference():
             popt = dadi.Inference.optimize_log(p0, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                verbose=len(sel_params), maxiter=10,
+                verbose=len(sel_params), maxiter=25,
                 multinom=False)
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
@@ -253,13 +253,13 @@ class DFEInference():
             f.write(
                 'The maximum likelihood parameters have a high '
                 'estimate of: '
-                '[{0}].\n'.format(
+                '{0}.\n'.format(
                     np.divide(best_params,
                               np.array([1, 2 * Na_low]))))
             f.write(
                 'The maximum likelihood parameters have a low '
                 'estimate of: '
-                '[{0}].\n'.format(
+                '{0}.\n'.format(
                     np.divide(best_params,
                               np.array([1, 2 * Na_high]))))
             f.write('The empirical nonsynonymous SFS is: ' +

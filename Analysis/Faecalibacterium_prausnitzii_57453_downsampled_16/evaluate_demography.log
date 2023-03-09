@@ -1,9 +1,9 @@
-2023-02-22 10:18:05,708 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-03-09 12:18:55,249 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-02-22 10:18:05,708 - INFO - Progress is being logged to ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_16/evaluate_demography.log
+2023-03-09 12:18:55,249 - INFO - Progress is being logged to ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_16/evaluate_demography.log
 
-2023-02-22 10:18:05,708 - INFO - Parsed the following arguments:
-	syn_input_sfs = ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_16/empirical_sfs.txt
+2023-03-09 12:18:55,249 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_16/downsampled_syn_sfs.txt
 	model_type = two_epoch
 	nu = 1.06737
 	tau = 0.337445
@@ -11,12 +11,12 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_16/
 
-2023-02-22 10:18:05,709 - INFO - Beginning demographic evaluation for two-epoch demographic model.
-2023-02-22 10:18:05,711 - INFO - Beginning optimization with guess, [1.06737, 0.337445].
-2023-02-22 10:18:06,210 - INFO - Finished optimization with guess, [1.06737, 0.337445].
-2023-02-22 10:18:06,211 - INFO - Best fit parameters: [1.07136873 0.33744836].
-2023-02-22 10:18:06,268 - INFO - Maximum log composite likelihood: -40.61613679813672.
-2023-02-22 10:18:06,269 - INFO - Optimal value of theta: 11097.842315184982.
-2023-02-22 10:18:06,270 - INFO - Converting and interpreting Tau estimates.
-2023-02-22 10:18:06,271 - INFO - Finished demographic evaluation.
-2023-02-22 10:18:06,271 - INFO - Pipeline executed succesfully.
+2023-03-09 12:18:55,275 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-03-09 12:18:55,277 - INFO - Beginning optimization with guess, [1.06737, 0.337445].
+2023-03-09 12:18:55,618 - INFO - Finished optimization with guess, [1.06737, 0.337445].
+2023-03-09 12:18:55,618 - INFO - Best fit parameters: [1.07136873 0.33744836].
+2023-03-09 12:18:55,655 - INFO - Maximum log composite likelihood: -40.61613679894435.
+2023-03-09 12:18:55,655 - INFO - Optimal value of theta: 11097.842316728293.
+2023-03-09 12:18:55,656 - INFO - Converting and interpreting Tau estimates.
+2023-03-09 12:18:55,657 - INFO - Finished demographic evaluation.
+2023-03-09 12:18:55,657 - INFO - Pipeline executed succesfully.
