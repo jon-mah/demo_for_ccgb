@@ -31,6 +31,12 @@ ggplot(melt(b_vulgatus_no_s_df), aes(x=value, y=..density.., fill = variable)) +
   scale_x_log10() +
   ggtitle('B. vulgatus, no singletons')
 
+ggplot(melt(b_vulgatus_gamma_no_s_dist), aes(x=value, y=..density..)) +
+  geom_histogram(position='dodge',
+                 breaks=c(0.0001, 0.001,  0.01, 0.1, 1)) +
+  scale_x_log10() +
+  ggtitle('Species')
+
 b_vulgatus_gamma_no_d_shape = 0.3562186
 b_vulgatus_gamma_no_d_scale = 0.2356798
 

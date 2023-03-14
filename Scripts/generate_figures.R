@@ -7,6 +7,7 @@ library(dplyr)
 library(fitdistrplus)
 library(scales)
 library(reshape2)
+library(stringr)
 
 fold_sfs = function(input_sfs) {
   input_length = length(input_sfs)
@@ -61,6 +62,34 @@ sfs_from_demography = function(input_file) {
   ## output_sfs = output_sfs[-1]
   output_sfs = as.numeric(output_sfs)
   output_sfs = fold_sfs(output_sfs)
+  return(output_sfs)
+}
+
+model_sfs_from_dfe = function(input_file) {
+  ## Reads input SFS from output *demography.txt
+  this_file = file(input_file)
+  on.exit(close(this_file))
+  sfs_string = readLines(this_file)[7]
+  output_sfs = strsplit(sfs_string, '-- ')
+  output_sfs = unlist(output_sfs)[2]
+  output_sfs = unlist(strsplit(output_sfs, ' '))
+  # output_sfs = output_sfs[-length(output_sfs)]
+  ## output_sfs = output_sfs[-1]
+  output_sfs = as.numeric(output_sfs)
+  return(output_sfs)
+}
+
+empirical_sfs_from_dfe = function(input_file) {
+  ## Reads input SFS from output *demography.txt
+  this_file = file(input_file)
+  on.exit(close(this_file))
+  sfs_string = readLines(this_file)[6]
+  output_sfs = strsplit(sfs_string, '-- ')
+  output_sfs = unlist(output_sfs)[2]
+  output_sfs = unlist(strsplit(output_sfs, ' '))
+  # output_sfs = output_sfs[-length(output_sfs)]
+  ## output_sfs = output_sfs[-1]
+  output_sfs = as.numeric(output_sfs)
   return(output_sfs)
 }
 
@@ -122,6 +151,84 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
   return(p_input_comparison)
 }
 
+compare_sfs_with_selection_count = function(input_directory) {
+  empirical_syn_sfs_file = paste(input_directory, 'downsampled_syn_sfs.txt', sep='')
+  model_syn_sfs_file = paste(input_directory, 'two_epoch_demography.txt', sep='')
+  nonsyn_sfs_file = paste(input_directory, 'inferred_DFE.txt', sep='')
+
+  empirical_syn_sfs = read_input_sfs(empirical_syn_sfs_file)
+  model_syn_sfs = sfs_from_demography(model_syn_sfs_file)
+  empirical_nonsyn_sfs = empirical_sfs_from_dfe(nonsyn_sfs_file)
+  model_nonsyn_sfs = model_sfs_from_dfe(nonsyn_sfs_file)
+  
+  x_axis = 1:length(empirical_syn_sfs)
+  
+  input_df = data.frame(empirical_syn_sfs,
+                        model_syn_sfs,
+                        empirical_nonsyn_sfs,
+                        model_nonsyn_sfs,
+                        x_axis)
+  
+  names(input_df) = c('Empirical synonymous',
+                      'Two-epoch Demography',
+                      'Empirical nonsynonymous',
+                      'Gamma-distributed DFE',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                               aes(x=x_axis, 
+                                   y=value,
+                                   fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of Segregating Sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+  ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
+
+compare_sfs_with_selection_proportional = function(input_directory) {
+  empirical_syn_sfs_file = paste(input_directory, 'downsampled_syn_sfs.txt', sep='')
+  model_syn_sfs_file = paste(input_directory, 'two_epoch_demography.txt', sep='')
+  nonsyn_sfs_file = paste(input_directory, 'inferred_DFE.txt', sep='')
+
+  empirical_syn_sfs = proportional_sfs(read_input_sfs(empirical_syn_sfs_file))
+  model_syn_sfs = proportional_sfs(sfs_from_demography(model_syn_sfs_file))
+  empirical_nonsyn_sfs = proportional_sfs(empirical_sfs_from_dfe(nonsyn_sfs_file))
+  model_nonsyn_sfs = proportional_sfs(model_sfs_from_dfe(nonsyn_sfs_file))
+  
+  x_axis = 1:length(empirical_syn_sfs)
+  
+  input_df = data.frame(empirical_syn_sfs,
+                        model_syn_sfs,
+                        empirical_nonsyn_sfs,
+                        model_nonsyn_sfs,
+                        x_axis)
+  
+  names(input_df) = c('Empirical synonymous',
+                      'Two-epoch Demography',
+                      'Empirical nonsynonymous',
+                      'Gamma-distributed DFE',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                               aes(x=x_axis, 
+                                   y=value,
+                                   fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Count of Segregating Sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+  ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
+
 plot_original_empirical_sfs = function(input) {
   x_axis = 0:(length(input)-1)
   
@@ -143,6 +250,48 @@ plot_original_empirical_sfs = function(input) {
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
   return(p_input_comparison)
+}
+
+plot_dfe = function(input_dfe_file) {
+  ## Reads input DFE from output *inferred_DFE.txt
+  this_file = file(input_dfe_file) # Open file
+  on.exit(close(this_file)) # Close when done
+  # Parse file and string manipulation
+  param_string_high = readLines(this_file)[4]
+  param_string_high = strsplit(param_string_high, split=': ')
+  param_string_high = unlist(param_string_high)[2]
+  param_string_high = str_sub(param_string_high, 2, -3)
+  param_string_high = unlist(strsplit(param_string_high, ' '))
+  param_string_high = as.numeric(param_string_high)
+  
+  shape = param_string_high[1]
+  scale_high = param_string_high[2]
+  
+  param_string_low = readLines(this_file)[5]
+  param_string_low = strsplit(param_string_low, split=': ')
+  param_string_low = unlist(param_string_low)[2]
+  param_string_low = str_sub(param_string_low, 2, -3)
+  param_string_low = unlist(strsplit(param_string_low, ' '))
+  param_string_low = as.numeric(param_string_low)
+  
+  scale_low = param_string_low[2]
+  
+  dfe_dist_high = rgamma(10000, shape=shape, scale=scale_high)
+  dfe_dist_low = rgamma(10000, shape=shape, scale=scale_low)
+  
+  dfe_df = data.frame(high=dfe_dist_high, 
+                      low=dfe_dist_low)
+  names(dfe_df) = c('6.93E-10', '4.08E-10')
+
+  ggplot(melt(dfe_df), aes(x=value, y=..density.., fill=variable)) +
+    geom_histogram(position='dodge',
+                   breaks=c(0.000001, 0.00001,  0.0001, 0.001, 0.01)) +
+    scale_x_log10() +
+    ylab('Proportion of sites') +
+    xlab('Selective Effect') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    guides(fill=guide_legend(title="Estimated mutation rate"))
 }
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -4896,8 +5045,307 @@ plot_original_empirical_sfs(b_fragilis_3) + xlim(-0.5, 20) + ggtitle('B. fragili
 plot_original_empirical_sfs(b_fragilis_4) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 4)')
 plot_original_empirical_sfs(b_fragilis_5) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 5)')
 
+# DFE
 
+# Akkermansia_muciniphila_55290
+compare_sfs_with_selection_count('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/') +
+  ggtitle('A. muciniphila SFS Comparison')
 
+compare_sfs_with_selection_proportional('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/') +
+  ggtitle('A. muciniphila SFS Comparison')
+
+plot_dfe('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/inferred_DFE.txt') +
+  ggtitle('A. muciniphila SFS Comparison')
+
+# Alistipes_finegoldii_56071
+compare_sfs_with_selection_count('../Analysis/Alistipes_finegoldii_56071_downsampled_14/') +
+  ggtitle('A. finegoldii SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Alistipes_finegoldii_56071_downsampled_14/') +
+  ggtitle('A. finegoldii SFS Comparison')
+
+plot_dfe('../Analysis/Alistipes_finegoldii_56071_downsampled_14/inferred_DFE.txt') +
+  ggtitle('A. finegoldii SFS Comparison')
+
+# Alistipes_onderdonkii_55464
+compare_sfs_with_selection_count('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/') +
+  ggtitle('A. onderdonkii SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/') +
+  ggtitle('A. onerdonkii SFS Comparison')
+
+plot_dfe('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/inferred_DFE.txt') +
+  ggtitle('A. onderdonkii SFS Comparison')
+
+# Alistipes_putredinis_61533
+compare_sfs_with_selection_count('../Analysis/Alistipes_putredinis_61533_downsampled_14/') +
+  ggtitle('A. putredinis SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Alistipes_putredinis_61533_downsampled_14/') +
+  ggtitle('A. putredinis SFS Comparison')
+
+plot_dfe('../Analysis/Alistipes_putredinis_61533_downsampled_14/inferred_DFE.txt') +
+  ggtitle('A. putredinis SFS Comparison')
+
+# Alistipes_shahii_62199
+compare_sfs_with_selection_count('../Analysis/Alistipes_shahii_62199_downsampled_14/') +
+  ggtitle('A. shahii SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Alistipes_shahii_62199_downsampled_14/') +
+  ggtitle('A. shahii SFS Comparison')
+
+plot_dfe('../Analysis/Alistipes_shahii_62199_downsampled_14/inferred_DFE.txt') +
+  ggtitle('A. shahii SFS Comparison')
+
+# Bacteroidales_bacterium_58650
+compare_sfs_with_selection_count('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/') +
+  ggtitle('B. bacterium SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/') +
+  ggtitle('B. bacterium SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. bacterium SFS Comparison')
+
+# Bacteroides_caccae_53434
+compare_sfs_with_selection_count('../Analysis/Bacteroides_caccae_53434_downsampled_14/') +
+  ggtitle('B. caccae SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_caccae_53434_downsampled_14/') +
+  ggtitle('B. caccae SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_caccae_53434_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. caccae SFS Comparison')
+
+# Bacteroides_cellulosilyticus_58046
+compare_sfs_with_selection_count('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/') +
+  ggtitle('B. cellulosilyticus SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/') +
+  ggtitle('B. cellulosilyticus SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. cellulosilyticus SFS Comparison')
+
+# Bacteroides_fragilis_54507
+compare_sfs_with_selection_count('../Analysis/Bacteroides_fragilis_54507_downsampled_14/') +
+  ggtitle('B. fragilis SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_fragilis_54507_downsampled_14/') +
+  ggtitle('B. fragilis SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_fragilis_54507_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. fragilis SFS Comparison')
+
+# Bacteroides_massiliensis_44749
+# compare_sfs_with_selection_count('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/') +
+#   ggtitle('B. massiliensis SFS Comparison')
+# 
+# compare_sfs_with_selection_proportional('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/') +
+#   ggtitle('B. massiliensis SFS Comparison')
+#
+# plot_dfe('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/inferred_DFE.txt') +
+#   ggtitle('B. massiliensis SFS Comparison')
+
+# Bacteroides_ovatus_58035
+compare_sfs_with_selection_count('../Analysis/Bacteroides_ovatus_58035_downsampled_14/') +
+  ggtitle('B. ovatus SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_ovatus_58035_downsampled_14/') +
+  ggtitle('B. ovatus SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_ovatus_58035_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. ovatus SFS Comparison')
+
+# Bacteroides_stercoris_56735
+# compare_sfs_with_selection_count('../Analysis/Bacteroides_stercoris_56735_downsampled_14/') +
+#   ggtitle('B. stercoris SFS Comparison')
+# 
+# compare_sfs_with_selection_proportional('../Analysis/Bacteroides_stercoris_56735_downsampled_14/') +
+#   ggtitle('B. stercoris SFS Comparison')
+# 
+# plot_dfe('../Analysis/Bacteroides_stercoris_56735_downsampled_14/inferred_DFE.txt') +
+#  ggtitle('B. stercoris SFS Comparison')
+
+# Bacteroides_thetaiotaomicron_56941
+compare_sfs_with_selection_count('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/') +
+  ggtitle('B. thetaiotaomicron SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/') +
+  ggtitle('B. thetaiotaomicron SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. thetaiotaomicron SFS Comparison')
+
+# Bacteroides_uniformis_57318
+compare_sfs_with_selection_count('../Analysis/Bacteroides_uniformis_57318_downsampled_14/') +
+  ggtitle('B. uniformis SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_uniformis_57318_downsampled_14/') +
+  ggtitle('B. uniformis SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. uniformis SFS Comparison')
+
+# Bacteroides_vulgatus_57955
+compare_sfs_with_selection_count('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/') +
+  ggtitle('B. vulgatus SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/') +
+  ggtitle('B. vulgatus SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. vulgatus SFS Comparison')
+
+# Bacteroides_xylanisolvens_57185
+compare_sfs_with_selection_count('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/') +
+  ggtitle('B. xylanisolvens SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/') +
+  ggtitle('B. xylanisolvens SFS Comparison')
+
+plot_dfe('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. xylanisolvens SFS Comparison')
+
+# Barnesiella_intestinihominis_62208
+compare_sfs_with_selection_count('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/') +
+  ggtitle('B. intestinihominis SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/') +
+  ggtitle('B. intestinihominis SFS Comparison')
+
+plot_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/inferred_DFE.txt') +
+  ggtitle('B. intestinihominis SFS Comparison')
+
+# Coprococcus_sp_62244
+# compare_sfs_with_selection_count('../Analysis/Coprococcus_sp_62244_downsampled_14/') +
+#   ggtitle('Coprococcus sp. SFS Comparison')
+# 
+# compare_sfs_with_selection_proportional('../Analysis/Coprococcus_sp_62244_downsampled_14/') +
+#   ggtitle('Coprococcus sp. SFS Comparison')
+# 
+# plot_dfe('../Analysis/Coprococcus_sp_62244_downsampled_14/inferred_DFE.txt') +
+#   ggtitle('Coprococcus sp. SFS Comparison')
+
+# Dialister_invisus_61905
+compare_sfs_with_selection_count('../Analysis/Dialister_invisus_61905_downsampled_14/') +
+  ggtitle('D. invisus SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Dialister_invisus_61905_downsampled_14/') +
+  ggtitle('D. invisus SFS Comparison')
+
+plot_dfe('../Analysis/Dialister_invisus_61905_downsampled_14/inferred_DFE.txt') +
+  ggtitle('D. invisus SFS Comparison')
+
+# Eubacterium_eligens_61678
+# compare_sfs_with_selection_count('../Analysis/Eubacterium_eligens_61678_downsampled_14/') +
+#   ggtitle('E. eligens SFS Comparison')
+# 
+# compare_sfs_with_selection_proportional('../Analysis/Eubacterium_eligens_61678_downsampled_14/') +
+#   ggtitle('E. eligens SFS Comparison')
+# 
+# plot_dfe('../Analysis/Eubacterium_eligens_61678_downsampled_14/inferred_DFE.txt') +
+#   ggtitle('E. eligens SFS Comparison')
+
+# Eubacterium_rectale_56927
+compare_sfs_with_selection_count('../Analysis/Eubacterium_rectale_56927_downsampled_14/') +
+  ggtitle('E. rectale SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Eubacterium_rectale_56927_downsampled_14/') +
+  ggtitle('E. rectale SFS Comparison')
+
+plot_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/inferred_DFE.txt') +
+  ggtitle('E. rectale SFS Comparison')
+
+# Faecalibacterium_prausnitzii_57453
+compare_sfs_with_selection_count('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/') +
+  ggtitle('F. prausnitzii SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/') +
+  ggtitle('F. prausnitzii SFS Comparison')
+
+plot_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/inferred_DFE.txt') +
+  ggtitle('F. prausnitzii SFS Comparison')
+
+# Odoribacter_splanchnicus_62174
+compare_sfs_with_selection_count('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/') +
+  ggtitle('O. splanchnicus SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/') +
+  ggtitle('O. splanchnicus SFS Comparison')
+
+plot_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt') +
+  ggtitle('O. splanchnicus SFS Comparison')
+
+# Oscillibacter_sp_60799
+compare_sfs_with_selection_count('../Analysis/Oscillibacter_sp_60799_downsampled_14/') +
+  ggtitle('Oscillibacter sp. SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Oscillibacter_sp_60799_downsampled_14/') +
+  ggtitle('Oscillibacter sp. SFS Comparison')
+
+plot_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt') +
+  ggtitle('Oscillibacter sp. SFS Comparison')
+
+# Parabacteroides_distasonis_56985
+compare_sfs_with_selection_count('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/') +
+  ggtitle('P. distasonis SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/') +
+  ggtitle('P. distasonis SFS Comparison')
+
+plot_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt') +
+  ggtitle('P. distasonis SFS Comparison')
+
+# Parabacteroides_merdae_56972
+compare_sfs_with_selection_count('../Analysis/Parabacteroides_merdae_56972_downsampled_14/') +
+  ggtitle('P. merdae SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Parabacteroides_merdae_56972_downsampled_14/') +
+  ggtitle('P. merdae SFS Comparison')
+
+plot_dfe('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt') +
+  ggtitle('P. merdae SFS Comparison')
+
+# Phascolarctobacterium_sp_59817
+compare_sfs_with_selection_count('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/') +
+  ggtitle('Phascolarctobacterium sp. SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/') +
+  ggtitle('Phascolarctobacterium sp. SFS Comparison')
+
+plot_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt') +
+  ggtitle('Phascolarctobacterium sp. SFS Comparison')
+
+# Prevotella_copri_61740
+compare_sfs_with_selection_count('../Analysis/Prevotella_copri_61740_downsampled_14/') +
+  ggtitle('P. copri SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Prevotella_copri_61740_downsampled_14/') +
+  ggtitle('P. copri SFS Comparison')
+
+plot_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt') +
+  ggtitle('P. copri SFS Comparison')
+
+# Ruminococcus_bicirculans_59300
+# compare_sfs_with_selection_count('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/') +
+#   ggtitle('R. bicirculans SFS Comparison')
+# 
+# compare_sfs_with_selection_proportional('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/') +
+#   ggtitle('R. bicirculans SFS Comparison')
+# 
+# plot_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/inferred_DFE.txt') +
+#   ggtitle('R. bicirculans SFS Comparison')
+# 
+# Ruminococcus_bromii_62047
+compare_sfs_with_selection_count('../Analysis/Ruminococcus_bromii_62047_downsampled_14/') +
+  ggtitle('R. bromii SFS Comparison')
+
+compare_sfs_with_selection_proportional('../Analysis/Ruminococcus_bromii_62047_downsampled_14/') +
+  ggtitle('R. bromii SFS Comparison')
+
+plot_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt') +
+  ggtitle('R. bromii DFE Comparison')
 
 
 

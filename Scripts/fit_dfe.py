@@ -43,6 +43,16 @@ class DFEInference():
         else:
             raise ValueError("%s must specify a valid file name" % fname)
 
+    def neugamma(self, xx, params):
+        """Return Neutral + Gamma distribution"""
+        pneu, alpha, beta = params
+        xx = np.atleast_1d(xx)
+        out = (1-pneu)*DFE.PDFs.gamma(xx, (alpha, beta))
+        # Assume gamma < 1e-4 is essentially neutral
+        out[np.logical_and(0 <= xx, xx < 1e-4)] += pneu/1e-4
+        # Reduce xx back to scalar if it's possible
+        return np.squeeze(out)
+
     def fitDFEParser(self):
         """Return *argparse.ArgumentParser* for ``fitdadi_infer_DFE.py``."""
         parser = ArgumentParserNoArgHelp(
@@ -221,6 +231,57 @@ class DFEInference():
                 max_ll = this_ll
                 best_params = popt
 
+        logger.info('Fitting Neutral + Gamma DFE')
+
+        ng_initial_guesses = []
+        ng_initial_guesses.append([0.2, 0.2, 0.001])
+        ng_initial_guesses.append([0.2, 0.2, 0.01])
+        ng_initial_guesses.append([0.2, 0.2, 0.1])
+        ng_initial_guesses.append([0.2, 0.2, 1.])
+        ng_initial_guesses.append([0.2, 0.2, 10.])
+        ng_initial_guesses.append([0.2, 0.2, 100])
+        ng_initial_guesses.append([0.2, 0.2, 1000])
+        ng_initial_guesses.append([0.2, 0.2, 10000])
+        ng_initial_guesses.append([0.2, 1., 0.001])
+        ng_initial_guesses.append([0.2, 1., 0.01])
+        ng_initial_guesses.append([0.2, 1., 0.1])
+        ng_initial_guesses.append([0.2, 1., 1.])
+        ng_initial_guesses.append([0.2, 1., 10.])
+        ng_initial_guesses.append([0.2, 1., 100])
+        ng_initial_guesses.append([0.2, 1., 1000])
+        ng_initial_guesses.append([0.2, 1., 10000])
+        ng_initial_guesses.append([0.2, 5., 0.001])
+        ng_initial_guesses.append([0.2, 5., 0.01])
+        ng_initial_guesses.append([0.2, 5., 0.1])
+        ng_initial_guesses.append([0.2, 5., 1.])
+        ng_initial_guesses.append([0.2, 5., 10.])
+        ng_initial_guesses.append([0.2, 5., 100])
+        ng_initial_guesses.append([0.2, 5., 1000])
+        ng_initial_guesses.append([0.2, 5., 10000])
+        ng_initial_guesses.append([0.2, 1., 1.])
+
+        ng_max_ll= = -100000000000
+        for i in range(25):
+            sel_params = ng_initial_guesses[i]
+            lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
+            ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
+                                          upper_bound=upper_bound)
+            ng_popt = dadi.Inference.optimize_log(p0, data, spectra.integrate,
+                                                  pts=None,
+                                                  func_args=[self.neugamma,
+                                                             theta_ns],
+                                                  lower_bound=lower_bound,
+                                                  upper_bound=upper_bound,
+                                                  verbose=len(sel_params),
+                                                  maxiter=25, multinom=False)
+            ng_model_sfs = spectra.integrate(
+                ng_popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
+            ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)
+            if ng_this_ll > ng_max_ll:
+                ng_best_model = ng_model_sfs
+                ng_max_ll = ng_this_ll
+                ng_best_params = ng_popt
+
         logger.info('Computing intermediate summary statistics.')
 
         # Compute L_syn from input_syn_sfs
@@ -232,7 +293,8 @@ class DFEInference():
             syn_sfs_array = [float(i) for i in syn_sfs_array]
 
         # Compute scaling factor of params, i.e., 2 * Na
-        L_syn = np.sum(syn_sfs_array)
+        # L_syn = np.sum(syn_sfs_array)
+        L_syn = 1
         mu_high = 6.93E-10 # High estimate of mutation rate
         mu_low = 4.08E-10 # Low estimate of mutation rate
         Ne_low = theta_syn / 4 / L_syn / mu_high
@@ -244,7 +306,7 @@ class DFEInference():
 
         with open(inferred_DFE, 'w') as f:
             f.write('Assuming a gamma-distributed DFE...\n')
-            f.write('The maximum likelihood is: ' + 
+            f.write('The maximum likelihood is: ' +
                     str(max_ll) +  '.\n')
             f.write('The maximum likelihood scaled ' +
                     'gamma-distributed DFE is parameterized ' +
@@ -266,6 +328,29 @@ class DFEInference():
                     str(nonsyn_data) + '.\n')
             f.write('The best fit model SFS is: ' +
                     str(best_model.fold()) + '.\n')
+            f.write('Assuming a neu-gamma-distributed DFE...\n')
+            f.write('The maximum likelihood is: ' +
+                    str(ng_max_ll) +  '.\n')
+            f.write('The maximum likelihood scaled ' +
+                    'neu-gamma-distributed DFE is parameterized ' +
+                    'as: ' + str(ng_best_params)  + '.\n')
+            # Non-scaled params are divided by
+            f.write(
+                'The maximum likelihood parameters have a high '
+                'estimate of: '
+                '{0}.\n'.format(
+                    np.divide(ng_best_params,
+                              np.array([1, 1, 2 * Na_low]))))
+            f.write(
+                'The maximum likelihood parameters have a low '
+                'estimate of: '
+                '{0}.\n'.format(
+                    np.divide(ng_best_params,
+                              np.array([1, 1, 2 * Na_high]))))
+            f.write('The empirical nonsynonymous SFS is: ' +
+                    str(nonsyn_data) + '.\n')
+            f.write('The best fit model SFS is: ' +
+                    str(ng_best_model.fold()) + '.\n')
         logger.info('Pipeline executed succesfully.')
 
 if __name__ == '__main__':
