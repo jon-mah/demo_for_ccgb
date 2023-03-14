@@ -4,13 +4,13 @@
 #$ -m a
 #$ -l h_data=25G
 #$ -l highp
-#$ -l h_rt=01:00:00
+#$ -l h_rt=02:00:00
 #$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_dfe
 
-# SGE_TASK_ID=13
+# SGE_TASK_ID=1
 
 i=0
 while read line;

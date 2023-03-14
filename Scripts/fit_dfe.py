@@ -260,22 +260,22 @@ class DFEInference():
         ng_initial_guesses.append([0.2, 5., 10000])
         ng_initial_guesses.append([0.2, 1., 1.])
 
-        ng_max_ll= = -100000000000
+        ng_max_ll = -100000000000
         for i in range(25):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
                                           upper_bound=upper_bound)
-            ng_popt = dadi.Inference.optimize_log(p0, data, spectra.integrate,
-                                                  pts=None,
+            ng_popt = dadi.Inference.optimize_log(ng_p0, nonsyn_data, 
+                                                  spectra.integrate, pts=None,
                                                   func_args=[self.neugamma,
-                                                             theta_ns],
+                                                             theta_nonsyn],
                                                   lower_bound=lower_bound,
                                                   upper_bound=upper_bound,
                                                   verbose=len(sel_params),
                                                   maxiter=25, multinom=False)
             ng_model_sfs = spectra.integrate(
-                ng_popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
+                ng_popt, None, self.neugamma, theta_nonsyn, None)
             ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)
             if ng_this_ll > ng_max_ll:
                 ng_best_model = ng_model_sfs
@@ -293,12 +293,12 @@ class DFEInference():
             syn_sfs_array = [float(i) for i in syn_sfs_array]
 
         # Compute scaling factor of params, i.e., 2 * Na
-        # L_syn = np.sum(syn_sfs_array)
-        L_syn = 1
+        L_syn = np.sum(syn_sfs_array)
+        # L_syn = 1
         mu_high = 6.93E-10 # High estimate of mutation rate
         mu_low = 4.08E-10 # Low estimate of mutation rate
-        Ne_low = theta_syn / 4 / L_syn / mu_high
-        Ne_high = theta_syn / 4 / L_syn / mu_low
+        Ne_low = theta_syn / (4 * L_syn * mu_high)
+        Ne_high = theta_syn / (4 * L_syn * mu_low)
         Na_low = Ne_low / float(demog_params[0])
         Na_high = Ne_high / float(demog_params[0])
 
