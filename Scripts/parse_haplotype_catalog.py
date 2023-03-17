@@ -123,20 +123,20 @@ class ParseSnpsCatalogues():
 
         max_clade_size = 0
         species_bool = False
+        this_clade = []
 
         for line in lines:
             if '--------'  in line:
-                if len(this_clade) >= max_clade_size:
+                if len(this_clade) > max_clade_size:
                     largest_clade = this_clade.copy()
                     max_clade_size = len(largest_clade)
                     del this_clade
                     this_clade = []
-            elif line.count(" ") == 0 and line.strip() != species:
-                if species_bool:
-                    species_bool = False
             elif line.count(" ") == 0 and line.strip() == species:
                 species_bool = True
                 this_clade = []
+            elif line.count(" ") == 0 and line.strip() != species:
+                species_bool = False
             else:
                 if species_bool:
                     this_clade.append(line.split()[1].strip())
