@@ -44,8 +44,11 @@ class ParseSnpsCatalogues():
                 'Parses a given `*.snps catalogue` file into human-readable format.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
-            'input_snps_catalogue', type=self.ExistingFile,
+            'input_haplotype_catalogue', type=self.ExistingFile,
             help='The input `*.snps catalogue` file output by MUMmer.')
+        parser.add_argument(
+            'input_clade_identification', type=self.ExistingFile,
+            help='The input manual clade identification  `.txt` file')
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files.')
@@ -59,7 +62,8 @@ class ParseSnpsCatalogues():
         prog = parser.prog
 
         # Assign arguments
-        input_snps_catalogue  = args['input_snps_catalogue']
+        input_haplotype_catalogue  = args['input_haplotype_catalogue']
+        input_clade = args['input_clade_identification']
         outprefix = args['outprefix']
 
         # create output directory if needed
@@ -76,7 +80,7 @@ class ParseSnpsCatalogues():
         output_sfs = \
             '{0}{1}output_sfs.txt'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}parse_snps_catalogue.log'.format(args['outprefix'], underscore)
+        logfile = '{0}{1}parse_haplotype_catalogue.log'.format(args['outprefix'], underscore)
         to_remove = [logfile, output_sfs]
         for f in to_remove:
             if os.path.isfile(f):
@@ -110,7 +114,7 @@ class ParseSnpsCatalogues():
 
         logger.info('Parsing input snps catalogue.')
         # Open snps catalogue
-        df = pd.read_csv(input_snps_catalogue, na_values='')
+        df = pd.read_csv(input_haplotype_catalogue, na_values='')
         df = df.drop(columns=['site_pos'])
         df = df[df.site_type == 'syn']
         # Set index based on first four rows
