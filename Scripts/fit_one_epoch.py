@@ -416,7 +416,7 @@ class DemographicInference():
         # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
         #               'three_epoch', 'one_epoch']
         # model_list = ['two_epoch', 'one_epoch']
-        model_list = ['one_epoch']
+        model_list = ['one_epoch', 'two_epoch']
         # Fit different one-epoch models and compute likelihood
         method_list = ['expectation']
         for method in method_list:
@@ -621,7 +621,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=None,
                         upper_bound=None,
-                        verbose=len(p0), maxiter=5)
+                        verbose=len(p0), maxiter=10)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))

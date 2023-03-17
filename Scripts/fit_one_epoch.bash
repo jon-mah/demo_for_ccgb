@@ -10,8 +10,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N downsample_14_one_epoch
 
-
-# SGE_TASK_ID=1
+SGE_TASK_ID=1
 
 # i=0
 # while read line;
@@ -56,9 +55,13 @@ done < ./gut_sfs_list.txt
 # Downsampled analysis
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_10/empirical_sfs.txt ../Analysis/${species}_downsampled_10/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_12/empirical_sfs.txt ../Analysis/${species}_downsampled_12/
-python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt ../Analysis/${species}_downsampled_14/
+# python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt ../Analysis/${species}_downsampled_14/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_16/empirical_sfs.txt ../Analysis/${species}_downsampled_16/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_18/empirical_sfs.txt ../Analysis/${species}_downsampled_18/
 
 # Original analysis
 # python fit_one_epoch.py ../Data/${species}_syn.sfs ../Analysis/${species}/ --mask_singletons
+
+# UHGG Isolates
+python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_fragilis/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_fragilis/
+python fit_one_epoch.py ../Data/UHGG/UHGG_Prevotella_copri/full_output_sfs.txt ../Data/UHGG/UHGG_Prevotella_copri

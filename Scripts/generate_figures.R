@@ -5604,24 +5604,85 @@ plot_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt'
 
 
 # B. fragilis UHGG test
-b_fragilis_1 = read_input_sfs_original('../Data/UHGG_SFS/1__output_sfs.txt')
-b_fragilis_2 = read_input_sfs_original('../Data/UHGG_SFS/2__output_sfs.txt')
-b_fragilis_3 = read_input_sfs_original('../Data/UHGG_SFS/3__output_sfs.txt')
-b_fragilis_4 = read_input_sfs_original('../Data/UHGG_SFS/4__output_sfs.txt')
-b_fragilis_5 = read_input_sfs_original('../Data/UHGG_SFS/5__output_sfs.txt')
+b_fragilis_1 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/1_output_sfs.txt')
+b_fragilis_2 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/2_output_sfs.txt')
+b_fragilis_3 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/3_output_sfs.txt')
+b_fragilis_4 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/4_output_sfs.txt')
+b_fragilis_5 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/5_output_sfs.txt')
 b_fragilis = b_fragilis_1 + b_fragilis_2 + b_fragilis_3 + b_fragilis_4 + b_fragilis_5
 
-plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 20) + ggtitle('B. fragilis synonymous SFS (no clade control)')
+plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 20) + 
+  ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)')
 
-plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 50) + ggtitle('B. fragilis synonymous SFS (no clade control)')
-
-
-plot_original_empirical_sfs(proportional_sfs(b_fragilis)) + ggtitle('B. fragilis synonymous SFS (no clade control)') +
+plot_original_empirical_sfs(proportional_sfs(b_fragilis)) + 
+  xlim(-1.5, 20) +
+  ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)') +
   ylab('Proportion of Segregating Sites')
 
+p_copri_1 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/1_output_sfs.txt')
+p_copri_2 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/2_output_sfs.txt')
+p_copri_3 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/3_output_sfs.txt')
+p_copri_4 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/4_output_sfs.txt')
+p_copri_5 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/5_output_sfs.txt')
+p_copri_6 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/6_output_sfs.txt')
+p_copri_7 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/7_output_sfs.txt')
+p_copri_8 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/8_output_sfs.txt')
+p_copri_9 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/9_output_sfs.txt')
+p_copri_59 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/59_output_sfs.txt')
+p_copri_68 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/68_output_sfs.txt')
+p_copri_69 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/69_output_sfs.txt')
+p_copri_78 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/78_output_sfs.txt')
+p_copri_79 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/79_output_sfs.txt')
+p_copri_85 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/85_output_sfs.txt')
+p_copri_86 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/86_output_sfs.txt')
+p_copri_87 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/87_output_sfs.txt')
+p_copri_88 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/88_output_sfs.txt')
+p_copri_89 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/89_output_sfs.txt')
+p_copri_90 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/90_output_sfs.txt')
+p_copri_91 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/91_output_sfs.txt')
+p_copri_92 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/92_output_sfs.txt')
+p_copri_93 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/93_output_sfs.txt')
+p_copri_94 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/94_output_sfs.txt')
+p_copri_95 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/95_output_sfs.txt')
+p_copri_96 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/96_output_sfs.txt')
+p_copri_97 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/97_output_sfs.txt')
+p_copri_98 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/98_output_sfs.txt')
+p_copri_99 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/99_output_sfs.txt')
 
-plot_original_empirical_sfs(b_fragilis_1) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 1)')
-plot_original_empirical_sfs(b_fragilis_2) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 2)')
-plot_original_empirical_sfs(b_fragilis_3) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 3)')
-plot_original_empirical_sfs(b_fragilis_4) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 4)')
-plot_original_empirical_sfs(b_fragilis_5) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 5)')
+p_copri = p_copri_1 + 
+  p_copri_2 +
+  p_copri_3 +
+  p_copri_4 +
+  p_copri_5 +
+  p_copri_6 +
+  p_copri_7 +
+  p_copri_8 +
+  p_copri_9 +
+  p_copri_59 +
+  p_copri_68 +
+  p_copri_69 +
+  p_copri_78 +
+  p_copri_79 +
+  p_copri_85 +
+  p_copri_86 +
+  p_copri_87 +
+  p_copri_88 +
+  p_copri_89 +
+  p_copri_90 +
+  p_copri_91 +
+  p_copri_92 +
+  p_copri_93 +
+  p_copri_94 +
+  p_copri_95 +
+  p_copri_96 +
+  p_copri_97 +
+  p_copri_98 +
+  p_copri_99
+
+plot_original_empirical_sfs(p_copri) + xlim(-1.5, 20) + 
+  ggtitle('P. copri synonymous SFS (Isolates w/ Clade control)')
+
+plot_original_empirical_sfs(proportional_sfs(p_copri)) + 
+  xlim(-1.5, 20) +
+  ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)') +
+  ylab('Proportion of Segregating Sites')
