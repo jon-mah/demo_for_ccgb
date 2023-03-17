@@ -63,5 +63,5 @@ done < ./gut_sfs_list.txt
 # python fit_one_epoch.py ../Data/${species}_syn.sfs ../Analysis/${species}/ --mask_singletons
 
 # UHGG Isolates
-python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_fragilis/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_fragilis/
-python fit_one_epoch.py ../Data/UHGG/UHGG_Prevotella_copri/full_output_sfs.txt ../Data/UHGG/UHGG_Prevotella_copri
+# python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_fragilis/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_fragilis/
+python fit_one_epoch.py ../Data/UHGG/UHGG_Prevotella_copri/full_output_sfs.txt ../Data/UHGG/UHGG_Prevotella_copri/

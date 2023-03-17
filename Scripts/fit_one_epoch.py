@@ -404,6 +404,7 @@ class DemographicInference():
 
         # Construct initial Spectrum object from input synonymous sfs.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs)
+        syn_data = syn_data.fold()
         if mask_singletons:
             syn_data.mask[1] = True
         if mask_doubletons:
@@ -608,7 +609,7 @@ class DemographicInference():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(25):
+                for i in range(10):
                     # Start at initial guess
                     p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
@@ -621,7 +622,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=None,
                         upper_bound=None,
-                        verbose=len(p0), maxiter=10)
+                        verbose=len(p0), maxiter=5)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
