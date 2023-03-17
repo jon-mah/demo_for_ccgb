@@ -5147,28 +5147,6 @@ plot_original_empirical_sfs(fold_sfs(p_copri_14_empirical)) + ggtitle('P. copri 
 plot_original_empirical_sfs(fold_sfs(r_bicirculans_14_empirical)) + ggtitle('R. bicirculans downsampled to 14 (folded + Clade Control)')
 plot_original_empirical_sfs(fold_sfs(r_bromii_14_empirical)) + ggtitle('R. bromii full empirical SFS (folded + Clade Control))')
 
-# B. fragilis UHGG test
-b_fragilis_1 = read_input_sfs_original('../Data/UHGG_SFS/1__output_sfs.txt')
-b_fragilis_2 = read_input_sfs_original('../Data/UHGG_SFS/2__output_sfs.txt')
-b_fragilis_3 = read_input_sfs_original('../Data/UHGG_SFS/3__output_sfs.txt')
-b_fragilis_4 = read_input_sfs_original('../Data/UHGG_SFS/4__output_sfs.txt')
-b_fragilis_5 = read_input_sfs_original('../Data/UHGG_SFS/5__output_sfs.txt')
-b_fragilis = b_fragilis_1 + b_fragilis_2 + b_fragilis_3 + b_fragilis_4 + b_fragilis_5
-
-plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 20) + ggtitle('B. fragilis synonymous SFS (no clade control)')
-
-plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 50) + ggtitle('B. fragilis synonymous SFS (no clade control)')
-
-
-plot_original_empirical_sfs(proportional_sfs(b_fragilis)) + ggtitle('B. fragilis synonymous SFS (no clade control)') +
-  ylab('Proportion of Segregating Sites')
-
-
-plot_original_empirical_sfs(b_fragilis_1) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 1)')
-plot_original_empirical_sfs(b_fragilis_2) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 2)')
-plot_original_empirical_sfs(b_fragilis_3) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 3)')
-plot_original_empirical_sfs(b_fragilis_4) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 4)')
-plot_original_empirical_sfs(b_fragilis_5) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 5)')
 
 # DFE
 
@@ -5625,3 +5603,25 @@ plot_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt'
 
 
 
+# B. fragilis UHGG test
+b_fragilis_1 = read_input_sfs_original('../Data/UHGG_SFS/1__output_sfs.txt')
+b_fragilis_2 = read_input_sfs_original('../Data/UHGG_SFS/2__output_sfs.txt')
+b_fragilis_3 = read_input_sfs_original('../Data/UHGG_SFS/3__output_sfs.txt')
+b_fragilis_4 = read_input_sfs_original('../Data/UHGG_SFS/4__output_sfs.txt')
+b_fragilis_5 = read_input_sfs_original('../Data/UHGG_SFS/5__output_sfs.txt')
+b_fragilis = b_fragilis_1 + b_fragilis_2 + b_fragilis_3 + b_fragilis_4 + b_fragilis_5
+
+plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 20) + ggtitle('B. fragilis synonymous SFS (no clade control)')
+
+plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 50) + ggtitle('B. fragilis synonymous SFS (no clade control)')
+
+
+plot_original_empirical_sfs(proportional_sfs(b_fragilis)) + ggtitle('B. fragilis synonymous SFS (no clade control)') +
+  ylab('Proportion of Segregating Sites')
+
+
+plot_original_empirical_sfs(b_fragilis_1) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 1)')
+plot_original_empirical_sfs(b_fragilis_2) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 2)')
+plot_original_empirical_sfs(b_fragilis_3) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 3)')
+plot_original_empirical_sfs(b_fragilis_4) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 4)')
+plot_original_empirical_sfs(b_fragilis_5) + xlim(-0.5, 20) + ggtitle('B. fragilis synonymous SFS (Contig 5)')
