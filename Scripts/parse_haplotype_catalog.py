@@ -50,6 +50,9 @@ class ParseSnpsCatalogues():
             'input_clade_identification', type=self.ExistingFile,
             help='The input manual clade identification  `.txt` file')
         parser.add_argument(
+            'species', type=str,
+            help='The species for which we are parsing haplotypes.')
+        parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files.')
         return parser
@@ -64,6 +67,7 @@ class ParseSnpsCatalogues():
         # Assign arguments
         input_haplotype_catalogue  = args['input_haplotype_catalogue']
         input_clade = args['input_clade_identification']
+        species = args['species']
         outprefix = args['outprefix']
 
         # create output directory if needed
@@ -112,6 +116,33 @@ class ParseSnpsCatalogues():
         # Initialize dict object for snps catalogue
         sfs_dict = {}
 
+        # with open(input_clade, 'r') as f:
+        input_clade = open(input_clade, 'r')
+        lines = input_clade.readlines()
+        
+
+        max_clade_size = 0
+        species_bool = False
+
+        for line in lines:
+            if '--------'  in line:
+                if len(this_clade) >= max_clade_size:
+                    largest_clade = this_clade.copy()
+                    max_clade_size = len(largest_clade)
+                    del this_clade
+                    this_clade = []
+            elif line.count(" ") == 0 and line.strip() != species:
+                if species_bool:
+                    species_bool = False
+            elif line.count(" ") == 0 and line.strip() == species:
+                species_bool = True
+                this_clade = []
+            else:
+                if species_bool:
+                    this_clade.append(line.split()[1].strip())
+
+        input_clade.close()
+
         logger.info('Parsing input snps catalogue.')
         # Open snps catalogue
         df = pd.read_csv(input_haplotype_catalogue, na_values='')
@@ -119,6 +150,11 @@ class ParseSnpsCatalogues():
         df = df[df.site_type == 'syn']
         # Set index based on first four rows
         df.set_index(['contig', 'gene_id', 'site_type'], inplace=True)
+        
+        # Dropping columns unrelated to largest clade
+        df = df[df.columns.intersection(largest_clade)]
+        logger.info('The largest clade has ' + str(max_clade_size) + ' hosts.')
+        logger.info('Subsetting pandas dataframe to ' + str(len(df.columns)) + ' hosts.')
         nrows = len(df.index)
 
         logger.info('Computing SFS.')
