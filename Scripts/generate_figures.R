@@ -5600,8 +5600,134 @@ compare_sfs_with_selection_proportional('../Analysis/Ruminococcus_bromii_62047_d
 plot_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt') +
   ggtitle('R. bromii DFE Comparison')
 
+##UHGG
 
 
+# Bacteroides_A_coprocola
+
+b_a_coprocola_2 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/2_output_sfs.txt')
+b_a_coprocola_3 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/3_output_sfs.txt')
+b_a_coprocola_4 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/4_output_sfs.txt')
+b_a_coprocola_5 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/5_output_sfs.txt')
+b_a_coprocola_6 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/6_output_sfs.txt')
+b_a_coprocola_7 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/7_output_sfs.txt')
+b_a_coprocola_8 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/8_output_sfs.txt')
+b_a_coprocola_9 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/9_output_sfs.txt')
+b_a_coprocola_10 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/10_output_sfs.txt')
+b_a_coprocola_11 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/11_output_sfs.txt')
+b_a_coprocola_12 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/12_output_sfs.txt')
+b_a_coprocola_13 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/13_output_sfs.txt')
+b_a_coprocola_14 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/14_output_sfs.txt')
+b_a_coprocola_15 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/15_output_sfs.txt')
+b_a_coprocola_16 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/16_output_sfs.txt')
+b_a_coprocola_17 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/17_output_sfs.txt')
+b_a_coprocola_18 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/18_output_sfs.txt')
+b_a_coprocola_19 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_A_coprocola/19_output_sfs.txt')
+
+b_a_coprocola = b_a_coprocola_2 +
+  b_a_coprocola_3 +
+  b_a_coprocola_4 +
+  b_a_coprocola_5 +
+  b_a_coprocola_6 +
+  b_a_coprocola_7 +
+  b_a_coprocola_8 +
+  b_a_coprocola_9 +
+  b_a_coprocola_10 +
+  b_a_coprocola_11 +
+  b_a_coprocola_12 +
+  b_a_coprocola_13 +
+  b_a_coprocola_14 +
+  b_a_coprocola_15 +
+  b_a_coprocola_16 +
+  b_a_coprocola_17 +
+  b_a_coprocola_18 +
+  b_a_coprocola_19
+  
+plot_original_empirical_sfs(b_a_coprocola)
+
+plot_original_empirical_sfs(b_a_coprocola) + xlim(-1.5, 20) +
+  ggtitle('Bacteroides coprocola [A] synonymous SFS (Isolates w/ Clade Control)')
+
+b_a_coprocola_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_A_coprocola/one_epoch_demography.txt')
+b_a_coprocola_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_A_coprocola/two_epoch_demography.txt')
+b_a_coprocola  = b_a_coprocola[-1]
+
+compare_sfs(fold_sfs(b_a_coprocola), b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)
+
+compare_sfs(fold_sfs(b_a_coprocola), b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)  +
+  xlim(-1.5, 20.5) +
+  ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+compare_sfs(proportional_sfs(fold_sfs(b_a_coprocola)), proportional_sfs(b_a_coprocola_UHGG_one_epoch), proportional_sfs(b_a_coprocola_UHGG_two_epoch))  +
+  xlim(-1.5, 10.5) +
+  ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+
+compare_sfs(fold_sfs(b_a_coprocola), b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)  +
+  xlim(-0.5, 50) +
+  ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+# B. eggerthii
+
+b_eggerthii_1 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/1_output_sfs.txt')
+b_eggerthii_2 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/2_output_sfs.txt')
+b_eggerthii_3 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/3_output_sfs.txt')
+b_eggerthii_4 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/4_output_sfs.txt')
+b_eggerthii_5 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/5_output_sfs.txt')
+b_eggerthii_6 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/6_output_sfs.txt')
+b_eggerthii_7 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/7_output_sfs.txt')
+b_eggerthii_8 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/8_output_sfs.txt')
+b_eggerthii_9 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/9_output_sfs.txt')
+b_eggerthii_10 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/10_output_sfs.txt')
+b_eggerthii_11 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/11_output_sfs.txt')
+b_eggerthii_13 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/13_output_sfs.txt')
+b_eggerthii_14 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/14_output_sfs.txt')
+b_eggerthii_15 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/15_output_sfs.txt')
+b_eggerthii_16 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_eggerthii/16_output_sfs.txt')
+
+b_eggerthii = b_eggerthii_1 +
+  b_eggerthii_2 +
+  b_eggerthii_3 +
+  b_eggerthii_4 +
+  b_eggerthii_5 +
+  b_eggerthii_6 +
+  b_eggerthii_7 +
+  b_eggerthii_8 +
+  b_eggerthii_9 +
+  b_eggerthii_10 +
+  b_eggerthii_11 +
+  b_eggerthii_13 +
+  b_eggerthii_14 +
+  b_eggerthii_15 +
+  b_eggerthii_16
+
+plot_original_empirical_sfs(b_eggerthii)
+
+plot_original_empirical_sfs(b_eggerthii) + xlim(-1.5, 20) + 
+  ggtitle('B. eggerthii synonymous SFS (Isolates w/ Clade control)')
+
+plot_original_empirical_sfs(proportional_sfs(b_eggerthii)) + 
+  xlim(-1.5, 20) +
+  ggtitle('B. eggerthii synonymous SFS (Isolates w/ Clade control)') +
+  ylab('Proportion of Segregating Sites')
+
+b_eggerthii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_eggerthii/one_epoch_demography.txt')
+b_eggerthii_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_eggerthii/two_epoch_demography.txt')
+b_eggerthii  = b_eggerthii[-1]
+compare_sfs(fold_sfs(b_eggerthii), b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)
+
+compare_sfs(fold_sfs(b_eggerthii), b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)  +
+  xlim(-1.5, 20.5) +
+  ggtitle('B. eggerthii, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+compare_sfs(proportional_sfs(fold_sfs(b_eggerthii)), proportional_sfs(b_eggerthii_UHGG_one_epoch), proportional_sfs(b_eggerthii_UHGG_two_epoch))  +
+  xlim(-1.5, 20.5) +
+  ggtitle('B. eggerthii, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+
+compare_sfs(fold_sfs(b_eggerthii), b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)  +
+  xlim(-0.5, 50) +
+  ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
 # B. fragilis UHGG test
 b_fragilis_1 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/1_output_sfs.txt')
@@ -5631,13 +5757,157 @@ compare_sfs(fold_sfs(b_fragilis), b_fragilis_UHGG_one_epoch, b_fragilis_UHGG_two
   ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
 compare_sfs(proportional_sfs(fold_sfs(b_fragilis)), proportional_sfs(b_fragilis_UHGG_one_epoch), proportional_sfs(b_fragilis_UHGG_two_epoch))  +
-  xlim(-1.5, 10.5) +
+  xlim(-1.5, 20.5) +
   ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
 
 compare_sfs(fold_sfs(b_fragilis), b_fragilis_UHGG_one_epoch, b_fragilis_UHGG_two_epoch)  +
   xlim(-0.5, 50) +
   ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+# B. stercoris
+
+b_stercoris_1 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/1_output_sfs.txt')
+b_stercoris_2 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/2_output_sfs.txt')
+b_stercoris_3 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/3_output_sfs.txt')
+b_stercoris_4 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/4_output_sfs.txt')
+b_stercoris_5 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/5_output_sfs.txt')
+b_stercoris_6 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/6_output_sfs.txt')
+b_stercoris_7 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/7_output_sfs.txt')
+b_stercoris_8 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/8_output_sfs.txt')
+b_stercoris_9 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/9_output_sfs.txt')
+b_stercoris_19 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/19_output_sfs.txt')
+b_stercoris_29 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/29_output_sfs.txt')
+b_stercoris_39 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/39_output_sfs.txt')
+b_stercoris_53 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/53_output_sfs.txt')
+b_stercoris_54 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/54_output_sfs.txt')
+b_stercoris_55 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/55_output_sfs.txt')
+b_stercoris_56 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/56_output_sfs.txt')
+b_stercoris_57 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/57_output_sfs.txt')
+b_stercoris_58 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/58_output_sfs.txt')
+b_stercoris_59 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/59_output_sfs.txt')
+b_stercoris_60 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/60_output_sfs.txt')
+b_stercoris_62 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/62_output_sfs.txt')
+b_stercoris_63 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/63_output_sfs.txt')
+b_stercoris_64 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/64_output_sfs.txt')
+b_stercoris_66 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/66_output_sfs.txt')
+b_stercoris_67 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/67_output_sfs.txt')
+b_stercoris_68 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/68_output_sfs.txt')
+b_stercoris_69 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/69_output_sfs.txt')
+b_stercoris_70 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/70_output_sfs.txt')
+b_stercoris_71 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/71_output_sfs.txt')
+b_stercoris_72 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/72_output_sfs.txt')
+b_stercoris_73 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/73_output_sfs.txt')
+b_stercoris_74 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/74_output_sfs.txt')
+b_stercoris_75 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_stercoris/75_output_sfs.txt')
+
+b_stercoris = b_stercoris_1 +
+  b_stercoris_2 +
+  b_stercoris_3 +
+  b_stercoris_4 +
+  b_stercoris_5 +
+  b_stercoris_6 +
+  b_stercoris_7 +
+  b_stercoris_8 +
+  b_stercoris_9 +
+  b_stercoris_19 +
+  b_stercoris_29 +
+  b_stercoris_39 +
+  b_stercoris_53 +
+  b_stercoris_54 +
+  b_stercoris_55 +
+  b_stercoris_56 +
+  b_stercoris_57 +
+  b_stercoris_58 +
+  b_stercoris_59 +
+  b_stercoris_60 +
+  b_stercoris_62 +
+  b_stercoris_63 +
+  b_stercoris_64 +
+  b_stercoris_66 +
+  b_stercoris_67 +
+  b_stercoris_68 +
+  b_stercoris_69 +
+  b_stercoris_70 +
+  b_stercoris_71 +
+  b_stercoris_72 +
+  b_stercoris_73 +
+  b_stercoris_74 +
+  b_stercoris_75
+  
+plot_original_empirical_sfs(b_stercoris)
+
+plot_original_empirical_sfs(b_stercoris) + xlim(-1.5, 20) + 
+  ggtitle('B. stercoris synonymous SFS (Isolates w/ Clade control)')
+
+plot_original_empirical_sfs(proportional_sfs(b_stercoris)) + 
+  xlim(-1.5, 20) +
+  ggtitle('B. stercoris synonymous SFS (Isolates w/ Clade control)') +
+  ylab('Proportion of Segregating Sites')
+
+b_stercoris_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_stercoris/one_epoch_demography.txt')
+b_stercoris_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_stercoris/two_epoch_demography.txt')
+b_stercoris  = b_stercoris[-1]
+compare_sfs(fold_sfs(b_stercoris), b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)
+
+compare_sfs(fold_sfs(b_stercoris), b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)  +
+  xlim(-1.5, 20.5) +
+  ggtitle('B. stercoris, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+compare_sfs(proportional_sfs(fold_sfs(b_stercoris)), proportional_sfs(b_stercoris_UHGG_one_epoch), proportional_sfs(b_stercoris_UHGG_two_epoch))  +
+  xlim(-1.5, 20.5) +
+  ggtitle('B. stercoris, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+
+compare_sfs(fold_sfs(b_stercoris), b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)  +
+  xlim(-0.5, 50) +
+  ggtitle('B. stercoris, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+# F. prausnitzii
+
+f_prausnitzii_1 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/1_output_sfs.txt')
+f_prausnitzii_2 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/2_output_sfs.txt')
+f_prausnitzii_3 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/3_output_sfs.txt')
+f_prausnitzii_4 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/4_output_sfs.txt')
+f_prausnitzii_5 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/5_output_sfs.txt')
+f_prausnitzii_6 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/6_output_sfs.txt')
+f_prausnitzii_7 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/7_output_sfs.txt')
+f_prausnitzii_8 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/8_output_sfs.txt')
+f_prausnitzii_9 = read_input_sfs_original('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/9_output_sfs.txt')
+
+f_prausnitzii = f_prausnitzii_1 +
+  f_prausnitzii_2 +
+  f_prausnitzii_3 +
+  f_prausnitzii_4 +
+  f_prausnitzii_5 +
+  f_prausnitzii_6 +
+  f_prausnitzii_7 +
+  f_prausnitzii_8 +
+  f_prausnitzii_9
+  
+plot_original_empirical_sfs(f_prausnitzii) + xlim(-1.5, 20) + 
+  ggtitle('F. prausnitzii [K] synonymous SFS (Isolates w/ Clade control)')
+
+plot_original_empirical_sfs(proportional_sfs(f_prausnitzii)) + 
+  xlim(-1.5, 20) +
+  ggtitle('F. prausnitzii [K] synonymous SFS (Isolates w/ Clade control)') +
+  ylab('Proportion of Segregating Sites')
+
+
+f_prausnitzii = fold_sfs(f_prausnitzii)
+f_prausnitzii = f_prausnitzii[-1]
+f_prausnitzii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/one_epoch_demography.txt')
+f_prausnitzii_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/two_epoch_demography.txt')
+
+f_prausnitzii_UHGG_two_epoch = numeric(length(f_prausnitzii))
+compare_sfs(f_prausnitzii, f_prausnitzii_UHGG_one_epoch, f_prausnitzii_UHGG_two_epoch)
+
+compare_sfs(proportional_sfs(f_prausnitzii), proportional_sfs(f_prausnitzii_UHGG_one_epoch), proportional_sfs(f_prausnitzii_UHGG_two_epoch)) +
+  xlim(-0.5, 50.5) +
+  ggtitle('F. prausnitzii [K] SFS Comparison, Isolates w/ Clade Control')
+
+
+# P. copri
 
 p_copri_1 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/1_output_sfs.txt')
 p_copri_2 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/2_output_sfs.txt')
@@ -5704,7 +5974,7 @@ plot_original_empirical_sfs(p_copri) + xlim(-1.5, 20) +
 
 plot_original_empirical_sfs(proportional_sfs(p_copri)) + 
   xlim(-1.5, 20) +
-  ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)') +
+  ggtitle('P. copri synonymous SFS (Isolates w/ Clade control)') +
   ylab('Proportion of Segregating Sites')
 
 

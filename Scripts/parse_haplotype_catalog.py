@@ -119,7 +119,7 @@ class ParseSnpsCatalogues():
         # with open(input_clade, 'r') as f:
         input_clade = open(input_clade, 'r')
         lines = input_clade.readlines()
-        
+
 
         max_clade_size = 0
         species_bool = False
@@ -150,7 +150,7 @@ class ParseSnpsCatalogues():
         df = df[df.site_type == 'syn']
         # Set index based on first four rows
         df.set_index(['contig', 'gene_id', 'site_type'], inplace=True)
-        
+
         # Dropping columns unrelated to largest clade
         df = df[df.columns.intersection(largest_clade)]
         logger.info('The largest clade has ' + str(max_clade_size) + ' hosts.')
@@ -183,7 +183,7 @@ class ParseSnpsCatalogues():
         with open(output_sfs, 'w') as f:
             f.write((str(num_bins)  + ' unfolded "output_sfs"\n'))
             f.write(' '.join(map(str, sfs_list)) + '\n')
-            f.write(' '.join(map(str, mask_list)))
+            f.write(' '.join(map(str, mask_list)) +'\n')
 
         logger.info('Pipeline executed successfully.')
 
