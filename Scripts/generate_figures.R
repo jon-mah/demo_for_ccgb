@@ -5611,6 +5611,8 @@ b_fragilis_4 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/4
 b_fragilis_5 = read_input_sfs_original('../Data/UHGG/UHGG_Bacteroides_fragilis/5_output_sfs.txt')
 b_fragilis = b_fragilis_1 + b_fragilis_2 + b_fragilis_3 + b_fragilis_4 + b_fragilis_5
 
+plot_original_empirical_sfs(b_fragilis)
+
 plot_original_empirical_sfs(b_fragilis) + xlim(-1.5, 20) + 
   ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)')
 
@@ -5618,6 +5620,24 @@ plot_original_empirical_sfs(proportional_sfs(b_fragilis)) +
   xlim(-1.5, 20) +
   ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)') +
   ylab('Proportion of Segregating Sites')
+
+b_fragilis_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt')
+b_fragilis_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt')
+b_fragilis  = b_fragilis[-1]
+compare_sfs(fold_sfs(b_fragilis), b_fragilis_UHGG_one_epoch, b_fragilis_UHGG_two_epoch)
+
+compare_sfs(fold_sfs(b_fragilis), b_fragilis_UHGG_one_epoch, b_fragilis_UHGG_two_epoch)  +
+  xlim(-1.5, 20.5) +
+  ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+compare_sfs(proportional_sfs(fold_sfs(b_fragilis)), proportional_sfs(b_fragilis_UHGG_one_epoch), proportional_sfs(b_fragilis_UHGG_two_epoch))  +
+  xlim(-1.5, 10.5) +
+  ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
+
+
+compare_sfs(fold_sfs(b_fragilis), b_fragilis_UHGG_one_epoch, b_fragilis_UHGG_two_epoch)  +
+  xlim(-0.5, 50) +
+  ggtitle('B. fragilis, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
 p_copri_1 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/1_output_sfs.txt')
 p_copri_2 = read_input_sfs_original('../Data/UHGG/UHGG_Prevotella_copri/2_output_sfs.txt')
@@ -5686,3 +5706,16 @@ plot_original_empirical_sfs(proportional_sfs(p_copri)) +
   xlim(-1.5, 20) +
   ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)') +
   ylab('Proportion of Segregating Sites')
+
+
+p_copri = fold_sfs(p_copri)
+p_copri = p_copri[-1]
+p_copri_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/one_epoch_demography.txt')
+p_copri_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/two_epoch_demography.txt')
+
+p_copri_UHGG_two_epoch = numeric(length(p_copri))
+compare_sfs(p_copri, p_copri_UHGG_one_epoch, p_copri_UHGG_two_epoch)
+
+compare_sfs(proportional_sfs(p_copri), proportional_sfs(p_copri_UHGG_one_epoch), proportional_sfs(p_copri_UHGG_two_epoch)) +
+  xlim(-0.5, 50.5) +
+  ggtitle('P. copri SFS Comparison, Isolates w/ Clade Control')
