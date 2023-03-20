@@ -5650,22 +5650,17 @@ plot_original_empirical_sfs(b_a_coprocola) + xlim(-1.5, 20) +
 
 b_a_coprocola_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_A_coprocola/one_epoch_demography.txt')
 b_a_coprocola_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_A_coprocola/two_epoch_demography.txt')
-b_a_coprocola  = b_a_coprocola[-1]
 
-compare_sfs(fold_sfs(b_a_coprocola), b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)
+compare_sfs(fold_sfs(b_a_coprocola)[-1], b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch) +
+  ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
 
-compare_sfs(fold_sfs(b_a_coprocola), b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)  +
+compare_sfs(fold_sfs(b_a_coprocola)[-1], b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)  +
   xlim(-1.5, 20.5) +
   ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
 
-compare_sfs(proportional_sfs(fold_sfs(b_a_coprocola)), proportional_sfs(b_a_coprocola_UHGG_one_epoch), proportional_sfs(b_a_coprocola_UHGG_two_epoch))  +
-  xlim(-1.5, 10.5) +
+compare_sfs(proportional_sfs(fold_sfs(b_a_coprocola)[-1]), proportional_sfs(b_a_coprocola_UHGG_one_epoch), proportional_sfs(b_a_coprocola_UHGG_two_epoch))  +
   ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
 
-
-compare_sfs(fold_sfs(b_a_coprocola), b_a_coprocola_UHGG_one_epoch, b_a_coprocola_UHGG_two_epoch)  +
-  xlim(-0.5, 50) +
-  ggtitle('B. coprocola [A], UHGG Isolate SFS Comparison (w/ Clade Control)')
 
 # B. eggerthii
 
@@ -5713,14 +5708,13 @@ plot_original_empirical_sfs(proportional_sfs(b_eggerthii)) +
 
 b_eggerthii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_eggerthii/one_epoch_demography.txt')
 b_eggerthii_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_eggerthii/two_epoch_demography.txt')
-b_eggerthii  = b_eggerthii[-1]
-compare_sfs(fold_sfs(b_eggerthii), b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)
+compare_sfs(fold_sfs(b_eggerthii)[-1], b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)
 
-compare_sfs(fold_sfs(b_eggerthii), b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)  +
+compare_sfs(fold_sfs(b_eggerthii)[-1], b_eggerthii_UHGG_one_epoch, b_eggerthii_UHGG_two_epoch)  +
   xlim(-1.5, 20.5) +
   ggtitle('B. eggerthii, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
-compare_sfs(proportional_sfs(fold_sfs(b_eggerthii)), proportional_sfs(b_eggerthii_UHGG_one_epoch), proportional_sfs(b_eggerthii_UHGG_two_epoch))  +
+compare_sfs(proportional_sfs(fold_sfs(b_eggerthii)[-1]), proportional_sfs(b_eggerthii_UHGG_one_epoch), proportional_sfs(b_eggerthii_UHGG_two_epoch))  +
   xlim(-1.5, 20.5) +
   ggtitle('B. eggerthii, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
@@ -5847,14 +5841,13 @@ plot_original_empirical_sfs(proportional_sfs(b_stercoris)) +
 
 b_stercoris_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_stercoris/one_epoch_demography.txt')
 b_stercoris_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_stercoris/two_epoch_demography.txt')
-b_stercoris  = b_stercoris[-1]
-compare_sfs(fold_sfs(b_stercoris), b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)
+compare_sfs(fold_sfs(b_stercoris)[-1], b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)
 
-compare_sfs(fold_sfs(b_stercoris), b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)  +
+compare_sfs(fold_sfs(b_stercoris)[-1], b_stercoris_UHGG_one_epoch, b_stercoris_UHGG_two_epoch)  +
   xlim(-1.5, 20.5) +
   ggtitle('B. stercoris, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
-compare_sfs(proportional_sfs(fold_sfs(b_stercoris)), proportional_sfs(b_stercoris_UHGG_one_epoch), proportional_sfs(b_stercoris_UHGG_two_epoch))  +
+compare_sfs(proportional_sfs(fold_sfs(b_stercoris)[-1]), proportional_sfs(b_stercoris_UHGG_one_epoch), proportional_sfs(b_stercoris_UHGG_two_epoch))  +
   xlim(-1.5, 20.5) +
   ggtitle('B. stercoris, UHGG Isolate SFS Comparison (w/ Clade Control)')
 
@@ -5884,6 +5877,8 @@ f_prausnitzii = f_prausnitzii_1 +
   f_prausnitzii_7 +
   f_prausnitzii_8 +
   f_prausnitzii_9
+
+
   
 plot_original_empirical_sfs(f_prausnitzii) + xlim(-1.5, 20) + 
   ggtitle('F. prausnitzii [K] synonymous SFS (Isolates w/ Clade control)')
@@ -5894,15 +5889,14 @@ plot_original_empirical_sfs(proportional_sfs(f_prausnitzii)) +
   ylab('Proportion of Segregating Sites')
 
 
-f_prausnitzii = fold_sfs(f_prausnitzii)
-f_prausnitzii = f_prausnitzii[-1]
-f_prausnitzii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/one_epoch_demography.txt')
-f_prausnitzii_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/two_epoch_demography.txt')
+f_prausnitzii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/one_epoch_demography.txt')
+f_prausnitzii_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/two_epoch_demography.txt')
 
-f_prausnitzii_UHGG_two_epoch = numeric(length(f_prausnitzii))
-compare_sfs(f_prausnitzii, f_prausnitzii_UHGG_one_epoch, f_prausnitzii_UHGG_two_epoch)
+compare_sfs(fold_sfs(f_prausnitzii)[-1], f_prausnitzii_UHGG_one_epoch, f_prausnitzii_UHGG_two_epoch) +
+  xlim(-0.5, 20.5) +
+  ggtitle('F. prausnitzii [K] SFS Comparison, Isolates w/ Clade Control')
 
-compare_sfs(proportional_sfs(f_prausnitzii), proportional_sfs(f_prausnitzii_UHGG_one_epoch), proportional_sfs(f_prausnitzii_UHGG_two_epoch)) +
+compare_sfs(proportional_sfs(fold_sfs(f_prausnitzii))[-1], proportional_sfs(f_prausnitzii_UHGG_one_epoch), proportional_sfs(f_prausnitzii_UHGG_two_epoch)) +
   xlim(-0.5, 50.5) +
   ggtitle('F. prausnitzii [K] SFS Comparison, Isolates w/ Clade Control')
 
@@ -5984,8 +5978,10 @@ p_copri_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri
 p_copri_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Prevotella_copri/two_epoch_demography.txt')
 
 p_copri_UHGG_two_epoch = numeric(length(p_copri))
-compare_sfs(p_copri, p_copri_UHGG_one_epoch, p_copri_UHGG_two_epoch)
+compare_sfs(p_copri, p_copri_UHGG_one_epoch, p_copri_UHGG_two_epoch) +
+  xlim(-0.5, 20.5)  +
+  ggtitle('P. copri SFS Comparison, Isolates w/ Clade Control')
 
 compare_sfs(proportional_sfs(p_copri), proportional_sfs(p_copri_UHGG_one_epoch), proportional_sfs(p_copri_UHGG_two_epoch)) +
-  xlim(-0.5, 50.5) +
+  xlim(-0.5, 20.5) +
   ggtitle('P. copri SFS Comparison, Isolates w/ Clade Control')
