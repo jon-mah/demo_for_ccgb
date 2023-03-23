@@ -5897,7 +5897,7 @@ compare_sfs(fold_sfs(f_prausnitzii)[-1], f_prausnitzii_UHGG_one_epoch, f_prausni
   ggtitle('F. prausnitzii [K] SFS Comparison, Isolates w/ Clade Control')
 
 compare_sfs(proportional_sfs(fold_sfs(f_prausnitzii))[-1], proportional_sfs(f_prausnitzii_UHGG_one_epoch), proportional_sfs(f_prausnitzii_UHGG_two_epoch)) +
-  xlim(-0.5, 50.5) +
+  xlim(-0.5, 20.5) +
   ggtitle('F. prausnitzii [K] SFS Comparison, Isolates w/ Clade Control')
 
 
