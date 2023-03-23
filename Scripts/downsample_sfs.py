@@ -90,10 +90,10 @@ class ComputeDownSampledSFS():
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         downsampled_sfs = \
            '{0}{1}downsampled_sfs.txt'.format(
-                args['outprefix'], underscore, species)
+                args['outprefix'], underscore)
         logfile = '{0}{1}downsampling.log'.format(
-            args['outprefix'], underscore, species)
-        to_remove = [logfil, downsampled_sfs]
+            args['outprefix'], underscore)
+        to_remove = [logfile, downsampled_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -124,21 +124,11 @@ class ComputeDownSampledSFS():
         logger.info('Parsing input SFS.')
         input_spectrum =  dadi.Spectrum.from_file(input_sfs)
 
-        print(input_spectrum)
-
+        logger.info('Formatting output SFS.')
         output_spectrum = input_spectrum.project([sample_size])
-
-        print(output_spectrum)
-
+        output_spectrum.fold()
         output_spectrum.to_file(downsampled_sfs)
 
-        logger.info('Formatting output SFSs.')
-        dadi_syn_dict = dadi.Misc.make_data_dict(output_syn_matrix)
-        syn_data = dadi.Spectrum.from_data_dict(dadi_syn_dict, ['BAC'], [sample_size], polarized=False)
-        dadi_nonsyn_dict = dadi.Misc.make_data_dict(output_nonsyn_matrix)
-        nonsyn_data = dadi.Spectrum.from_data_dict(dadi_nonsyn_dict, ['BAC'], [sample_size], polarized=False)
-        syn_data.to_file(downsampled_syn_sfs)
-        nonsyn_data.to_file(downsampled_nonsyn_sfs)
         logger.info('Finished downsampling.')
         logger.info('Pipeline executed succesfully.')
 
