@@ -165,6 +165,31 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
   return(p_input_comparison)
 }
 
+
+compare_isolate_sfs = function(HMP_QP, Isolate) {
+  x_axis = 1:length(HMP_QP)
+  
+  input_df = data.frame(proportional_sfs(HMP_QP), 
+                        proportional_sfs(Isolate), x_axis)
+  
+  names(input_df) = c('HMP QP',
+                      'Isolate',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                               aes(x=x_axis, 
+                                   y=value,
+                                   fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of Segregating Sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    ylim(0, 1.0)
+  return(p_input_comparison)
+}
+
 compare_sfs_cornejo_count = function(input_directory) {
   empirical_syn_sfs_file = paste(input_directory, 'downsampled_syn_sfs.txt', sep='')
   model_syn_sfs_file = paste(input_directory, 'two_epoch_demography.txt', sep='')
@@ -5985,3 +6010,58 @@ compare_sfs(p_copri, p_copri_UHGG_one_epoch, p_copri_UHGG_two_epoch) +
 compare_sfs(proportional_sfs(p_copri), proportional_sfs(p_copri_UHGG_one_epoch), proportional_sfs(p_copri_UHGG_two_epoch)) +
   xlim(-0.5, 20.5) +
   ggtitle('P. copri SFS Comparison, Isolates w/ Clade Control')
+
+
+## Isolate downsampling
+
+# B. fragilis
+
+b_fragilis_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Bacteroides_fragilis_54507_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+b_fragilis_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
+))
+
+compare_isolate_sfs(b_fragilis_14_hmp[-1], 
+                    b_fragilis_14_isolate[-1]) +
+  ggtitle('B. fragilis downsampled SFS comparison')
+
+
+b_stercoris_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Bacteroides_stercoris_56735_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+b_stercoris_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_stercoris/downsampled_sfs.txt'
+))
+
+compare_isolate_sfs(b_stercoris_14_hmp[-1],
+                    b_stercoris_14_isolate[-1]) +
+  ggtitle('B. stercoris Downsampled SFS comparison')
+
+f_prausnitzii_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+f_prausnitzii_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/downsampled_sfs.txt'
+))
+
+compare_isolate_sfs(f_prausnitzii_14_hmp[-1],
+                    f_prausnitzii_14_isolate[-1]) +
+  ggtitle('F. prausnitzii Downsampled SFS Comparison')
+
+p_copri_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Prevotella_copri_61740_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+p_copri_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Prevotella_copri/downsampled_sfs.txt'
+))
+
+compare_isolate_sfs(p_copri_14_hmp[-1],
+                    p_copri_14_isolate[-1]) +
+  ggtitle('P. copri Downsampled SFS Comparison')
+
