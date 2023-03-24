@@ -1,7 +1,8 @@
 """
 Writes to file the manual clade identification.
 
-JCM 201907011
+JCM 20230323
+Adapted from code written by Richard Wolff
 """
 
 
@@ -51,6 +52,12 @@ class CreateClade():
                 'Write to file the manual clade identifications.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
+            'input_species', type=str,
+            help='The species for which we are defining clades.')
+        parser.add_argument(
+            'input_threshold', type=float,
+            help='The threshold for automatically cutting clades.')
+        parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
         return parser
@@ -65,12 +72,14 @@ class CreateClade():
 
         # Assign arguments
         outprefix = args['outprefix']
+        input_species = args['input_species']
+        man_clus_thresh = args['input_threshold']
         genetic_distances_dir = config.genetic_distances_dir
         dist_loc = f"{genetic_distances_dir}/genetic_distance_matrices"
         good_species = config.good_species
 
         # Numpy options
-        numpy.set_printoptions(linewidth=numpy.inf)
+        np.set_printoptions(linewidth=np.inf)
 
         # create output directory if needed
         outdir = os.path.dirname(args['outprefix'])
@@ -84,12 +93,10 @@ class CreateClade():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         manual_clade = \
-            '{0}{1}manual_clade_identification.txt'.format(
+            '{0}{1}manual_clade_definitions.txt'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
-        to_remove = [logfile, exponential_growth_demography,
-                     two_epoch_demography, bottleneck_growth_demography,
-                     three_epoch_demography]
+        logfile = '{0}{1}create_clade.log'.format(args['outprefix'], underscore)
+        to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -119,7 +126,57 @@ class CreateClade():
 
         # Define manual cluster dictionary
         man_clus_dic = {}
-        print(good_species)
+
+        # Define species for clade identification
+        species = input_species
+        logger.info('Creating clade for: ' + str(species) + '.')
+
+        # Read in distances for given species
+        df = pd.read_csv(f"{dist_loc}/{species}_distance.txt", index_col=0)
+
+        # Prune closely related samples
+        close_thresh = 2.5 * 1e-5
+        logger.info('Before pruning of closely related samples we '
+                    'have ' + str(df.shape[0]) + ' samples total.')
+        close_samples_dic = {}
+        for row in df.index:
+            close_samples = list(df.loc[row][(df.loc[row] < close_thresh)].index)
+            close_samples.remove(row)
+            if len(close_samples) > 0:
+                close_samples_dic[row] = close_samples
+        logger.info('There are a total of ' +
+                    str(int(len(list(close_samples_dic.keys())))) +
+                    ' samples with one or more closely related samples.')
+        for key, value in close_samples_dic.items():
+            for idx in value:
+                if idx in df.index:
+                    df = df.drop(idx, axis=0).drop(idx, axis=1)
+        logger.info('After pruning of closely related samples, ' +
+                    'we have ' + str(df.shape[0]) + 
+                    ' samples remaining.')
+
+        # Define clades through clustering and thresholding.
+        D = df.values
+        D = squareform(D)
+        Z = shc.linkage(D, method='average')
+        # man_clus_thresh = 7 * 1e-3
+        clusters = fcluster(Z,  man_clus_thresh, criterion='distance')
+        man_clus_dic[species] = {i:list(df.columns[clusters == i]) for i in list(set(clusters))}          
+
+        logger.info('Outputting manual clade identification.')
+        with open(manual_clade, 'a+') as f:
+            print(species, file=f)
+            i = 0
+            item_list = man_clus_dic[species].items()
+            max_clus_num = list(item_list)[-1][0]
+            for item in item_list:
+                cluster = item[0]
+                samples = item[1]
+                for sample in samples:
+                    print(f"{i} {sample}", file=f)
+                    i += 1
+                if cluster < max_clus_num:
+                    print("------------", file=f)
 
         logger.info('Pipeline executed succesfully.')
 
