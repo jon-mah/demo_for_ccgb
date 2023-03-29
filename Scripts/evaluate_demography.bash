@@ -7,24 +7,24 @@
 #$ -l h_rt=00:30:00
 
 # UHGG Isolates
-python evaluate_demograph.py ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/downsampled_sfs.txt two_epoch 7.62438e-05 0.00059825 ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Alistipes_finegoldii/downsampled_sfs.txt two_epoch 6.87297e-05 0.000692151 ../Data/UHGG/UHGG_Alistipes_finegoldii/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Alistipes_onderdonkii/downsampled_sfs.txt two_epoch 13.8009 0.0867931 ../Data/UHGG/UHGG_Alistipes_onderdonkii/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Alistipes_putredinis/downsampled_sfs.txt two_epoch 2.04494 0.896315 ../Data/UHGG/UHGG_Alistipes_putredinis/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Alistipes_shahii/downsampled_sfs.txt two_epoch 6.34036 0.305876 ../Data/UHGG/UHGG_Alistipes_shahii/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt two_epoch 2.31451 0.810425 ../Data/UHGG/UHGG_Bacteroides_fragilis/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Bacteroides_ovatus/downsampled_sfs.txt two_epoch 0.67543 0.309707 ../Data/UHGG/UHGG_Bacteroides_ovatus/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Bacteroides_stercoris/downsampled_sfs.txt two_epoch 2.88222 0.528089 ../Data/UHGG/UHGG_Bacteroides_stercoris/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/downsampled_sfs.txt two_epoch 2.86237 0.125612 ../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Bacteroides_xylanisolvens/downsampled_sfs.txt two_epoch 22.1446 2.4363 ../Data/UHGG/UHGG_Bacteroides_xylanisolvens/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Barnesiella_intestinihominis/downsampled_sfs.txt two_epoch 1.29099 0.470359 ../Data/UHGG/UHGG_Barnesiella_intestinihominis/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Dialister_invisus/downsampled_sfs.txt two_epoch 0.000520986 0.00496611 ../Data/UHGG/UHGG_Dialister_invisus/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/downsampled_sfs.txt two_epoch 3.1158 1.10706 ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Odoribacter_splanchnicus/downsampled_sfs.txt two_epoch 0.00034436 0.00282058 ../Data/UHGG/UHGG_Odoribacter_splanchnicus/
-# python evaluate_demograph.py ../Data/UHGG/UHGG_Parabacteroides_distasonis/downsampled_sfs.txt two_epoch 0.0 0.0 ../Data/UHGG/UHGG_Parabacteroides_distasonis/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Parabacteroides_merdae/downsampled_sfs.txt two_epoch 5.38016 0.0586718 ../Data/UHGG/UHGG_Parabacteroides_merdae/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Prevotella_copri/downsampled_sfs.txt two_epoch 11.2043 0.0439066 ../Data/UHGG/UHGG_Prevotella_copri/
-python evaluate_demograph.py ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/downsampled_sfs.txt two_epoch 3.50459 0.0639457 ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/
+python evaluate_demography.py ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/downsampled_sfs.txt two_epoch 7.62438e-05 0.00059825 ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/
+python evaluate_demography.py ../Data/UHGG/UHGG_Alistipes_finegoldii/downsampled_sfs.txt two_epoch 6.87297e-05 0.000692151 ../Data/UHGG/UHGG_Alistipes_finegoldii/
+python evaluate_demography.py ../Data/UHGG/UHGG_Alistipes_onderdonkii/downsampled_sfs.txt two_epoch 13.8009 0.0867931 ../Data/UHGG/UHGG_Alistipes_onderdonkii/
+python evaluate_demography.py ../Data/UHGG/UHGG_Alistipes_putredinis/downsampled_sfs.txt two_epoch 2.04494 0.896315 ../Data/UHGG/UHGG_Alistipes_putredinis/
+python evaluate_demography.py ../Data/UHGG/UHGG_Alistipes_shahii/downsampled_sfs.txt two_epoch 6.34036 0.305876 ../Data/UHGG/UHGG_Alistipes_shahii/
+python evaluate_demography.py ../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt two_epoch 2.31451 0.810425 ../Data/UHGG/UHGG_Bacteroides_fragilis/
+python evaluate_demography.py ../Data/UHGG/UHGG_Bacteroides_ovatus/downsampled_sfs.txt two_epoch 0.67543 0.309707 ../Data/UHGG/UHGG_Bacteroides_ovatus/
+python evaluate_demography.py ../Data/UHGG/UHGG_Bacteroides_stercoris/downsampled_sfs.txt two_epoch 2.88222 0.528089 ../Data/UHGG/UHGG_Bacteroides_stercoris/
+python evaluate_demography.py ../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/downsampled_sfs.txt two_epoch 2.86237 0.125612 ../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/
+python evaluate_demography.py ../Data/UHGG/UHGG_Bacteroides_xylanisolvens/downsampled_sfs.txt two_epoch 22.1446 2.4363 ../Data/UHGG/UHGG_Bacteroides_xylanisolvens/
+python evaluate_demography.py ../Data/UHGG/UHGG_Barnesiella_intestinihominis/downsampled_sfs.txt two_epoch 1.29099 0.470359 ../Data/UHGG/UHGG_Barnesiella_intestinihominis/
+python evaluate_demography.py ../Data/UHGG/UHGG_Dialister_invisus/downsampled_sfs.txt two_epoch 0.000520986 0.00496611 ../Data/UHGG/UHGG_Dialister_invisus/
+python evaluate_demography.py ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/downsampled_sfs.txt two_epoch 3.1158 1.10706 ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/
+python evaluate_demography.py ../Data/UHGG/UHGG_Odoribacter_splanchnicus/downsampled_sfs.txt two_epoch 0.00034436 0.00282058 ../Data/UHGG/UHGG_Odoribacter_splanchnicus/
+# python evaluate_demography.py ../Data/UHGG/UHGG_Parabacteroides_distasonis/downsampled_sfs.txt two_epoch 0.0 0.0 ../Data/UHGG/UHGG_Parabacteroides_distasonis/
+python evaluate_demography.py ../Data/UHGG/UHGG_Parabacteroides_merdae/downsampled_sfs.txt two_epoch 5.38016 0.0586718 ../Data/UHGG/UHGG_Parabacteroides_merdae/
+python evaluate_demography.py ../Data/UHGG/UHGG_Prevotella_copri/downsampled_sfs.txt two_epoch 11.2043 0.0439066 ../Data/UHGG/UHGG_Prevotella_copri/
+python evaluate_demography.py ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/downsampled_sfs.txt two_epoch 3.50459 0.0639457 ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/
 
 
 # Downsampled to 10

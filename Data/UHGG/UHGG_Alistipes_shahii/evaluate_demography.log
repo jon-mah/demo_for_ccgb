@@ -1,0 +1,22 @@
+2023-03-29 14:01:56,187 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-03-29 14:01:56,187 - INFO - Progress is being logged to ../Data/UHGG/UHGG_Alistipes_shahii/evaluate_demography.log
+
+2023-03-29 14:01:56,187 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/UHGG/UHGG_Alistipes_shahii/downsampled_sfs.txt
+	model_type = two_epoch
+	nu = 6.34036
+	tau = 0.305876
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Data/UHGG/UHGG_Alistipes_shahii/
+
+2023-03-29 14:01:56,188 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-03-29 14:01:56,189 - INFO - Beginning optimization with guess, [6.34036, 0.305876].
+2023-03-29 14:01:56,418 - INFO - Finished optimization with guess, [6.34036, 0.305876].
+2023-03-29 14:01:56,419 - INFO - Best fit parameters: [6.14974461 0.27997396].
+2023-03-29 14:01:56,444 - INFO - Maximum log composite likelihood: -242.36725123463657.
+2023-03-29 14:01:56,444 - INFO - Optimal value of theta: 10818.997350946594.
+2023-03-29 14:01:56,445 - INFO - Converting and interpreting Tau estimates.
+2023-03-29 14:01:56,445 - INFO - Finished demographic evaluation.
+2023-03-29 14:01:56,445 - INFO - Pipeline executed succesfully.

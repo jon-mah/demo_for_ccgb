@@ -3,14 +3,13 @@
 #$ -V
 #$ -m ea
 #$ -l h_data=25G
-#$ -l highp
 #$ -l h_rt=00:30:00
-#$ -t 1-30
+#$ -t 1-18
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -N downsample_14_one_epoch
+#$ -N fit_one_epoch
 
-SGE_TASK_ID=1
+# SGE_TASK_ID=1
 
 # i=0
 # while read line;
