@@ -32,6 +32,16 @@ SGE_TASK_ID=1
 #   fi
 # done < ./oral_sfs_list.txt
 
+# i=0
+# while read line;
+# do
+#   i=$((i+1))
+#   if [ $i -eq $SGE_TASK_ID ]
+#     then
+#       species=$line
+#   fi
+# done < ./gut_sfs_list.txt
+
 i=0
 while read line;
 do
@@ -40,7 +50,7 @@ do
    then
      species=$line
   fi
-done < ./gut_sfs_list.txt
+done < ./isolate_sfs_list.txt
 
 # Consensus gut one epoch
 # python fit_one_epoch.py ../Data/gut_microbiome_sfs/${species}_sfs/folded_sfs_10.txt ../Data/gut_microbiome_sfs/${species}_sfs/masked/ --mask_singletons
@@ -68,4 +78,4 @@ done < ./gut_sfs_list.txt
 # python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_fragilis/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_fragilis/
 # python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_stercoris/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_stercoris/
 # python fit_one_epoch.py ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/full_output_sfs.txt ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/
-python fit_one_epoch.py ../Data/UHGG/UHGG_Prevotella_copri/full_output_sfs.txt ../Data/UHGG/UHGG_Prevotella_copri/
+python fit_one_epoch.py ../Data/UHGG/UHGG_${species}/downsampled_sfs.txt ../Data/UHGG/UHGG_${species}/

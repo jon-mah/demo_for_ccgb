@@ -6065,3 +6065,22 @@ compare_isolate_sfs(p_copri_14_hmp[-1],
                     p_copri_14_isolate[-1]) +
   ggtitle('P. copri Downsampled SFS Comparison')
 
+# Likelihood surface for UHGG Isolates
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Akkermansia_muciniphila_B.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Alistipes_finegoldii.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Alistipes_onderdonkii.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Alistipes_putredinis.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Alistipes_shahii.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Bacteroides_fragilis.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Bacteroides_ovatus.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Bacteroides_stercoris.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Bacteroides_thetaiotaomicron.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Bacteroides_xylanisolvens.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Barnesiella_intestinihominis.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Dialister_invisus.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Faecalibacterium_prausnitzii_K.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Odoribacter_splanchnicus.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Parabacteroides_distasonis.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Parabacteroides_merdae.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Prevotella_copri.csv')
+plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Ruminococcus_E_bromii_B.csv')
