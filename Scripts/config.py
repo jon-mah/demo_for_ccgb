@@ -8,7 +8,7 @@ figures_dir = f"{scripts_dir}/figures" # PL may not need
 ## metadata
 metadata_dir = "/u/project/ngarud/Garud_lab/UHGG/metadata"
 ## list of species we will be analyzing
-good_species = list(pd.read_csv(f"{metadata_dir}/good_species.txt",header=None).values.ravel())
+good_species = list(pd.read_csv('../Data/good_species_list.txt',header=None).values.ravel())
 
 ## base directory to store downloaded files
 raw_dir = "/u/project/ngarud/Garud_lab/UHGG/raw_data"
