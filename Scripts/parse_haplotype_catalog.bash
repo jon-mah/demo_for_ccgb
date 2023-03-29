@@ -1,11 +1,12 @@
 #!/bin/bash
-#$ -N MIDAS_species.bash
+#$ -N parse_haplotypes
 #$ -cwd # Run qsub script from desired working directory
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=25G
-#$ -l h_rt=00:30:00
+#$ -l h_data=50G
+#$ -l highp
+#$ -l h_rt=04:00:00
 
 # python parse_haplotype_catalog.py ../Data/UHGG/UHGG_Bacteroides_fragilis/GUT_GENOME096063_1_haplotypes.csv ../Data/UHGG/UHGG_Bacteroides_fragilis/1_
 # python parse_haplotype_catalog.py ../Data/UHGG/UHGG_Bacteroides_fragilis/GUT_GENOME096063_2_haplotypes.csv ../Data/UHGG/UHGG_Bacteroides_fragilis/2_
@@ -250,7 +251,7 @@ python parse_haplotype_catalog.py /u/project/ngarud/Garud_lab/UHGG/haplotypes/Od
 python parse_haplotype_catalog.py /u/project/ngarud/Garud_lab/UHGG/haplotypes/Odoribacter_splanchnicus/GUT_GENOME001635_37_haplotypes.csv ../Data/UHGG/manual_clade_definitions.txt Odoribacter_splanchnicus ../Data/UHGG/UHGG_Odoribacter_splanchnicus/37
 
 # Parabacteroides distasonis
-python parse_haplotype_catalog.py /u/project/ngarud/Garud_lab/UHGG/haplotypes/Parabacteroides_distasonis/GUT_GENOME001635_1_haplotypes.csv ../Data/UHGG/manual_clade_definitions.txt Parabacteroides_distasonis ../Data/UHGG/UHGG_Parabacteroides_distasonis/1
+python parse_haplotype_catalog.py /u/project/ngarud/Garud_lab/UHGG/haplotypes/Parabacteroides_distasonis/GUT_GENOME143131_1_haplotypes.csv ../Data/UHGG/manual_clade_definitions.txt Parabacteroides_distasonis ../Data/UHGG/UHGG_Parabacteroides_distasonis/1
 
 # Parabacteroides merdae
 python parse_haplotype_catalog.py /u/project/ngarud/Garud_lab/UHGG/haplotypes/Parabacteroides_merdae/GUT_GENOME000192_1_haplotypes.csv ../Data/UHGG/manual_clade_definitions.txt Parabacteroides_merdae ../Data/UHGG/UHGG_Parabacteroides_merdae/1

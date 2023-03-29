@@ -51,7 +51,7 @@ class ParseSnpsCatalogues():
             help='The input manual clade identification  `.txt` file')
         parser.add_argument(
             'species', type=str,
-            help='The species for which we are parsing haplotypes'
+            help='The species for which we are parsing haplotypes')
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files.')
@@ -68,7 +68,6 @@ class ParseSnpsCatalogues():
         input_haplotype_catalogue  = args['input_haplotype_catalogue']
         input_clade = args['input_clade_identification']
         species = args['species']
-        downsample = args['downsample']
         outprefix = args['outprefix']
 
         # create output directory if needed
