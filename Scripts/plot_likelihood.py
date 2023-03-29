@@ -443,8 +443,8 @@ class PlotLikelihood():
             with open(file, 'w') as f:
                 nx = 10
                 ny = 10
-                x = numpy.random.gamma(shape=1, scale=0.001, size=nx)
-                y = numpy.random.gamma(shape=1, scale=0.001, size=ny)
+                x = numpy.random.gamma(shape=input_shape, scale=input_scale, size=nx)
+                y = numpy.random.gamma(shape=input_shape, scale=input_scale, size=ny)
                 z_shape = (nx, ny)
                 z = numpy.ones(z_shape)
                 max_ll = -10000000

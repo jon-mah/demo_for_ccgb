@@ -1,5 +1,5 @@
 #!/bin/bash
-#$ -N MIDAS_species.bash
+#$ -N downsample_sfs.bash
 #$ -cwd # Run qsub script from desired working directory
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
@@ -7,7 +7,22 @@
 #$ -l h_data=25G
 #$ -l h_rt=00:30:00
 
-python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_fragilis/full_output_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_fragilis/
-python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_stercoris/full_output_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_stercoris/
-python downsample_sfs.py ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/full_output_sfs.txt 14 ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/
-python downsample_sfs.py ../Data/UHGG/UHGG_Prevotella_copri/full_output_sfs.txt 14 ../Data/UHGG/UHGG_Prevotella_copri/
+python downsample_sfs.py ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/full_sfs.txt 14 ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/
+python downsample_sfs.py ../Data/UHGG/UHGG_Alistipes_finegoldii/full_sfs.txt 14 ../Data/UHGG/UHGG_Alistipes_finegoldii/
+python downsample_sfs.py ../Data/UHGG/UHGG_Alistipes_onderdonkii/full_sfs.txt 14 ../Data/UHGG/UHGG_Alistipes_onderdonkii/
+python downsample_sfs.py ../Data/UHGG/UHGG_Alistipes_putredinis/full_sfs.txt 14 ../Data/UHGG/UHGG_Alistipes_putredinis/
+python downsample_sfs.py ../Data/UHGG/UHGG_Alistipes_shahii/full_sfs.txt 14 ../Data/UHGG/UHGG_Alistipes_shahii/
+python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_fragilis/full_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_fragilis/
+python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_ovatus/full_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_ovatus/
+python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_stercoris/full_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_stercoris/
+python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/full_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/
+python downsample_sfs.py ../Data/UHGG/UHGG_Bacteroides_xylanisolvens/full_sfs.txt 14 ../Data/UHGG/UHGG_Bacteroides_xylanisolvens/
+python downsample_sfs.py ../Data/UHGG/UHGG_Barnesiella_intestinihominis/full_sfs.txt 14 ../Data/UHGG/UHGG_Barnesiella_intestinihominis/
+python downsample_sfs.py ../Data/UHGG/UHGG_Dialister_invisus/full_sfs.txt 14 ../Data/UHGG/UHGG_Dialister_invisus/
+python downsample_sfs.py ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/full_sfs.txt 14 ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/
+python downsample_sfs.py ../Data/UHGG/UHGG_Odoribacter_splanchnicus/full_sfs.txt 14 ../Data/UHGG/UHGG_Odoribacter_splanchnicus/
+python downsample_sfs.py ../Data/UHGG/UHGG_Parabacteroides_distasonis/full_sfs.txt 14 ../Data/UHGG/UHGG_Parabacteroides_distasonis/
+python downsample_sfs.py ../Data/UHGG/UHGG_Parabacteroides_merdae/full_sfs.txt 14 ../Data/UHGG/UHGG_Parabacteroides_merdae/
+python downsample_sfs.py ../Data/UHGG/UHGG_Prevotella_copri/full_sfs.txt 14 ../Data/UHGG/UHGG_Prevotella_copri/
+python downsample_sfs.py ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/full_sfs.txt 14 ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/
+

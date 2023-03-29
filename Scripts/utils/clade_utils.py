@@ -373,7 +373,7 @@ def load_manual_clade_divergence_threshold(species_name):
     
 def load_manual_clades(species_name):
     file = open(config.scripts_directory+"manual_clade_definitions.txt","r")
-    
+    file = open('../Data/manual_clade_definitions.txt', 'r')
     line = file.readline().strip()
     
     # Just put some default values there in case of issue
@@ -404,6 +404,15 @@ def load_manual_clades(species_name):
         return clades[species_name]
     else:
         return []
+
+def load_largest_clade(species_name):
+    
+    clades = load_manual_clades(species_name)
+    
+    if len(clades) > 0:
+        clade_sizes = [len(c) for c in clades]
+    
+        return list(clades[numpy.argmax(clade_sizes)])
 
 def calculate_clade_idxs_from_clade_sets(samples, clade_sets):
 

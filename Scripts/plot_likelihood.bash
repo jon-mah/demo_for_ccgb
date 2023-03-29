@@ -1,14 +1,14 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N gut_downsample_14_0_005
+#$ -N isolate_downsample_14_05_001
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=1:00:00
-#$ -t 1-30
+#$ -l h_rt=00:30:00
+#$ -t 1-18
 
-# SGE_TASK_ID=21
+# SGE_TASK_ID=1
 
 # i=0
 # while read line;
@@ -26,6 +26,19 @@
 # python plot_likelihood.py ../Data/oral_microbiome_sfs/${species}_sfs/folded_sfs_10.txt 0.1 1.0 ../Analysis/${species}_oral/unmasked/
 
 
+# i=0
+# while read line;
+#   do
+#     i=$((i+1))
+#     # echo $line
+#     if [ $i -eq $SGE_TASK_ID ]; then
+#         species=$line
+#     fi
+# done < ./gut_sfs_list.txt
+
+# Gut with singletons
+# python plot_likelihood.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt 1.0 0.005 ../Analysis/${species}_downsampled_14/likelihood_surface_unmasked/
+
 i=0
 while read line;
   do
@@ -34,7 +47,7 @@ while read line;
     if [ $i -eq $SGE_TASK_ID ]; then
         species=$line
     fi
-done < ./gut_sfs_list.txt
+done < ./isolate_sfs_list.txt
 
-# Gut with singletons
-python plot_likelihood.py ../Analysis/${species}_downsampled_14/empirical_sfs.txt 1.0 0.005 ../Analysis/${species}_downsampled_14/likelihood_surface_unmasked/
+# UHGG Isolates
+python plot_likelihood.py ../Data/UHGG/UHGG_${species}/downsampled_sfs.txt 0.5 0.001 ../Data/UHGG/UHGG_${species}/

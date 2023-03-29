@@ -19,7 +19,7 @@ import bz2
 import pandas as pd
 import numpy
 import gzip
-# import dadi
+import dadi
 import scipy.stats.distributions
 import scipy.integrate
 import scipy.optimize
@@ -81,12 +81,12 @@ class ConcatSFS():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        downsampled_sfs = \
-           '{0}{1}downsampled_sfs.txt'.format(
+        full_sfs = \
+           '{0}{1}full_sfs.txt'.format(
                 args['outprefix'], underscore)
-        logfile = '{0}{1}downsampling.log'.format(
+        logfile = '{0}{1}concat.log'.format(
             args['outprefix'], underscore)
-        to_remove = [logfile, downsampled_sfs]
+        to_remove = [logfile, full_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -115,11 +115,18 @@ class ConcatSFS():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         file_list = glob.glob(outprefix + '*output_sfs.txt')
+
+        output_sfs = dadi.Spectrum.from_file(file_list[0], mask_corners=False)
         for file in file_list:
-            print(file)
+            if file == file_list[0]:
+                pass
+            else:
+                this_sfs = dadi.Spectrum.from_file(file, mask_corners=False)
+                output_sfs = output_sfs + this_sfs
 
+        output_sfs.to_file(full_sfs)
 
-        logger.info('Finished downsampling.')
+        logger.info('Finished concatenating.')
         logger.info('Pipeline executed succesfully.')
 
 

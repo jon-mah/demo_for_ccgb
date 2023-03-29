@@ -1,0 +1,24 @@
+2023-03-29 11:40:15,756 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-03-29 11:40:15,756 - INFO - Progress is being logged to ../Data/UHGG/UHGG_Bacteroides_ovatus/log.log
+
+2023-03-29 11:40:15,756 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Data/UHGG/UHGG_Bacteroides_ovatus/downsampled_sfs.txt
+	input_shape = 0.5
+	input_scale = 0.1
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Data/UHGG/UHGG_Bacteroides_ovatus/
+
+2023-03-29 11:40:15,757 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-03-29 11:41:08,507 - INFO - Finished plotting likelihood surface.
+2023-03-29 11:41:08,508 - INFO - Pipeline executed succesfully.
+2023-03-29 11:41:08,508 - INFO - The best fit parameters are: [0.055827362416180054, 0.07029782816141551].
+2023-03-29 11:41:08,508 - INFO - The likelihood of the mle is: -5395.007928845751.
+2023-03-29 11:41:08,508 - INFO - Non-scaled best-fit model spectrum: [-- 0.6831663770250798 0.36207097716501996 0.2537523942658594 0.19869037663104416 0.16497875797136394 0.14198044512106311 0.1251352623329748 0.11216191172616413 0.10179195959033935 0.09326343045420758 0.08609062216365518 0.0799490130515177 0.07461328853795274 --].
+
+2023-03-29 11:41:08,508 - INFO - Scaled best-fit model spectrum: [-- 51222.159414105176 27147.204451612877 19025.73959713412 14897.322948126179 12369.707475284677 10645.349710191787 9382.338726120006 8409.628336286609 7632.114454923039 6992.666007707165 6454.86622413848 5994.383256034976 5594.323562210875 --].
+
+2023-03-29 11:41:08,508 - INFO - Scaled best-fit theta: 74977.57667342688.
+2023-03-29 11:41:08,508 - INFO - Best low estimate for time is: 68118169230210.47 generations.
+2023-03-29 11:41:08,509 - INFO - Best high estimate for time is: 115700713913078.08 generations.
