@@ -4,12 +4,12 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -cwd
 #$ -V
-#$ -l h_data=15G
-#$ -l h_rt=02:00:00
+#$ -l h_data=25G
+#$ -l h_rt=23:00:00
 #$ -l highp
 #$ -t 1:30
 
-SGE_TASK_ID=1
+# SGE_TASK_ID=1
 
 readarray good_spec < ../Data/good_species_list.txt
 

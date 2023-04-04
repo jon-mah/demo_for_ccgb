@@ -1,8 +1,7 @@
 """
-Compute the SFS of a given HMP1-2 species.
+Summarizes the average pi values per sample across species and populations.
 
 JCM 20230404
-Adapted from code by Richard Wolff
 """
 
 
@@ -279,16 +278,12 @@ class ComputeSFS():
         sfs_dataframe = \
            '{0}{1}sfs_dataframe.csv'.format(
                 args['outprefix'], underscore)
-        empirical_syn_sfs = \
+        empirical_sfs = \
             '{0}{1}empirical_syn_sfs.txt'.format(
-                args['outprefix'], underscore)
-        empirical_nonsyn_sfs = \
-            '{0}{1}empirical_nonsyn_sfs.txt'.format(
                 args['outprefix'], underscore)
         logfile = '{0}{1}compute_sfs.log'.format(
             args['outprefix'], underscore)
-        to_remove = [logfile, sfs_dataframe, 
-                     empirical_syn_sfs, empirical_nonsyn_sfs]
+        to_remove = [logfile, sfs_dataframe, empirical_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -405,22 +400,23 @@ class ComputeSFS():
 
         sfs = []
 
-        # max_gene_count = 25 # Uncomment for testing
+        max_gene_count = 25
 
         for i,chunk_size in enumerate(gene_lengths):
 
-            # if i > max_gene_count:
-            #     break
+            if i > max_gene_count:
+                break
             ## read next chunk_size number of lines
             df_depth = df_depth_reader.get_chunk(chunk_size)
             df_refreq = df_refreq_reader.get_chunk(chunk_size)
 
             gene_name = unq_genes[i]
-            # print(str(unq_genes[i]))
+            print(str(unq_genes[i]))
             if 'non' in str(unq_genes[i]):
                 pass
 
             logger.info('Processing ' + str(unq_genes[i]) + '.')
+
 
             df_depth.columns = [d[:-1] if d[-1] == "c" else d for d in df_depth.columns]
             df_refreq.columns = [d[:-1] if d[-1] == "c" else d for d in df_refreq.columns]
@@ -467,6 +463,8 @@ class ComputeSFS():
 
             sfs.append(sfs_df)
 
+            print(sfs[-1])
+
         df = pd.concat(sfs)
 
         # Save intermediate dataframe if desired
@@ -501,12 +499,11 @@ class ComputeSFS():
         logger.info('There are {0} bins in the SFS.'.format(
             str(len(bins_clade))))
 
-        logger.info('Outputting SFSs in Dadi format.')
-
-        syn_clade_sfs = dadi.Spectrum(sfs_clade_4[0])
-        syn_clade_sfs.to_file(empirical_syn_sfs)
         nonsyn_clade_sfs = dadi.Spectrum(sfs_clade_1[0])
-        nonsyn_clade_sfs.to_file(empirical_nonsyn_sfs)
+       c
+        syn_clade_sfs = dadi.Spectrum(sfs_clade_4[0])
+        syn_clade_sfs.to_file(empirical_sfs)
+
 
         logger.info('Pipeline executed succesfully.')
 

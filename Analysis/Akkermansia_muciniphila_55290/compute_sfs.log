@@ -1,54 +1,57 @@
-2023-04-04 14:45:13,942 - INFO - Beginning execution of compute_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-04 16:32:55,183 - INFO - Beginning execution of compute_sfs.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-04 14:45:13,943 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290/compute_sfs.log
+2023-04-04 16:32:55,184 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290/compute_sfs.log
 
-2023-04-04 14:45:13,943 - INFO - Parsed the following arguments:
+2023-04-04 16:32:55,184 - INFO - Parsed the following arguments:
 	outprefix = ../Analysis/Akkermansia_muciniphila_55290/
 	min_depth = 20
 	species = Akkermansia_muciniphila_55290
 	min_MAF = 0.0
 	f_star = 0.2
 
-2023-04-04 14:45:13,943 - INFO - Computing SFS of Akkermansia_muciniphila_55290.
-2023-04-04 14:46:00,229 - INFO - Looping over genes.
-2023-04-04 14:46:00,244 - INFO - Processing non coding.
-2023-04-04 14:46:00,548 - INFO - Processing 349741.6.peg.1.
-2023-04-04 14:46:00,701 - INFO - Processing 349741.6.peg.2.
-2023-04-04 14:46:00,863 - INFO - Processing non coding.
-2023-04-04 14:46:01,039 - INFO - Processing 349741.6.peg.3.
-2023-04-04 14:46:01,216 - INFO - Processing non coding.
-2023-04-04 14:46:01,432 - INFO - Processing 349741.6.peg.4.
-2023-04-04 14:46:01,615 - INFO - Processing non coding.
-2023-04-04 14:46:01,796 - INFO - Processing 349741.6.peg.5.
-2023-04-04 14:46:01,966 - INFO - Processing non coding.
-2023-04-04 14:46:02,135 - INFO - Processing 349741.6.peg.6.
-2023-04-04 14:46:02,299 - INFO - Processing non coding.
-2023-04-04 14:46:02,502 - INFO - Processing 349741.6.peg.7.
-2023-04-04 14:46:02,686 - INFO - Processing non coding.
-2023-04-04 14:46:02,876 - INFO - Processing 349741.6.peg.8.
-2023-04-04 14:46:03,071 - INFO - Processing non coding.
-2023-04-04 14:46:03,246 - INFO - Processing 349741.6.peg.9.
-2023-04-04 14:46:03,411 - INFO - Processing non coding.
-2023-04-04 14:46:03,577 - INFO - Processing 349741.6.peg.10.
-2023-04-04 14:46:03,748 - INFO - Processing non coding.
-2023-04-04 14:46:03,886 - INFO - Processing 349741.6.peg.11.
-2023-04-04 14:46:04,041 - INFO - Processing non coding.
-2023-04-04 14:46:04,218 - INFO - Processing 349741.6.peg.12.
-2023-04-04 14:46:04,401 - INFO - Processing non coding.
-2023-04-04 14:46:04,595 - INFO - Processing 349741.6.peg.13.
-2023-04-04 14:46:04,779 - INFO - Processing non coding.
-2023-04-04 14:46:04,987 - WARNING - compute_sfs.py:443: SettingWithCopyWarning: 
+2023-04-04 16:32:55,184 - INFO - Computing SFS of Akkermansia_muciniphila_55290.
+2023-04-04 16:33:41,174 - INFO - Looping over genes.
+2023-04-04 16:33:41,188 - INFO - Processing non coding.
+2023-04-04 16:33:41,520 - INFO - Processing 349741.6.peg.1.
+2023-04-04 16:33:41,654 - INFO - Processing 349741.6.peg.2.
+2023-04-04 16:33:41,800 - INFO - Processing non coding.
+2023-04-04 16:33:41,958 - INFO - Processing 349741.6.peg.3.
+2023-04-04 16:33:42,119 - INFO - Processing non coding.
+2023-04-04 16:33:42,319 - INFO - Processing 349741.6.peg.4.
+2023-04-04 16:33:42,484 - INFO - Processing non coding.
+2023-04-04 16:33:42,648 - INFO - Processing 349741.6.peg.5.
+2023-04-04 16:33:42,800 - INFO - Processing non coding.
+2023-04-04 16:33:42,949 - INFO - Processing 349741.6.peg.6.
+2023-04-04 16:33:43,096 - INFO - Processing non coding.
+2023-04-04 16:33:43,292 - INFO - Processing 349741.6.peg.7.
+2023-04-04 16:33:43,458 - INFO - Processing non coding.
+2023-04-04 16:33:43,642 - INFO - Processing 349741.6.peg.8.
+2023-04-04 16:33:43,820 - INFO - Processing non coding.
+2023-04-04 16:33:43,991 - INFO - Processing 349741.6.peg.9.
+2023-04-04 16:33:44,137 - INFO - Processing non coding.
+2023-04-04 16:33:44,300 - INFO - Processing 349741.6.peg.10.
+2023-04-04 16:33:44,452 - INFO - Processing non coding.
+2023-04-04 16:33:44,581 - INFO - Processing 349741.6.peg.11.
+2023-04-04 16:33:44,720 - INFO - Processing non coding.
+2023-04-04 16:33:44,879 - INFO - Processing 349741.6.peg.12.
+2023-04-04 16:33:45,044 - INFO - Processing non coding.
+2023-04-04 16:33:45,228 - INFO - Processing 349741.6.peg.13.
+2023-04-04 16:33:45,395 - INFO - Processing non coding.
+2023-04-04 16:33:45,567 - WARNING - compute_sfs.py:476: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
   df.loc[df["all"] > 0.5]["all"] = df.loc[df["all"] > 0.5]["all"].values
 
-2023-04-04 14:46:05,008 - WARNING - compute_sfs.py:444: SettingWithCopyWarning: 
+2023-04-04 16:33:45,588 - WARNING - compute_sfs.py:477: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
   df.loc[df["largest_clade"] > 0.5]["largest_clade"] = df.loc[df["largest_clade"] > 0.5]["largest_clade"].values
 
-2023-04-04 14:46:05,021 - INFO - Pipeline executed succesfully.
+2023-04-04 16:33:45,602 - INFO - There are 25 species in the largest clade.
+2023-04-04 16:33:45,602 - INFO - There are 26 bins in the SFS.
+2023-04-04 16:33:45,602 - INFO - Outputting SFSs in Dadi format.
+2023-04-04 16:33:45,607 - INFO - Pipeline executed succesfully.
