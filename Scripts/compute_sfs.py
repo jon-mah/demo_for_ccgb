@@ -1,7 +1,7 @@
 """
 Summarizes the average pi values per sample across species and populations.
 
-JCM 20220516
+JCM 20230404
 """
 
 
@@ -75,8 +75,8 @@ class ComputeSFS():
 
     def read_sites(self, species):
         """Read sites from given species."""
-        df_sites = pd.read_csv(str(config.snps_directory) + '/' + 
-                               str(species) + '/snps_info.txt.bz2', sep='\t', 
+        df_sites = pd.read_csv(str(config.snps_directory) + '/' +
+                               str(species) + '/snps_info.txt.bz2', sep='\t',
                                index_col=0, na_values = 'NaN')
 
         df_sites["contig"] = [d.split("|")[0] for d in df_sites.index]
@@ -98,11 +98,11 @@ class ComputeSFS():
                 unq_genes.append(gc)
                 unq_cont.append(df_sites["contig"][i])
 
-        gene_breaks = np.array(gene_breaks)       
-        gene_lengths = gene_breaks[1:] - gene_breaks[:-1] 
+        gene_breaks = np.array(gene_breaks)
+        gene_lengths = gene_breaks[1:] - gene_breaks[:-1]
 
         df_sites.index.set_names("site_pos",inplace=True)
-    
+
         df_sites.set_index('gene_id', append=True, inplace=True)
         df_sites.set_index('contig', append=True, inplace=True)
 
@@ -371,8 +371,12 @@ class ComputeSFS():
 
         sfs = []
 
+        max_gene_count = 100
+
         for i,chunk_size in enumerate(gene_lengths):
 
+            if i > max_gene_count:
+                break
             ## read next chunk_size number of lines
             df_depth = df_depth_reader.get_chunk(chunk_size)
             df_refreq = df_refreq_reader.get_chunk(chunk_size)

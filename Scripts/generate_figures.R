@@ -166,14 +166,19 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
 }
 
 
-compare_isolate_sfs = function(HMP_QP, Isolate) {
+compare_isolate_sfs = function(HMP_QP, Isolate, one_epoch, two_epoch) {
   x_axis = 1:length(HMP_QP)
   
   input_df = data.frame(proportional_sfs(HMP_QP), 
-                        proportional_sfs(Isolate), x_axis)
+                        proportional_sfs(Isolate), 
+                        proportional_sfs(one_epoch),
+                        proportional_sfs(two_epoch),
+                        x_axis)
   
   names(input_df) = c('HMP QP',
                       'Isolate',
+                      'One epoch (Isolate)',
+                      'Two epoch (Isolate)',
                       'x_axis')
   
   p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
@@ -6014,6 +6019,121 @@ compare_sfs(proportional_sfs(p_copri), proportional_sfs(p_copri_UHGG_one_epoch),
 
 ## Isolate downsampling
 
+# A. muciniphila B
+
+a_muciniphila_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Akkermansia_muciniphila_55290_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+a_muciniphila_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
+))
+
+a_muciniphila_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt'
+)
+a_muciniphila_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(a_muciniphila_14_hmp[-1], 
+                    a_muciniphila_14_isolate[-1],
+                    a_muciniphila_isolate_one_epoch,
+                    a_muciniphila_isolate_two_epoch) +
+  ggtitle('A. muciniphila downsampled SFS comparison')
+
+# A. finegoldii
+
+a_finegoldii_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Alistipes_finegoldii_56071_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+a_finegoldii_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
+))
+
+a_finegoldii_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt'
+)
+a_finegoldii_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(a_finegoldii_14_hmp[-1], 
+                    a_finegoldii_14_isolate[-1],
+                    a_finegoldii_isolate_one_epoch,
+                    a_finegoldii_isolate_two_epoch) +
+  ggtitle('A. finegoldii downsampled SFS comparison')
+
+# A. onderdonkii
+
+a_onderdonkii_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Alistipes_onderdonkii_55464_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+a_onderdonkii_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
+))
+
+a_onderdonkii_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt'
+)
+a_onderdonkii_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(a_onderdonkii_14_hmp[-1], 
+                    a_onderdonkii_14_isolate[-1],
+                    a_onderdonkii_isolate_one_epoch,
+                    a_onderdonkii_isolate_two_epoch) +
+  ggtitle('A. onderdonkii downsampled SFS comparison')
+
+# A. putredinis
+
+a_putredinis_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Alistipes_putredinis_61533_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+a_putredinis_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
+))
+
+a_putredinis_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt'
+)
+a_putredinis_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(a_putredinis_14_hmp[-1], 
+                    a_putredinis_14_isolate[-1],
+                    a_putredinis_isolate_one_epoch,
+                    a_putredinis_isolate_two_epoch) +
+  ggtitle('A. putredinis downsampled SFS comparison')
+
+# A. shahii
+
+a_shahii_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Alistipes_shahii_62199_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+a_shahii_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
+))
+
+a_shahii_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt'
+)
+a_shahii_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(a_shahii_14_hmp[-1], 
+                    a_shahii_14_isolate[-1],
+                    a_shahii_isolate_one_epoch,
+                    a_shahii_isolate_two_epoch) +
+  ggtitle('A. shahii downsampled SFS comparison')
+
 # B. fragilis
 
 b_fragilis_14_hmp = fold_sfs(read_input_sfs_original(
@@ -6024,10 +6144,43 @@ b_fragilis_14_isolate = fold_sfs(read_input_sfs_original(
   '../Data/UHGG/UHGG_Bacteroides_fragilis/downsampled_sfs.txt'
 ))
 
+b_fragilis_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt'
+)
+b_fragilis_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt'
+)
+
 compare_isolate_sfs(b_fragilis_14_hmp[-1], 
-                    b_fragilis_14_isolate[-1]) +
+                    b_fragilis_14_isolate[-1],
+                    b_fragilis_isolate_one_epoch,
+                    b_fragilis_isolate_two_epoch) +
   ggtitle('B. fragilis downsampled SFS comparison')
 
+# B. ovatus
+
+b_ovatus_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Bacteroides_ovatus_58035_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+b_ovatus_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_ovatus/downsampled_sfs.txt'
+))
+
+b_ovatus_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_ovatus/one_epoch_demography.txt'
+)
+b_ovatus_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_ovatus/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(b_ovatus_14_hmp[-1], 
+                    b_ovatus_14_isolate[-1],
+                    b_ovatus_isolate_one_epoch,
+                    b_ovatus_isolate_two_epoch) +
+  ggtitle('B. ovatus downsampled SFS comparison')
+
+# B. stercoris
 
 b_stercoris_14_hmp = fold_sfs(read_input_sfs_original(
   '../Analysis/Bacteroides_stercoris_56735_downsampled_14/downsampled_syn_sfs.txt'
@@ -6037,9 +6190,112 @@ b_stercoris_14_isolate = fold_sfs(read_input_sfs_original(
   '../Data/UHGG/UHGG_Bacteroides_stercoris/downsampled_sfs.txt'
 ))
 
-compare_isolate_sfs(b_stercoris_14_hmp[-1],
-                    b_stercoris_14_isolate[-1]) +
-  ggtitle('B. stercoris Downsampled SFS comparison')
+b_stercoris_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_stercoris/one_epoch_demography.txt'
+)
+b_stercoris_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_stercoris/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(b_stercoris_14_hmp[-1], 
+                    b_stercoris_14_isolate[-1],
+                    b_stercoris_isolate_one_epoch,
+                    b_stercoris_isolate_two_epoch) +
+  ggtitle('B. stercoris downsampled SFS comparison')
+
+# B. thetaiotaomicron
+
+b_thetaiotaomicron_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+b_thetaiotaomicron_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/downsampled_sfs.txt'
+))
+
+b_thetaiotaomicron_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/one_epoch_demography.txt'
+)
+b_thetaiotaomicron_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_thetaiotaomicron/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(b_thetaiotaomicron_14_hmp[-1], 
+                    b_thetaiotaomicron_14_isolate[-1],
+                    b_thetaiotaomicron_isolate_one_epoch,
+                    b_thetaiotaomicron_isolate_two_epoch) +
+  ggtitle('B. thetaiotaomicron downsampled SFS comparison')
+
+# B. xylanisolvens
+
+b_xylanisolvens_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+b_xylanisolvens_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Bacteroides_xylanisolvens/downsampled_sfs.txt'
+))
+
+b_xylanisolvens_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_xylanisolvens/one_epoch_demography.txt'
+)
+b_xylanisolvens_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Bacteroides_xylanisolvens/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(b_xylanisolvens_14_hmp[-1], 
+                    b_xylanisolvens_14_isolate[-1],
+                    b_xylanisolvens_isolate_one_epoch,
+                    b_xylanisolvens_isolate_two_epoch) +
+  ggtitle('B. xylanisolvens downsampled SFS comparison')
+
+# B. intestinihominis
+
+b_intestinihominis_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+b_intestinihominis_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Barnesiella_intestinihominis/downsampled_sfs.txt'
+))
+
+b_intestinihominis_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Barnesiella_intestinihominis/one_epoch_demography.txt'
+)
+b_intestinihominis_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Barnesiella_intestinihominis/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(b_intestinihominis_14_hmp[-1], 
+                    b_intestinihominis_14_isolate[-1],
+                    b_intestinihominis_isolate_one_epoch,
+                    b_intestinihominis_isolate_two_epoch) +
+  ggtitle('B. intestinihominis downsampled SFS comparison')
+
+# D. invisus
+
+d_invisus_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Dialister_invisus_61905_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+d_invisus_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Dialister_invisus/downsampled_sfs.txt'
+))
+
+d_invisus_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Dialister_invisus/one_epoch_demography.txt'
+)
+d_invisus_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Dialister_invisus/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(d_invisus_14_hmp[-1], 
+                    d_invisus_14_isolate[-1],
+                    d_invisus_isolate_one_epoch,
+                    d_invisus_isolate_two_epoch) +
+  ggtitle('D. invisus downsampled SFS comparison')
+
+# F. prausnitzii (K)
 
 f_prausnitzii_14_hmp = fold_sfs(read_input_sfs_original(
   '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/downsampled_syn_sfs.txt'
@@ -6049,9 +6305,66 @@ f_prausnitzii_14_isolate = fold_sfs(read_input_sfs_original(
   '../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/downsampled_sfs.txt'
 ))
 
-compare_isolate_sfs(f_prausnitzii_14_hmp[-1],
-                    f_prausnitzii_14_isolate[-1]) +
-  ggtitle('F. prausnitzii Downsampled SFS Comparison')
+f_prausnitzii_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/one_epoch_demography.txt'
+)
+f_prausnitzii_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(f_prausnitzii_14_hmp[-1], 
+                    f_prausnitzii_14_isolate[-1],
+                    f_prausnitzii_isolate_one_epoch,
+                    f_prausnitzii_isolate_two_epoch) +
+  ggtitle('F. prausnitzii downsampled SFS comparison')
+
+# O. splanchnicus
+
+o_splanchnicus_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+o_splanchnicus_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Odoribacter_splanchnicus/downsampled_sfs.txt'
+))
+
+o_splanchnicus_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Odoribacter_splanchnicus/one_epoch_demography.txt'
+)
+o_splanchnicus_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Odoribacter_splanchnicus/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(o_splanchnicus_14_hmp[-1], 
+                    o_splanchnicus_14_isolate[-1],
+                    o_splanchnicus_isolate_one_epoch,
+                    o_splanchnicus_isolate_two_epoch) +
+  ggtitle('O. splanchnicus downsampled SFS comparison')
+
+# P. merdae
+
+p_merdae_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Parabacteroides_merdae_56972_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+p_merdae_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Parabacteroides_merdae/downsampled_sfs.txt'
+))
+
+p_merdae_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Parabacteroides_merdae/one_epoch_demography.txt'
+)
+p_merdae_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Parabacteroides_merdae/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(p_merdae_14_hmp[-1], 
+                    p_merdae_14_isolate[-1],
+                    p_merdae_isolate_one_epoch,
+                    p_merdae_isolate_two_epoch) +
+  ggtitle('P. merdae downsampled SFS comparison')
+
+# P. copri
 
 p_copri_14_hmp = fold_sfs(read_input_sfs_original(
   '../Analysis/Prevotella_copri_61740_downsampled_14/downsampled_syn_sfs.txt'
@@ -6061,9 +6374,42 @@ p_copri_14_isolate = fold_sfs(read_input_sfs_original(
   '../Data/UHGG/UHGG_Prevotella_copri/downsampled_sfs.txt'
 ))
 
-compare_isolate_sfs(p_copri_14_hmp[-1],
-                    p_copri_14_isolate[-1]) +
-  ggtitle('P. copri Downsampled SFS Comparison')
+p_copri_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Prevotella_copri/one_epoch_demography.txt'
+)
+p_copri_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Prevotella_copri/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(p_copri_14_hmp[-1], 
+                    p_copri_14_isolate[-1],
+                    p_copri_isolate_one_epoch,
+                    p_copri_isolate_two_epoch) +
+  ggtitle('P. copri downsampled SFS comparison')
+
+
+# R. E bromii B
+
+r_bromii_14_hmp = fold_sfs(read_input_sfs_original(
+  '../Analysis/Ruminococcus_bromii_62047_downsampled_14/downsampled_syn_sfs.txt'
+))
+
+r_bromii_14_isolate = fold_sfs(read_input_sfs_original(
+  '../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/downsampled_sfs.txt'
+))
+
+r_bromii_isolate_one_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/one_epoch_demography.txt'
+)
+r_bromii_isolate_two_epoch = sfs_from_demography(
+  '../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/two_epoch_demography.txt'
+)
+
+compare_isolate_sfs(r_bromii_14_hmp[-1], 
+                    r_bromii_14_isolate[-1],
+                    r_bromii_isolate_one_epoch,
+                    r_bromii_isolate_two_epoch) +
+  ggtitle('R. bromii (B) downsampled SFS comparison')
 
 # Likelihood surface for UHGG Isolates
 plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Akkermansia_muciniphila_B.csv')
