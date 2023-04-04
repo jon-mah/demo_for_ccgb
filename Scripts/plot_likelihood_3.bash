@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N isolate_downsample_14_05_01
+#$ -N isolate_downsample_14_05_5_0
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
@@ -50,4 +50,4 @@ while read line;
 done < ./isolate_sfs_list.txt
 
 # UHGG Isolates
-python plot_likelihood.py ../Data/UHGG/UHGG_${species}/downsampled_sfs.txt 0.5 0.01 ../Data/UHGG/UHGG_${species}/
+python plot_likelihood.py ../Data/UHGG/UHGG_${species}/downsampled_sfs.txt 0.5 5.0 ../Data/UHGG/UHGG_${species}/
