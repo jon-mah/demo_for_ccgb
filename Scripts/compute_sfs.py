@@ -18,7 +18,8 @@ import itertools
 import glob
 import pandas as pd
 import config
-from utils import parse_midas_data, diversity_utils, clade_utils, parse_HMP_data
+from utils import parse_midas_data, diversity_utils
+from utils import clade_utils, parse_HMP_data
 import numpy as np
 import gzip
 import dadi
@@ -75,22 +76,27 @@ class ComputeSFS():
 
     def read_sites(self, species):
         """Read sites from given species."""
+        # Read input snps csv
         df_sites = pd.read_csv(str(config.snps_directory) + '/' +
                                str(species) + '/snps_info.txt.bz2', sep='\t',
                                index_col=0, na_values = 'NaN')
 
+        # Gain list of contigs and assign row value
         df_sites["contig"] = [d.split("|")[0] for d in df_sites.index]
         df_sites.index = [d.split("|")[1] for d in df_sites.index]
 
+        # Ignore non coding sites
         df_sites["gene_id"] = df_sites["gene_id"].fillna("non coding")
         gene_ids = df_sites["gene_id"].values
 
-        gene_breaks = [0]
+        gene_breaks = [0] # Initialize list
 
-        gc = gene_ids[0]
-        unq_genes = [gc]
-        unq_cont = [df_sites["contig"][0]]
+        gc = gene_ids[0] # Initialize list
 
+        unq_genes = [gc] # Unique genes
+        unq_cont = [df_sites["contig"][0]] # Unique contigs
+
+        # append unique genes and contigs to initialized lists
         for i,g in enumerate(gene_ids):
             if g is not gc:
                 gene_breaks.append(i)
@@ -98,11 +104,13 @@ class ComputeSFS():
                 unq_genes.append(gc)
                 unq_cont.append(df_sites["contig"][i])
 
-        gene_breaks = np.array(gene_breaks)
+        gene_breaks = np.array(gene_breaks) # Cast as array
+        # Compute gene lengths from gene breakpoints
         gene_lengths = gene_breaks[1:] - gene_breaks[:-1]
 
-        df_sites.index.set_names("site_pos",inplace=True)
+        df_sites.index.set_names("site_pos",inplace=True) # Rename index
 
+        # Multi-index dataframe
         df_sites.set_index('gene_id', append=True, inplace=True)
         df_sites.set_index('contig', append=True, inplace=True)
 
@@ -111,12 +119,14 @@ class ComputeSFS():
         return(df_sites,gene_lengths,unq_genes,unq_cont)
 
     def load_substitution_rate_map(self, species):
-    # This definition is called whenever another script downstream uses the output of this data.
-        data_directory = os.path.expanduser("/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
+        """Read pre-computed substitution rate map for species."""
+        data_directory = os.path.expanduser(
+            "/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
         substitution_rate_directory = '%s/substitution_rates/' % data_directory
         intermediate_filename_template = '%s%s.txt.gz'
 
-        intermediate_filename = intermediate_filename_template % (substitution_rate_directory, species)
+        intermediate_filename = intermediate_filename_template % (
+            substitution_rate_directory, species)
 
         substitution_rate_map = {}
 
@@ -130,7 +140,10 @@ class ComputeSFS():
             if items[0].strip()!=species:
                 continue
 
-            record_strs = [", ".join(['Species', 'Sample1', 'Sample2', 'Type', 'Num_muts', 'Num_revs', 'Num_mut_opportunities', 'Num_rev_opportunities'])]
+            record_strs = [", ".join(['Species', 'Sample1', 'Sample2', 'Type',
+                                      'Num_muts', 'Num_revs',
+                                      'Num_mut_opportunities',
+                                      'Num_rev_opportunities'])]
 
             sample_1 = items[1].strip()
             sample_2 = items[2].strip()
@@ -148,7 +161,8 @@ class ComputeSFS():
             if type not in substitution_rate_map:
                 substitution_rate_map[type] = {}
 
-            substitution_rate_map[type][sample_pair] = (num_muts, num_revs, num_mut_opportunities, num_rev_opportunities)
+            substitution_rate_map[type][sample_pair] = (num_muts, num_revs,
+                num_mut_opportunities, num_rev_opportunities)
 
         return substitution_rate_map
 
@@ -261,12 +275,15 @@ class ComputeSFS():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
+        sfs_dataframe = \
+           '{0}{1}sfs_dataframe.csv'.format(
+                args['outprefix'], underscore)
         empirical_sfs = \
-           '{0}{1}empirical_sfs.csv'.format(
-                args['outprefix'], underscore, species)
+            '{0}{1}empirical_sfs.txt'.format(
+                args['outprefix'], underscore)
         logfile = '{0}{1}compute_sfs.log'.format(
-            args['outprefix'], underscore, species)
-        to_remove = [logfile, empirical_sfs]
+            args['outprefix'], underscore)
+        to_remove = [logfile, sfs_dataframe, empirical_sfs]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -306,37 +323,49 @@ class ComputeSFS():
         min_change = 0.8
 
         snp_samples = diversity_utils.calculate_haploid_samples(species)
-        snp_samples = snp_samples[self.calculate_unique_samples(subject_sample_map, snp_samples)]
+        snp_samples = snp_samples[self.calculate_unique_samples(
+            subject_sample_map, snp_samples)]
         snp_samples = snp_samples.ravel()
         snp_samples = [s.decode("utf-8")  for s in snp_samples]
 
         # Pre-computed substituion rates for species
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         substitution_rate_map = self.load_substitution_rate_map(species)
-        dummy_samples, snp_difference_matrix, snp_opportunity_matrix = self.calculate_matrices_from_substitution_rate_map(substitution_rate_map, 'core', allowed_samples=snp_samples)
+        dummy_samples, snp_difference_matrix, snp_opportunity_matrix = \
+            self.calculate_matrices_from_substitution_rate_map(
+                substitution_rate_map, 'core', allowed_samples=snp_samples)
         snp_samples = numpy.array(dummy_samples)
-        substitution_rate = snp_difference_matrix*1.0/(snp_opportunity_matrix+(snp_opportunity_matrix==0))
+        substitution_rate = snp_difference_matrix * 1.0 / \
+            (snp_opportunity_matrix+(snp_opportunity_matrix==0))
 
-        coarse_grained_idxs, coarse_grained_cluster_list = clade_utils.cluster_samples(substitution_rate, min_d=low_divergence_threshold)
+        coarse_grained_idxs, coarse_grained_cluster_list = \
+            clade_utils.cluster_samples(
+                substitution_rate, min_d=low_divergence_threshold)
 
         coarse_grained_samples = snp_samples[coarse_grained_idxs]
         clade_sets = clade_utils.load_manual_clades(species)
 
-        clade_idxss = clade_utils.calculate_clade_idxs_from_clade_sets(coarse_grained_samples, clade_sets)
+        clade_idxss = clade_utils.calculate_clade_idxs_from_clade_sets(
+            coarse_grained_samples, clade_sets)
 
-        clade_sizes = numpy.array([clade_idxs.sum() for clade_idxs in clade_idxss])
+        clade_sizes = numpy.array(
+            [clade_idxs.sum() for clade_idxs in clade_idxss])
 
-        largest_clade_samples = coarse_grained_samples[ clade_idxss[clade_sizes.argmax()] ]
+        largest_clade_samples = \
+            coarse_grained_samples[ clade_idxss[clade_sizes.argmax()] ]
 
         # clade = clade_utils.load_largest_clade(species)
         clade = largest_clade_samples
         snps_dir = "%ssnps/%s" % (config.data_directory,species)
-        snps_summary = pd.read_csv("%s/snps_summary.txt" % snps_dir,sep="\t",index_col=0)
+        snps_summary = pd.read_csv(
+            "%s/snps_summary.txt" % snps_dir,sep="\t",index_col=0)
         L = snps_summary["covered_bases"]
         mean_coverage = snps_summary["mean_coverage"]
 
-        samples_host = list(pd.read_csv("%s/snps_depth.txt.bz2" % snps_dir,sep="\t",index_col=0, nrows=0))
-        samples_tuples = list(itertools.combinations(samples_host, 2)) + [(s1,s1) for s1 in samples_host]
+        samples_host = list(pd.read_csv(
+            "%s/snps_depth.txt.bz2" % snps_dir,sep="\t",index_col=0, nrows=0))
+        samples_tuples = list(itertools.combinations(
+            samples_host, 2)) + [(s1,s1) for s1 in samples_host]
 
         reader=True
 
@@ -438,7 +467,7 @@ class ComputeSFS():
 
         df = pd.concat(sfs)
 
-        df.to_csv(empirical_sfs)
+        df.to_csv(sfs_dataframe)
 
         df.loc[df["all"] > 0.5]["all"] = df.loc[df["all"] > 0.5]["all"].values
         df.loc[df["largest_clade"] > 0.5]["largest_clade"] = df.loc[df["largest_clade"] > 0.5]["largest_clade"].values
@@ -452,25 +481,27 @@ class ComputeSFS():
         all_min = min(all_1.loc[all_1 > 0].min(),all_4.loc[all_4 > 0].min())
         clade_min = min(clade_1.loc[clade_1 > 0].min(),clade_4.loc[clade_4 > 0].min())
 
-        bins_all = list(np.arange(2*all_min,.5,2*all_min))
+        bins_all = list(np.arange(0, 1.0, all_min))
 
-        bins_clade = list(np.arange(1*clade_min,1.0,1*clade_min))
+        bins_clade = list(np.arange(0, 1.0, clade_min))
 
-        bins_all.insert(0, all_min)
-        bins_all.insert(0, 0)
+        sfs_1 = np.histogram(all_1, bins=bins_all, density=False)
+        sfs_4 = np.histogram(all_4, bins=bins_all, density=False)
+        sfs_clade_1 = np.histogram(clade_1, bins=bins_clade, density=False)
+        sfs_clade_4 = np.histogram(clade_4, bins=bins_clade, density=False)
 
-        bins_clade.insert(0, clade_min)
-        bins_clade.insert(0, 0)
-
-        sfs_1 = np.histogram(all_1,bins=bins_all,density=False)
-        sfs_4 = np.histogram(all_4,bins=bins_all,density=False)
-        sfs_clade_1 = np.histogram(clade_1,bins=bins_clade,density=False)
-        sfs_clade_4 = np.histogram(clade_4,bins=bins_clade,density=False)
-
+        logger.info('There are {0} species in the largest clade.'.format(
+            str(len(clade))))
         print(str(len(clade)))
         print(clade_min)
         print(bins_clade)
         print(sfs_clade_4[0])
+        logger.info('There are {0} bins in the SFS.'.format(
+            str(len(bins_clade))))
+
+        syn_clade_sfs = dadi.Spectrum(sfs_clade_4[0])
+        syn_clade_sfs.to_file(empirical_sfs)
+
 
         logger.info('Pipeline executed succesfully.')
 
