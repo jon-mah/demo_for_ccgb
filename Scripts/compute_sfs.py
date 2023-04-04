@@ -371,7 +371,7 @@ class ComputeSFS():
 
         sfs = []
 
-        max_gene_count = 100
+        max_gene_count = 25
 
         for i,chunk_size in enumerate(gene_lengths):
 
@@ -436,9 +436,41 @@ class ComputeSFS():
 
             print(sfs[-1])
 
-        sfs = pd.concat(sfs)
+        df = pd.concat(sfs)
 
-        sfs.to_csv(empirical_sfs)
+        df.to_csv(empirical_sfs)
+
+        df.loc[df["all"] > 0.5]["all"] = df.loc[df["all"] > 0.5]["all"].values
+        df.loc[df["largest_clade"] > 0.5]["largest_clade"] = df.loc[df["largest_clade"] > 0.5]["largest_clade"].values
+
+        all_1 = df.dropna()["all"].xs("1D",level="site_type")
+        all_4 = df.dropna()["all"].xs("4D",level="site_type")
+
+        clade_1 = df.dropna()["largest_clade"].xs("1D",level="site_type")
+        clade_4 = df.dropna()["largest_clade"].xs("4D",level="site_type")
+
+        all_min = min(all_1.loc[all_1 > 0].min(),all_4.loc[all_4 > 0].min())
+        clade_min = min(clade_1.loc[clade_1 > 0].min(),clade_4.loc[clade_4 > 0].min())
+
+        bins_all = list(np.arange(2*all_min,.5,2*all_min))
+
+        bins_clade = list(np.arange(1*clade_min,1.0,1*clade_min))
+
+        bins_all.insert(0, all_min)
+        bins_all.insert(0, 0)
+
+        bins_clade.insert(0, clade_min)
+        bins_clade.insert(0, 0)
+
+        sfs_1 = np.histogram(all_1,bins=bins_all,density=False)
+        sfs_4 = np.histogram(all_4,bins=bins_all,density=False)
+        sfs_clade_1 = np.histogram(clade_1,bins=bins_clade,density=False)
+        sfs_clade_4 = np.histogram(clade_4,bins=bins_clade,density=False)
+
+        print(str(len(clade)))
+        print(clade_min)
+        print(bins_clade)
+        print(sfs_clade_4[0])
 
         logger.info('Pipeline executed succesfully.')
 
