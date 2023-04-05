@@ -6430,3 +6430,5 @@ plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Parabacteroides_d
 plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Parabacteroides_merdae.csv')
 plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Prevotella_copri.csv')
 plot_likelihood_surface('../Data/UHGG/UHGG_likelihood_surfaces/Ruminococcus_E_bromii_B.csv')
+
+# HMP-QP with and without 0-tons
