@@ -1,0 +1,22 @@
+2023-04-06 10:40:32,778 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-06 10:40:32,778 - INFO - Progress is being logged to ../Analysis/Alistipes_shahii_62199_downsampled_14/complete_evaluate_demography.log
+
+2023-04-06 10:40:32,779 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txt
+	model_type = two_epoch
+	nu = 2.22638
+	tau = 9.72275
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Alistipes_shahii_62199_downsampled_14/complete
+
+2023-04-06 10:40:32,781 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-04-06 10:40:32,782 - INFO - Beginning optimization with guess, [2.22638, 9.72275].
+2023-04-06 10:40:34,644 - INFO - Finished optimization with guess, [2.22638, 9.72275].
+2023-04-06 10:40:34,644 - INFO - Best fit parameters: [2.22390798 9.72741454].
+2023-04-06 10:40:34,746 - INFO - Maximum log composite likelihood: -64.80023539743752.
+2023-04-06 10:40:34,746 - INFO - Optimal value of theta: 2316.7187757204874.
+2023-04-06 10:40:34,747 - INFO - Converting and interpreting Tau estimates.
+2023-04-06 10:40:34,748 - INFO - Finished demographic evaluation.
+2023-04-06 10:40:34,748 - INFO - Pipeline executed succesfully.
