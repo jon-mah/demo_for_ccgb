@@ -1,0 +1,24 @@
+2023-04-06 09:13:00,865 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-06 09:13:00,865 - INFO - Progress is being logged to ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/1_log.log
+
+2023-04-06 09:13:00,865 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt
+	input_shape = 0.5
+	input_scale = 0.01
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/1
+
+2023-04-06 09:13:00,867 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-06 09:29:19,038 - INFO - Finished plotting likelihood surface.
+2023-04-06 09:29:19,039 - INFO - Pipeline executed succesfully.
+2023-04-06 09:29:19,039 - INFO - The best fit parameters are: [0.019588593023984583, 0.02744526059005617].
+2023-04-06 09:29:19,039 - INFO - The likelihood of the mle is: -495.5650986655355.
+2023-04-06 09:29:19,039 - INFO - Non-scaled best-fit model spectrum: [-- 1.3628385819784692 0.5509325756651746 0.3427203300698508 0.25190503215093835 0.20040090046539805 0.1667514169663696 0.1428747391054306 0.12500351512388716 0.11111177078776067 0.10000011206886776 0.09090910670817326 0.08333333456393996 0.0769230766603811 --].
+
+2023-04-06 09:29:19,040 - INFO - Scaled best-fit model spectrum: [-- 18687.727557430648 7554.583508780489 4699.5031116893215 3454.2114329845967 2747.968453259053 2286.554762457015 1959.1492598963212 1714.0926777733907 1523.6041365155286 1371.2371184433175 1246.578018201845 1142.696334970455 1054.7965977171498 --].
+
+2023-04-06 09:29:19,040 - INFO - Scaled best-fit theta: 13712.355817151269.
+2023-04-06 09:29:19,040 - INFO - Best low estimate for time is: 13861587130448.354 generations.
+2023-04-06 09:29:19,040 - INFO - Best high estimate for time is: 23544313434805.66 generations.

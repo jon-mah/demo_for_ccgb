@@ -1,0 +1,24 @@
+2023-04-06 09:13:29,189 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-06 09:13:29,189 - INFO - Progress is being logged to ../Analysis/Bacteroides_caccae_53434_downsampled_14/12_log.log
+
+2023-04-06 09:13:29,189 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt
+	input_shape = 0.5
+	input_scale = 5.0
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Bacteroides_caccae_53434_downsampled_14/12
+
+2023-04-06 09:13:29,190 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-06 09:15:36,008 - INFO - Finished plotting likelihood surface.
+2023-04-06 09:15:36,009 - INFO - Pipeline executed succesfully.
+2023-04-06 09:15:36,009 - INFO - The best fit parameters are: [2.40320850919034, 8.422158745097509].
+2023-04-06 09:15:36,009 - INFO - The likelihood of the mle is: -63.547714255426854.
+2023-04-06 09:15:36,010 - INFO - Non-scaled best-fit model spectrum: [-- 3.1836144192481814 1.5615921839525624 1.0210675924901267 0.7509173293237258 0.5889166562833449 0.4809906602863123 0.40396437857915657 0.34625032980465703 0.3014110243421953 0.26558396844090787 0.23631121155217097 0.2119541199955901 0.19137825508691877 --].
+
+2023-04-06 09:15:36,010 - INFO - Scaled best-fit model spectrum: [-- 5407.106970924515 2652.2357520874457 1734.1992371181304 1275.3712577207089 1000.2264527483889 816.9230345419413 686.1002369553189 588.0776769486429 511.9218084264913 451.0725037681397 401.3551363400055 359.9866217514403 325.0402093002895 --].
+
+2023-04-06 09:15:36,010 - INFO - Scaled best-fit theta: 1698.4176658558472.
+2023-04-06 09:15:36,010 - INFO - Best low estimate for time is: 4294506239466.6978 generations.
+2023-04-06 09:15:36,010 - INFO - Best high estimate for time is: 7294345156741.2295 generations.

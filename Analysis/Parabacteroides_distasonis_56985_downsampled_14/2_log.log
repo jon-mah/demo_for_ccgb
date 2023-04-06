@@ -1,0 +1,24 @@
+2023-04-06 09:13:05,925 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-06 09:13:05,925 - INFO - Progress is being logged to ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/2_log.log
+
+2023-04-06 09:13:05,925 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt
+	input_shape = 0.5
+	input_scale = 0.5
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/2
+
+2023-04-06 09:13:05,928 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-06 09:15:53,330 - INFO - Finished plotting likelihood surface.
+2023-04-06 09:15:53,330 - INFO - Pipeline executed succesfully.
+2023-04-06 09:15:53,331 - INFO - The best fit parameters are: [0.817534562262132, 0.655974150668669].
+2023-04-06 09:15:53,331 - INFO - The likelihood of the mle is: -551.2259825555802.
+2023-04-06 09:15:53,331 - INFO - Non-scaled best-fit model spectrum: [-- 1.199650224114364 0.5813189159132497 0.3770846282634939 0.27620425769031287 0.2165419412057967 0.17739562095360253 0.1499008536254403 0.1296317919283844 0.11413486997729445 0.1019422989508212 0.09212367476245514 0.08406179835293122 0.07733197808869352 --].
+
+2023-04-06 09:15:53,331 - INFO - Scaled best-fit model spectrum: [-- 14236.22049226879 6898.497659496742 4474.854256929267 3277.7093142174663 2569.6980326956914 2105.149587349779 1778.8698416378063 1538.3373716808137 1354.4357698534423 1209.7468213487537 1093.2294431442067 997.5593487780496 917.6967328011671 --].
+
+2023-04-06 09:15:53,331 - INFO - Scaled best-fit theta: 11866.97606194223.
+2023-04-06 09:15:53,331 - INFO - Best low estimate for time is: 6870011117789.154 generations.
+2023-04-06 09:15:53,331 - INFO - Best high estimate for time is: 11668915942715.402 generations.

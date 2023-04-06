@@ -1,0 +1,24 @@
+2023-04-06 09:13:06,019 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-06 09:13:06,019 - INFO - Progress is being logged to ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/3_log.log
+
+2023-04-06 09:13:06,019 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt
+	input_shape = 0.5
+	input_scale = 0.1
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/3
+
+2023-04-06 09:13:06,021 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-06 09:19:34,710 - INFO - Finished plotting likelihood surface.
+2023-04-06 09:19:34,711 - INFO - Pipeline executed succesfully.
+2023-04-06 09:19:34,711 - INFO - The best fit parameters are: [0.13077926043970806, 0.008207277192037928].
+2023-04-06 09:19:34,711 - INFO - The likelihood of the mle is: -209.317353240589.
+2023-04-06 09:19:34,711 - INFO - Non-scaled best-fit model spectrum: [-- 0.931360066334403 0.49628786519925383 0.3330428632666333 0.24997301781548253 0.19999722878358014 0.16666635611084665 0.14285709985790934 0.1249999891877278 0.11111110586931958 0.09999999682978669 0.0909090890060422 0.08333333228778025 0.07692307644025169 --].
+
+2023-04-06 09:19:34,711 - INFO - Scaled best-fit model spectrum: [-- 15305.33764666038 8155.657109833153 5472.999817533706 4107.886496871684 3286.618382701866 2738.8814990261308 2347.6163812277205 2054.16477418536 1825.9243155194174 1643.3319093963792 1493.9381155388721 1369.4432840626819 1264.1015009067385 --].
+
+2023-04-06 09:19:34,711 - INFO - Scaled best-fit theta: 16433.319614935077.
+2023-04-06 09:19:34,711 - INFO - Best low estimate for time is: 744084565614.1329 generations.
+2023-04-06 09:19:34,711 - INFO - Best high estimate for time is: 1263849519535.77 generations.

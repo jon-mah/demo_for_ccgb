@@ -1,0 +1,24 @@
+2023-04-06 09:13:00,189 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-06 09:13:00,189 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/1_log.log
+
+2023-04-06 09:13:00,189 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt
+	input_shape = 0.5
+	input_scale = 0.01
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/1
+
+2023-04-06 09:13:00,191 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-06 09:28:38,862 - INFO - Finished plotting likelihood surface.
+2023-04-06 09:28:38,863 - INFO - Pipeline executed succesfully.
+2023-04-06 09:28:38,863 - INFO - The best fit parameters are: [0.003246278164156742, 0.007492362618646243].
+2023-04-06 09:28:38,863 - INFO - The likelihood of the mle is: -96.3053197611498.
+2023-04-06 09:28:38,863 - INFO - Non-scaled best-fit model spectrum: [-- 0.002837367179729593 0.0015797224633319563 0.0011605073315585047 0.000950899669289726 0.0008251349952562888 0.000741291815392429 0.0006814037750695916 0.0006364876969661657 0.000601552927012058 0.0005736050727640757 0.0005507386117578506 0.0005316831956834173 0.0005155593526337753 --].
+
+2023-04-06 09:28:38,863 - INFO - Scaled best-fit model spectrum: [-- 6625.781161002142 3688.946362646758 2710.0009013912713 2220.5279456934722 1926.8439932309861 1731.0545425073688 1591.204807099416 1486.317393778401 1404.7381951891196 1339.4747469157937 1286.077298874446 1241.5793510081883 1203.9271725081696 --].
+
+2023-04-06 09:28:38,863 - INFO - Scaled best-fit theta: 2335186.36866505.
+2023-04-06 09:28:38,863 - INFO - Best low estimate for time is: 3888583011098618.5 generations.
+2023-04-06 09:28:38,863 - INFO - Best high estimate for time is: 6604872614439566.0 generations.
