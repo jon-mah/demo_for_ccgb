@@ -1,0 +1,22 @@
+2023-04-12 14:57:05,773 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-04-12 14:57:05,773 - INFO - Progress is being logged to ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete_evaluate_demography.log
+
+2023-04-12 14:57:05,773 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt
+	model_type = two_epoch
+	nu = 0.895188
+	tau = 0.506591
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete
+
+2023-04-12 14:57:05,775 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-04-12 14:57:05,776 - INFO - Beginning optimization with guess, [0.895188, 0.506591].
+2023-04-12 14:57:06,112 - INFO - Finished optimization with guess, [0.895188, 0.506591].
+2023-04-12 14:57:06,112 - INFO - Best fit parameters: [0.89417839 0.50652316].
+2023-04-12 14:57:06,145 - INFO - Maximum log composite likelihood: -63.95060028710486.
+2023-04-12 14:57:06,145 - INFO - Optimal value of theta: 5862.767079225936.
+2023-04-12 14:57:06,146 - INFO - Converting and interpreting Tau estimates.
+2023-04-12 14:57:06,146 - INFO - Finished demographic evaluation.
+2023-04-12 14:57:06,147 - INFO - Pipeline executed succesfully.
