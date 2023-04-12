@@ -64,7 +64,7 @@ done < ./gut_sfs_list.txt
 # Downsampled analysis
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_10/empirical_sfs.txt ../Analysis/${species}_downsampled_10/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_12/empirical_sfs.txt ../Analysis/${species}_downsampled_12/
-python fit_one_epoch.py ../Analysis/${species}_downsampled_14/downsampled_syn_sfs.txt ../Analysis/${species}_downsampled_14/
+python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_16/empirical_sfs.txt ../Analysis/${species}_downsampled_16/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_18/empirical_sfs.txt ../Analysis/${species}_downsampled_18/
 
