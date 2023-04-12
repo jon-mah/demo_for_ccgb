@@ -1,24 +1,24 @@
-2023-04-06 09:13:22,965 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-11 16:30:51,288 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-06 09:13:22,965 - INFO - Progress is being logged to ../Analysis/Dialister_invisus_61905_downsampled_14/10_log.log
+2023-04-11 16:30:51,288 - INFO - Progress is being logged to ../Analysis/Dialister_invisus_61905_downsampled_14/10_log.log
 
-2023-04-06 09:13:22,965 - INFO - Parsed the following arguments:
+2023-04-11 16:30:51,289 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Dialister_invisus_61905_downsampled_14/empirical_syn_downsampled_sfs.txt
-	input_shape = 0.5
-	input_scale = 10.0
+	input_shape = 1.0
+	input_scale = 15.0
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Dialister_invisus_61905_downsampled_14/10
 
-2023-04-06 09:13:22,966 - INFO - Beginning demographic inference for two-epoch demographic model.
-2023-04-06 09:14:21,402 - INFO - Finished plotting likelihood surface.
-2023-04-06 09:14:21,403 - INFO - Pipeline executed succesfully.
-2023-04-06 09:14:21,404 - INFO - The best fit parameters are: [0.7105025783697199, 1.7889527337989324].
-2023-04-06 09:14:21,404 - INFO - The likelihood of the mle is: -98.51471024951934.
-2023-04-06 09:14:21,404 - INFO - Non-scaled best-fit model spectrum: [-- 0.7015345444024111 0.35336645412630413 0.23730504434121236 0.1792703266911274 0.14444628738414103 0.1212275884039718 0.10464051344993072 0.09219820436959962 0.0825190732997827 0.07477416752220302 0.06843597167047608 0.06315280883352574 0.05868121038050284 --].
+2023-04-11 16:30:51,292 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-11 16:32:22,311 - INFO - Finished plotting likelihood surface.
+2023-04-11 16:32:22,312 - INFO - Pipeline executed succesfully.
+2023-04-11 16:32:22,312 - INFO - The best fit parameters are: [1.6886833081437531, 1.299778856951098].
+2023-04-11 16:32:22,312 - INFO - The likelihood of the mle is: -98.91966820186917.
+2023-04-11 16:32:22,312 - INFO - Non-scaled best-fit model spectrum: [-- 0.641301571120465 0.32359641694768604 0.2176892559774709 0.16473161329676758 0.13295377921265653 0.1117658504159931 0.09662929690984176 0.08527485369384835 0.07644181798934845 0.06937376812882143 0.06358934486911887 0.05876764204803164 0.05468649386087852 --].
 
-2023-04-06 09:14:21,404 - INFO - Scaled best-fit model spectrum: [-- 8421.458259710584 4241.930589949117 2848.6901203712423 2152.0217150818053 1733.9821533833544 1455.2570273486228 1256.140162055642 1106.778470018533 990.5869026251328 897.6144307038279 821.5285811429096 758.1077051994006 704.4291229730663 --].
+2023-04-11 16:32:22,312 - INFO - Scaled best-fit model spectrum: [-- 8376.712127805904 4226.832043502092 2843.4675864796627 2151.732297373176 1736.6486921627752 1459.890941820762 1262.1765480970278 1113.8642618418783 998.4867224075831 906.1635134012984 830.6070971161258 767.6257817460279 714.3176268089228 --].
 
-2023-04-06 09:14:21,404 - INFO - Scaled best-fit theta: 12004.338669999841.
-2023-04-06 09:14:21,404 - INFO - Best low estimate for time is: 21807617289815.56 generations.
-2023-04-06 09:14:21,404 - INFO - Best high estimate for time is: 37040879367260.25 generations.
+2023-04-11 16:32:22,312 - INFO - Scaled best-fit theta: 13062.048348283844.
+2023-04-11 16:32:22,312 - INFO - Best low estimate for time is: 7253862418928.507 generations.
+2023-04-11 16:32:22,312 - INFO - Best high estimate for time is: 12320898667444.744 generations.

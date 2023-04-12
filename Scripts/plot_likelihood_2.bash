@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N complete_downsample_14_05_05
+#$ -N complete_downsample_14_1_5_05
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
@@ -64,4 +64,4 @@ while read line;
     fi
 done < ../Data/good_species_list.txt
 
-python plot_likelihood.py ../Analysis/${species}_downsampled_14/empirical_syn_downsampled_sfs.txt 0.5 0.5 ../Analysis/${species}_downsampled_14/2
+python plot_likelihood.py ../Analysis/${species}_downsampled_14/empirical_syn_downsampled_sfs.txt 1.5 0.5 ../Analysis/${species}_downsampled_14/2
