@@ -30,7 +30,7 @@
 python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.330587 0.289674 ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete
 python evaluate_demography.py ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.590248 0.125047 ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete
 python evaluate_demography.py ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00111624 0.00564187 ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.000971892 0.00682997 ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete
+python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 10.7027	2.92997 ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete
 python evaluate_demography.py ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txttxt two_epoch 34.9209 172.577 ../Analysis/Alistipes_shahii_62199_downsampled_14/complete
 python evaluate_demography.py ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.464414 0.066745 ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete
 python evaluate_demography.py ../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 296.16 709.811 ../Analysis/Bacteroides_caccae_53434_downsampled_14/complete

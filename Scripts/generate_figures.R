@@ -166,16 +166,18 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
 }
 
 
-compare_hmp_sfs = function(original, complete, one_epoch) {
+compare_hmp_sfs = function(original, complete, two_epoch, one_epoch) {
   x_axis = 1:length(original[-1])
   
   input_df = data.frame(proportional_sfs(original[-1]),
                         proportional_sfs(complete[-1]),
+                        proportional_sfs(two_epoch),
                         proportional_sfs(one_epoch),
                         x_axis)
   
   names(input_df) = c('Original SFS',
                       'Complete SFS',
+                      'Two Epoch',
                       'One Epoch',
                       'x_axis')
   
@@ -6592,51 +6594,63 @@ r_bromii_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bro
 
 one_epoch_14 = sfs_from_demography('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/one_epoch_demography.txt')
 
-compare_hmp_sfs(a_muciniphila_orig, a_muciniphila_hmp_qp, one_epoch_14) + ggtitle('A. muciniphila (Downsampled to 14)')
-compare_hmp_sfs(a_finegoldii_orig, a_finegoldii_hmp_qp, one_epoch_14) + ggtitle('A. finegoldii (Downsampled to 14)')
-compare_hmp_sfs(a_onderdonkii_orig, a_onderdonkii_hmp_qp, one_epoch_14) + ggtitle('A. onderdonkii (Downsampled to 14)')
-compare_hmp_sfs(a_putredinis_orig, a_putredinis_hmp_qp, one_epoch_14) + ggtitle('A. putredinis (Downsampled to 14)')
-compare_hmp_sfs(a_shahii_orig, a_shahii_hmp_qp, one_epoch_14) + ggtitle('A. shahii (Downsampled to 14)')
-compare_hmp_sfs(b_bacterium_orig, b_bacterium_hmp_qp, one_epoch_14) + ggtitle('B. bacterium (Downsampled to 14)')
-compare_hmp_sfs(b_caccae_orig, b_caccae_hmp_qp, one_epoch_14) + ggtitle('B. caccae (Downsampled to 14)')
-compare_hmp_sfs(b_cellulosilyticus_orig, b_cellulosilyticus_hmp_qp, one_epoch_14) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
-compare_hmp_sfs(b_fragilis_orig, b_fragilis_hmp_qp, one_epoch_14) + ggtitle('B. fragilis (Downsampled to 14)')
-compare_hmp_sfs(b_ovatus_orig, b_ovatus_hmp_qp, one_epoch_14) + ggtitle('B. ovatus (Downsampled to 14)')
-compare_hmp_sfs(b_stercoris_orig, b_stercoris_hmp_qp, one_epoch_14) + ggtitle('B. stercoris (Downsampled to 14)')
-compare_hmp_sfs(b_thetaiotaomicron_orig, b_thetaiotaomicron_hmp_qp, one_epoch_14) + ggtitle('B. thetaiotaomicron (Downsampled to 14)')
-compare_hmp_sfs(b_uniformis_orig, b_uniformis_hmp_qp, one_epoch_14) + ggtitle('B. uniformis (Downsampled to 14)')
-compare_hmp_sfs(b_vulgatus_orig, b_vulgatus_hmp_qp, one_epoch_14) + ggtitle('B. vulgatus (Downsampled to 14)')
-compare_hmp_sfs(b_xylanisolvens_orig, b_xylanisolvens_hmp_qp, one_epoch_14) + ggtitle('B. xylanisolvens (Downsampled to 14)')
-compare_hmp_sfs(b_intestinihominis_orig, b_intestinihominis_hmp_qp, one_epoch_14) + ggtitle('B. intestinihominis (Downsampled to 14)')
-compare_hmp_sfs(d_invisus_orig, d_invisus_hmp_qp, one_epoch_14) + ggtitle('D. invisus (Downsampled to 14)')
-compare_hmp_sfs(e_eligens_orig, e_eligens_hmp_qp, one_epoch_14) + ggtitle('E. eligens (Downsampled to 14)')
-compare_hmp_sfs(e_rectale_orig, e_rectale_hmp_qp, one_epoch_14) + ggtitle('E. rectale (Downsampled to 14)')
-compare_hmp_sfs(f_prausnitzii_orig, f_prausnitzii_hmp_qp, one_epoch_14) + ggtitle('F. prausnitzii (Downsampled to 14)')
-compare_hmp_sfs(o_splanchnicus_orig, o_splanchnicus_hmp_qp, one_epoch_14) + ggtitle('O. splanchnicus (Downsampled to 14)')
-compare_hmp_sfs(o_sp_orig, o_sp_hmp_qp, one_epoch_14) + ggtitle('Odoribacter sp. (Downsampled to 14)')
-compare_hmp_sfs(p_distasonis_orig, p_distasonis_hmp_qp, one_epoch_14) + ggtitle('P. distasonis (Downsampled to 14)')
-compare_hmp_sfs(p_merdae_orig, p_merdae_hmp_qp, one_epoch_14) + ggtitle('P. merdae (Downsampled to 14)')
-compare_hmp_sfs(p_sp_orig, p_sp_hmp_qp, one_epoch_14) + ggtitle('Phascolarctobacterium sp. (Downsampled to 14)')
-compare_hmp_sfs(p_copri_orig, p_copri_hmp_qp, one_epoch_14) + ggtitle('P. copri (Downsampled to 14)')
-compare_hmp_sfs(r_bicirculans_orig, r_bicirculans_hmp_qp, one_epoch_14) + ggtitle('R. bicirculans (Downsampled to 14)')
-compare_hmp_sfs(r_bromii_orig, r_bromii_hmp_qp, one_epoch_14) + ggtitle('R. bromii (Downsampled to 14)')
-
 a_muciniphila_complete_two_epoch = sfs_from_demography('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete_two_epoch_demography.txt')
 a_finegoldii_complete_two_epoch = sfs_from_demography('../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete_two_epoch_demography.txt') 
 a_onderdonkii_complete_two_epoch = sfs_from_demography('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete_two_epoch_demography.txt') 
 a_putredinis_complete_two_epoch = sfs_from_demography('../Analysis/Alistipes_putredinis_61533_downsampled_14/complete_two_epoch_demography.txt') 
 a_shahii_complete_two_epoch = sfs_from_demography('../Analysis/Alistipes_shahii_62199_downsampled_14/complete_two_epoch_demography.txt') 
+b_bacterium_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete_two_epoch_demography.txt') 
+b_caccae_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_caccae_53434_downsampled_14/complete_two_epoch_demography.txt') 
+b_cellulsilyticus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete_two_epoch_demography.txt') 
 b_fragilis_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_two_epoch_demography.txt') 
 b_ovatus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_ovatus_58035_downsampled_14/complete_two_epoch_demography.txt') 
 b_thetaiotaomicron_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete_two_epoch_demography.txt') 
+b_vulgatus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete_two_epoch_demography.txt') 
 b_xylanisolvens_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete_two_epoch_demography.txt') 
 b_intestinihominis_complete_two_epoch = sfs_from_demography('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/complete_two_epoch_demography.txt') 
 d_invisus_complete_two_epoch = sfs_from_demography('../Analysis/Dialister_invisus_61905_downsampled_14/complete_two_epoch_demography.txt') 
+e_eligens_complete_two_epoch = sfs_from_demography('../Analysis/Eubacterium_eligens_61678_downsampled_14/complete_two_epoch_demography.txt') 
+e_rectale_complete_two_epoch = sfs_from_demography('../Analysis/Eubacterium_rectale_56927_downsampled_14/complete_two_epoch_demography.txt') 
 f_prausnitzii_complete_two_epoch = sfs_from_demography('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/complete_two_epoch_demography.txt') 
 o_splanchnicus_complete_two_epoch = sfs_from_demography('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete_two_epoch_demography.txt') 
+o_sp_complete_two_epoch = sfs_from_demography('../Analysis/Oscillibacter_sp_60799_downsampled_14/complete_two_epoch_demography.txt') 
+p_distasonis_complete_two_epoch = sfs_from_demography('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete_two_epoch_demography.txt') 
 p_merdae_complete_two_epoch = sfs_from_demography('../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_two_epoch_demography.txt') 
+p_sp_complete_two_epoch = sfs_from_demography('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete_two_epoch_demography.txt') 
 p_copri_complete_two_epoch = sfs_from_demography('../Analysis/Prevotella_copri_61740_downsampled_14/complete_two_epoch_demography.txt') 
+r_bicirculans_complete_two_epoch = sfs_from_demography('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete_two_epoch_demography.txt') 
 r_bromii_complete_two_epoch = sfs_from_demography('../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_two_epoch_demography.txt') 
+
+compare_hmp_sfs(a_muciniphila_orig, a_muciniphila_hmp_qp, a_muciniphila_complete_two_epoch, one_epoch_14) + ggtitle('A. muciniphila (Downsampled to 14)')
+compare_hmp_sfs(a_finegoldii_orig, a_finegoldii_hmp_qp, a_finegoldii_complete_two_epoch, one_epoch_14) + ggtitle('A. finegoldii (Downsampled to 14)')
+compare_hmp_sfs(a_onderdonkii_orig, a_onderdonkii_hmp_qp, a_onderdonkii_complete_two_epoch, one_epoch_14) + ggtitle('A. onderdonkii (Downsampled to 14)')
+compare_hmp_sfs(a_putredinis_orig, a_putredinis_hmp_qp, a_putredinis_complete_two_epoch, one_epoch_14) + ggtitle('A. putredinis (Downsampled to 14)')
+compare_hmp_sfs(a_shahii_orig, a_shahii_hmp_qp, a_shahii_complete_two_epoch, one_epoch_14) + ggtitle('A. shahii (Downsampled to 14)')
+compare_hmp_sfs(b_bacterium_orig, b_bacterium_hmp_qp, b_bacterium_complete_two_epoch, one_epoch_14) + ggtitle('B. bacterium (Downsampled to 14)')
+compare_hmp_sfs(b_caccae_orig, b_caccae_hmp_qp, b_caccae_complete_two_epoch, one_epoch_14) + ggtitle('B. caccae (Downsampled to 14)')
+compare_hmp_sfs(b_cellulosilyticus_orig, b_cellulosilyticus_hmp_qp, b_cellulsilyticus_complete_two_epoch, one_epoch_14) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
+compare_hmp_sfs(b_fragilis_orig, b_fragilis_hmp_qp, b_fragilis_complete_two_epoch, one_epoch_14) + ggtitle('B. fragilis (Downsampled to 14)')
+compare_hmp_sfs(b_ovatus_orig, b_ovatus_hmp_qp, b_ovatus_complete_two_epoch, one_epoch_14) + ggtitle('B. ovatus (Downsampled to 14)')
+# compare_hmp_sfs(b_stercoris_orig, b_stercoris_hmp_qp, b_stercoris_complete_two_epoch, one_epoch_14) + ggtitle('B. stercoris (Downsampled to 14)')
+compare_hmp_sfs(b_thetaiotaomicron_orig, b_thetaiotaomicron_hmp_qp, b_thetaiotaomicron_complete_two_epoch, one_epoch_14) + ggtitle('B. thetaiotaomicron (Downsampled to 14)')
+# compare_hmp_sfs(b_uniformis_orig, b_uniformis_hmp_qp, b_uniformis_complete_two_epoch, one_epoch_14) + ggtitle('B. uniformis (Downsampled to 14)')
+compare_hmp_sfs(b_vulgatus_orig, b_vulgatus_hmp_qp, b_vulgatus_complete_two_epoch, one_epoch_14) + ggtitle('B. vulgatus (Downsampled to 14)')
+compare_hmp_sfs(b_xylanisolvens_orig, b_xylanisolvens_hmp_qp, b_xylanisolvens_complete_two_epoch, one_epoch_14) + ggtitle('B. xylanisolvens (Downsampled to 14)')
+compare_hmp_sfs(b_intestinihominis_orig, b_intestinihominis_hmp_qp, b_intestinihominis_complete_two_epoch, one_epoch_14) + ggtitle('B. intestinihominis (Downsampled to 14)')
+compare_hmp_sfs(d_invisus_orig, d_invisus_hmp_qp, d_invisus_complete_two_epoch, one_epoch_14) + ggtitle('D. invisus (Downsampled to 14)')
+compare_hmp_sfs(e_eligens_orig, e_eligens_hmp_qp, e_eligens_complete_two_epoch, one_epoch_14) + ggtitle('E. eligens (Downsampled to 14)')
+compare_hmp_sfs(e_rectale_orig, e_rectale_hmp_qp, e_rectale_complete_two_epoch, one_epoch_14) + ggtitle('E. rectale (Downsampled to 14)')
+compare_hmp_sfs(f_prausnitzii_orig, f_prausnitzii_hmp_qp, f_prausnitzii_complete_two_epoch, one_epoch_14) + ggtitle('F. prausnitzii (Downsampled to 14)')
+compare_hmp_sfs(o_splanchnicus_orig, o_splanchnicus_hmp_qp, o_splanchnicus_complete_two_epoch, one_epoch_14) + ggtitle('O. splanchnicus (Downsampled to 14)')
+compare_hmp_sfs(o_sp_orig, o_sp_hmp_qp, o_sp_complete_two_epoch, one_epoch_14) + ggtitle('Oscillibacter sp. (Downsampled to 14)')
+compare_hmp_sfs(p_distasonis_orig, p_distasonis_hmp_qp, p_distasonis_complete_two_epoch, one_epoch_14) + ggtitle('P. distasonis (Downsampled to 14)')
+compare_hmp_sfs(p_merdae_orig, p_merdae_hmp_qp, p_merdae_complete_two_epoch, one_epoch_14) + ggtitle('P. merdae (Downsampled to 14)')
+compare_hmp_sfs(p_sp_orig, p_sp_hmp_qp, p_sp_complete_two_epoch, one_epoch_14) + ggtitle('Phascolarctobacterium sp. (Downsampled to 14)')
+compare_hmp_sfs(p_copri_orig, p_copri_hmp_qp, p_copri_complete_two_epoch, one_epoch_14) + ggtitle('P. copri (Downsampled to 14)')
+compare_hmp_sfs(r_bicirculans_orig, r_bicirculans_hmp_qp, r_bicirculans_complete_two_epoch, one_epoch_14) + ggtitle('R. bicirculans (Downsampled to 14)')
+compare_hmp_sfs(r_bromii_orig, r_bromii_hmp_qp, r_bromii_complete_two_epoch, one_epoch_14) + ggtitle('R. bromii (Downsampled to 14)')
+
+
 
 compare_isolate_hmp_sfs(a_muciniphila_orig[-1], a_muciniphila_14_two_epoch, 
                         a_muciniphila_hmp_qp[-1], a_muciniphila_complete_two_epoch,
