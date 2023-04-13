@@ -1,12 +1,38 @@
-2023-04-13 05:23:32,505 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-13 10:32:12,215 - INFO - Beginning execution of fit_one_epoch.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-13 05:23:32,505 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_log.log
+2023-04-13 10:32:12,215 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_log.log
 
-2023-04-13 05:23:32,505 - INFO - Parsed the following arguments:
+2023-04-13 10:32:12,216 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete
 
-2023-04-13 05:23:32,550 - INFO - Beginning demographic inference for three-epoch demographic model.
-2023-04-13 05:23:32,552 - INFO - Beginning optimization with guess, [7.83180322e-07 1.52230677e-06 1.84617614e-06 1.19337302e-06].
+2023-04-13 10:32:12,221 - INFO - Beginning demographic inference for three-epoch demographic model.
+2023-04-13 10:32:12,223 - INFO - Beginning optimization with guess, [9.08526878e-07 5.21129558e-07 1.20823898e-06 1.68645571e-06].
+2023-04-13 10:34:37,374 - INFO - Finished optimization with guess, [9.08526878e-07 5.21129558e-07 1.20823898e-06 1.68645571e-06].
+2023-04-13 10:34:37,375 - INFO - Best fit parameters: [1.97968997e-07 4.04814127e-08 5.55333530e-06 6.94478829e-05].
+2023-04-13 10:35:05,846 - INFO - Maximum log composite likelihood: -82.8769749032499.
+2023-04-13 10:35:05,847 - INFO - Optimal value of theta: 174669546764.76517.
+2023-04-13 10:35:05,847 - INFO - Beginning optimization with guess, [1.80988293e-05 1.87116047e-05 9.82889358e-07 7.39790716e-07].
+2023-04-13 10:35:06,093 - INFO - Finished optimization with guess, [1.80988293e-05 1.87116047e-05 9.82889358e-07 7.39790716e-07].
+2023-04-13 10:35:06,093 - INFO - Best fit parameters: [3.21341421e-05 2.82633961e-05 5.53376350e-07 4.89623807e-07].
+2023-04-13 10:35:06,117 - INFO - Maximum log composite likelihood: -59.70708396347527.
+2023-04-13 10:35:06,118 - INFO - Optimal value of theta: 7586.664447070988.
+2023-04-13 10:35:06,118 - INFO - Beginning optimization with guess, [9.58773320e-05 6.75630375e-05 1.24809783e-06 1.86436120e-06].
+2023-04-13 10:35:06,357 - INFO - Finished optimization with guess, [9.58773320e-05 6.75630375e-05 1.24809783e-06 1.86436120e-06].
+2023-04-13 10:35:06,357 - INFO - Best fit parameters: [1.31018988e-04 1.27343593e-04 9.12991835e-07 9.88167290e-07].
+2023-04-13 10:35:06,380 - INFO - Maximum log composite likelihood: -52.277456083490506.
+2023-04-13 10:35:06,381 - INFO - Optimal value of theta: 7294.349813615581.
+2023-04-13 10:35:06,381 - INFO - Beginning optimization with guess, [6.85931246e-04 5.63177118e-04 6.18148873e-07 8.52391328e-07].
+2023-04-13 10:35:07,506 - INFO - Finished optimization with guess, [6.85931246e-04 5.63177118e-04 6.18148873e-07 8.52391328e-07].
+2023-04-13 10:35:07,507 - INFO - Best fit parameters: [3.40899981e-04 1.75106287e-04 1.24399698e-06 2.74245507e-06].
+2023-04-13 10:35:07,532 - INFO - Maximum log composite likelihood: -49.776467993446204.
+2023-04-13 10:35:07,532 - INFO - Optimal value of theta: 7362.606391539293.
+2023-04-13 10:35:07,532 - INFO - Beginning optimization with guess, [7.78906411e-03 1.17563253e-02 5.13842826e-07 1.18308938e-06].
+2023-04-13 10:35:08,405 - INFO - Finished optimization with guess, [7.78906411e-03 1.17563253e-02 5.13842826e-07 1.18308938e-06].
+2023-04-13 10:35:08,406 - INFO - Best fit parameters: [1.37885658e-03 8.38490231e-04 2.86867419e-06 1.61216250e-05].
+2023-04-13 10:35:08,430 - INFO - Maximum log composite likelihood: -49.58297180941554.
+2023-04-13 10:35:08,430 - INFO - Optimal value of theta: 7392.159161149431.
+2023-04-13 10:35:08,434 - INFO - Finished demographic inference.
+2023-04-13 10:35:08,434 - INFO - Pipeline executed succesfully.
