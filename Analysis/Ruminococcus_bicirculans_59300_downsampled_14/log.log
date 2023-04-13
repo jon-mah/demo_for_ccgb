@@ -1,13 +1,46 @@
-2023-04-06 09:08:51,814 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-13 09:24:44,247 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-06 09:08:51,814 - INFO - Progress is being logged to ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/log.log
+2023-04-13 09:24:44,248 - INFO - Progress is being logged to ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/log.log
 
-2023-04-06 09:08:51,814 - INFO - Parsed the following arguments:
+2023-04-13 09:24:44,248 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt
-	input_shape = 0.5
-	input_scale = 0.1
+	nonsyn_input_sfs = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/
 
-2023-04-06 09:08:51,815 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-13 09:24:44,271 - INFO - Loading input demography.
+2023-04-13 09:24:44,274 - INFO - Input demographic parameters are: [2.16648118, 0.4496267].
+2023-04-13 09:24:44,274 - INFO - Input theta_syn is: 11627.047146359184.
+2023-04-13 09:24:44,274 - INFO - Generating spectrum from input demography.
+2023-04-13 09:25:01,645 - INFO - Fitting DFE.
+2023-04-13 09:25:02,082 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:25:56,473 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:25:56,742 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:26:43,889 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:26:43,944 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:26:56,199 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:26:57,341 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:27:12,786 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:28:09,545 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:28:09,819 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:28:25,215 - INFO - Fitting Neutral + Gamma DFE
+2023-04-13 09:28:51,047 - INFO - Computing intermediate summary statistics.
+2023-04-13 09:28:51,049 - INFO - Outputting results.
+2023-04-13 09:28:51,053 - INFO - Pipeline executed succesfully.

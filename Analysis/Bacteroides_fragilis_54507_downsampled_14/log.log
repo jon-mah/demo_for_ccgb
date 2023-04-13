@@ -1,13 +1,50 @@
-2023-04-06 09:08:51,703 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-13 09:24:44,438 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-06 09:08:51,703 - INFO - Progress is being logged to ../Analysis/Bacteroides_fragilis_54507_downsampled_14/log.log
+2023-04-13 09:24:44,439 - INFO - Progress is being logged to ../Analysis/Bacteroides_fragilis_54507_downsampled_14/log.log
 
-2023-04-06 09:08:51,703 - INFO - Parsed the following arguments:
+2023-04-13 09:24:44,439 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_syn_downsampled_sfs.txt
-	input_shape = 0.5
-	input_scale = 0.1
+	nonsyn_input_sfs = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/
 
-2023-04-06 09:08:51,704 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-13 09:24:44,457 - INFO - Loading input demography.
+2023-04-13 09:24:44,472 - INFO - Input demographic parameters are: [1.94089327, 0.1783279].
+2023-04-13 09:24:44,472 - INFO - Input theta_syn is: 7630.507329011524.
+2023-04-13 09:24:44,472 - INFO - Generating spectrum from input demography.
+2023-04-13 09:24:52,286 - INFO - Fitting DFE.
+2023-04-13 09:25:01,764 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:25:13,379 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:25:24,517 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:25:50,289 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:25:50,756 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:26:32,548 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:26:32,716 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:26:43,695 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:26:44,386 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:26:44,453 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:27:24,852 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:27:25,002 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:27:26,210 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:27:33,697 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:27:45,540 - INFO - Fitting Neutral + Gamma DFE
+2023-04-13 09:28:04,400 - INFO - Computing intermediate summary statistics.
+2023-04-13 09:28:04,404 - INFO - Outputting results.
+2023-04-13 09:28:04,409 - INFO - Pipeline executed succesfully.

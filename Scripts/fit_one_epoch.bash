@@ -3,7 +3,7 @@
 #$ -V
 #$ -m ea
 #$ -l h_data=25G
-#$ -l h_rt=00:30:00
+#$ -l h_rt=02:00:00
 #$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output

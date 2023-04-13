@@ -1,13 +1,16 @@
-2023-04-06 09:08:53,230 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-13 09:24:44,245 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-06 09:08:53,231 - INFO - Progress is being logged to ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/log.log
+2023-04-13 09:24:44,246 - INFO - Progress is being logged to ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/log.log
 
-2023-04-06 09:08:53,231 - INFO - Parsed the following arguments:
+2023-04-13 09:24:44,246 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt
-	input_shape = 0.5
-	input_scale = 0.1
+	nonsyn_input_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/
 
-2023-04-06 09:08:53,233 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-13 09:24:44,262 - INFO - Loading input demography.
+2023-04-13 09:24:44,264 - INFO - Input demographic parameters are: [0.00114849568, 2.79170817].
+2023-04-13 09:24:44,264 - INFO - Input theta_syn is: 10973.917942697908.
+2023-04-13 09:24:44,264 - INFO - Generating spectrum from input demography.

@@ -39,4 +39,4 @@ done < ../Data/good_species_list.txt
 
 # sample_size=14
 
-python downsample_sfs.py ../Analysis/${species}/empirical_syn_sfs.txt 14 ../Analysis/${species}_downsampled_14/empirical_syn
+python downsample_sfs.py ../Analysis/${species}/empirical_nonsyn_sfs.txt 14 ../Analysis/${species}_downsampled_14/empirical_nonsyn

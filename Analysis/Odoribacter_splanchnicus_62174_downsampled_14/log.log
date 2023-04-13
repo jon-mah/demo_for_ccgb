@@ -1,13 +1,68 @@
-2023-04-06 09:08:53,466 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-13 09:24:44,248 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-06 09:08:53,467 - INFO - Progress is being logged to ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/log.log
+2023-04-13 09:24:44,248 - INFO - Progress is being logged to ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/log.log
 
-2023-04-06 09:08:53,467 - INFO - Parsed the following arguments:
+2023-04-13 09:24:44,248 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_syn_downsampled_sfs.txt
-	input_shape = 0.5
-	input_scale = 0.1
+	nonsyn_input_sfs = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/
 
-2023-04-06 09:08:53,468 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-13 09:24:44,268 - INFO - Loading input demography.
+2023-04-13 09:24:44,276 - INFO - Input demographic parameters are: [0.59734724, 0.0317355].
+2023-04-13 09:24:44,277 - INFO - Input theta_syn is: 3615.084115052073.
+2023-04-13 09:24:44,277 - INFO - Generating spectrum from input demography.
+2023-04-13 09:24:45,777 - INFO - Fitting DFE.
+2023-04-13 09:24:46,295 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:24:47,752 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:24:48,269 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:24:53,564 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:24:53,615 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:25:22,313 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:26:30,712 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:26:30,970 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:27:14,500 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:27:14,647 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:27:31,917 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:27:31,979 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-13 09:27:57,885 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:28:48,146 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:28:48,283 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:29:03,307 - WARNING - Warning: converting a masked element to nan.
+2023-04-13 09:29:03,604 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-04-13 09:29:15,938 - INFO - Fitting Neutral + Gamma DFE
+2023-04-13 09:29:31,079 - INFO - Computing intermediate summary statistics.
+2023-04-13 09:29:31,082 - INFO - Outputting results.
+2023-04-13 09:29:31,085 - INFO - Pipeline executed succesfully.

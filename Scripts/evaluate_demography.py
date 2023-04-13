@@ -488,6 +488,10 @@ class EvaluateDemography():
             params = popt
             theta_syn = theta
             scaled_spectrum = theta_syn * non_scaled_spectrum
+            logger.info(
+                'Synonymous input SFS: {}.'.format(syn_data.fold()))
+            logger.info(
+                'Scaled spectrum: {}.'.format(scaled_spectrum.fold()))
             theta_nonsyn = theta_syn * 2.14
             poisson_ll = dadi.Inference.ll(
                 model=scaled_spectrum, data=syn_data)

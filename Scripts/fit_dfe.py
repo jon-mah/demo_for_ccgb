@@ -261,7 +261,7 @@ class DFEInference():
         ng_initial_guesses.append([0.2, 1., 1.])
 
         ng_max_ll = -100000000000
-        for i in range(25):
+        for i in range(5):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
@@ -273,7 +273,7 @@ class DFEInference():
                                                   lower_bound=lower_bound,
                                                   upper_bound=upper_bound,
                                                   verbose=len(sel_params),
-                                                  maxiter=25, multinom=False)
+                                                  maxiter=5, multinom=False)
             ng_model_sfs = spectra.integrate(
                 ng_popt, None, self.neugamma, theta_nonsyn, None)
             ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)

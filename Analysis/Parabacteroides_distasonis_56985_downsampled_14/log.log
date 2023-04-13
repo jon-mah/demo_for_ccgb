@@ -1,13 +1,16 @@
-2023-04-06 09:08:51,908 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-13 09:24:44,263 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-06 09:08:51,908 - INFO - Progress is being logged to ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/log.log
+2023-04-13 09:24:44,265 - INFO - Progress is being logged to ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/log.log
 
-2023-04-06 09:08:51,908 - INFO - Parsed the following arguments:
+2023-04-13 09:24:44,266 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt
-	input_shape = 0.5
-	input_scale = 0.1
+	nonsyn_input_sfs = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/
 
-2023-04-06 09:08:51,910 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-04-13 09:24:44,288 - INFO - Loading input demography.
+2023-04-13 09:24:44,289 - INFO - Input demographic parameters are: [374.00587126, 707.28337].
+2023-04-13 09:24:44,289 - INFO - Input theta_syn is: 40.722019953007546.
+2023-04-13 09:24:44,289 - INFO - Generating spectrum from input demography.
