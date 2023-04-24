@@ -24,4 +24,4 @@ done < ../Data/good_species_list.txt
 
 sample_size=14
 
-python fit_dfe.py ../Analysis/${species}_downsampled_${sample_size}/empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_${sample_size}/empirical_nonsyn_downsampled_sfs.txt ../Analysis/${species}_downsampled_${sample_size}/complete_two_epoch_demography.txt ../Analysis/${species}_downsampled_${sample_size}/
+python fit_dfe.py ../Analysis/${species}_downsampled_${sample_size}/empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_${sample_size}/empirical_nonsyn_downsampled_sfs.txt ../Analysis/${species}_downsampled_${sample_size}/complete_three_epoch_demography.txt ../Analysis/${species}_downsampled_${sample_size}/

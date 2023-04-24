@@ -1,10 +1,10 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -m ea
 #$ -l h_data=25G
-#$ -l h_rt=02:00:00
-#$ -t 25-26
+#$ -l h_rt=12:00:00
+#$ -l highp
+#$ -t 29-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_gut_HMP
