@@ -2,14 +2,14 @@
 #$ -cwd
 #$ -V
 #$ -l h_data=25G
-#$ -l h_rt=12:00:00
+#$ -l h_rt=2:00:00
 #$ -l highp
-#$ -t 29-30
+#$ -t 26
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_gut_HMP
 
-# SGE_TASK_ID=1
+SGE_TASK_ID=29
 
 # i=0
 # while read line;

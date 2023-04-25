@@ -419,7 +419,8 @@ class DemographicInference():
         # model_list = ['two_epoch', 'one_epoch']
         model_list = ['three_epoch']
         # Fit different one-epoch models and compute likelihood
-        method_list = ['expectation']
+        # method_list = ['expectation']
+        method_list = ['null']
         for method in method_list:
             if method == 'expectation':
                 print('compute_likelihood from expectation')
@@ -609,7 +610,7 @@ class DemographicInference():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(10):
+                for i in range(25):
                     # Start at initial guess
                     p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
@@ -618,11 +619,11 @@ class DemographicInference():
                         lower_bound=None)
                     logger.info(
                         'Beginning optimization with guess, {0}.'.format(p0))
-                    popt = dadi.Inference.optimize_log_lbfgsb(
+                    popt = dadi.Inference.optimize_log_fmin(
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=None,
                         upper_bound=None,
-                        verbose=len(p0), maxiter=10)
+                        verbose=len(p0), maxiter=25)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
