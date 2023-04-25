@@ -287,7 +287,7 @@ class ComputeSFS():
                 args['outprefix'], underscore)
         logfile = '{0}{1}compute_sfs.log'.format(
             args['outprefix'], underscore)
-        to_remove = [logfile, sfs_dataframe, 
+        to_remove = [logfile, sfs_dataframe,
                      empirical_syn_sfs, empirical_nonsyn_sfs]
         for f in to_remove:
             if os.path.isfile(f):
