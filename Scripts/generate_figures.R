@@ -166,19 +166,23 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
 }
 
 
-compare_hmp_sfs = function(original, complete, two_epoch, one_epoch) {
-  x_axis = 1:length(original[-1])
+compare_hmp_sfs = function(complete, one_epoch, two_epoch, three_epoch, nonsyn, dfe) {
+  x_axis = 1:length(one_epoch)
   
-  input_df = data.frame(proportional_sfs(original[-1]),
-                        proportional_sfs(complete[-1]),
-                        proportional_sfs(two_epoch),
+  input_df = data.frame(proportional_sfs(complete[-1]),
                         proportional_sfs(one_epoch),
+                        proportional_sfs(two_epoch),
+                        proportional_sfs(three_epoch),
+                        proportional_sfs(nonsyn[-1]),
+                        proportional_sfs(dfe),
                         x_axis)
   
-  names(input_df) = c('Original SFS',
-                      'Complete SFS',
-                      'Two Epoch',
+  names(input_df) = c('Synonymous SFS',
                       'One Epoch',
+                      'Two Epoch',
+                      'Three Epoch',
+                      'Nonsynonymous SFS',
+                      'DFE Model SFS',
                       'x_axis')
   
   p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
@@ -6561,36 +6565,67 @@ p_copri_orig = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61
 r_bicirculans_orig = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/downsampled_syn_sfs.txt'))
 r_bromii_orig = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/downsampled_syn_sfs.txt'))
 
-a_muciniphila_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-a_finegoldii_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-a_onderdonkii_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-a_putredinis_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-a_shahii_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_bacterium_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_caccae_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_cellulosilyticus_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_fragilis_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-# b_massiliensis_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_ovatus_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_ovatus_58035_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_stercoris_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_thetaiotaomicron_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_uniformis_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_vulgatus_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_xylanisolvens_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-b_intestinihominis_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-# c_sp_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Coprococcus_sp_62244_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-d_invisus_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Dialister_invisus_61905_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-e_eligens_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-e_rectale_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-f_prausnitzii_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-o_splanchnicus_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-o_sp_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-p_distasonis_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-p_merdae_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-p_sp_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-p_copri_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-r_bicirculans_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-r_bromii_hmp_qp = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+a_muciniphila_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+a_finegoldii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+a_onderdonkii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+a_putredinis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+a_shahii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_bacterium_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_caccae_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_cellulosilyticus_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_fragilis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+# b_massiliensis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_ovatus_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_ovatus_58035_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_stercoris_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_thetaiotaomicron_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_uniformis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_vulgatus_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_xylanisolvens_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+b_intestinihominis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+# c_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Coprococcus_sp_62244_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+d_invisus_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Dialister_invisus_61905_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+e_eligens_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+e_rectale_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+f_prausnitzii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+o_splanchnicus_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+o_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+p_distasonis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+p_merdae_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+p_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+p_copri_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+r_bicirculans_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+r_bromii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+
+a_muciniphila_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+a_finegoldii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+a_onderdonkii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+a_putredinis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+a_shahii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_bacterium_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_caccae_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_cellulosilyticus_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_fragilis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+# b_massiliensis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_ovatus_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_ovatus_58035_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_stercoris_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_thetaiotaomicron_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_uniformis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_vulgatus_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_xylanisolvens_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+b_intestinihominis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+# c_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Coprococcus_sp_62244_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+d_invisus_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Dialister_invisus_61905_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+e_eligens_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+e_rectale_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+f_prausnitzii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+o_splanchnicus_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+o_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+p_distasonis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+p_merdae_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+p_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+p_copri_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61740_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+r_bicirculans_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+r_bromii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 
 one_epoch_14 = sfs_from_demography('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/one_epoch_demography.txt')
 
@@ -6605,6 +6640,7 @@ b_cellulsilyticus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroi
 b_fragilis_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_two_epoch_demography.txt') 
 b_ovatus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_ovatus_58035_downsampled_14/complete_two_epoch_demography.txt') 
 b_thetaiotaomicron_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete_two_epoch_demography.txt') 
+b_uniformis_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_uniformis_57318_downsampled_14/complete_two_epoch_demography.txt') 
 b_vulgatus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete_two_epoch_demography.txt') 
 b_xylanisolvens_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete_two_epoch_demography.txt') 
 b_intestinihominis_complete_two_epoch = sfs_from_demography('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/complete_two_epoch_demography.txt') 
@@ -6621,114 +6657,168 @@ p_copri_complete_two_epoch = sfs_from_demography('../Analysis/Prevotella_copri_6
 r_bicirculans_complete_two_epoch = sfs_from_demography('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete_two_epoch_demography.txt') 
 r_bromii_complete_two_epoch = sfs_from_demography('../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_two_epoch_demography.txt') 
 
-compare_hmp_sfs(a_muciniphila_orig, a_muciniphila_hmp_qp, a_muciniphila_complete_two_epoch, one_epoch_14) + ggtitle('A. muciniphila (Downsampled to 14)')
-compare_hmp_sfs(a_finegoldii_orig, a_finegoldii_hmp_qp, a_finegoldii_complete_two_epoch, one_epoch_14) + ggtitle('A. finegoldii (Downsampled to 14)')
-compare_hmp_sfs(a_onderdonkii_orig, a_onderdonkii_hmp_qp, a_onderdonkii_complete_two_epoch, one_epoch_14) + ggtitle('A. onderdonkii (Downsampled to 14)')
-compare_hmp_sfs(a_putredinis_orig, a_putredinis_hmp_qp, a_putredinis_complete_two_epoch, one_epoch_14) + ggtitle('A. putredinis (Downsampled to 14)')
-compare_hmp_sfs(a_shahii_orig, a_shahii_hmp_qp, a_shahii_complete_two_epoch, one_epoch_14) + ggtitle('A. shahii (Downsampled to 14)')
-compare_hmp_sfs(b_bacterium_orig, b_bacterium_hmp_qp, b_bacterium_complete_two_epoch, one_epoch_14) + ggtitle('B. bacterium (Downsampled to 14)')
-compare_hmp_sfs(b_caccae_orig, b_caccae_hmp_qp, b_caccae_complete_two_epoch, one_epoch_14) + ggtitle('B. caccae (Downsampled to 14)')
-compare_hmp_sfs(b_cellulosilyticus_orig, b_cellulosilyticus_hmp_qp, b_cellulsilyticus_complete_two_epoch, one_epoch_14) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
-compare_hmp_sfs(b_fragilis_orig, b_fragilis_hmp_qp, b_fragilis_complete_two_epoch, one_epoch_14) + ggtitle('B. fragilis (Downsampled to 14)')
-compare_hmp_sfs(b_ovatus_orig, b_ovatus_hmp_qp, b_ovatus_complete_two_epoch, one_epoch_14) + ggtitle('B. ovatus (Downsampled to 14)')
-# compare_hmp_sfs(b_stercoris_orig, b_stercoris_hmp_qp, b_stercoris_complete_two_epoch, one_epoch_14) + ggtitle('B. stercoris (Downsampled to 14)')
-compare_hmp_sfs(b_thetaiotaomicron_orig, b_thetaiotaomicron_hmp_qp, b_thetaiotaomicron_complete_two_epoch, one_epoch_14) + ggtitle('B. thetaiotaomicron (Downsampled to 14)')
-# compare_hmp_sfs(b_uniformis_orig, b_uniformis_hmp_qp, b_uniformis_complete_two_epoch, one_epoch_14) + ggtitle('B. uniformis (Downsampled to 14)')
-compare_hmp_sfs(b_vulgatus_orig, b_vulgatus_hmp_qp, b_vulgatus_complete_two_epoch, one_epoch_14) + ggtitle('B. vulgatus (Downsampled to 14)')
-compare_hmp_sfs(b_xylanisolvens_orig, b_xylanisolvens_hmp_qp, b_xylanisolvens_complete_two_epoch, one_epoch_14) + ggtitle('B. xylanisolvens (Downsampled to 14)')
-compare_hmp_sfs(b_intestinihominis_orig, b_intestinihominis_hmp_qp, b_intestinihominis_complete_two_epoch, one_epoch_14) + ggtitle('B. intestinihominis (Downsampled to 14)')
-compare_hmp_sfs(d_invisus_orig, d_invisus_hmp_qp, d_invisus_complete_two_epoch, one_epoch_14) + ggtitle('D. invisus (Downsampled to 14)')
-compare_hmp_sfs(e_eligens_orig, e_eligens_hmp_qp, e_eligens_complete_two_epoch, one_epoch_14) + ggtitle('E. eligens (Downsampled to 14)')
-compare_hmp_sfs(e_rectale_orig, e_rectale_hmp_qp, e_rectale_complete_two_epoch, one_epoch_14) + ggtitle('E. rectale (Downsampled to 14)')
-compare_hmp_sfs(f_prausnitzii_orig, f_prausnitzii_hmp_qp, f_prausnitzii_complete_two_epoch, one_epoch_14) + ggtitle('F. prausnitzii (Downsampled to 14)')
-compare_hmp_sfs(o_splanchnicus_orig, o_splanchnicus_hmp_qp, o_splanchnicus_complete_two_epoch, one_epoch_14) + ggtitle('O. splanchnicus (Downsampled to 14)')
-compare_hmp_sfs(o_sp_orig, o_sp_hmp_qp, o_sp_complete_two_epoch, one_epoch_14) + ggtitle('Oscillibacter sp. (Downsampled to 14)')
-compare_hmp_sfs(p_distasonis_orig, p_distasonis_hmp_qp, p_distasonis_complete_two_epoch, one_epoch_14) + ggtitle('P. distasonis (Downsampled to 14)')
-compare_hmp_sfs(p_merdae_orig, p_merdae_hmp_qp, p_merdae_complete_two_epoch, one_epoch_14) + ggtitle('P. merdae (Downsampled to 14)')
-compare_hmp_sfs(p_sp_orig, p_sp_hmp_qp, p_sp_complete_two_epoch, one_epoch_14) + ggtitle('Phascolarctobacterium sp. (Downsampled to 14)')
-compare_hmp_sfs(p_copri_orig, p_copri_hmp_qp, p_copri_complete_two_epoch, one_epoch_14) + ggtitle('P. copri (Downsampled to 14)')
-compare_hmp_sfs(r_bicirculans_orig, r_bicirculans_hmp_qp, r_bicirculans_complete_two_epoch, one_epoch_14) + ggtitle('R. bicirculans (Downsampled to 14)')
-compare_hmp_sfs(r_bromii_orig, r_bromii_hmp_qp, r_bromii_complete_two_epoch, one_epoch_14) + ggtitle('R. bromii (Downsampled to 14)')
+a_muciniphila_complete_three_epoch = sfs_from_demography('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete_three_epoch_demography.txt')
+a_finegoldii_complete_three_epoch = sfs_from_demography('../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete_three_epoch_demography.txt') 
+a_onderdonkii_complete_three_epoch = sfs_from_demography('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete_three_epoch_demography.txt') 
+a_putredinis_complete_three_epoch = sfs_from_demography('../Analysis/Alistipes_putredinis_61533_downsampled_14/complete_three_epoch_demography.txt') 
+a_shahii_complete_three_epoch = sfs_from_demography('../Analysis/Alistipes_shahii_62199_downsampled_14/complete_three_epoch_demography.txt') 
+b_bacterium_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete_three_epoch_demography.txt') 
+b_caccae_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_caccae_53434_downsampled_14/complete_three_epoch_demography.txt') 
+b_cellulsilyticus_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete_three_epoch_demography.txt') 
+b_fragilis_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_three_epoch_demography.txt') 
+b_ovatus_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_ovatus_58035_downsampled_14/complete_three_epoch_demography.txt') 
+b_thetaiotaomicron_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete_three_epoch_demography.txt') 
+b_vulgatus_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete_three_epoch_demography.txt') 
+b_xylanisolvens_complete_three_epoch = sfs_from_demography('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete_three_epoch_demography.txt') 
+b_intestinihominis_complete_three_epoch = sfs_from_demography('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/complete_three_epoch_demography.txt') 
+d_invisus_complete_three_epoch = sfs_from_demography('../Analysis/Dialister_invisus_61905_downsampled_14/complete_three_epoch_demography.txt') 
+e_eligens_complete_three_epoch = sfs_from_demography('../Analysis/Eubacterium_eligens_61678_downsampled_14/complete_three_epoch_demography.txt') 
+e_rectale_complete_three_epoch = sfs_from_demography('../Analysis/Eubacterium_rectale_56927_downsampled_14/complete_three_epoch_demography.txt') 
+f_prausnitzii_complete_three_epoch = sfs_from_demography('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/complete_three_epoch_demography.txt') 
+o_splanchnicus_complete_three_epoch = sfs_from_demography('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete_three_epoch_demography.txt') 
+o_sp_complete_three_epoch = sfs_from_demography('../Analysis/Oscillibacter_sp_60799_downsampled_14/complete_three_epoch_demography.txt') 
+p_distasonis_complete_three_epoch = sfs_from_demography('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete_three_epoch_demography.txt') 
+p_merdae_complete_three_epoch = sfs_from_demography('../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_three_epoch_demography.txt') 
+p_sp_complete_three_epoch = sfs_from_demography('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete_three_epoch_demography.txt') 
+p_copri_complete_three_epoch = sfs_from_demography('../Analysis/Prevotella_copri_61740_downsampled_14/complete_three_epoch_demography.txt') 
+r_bicirculans_complete_three_epoch = sfs_from_demography('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete_three_epoch_demography.txt') 
+r_bromii_complete_three_epoch = sfs_from_demography('../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_three_epoch_demography.txt') 
+
+a_muciniphila_complete_dfe = gamma_sfs_from_dfe('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/inferred_DFE.txt')
+a_finegoldii_complete_dfe = gamma_sfs_from_dfe('../Analysis/Alistipes_finegoldii_56071_downsampled_14/inferred_DFE.txt') 
+a_onderdonkii_complete_dfe = gamma_sfs_from_dfe('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/inferred_DFE.txt') 
+a_putredinis_complete_dfe = gamma_sfs_from_dfe('../Analysis/Alistipes_putredinis_61533_downsampled_14/inferred_DFE.txt') 
+a_shahii_complete_dfe = gamma_sfs_from_dfe('../Analysis/Alistipes_shahii_62199_downsampled_14/inferred_DFE.txt') 
+b_bacterium_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/inferred_DFE.txt') 
+b_caccae_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_caccae_53434_downsampled_14/inferred_DFE.txt') 
+b_cellulsilyticus_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/inferred_DFE.txt') 
+b_fragilis_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_fragilis_54507_downsampled_14/inferred_DFE.txt') 
+b_ovatus_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_ovatus_58035_downsampled_14/inferred_DFE.txt') 
+b_thetaiotaomicron_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/inferred_DFE.txt') 
+b_vulgatus_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/inferred_DFE.txt') 
+b_xylanisolvens_complete_dfe = gamma_sfs_from_dfe('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/inferred_DFE.txt') 
+b_intestinihominis_complete_dfe = gamma_sfs_from_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/inferred_DFE.txt') 
+d_invisus_complete_dfe = gamma_sfs_from_dfe('../Analysis/Dialister_invisus_61905_downsampled_14/inferred_DFE.txt') 
+e_eligens_complete_dfe = gamma_sfs_from_dfe('../Analysis/Eubacterium_eligens_61678_downsampled_14/inferred_DFE.txt') 
+e_rectale_complete_dfe = gamma_sfs_from_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/inferred_DFE.txt') 
+f_prausnitzii_complete_dfe = gamma_sfs_from_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/inferred_DFE.txt') 
+o_splanchnicus_complete_dfe = gamma_sfs_from_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt') 
+o_sp_complete_dfe = gamma_sfs_from_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt') 
+p_distasonis_complete_dfe = gamma_sfs_from_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt') 
+p_merdae_complete_dfe = gamma_sfs_from_dfe('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt') 
+p_sp_complete_dfe = gamma_sfs_from_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt') 
+p_copri_complete_dfe = gamma_sfs_from_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt') 
+r_bicirculans_complete_dfe = gamma_sfs_from_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/inferred_DFE.txt') 
+r_bromii_complete_dfe = gamma_sfs_from_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt') 
+
+compare_hmp_sfs(a_muciniphila_hmp_qp_syn, one_epoch_14, a_muciniphila_complete_two_epoch, a_muciniphila_complete_three_epoch, a_muciniphila_hmp_qp_nonsyn, a_muciniphila_complete_dfe) + ggtitle('A. muciniphila (Downsampled to 14)')
+compare_hmp_sfs(a_finegoldii_hmp_qp_syn, one_epoch_14, a_finegoldii_complete_two_epoch, a_finegoldii_complete_three_epoch, a_finegoldii_hmp_qp_nonsyn, a_finegoldii_complete_dfe) + ggtitle('A. finegoldii (Downsampled to 14)')
+compare_hmp_sfs(a_onderdonkii_hmp_qp_syn, one_epoch_14, a_onderdonkii_complete_two_epoch, a_onderdonkii_complete_three_epoch, a_onderdonkii_hmp_qp_nonsyn, a_onderdonkii_complete_dfe) + ggtitle('A. onderdonkii (Downsampled to 14)')
+compare_hmp_sfs(a_putredinis_hmp_qp_syn, one_epoch_14, a_putredinis_complete_two_epoch, a_putredinis_complete_three_epoch, a_putredinis_hmp_qp_nonsyn, a_putredinis_complete_dfe) + ggtitle('A. putredinis (Downsampled to 14)')
+compare_hmp_sfs(a_shahii_hmp_qp_syn, one_epoch_14, a_shahii_complete_two_epoch, a_shahii_complete_three_epoch, a_shahii_hmp_qp_nonsyn, a_shahii_complete_dfe) + ggtitle('A. shahii (Downsampled to 14)')
+compare_hmp_sfs(b_bacterium_hmp_qp_syn, one_epoch_14, b_bacterium_complete_two_epoch, b_bacterium_complete_three_epoch) + ggtitle('B. bacterium (Downsampled to 14)')
+compare_hmp_sfs(b_caccae_hmp_qp_syn, one_epoch_14, b_caccae_complete_two_epoch, b_caccae_complete_three_epoch, b_caccae_hmp_qp_nonsyn, b_caccae_complete_dfe) + ggtitle('B. caccae (Downsampled to 14)')
+compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulsilyticus_complete_two_epoch, b_cellulosilyticus_complete_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
+compare_hmp_sfs(b_fragilis_hmp_qp_syn, one_epoch_14, b_fragilis_complete_two_epoch, b_fragilis_complete_three_epoch, b_fragilis_hmp_qp_nonsyn, b_fragilis_complete_dfe) + ggtitle('B. fragilis (Downsampled to 14)')
+compare_hmp_sfs(b_ovatus_hmp_qp_syn, one_epoch_14, b_ovatus_complete_two_epoch, b_ovatus_complete_three_epoch, b_ovatus_hmp_qp_nonsyn, b_ovatus_complete_dfe) + ggtitle('B. ovatus (Downsampled to 14)')
+# compare_hmp_sfs(b_stercoris_orig, b_stercoris_hmp_qp_syn, b_stercoris_complete_two_epoch, one_epoch_14) + ggtitle('B. stercoris (Downsampled to 14)')
+compare_hmp_sfs(b_thetaiotaomicron_hmp_qp_syn, one_epoch_14, b_thetaiotaomicron_complete_two_epoch, b_thetaiotomicron_complete_three_epoch, b_thetaiotaomicron_hmp_qp_nonsyn, b_thetaiotaomicron_complete_dfe) + ggtitle('B. thetaiotaomicron (Downsampled to 14)')
+# compare_hmp_sfs(b_uniformis_orig, b_uniformis_hmp_qp_syn, b_uniformis_complete_two_epoch, one_epoch_14) + ggtitle('B. uniformis (Downsampled, to 14)')
+compare_hmp_sfs(b_vulgatus_hmp_qp_syn, one_epoch_14, b_vulgatus_complete_two_epoch, b_vulgatus_complete_three_epoch, b_vulgatus_hmp_qp_nonsyn, b_vulgatus_complete_dfe) + ggtitle('B. vulgatus (Downsampled to 14)')
+compare_hmp_sfs(b_xylanisolvens_hmp_qp_syn, one_epoch_14, b_xylanisolvens_complete_two_epoch, b_xylanisolvens_complete_three_epoch, b_xylanisolvens_hmp_qp_nonsyn, b_xylanisolvens_complete_dfe) + ggtitle('B. xylanisolvens (Downsampled to 14)')
+compare_hmp_sfs(b_intestinihominis_hmp_qp_syn, one_epoch_14, b_intestinihominis_complete_two_epoch, b_intestinihominis_complete_three_epoch, b_intestinihominis_hmp_qp_nonsyn, b_intestinihominis_complete_dfe) + ggtitle('B. intestinihominis (Downsampled to 14)')
+compare_hmp_sfs(d_invisus_hmp_qp_syn, one_epoch_14, d_invisus_complete_two_epoch, d_invisus_complete_three_epoch, d_invisus_hmp_qp_nonsyn, d_invisus_complete_dfe) + ggtitle('D. invisus (Downsampled to 14)')
+compare_hmp_sfs(e_eligens_hmp_qp_syn, one_epoch_14, e_eligens_complete_two_epoch, e_eligens_complete_three_epoch, e_eligens_hmp_qp_nonsyn, e_eligens_complete_dfe) + ggtitle('E. eligens (Downsampled to 14)')
+compare_hmp_sfs(e_rectale_hmp_qp_syn, one_epoch_14, e_rectale_complete_two_epoch, e_rectale_complete_three_epoch, e_rectale_hmp_qp_nonsyn, e_rectale_complete_dfe) + ggtitle('E. rectale (Downsampled to 14)')
+compare_hmp_sfs(f_prausnitzii_hmp_qp_syn, one_epoch_14, f_prausnitzii_complete_two_epoch, f_prausnitzii_complete_three_epoch, f_prausnitzii_hmp_qp_nonsyn, f_prausnitzii_complete_dfe) + ggtitle('F. prausnitzii (Downsampled to 14)')
+compare_hmp_sfs(o_splanchnicus_hmp_qp_syn, one_epoch_14, o_splanchnicus_complete_two_epoch, o_splanchnicus_complete_three_epoch,  o_splanchnicus_hmp_qp_nonsyn, o_splanchnicus_complete_dfe) + ggtitle('O. splanchnicus (Downsampled to 14)')
+compare_hmp_sfs(o_sp_hmp_qp_syn, one_epoch_14, o_sp_complete_two_epoch, o_sp_complete_three_epoch, o_sp_hmp_qp_nonsyn, o_sp_complete_dfe) + ggtitle('Oscillibacter sp. (Downsampled to 14)')
+compare_hmp_sfs(p_distasonis_hmp_qp_syn, one_epoch_14, p_distasonis_complete_two_epoch, p_distasonis_complete_three_epoch, p_distasonis_hmp_qp_nonsyn, p_distasonis_complete_dfe) + ggtitle('P. distasonis (Downsampled to 14)')
+compare_hmp_sfs(p_merdae_hmp_qp_syn, one_epoch_14, p_merdae_complete_two_epoch, p_merdae_complete_three_epoch, p_merdae_hmp_qp_nonsyn, p_merdae_complete_dfe) + ggtitle('P. merdae (Downsampled to 14)')
+compare_hmp_sfs(p_sp_hmp_qp_syn, one_epoch_14, p_sp_complete_two_epoch, p_sp_complete_three_epoch, p_sp_hmp_qp_nonsyn, p_sp_complete_dfe) + ggtitle('Phascolarctobacterium sp. (Downsampled to 14)')
+compare_hmp_sfs(p_copri_hmp_qp_syn, one_epoch_14, p_copri_complete_two_epoch, p_copri_complete_three_epoch, p_copri_hmp_qp_nonsyn, p_copri_complete_dfe) + ggtitle('P. copri (Downsampled to 14)')
+compare_hmp_sfs(r_bicirculans_hmp_qp_syn, one_epoch_14, r_bicirculans_complete_two_epoch, r_bicirculans_complete_three_epoch, r_bicirculans_hmp_qp_nonsyn, r_bicirculans_complete_dfe) + ggtitle('R. bicirculans (Downsampled to 14)')
+compare_hmp_sfs(r_bromii_hmp_qp_syn, one_epoch_14, r_bromii_complete_two_epoch, r_bromii_complete_three_epoch, r_bromii_hmp_qp_nonsyn, r_bromii_complete_dfe) + ggtitle('R. bromii (Downsampled to 14)')
 
 
 
 compare_isolate_hmp_sfs(a_muciniphila_orig[-1], a_muciniphila_14_two_epoch, 
-                        a_muciniphila_hmp_qp[-1], a_muciniphila_complete_two_epoch,
+                        a_muciniphila_hmp_qp_syn[-1], a_muciniphila_complete_two_epoch,
                         a_muciniphila_14_isolate[-1], a_muciniphila_isolate_two_epoch,
                         one_epoch_14) + ggtitle('A. muciniphila SFS comparison')
 
 compare_isolate_hmp_sfs(a_finegoldii_orig[-1], a_finegoldii_14_two_epoch, 
-                        a_finegoldii_hmp_qp[-1], a_finegoldii_complete_two_epoch,
+                        a_finegoldii_hmp_qp_syn[-1], a_finegoldii_complete_two_epoch,
                         a_finegoldii_14_isolate[-1], a_finegoldii_isolate_two_epoch,
                         one_epoch_14) + ggtitle('A. finegoldii SFS comparison')
 
 compare_isolate_hmp_sfs(a_onderdonkii_orig[-1], a_onderdonkii_14_two_epoch, 
-                        a_onderdonkii_hmp_qp[-1], a_onderdonkii_complete_two_epoch,
+                        a_onderdonkii_hmp_qp_syn[-1], a_onderdonkii_complete_two_epoch,
                         a_onderdonkii_14_isolate[-1], a_onderdonkii_isolate_two_epoch,
                         one_epoch_14) + ggtitle('A. onderdonkii SFS comparison')
 
 compare_isolate_hmp_sfs(a_putredinis_orig[-1], a_putredinis_14_two_epoch, 
-                        a_putredinis_hmp_qp[-1], a_putredinis_complete_two_epoch,
+                        a_putredinis_hmp_qp_syn[-1], a_putredinis_complete_two_epoch,
                         a_putredinis_14_isolate[-1], a_putredinis_isolate_two_epoch,
                         one_epoch_14) + ggtitle('A. putredinis SFS comparison')
 
 compare_isolate_hmp_sfs(a_shahii_orig[-1], a_shahii_14_two_epoch, 
-                        a_shahii_hmp_qp[-1], a_shahii_complete_two_epoch,
+                        a_shahii_hmp_qp_syn[-1], a_shahii_complete_two_epoch,
                         a_shahii_14_isolate[-1], a_shahii_isolate_two_epoch,
                         one_epoch_14) + ggtitle('A. shahii SFS comparison')
 
 compare_isolate_hmp_sfs(b_fragilis_orig[-1], b_fragilis_14_two_epoch, 
-                        b_fragilis_hmp_qp[-1], b_fragilis_complete_two_epoch,
+                        b_fragilis_hmp_qp_syn[-1], b_fragilis_complete_two_epoch,
                         b_fragilis_14_isolate[-1], b_fragilis_isolate_two_epoch,
                         one_epoch_14) + ggtitle('B. fragilis SFS comparison')
 
 compare_isolate_hmp_sfs(b_ovatus_orig[-1], b_ovatus_14_two_epoch, 
-                        b_ovatus_hmp_qp[-1], b_ovatus_complete_two_epoch,
+                        b_ovatus_hmp_qp_syn[-1], b_ovatus_complete_two_epoch,
                         b_ovatus_14_isolate[-1], b_ovatus_isolate_two_epoch,
                         one_epoch_14) + ggtitle('B. ovatus SFS comparison')
 
 compare_isolate_hmp_sfs(b_thetaiotaomicron_orig[-1], b_thetaiotaomicron_14_two_epoch, 
-                        b_thetaiotaomicron_hmp_qp[-1], b_thetaiotaomicron_complete_two_epoch,
+                        b_thetaiotaomicron_hmp_qp_syn[-1], b_thetaiotaomicron_complete_two_epoch,
                         b_thetaiotaomicron_14_isolate[-1], b_thetaiotaomicron_isolate_two_epoch,
                         one_epoch_14) + ggtitle('B. thetaiotaomicron SFS comparison')
 
 compare_isolate_hmp_sfs(b_xylanisolvens_orig[-1], b_xylanisolvens_14_two_epoch, 
-                        b_xylanisolvens_hmp_qp[-1], b_xylanisolvens_complete_two_epoch,
+                        b_xylanisolvens_hmp_qp_syn[-1], b_xylanisolvens_complete_two_epoch,
                         b_xylanisolvens_14_isolate[-1], b_xylanisolvens_isolate_two_epoch,
                         one_epoch_14) + ggtitle('B. xylanisolvens SFS comparison')
 
 compare_isolate_hmp_sfs(b_intestinihominis_orig[-1], b_intestinihominis_14_two_epoch, 
-                        b_intestinihominis_hmp_qp[-1], b_intestinihominis_complete_two_epoch,
+                        b_intestinihominis_hmp_qp_syn[-1], b_intestinihominis_complete_two_epoch,
                         b_intestinihominis_14_isolate[-1], b_intestinihominis_isolate_two_epoch,
                         one_epoch_14) + ggtitle('B. intestinihominis SFS comparison')
 
 compare_isolate_hmp_sfs(d_invisus_orig[-1], d_invisus_14_two_epoch, 
-                        d_invisus_hmp_qp[-1], d_invisus_complete_two_epoch,
+                        d_invisus_hmp_qp_syn[-1], d_invisus_complete_two_epoch,
                         d_invisus_14_isolate[-1], d_invisus_isolate_two_epoch,
                         one_epoch_14) + ggtitle('D. invisus SFS comparison')
 
 compare_isolate_hmp_sfs(f_prausnitzii_orig[-1], f_prausnitzii_14_two_epoch, 
-                        f_prausnitzii_hmp_qp[-1], f_prausnitzii_complete_two_epoch,
+                        f_prausnitzii_hmp_qp_syn[-1], f_prausnitzii_complete_two_epoch,
                         f_prausnitzii_14_isolate[-1], f_prausnitzii_isolate_two_epoch,
                         one_epoch_14) + ggtitle('F. prausnitzii SFS comparison')
 
 compare_isolate_hmp_sfs(o_splanchnicus_orig[-1], o_splanchnicus_14_two_epoch, 
-                        o_splanchnicus_hmp_qp[-1], o_splanchnicus_complete_two_epoch,
+                        o_splanchnicus_hmp_qp_syn[-1], o_splanchnicus_complete_two_epoch,
                         o_splanchnicus_14_isolate[-1], o_splanchnicus_isolate_two_epoch,
                         one_epoch_14) + ggtitle('O. splanchnicus SFS comparison')
 
 compare_isolate_hmp_sfs(p_merdae_orig[-1], p_merdae_14_two_epoch, 
-                        p_merdae_hmp_qp[-1], p_merdae_complete_two_epoch,
+                        p_merdae_hmp_qp_syn[-1], p_merdae_complete_two_epoch,
                         p_merdae_14_isolate[-1], p_merdae_isolate_two_epoch,
                         one_epoch_14) + ggtitle('P. merdae SFS comparison')
 
 compare_isolate_hmp_sfs(p_copri_orig[-1], p_copri_14_two_epoch, 
-                        p_copri_hmp_qp[-1], p_copri_complete_two_epoch,
+                        p_copri_hmp_qp_syn[-1], p_copri_complete_two_epoch,
                         p_copri_14_isolate[-1], p_copri_isolate_two_epoch,
                         one_epoch_14) + ggtitle('P. copri SFS comparison')
 
 
 compare_isolate_hmp_sfs(r_bromii_orig[-1], r_bromii_14_two_epoch, 
-                        r_bromii_hmp_qp[-1], r_bromii_complete_two_epoch,
+                        r_bromii_hmp_qp_syn[-1], r_bromii_complete_two_epoch,
                         r_bromii_14_isolate[-1], r_bromii_isolate_two_epoch,
                         one_epoch_14) + ggtitle('R. bromii SFS comparison')
