@@ -178,9 +178,16 @@ class DFEInference():
 
         pts_l = [1200, 1400, 1600]
         logger.info('Generating spectrum from input demography.')
-        spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
-                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
-                              verbose=True, cpus=1)
+        two_epoch_bool = True
+        if two_epoch_bool:
+            print(demog_params)
+            spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
+                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+                                  verbose=True, cpus=1)
+        else:
+            spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.three_epoch,
+                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+                                  verbose=True, cpus=1)
 
         logger.info('Fitting DFE.')
         # sel_params = [0.2, 10.]
@@ -218,7 +225,7 @@ class DFEInference():
             p0 = dadi.Misc.perturb_params(
                 sel_params, lower_bound=lower_bound,
                 upper_bound=upper_bound)
-            popt = dadi.Inference.optimize_log(p0, nonsyn_data,
+            popt = dadi.Inference.optimize_log_fmin(p0, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
                 verbose=len(sel_params), maxiter=25,
@@ -261,19 +268,19 @@ class DFEInference():
         ng_initial_guesses.append([0.2, 1., 1.])
 
         ng_max_ll = -100000000000
-        for i in range(5):
+        for i in range(25):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
                                           upper_bound=upper_bound)
-            ng_popt = dadi.Inference.optimize_log(ng_p0, nonsyn_data, 
+            ng_popt = dadi.Inference.optimize_log_fmin(ng_p0, nonsyn_data, 
                                                   spectra.integrate, pts=None,
                                                   func_args=[self.neugamma,
                                                              theta_nonsyn],
                                                   lower_bound=lower_bound,
                                                   upper_bound=upper_bound,
                                                   verbose=len(sel_params),
-                                                  maxiter=5, multinom=False)
+                                                  maxiter=25, multinom=False)
             ng_model_sfs = spectra.integrate(
                 ng_popt, None, self.neugamma, theta_nonsyn, None)
             ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)

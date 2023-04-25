@@ -1,15 +1,15 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -l h_data=25G
-#$ -l h_rt=2:00:00
+#$ -l h_data=20G
+#$ -l h_rt=12:00:00
 #$ -l highp
-#$ -t 26
+#$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_gut_HMP
 
-SGE_TASK_ID=29
+# SGE_TASK_ID=12
 
 # i=0
 # while read line;

@@ -27,36 +27,36 @@
 # python evaluate_demography.py ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/downsampled_sfs.txt two_epoch 3.50459 0.0639457 ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/
 
 # HMP-QP Complete
-python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.330587 0.289674 ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.590248 0.125047 ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00111624 0.00564187 ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 10.7027	2.92997 ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txttxt two_epoch 34.9209 172.577 ../Analysis/Alistipes_shahii_62199_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.464414 0.066745 ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 296.16 709.811 ../Analysis/Bacteroides_caccae_53434_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.46129 0.475054 ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.88251 0.195185 ../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.330587 0.289674 ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.590248 0.125047 ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00111624 0.00564187 ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 10.7027	2.92997 ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txttxt two_epoch 34.9209 172.577 ../Analysis/Alistipes_shahii_62199_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.464414 0.066745 ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 296.16 709.811 ../Analysis/Bacteroides_caccae_53434_downsampled_14/complete
+python evaluate_demography.py ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.45676 0.465505 ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.88251 0.195185 ../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete
 # python evaluate_demography.py ../Analysis/Bacteroides_massiliensis_44749_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Bacteroides_massiliensis_44749_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_ovatus_58035_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.000299311 8.73668e-06 ../Analysis/Bacteroides_ovatus_58035_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_ovatus_58035_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.000299311 8.73668e-06 ../Analysis/Bacteroides_ovatus_58035_downsampled_14/complete
 # python evaluate_demography.py ../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.770457 0.0497167 ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 394.013 837.865 ../Analysis/Bacteroides_uniformis_57318_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.895188 0.506591 ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00115518 2.77695e-05 ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.505931 0.0392079 ../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.770457 0.0497167 ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 394.013 837.865 ../Analysis/Bacteroides_uniformis_57318_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.895188 0.506591 ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00115518 2.77695e-05 ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.505931 0.0392079 ../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/complete
 # python evaluate_demography.py ../Analysis/Coprococcus_sp_62244_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Coprococcus_sp_62244_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Dialister_invisus_61905_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00272822 0.0251103 ../Analysis/Dialister_invisus_61905_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00215738 0.015655 ../Analysis/Eubacterium_eligens_61678_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.23419 0.238825 ../Analysis/Eubacterium_rectale_56927_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 184.624 578.327 ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.607248 0.0315866 ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.000286308 0.00292652 ../Analysis/Oscillibacter_sp_60799_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 374.228 707.204 ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.778422 0.0454067 ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 3.13313 0.0997377 ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 27.1938 0.0600029 ../Analysis/Prevotella_copri_61740_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 2.15694 0.448367 ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.92731 0.279787 ../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Dialister_invisus_61905_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00272822 0.0251103 ../Analysis/Dialister_invisus_61905_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.00215738 0.015655 ../Analysis/Eubacterium_eligens_61678_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.23419 0.238825 ../Analysis/Eubacterium_rectale_56927_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 184.624 578.327 ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.607248 0.0315866 ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.000286308 0.00292652 ../Analysis/Oscillibacter_sp_60799_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 374.228 707.204 ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 0.778422 0.0454067 ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 3.13313 0.0997377 ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 27.1938 0.0600029 ../Analysis/Prevotella_copri_61740_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 2.15694 0.448367 ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete
+# python evaluate_demography.py ../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch 1.92731 0.279787 ../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete
 
 # Downsampled to 10
 # python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_10/downsampled_syn_sfs.txt two_epoch 0.40622 0.166818 ../Analysis/Akkermansia_muciniphila_55290_downsampled_10/
