@@ -178,7 +178,7 @@ class DFEInference():
 
         pts_l = [1200, 1400, 1600]
         logger.info('Generating spectrum from input demography.')
-        two_epoch_bool = False
+        two_epoch_bool = True
         if two_epoch_bool:
             print(demog_params)
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
