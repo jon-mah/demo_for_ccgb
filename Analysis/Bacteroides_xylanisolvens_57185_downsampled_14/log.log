@@ -1,8 +1,8 @@
-2023-04-13 09:24:44,245 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-25 15:31:17,277 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-13 09:24:44,246 - INFO - Progress is being logged to ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/log.log
+2023-04-25 15:31:17,277 - INFO - Progress is being logged to ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/log.log
 
-2023-04-13 09:24:44,246 - INFO - Parsed the following arguments:
+2023-04-25 15:31:17,277 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete_two_epoch_demography.txt
@@ -10,37 +10,19 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/
 
-2023-04-13 09:24:44,262 - INFO - Loading input demography.
-2023-04-13 09:24:44,264 - INFO - Input demographic parameters are: [0.00114849568, 2.79170817].
-2023-04-13 09:24:44,264 - INFO - Input theta_syn is: 10973.917942697908.
-2023-04-13 09:24:44,264 - INFO - Generating spectrum from input demography.
-2023-04-13 09:53:30,523 - INFO - Fitting DFE.
-2023-04-13 09:53:32,014 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:53:34,489 - WARNING - The occurrence of roundoff error is detected, which prevents 
-  the requested tolerance from being achieved.  The error may be 
-  underestimated.
-2023-04-13 09:53:34,504 - WARNING - The occurrence of roundoff error is detected, which prevents 
-  the requested tolerance from being achieved.  The error may be 
-  underestimated.
-2023-04-13 09:53:43,625 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:53:47,331 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:53:50,702 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:53:55,614 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:53:57,990 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:53:58,491 - WARNING - The maximum number of subdivisions (50) has been achieved.
+2023-04-25 15:31:17,285 - INFO - Loading input demography.
+2023-04-25 15:31:17,288 - INFO - Input demographic parameters are: [0.33852463, 0.0154186].
+2023-04-25 15:31:17,288 - INFO - Input theta_syn is: 11072.696820853176.
+2023-04-25 15:31:17,288 - INFO - Generating spectrum from input demography.
+2023-04-25 15:31:18,167 - INFO - Fitting DFE.
+2023-04-25 15:31:18,674 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-25 15:31:18,882 - WARNING - The maximum number of subdivisions (50) has been achieved.
   If increasing the limit yields no improvement it is advised to analyze 
   the integrand in order to determine the difficulties.  If the position of a 
   local difficulty can be determined (singularity, discontinuity) one will 
   probably gain from splitting up the interval and calling the integrator 
   on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-13 09:54:03,287 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:54:06,311 - WARNING - The occurrence of roundoff error is detected, which prevents 
-  the requested tolerance from being achieved.  The error may be 
-  underestimated.
-2023-04-13 09:54:06,326 - WARNING - The occurrence of roundoff error is detected, which prevents 
-  the requested tolerance from being achieved.  The error may be 
-  underestimated.
-2023-04-13 09:54:06,433 - INFO - Fitting Neutral + Gamma DFE
-2023-04-13 09:54:34,913 - INFO - Computing intermediate summary statistics.
-2023-04-13 09:54:34,916 - INFO - Outputting results.
-2023-04-13 09:54:34,923 - INFO - Pipeline executed succesfully.
+2023-04-25 15:31:50,248 - INFO - Fitting Neutral + Gamma DFE
+2023-04-25 15:32:19,907 - INFO - Computing intermediate summary statistics.
+2023-04-25 15:32:19,911 - INFO - Outputting results.
+2023-04-25 15:32:19,950 - INFO - Pipeline executed succesfully.

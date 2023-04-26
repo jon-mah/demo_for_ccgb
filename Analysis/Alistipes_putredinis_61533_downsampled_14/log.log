@@ -1,98 +1,33 @@
-2023-04-13 09:24:44,244 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-04-25 00:50:51,433 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-13 09:24:44,245 - INFO - Progress is being logged to ../Analysis/Alistipes_putredinis_61533_downsampled_14/log.log
+2023-04-25 00:50:51,433 - INFO - Progress is being logged to ../Analysis/Alistipes_putredinis_61533_downsampled_14/log.log
 
-2023-04-13 09:24:44,245 - INFO - Parsed the following arguments:
+2023-04-25 00:50:51,433 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
-	input_demography = ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete_two_epoch_demography.txt
+	input_demography = ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete_three_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Alistipes_putredinis_61533_downsampled_14/
 
-2023-04-13 09:24:44,262 - INFO - Loading input demography.
-2023-04-13 09:24:44,264 - INFO - Input demographic parameters are: [0.00097183, 0.0068292].
-2023-04-13 09:24:44,264 - INFO - Input theta_syn is: 1912899.521408873.
-2023-04-13 09:24:44,264 - INFO - Generating spectrum from input demography.
-2023-04-13 09:24:50,233 - INFO - Fitting DFE.
-2023-04-13 09:24:50,613 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:24:51,072 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:24:53,129 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:24:53,502 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:24:56,846 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:24:57,406 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:24:57,778 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:25:07,316 - WARNING - The occurrence of roundoff error is detected, which prevents 
-  the requested tolerance from being achieved.  The error may be 
-  underestimated.
-2023-04-13 09:25:07,330 - WARNING - The occurrence of roundoff error is detected, which prevents 
-  the requested tolerance from being achieved.  The error may be 
-  underestimated.
-2023-04-13 09:25:07,982 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:25:25,450 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:25:29,778 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:25:29,991 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:25:31,913 - WARNING - The maximum number of subdivisions (50) has been achieved.
+2023-04-25 00:50:51,436 - INFO - Loading input demography.
+2023-04-25 00:50:51,437 - INFO - Input demographic parameters are: [180690407.0, 69978517900.0, 1.21320344e-06, 1.00147521].
+2023-04-25 00:50:51,437 - INFO - Input theta_syn is: 2675.3367728376693.
+2023-04-25 00:50:51,438 - INFO - Generating spectrum from input demography.
+2023-04-25 00:51:08,964 - INFO - Fitting DFE.
+2023-04-25 00:51:09,502 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-04-25 00:51:09,726 - WARNING - The maximum number of subdivisions (50) has been achieved.
   If increasing the limit yields no improvement it is advised to analyze 
   the integrand in order to determine the difficulties.  If the position of a 
   local difficulty can be determined (singularity, discontinuity) one will 
   probably gain from splitting up the interval and calling the integrator 
   on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-13 09:25:32,079 - WARNING - The maximum number of subdivisions (50) has been achieved.
-  If increasing the limit yields no improvement it is advised to analyze 
-  the integrand in order to determine the difficulties.  If the position of a 
-  local difficulty can be determined (singularity, discontinuity) one will 
-  probably gain from splitting up the interval and calling the integrator 
-  on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-13 09:25:33,154 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:25:46,966 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:25:53,898 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-04-25 00:51:26,747 - WARNING - Warning: converting a masked element to nan.
+2023-04-25 00:52:05,827 - INFO - Fitting Neutral + Gamma DFE
+2023-04-25 00:52:30,590 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-04-13 09:26:06,804 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-04-13 09:26:08,618 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-04-13 09:26:08,734 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-04-13 09:26:09,440 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-04-13 09:26:09,568 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:26:11,328 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:26:20,622 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:26:21,633 - WARNING - The maximum number of subdivisions (50) has been achieved.
-  If increasing the limit yields no improvement it is advised to analyze 
-  the integrand in order to determine the difficulties.  If the position of a 
-  local difficulty can be determined (singularity, discontinuity) one will 
-  probably gain from splitting up the interval and calling the integrator 
-  on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-13 09:26:21,795 - WARNING - The maximum number of subdivisions (50) has been achieved.
-  If increasing the limit yields no improvement it is advised to analyze 
-  the integrand in order to determine the difficulties.  If the position of a 
-  local difficulty can be determined (singularity, discontinuity) one will 
-  probably gain from splitting up the interval and calling the integrator 
-  on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-13 09:26:22,792 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-13 09:26:25,969 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:26:35,097 - WARNING - Warning: converting a masked element to nan.
-2023-04-13 09:26:36,928 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-04-13 09:26:43,252 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-04-13 09:26:44,961 - INFO - Fitting Neutral + Gamma DFE
-2023-04-13 09:27:03,161 - INFO - Computing intermediate summary statistics.
-2023-04-13 09:27:03,164 - INFO - Outputting results.
-2023-04-13 09:27:03,202 - INFO - Pipeline executed succesfully.
+2023-04-25 00:52:41,029 - INFO - Computing intermediate summary statistics.
+2023-04-25 00:52:41,033 - INFO - Outputting results.
+2023-04-25 00:52:41,037 - INFO - Pipeline executed succesfully.

@@ -416,8 +416,8 @@ class DemographicInference():
         # First set parameter bounds for optimization
         # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
         #               'three_epoch', 'one_epoch']
-        # model_list = ['two_epoch', 'one_epoch']
         model_list = ['two_epoch']
+        # model_list = ['one_epoch', 'two_epoch', 'three_epoch']
         # Fit different one-epoch models and compute likelihood
         # method_list = ['expectation']
         method_list = ['null']
@@ -610,7 +610,7 @@ class DemographicInference():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(25):
+                for i in range(10):
                     # Start at initial guess
                     p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.
@@ -623,7 +623,7 @@ class DemographicInference():
                         p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                         lower_bound=None,
                         upper_bound=None,
-                        verbose=len(p0), maxiter=25)
+                        verbose=len(p0), maxiter=15)
                     logger.info(
                         'Finished optimization with guess, ' + str(p0) + '.')
                     logger.info('Best fit parameters: {0}.'.format(popt))
