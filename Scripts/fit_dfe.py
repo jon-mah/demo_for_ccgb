@@ -182,7 +182,7 @@ class DFEInference():
         if two_epoch_bool:
             print(demog_params)
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
-                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                                   verbose=True, cpus=1)
         else:
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.three_epoch,
