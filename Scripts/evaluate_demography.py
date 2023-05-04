@@ -534,6 +534,7 @@ class EvaluateDemography():
             else:
                 generations_b = tau_b * theta / 4 / nu_b
                 generations_f = tau_f * theta / 4 / nu_f
+                generations_total = generations_b + generations_f
                 f.write(
                     'Low estimate for bottleneck length in years is '  +
                     str(generations_b / 6.93E-10 / allele_sum / 365) + '.\n')
@@ -546,6 +547,12 @@ class EvaluateDemography():
                 f.write(
                     'High estimate for time since bottleneck in years is ' +
                     str(generations_f / 4.08E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'Low estimate for total time is ' +
+                    str(generations_total / 6.93E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'High estimate for total time is ' +
+                    str(generations_total / 4.08E-10 / allele_sum / 365) + '.\n')
                 f.write(
                     'Low estimate for ancestral population size is ' +
                     str(theta / 4 / nu_f / 6.93E-10) + '.\n')
