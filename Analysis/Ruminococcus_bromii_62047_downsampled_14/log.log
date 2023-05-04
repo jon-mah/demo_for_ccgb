@@ -1,26 +1,25 @@
-2023-04-25 00:51:08,259 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-04 10:28:39,316 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-25 00:51:08,260 - INFO - Progress is being logged to ../Analysis/Ruminococcus_bromii_62047_downsampled_14/log.log
+2023-05-04 10:28:39,317 - INFO - Progress is being logged to ../Analysis/Ruminococcus_bromii_62047_downsampled_14/log.log
 
-2023-04-25 00:51:08,261 - INFO - Parsed the following arguments:
+2023-05-04 10:28:39,317 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
-	input_demography = ../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_three_epoch_demography.txt
+	input_demography = ../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Ruminococcus_bromii_62047_downsampled_14/
 
-2023-04-25 00:51:08,295 - INFO - Loading input demography.
-2023-04-25 00:51:08,298 - INFO - Input demographic parameters are: [106914120000.0, 2112360740.0, 0.0604246339, 2.5761266].
-2023-04-25 00:51:08,298 - INFO - Input theta_syn is: 7523.98173243725.
-2023-04-25 00:51:08,298 - INFO - Generating spectrum from input demography.
-2023-04-25 00:51:52,378 - INFO - Fitting DFE.
-2023-04-25 00:51:53,187 - WARNING - Warning: converting a masked element to nan.
-2023-04-25 00:52:30,323 - INFO - Fitting Neutral + Gamma DFE
-2023-04-25 00:53:02,319 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-05-04 10:28:39,361 - INFO - Loading input demography.
+2023-05-04 10:28:39,382 - INFO - Input demographic parameters are: [2.13666508, 0.6508205].
+2023-05-04 10:28:39,382 - INFO - Input theta_syn is: 5998.730901933947.
+2023-05-04 10:28:39,382 - INFO - Generating spectrum from input demography.
+2023-05-04 10:30:06,897 - INFO - Fitting DFE.
+2023-05-04 10:30:17,288 - INFO - Fitting Neutral + Gamma DFE
+2023-05-04 10:30:41,488 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-04-25 00:53:03,500 - INFO - Computing intermediate summary statistics.
-2023-04-25 00:53:03,506 - INFO - Outputting results.
-2023-04-25 00:53:03,511 - INFO - Pipeline executed succesfully.
+2023-05-04 10:30:56,549 - INFO - Computing intermediate summary statistics.
+2023-05-04 10:30:56,554 - INFO - Outputting results.
+2023-05-04 10:30:56,559 - INFO - Pipeline executed succesfully.

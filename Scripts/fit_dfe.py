@@ -178,14 +178,18 @@ class DFEInference():
 
         pts_l = [1200, 1400, 1600]
         logger.info('Generating spectrum from input demography.')
-        two_epoch_bool = True
-        if two_epoch_bool:
+        input_model = 'three_epoch'
+        if input_model == 'two_epoch':
             print(demog_params)
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
                                   pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                                   verbose=True, cpus=1)
-        else:
+        elif input_model == 'three_epoch':
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.three_epoch,
+                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+                                  verbose=True, cpus=1)
+        else:
+            spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.equil,
                                   pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
                                   verbose=True, cpus=1)
 
@@ -228,7 +232,7 @@ class DFEInference():
             popt = dadi.Inference.optimize_log_fmin(p0, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                verbose=len(sel_params), maxiter=25,
+                verbose=len(sel_params), maxiter=5,
                 multinom=False)
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
