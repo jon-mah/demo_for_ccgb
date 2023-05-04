@@ -76,11 +76,8 @@ class EvaluateDemography():
             help=('Model specification for which the dmeographic '
                   'parameters should be evaluated.'))
         parser.add_argument(
-            'nu', type=float,
-            help=('Current to Ancestral population size.'))
-        parser.add_argument(
-            'tau', type=float,
-            help=('Time in generations since last major demographic event.'))
+            '--params_list', type=float, nargs="*", default=[],
+            help=('List params in float format.'))
         parser.add_argument(
             '--mask_singletons', dest='mask_singletons',
             help=('Boolean flag for masking singlestons in Spectrum.'),
@@ -366,6 +363,15 @@ class EvaluateDemography():
         syn_input_sfs = args['syn_input_sfs']
         outprefix = args['outprefix']
         model_type = args['model_type']
+        params_list = args['params_list']
+        if model_type == 'two_epoch':
+            nu = params_list[0]
+            tau = params_list[1]
+        else:
+            nu_b = params_list[0]
+            nu_f = params_list[1]
+            tau_b = params_list[2]
+            tau_f = params_list[3]
         nu = args['nu']
         tau = args['tau']
         mask_singletons = args['mask_singletons']
@@ -512,25 +518,41 @@ class EvaluateDemography():
                 scaled_spectrum))
             logger.info('Converting and interpreting Tau estimates.')
             allele_sum = numpy.sum(scaled_spectrum)
-            generations = 2 * tau * theta / 4 / nu
-            f.write(
-                'Low estimate for years using allele count is ' +
-                str(generations / 6.93E-10 / allele_sum / 365) + '.\n')
-            f.write(
-                'High estimate for years using allele count is ' +
-                str(generations / 4.08E-10 / allele_sum / 365) + '.\n')
-            f.write(
-                'Low estimate for years using 1,000,000 sites is ' +
-                str(generations / 6.93E-10 / 1000000 / 365) + '.\n')
-            f.write(
-                'High estimate for years ugin 1,000,000 sites is ' +
-                str(generations / 4.08E-10 / 1000000 / 365) + '.\n')
-            f.write(
-                'Low estimate for ancestral population size is ' +
-                str(theta / 4 / nu / 6.93E-10) + '.\n')
-            f.write(
-                'High estimate for ancestral population size is ' +
-                str(theta / 4  / nu / 4.08E-10) + '.\n')
+            if model_type == 'two_epoch':
+                generations = 2 * tau * theta / 4 / nu
+                f.write(
+                    'Low estimate for years is ' +
+                    str(generations / 6.93E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'High estimate for years is ' +
+                    str(generations / 4.08E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'Low estimate for ancestral population size is ' +
+                    str(theta / 4 / nu / 6.93E-10) + '.\n')
+                f.write(
+                    'High estimate for ancestral population size is ' +
+                    str(theta / 4  / nu / 4.08E-10) + '.\n')
+            else:
+                generations_b = tau_b * theta / 4 / nu_b
+                generations_f = tau_f * theta / 4 / nu_f
+                f.write(
+                    'Low estimate for bottleneck length in years is '  +
+                    str(generations_b / 6.93E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'High estimate for bottleneck length in years is ' +
+                    str(generations_b / 4.08E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'Low estimate for time since bottleneck in years is ' +
+                    str(generatiosn_f / 6.93E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'High estimate for time since bottleneck in years is ' +
+                    str(generatiosn_f / 4.08E-10 / allele_sum / 365) + '.\n')
+                f.write(
+                    'Low estimate for ancestral population size is ' +
+                    str(theta / 4 / nu_f / 6.93E-10) + '.\n')
+                f.write(
+                    'High estimate for ancestral population size is ' +
+                    str(theta / 4  / nu_f / 4.08E-10) + '.\n')
         logger.info('Finished demographic evaluation.')
         logger.info('Pipeline executed succesfully.')
 
