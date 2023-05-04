@@ -27,7 +27,7 @@
 # python evaluate_demography.py ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/downsampled_sfs.txt two_epoch --params_list 3.50459 0.0639457 ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/
 
 # HMP-QP Complete
-python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 4.65E-01 3.54E-01 5.64E-07 3.04E-01
+python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 4.64802441e-01 3.54386154e-01 5.63758432e-07 3.03983759e-01
 python evaluate_demography.py ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete --params_list 0.36713549 0.41574067
 # python evaluate_demography.py ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch --params_list 0.00111624 0.00564187 ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete
 # python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch --params_list 10.7027 2.92997 ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete
@@ -41,7 +41,7 @@ python evaluate_demography.py ../Analysis/Bacteroides_ovatus_58035_downsampled_1
 python evaluate_demography.py ../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete --params_list 1.93E+00 1.1E+00 2.24E+00 9.17E-08
 python evaluate_demography.py ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete --params_list 0.66565307 0.6705805
 # python evaluate_demography.py ../Analysis/Bacteroides_uniformis_57318_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch --params_list 394.013 837.865 ../Analysis/Bacteroides_uniformis_57318_downsampled_14/complete
-python evaluate_demography.py ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete --params_list 8.326662E-01 7.281064E-01
+python evaluate_demography.py ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete --params_list 7.41E-01 1.08E+00 9.97E-01 2.12E-09
 python evaluate_demography.py ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete --params_list 3.39E-01 1.54E-02
 python evaluate_demography.py ../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/complete --params_list 0.54017373 0.05199546
 # python evaluate_demography.py ../Analysis/Coprococcus_sp_62244_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch --params_list ../Analysis/Coprococcus_sp_62244_downsampled_14/complete
