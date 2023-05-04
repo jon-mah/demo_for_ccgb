@@ -7057,29 +7057,29 @@ dfe_df = rbind(
 )
 
 # Temp exclusion
-dfe_df = rbind(
-  melt(a_muciniphila_dfe_params),
-  melt(a_finegoldii_dfe_params),
-  melt(a_shahii_dfe_params),
-  melt(b_bacterium_dfe_params),
-  melt(b_cellulosilyticus_dfe_params),
-  melt(b_fragilis_dfe_params),
-  melt(b_ovatus_dfe_params),
-  melt(b_stercoris_dfe_params),
-  melt(b_thetaiotaomicron_dfe_params),
-  melt(b_vulgatus_dfe_params),
-  melt(b_xylanisolvens_dfe_params),
-  melt(b_intestinihominis_dfe_params),
-  melt(e_eligens_dfe_params),
-  melt(e_rectale_dfe_params),
-  melt(f_prausnitzii_dfe_params),
-  melt(o_splanchnicus_dfe_params),
-  melt(p_distasonis_dfe_params),
-  melt(p_merdae_dfe_params),
-  melt(p_sp_dfe_params),
-  melt(p_copri_dfe_params),
-  melt(r_bicirculans_dfe_params)
-)
+# dfe_df = rbind(
+#   melt(a_muciniphila_dfe_params),
+#   melt(a_finegoldii_dfe_params),
+#   melt(a_shahii_dfe_params),
+#   melt(b_bacterium_dfe_params),
+#   melt(b_cellulosilyticus_dfe_params),
+#   melt(b_fragilis_dfe_params),
+#   melt(b_ovatus_dfe_params),
+#   melt(b_stercoris_dfe_params),
+#   melt(b_thetaiotaomicron_dfe_params),
+#   melt(b_vulgatus_dfe_params),
+#   melt(b_xylanisolvens_dfe_params),
+#   melt(b_intestinihominis_dfe_params),
+#   melt(e_eligens_dfe_params),
+#   melt(e_rectale_dfe_params),
+#   melt(f_prausnitzii_dfe_params),
+#   melt(o_splanchnicus_dfe_params),
+#   melt(p_distasonis_dfe_params),
+#   melt(p_merdae_dfe_params),
+#   melt(p_sp_dfe_params),
+#   melt(p_copri_dfe_params),
+#   melt(r_bicirculans_dfe_params)
+# )
 
 # dfe_df
 
@@ -7135,4 +7135,13 @@ ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_high', ], aes(x=value, y=fct
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
+
+two_epoch_nu_tau = read.csv('../Summary/two_epoch_demography_interpretation.csv')
+three_epoch_nu_tau= read.csv('../Summary/three_epoch_demography_interpretation.csv')
+
+
+ggscatter(two_epoch_nu_tau, x="nu", y="time_low", fill="species", color="species") + geom_vline(xintercept=1) +
+  ylab('Time in Years') +
+  xlab('Ratio of current to ancestral population size')
+ggscatter(three_epoch_nu_tau, x="nu", y="time_low", fill="species", color="species") + geom_vline(xintercept=1)
 

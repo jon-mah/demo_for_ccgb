@@ -267,3 +267,5 @@ ggplot(melt(gamma_dfe_data), aes(x=value, y=..density.., fill=variable)) +
   geom_vline(xintercept=1e-02) +
   geom_vline(xintercept=1e-01) +
   ggtitle('Gamma-distributed DFE, no singletons')
+
+

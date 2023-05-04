@@ -517,23 +517,28 @@ class EvaluateDemography():
                 scaled_spectrum))
             logger.info('Converting and interpreting Tau estimates.')
             allele_sum = numpy.sum(scaled_spectrum)
+            # Don't hard  code in mu as value
+            mu_low = 4.08E-10
+            mu_high = 6.93E-10
             if model_type == 'two_epoch':
-                generations = 2 * tau * theta / 4 / nu
+                generations_low = 2 * tau * theta / (4 * mu_high * allele_sum)
+                generations_high = 2 * tau * theta / (4 * mu_low * allele_sum)
                 f.write(
                     'Low estimate for years is ' +
-                    str(generations / 6.93E-10 / allele_sum / 365) + '.\n')
+                    str(generations_low / 365) + '.\n')
                 f.write(
                     'High estimate for years is ' +
-                    str(generations / 4.08E-10 / allele_sum / 365) + '.\n')
+                    str(generations_high / 365) + '.\n')
                 f.write(
                     'Low estimate for ancestral population size is ' +
-                    str(theta / 4 / nu / 6.93E-10) + '.\n')
+                    str(theta / (4 * allele_sum * mu_high)) + '.\n')
                 f.write(
                     'High estimate for ancestral population size is ' +
-                    str(theta / 4  / nu / 4.08E-10) + '.\n')
+                    str(theta / (4 * allele_sum * mu_low)) + '.\n')
             else:
-                generations_b = tau_b * theta / 4 / nu_b
-                generations_f = tau_f * theta / 4 / nu_f
+                # Correct the algebra
+                generations_b = tau_b * theta / 4
+                generations_f = tau_f * theta / 4
                 generations_total = generations_b + generations_f
                 f.write(
                     'Low estimate for bottleneck length in years is '  +

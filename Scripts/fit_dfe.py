@@ -308,10 +308,13 @@ class DFEInference():
         # L_syn = 1
         mu_high = 6.93E-10 # High estimate of mutation rate
         mu_low = 4.08E-10 # Low estimate of mutation rate
-        Ne_low = theta_syn / (4 * L_syn * mu_high)
-        Ne_high = theta_syn / (4 * L_syn * mu_low)
-        Na_low = Ne_low / float(demog_params[0])
-        Na_high = Ne_high / float(demog_params[0])
+        Na_low = theta_syn / (4 * L_syn * mu_high) # Low estimate of N_anc
+        Na_high = theta_syn / (4 * L_syn * mu_low) # High estimate of N_anc
+        #  Theta is given in terms of 4 * L_syn * mu * Na, thus,
+        #  we don't need to divide by nu in order to get ancestral popultion
+        #
+        # Na_low = Ne_low / float(demog_params[0])
+        # Na_high = Ne_high / float(demog_params[0])
 
         logger.info('Outputting results.')
 
