@@ -537,33 +537,36 @@ class EvaluateDemography():
                     str(theta / (4 * allele_sum * mu_low)) + '.\n')
             else:
                 # Correct the algebra
-                generations_b = tau_b * theta / 4
-                generations_f = tau_f * theta / 4
-                generations_total = generations_b + generations_f
+                generations_b_low = 2 * tau_b * theta / (4 * mu_high * allele_sum)
+                generations_b_high = 2 * tau_b * theta / (4 * mu_low * allele_sum)
+                generations_f_low = 2 * tau_f * theta / (4 * mu_high * allele_sum)
+                generations_f_high = 2 * tau_f * theta / (4 * mu_low * allele_sum)
+                generations_total_low = generations_b_low + generations_f_low
+                generations_total_high = generations_b_high + generations_f_high
                 f.write(
                     'Low estimate for bottleneck length in years is '  +
-                    str(generations_b / 6.93E-10 / allele_sum / 365) + '.\n')
+                    str(generations_b_low / 365) + '.\n')
                 f.write(
                     'High estimate for bottleneck length in years is ' +
-                    str(generations_b / 4.08E-10 / allele_sum / 365) + '.\n')
+                    str(generations_b_high / 365) + '.\n')
                 f.write(
                     'Low estimate for time since bottleneck in years is ' +
-                    str(generations_f / 6.93E-10 / allele_sum / 365) + '.\n')
+                    str(generations_f_low / 365) + '.\n')
                 f.write(
                     'High estimate for time since bottleneck in years is ' +
-                    str(generations_f / 4.08E-10 / allele_sum / 365) + '.\n')
+                    str(generations_f_high / 365) + '.\n')
                 f.write(
                     'Low estimate for total time is ' +
-                    str(generations_total / 6.93E-10 / allele_sum / 365) + '.\n')
+                    str(generations_total_low / 365) + '.\n')
                 f.write(
                     'High estimate for total time is ' +
-                    str(generations_total / 4.08E-10 / allele_sum / 365) + '.\n')
+                    str(generations_total_high / 365) + '.\n')
                 f.write(
                     'Low estimate for ancestral population size is ' +
-                    str(theta / 4 / nu_f / 6.93E-10) + '.\n')
+                    str(theta / (4 * allele_sum * mu_high)) + '.\n')
                 f.write(
                     'High estimate for ancestral population size is ' +
-                    str(theta / 4  / nu_f / 4.08E-10) + '.\n')
+                    str(theta / (4 * allele_sum * mu_low)) + '.\n')
         logger.info('Finished demographic evaluation.')
         logger.info('Pipeline executed succesfully.')
 
