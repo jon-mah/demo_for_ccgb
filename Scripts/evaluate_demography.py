@@ -372,8 +372,6 @@ class EvaluateDemography():
             nu_f = params_list[1]
             tau_b = params_list[2]
             tau_f = params_list[3]
-        nu = args['nu']
-        tau = args['tau']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
 
@@ -432,7 +430,7 @@ class EvaluateDemography():
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 
-        initial_guess = [nu, tau]
+        initial_guess = params_list
         if model_type == 'exponential_growth':
             # file = exponential_growth_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.growth)
@@ -543,10 +541,10 @@ class EvaluateDemography():
                     str(generations_b / 4.08E-10 / allele_sum / 365) + '.\n')
                 f.write(
                     'Low estimate for time since bottleneck in years is ' +
-                    str(generatiosn_f / 6.93E-10 / allele_sum / 365) + '.\n')
+                    str(generations_f / 6.93E-10 / allele_sum / 365) + '.\n')
                 f.write(
                     'High estimate for time since bottleneck in years is ' +
-                    str(generatiosn_f / 4.08E-10 / allele_sum / 365) + '.\n')
+                    str(generations_f / 4.08E-10 / allele_sum / 365) + '.\n')
                 f.write(
                     'Low estimate for ancestral population size is ' +
                     str(theta / 4 / nu_f / 6.93E-10) + '.\n')
