@@ -149,8 +149,8 @@ class DFEInference():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # Construct initial Spectrum object from input sfs's.
-        syn_data = dadi.Spectrum.from_file(syn_input_sfs)
-        nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs)
+        syn_data = dadi.Spectrum.from_file(syn_input_sfs).fold()
+        nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs).fold()
         if mask_singletons:
             syn_data.mask[1] = True
         if mask_doubletons:
@@ -273,7 +273,7 @@ class DFEInference():
             lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
                                           upper_bound=upper_bound)
-            ng_popt = dadi.Inference.optimize_log_fmin(ng_p0, nonsyn_data, 
+            ng_popt = dadi.Inference.optimize_log_fmin(ng_p0, nonsyn_data,
                                                   spectra.integrate, pts=None,
                                                   func_args=[self.neugamma,
                                                              theta_nonsyn],
