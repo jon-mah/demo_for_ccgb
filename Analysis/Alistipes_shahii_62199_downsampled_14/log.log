@@ -1,21 +1,30 @@
-2023-05-04 10:27:14,883 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-04 14:51:01,363 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 10:27:14,884 - INFO - Progress is being logged to ../Analysis/Alistipes_shahii_62199_downsampled_14/log.log
+2023-05-04 14:51:01,367 - INFO - Progress is being logged to ../Analysis/Alistipes_shahii_62199_downsampled_14/log.log
 
-2023-05-04 10:27:14,884 - INFO - Parsed the following arguments:
+2023-05-04 14:51:01,367 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Alistipes_shahii_62199_downsampled_14/complete_two_epoch_demography.txt
+	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Alistipes_shahii_62199_downsampled_14/
 
-2023-05-04 10:27:14,927 - INFO - Loading input demography.
-2023-05-04 10:27:14,948 - INFO - Input demographic parameters are: [0.68984312, 1.5997085].
-2023-05-04 10:27:14,948 - INFO - Input theta_syn is: 7165.571901587437.
-2023-05-04 10:27:14,948 - INFO - Generating spectrum from input demography.
-2023-05-04 10:29:25,750 - INFO - Fitting DFE.
-2023-05-04 10:29:36,835 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 10:30:16,354 - INFO - Computing intermediate summary statistics.
-2023-05-04 10:30:16,358 - INFO - Outputting results.
-2023-05-04 10:30:16,363 - INFO - Pipeline executed succesfully.
+2023-05-04 14:51:01,410 - INFO - Loading input demography.
+2023-05-04 14:51:01,422 - INFO - Input demographic parameters are: [0.68984312, 1.5997085].
+2023-05-04 14:51:01,422 - INFO - Input theta_syn is: 7165.571901586444.
+2023-05-04 14:51:01,422 - INFO - Generating spectrum from input demography.
+2023-05-04 14:53:33,085 - INFO - Fitting DFE.
+2023-05-04 14:53:33,864 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-04 14:53:34,187 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2023-05-04 14:53:40,906 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-04 14:54:19,938 - INFO - Fitting Neutral + Gamma DFE
+2023-05-04 14:54:57,937 - INFO - Computing intermediate summary statistics.
+2023-05-04 14:54:58,212 - INFO - Outputting results.
+2023-05-04 14:54:58,347 - INFO - Pipeline executed succesfully.

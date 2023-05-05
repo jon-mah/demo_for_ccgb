@@ -1,21 +1,23 @@
-2023-05-04 10:27:45,160 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-04 14:55:14,967 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 10:27:45,160 - INFO - Progress is being logged to ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/log.log
+2023-05-04 14:55:14,968 - INFO - Progress is being logged to ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/log.log
 
-2023-05-04 10:27:45,160 - INFO - Parsed the following arguments:
+2023-05-04 14:55:14,968 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/complete_two_epoch_demography.txt
+	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/
 
-2023-05-04 10:27:45,191 - INFO - Loading input demography.
-2023-05-04 10:27:45,214 - INFO - Input demographic parameters are: [0.66565307, 0.6705805].
-2023-05-04 10:27:45,214 - INFO - Input theta_syn is: 20968.51255238121.
-2023-05-04 10:27:45,214 - INFO - Generating spectrum from input demography.
-2023-05-04 10:28:28,775 - INFO - Fitting DFE.
-2023-05-04 10:28:37,177 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 10:29:09,464 - INFO - Computing intermediate summary statistics.
-2023-05-04 10:29:09,468 - INFO - Outputting results.
-2023-05-04 10:29:09,480 - INFO - Pipeline executed succesfully.
+2023-05-04 14:55:14,985 - INFO - Loading input demography.
+2023-05-04 14:55:14,997 - INFO - Input demographic parameters are: [0.66565307, 0.6705805].
+2023-05-04 14:55:14,997 - INFO - Input theta_syn is: 20968.512552347078.
+2023-05-04 14:55:14,997 - INFO - Generating spectrum from input demography.
+2023-05-04 14:57:44,105 - INFO - Fitting DFE.
+2023-05-04 14:57:50,380 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-04 14:59:04,497 - INFO - Fitting Neutral + Gamma DFE
+2023-05-04 15:00:12,430 - INFO - Computing intermediate summary statistics.
+2023-05-04 15:00:12,436 - INFO - Outputting results.
+2023-05-04 15:00:12,441 - INFO - Pipeline executed succesfully.

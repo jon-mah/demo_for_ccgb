@@ -73,6 +73,9 @@ class DFEInference():
             'input_demography', type=self.ExistingFile,
             help=('Inferred demographic parameters output by Dadi.'))
         parser.add_argument(
+            'input_model', type=str,
+            help=('Input demographic model.'))
+        parser.add_argument(
             '--mask_singletons', dest='mask_singletons',
             help=('Boolean flag for masking singlestons in Spectrum.'),
             action='store_true')
@@ -99,6 +102,7 @@ class DFEInference():
         nonsyn_input_sfs = args['nonsyn_input_sfs']
         outprefix = args['outprefix']
         input_demography = args['input_demography']
+        input_model = args['input_model']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
 
@@ -178,7 +182,7 @@ class DFEInference():
 
         pts_l = [1200, 1400, 1600]
         logger.info('Generating spectrum from input demography.')
-        input_model = 'three_epoch'
+        # input_model = 'two_epoch'
         if input_model == 'two_epoch':
             print(demog_params)
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
@@ -186,53 +190,53 @@ class DFEInference():
                                   verbose=True, cpus=1)
         elif input_model == 'three_epoch':
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.three_epoch,
-                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                                   verbose=True, cpus=1)
         else:
-            spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.equil,
-                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=25,
+            spectra = DFE.Cache1D(demog_params, nonsyn_ns, dadi.Demographics1D.snm,
+                                  pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                                   verbose=True, cpus=1)
 
         logger.info('Fitting DFE.')
         # sel_params = [0.2, 10.]
         initial_guesses = []
-        initial_guesses.append([0.2, 0.001])
-        initial_guesses.append([0.2, 0.01])
         initial_guesses.append([0.2, 0.1])
         initial_guesses.append([0.2, 1.])
         initial_guesses.append([0.2, 10.])
-        initial_guesses.append([0.2, 100])
-        initial_guesses.append([0.2, 1000])
+        initial_guesses.append([0.2, 100.])
+        initial_guesses.append([0.2, 1000.])
         initial_guesses.append([0.2, 10000])
-        initial_guesses.append([1., 0.001])
-        initial_guesses.append([1., 0.01])
+        initial_guesses.append([0.2, 100000])
+        initial_guesses.append([0.2, 1000000])
         initial_guesses.append([1., 0.1])
         initial_guesses.append([1., 1.])
         initial_guesses.append([1., 10.])
-        initial_guesses.append([1., 100])
-        initial_guesses.append([1., 1000])
+        initial_guesses.append([1., 100.])
+        initial_guesses.append([1., 1000.])
         initial_guesses.append([1., 10000])
-        initial_guesses.append([5., 0.001])
-        initial_guesses.append([5., 0.01])
+        initial_guesses.append([1., 100000])
+        initial_guesses.append([1., 1000000])
         initial_guesses.append([5., 0.1])
         initial_guesses.append([5., 1.])
         initial_guesses.append([5., 10.])
-        initial_guesses.append([5., 100])
-        initial_guesses.append([5., 1000])
-        initial_guesses.append([5., 10000])
-        initial_guesses.append([1., 1.])
+        initial_guesses.append([5., 100.])
+        initial_guesses.append([5., 1000.])
+        initial_guesses.append([5., 10000.])
+        initial_guesses.append([5., 100000.])
+        initial_guesses.append([5., 1000000.])
+        initial_guesses.append([10., 100000.])
 
         max_ll = -100000000000
         for i in range(25):
             sel_params = initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
             p0 = dadi.Misc.perturb_params(
-                sel_params, lower_bound=lower_bound,
-                upper_bound=upper_bound)
+                sel_params, lower_bound=None,
+                upper_bound=None)
             popt = dadi.Inference.optimize_log_fmin(p0, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                verbose=len(sel_params), maxiter=5,
+                verbose=len(sel_params), maxiter=25,
                 multinom=False)
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
@@ -245,44 +249,44 @@ class DFEInference():
         logger.info('Fitting Neutral + Gamma DFE')
 
         ng_initial_guesses = []
-        ng_initial_guesses.append([0.2, 0.2, 0.001])
-        ng_initial_guesses.append([0.2, 0.2, 0.01])
-        ng_initial_guesses.append([0.2, 0.2, 0.1])
-        ng_initial_guesses.append([0.2, 0.2, 1.])
-        ng_initial_guesses.append([0.2, 0.2, 10.])
-        ng_initial_guesses.append([0.2, 0.2, 100])
-        ng_initial_guesses.append([0.2, 0.2, 1000])
-        ng_initial_guesses.append([0.2, 0.2, 10000])
-        ng_initial_guesses.append([0.2, 1., 0.001])
-        ng_initial_guesses.append([0.2, 1., 0.01])
-        ng_initial_guesses.append([0.2, 1., 0.1])
-        ng_initial_guesses.append([0.2, 1., 1.])
-        ng_initial_guesses.append([0.2, 1., 10.])
-        ng_initial_guesses.append([0.2, 1., 100])
-        ng_initial_guesses.append([0.2, 1., 1000])
-        ng_initial_guesses.append([0.2, 1., 10000])
-        ng_initial_guesses.append([0.2, 5., 0.001])
-        ng_initial_guesses.append([0.2, 5., 0.01])
-        ng_initial_guesses.append([0.2, 5., 0.1])
-        ng_initial_guesses.append([0.2, 5., 1.])
-        ng_initial_guesses.append([0.2, 5., 10.])
-        ng_initial_guesses.append([0.2, 5., 100])
-        ng_initial_guesses.append([0.2, 5., 1000])
-        ng_initial_guesses.append([0.2, 5., 10000])
-        ng_initial_guesses.append([0.2, 1., 1.])
-
+        ng_initial_guesses.append([15., 0.2, 0.1])
+        ng_initial_guesses.append([15., 0.2, 1.])
+        ng_initial_guesses.append([15., 0.2, 10.])
+        ng_initial_guesses.append([15., 0.2, 100.])
+        ng_initial_guesses.append([15., 0.2, 1000.])
+        ng_initial_guesses.append([15., 0.2, 10000])
+        ng_initial_guesses.append([15., 0.2, 100000])
+        ng_initial_guesses.append([15., 0.2, 1000000])
+        ng_initial_guesses.append([15., 1., 0.1])
+        ng_initial_guesses.append([15., 1., 1.])
+        ng_initial_guesses.append([15., 1., 10.])
+        ng_initial_guesses.append([15., 1., 100.])
+        ng_initial_guesses.append([15., 1., 1000.])
+        ng_initial_guesses.append([15., 1., 10000])
+        ng_initial_guesses.append([15., 1., 100000])
+        ng_initial_guesses.append([15., 1., 1000000])
+        ng_initial_guesses.append([15., 5., 0.1])
+        ng_initial_guesses.append([15., 5., 1.])
+        ng_initial_guesses.append([15., 5., 10.])
+        ng_initial_guesses.append([15., 5., 100.])
+        ng_initial_guesses.append([15., 5., 1000.])
+        ng_initial_guesses.append([15., 5., 10000.])
+        ng_initial_guesses.append([15., 5., 100000.])
+        ng_initial_guesses.append([15., 5., 1000000.])
+        ng_initial_guesses.append([15., 10., 100000.])
+        
         ng_max_ll = -100000000000
         for i in range(25):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
-            ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
-                                          upper_bound=upper_bound)
+            ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=None,
+                                          upper_bound=None)
             ng_popt = dadi.Inference.optimize_log_fmin(ng_p0, nonsyn_data,
                                                   spectra.integrate, pts=None,
                                                   func_args=[self.neugamma,
                                                              theta_nonsyn],
-                                                  lower_bound=lower_bound,
-                                                  upper_bound=upper_bound,
+                                                  lower_bound=None,
+                                                  upper_bound=None,
                                                   verbose=len(sel_params),
                                                   maxiter=25, multinom=False)
             ng_model_sfs = spectra.integrate(

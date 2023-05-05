@@ -1,29 +1,24 @@
-2023-04-25 18:53:34,415 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-05 11:03:30,066 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-25 18:53:34,415 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/log.log
+2023-05-05 11:03:30,066 - INFO - Progress is being logged to ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/log.log
 
-2023-04-25 18:53:34,415 - INFO - Parsed the following arguments:
+2023-05-05 11:03:30,066 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete_two_epoch_demography.txt
+	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/
 
-2023-04-25 18:53:34,418 - INFO - Loading input demography.
-2023-04-25 18:53:34,419 - INFO - Input demographic parameters are: [0.0040235, 0.0003542].
-2023-04-25 18:53:34,420 - INFO - Input theta_syn is: 10548.572442960414.
-2023-04-25 18:53:34,420 - INFO - Generating spectrum from input demography.
-2023-04-25 18:53:35,044 - INFO - Fitting DFE.
-2023-04-25 18:53:35,552 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-25 18:53:35,759 - WARNING - The maximum number of subdivisions (50) has been achieved.
-  If increasing the limit yields no improvement it is advised to analyze 
-  the integrand in order to determine the difficulties.  If the position of a 
-  local difficulty can be determined (singularity, discontinuity) one will 
-  probably gain from splitting up the interval and calling the integrator 
-  on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-25 18:53:51,691 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-25 18:54:11,437 - INFO - Fitting Neutral + Gamma DFE
-2023-04-25 18:54:40,467 - INFO - Computing intermediate summary statistics.
-2023-04-25 18:54:40,471 - INFO - Outputting results.
-2023-04-25 18:54:40,475 - INFO - Pipeline executed succesfully.
+2023-05-05 11:03:30,100 - INFO - Loading input demography.
+2023-05-05 11:03:30,101 - INFO - Input demographic parameters are: [0.36888371, 0.2786622].
+2023-05-05 11:03:30,101 - INFO - Input theta_syn is: 14602.855045648861.
+2023-05-05 11:03:30,101 - INFO - Generating spectrum from input demography.
+2023-05-05 11:04:06,209 - INFO - Fitting DFE.
+2023-05-05 11:04:12,579 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-05 11:04:16,859 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-05 11:05:23,340 - INFO - Fitting Neutral + Gamma DFE
+2023-05-05 11:06:41,855 - INFO - Computing intermediate summary statistics.
+2023-05-05 11:06:41,860 - INFO - Outputting results.
+2023-05-05 11:06:41,868 - INFO - Pipeline executed succesfully.

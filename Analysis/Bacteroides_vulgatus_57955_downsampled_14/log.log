@@ -1,28 +1,29 @@
-2023-04-25 00:51:05,136 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-04 15:00:26,928 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-04-25 00:51:05,137 - INFO - Progress is being logged to ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/log.log
+2023-05-04 15:00:26,928 - INFO - Progress is being logged to ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/log.log
 
-2023-04-25 00:51:05,137 - INFO - Parsed the following arguments:
+2023-05-04 15:00:26,928 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/complete_three_epoch_demography.txt
+	input_model = three_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_vulgatus_57955_downsampled_14/
 
-2023-04-25 00:51:05,169 - INFO - Loading input demography.
-2023-04-25 00:51:05,171 - INFO - Input demographic parameters are: [0.741222382, 1.07636733, 0.996882447, 2.11852314].
-2023-04-25 00:51:05,171 - INFO - Input theta_syn is: 6947.654553209825.
-2023-04-25 00:51:05,171 - INFO - Generating spectrum from input demography.
-2023-04-25 00:52:03,247 - INFO - Fitting DFE.
-2023-04-25 00:52:03,726 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-04-25 00:52:03,929 - WARNING - The maximum number of subdivisions (50) has been achieved.
+2023-05-04 15:00:26,939 - INFO - Loading input demography.
+2023-05-04 15:00:26,955 - INFO - Input demographic parameters are: [0.741, 1.0841639, 0.997, 2.12].
+2023-05-04 15:00:26,955 - INFO - Input theta_syn is: 6949.451655394949.
+2023-05-04 15:00:26,955 - INFO - Generating spectrum from input demography.
+2023-05-04 15:03:33,647 - INFO - Fitting DFE.
+2023-05-04 15:03:35,962 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-04 15:03:36,849 - WARNING - The maximum number of subdivisions (50) has been achieved.
   If increasing the limit yields no improvement it is advised to analyze 
   the integrand in order to determine the difficulties.  If the position of a 
   local difficulty can be determined (singularity, discontinuity) one will 
   probably gain from splitting up the interval and calling the integrator 
   on the subranges.  Perhaps a special-purpose integrator should be used.
-2023-04-25 00:52:39,378 - INFO - Fitting Neutral + Gamma DFE
-2023-04-25 00:53:06,564 - INFO - Computing intermediate summary statistics.
-2023-04-25 00:53:06,568 - INFO - Outputting results.
-2023-04-25 00:53:06,583 - INFO - Pipeline executed succesfully.
+2023-05-04 15:05:20,968 - INFO - Fitting Neutral + Gamma DFE
+2023-05-04 15:06:58,279 - INFO - Computing intermediate summary statistics.
+2023-05-04 15:06:58,282 - INFO - Outputting results.
+2023-05-04 15:06:58,294 - INFO - Pipeline executed succesfully.

@@ -1,25 +1,26 @@
-2023-05-04 10:27:04,633 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-04 14:46:29,448 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 10:27:04,634 - INFO - Progress is being logged to ../Analysis/Alistipes_finegoldii_56071_downsampled_14/log.log
+2023-05-04 14:46:29,448 - INFO - Progress is being logged to ../Analysis/Alistipes_finegoldii_56071_downsampled_14/log.log
 
-2023-05-04 10:27:04,634 - INFO - Parsed the following arguments:
+2023-05-04 14:46:29,448 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete_two_epoch_demography.txt
+	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Alistipes_finegoldii_56071_downsampled_14/
 
-2023-05-04 10:27:04,975 - INFO - Loading input demography.
-2023-05-04 10:27:04,977 - INFO - Input demographic parameters are: [0.34919474, 0.4157406].
-2023-05-04 10:27:04,977 - INFO - Input theta_syn is: 13190.47292939881.
-2023-05-04 10:27:04,977 - INFO - Generating spectrum from input demography.
-2023-05-04 10:27:51,481 - INFO - Fitting DFE.
-2023-05-04 10:28:03,705 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 10:28:47,844 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-05-04 14:46:29,453 - INFO - Loading input demography.
+2023-05-04 14:46:29,470 - INFO - Input demographic parameters are: [0.34919474, 0.4157406].
+2023-05-04 14:46:29,470 - INFO - Input theta_syn is: 13190.472929402336.
+2023-05-04 14:46:29,470 - INFO - Generating spectrum from input demography.
+2023-05-04 14:47:43,059 - INFO - Fitting DFE.
+2023-05-04 14:49:26,890 - INFO - Fitting Neutral + Gamma DFE
+2023-05-04 14:49:50,366 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-05-04 10:28:50,834 - INFO - Computing intermediate summary statistics.
-2023-05-04 10:28:50,853 - INFO - Outputting results.
-2023-05-04 10:28:50,858 - INFO - Pipeline executed succesfully.
+2023-05-04 14:51:05,054 - INFO - Computing intermediate summary statistics.
+2023-05-04 14:51:05,071 - INFO - Outputting results.
+2023-05-04 14:51:05,078 - INFO - Pipeline executed succesfully.

@@ -1,21 +1,24 @@
-2023-05-04 10:28:09,821 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-04 14:57:56,048 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 10:28:09,821 - INFO - Progress is being logged to ../Analysis/Eubacterium_eligens_61678_downsampled_14/log.log
+2023-05-04 14:57:56,049 - INFO - Progress is being logged to ../Analysis/Eubacterium_eligens_61678_downsampled_14/log.log
 
-2023-05-04 10:28:09,821 - INFO - Parsed the following arguments:
+2023-05-04 14:57:56,049 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Eubacterium_eligens_61678_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Eubacterium_eligens_61678_downsampled_14/complete_two_epoch_demography.txt
+	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Eubacterium_eligens_61678_downsampled_14/
 
-2023-05-04 10:28:09,836 - INFO - Loading input demography.
-2023-05-04 10:28:09,837 - INFO - Input demographic parameters are: [0.96049644, 0.3600166].
-2023-05-04 10:28:09,838 - INFO - Input theta_syn is: 6340.923705593367.
-2023-05-04 10:28:09,838 - INFO - Generating spectrum from input demography.
-2023-05-04 10:28:52,928 - INFO - Fitting DFE.
-2023-05-04 10:29:04,202 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 10:29:43,355 - INFO - Computing intermediate summary statistics.
-2023-05-04 10:29:43,360 - INFO - Outputting results.
-2023-05-04 10:29:43,366 - INFO - Pipeline executed succesfully.
+2023-05-04 14:57:56,065 - INFO - Loading input demography.
+2023-05-04 14:57:56,067 - INFO - Input demographic parameters are: [0.96049644, 0.3600166].
+2023-05-04 14:57:56,067 - INFO - Input theta_syn is: 6340.923705592497.
+2023-05-04 14:57:56,067 - INFO - Generating spectrum from input demography.
+2023-05-04 14:58:27,860 - INFO - Fitting DFE.
+2023-05-04 14:58:28,350 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-04 14:58:29,614 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-04 14:59:06,936 - INFO - Fitting Neutral + Gamma DFE
+2023-05-04 14:59:38,661 - INFO - Computing intermediate summary statistics.
+2023-05-04 14:59:38,666 - INFO - Outputting results.
+2023-05-04 14:59:38,672 - INFO - Pipeline executed succesfully.
