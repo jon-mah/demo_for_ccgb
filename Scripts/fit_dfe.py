@@ -249,44 +249,44 @@ class DFEInference():
         logger.info('Fitting Neutral + Gamma DFE')
 
         ng_initial_guesses = []
-        ng_initial_guesses.append([15., 0.2, 0.1])
-        ng_initial_guesses.append([15., 0.2, 1.])
-        ng_initial_guesses.append([15., 0.2, 10.])
-        ng_initial_guesses.append([15., 0.2, 100.])
-        ng_initial_guesses.append([15., 0.2, 1000.])
-        ng_initial_guesses.append([15., 0.2, 10000])
-        ng_initial_guesses.append([15., 0.2, 100000])
-        ng_initial_guesses.append([15., 0.2, 1000000])
-        ng_initial_guesses.append([15., 1., 0.1])
-        ng_initial_guesses.append([15., 1., 1.])
-        ng_initial_guesses.append([15., 1., 10.])
-        ng_initial_guesses.append([15., 1., 100.])
-        ng_initial_guesses.append([15., 1., 1000.])
-        ng_initial_guesses.append([15., 1., 10000])
-        ng_initial_guesses.append([15., 1., 100000])
-        ng_initial_guesses.append([15., 1., 1000000])
-        ng_initial_guesses.append([15., 5., 0.1])
-        ng_initial_guesses.append([15., 5., 1.])
-        ng_initial_guesses.append([15., 5., 10.])
-        ng_initial_guesses.append([15., 5., 100.])
-        ng_initial_guesses.append([15., 5., 1000.])
-        ng_initial_guesses.append([15., 5., 10000.])
-        ng_initial_guesses.append([15., 5., 100000.])
-        ng_initial_guesses.append([15., 5., 1000000.])
-        ng_initial_guesses.append([15., 10., 100000.])
+        ng_initial_guesses.append([0.15, 0.2, 0.1])
+        ng_initial_guesses.append([0.15, 0.2, 1.])
+        ng_initial_guesses.append([0.15, 0.2, 10.])
+        ng_initial_guesses.append([0.15, 0.2, 100.])
+        ng_initial_guesses.append([0.15, 0.2, 1000.])
+        ng_initial_guesses.append([0.15, 0.2, 10000])
+        ng_initial_guesses.append([0.15, 0.2, 100000])
+        ng_initial_guesses.append([0.15, 0.2, 1000000])
+        ng_initial_guesses.append([0.15, 1., 0.1])
+        ng_initial_guesses.append([0.15, 1., 1.])
+        ng_initial_guesses.append([0.15, 1., 10.])
+        ng_initial_guesses.append([0.15, 1., 100.])
+        ng_initial_guesses.append([0.15, 1., 1000.])
+        ng_initial_guesses.append([0.15, 1., 10000])
+        ng_initial_guesses.append([0.15, 1., 100000])
+        ng_initial_guesses.append([0.15, 1., 1000000])
+        ng_initial_guesses.append([0.15, 5., 0.1])
+        ng_initial_guesses.append([0.15, 5., 1.])
+        ng_initial_guesses.append([0.15, 5., 10.])
+        ng_initial_guesses.append([0.15, 5., 100.])
+        ng_initial_guesses.append([0.15, 5., 1000.])
+        ng_initial_guesses.append([0.15, 5., 10000.])
+        ng_initial_guesses.append([0.15, 5., 100000.])
+        ng_initial_guesses.append([0.15, 5., 1000000.])
+        ng_initial_guesses.append([0.15, 10., 100000.])
         
         ng_max_ll = -100000000000
         for i in range(25):
             sel_params = ng_initial_guesses[i]
-            lower_bound, upper_bound = [1e-3, 1e-3, 1e-2], [1, 1, 50000.]
-            ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=None,
-                                          upper_bound=None)
+            lower_bound, upper_bound = [1e-15, 1e-15, 1e-2], [1, 1000, 1000000.]
+            ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
+                                          upper_bound=upper_bound)
             ng_popt = dadi.Inference.optimize_log_fmin(ng_p0, nonsyn_data,
                                                   spectra.integrate, pts=None,
                                                   func_args=[self.neugamma,
                                                              theta_nonsyn],
-                                                  lower_bound=None,
-                                                  upper_bound=None,
+                                                  lower_bound=lower_bound,
+                                                  upper_bound=upper_bound,
                                                   verbose=len(sel_params),
                                                   maxiter=25, multinom=False)
             ng_model_sfs = spectra.integrate(
