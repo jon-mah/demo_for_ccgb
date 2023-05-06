@@ -1,8 +1,8 @@
-2023-05-05 11:54:24,063 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-05 19:31:18,137 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-05 11:54:24,063 - INFO - Progress is being logged to ../Analysis/Eubacterium_rectale_56927_downsampled_14/log.log
+2023-05-05 19:31:18,137 - INFO - Progress is being logged to ../Analysis/Eubacterium_rectale_56927_downsampled_14/log.log
 
-2023-05-05 11:54:24,063 - INFO - Parsed the following arguments:
+2023-05-05 19:31:18,137 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Eubacterium_rectale_56927_downsampled_14/complete_two_epoch_demography.txt
@@ -11,19 +11,17 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Eubacterium_rectale_56927_downsampled_14/
 
-2023-05-05 11:54:24,067 - INFO - Loading input demography.
-2023-05-05 11:54:24,068 - INFO - Input demographic parameters are: [1.6849146, 1.7451243].
-2023-05-05 11:54:24,068 - INFO - Input theta_syn is: 9241.080950466872.
-2023-05-05 11:54:24,068 - INFO - Generating spectrum from input demography.
-2023-05-05 12:00:12,998 - INFO - Fitting DFE.
-2023-05-05 12:00:14,876 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-05 12:01:18,263 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-05-05 19:31:18,167 - INFO - Loading input demography.
+2023-05-05 19:31:18,185 - INFO - Input demographic parameters are: [1.6849146, 1.7451243].
+2023-05-05 19:31:18,186 - INFO - Input theta_syn is: 9241.080950466872.
+2023-05-05 19:31:18,186 - INFO - Generating spectrum from input demography.
+2023-05-05 19:34:39,273 - INFO - Fitting DFE.
+2023-05-05 19:34:40,765 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-05 19:35:13,319 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-05-05 12:02:04,344 - INFO - Fitting Neutral + Gamma DFE
-2023-05-05 12:02:04,471 - WARNING - Warning: converting a masked element to nan.
-2023-05-05 12:02:08,378 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-05 12:03:44,149 - INFO - Computing intermediate summary statistics.
-2023-05-05 12:03:44,155 - INFO - Outputting results.
-2023-05-05 12:03:44,166 - INFO - Pipeline executed succesfully.
+2023-05-05 19:35:28,317 - INFO - Fitting Neutral + Gamma DFE
+2023-05-05 19:36:02,737 - INFO - Computing intermediate summary statistics.
+2023-05-05 19:36:02,740 - INFO - Outputting results.
+2023-05-05 19:36:02,747 - INFO - Pipeline executed succesfully.

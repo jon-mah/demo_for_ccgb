@@ -1,8 +1,8 @@
-2023-05-04 16:08:46,669 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-05 19:11:38,756 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 16:08:46,669 - INFO - Progress is being logged to ../Analysis/Bacteroides_fragilis_54507_downsampled_14/log.log
+2023-05-05 19:11:38,756 - INFO - Progress is being logged to ../Analysis/Bacteroides_fragilis_54507_downsampled_14/log.log
 
-2023-05-04 16:08:46,669 - INFO - Parsed the following arguments:
+2023-05-05 19:11:38,756 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_two_epoch_demography.txt
@@ -11,16 +11,17 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/
 
-2023-05-04 16:08:46,671 - INFO - Loading input demography.
-2023-05-04 16:08:46,672 - INFO - Input demographic parameters are: [1.73200607, 0.2854637].
-2023-05-04 16:08:46,672 - INFO - Input theta_syn is: 7425.22911172458.
-2023-05-04 16:08:46,672 - INFO - Generating spectrum from input demography.
-2023-05-04 16:09:27,746 - INFO - Fitting DFE.
-2023-05-04 16:10:05,853 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 16:10:38,708 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-05-05 19:11:38,758 - INFO - Loading input demography.
+2023-05-05 19:11:38,766 - INFO - Input demographic parameters are: [1.73200607, 0.2854637].
+2023-05-05 19:11:38,766 - INFO - Input theta_syn is: 7425.22911172458.
+2023-05-05 19:11:38,766 - INFO - Generating spectrum from input demography.
+2023-05-05 19:12:05,624 - INFO - Fitting DFE.
+2023-05-05 19:12:27,218 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-05-04 16:10:41,640 - INFO - Computing intermediate summary statistics.
-2023-05-04 16:10:41,643 - INFO - Outputting results.
-2023-05-04 16:10:41,650 - INFO - Pipeline executed succesfully.
+2023-05-05 19:12:27,504 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-05 19:12:43,362 - INFO - Fitting Neutral + Gamma DFE
+2023-05-05 19:13:14,563 - INFO - Computing intermediate summary statistics.
+2023-05-05 19:13:14,565 - INFO - Outputting results.
+2023-05-05 19:13:14,572 - INFO - Pipeline executed succesfully.
