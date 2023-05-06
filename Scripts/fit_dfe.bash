@@ -9,7 +9,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_dfe
 
-SGE_TASK_ID=28
+SGE_TASK_ID=12
 
 i=0
 while read line;
