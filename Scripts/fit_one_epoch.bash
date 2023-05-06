@@ -9,7 +9,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_gut_HMP
 
-SGE_TASK_ID=4
+SGE_TASK_ID=28
 
 # i=0
 # while read line;

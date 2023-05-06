@@ -416,8 +416,8 @@ class DemographicInference():
         # First set parameter bounds for optimization
         # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
         #               'three_epoch', 'one_epoch']
-        model_list = ['three_epoch']
-        # model_list = ['two_epoch']
+        # model_list = ['three_epoch']
+        model_list = ['two_epoch']
         # model_list = ['one_epoch', 'two_epoch', 'three_epoch']
         # Fit different one-epoch models and compute likelihood
         # method_list = ['expectation']
@@ -479,15 +479,15 @@ class DemographicInference():
                 upper_bound = [80, 0.15]
                 lower_bound = [0, 0]
                 initial_guesses = []
-                initial_guesses.append([0.000001, 0.000001])
-                initial_guesses.append([0.00001, 0.000001])
-                initial_guesses.append([0.0002, 0.000001])
-                initial_guesses.append([0.003, 0.000001])
-                initial_guesses.append([0.01, 0.000001])
-                initial_guesses.append([0.6, 0.000001])
-                initial_guesses.append([0.7, 0.000001])
-                initial_guesses.append([0.8, 0.000001])
-                initial_guesses.append([0.9, 0.000001])
+                # initial_guesses.append([0.000001, 0.000001])
+                # initial_guesses.append([0.00001, 0.000001])
+                # initial_guesses.append([0.0002, 0.000001])
+                # initial_guesses.append([0.003, 0.000001])
+                # initial_guesses.append([0.01, 0.000001])
+                # initial_guesses.append([0.6, 0.000001])
+                # initial_guesses.append([0.7, 0.000001])
+                # initial_guesses.append([0.8, 0.000001])
+                # initial_guesses.append([0.9, 0.000001])
                 initial_guesses.append([1, 0.000001])
                 initial_guesses.append([1.25, 0.000001])
                 initial_guesses.append([1.5, 0.000001])
@@ -546,15 +546,15 @@ class DemographicInference():
                 upper_bound = [80, 80, 0.15, 0.15]
                 lower_bound = [0.0, 0.0, 0.0, 0.0]
                 initial_guesses = []
-                initial_guesses.append([0.01, 0.01, 0.000001, 0.000001])
-                initial_guesses.append([0.01, 0.01, 0.00001, 0.00001])
-                initial_guesses.append([0.01, 0.01, 0.0001, 0.0001])
-                initial_guesses.append([0.01, 0.01, 0.001, 0.001])
-                initial_guesses.append([0.01, 0.01, 0.01, 0.01])
-                initial_guesses.append([0.6, 0.6, 0.01, 0.01])
-                initial_guesses.append([0.7, 0.7, 0.01, 0.01])
-                initial_guesses.append([0.8, 0.8, 0.01, 0.01])
-                initial_guesses.append([0.9, 0.9, 0.01, 0.01])
+                # initial_guesses.append([0.01, 0.01, 0.000001, 0.000001])
+                # initial_guesses.append([0.01, 0.01, 0.00001, 0.00001])
+                # initial_guesses.append([0.01, 0.01, 0.0001, 0.0001])
+                # initial_guesses.append([0.01, 0.01, 0.001, 0.001])
+                # initial_guesses.append([0.01, 0.01, 0.01, 0.01])
+                # initial_guesses.append([0.6, 0.6, 0.01, 0.01])
+                # initial_guesses.append([0.7, 0.7, 0.01, 0.01])
+                # initial_guesses.append([0.8, 0.8, 0.01, 0.01])
+                # initial_guesses.append([0.9, 0.9, 0.01, 0.01])
                 initial_guesses.append([1, 1, 0.01, 0.01])
                 initial_guesses.append([1.25, 1.25, 0.01, 0.01])
                 initial_guesses.append([1.5, 1.5, 0.01, 0.01])
@@ -611,7 +611,7 @@ class DemographicInference():
                             'demographic model.')
             with open(file, 'w') as f:
                 max_likelihood = -1e25
-                for i in range(25):
+                for i in range(10):
                     # Start at initial guess
                     p0 = initial_guesses[i]
                     # Randomly perturb parameters before optimization.

@@ -1,8 +1,8 @@
-2023-05-04 15:17:28,962 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-05 17:13:39,097 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 15:17:28,962 - INFO - Progress is being logged to ../Analysis/Prevotella_copri_61740_downsampled_14/log.log
+2023-05-05 17:13:39,098 - INFO - Progress is being logged to ../Analysis/Prevotella_copri_61740_downsampled_14/log.log
 
-2023-05-04 15:17:28,962 - INFO - Parsed the following arguments:
+2023-05-05 17:13:39,098 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt
 	nonsyn_input_sfs = ../Analysis/Prevotella_copri_61740_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Prevotella_copri_61740_downsampled_14/complete_two_epoch_demography.txt
@@ -11,18 +11,17 @@
 	mask_doubletons = False
 	outprefix = ../Analysis/Prevotella_copri_61740_downsampled_14/
 
-2023-05-04 15:17:29,013 - INFO - Loading input demography.
-2023-05-04 15:17:29,014 - INFO - Input demographic parameters are: [2.74786663, 0.1646934].
-2023-05-04 15:17:29,014 - INFO - Input theta_syn is: 12749.281675065104.
-2023-05-04 15:17:29,014 - INFO - Generating spectrum from input demography.
-2023-05-04 15:17:50,504 - INFO - Fitting DFE.
-2023-05-04 15:17:51,083 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-04 15:18:11,202 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-04 15:18:27,881 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 15:18:53,335 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-05-05 17:13:39,111 - INFO - Loading input demography.
+2023-05-05 17:13:39,112 - INFO - Input demographic parameters are: [4.80126659, 0.1114022].
+2023-05-05 17:13:39,112 - INFO - Input theta_syn is: 12903.23105199284.
+2023-05-05 17:13:39,112 - INFO - Generating spectrum from input demography.
+2023-05-05 17:13:50,232 - INFO - Fitting DFE.
+2023-05-05 17:13:51,343 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-05-05 17:14:32,265 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-05-04 15:19:07,439 - INFO - Computing intermediate summary statistics.
-2023-05-04 15:19:07,444 - INFO - Outputting results.
-2023-05-04 15:19:07,451 - INFO - Pipeline executed succesfully.
+2023-05-05 17:14:42,553 - INFO - Fitting Neutral + Gamma DFE
+2023-05-05 17:15:17,910 - INFO - Computing intermediate summary statistics.
+2023-05-05 17:15:17,913 - INFO - Outputting results.
+2023-05-05 17:15:17,920 - INFO - Pipeline executed succesfully.
