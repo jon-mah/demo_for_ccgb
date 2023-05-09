@@ -1,23 +1,23 @@
-2023-05-04 14:07:28,469 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-08 19:28:39,972 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 14:07:28,469 - INFO - Progress is being logged to ../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete_evaluate_demography.log
+2023-05-08 19:28:39,972 - INFO - Progress is being logged to ../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete_evaluate_demography.log
 
-2023-05-04 14:07:28,469 - INFO - Parsed the following arguments:
+2023-05-08 19:28:39,972 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_syn_downsampled_sfs.txt
-	model_type = three_epoch
-	params_list = [1.93, 1.1, 2.24, 9.17e-08]
+	model_type = two_epoch
+	params_list = [1.912, 2.246]
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete
 
-2023-05-04 14:07:28,487 - INFO - Beginning demographic evaluation for three-epoch demographic model.
-2023-05-04 14:07:28,489 - INFO - Beginning optimization with guess, [1.93, 1.1, 2.24, 9.17e-08].
-2023-05-04 14:07:28,989 - INFO - Finished optimization with guess, [1.93, 1.1, 2.24, 9.17e-08].
-2023-05-04 14:07:28,990 - INFO - Best fit parameters: [1.93000000e+00 1.10000000e+00 2.33217115e+00 9.17000000e-08].
-2023-05-04 14:07:29,092 - INFO - Maximum log composite likelihood: -64.1421902339116.
-2023-05-04 14:07:29,092 - INFO - Optimal value of theta: 7024.85652449125.
-2023-05-04 14:07:29,093 - INFO - Synonymous input SFS: [-- 13473.299850288964 7420.093808277598 5250.026985745037 4069.4906738344816 3369.984690907585 3001.243397394743 1443.870388649085 -- -- -- -- -- -- --].
-2023-05-04 14:07:29,093 - INFO - Scaled spectrum: [-- 13816.186979459562 7125.070917994892 4968.901452353344 3962.9317641642215 3436.1108444988986 3172.743727868188 1546.064108758388 -- -- -- -- -- -- --].
-2023-05-04 14:07:29,095 - INFO - Converting and interpreting Tau estimates.
-2023-05-04 14:07:29,098 - INFO - Finished demographic evaluation.
-2023-05-04 14:07:29,098 - INFO - Pipeline executed succesfully.
+2023-05-08 19:28:39,973 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-05-08 19:28:39,975 - INFO - Beginning optimization with guess, [1.912, 2.246].
+2023-05-08 19:28:40,110 - INFO - Finished optimization with guess, [1.912, 2.246].
+2023-05-08 19:28:40,111 - INFO - Best fit parameters: [1.912 2.246].
+2023-05-08 19:28:40,156 - INFO - Maximum log composite likelihood: -64.09988761541535.
+2023-05-08 19:28:40,156 - INFO - Optimal value of theta: 7113.658948091459.
+2023-05-08 19:28:40,156 - INFO - Synonymous input SFS: [-- 13473.299850288964 7420.093808277598 5250.026985745037 4069.4906738344816 3369.984690907585 3001.243397394743 1443.870388649085 -- -- -- -- -- -- --].
+2023-05-08 19:28:40,156 - INFO - Scaled spectrum: [-- 13841.255769534398 7128.9454522604 4966.04640693289 3956.9878443314574 3428.5735106995844 3164.4188995784284 1541.7819117603294 -- -- -- -- -- -- --].
+2023-05-08 19:28:40,157 - INFO - Converting and interpreting Tau estimates.
+2023-05-08 19:28:40,158 - INFO - Finished demographic evaluation.
+2023-05-08 19:28:40,158 - INFO - Pipeline executed succesfully.
