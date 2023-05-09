@@ -25,11 +25,14 @@ b_vulgatus_neugamma_no_s_dist[1:3000] = 0.0002
 b_vulgatus_no_s_df = data.frame(gamma=b_vulgatus_gamma_no_s_dist,
                                 neugamma=b_vulgatus_neugamma_no_s_dist)
 
+b_vulgatus_no_s_df = data.frame(b_vulgatus_gamma_no_s_dist)
+
 ggplot(melt(b_vulgatus_no_s_df), aes(x=value, y=..density.., fill = variable)) + 
   geom_histogram(position = "dodge",
-                 breaks=c(0.0001, 0.001, 0.01, 0.1, 1)) +
+                 breaks=c(0.0001, 0.001, 0.01, 0.1, 1),
+    bins=100) +
   scale_x_log10() +
-  ggtitle('B. vulgatus, no singletons')
+  ggtitle('Distribution of Fitness Effects')
 
 ggplot(melt(b_vulgatus_gamma_no_s_dist), aes(x=value, y=..density..)) +
   geom_histogram(position='dodge',
@@ -269,3 +272,17 @@ ggplot(melt(gamma_dfe_data), aes(x=value, y=..density.., fill=variable)) +
   ggtitle('Gamma-distributed DFE, no singletons')
 
 
+# Sample data
+
+set.seed(1)
+x <- rgamma(10000, shape=0.05, scale=0.01)
+# X-axis grid
+x2 <- seq(min(x), max(x), length = 100)
+
+# Normal curve
+fun <- dnorm(x2, mean = mean(x), sd = sd(x))
+
+# Histogram
+ggplot(data.frame(x), aes(x)) +               # Histogram with log10 axis
+  geom_histogram(bins = 100) +
+  scale_x_log10()
