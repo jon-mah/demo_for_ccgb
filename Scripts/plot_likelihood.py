@@ -388,7 +388,7 @@ class PlotLikelihood():
         input_demography = args['input_demography']
         input_nu, input_tau = self.read_input_demography(
             input_demography)
-        start_idx = input_demography.find("Analysis") + 2
+        start_idx = input_demography.find("Analysis") + 9
         end_idx = input_demography.find("_downsampled")
         species = input_demography[start_idx:end_idx]
         # Numpy options
@@ -481,12 +481,13 @@ class PlotLikelihood():
                 fig, ax = plt.subplots()
                 # ax = fig.add_subplot(111, projection='3d')
                 # ax.plot_surface(X, Y, Z, cmap='viridis')
-                z_min, z_max = -numpy.abs(Z).max(), numpy.abs(Z).max()
-                c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max)
+                z_min, z_max = -numpy.abs(Z).max() - 10, -numpy.abs(Z).max()
+                # c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max)
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
-                # ax.set_zlabel('Log Likelihood')
-                fig.colorbar(c, ax=ax)
+                contourplot = ax.contourf(X, Y, Z)
+                fig.colorbar(contourplot) # Add a colorbar to a plot
+                ax.set_clabel('Log Likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
