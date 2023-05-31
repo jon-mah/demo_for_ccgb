@@ -388,7 +388,9 @@ class PlotLikelihood():
         input_demography = args['input_demography']
         input_nu, input_tau = self.read_input_demography(
             input_demography)
-
+        start_idx = input_demography.find("${") + 2
+        end_idx = input_demography.find("}")
+        species = input_demography[start_idx:end_idx]
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
 
@@ -439,7 +441,7 @@ class PlotLikelihood():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # Construct initial Spectrum object from input synonymous sfs.
-        syn_data = dadi.Spectrum.from_file(syn_input_sfs)
+        syn_data = dadi.Spectrum.from_file(syn_input_sfs).fold()
         if mask_singletons:
             syn_data.mask[1] = True
         if mask_doubletons:
@@ -475,15 +477,13 @@ class PlotLikelihood():
                     for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
 
-                # X, Y = numpy.meshgrid(x_range, y_range)
-                # Z = self.likelihood(X, Y, syn_data, func_ex, pts_l)
-
                 fig = plt.figure()
                 ax = fig.add_subplot(111, projection='3d')
                 ax.plot_surface(X, Y, Z, cmap='viridis')
-                ax.set_xlabel('x')
-                ax.set_ylabel('y')
+                ax.set_xlabel('Nu (Ratio of current to ancestral population size)')
+                ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 ax.set_zlabel('Likelihood')
+                plt.title('Likelihood surface for {0}.'.replace(species))
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
