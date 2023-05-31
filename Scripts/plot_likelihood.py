@@ -74,13 +74,8 @@ class PlotLikelihood():
             help=('Synonynomous site-frequency spectrum from which the '
                   'demographic parameters should be inferred.'))
         parser.add_argument(
-            'input_nu', type=float,
-            help='The initial best-fit nu parameter.'
-        )
-        parser.add_argument(
-            'input_tau', type=float,
-            help='The initial best-fit tau parameter.'
-        )
+            'input_demography', type=self.ExistingFile,
+            help=('Best-fit demographic paramters.'))
         parser.add_argument(
             '--mask_singletons', dest='mask_singletons',
             help=('Boolean flag for masking singlestons in Spectrum.'),
@@ -369,6 +364,15 @@ class PlotLikelihood():
             model=non_scaled_spectrum, data=syn_data)
         return(loglik)
 
+    def read_input_demography(self, input_demography):
+        with open(input_demography, 'r') as file:
+            first_line = file.readline()
+            start_idx = first_line.find('[')
+            end_idx = first_line.find(']')
+            params_str = first_line[start_idx+1:end_idx]
+            params = [float(param) for param in params_str.split()]
+        return params[0], params[1]
+
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -381,8 +385,9 @@ class PlotLikelihood():
         outprefix = args['outprefix']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
-        input_nu = args['input_nu']
-        input_tau = args['input_tau']
+        input_demography = args['input_demography']
+        input_nu, input_tau = self.read_input_demography(
+            input_demography)
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -457,11 +462,21 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                x_range = np.linspace(x * 0.25, x * 1.75, 5)
-                y_range = np.linspace(y * 0.25, y * 1.75, 5)
+                npts = 5
 
-                X, Y = np.meshgrid(x_range, y_range)
-                Z = self.likelihood(X, Y, syn_data, func_ex, pts_l)
+                x_range = numpy.linspace(x * 0.25, x * 1.75, npts)
+                y_range = numpy.linspace(y * 0.25, y * 1.75, npts)
+
+                X, Y = numpy.meshgrid(x_range, y_range)
+
+                Z = numpy.empty((npts, npts))
+
+                for i in range(0, npts):
+                    for j in range(0, npts):
+                        Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
+
+                # X, Y = numpy.meshgrid(x_range, y_range)
+                # Z = self.likelihood(X, Y, syn_data, func_ex, pts_l)
 
                 fig = plt.figure()
                 ax = fig.add_subplot(111, projection='3d')
