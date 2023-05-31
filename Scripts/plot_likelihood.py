@@ -464,7 +464,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                npts = 5
+                npts = 10
 
                 x_range = numpy.linspace(x * 0.25, x * 1.75, npts)
                 y_range = numpy.linspace(y * 0.25, y * 1.75, npts)
@@ -483,7 +483,7 @@ class PlotLikelihood():
                 ax.set_xlabel('Nu (Ratio of current to ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 ax.set_zlabel('Likelihood')
-                plt.title('Likelihood surface for {0}.'.replace(species))
+                plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
