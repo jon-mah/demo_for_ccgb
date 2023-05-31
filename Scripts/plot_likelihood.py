@@ -388,7 +388,7 @@ class PlotLikelihood():
         input_demography = args['input_demography']
         input_nu, input_tau = self.read_input_demography(
             input_demography)
-        start_idx = input_demography.find("./Analysis/")
+        start_idx = input_demography.find("Analysis") + 2
         end_idx = input_demography.find("_downsampled")
         species = input_demography[start_idx:end_idx]
         # Numpy options
@@ -466,8 +466,8 @@ class PlotLikelihood():
 
                 npts = 10
 
-                x_range = numpy.linspace(x * 0.95, x * 1.05, npts)
-                y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
+                x_range = numpy.linspace(x * 0.90, x * 1.10, npts)
+                y_range = numpy.linspace(y * 0.90, y * 1.10, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
@@ -477,12 +477,16 @@ class PlotLikelihood():
                     for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
 
-                fig = plt.figure()
-                ax = fig.add_subplot(111, projection='3d')
-                ax.plot_surface(X, Y, Z, cmap='viridis')
-                ax.set_xlabel('Nu (Ratio of current to ancestral population size)')
+                # fig = plt.figure()
+                fig, ax = plt.subplots()
+                # ax = fig.add_subplot(111, projection='3d')
+                # ax.plot_surface(X, Y, Z, cmap='viridis')
+                z_min, z_max = -np.abs(Z).max(), np.abs(Z).max()
+                c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max)
+                ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
-                ax.set_zlabel('Likelihood')
+                ax.set_zlabel('Log Likelihood')
+                fig.colorbar(c, ax=ax)
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
