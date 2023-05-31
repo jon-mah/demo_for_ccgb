@@ -489,7 +489,6 @@ class PlotLikelihood():
                 cbar =fig.colorbar(contourplot) # Add a colorbar to a plot
                 # cbar = fig.colorbar()
                 cbar.ax.set_ylabel('Log likelihood')
-                cbar.set_clim(z_min, z_max)
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
