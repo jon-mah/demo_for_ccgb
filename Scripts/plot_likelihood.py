@@ -388,8 +388,8 @@ class PlotLikelihood():
         input_demography = args['input_demography']
         input_nu, input_tau = self.read_input_demography(
             input_demography)
-        start_idx = input_demography.find("${") + 2
-        end_idx = input_demography.find("}")
+        start_idx = input_demography.find("./Analysis/")
+        end_idx = input_demography.find("_downsampled")
         species = input_demography[start_idx:end_idx]
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -466,8 +466,8 @@ class PlotLikelihood():
 
                 npts = 10
 
-                x_range = numpy.linspace(x * 0.25, x * 1.75, npts)
-                y_range = numpy.linspace(y * 0.25, y * 1.75, npts)
+                x_range = numpy.linspace(x * 0.95, x * 1.05, npts)
+                y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
