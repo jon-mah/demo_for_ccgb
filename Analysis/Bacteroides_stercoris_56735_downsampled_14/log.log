@@ -1,27 +1,12 @@
-2023-05-05 19:16:22,295 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-31 14:39:25,662 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-05 19:16:22,295 - INFO - Progress is being logged to ../Analysis/Bacteroides_stercoris_56735_downsampled_14/log.log
+2023-05-31 14:39:25,663 - INFO - Progress is being logged to ../Analysis/Bacteroides_stercoris_56735_downsampled_14/log.log
 
-2023-05-05 19:16:22,295 - INFO - Parsed the following arguments:
+2023-05-31 14:39:25,663 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_syn_downsampled_sfs.txt
-	nonsyn_input_sfs = ../Analysis/Bacteroides_stercoris_56735_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete_two_epoch_demography.txt
-	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroides_stercoris_56735_downsampled_14/
 
-2023-05-05 19:16:22,297 - INFO - Loading input demography.
-2023-05-05 19:16:22,298 - INFO - Input demographic parameters are: [1.91187211, 2.2457931].
-2023-05-05 19:16:22,298 - INFO - Input theta_syn is: 7114.092057321718.
-2023-05-05 19:16:22,299 - INFO - Generating spectrum from input demography.
-2023-05-05 19:20:42,569 - INFO - Fitting DFE.
-2023-05-05 19:20:43,887 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-05 19:21:12,348 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-05-05 19:21:31,232 - INFO - Fitting Neutral + Gamma DFE
-2023-05-05 19:22:02,367 - INFO - Computing intermediate summary statistics.
-2023-05-05 19:22:02,369 - INFO - Outputting results.
-2023-05-05 19:22:02,376 - INFO - Pipeline executed succesfully.
+2023-05-31 14:39:25,666 - INFO - Beginning demographic inference for two-epoch demographic model.

@@ -1,28 +1,12 @@
-2023-05-05 14:59:25,275 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-31 14:39:22,809 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-05 14:59:25,275 - INFO - Progress is being logged to ../Analysis/Alistipes_putredinis_61533_downsampled_14/log.log
+2023-05-31 14:39:22,809 - INFO - Progress is being logged to ../Analysis/Alistipes_putredinis_61533_downsampled_14/log.log
 
-2023-05-05 14:59:25,275 - INFO - Parsed the following arguments:
+2023-05-31 14:39:22,809 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt
-	nonsyn_input_sfs = ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
-	input_demography = ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete_three_epoch_demography.txt
-	input_model = three_epoch
+	input_demography = ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Alistipes_putredinis_61533_downsampled_14/
 
-2023-05-05 14:59:25,303 - INFO - Loading input demography.
-2023-05-05 14:59:25,304 - INFO - Input demographic parameters are: [3.35748251, 0.77253318, 0.861487053, 1.95645555].
-2023-05-05 14:59:25,305 - INFO - Input theta_syn is: 1839.0324087371955.
-2023-05-05 14:59:25,305 - INFO - Generating spectrum from input demography.
-2023-05-05 15:04:40,091 - INFO - Fitting DFE.
-2023-05-05 15:05:10,936 - WARNING - The algorithm does not converge.  Roundoff error is detected
-  in the extrapolation table.  It is assumed that the requested tolerance
-  cannot be achieved, and that the returned result (if full_output = 1) is 
-  the best which can be obtained.
-2023-05-05 15:05:10,990 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-05 15:05:22,278 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-05 15:05:28,871 - INFO - Fitting Neutral + Gamma DFE
-2023-05-05 15:06:00,796 - INFO - Computing intermediate summary statistics.
-2023-05-05 15:06:00,819 - INFO - Outputting results.
-2023-05-05 15:06:00,826 - INFO - Pipeline executed succesfully.
+2023-05-31 14:39:22,811 - INFO - Beginning demographic inference for two-epoch demographic model.

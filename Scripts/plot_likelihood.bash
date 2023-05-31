@@ -1,14 +1,14 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -N complete_downsample_14_1_5_100
+#$ -N plot_likelihood.bash
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
 #$ -l h_rt=00:30:00
-#$ -t 1
+#$ -t 1-30
 
-SGE_TASK_ID=1
+# SGE_TASK_ID=1
 
 # Complete SFS
 i=0

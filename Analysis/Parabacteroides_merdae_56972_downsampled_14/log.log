@@ -1,23 +1,12 @@
-2023-05-04 14:57:57,266 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-05-31 14:39:29,632 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-04 14:57:57,266 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/log.log
+2023-05-31 14:39:29,633 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/log.log
 
-2023-05-04 14:57:57,266 - INFO - Parsed the following arguments:
+2023-05-31 14:39:29,633 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt
-	nonsyn_input_sfs = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	input_demography = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_two_epoch_demography.txt
-	input_model = two_epoch
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/
 
-2023-05-04 14:57:57,271 - INFO - Loading input demography.
-2023-05-04 14:57:57,274 - INFO - Input demographic parameters are: [0.67229739, 0.6004209].
-2023-05-04 14:57:57,274 - INFO - Input theta_syn is: 9037.055793436146.
-2023-05-04 14:57:57,274 - INFO - Generating spectrum from input demography.
-2023-05-04 14:58:50,436 - INFO - Fitting DFE.
-2023-05-04 14:58:53,523 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-05-04 14:59:30,150 - INFO - Fitting Neutral + Gamma DFE
-2023-05-04 15:00:08,169 - INFO - Computing intermediate summary statistics.
-2023-05-04 15:00:08,173 - INFO - Outputting results.
-2023-05-04 15:00:08,179 - INFO - Pipeline executed succesfully.
+2023-05-31 14:39:29,639 - INFO - Beginning demographic inference for two-epoch demographic model.

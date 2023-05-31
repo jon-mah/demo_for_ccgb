@@ -466,8 +466,8 @@ class PlotLikelihood():
 
                 npts = 10
 
-                x_range = numpy.linspace(x * 0.90, x * 1.10, npts)
-                y_range = numpy.linspace(y * 0.90, y * 1.10, npts)
+                x_range = numpy.linspace(x * 0.50, x * 1.50, npts)
+                y_range = numpy.linspace(y * 0.50, y * 1.50, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
@@ -489,6 +489,7 @@ class PlotLikelihood():
                 cbar =fig.colorbar(contourplot) # Add a colorbar to a plot
                 # cbar = fig.colorbar()
                 cbar.ax.set_ylabel('Log likelihood')
+                cbar.set_clim(z_min, z_max)
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
