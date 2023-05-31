@@ -484,8 +484,8 @@ class PlotLikelihood():
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 contourplot = ax.contourf(X, Y, Z)
-                ticks = numpy.arange(z_min, z_max, 1.0)
-                cbar = fig.colorbar(contourplot, ticks=ticks, label='Log likelihood') # Add a colorbar to a plot
+                # ticks = numpy.arange(z_min, z_max, 1.0)
+                cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
