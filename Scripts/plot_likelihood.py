@@ -20,6 +20,7 @@ import scipy.optimize
 import matplotlib
 matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import ticker, cm
 import pandas as pd
 
@@ -73,12 +74,12 @@ class PlotLikelihood():
             help=('Synonynomous site-frequency spectrum from which the '
                   'demographic parameters should be inferred.'))
         parser.add_argument(
-            'input_shape', type=float,
-            help='The shape parameter for a gamma distribution.'
+            'input_nu', type=float,
+            help='The initial best-fit nu parameter.'
         )
         parser.add_argument(
-            'input_scale', type=float,
-            help='The scale parameter for a gamma distribution.'
+            'input_tau', type=float,
+            help='The initial best-fit tau parameter.'
         )
         parser.add_argument(
             '--mask_singletons', dest='mask_singletons',
@@ -354,6 +355,20 @@ class PlotLikelihood():
             current_t = next_t
         return phi
 
+    def likelihood(self, nu, tau, syn_data, func_ex, pts_l):
+        p0 = [nu, tau]
+        popt = dadi.Inference.optimize_log_lbfgsb(
+            p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
+            lower_bound=None, upper_bound=None,
+            verbose=len(p0), maxiter=0)
+        syn_ns = syn_data.sample_sizes  # Number of samples.
+        non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
+        theta = dadi.Inference.optimal_sfs_scaling(
+            non_scaled_spectrum, syn_data)
+        loglik = dadi.Inference.ll_multinom(
+            model=non_scaled_spectrum, data=syn_data)
+        return(loglik)
+
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -366,8 +381,8 @@ class PlotLikelihood():
         outprefix = args['outprefix']
         mask_singletons = args['mask_singletons']
         mask_doubletons = args['mask_doubletons']
-        input_shape = args['input_shape']
-        input_scale = args['input_scale']
+        input_nu = args['input_nu']
+        input_tau = args['input_tau']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -427,8 +442,6 @@ class PlotLikelihood():
         syn_ns = syn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 
-        ll_grid = []
-
         # Optomize parameters for this model.
         # First set parameter bounds for optimization
         model_list = ['two_epoch']
@@ -441,54 +454,25 @@ class PlotLikelihood():
                 logger.info('Beginning demographic inference for two-epoch '
                             'demographic model.')
             with open(file, 'w') as f:
-                nx = 10
-                ny = 10
-                x = numpy.random.gamma(shape=input_shape, scale=input_scale, size=nx)
-                y = numpy.random.gamma(shape=input_shape, scale=input_scale, size=ny)
-                z_shape = (nx, ny)
-                z = numpy.ones(z_shape)
-                max_ll = -10000000
-                for i in range(nx):
-                    for j in range(ny):
-                        p0 = [x[i], y[j]]
-                        popt = dadi.Inference.optimize_log_lbfgsb(
-                            p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-                            lower_bound=None, upper_bound=None,
-                            verbose=len(p0), maxiter=0)
-                        print(popt)
-                        non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
-                        theta = dadi.Inference.optimal_sfs_scaling(
-                            non_scaled_spectrum, syn_data)
-                        loglik = dadi.Inference.ll_multinom(
-                            model=non_scaled_spectrum, data=syn_data)
-                        theta = dadi.Inference.optimal_sfs_scaling(
-                            non_scaled_spectrum, syn_data)
-                        if loglik > max_ll:
-                            max_ll = loglik
-                            mle_x = x[i]
-                            mle_y = y[j]
-                            best_non_scaled_spectrum = non_scaled_spectrum
-                            best_theta = theta
-                            best_scaled_spectrum = best_theta * best_non_scaled_spectrum
-                            best_time = mle_y * 2 * best_theta / 4 / mle_x
-                            best_low_time = best_time / 6.93E-10
-                            best_high_time = best_time / 4.08E-10
-                        ll_array = [x[[i]], y[[j]], theta, loglik]
-                        z[i,  j] = loglik
-                        ll_grid.append(ll_array)
-                        del ll_array
-                mle = [mle_x, mle_y]
+                x = input_nu  # Initial x value
+                y = input_tau  # Initial y value
+
+                x_range = np.linspace(x * 0.25, x * 1.75, 5)
+                y_range = np.linspace(y * 0.25, y * 1.75, 5)
+
+                X, Y = np.meshgrid(x_range, y_range)
+                Z = self.likelihood(X, Y, syn_data, func_ex, pts_l)
+
+                fig = plt.figure()
+                ax = fig.add_subplot(111, projection='3d')
+                ax.plot_surface(X, Y, Z, cmap='viridis')
+                ax.set_xlabel('x')
+                ax.set_ylabel('y')
+                ax.set_zlabel('Likelihood')
+                plt.savefig(file)
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
-        logger.info('The best fit parameters are: ' + str(mle)+ '.')
-        logger.info('The likelihood of the mle is: ' + str(max_ll) + '.')
-        logger.info('Non-scaled best-fit model spectrum: {0}.\n'.format(
-            best_non_scaled_spectrum))
-        logger.info('Scaled best-fit model spectrum: {0}.\n'.format(
-            best_scaled_spectrum))
-        logger.info('Scaled best-fit theta: ' + str(best_theta) + '.')
-        logger.info('Best low estimate for time is: ' + str(best_low_time) + ' generations.')
-        logger.info('Best high estimate for time is: ' + str(best_high_time) + ' generations.')
+
 
 if __name__ == '__main__':
     PlotLikelihood().main()

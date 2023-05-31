@@ -9,9 +9,7 @@ library(fitdistrplus)
 library(scales)
 library(reshape2)
 
-compute_pi = function(input) {
-  return(input * runif(1, min=0.5, max=0.65))
-}
+
 
 fold_sfs = function(input_sfs) {
   input_length = length(input_sfs)
@@ -39,174 +37,174 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Two epoch
 
-two_epoch_demographic_contraction = c(0.00233553, 0.00315201, 0.00684189,
-                                      0.00384582, 0.0037498, 0.00633643, 
-                                      0.00352228, 0.00600145, 0.00395808)
-
-two_epoch_time = c(9093, 13446, 13486, 12558, 17454, 17298, 17450, 16023, 17411)
-
-Name = c('A. finegoldii', 'A. muciniphila', 'A. onderdonkii',
-         'B. bacterium', 'B. intestinihominis', 'B. thetaiotaomicron', 
-         'P. distasonis', 'P. merdae', 'P. sp')
-
-two_epoch_data = data.frame(two_epoch_time, two_epoch_demographic_contraction, Name)
-
-ggplot(two_epoch_data, aes(x=two_epoch_time, y=two_epoch_demographic_contraction, color=Name)) +
-  geom_point(size=2) +
-  geom_text_repel(label=Name, size=6) +
-  theme(text = element_text(size=15)) +
-  theme(legend.position = "none") +
-  xlab("Years since Demographic Contraction") +
-  ylab("Ratio of Current to Ancestral Population Size") +
-  ylim(0, 0.01) +
-  xlim(0, 25000) +
-  # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Two Epoch Demographic Model') +
-  geom_rect(xmin = 10000,
-            xmax = 20000,
-            ymin = - Inf,
-            ymax = Inf,
-            fill = alpha('green', 0.01),
-            linetype ='blank')
-
-# Exponential
-
-exponential_demographic_contraction = c(0.00194857, 0.00451226, 0.00752433552,
-                                        0.00301617, 0.00422812, 0.00815784, 
-                                        0.00626586, 0.0065453, 0.00369334)
-
-exponential_time = c(9594, 17131, 14418, 18243, 13913, 16560, 11060, 9200, 15766)
-
-exponential_data = data.frame(exponential_time, exponential_demographic_contraction, Name)
-
-# bottlegrowth
-set.seed(1)
-mod_1 = runif(9, min=0.9, max=1.1)
-mod_2 = runif(9, min=1.04, max=1.15)
-mod_3 = runif(9, min=0.8, max=1.2)
-mod_4 = runif(9, min=0.98, max=1.11)
-
-bottlegrowth_demographic_contraction = c(0.00194857, 0.00451226, 0.00752433552,
-                                         0.00301617, 0.00422812, 0.00815784, 
-                                         0.00626586, 0.0065453, 0.00369334) * mod_1
-
-bottlegrowth_time = c(11594, 15131, 13418, 12243, 15913, 11560, 13060, 10200, 17766) * mod_2
-
-bottlegrowth_data = data.frame(bottlegrowth_time, bottlegrowth_demographic_contraction, Name)
-
-# Three Epoch
-
-three_epoch_demographic_contraction = c(0.00233553, 0.00315201, 0.00684189,
-                                        0.00384582, 0.0037498, 0.00633643, 
-                                        0.00352228, 0.00600145, 0.00395808) * mod_3
-
-three_epoch_time = c(13594, 13331, 15418, 12243, 12913, 11560, 16060, 13200, 12766) * mod_4
-
-three_epoch_data = data.frame(three_epoch_time, three_epoch_demographic_contraction, Name)
-
-demographic_contraction = data.frame(two_epoch_demographic_contraction, exponential_demographic_contraction, Name)
-
-ggplot(demographic_contraction, aes(x=two_epoch_demographic_contraction, y=exponential_demographic_contraction, color=Name)) +
-  geom_point() +
-  geom_abline(intercept=0, slope=1) +
-  xlim(0, 1) +
-  ylim(0, 1) +
-  xlab('Two Epoch magnitude of demographic contraction') +
-  ylab('Exponential Model magnitude of demographic contraction') +
-  ggtitle('Magnitude of contraction across different demographic')
-
-
-ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contraction, color=Name)) +
-  geom_point(size=2) +
-  geom_text_repel(label=Name, size=6) +
-  theme(text = element_text(size=20)) +
-  theme(legend.position = "none") +
-  xlab("Years since Demographic Contraction") +
-  ylab("Ratio of Current to Ancestral Population Size") +
-  ylim(0, 0.01) +
-  xlim(0, 25000) +
-  # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Exponential Demographic Model') +
-  geom_rect(xmin = 10000,
-                xmax = 20000,
-                ymin = - Inf,
-                ymax = Inf,
-                fill = alpha('green', 0.01),
-                linetype ='blank')
-
-ggplot(bottlegrowth_data, aes(x=bottlegrowth_time, y=bottlegrowth_demographic_contraction, color=Name)) +
-  geom_point(size=2) +
-  geom_text_repel(label=Name, size=6) +
-  theme(text = element_text(size=20)) +
-  theme(legend.position = "none") +
-  xlab("Years since Demographic Contraction") +
-  ylab("Ratio of Current to Ancestral Population Size") +
-  ylim(0, 0.01) +
-  xlim(0, 25000) +
-  # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +  ggtitle('Bottlegrowth Demographic Model') +
-  ggtitle('Bottledecay Demographic Model') +
-  geom_rect(xmin = 10000,
-            xmax = 20000,
-            ymin = - Inf,
-            ymax = Inf,
-            fill = alpha('green', 0.01),
-            linetype ='blank')
-
-ggplot(three_epoch_data, aes(x=three_epoch_time, y=three_epoch_demographic_contraction, color=Name)) +
-  geom_point(size=2) +
-  geom_text_repel(label=Name, size=6) +
-  theme(text = element_text(size=20)) +
-  theme(legend.position = "none") +
-  xlab("Years since Demographic Contraction") +
-  ylab("Ratio of Current to Ancestral Population Size") +
-  ylim(0, 0.01) +
-  xlim(0, 25000) +
-  # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +  ggtitle('Three Epoch Demographic Model') +
-  ggtitle('Three Epoch Demographic Model') +
-  geom_rect(xmin = 10000,
-            xmax = 20000,
-            ymin = - Inf,
-            ymax = Inf,
-            fill = alpha('green', 0.01),
-            linetype ='blank')
-
-
-two_epoch_data$model='Two epoch'
-colnames(two_epoch_data) = c('time', 'demographic_contraction', 'Species', 'Model')
-exponential_data$model='Exponential Decay'
-colnames(exponential_data) = c('time', 'demographic_contraction', 'Species', 'Model')
-bottlegrowth_data$model='Bottlegrowth'
-colnames(bottlegrowth_data) = c('time', 'demographic_contraction', 'Species', 'Model')
-three_epoch_data$model='Three epoch'
-colnames(three_epoch_data) = c('time', 'demographic_contraction', 'Species', 'Model')
-
-demographic_data = data.frame(rbind(two_epoch_data, exponential_data, bottlegrowth_data, three_epoch_data))
-
-ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=Model)) +
-  geom_point(size=2) +
-  # geom_text_repel(label=Name, size=6) +
-  theme(text = element_text(size=20)) +
-  # theme(legend.position = "none") +
-  xlab("Years since Demographic Contraction") +
-  ylab("Ratio of Current to Ancestral Population Size") +
-  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Summary of Demographic Models by Model')
-
-ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=Species)) +
-  geom_point(size=2) +
-  # geom_text_repel(label=Name, size=6) +
-  theme(text = element_text(size=20)) +
-  # theme(legend.position = "none") +
-  xlab("Years since Demographic Contraction") +
-  ylab("Ratio of Current to Ancestral Population Size") +
-  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  ggtitle('Summary of Demographic Models by Species')
+# two_epoch_demographic_contraction = c(0.00233553, 0.00315201, 0.00684189,
+#                                       0.00384582, 0.0037498, 0.00633643, 
+#                                       0.00352228, 0.00600145, 0.00395808)
+# 
+# two_epoch_time = c(9093, 13446, 13486, 12558, 17454, 17298, 17450, 16023, 17411)
+# 
+# Name = c('A. finegoldii', 'A. muciniphila', 'A. onderdonkii',
+#          'B. bacterium', 'B. intestinihominis', 'B. thetaiotaomicron', 
+#          'P. distasonis', 'P. merdae', 'P. sp')
+# 
+# two_epoch_data = data.frame(two_epoch_time, two_epoch_demographic_contraction, Name)
+# 
+# ggplot(two_epoch_data, aes(x=two_epoch_time, y=two_epoch_demographic_contraction, color=Name)) +
+#   geom_point(size=2) +
+#   geom_text_repel(label=Name, size=6) +
+#   theme(text = element_text(size=15)) +
+#   theme(legend.position = "none") +
+#   xlab("Years since Demographic Contraction") +
+#   ylab("Ratio of Current to Ancestral Population Size") +
+#   ylim(0, 0.01) +
+#   xlim(0, 25000) +
+#   # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+#   ggtitle('Two Epoch Demographic Model') +
+#   geom_rect(xmin = 10000,
+#             xmax = 20000,
+#             ymin = - Inf,
+#             ymax = Inf,
+#             fill = alpha('green', 0.01),
+#             linetype ='blank')
+# 
+# # Exponential
+# 
+# exponential_demographic_contraction = c(0.00194857, 0.00451226, 0.00752433552,
+#                                         0.00301617, 0.00422812, 0.00815784, 
+#                                         0.00626586, 0.0065453, 0.00369334)
+# 
+# exponential_time = c(9594, 17131, 14418, 18243, 13913, 16560, 11060, 9200, 15766)
+# 
+# exponential_data = data.frame(exponential_time, exponential_demographic_contraction, Name)
+# 
+# # bottlegrowth
+# set.seed(1)
+# mod_1 = runif(9, min=0.9, max=1.1)
+# mod_2 = runif(9, min=1.04, max=1.15)
+# mod_3 = runif(9, min=0.8, max=1.2)
+# mod_4 = runif(9, min=0.98, max=1.11)
+# 
+# bottlegrowth_demographic_contraction = c(0.00194857, 0.00451226, 0.00752433552,
+#                                          0.00301617, 0.00422812, 0.00815784, 
+#                                          0.00626586, 0.0065453, 0.00369334) * mod_1
+# 
+# bottlegrowth_time = c(11594, 15131, 13418, 12243, 15913, 11560, 13060, 10200, 17766) * mod_2
+# 
+# bottlegrowth_data = data.frame(bottlegrowth_time, bottlegrowth_demographic_contraction, Name)
+# 
+# # Three Epoch
+# 
+# three_epoch_demographic_contraction = c(0.00233553, 0.00315201, 0.00684189,
+#                                         0.00384582, 0.0037498, 0.00633643, 
+#                                         0.00352228, 0.00600145, 0.00395808) * mod_3
+# 
+# three_epoch_time = c(13594, 13331, 15418, 12243, 12913, 11560, 16060, 13200, 12766) * mod_4
+# 
+# three_epoch_data = data.frame(three_epoch_time, three_epoch_demographic_contraction, Name)
+# 
+# demographic_contraction = data.frame(two_epoch_demographic_contraction, exponential_demographic_contraction, Name)
+# 
+# ggplot(demographic_contraction, aes(x=two_epoch_demographic_contraction, y=exponential_demographic_contraction, color=Name)) +
+#   geom_point() +
+#   geom_abline(intercept=0, slope=1) +
+#   xlim(0, 1) +
+#   ylim(0, 1) +
+#   xlab('Two Epoch magnitude of demographic contraction') +
+#   ylab('Exponential Model magnitude of demographic contraction') +
+#   ggtitle('Magnitude of contraction across different demographic')
+# 
+# 
+# ggplot(exponential_data, aes(x=exponential_time, y=exponential_demographic_contraction, color=Name)) +
+#   geom_point(size=2) +
+#   geom_text_repel(label=Name, size=6) +
+#   theme(text = element_text(size=20)) +
+#   theme(legend.position = "none") +
+#   xlab("Years since Demographic Contraction") +
+#   ylab("Ratio of Current to Ancestral Population Size") +
+#   ylim(0, 0.01) +
+#   xlim(0, 25000) +
+#   # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+#   ggtitle('Exponential Demographic Model') +
+#   geom_rect(xmin = 10000,
+#                 xmax = 20000,
+#                 ymin = - Inf,
+#                 ymax = Inf,
+#                 fill = alpha('green', 0.01),
+#                 linetype ='blank')
+# 
+# ggplot(bottlegrowth_data, aes(x=bottlegrowth_time, y=bottlegrowth_demographic_contraction, color=Name)) +
+#   geom_point(size=2) +
+#   geom_text_repel(label=Name, size=6) +
+#   theme(text = element_text(size=20)) +
+#   theme(legend.position = "none") +
+#   xlab("Years since Demographic Contraction") +
+#   ylab("Ratio of Current to Ancestral Population Size") +
+#   ylim(0, 0.01) +
+#   xlim(0, 25000) +
+#   # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +  ggtitle('Bottlegrowth Demographic Model') +
+#   ggtitle('Bottledecay Demographic Model') +
+#   geom_rect(xmin = 10000,
+#             xmax = 20000,
+#             ymin = - Inf,
+#             ymax = Inf,
+#             fill = alpha('green', 0.01),
+#             linetype ='blank')
+# 
+# ggplot(three_epoch_data, aes(x=three_epoch_time, y=three_epoch_demographic_contraction, color=Name)) +
+#   geom_point(size=2) +
+#   geom_text_repel(label=Name, size=6) +
+#   theme(text = element_text(size=20)) +
+#   theme(legend.position = "none") +
+#   xlab("Years since Demographic Contraction") +
+#   ylab("Ratio of Current to Ancestral Population Size") +
+#   ylim(0, 0.01) +
+#   xlim(0, 25000) +
+#   # scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +  ggtitle('Three Epoch Demographic Model') +
+#   ggtitle('Three Epoch Demographic Model') +
+#   geom_rect(xmin = 10000,
+#             xmax = 20000,
+#             ymin = - Inf,
+#             ymax = Inf,
+#             fill = alpha('green', 0.01),
+#             linetype ='blank')
+# 
+# 
+# two_epoch_data$model='Two epoch'
+# colnames(two_epoch_data) = c('time', 'demographic_contraction', 'Species', 'Model')
+# exponential_data$model='Exponential Decay'
+# colnames(exponential_data) = c('time', 'demographic_contraction', 'Species', 'Model')
+# bottlegrowth_data$model='Bottlegrowth'
+# colnames(bottlegrowth_data) = c('time', 'demographic_contraction', 'Species', 'Model')
+# three_epoch_data$model='Three epoch'
+# colnames(three_epoch_data) = c('time', 'demographic_contraction', 'Species', 'Model')
+# 
+# demographic_data = data.frame(rbind(two_epoch_data, exponential_data, bottlegrowth_data, three_epoch_data))
+# 
+# ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=Model)) +
+#   geom_point(size=2) +
+#   # geom_text_repel(label=Name, size=6) +
+#   theme(text = element_text(size=20)) +
+#   # theme(legend.position = "none") +
+#   xlab("Years since Demographic Contraction") +
+#   ylab("Ratio of Current to Ancestral Population Size") +
+#   scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+#   ggtitle('Summary of Demographic Models by Model')
+# 
+# ggplot(demographic_data, aes(x=time, y=demographic_contraction, color=Species)) +
+#   geom_point(size=2) +
+#   # geom_text_repel(label=Name, size=6) +
+#   theme(text = element_text(size=20)) +
+#   # theme(legend.position = "none") +
+#   xlab("Years since Demographic Contraction") +
+#   ylab("Ratio of Current to Ancestral Population Size") +
+#   scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+#   ggtitle('Summary of Demographic Models by Species')
 
 
 # Pi comparison
 
 pi_summary_df = data.frame(read.csv('summarized_pi.csv', header=TRUE))
-
+# write.csv(pi_summary_df, file='summarized_pi.csv',  row.names=FALSE)
 names(pi_summary_df) = c('species', 'Cohort', 'average_pi', 'num_sites', 
                          'num_samples', 'aggregate_across_pi', 'pairwise_across_pi')
 
@@ -327,32 +325,32 @@ over_iid_df = subset(pi_summary_df, species %in% list_iid)
 over_20_df = subset(pi_summary_df, 
                     species %in% list_over_20)
 
-species_labels_20 = c('E. eligens',
-                      'F. cf',
-                      'F. prausnitzii (57453)',
-                      'F. prausnitzii (61481)',
-                      'F. prausnitzii (62201)',
-                      'O. sp',
-                      'P. copri',
-                      'R. inulinivorans',
-                      'R. bromii',
-                      'R. torques')
+species_labels_20 = c('Eubacterium eligens',
+                      'Faecalibacterium cf',
+                      'Faecalibacterium prausnitzii (57453)',
+                      'Faecalibacterium prausnitzii (61481)',
+                      'Faecalibacterium prausnitzii (62201)',
+                      'Oscillibacter species',
+                      'Prevotella copri',
+                      'Ruminococcus inulinivorans',
+                      'Ruminococcus bromii',
+                      'Ruminococcus torques')
 
-species_labels_10 = c('B. longum',
-                      'B. wexlerae',
-                      'B. crossotus',
-                      'C. sp',
-                      'E. coli',
-                      'E. eligens',
-                      'F. cf',
-                      'F. prausnitzii (57453)',
-                      'F. prausnitzii (61481)',
-                      'F. prausnitzii (62201)',
-                      'O. sp',
-                      'P. copri',
-                      'R. inulinivorans',
-                      'R. bromii',
-                      'R. torques')
+species_labels_10 = c('Bifidobacterium longum',
+                      'Blautia wexlerae',
+                      'Butyrivibrio crossotus',
+                      'Coprococcus species',
+                      'Escherichia coli',
+                      'Eubacterium eligens',
+                      'Faecalibacterium cf',
+                      'Faecalibacterium prausnitzii (57453)',
+                      'Faecalibacterium prausnitzii (61481)',
+                      'Faecalibacterium prausnitzii (62201)',
+                      'Oscillibacter species',
+                      'Prevotella copri',
+                      'Roseburia inulinivorans',
+                      'Ruminococcus bromii',
+                      'Ruminococcus torques')
 
 over_10_df = subset(pi_summary_df,
                     species %in% list_over_10)
@@ -414,11 +412,11 @@ better_pi_comparison_20 <- ggplot(data=temp, aes(x=species, y=average_pi, fill=C
   ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
 better_pi_comparison_20
 
-aggregate_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
+aggregate_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=Cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
   # geom_jitter(aes(color=cohort), size=0.2) +
-  geom_point(aes(x=species, y=aggregate_across_pi, color=cohort), size=3, shape=18) +
+  geom_point(aes(x=species, y=aggregate_across_pi, color=Cohort), size=3, shape=18) +
   theme(axis.text.x = element_text(angle=50, vjust=1.0, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
@@ -460,11 +458,11 @@ pairwise_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi
 
 pairwise_pi_comparison_20
 
-pairwise_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=cohort)) +
+pairwise_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi, fill=Cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
   # geom_jitter(aes(color=cohort), size=0.2) +
-  geom_point(aes(x=species, y=pairwise_across_pi, color=cohort), size=3, shape=18) +
+  geom_point(aes(x=species, y=pairwise_across_pi, color=Cohort), size=3, shape=18) +
   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   scale_shape_manual(values = c(21:23)) + 
   stat_compare_means(label = "p.signif", method = "t.test") +
@@ -472,7 +470,7 @@ pairwise_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=species, y=average_pi
   xlab('Species') +
   ylab('Average within-host pi')
 
-pairwise_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=cohort)) +
+pairwise_pi_comparison_20 <- ggplot(data=over_20_df, aes(x=species, y=average_pi, fill=Cohort)) +
   geom_boxplot(position=position_dodge(width=1)) +
   # geom_point(position=position_dodge(width=0.75),aes(group=cohort), size=1) +
   # geom_jitter(aes(color=cohort), size=0.2) +
@@ -492,7 +490,7 @@ pairwise_pi_comparison_20
 
 pairwise_pi_comparison_10 + stat_compare_means(label = "p.signif", method = "t.test")
 
-across_host_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=aggregate_across_pi, y=pairwise_across_pi, color=cohort)) +
+across_host_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=aggregate_across_pi, y=pairwise_across_pi, color=Cohort)) +
   geom_point() +
   geom_abline(intercept = 0, slope = 1) +
   xlab('Aggregate across-host pi') +
@@ -500,105 +498,40 @@ across_host_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=aggregate_across_p
 across_host_pi_comparison_10
 
 # aggregate across host pi
-aggregate_over_10 = over_10_df[c('species', 'cohort', 'aggregate_across_pi')]
+aggregate_over_10 = over_10_df[c('species', 'Cohort', 'aggregate_across_pi')]
 aggregate_over_10 = distinct(aggregate_over_10)
 aggregate_HMP_over_10 = aggregate_over_10[aggregate_over_10$cohort==' HMP', ]
 aggregate_African_over_10 = aggregate_over_10[aggregate_over_10$cohort==' African', ]
 aggregate_over_10 = rbind(aggregate_African_over_10, aggregate_HMP_over_10)
 # cohort aggregate_comparison
 
-cohort_aggregate_comparison <- ggpaired(data=aggregate_over_10, x='cohort', y='aggregate_across_pi', color='cohort', line.color='grey') +
-  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
-  scale_shape_manual(values = c(21:23)) + 
-  stat_compare_means(method = "t.test", paired=TRUE, label.y=0.06, label.x=1.5) +
-  ggtitle('Aggregate pi across hosts by cohort, Minimum #samples >= 10') +
-  xlab('Cohort') +
-  ylab('Aggregate across-host pi')
-cohort_aggregate_comparison
+# cohort_aggregate_comparison <- ggpaired(data=aggregate_over_10, x='Cohort', y='aggregate_across_pi', color='cohort', line.color='grey') +
+#   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+#   scale_shape_manual(values = c(21:23)) + 
+#   stat_compare_means(method = "t.test", paired=TRUE, label.y=0.06, label.x=1.5) +
+#   ggtitle('Aggregate pi across hosts by cohort, Minimum #samples >= 10') +
+#   xlab('Cohort') +
+#   ylab('Aggregate across-host pi')
+# cohort_aggregate_comparison
 
 # pairwise across host pi
-pairwise_over_10 = over_10_df[c('species', 'cohort', 'pairwise_across_pi')]
-pairwise_over_10 = distinct(pairwise_over_10)
-pairwise_HMP_over_10 = pairwise_over_10[pairwise_over_10$cohort==' HMP', ]
-pairwise_African_over_10 = pairwise_over_10[pairwise_over_10$cohort==' African', ]
-pairwise_over_10 = rbind(pairwise_African_over_10, pairwise_HMP_over_10)
+# pairwise_over_10 = over_10_df[c('species', 'cohort', 'pairwise_across_pi')]
+# pairwise_over_10 = distinct(pairwise_over_10)
+# pairwise_HMP_over_10 = pairwise_over_10[pairwise_over_10$cohort==' HMP', ]
+# pairwise_African_over_10 = pairwise_over_10[pairwise_over_10$cohort==' African', ]
+# pairwise_over_10 = rbind(pairwise_African_over_10, pairwise_HMP_over_10)
 # cohort aggregate_comparison
 
-cohort_pairwise_comparison <- ggpaired(data=pairwise_over_10, x='cohort', y='pairwise_across_pi', color='cohort', line.color='grey') +
-  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
-  scale_shape_manual(values = c(21:23)) + 
-  stat_compare_means(method = "t.test", paired=TRUE, label.y=0.06, label.x=1.5) +
-  ggtitle('Pairwise distributed pi across hosts by cohort, Minimum #samples >= 10') +
-  xlab('Cohort') +
-  ylab('Pairwise distributed across-host pi')
-cohort_pairwise_comparison
+# cohort_pairwise_comparison <- ggpaired(data=pairwise_over_10, x='cohort', y='pairwise_across_pi', color='cohort', line.color='grey') +
+#   theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
+#   scale_shape_manual(values = c(21:23)) + 
+#   stat_compare_means(method = "t.test", paired=TRUE, label.y=0.06, label.x=1.5) +
+#   ggtitle('Pairwise distributed pi across hosts by cohort, Minimum #samples >= 10') +
+#   xlab('Cohort') +
+#   ylab('Pairwise distributed across-host pi')
+# cohort_pairwise_comparison
 
 set.seed(1)
-
-over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' African', ]$pairwise_across_pi =
-  compute_pi(over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
-
-over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' HMP', ]$pairwise_across_pi)
-over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi = 
-  compute_pi(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
 
 over_iid_df$ordered_pi = 0
 
@@ -672,34 +605,34 @@ over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohor
 over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$ordered_pi = 
   mean(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
 
-better_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=reorder(species, ordered_pi), y=average_pi, fill=Cohort)) +
-  geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
-  geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
-  geom_point(aes(x=species, y=pairwise_across_pi, color=Cohort), size=4, shape=16, position=position_dodge(width=0.75)) +
-  theme_bw() +
-  theme(plot.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
-  theme(axis.text.x = element_text(angle=90, vjust=1.0, hjust=1)) +
-  xlab('Species') + 
-  ylab('Average within-host pi') +
-  ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
-better_pi_comparison_10
+# better_pi_comparison_10 <- ggplot(data=over_10_df, aes(x=reorder(species, ordered_pi), y=average_pi, fill=Cohort)) +
+#   geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
+#   geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
+#   geom_point(aes(x=species, y=pairwise_across_pi, color=Cohort), size=4, shape=16, position=position_dodge(width=0.75)) +
+#   theme_bw() +
+#   theme(plot.background = element_blank(),
+#         panel.grid.major = element_blank(),
+#         panel.grid.minor = element_blank()) +
+#   theme(axis.text.x = element_text(angle=90, vjust=1.0, hjust=1)) +
+#   xlab('Species') + 
+#   ylab('Average within-host pi') +
+#   ggtitle('Pi within hosts and aggregated across hosts, Minimum #samples >= 20')
+# better_pi_comparison_10
 
 unique(over_iid_df$species)
-over_iid_df$species[over_iid_df$species == 'Bifidobacterium_longum_57796'] = 'B. longum'
-over_iid_df$species[over_iid_df$species == 'Blautia_wexlerae_56130'] = 'B. wexlerae'
-over_iid_df$species[over_iid_df$species == 'Butyrivibrio_crossotus_61674'] = 'B. crossotus'
-over_iid_df$species[over_iid_df$species == 'Eubacterium_eligens_61678'] = 'E. eligens'
-over_iid_df$species[over_iid_df$species == 'Escherichia_coli_58110'] = 'E. coli'
-over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_61481'] = 'F. prausnitzii (61481)'
-over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_57453'] = 'F. prausnitzii (57453)'
-over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_62201'] = 'F. prausnitzii (62201)'
-over_iid_df$species[over_iid_df$species == 'Faecalibacterium_cf_62236'] = 'F. cf'
+over_iid_df$species[over_iid_df$species == 'Bifidobacterium_longum_57796'] = 'Bifidobacterium longum'
+over_iid_df$species[over_iid_df$species == 'Blautia_wexlerae_56130'] = 'Blautia wexlerae'
+over_iid_df$species[over_iid_df$species == 'Butyrivibrio_crossotus_61674'] = 'Butyrivibrio crossotus'
+over_iid_df$species[over_iid_df$species == 'Eubacterium_eligens_61678'] = 'Eubacterium eligens'
+over_iid_df$species[over_iid_df$species == 'Escherichia_coli_58110'] = 'Escherichia coli'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_61481'] = 'Faecalibacterium prausnitzii (61481)'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_57453'] = 'Faecalibacterium prausnitzii (57453)'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_62201'] = 'Faecalibacterium prausnitzii (62201)'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_cf_62236'] = 'Faecalibacterium cf'
 over_iid_df$species[over_iid_df$species == 'Oscillibacter_sp_60799'] = 'Oscillibacter species'
-over_iid_df$species[over_iid_df$species == 'Prevotella_copri_61740'] = 'P. copri'
-over_iid_df$species[over_iid_df$species == 'Roseburia_inulinivorans_61943'] = 'R. inulinovrans'
-over_iid_df$species[over_iid_df$species == 'Ruminococcus_bromii_62047'] = 'R. bromii'
+over_iid_df$species[over_iid_df$species == 'Prevotella_copri_61740'] = 'Prevotella copri'
+over_iid_df$species[over_iid_df$species == 'Roseburia_inulinivorans_61943'] = 'Roseburia inulinovrans'
+over_iid_df$species[over_iid_df$species == 'Ruminococcus_bromii_62047'] = 'Ruminococcus bromii'
 
 better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, ordered_pi), y=average_pi, fill=Cohort)) +
   geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
@@ -709,7 +642,7 @@ better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, orde
   theme(plot.background = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
-  theme(axis.text.x = element_text(size=rel(1.5), angle=90, vjust=1.0, hjust=1)) +
+  theme(axis.text.x = element_text(size=rel(1.5), angle=60, vjust=1.0, hjust=1)) +
   theme(axis.text.y = element_text(size=rel(1.5))) +
   theme(axis.title.x = element_text(size=rel(1.5))) +
   theme(axis.title.y = element_text(size=rel(1.5))) +
@@ -727,10 +660,69 @@ better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, orde
 better_pi_comparison_iid
 
 distinct_iid_df = distinct(over_iid_df, pairwise_across_pi, .keep_all=TRUE)
+distinct_df = distinct(pi_summary_df, pairwise_across_pi, .keep_all=TRUE)
+HMP_distinct = distinct_df[distinct_df$Cohort==' HMP', ]$pairwise_across_pi
+African_distinct = distinct_df[distinct_df$Cohort==' African', ]$pairwise_across_pi
+
 HMP_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' HMP', ]$pairwise_across_pi
 African_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' African', ]$pairwise_across_pi
 
-wilcox.test(HMP_distinct_pairwise, African_distinct_pairwise, paired=TRUE)
+wilcox.test(HMP_distinct_pairwise, African_distinct_pairwise, paired=TRUE, exact=TRUE)
+wilcox.test(HMP_distinct, African_distinct, paired=FALSE, exact=TRUE)
+
+hmp_summary_df = pi_summary_df[pi_summary_df$Cohort==' HMP', ]
+afr_summary_df = pi_summary_df[pi_summary_df$Cohort==' African', ]
+
+# Number of species in each cohort
+length(unique(hmp_summary_df$species))
+length(unique(afr_summary_df$species))
+
+# Number of shared species
+sum(unique(afr_summary_df$species) %in% unique(hmp_summary_df$species))
+
+afr_species_freq = data.frame(table(afr_summary_df$species))
+hmp_species_freq = data.frame(table(hmp_summary_df$species))
+
+over_5_afr_species = afr_species_freq[afr_species_freq$Freq > 5, ]$Var1
+over_5_hmp_species = hmp_species_freq[hmp_species_freq$Freq > 5, ]$Var1
+
+over_5_species = unique(c(over_5_afr_species, over_5_hmp_species))
+
+over_5_species_df = pi_summary_df[pi_summary_df$species %in% over_5_species, ]
+
+over_5_species_df = drop_duplicates(over_5_species_df, keep=False)
+
+over_5_species_df = over_5_species_df[!duplicated(over_5_species_df$pairwise_across_pi), ]
+
+over_5_species_df = over_5_species_df[order(over_5_species_df$species), ]
+over_5_species_df
+
+compare_iid_over_5_means <- ggplot(data=over_5_species_df, aes(x=Cohort, y=pairwise_across_pi, fill=Cohort)) +
+  geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
+  geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
+  theme_bw() +
+  theme(plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(size=rel(1.5), angle=60, vjust=1.0, hjust=1)) +
+  theme(axis.text.y = element_text(size=rel(1.5))) +
+  theme(axis.title.x = element_text(size=rel(1.5))) +
+  theme(axis.title.y = element_text(size=rel(1.5))) +
+  theme(legend.text = element_text(size=rel(1.25))) +
+  theme(legend.title = element_text(size=rel(1.5))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x,)),
+                limits = c(0.0001, 0.2)) +
+  xlab('Cohort') + 
+  ylab('Mean Nucleotide Diversity per Species') +
+  # ylim(0, 0.03) +
+  stat_compare_means(method='wilcox.test', label='p.signif', size=6) +
+  ggtitle('Mean Nucleotide Diversity per Species between Cohorts')
+compare_iid_over_5_means
+
+afr_mean_pi_values = over_5_species_df[over_5_species_df$Cohort==' African', ]$pairwise_across_pi
+hmp_mean_pi_values = over_5_species_df[over_5_species_df$Cohort==' HMP', ]$pairwise_across_pi
+wilcox.test(afr_mean_pi_values, hmp_mean_pi_values, alternative='two.sided', exact=TRUE)
 
 # Species prevalence
 species_prevalence = read.csv('../Summary/species_prevalence.txt', sep=',')
@@ -955,14 +947,6 @@ fold_sfs = function(input_sfs) {
 
 proportional_sfs = function(input_sfs) {
   return (input_sfs / sum(input_sfs))
-}
-
-x <- datasim
-loglik <- function(theta){
-  k<- theta[1]
-  lambda<- theta[2]
-  out <- sum(dweibull(x,shape = k, scale=lambda, log = TRUE) )
-  return(out)
 }
 
 # 

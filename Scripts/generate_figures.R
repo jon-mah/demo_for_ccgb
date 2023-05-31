@@ -10,6 +10,8 @@ library(reshape2)
 library(stringr)
 library(ggridges)
 library(forcats)
+library("ggrepel")
+library(patchwork)
 
 fold_sfs = function(input_sfs) {
   input_length = length(input_sfs)
@@ -429,6 +431,29 @@ compare_sfs_with_selection_proportional = function(input_directory) {
 
 plot_original_empirical_sfs = function(input) {
   x_axis = 0:(length(input)-1)
+  
+  input_df = data.frame(input,
+                        x_axis)
+  
+  names(input_df) = c('Empirical',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                               aes(x=x_axis, 
+                                   y=value,
+                                   fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
+    ylab('Number of Segregating Sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+
+  return(p_input_comparison)
+}
+
+plot_empirical_sfs = function(input) {
+  x_axis = 1:(length(input))
   
   input_df = data.frame(input,
                         x_axis)
@@ -5198,7 +5223,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # b_stercoris_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_stercoris_56735_no_clade_control/empirical_sfs.txt')
 # b_thetaiotaomicron_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_thetaiotaomicron_56941_no_clade_control/empirical_sfs.txt')
 # b_uniformis_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_uniformis_57318_no_clade_control/empirical_sfs.txt')
-# b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_vulgatus_57955_no_clade_control/empirical_sfs.txt')
+b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_vulgatus_57955_no_clade_control/empirical_sfs.txt')
 # b_xylanisolvens_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_xylanisolvens_57185_no_clade_control/empirical_sfs.txt')
 # b_intestinihominis_no_clade_control = read_input_sfs_original('../Analysis/Barnesiella_intestinihominis_62208_no_clade_control/empirical_sfs.txt')
 # c_sp_no_clade_control = read_input_sfs_original('../Analysis/Coprococcus_sp_62244_no_clade_control/empirical_sfs.txt')
@@ -5245,7 +5270,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # plot_original_empirical_sfs(b_uniformis_no_clade_control) + ggtitle('B. uniformis full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(b_vulgatus_no_clade_control) + ggtitle('B. vulgatus full empirical SFS (unfolded with no Clade Control)') +
-#   scale_x_continuous()
+  scale_x_continuous()
 # plot_original_empirical_sfs(b_xylanisolvens_no_clade_control) + ggtitle('B. xylanisolvens full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(b_intestinihominis_no_clade_control) + ggtitle('B. intestinihominis full empirical SFS (unfolded with no Clade Control)') +
@@ -6982,174 +7007,174 @@ compare_hmp_sfs(r_bromii_hmp_qp_syn, one_epoch_14, r_bromii_complete_two_epoch, 
 
 # DFE Comparison
 a_muciniphila_dfe_params = read_dfe_params('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/inferred_DFE.txt')
-a_muciniphila_dfe_params$species = 'A. muciniphila'
+a_muciniphila_dfe_params$species = 'Akkermansia muciniphila'
 
 a_finegoldii_dfe_params = read_dfe_params('../Analysis/Alistipes_finegoldii_56071_downsampled_14/inferred_DFE.txt')
-a_finegoldii_dfe_params$species = 'A. finegoldii'
+a_finegoldii_dfe_params$species = 'Alistipes finegoldii'
 
 a_onderdonkii_dfe_params = read_dfe_params('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/inferred_DFE.txt')
-a_onderdonkii_dfe_params$species = 'A. onderdonkii'
+a_onderdonkii_dfe_params$species = 'Alistipes onderdonkii'
 
 a_putredinis_dfe_params = read_dfe_params('../Analysis/Alistipes_putredinis_61533_downsampled_14/inferred_DFE.txt')
-a_putredinis_dfe_params$species = 'A. putredinis'
+a_putredinis_dfe_params$species = 'Alistipes putredinis'
 
 a_shahii_dfe_params = read_dfe_params('../Analysis/Alistipes_shahii_62199_downsampled_14/inferred_DFE.txt')
-a_shahii_dfe_params$species = 'A. shahii'
+a_shahii_dfe_params$species = 'Alistipes shahii'
 
 b_bacterium_dfe_params = read_dfe_params('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/inferred_DFE.txt')
-b_bacterium_dfe_params$species = 'B. bacterium'
+b_bacterium_dfe_params$species = 'Bacteroidales bacterium'
 
 b_caccae_dfe_params = read_dfe_params('../Analysis/Bacteroides_caccae_53434_downsampled_14/inferred_DFE.txt')
-b_caccae_dfe_params$species = 'B. caccae'
+b_caccae_dfe_params$species = 'Bacteroides caccae'
 
 b_cellulosilyticus_dfe_params = read_dfe_params('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/inferred_DFE.txt')
-b_cellulosilyticus_dfe_params$species = 'B. cellulosilyticus'
+b_cellulosilyticus_dfe_params$species = 'Bacteroides cellulosilyticus'
 
 b_fragilis_dfe_params = read_dfe_params('../Analysis/Bacteroides_fragilis_54507_downsampled_14/inferred_DFE.txt')
-b_fragilis_dfe_params$species = 'B. fragilis'
+b_fragilis_dfe_params$species = 'Bacteroides fragilis'
 
 b_ovatus_dfe_params = read_dfe_params('../Analysis/Bacteroides_ovatus_58035_downsampled_14/inferred_DFE.txt')
-b_ovatus_dfe_params$species = 'B. ovatus'
+b_ovatus_dfe_params$species = 'Bacteroides ovatus'
 
 b_stercoris_dfe_params = read_dfe_params('../Analysis/Bacteroides_stercoris_56735_downsampled_14/inferred_DFE.txt')
-b_stercoris_dfe_params$species = 'B. stercoris'
+b_stercoris_dfe_params$species = 'Bacteroides stercoris'
 
 b_thetaiotaomicron_dfe_params = read_dfe_params('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/inferred_DFE.txt')
-b_thetaiotaomicron_dfe_params$species = 'B. thetaiotaomicron'
+b_thetaiotaomicron_dfe_params$species = 'Bacteroides thetaiotaomicron'
 
 b_uniformis_dfe_params = read_dfe_params('../Analysis/Bacteroides_uniformis_57318_downsampled_14/inferred_DFE.txt')
-b_uniformis_dfe_params$species = 'B. uniformis'
+b_uniformis_dfe_params$species = 'Bacteroides uniformis'
 
 b_vulgatus_dfe_params = read_dfe_params('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/inferred_DFE.txt')
-b_vulgatus_dfe_params$species = 'B. vulgatus'
+b_vulgatus_dfe_params$species = 'Bacteroides vulgatus'
 
 b_xylanisolvens_dfe_params = read_dfe_params('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/inferred_DFE.txt')
-b_xylanisolvens_dfe_params$species = 'B. xylanisolvens'
+b_xylanisolvens_dfe_params$species = 'Bacteroides xylanisolvens'
 
 b_intestinihominis_dfe_params = read_dfe_params('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/inferred_DFE.txt')
-b_intestinihominis_dfe_params$species = 'B. intestinihominis'
+b_intestinihominis_dfe_params$species = 'Barnesiella intestinihominis'
 
 d_invisus_dfe_params = read_dfe_params('../Analysis/Dialister_invisus_61905_downsampled_14/inferred_DFE.txt')
-d_invisus_dfe_params$species = 'D. invisus'
+d_invisus_dfe_params$species = 'Dialister invisus'
 
 e_eligens_dfe_params = read_dfe_params('../Analysis/Eubacterium_eligens_61678_downsampled_14/inferred_DFE.txt')
-e_eligens_dfe_params$species = 'E. eligens'
+e_eligens_dfe_params$species = 'Eubacterium eligens'
 
 e_rectale_dfe_params = read_dfe_params('../Analysis/Eubacterium_rectale_56927_downsampled_14/inferred_DFE.txt')
-e_rectale_dfe_params$species = 'E. rectale'
+e_rectale_dfe_params$species = 'Eubacterium rectale'
 
 f_prausnitzii_dfe_params = read_dfe_params('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/inferred_DFE.txt')
-f_prausnitzii_dfe_params$species = 'F. prausnitzii'
+f_prausnitzii_dfe_params$species = 'Faecalibacterium prausnitzii'
 
 o_splanchnicus_dfe_params = read_dfe_params('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt')
-o_splanchnicus_dfe_params$species = 'O. splanchnicus'
+o_splanchnicus_dfe_params$species = 'Odoribacter splanchnicus'
 
 o_sp_dfe_params = read_dfe_params('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt')
-o_sp_dfe_params$species = 'Oscillibacter sp.'
+o_sp_dfe_params$species = 'Oscillibacter species'
 
 p_distasonis_dfe_params = read_dfe_params('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt')
-p_distasonis_dfe_params$species = 'P. distasonis'
+p_distasonis_dfe_params$species = 'Parabacteroides distasonis'
 
 p_merdae_dfe_params = read_dfe_params('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt')
-p_merdae_dfe_params$species = 'P. merdae'
+p_merdae_dfe_params$species = 'Parabacteroides merdae'
 
 p_sp_dfe_params = read_dfe_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
 p_sp_dfe_params$species = 'Phascolarcobacterium species'
 
 p_copri_dfe_params = read_dfe_params('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt')
-p_copri_dfe_params$species = 'P. copri'
+p_copri_dfe_params$species = 'Prevotella copri'
 
 r_bicirculans_dfe_params = read_dfe_params('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/inferred_DFE.txt')
-r_bicirculans_dfe_params$species = 'R. bicirculans'
+r_bicirculans_dfe_params$species = 'Ruminococcus bicirculans'
 
 r_bromii_dfe_params = read_dfe_params('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt')
-r_bromii_dfe_params$species = 'R. bromii'
+r_bromii_dfe_params$species = 'Ruminococcus bromii'
 
 # Dadi Scaling
 
 a_muciniphila_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/inferred_DFE.txt')
-a_muciniphila_dfe_dadi_params$species = 'A. muciniphila'
+a_muciniphila_dfe_dadi_params$species = 'Akkermansia muciniphila'
 
 a_finegoldii_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Alistipes_finegoldii_56071_downsampled_14/inferred_DFE.txt')
-a_finegoldii_dfe_dadi_params$species = 'A. finegoldii'
+a_finegoldii_dfe_dadi_params$species = 'Alistipes finegoldii'
 
 a_onderdonkii_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/inferred_DFE.txt')
-a_onderdonkii_dfe_dadi_params$species = 'A. onderdonkii'
+a_onderdonkii_dfe_dadi_params$species = 'Alistipes onderdonkii'
 
 a_putredinis_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Alistipes_putredinis_61533_downsampled_14/inferred_DFE.txt')
-a_putredinis_dfe_dadi_params$species = 'A. putredinis'
+a_putredinis_dfe_dadi_params$species = 'Alistipes putredinis'
 
 a_shahii_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Alistipes_shahii_62199_downsampled_14/inferred_DFE.txt')
-a_shahii_dfe_dadi_params$species = 'A. shahii'
+a_shahii_dfe_dadi_params$species = 'Alistipes shahii'
 
 b_bacterium_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/inferred_DFE.txt')
-b_bacterium_dfe_dadi_params$species = 'B. bacterium'
+b_bacterium_dfe_dadi_params$species = 'Bacteroidales bacterium'
 
 b_caccae_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_caccae_53434_downsampled_14/inferred_DFE.txt')
-b_caccae_dfe_dadi_params$species = 'B. caccae'
+b_caccae_dfe_dadi_params$species = 'Bacteroides caccae'
 
 b_cellulosilyticus_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/inferred_DFE.txt')
-b_cellulosilyticus_dfe_dadi_params$species = 'B. cellulosilyticus'
+b_cellulosilyticus_dfe_dadi_params$species = 'Bacteroides cellulosilyticus'
 
 b_fragilis_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_fragilis_54507_downsampled_14/inferred_DFE.txt')
-b_fragilis_dfe_dadi_params$species = 'B. fragilis'
+b_fragilis_dfe_dadi_params$species = 'Bacteroides fragilis'
 
 b_ovatus_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_ovatus_58035_downsampled_14/inferred_DFE.txt')
-b_ovatus_dfe_dadi_params$species = 'B. ovatus'
+b_ovatus_dfe_dadi_params$species = 'Bacteroides ovatus'
 
 b_stercoris_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_stercoris_56735_downsampled_14/inferred_DFE.txt')
-b_stercoris_dfe_dadi_params$species = 'B. stercoris'
+b_stercoris_dfe_dadi_params$species = 'Bacteroides stercoris'
 
 b_thetaiotaomicron_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/inferred_DFE.txt')
-b_thetaiotaomicron_dfe_dadi_params$species = 'B. thetaiotaomicron'
+b_thetaiotaomicron_dfe_dadi_params$species = 'Bacteroides thetaiotaomicron'
 
 b_uniformis_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_uniformis_57318_downsampled_14/inferred_DFE.txt')
-b_uniformis_dfe_dadi_params$species = 'B. uniformis'
+b_uniformis_dfe_dadi_params$species = 'Bacteroides uniformis'
 
 b_vulgatus_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/inferred_DFE.txt')
-b_vulgatus_dfe_dadi_params$species = 'B. vulgatus'
+b_vulgatus_dfe_dadi_params$species = 'Bacteroides vulgatus'
 
 b_xylanisolvens_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/inferred_DFE.txt')
-b_xylanisolvens_dfe_dadi_params$species = 'B. xylanisolvens'
+b_xylanisolvens_dfe_dadi_params$species = 'Bacteroides xylanisolvens'
 
 b_intestinihominis_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/inferred_DFE.txt')
-b_intestinihominis_dfe_dadi_params$species = 'B. intestinihominis'
+b_intestinihominis_dfe_dadi_params$species = 'Barnesiella intestinihominis'
 
 d_invisus_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Dialister_invisus_61905_downsampled_14/inferred_DFE.txt')
-d_invisus_dfe_dadi_params$species = 'D. invisus'
+d_invisus_dfe_dadi_params$species = 'Dialister invisus'
 
 e_eligens_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Eubacterium_eligens_61678_downsampled_14/inferred_DFE.txt')
-e_eligens_dfe_dadi_params$species = 'E. eligens'
+e_eligens_dfe_dadi_params$species = 'Eubacterium eligens'
 
 e_rectale_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Eubacterium_rectale_56927_downsampled_14/inferred_DFE.txt')
-e_rectale_dfe_dadi_params$species = 'E. rectale'
+e_rectale_dfe_dadi_params$species = 'Eubacterium rectale'
 
 f_prausnitzii_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/inferred_DFE.txt')
-f_prausnitzii_dfe_dadi_params$species = 'F. prausnitzii'
+f_prausnitzii_dfe_dadi_params$species = 'Faecalibacterium prausnitzii'
 
 o_splanchnicus_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt')
-o_splanchnicus_dfe_dadi_params$species = 'O. splanchnicus'
+o_splanchnicus_dfe_dadi_params$species = 'Odoribacter splanchnicus'
 
 o_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt')
-o_sp_dfe_dadi_params$species = 'Oscillibacter sp.'
+o_sp_dfe_dadi_params$species = 'Oscillibacter species'
 
 p_distasonis_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt')
-p_distasonis_dfe_dadi_params$species = 'P. distasonis'
+p_distasonis_dfe_dadi_params$species = 'Parabacteroides distasonis'
 
 p_merdae_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt')
-p_merdae_dfe_dadi_params$species = 'P. merdae'
+p_merdae_dfe_dadi_params$species = 'Parabacteroides merdae'
 
 p_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
 p_sp_dfe_dadi_params$species = 'Phascolarcobacterium species'
 
 p_copri_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt')
-p_copri_dfe_dadi_params$species = 'P. copri'
+p_copri_dfe_dadi_params$species = 'Prevotella copri'
 
 r_bicirculans_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/inferred_DFE.txt')
-r_bicirculans_dfe_dadi_params$species = 'R. bicirculans'
+r_bicirculans_dfe_dadi_params$species = 'Ruminococcus bicirculans'
 
 r_bromii_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt')
-r_bromii_dfe_dadi_params$species = 'R. bromii'
+r_bromii_dfe_dadi_params$species = 'Ruminococcus bromii'
 
 dfe_df = rbind(
   melt(a_muciniphila_dfe_params),
@@ -7161,14 +7186,14 @@ dfe_df = rbind(
   melt(b_caccae_dfe_params),
   melt(b_cellulosilyticus_dfe_params),
   melt(b_fragilis_dfe_params),
-  melt(b_ovatus_dfe_params),
+  # melt(b_ovatus_dfe_params),
   melt(b_stercoris_dfe_params),
   melt(b_thetaiotaomicron_dfe_params),
-  melt(b_uniformis_dfe_params),
+  # melt(b_uniformis_dfe_params),
   melt(b_vulgatus_dfe_params),
   melt(b_xylanisolvens_dfe_params),
   melt(b_intestinihominis_dfe_params),
-  melt(d_invisus_dfe_params),
+  # melt(d_invisus_dfe_params),
   melt(e_eligens_dfe_params),
   melt(e_rectale_dfe_params),
   melt(f_prausnitzii_dfe_params),
@@ -7192,14 +7217,14 @@ dfe_dadi_df = rbind(
   melt(b_caccae_dfe_dadi_params),
   melt(b_cellulosilyticus_dfe_dadi_params),
   melt(b_fragilis_dfe_dadi_params),
-  melt(b_ovatus_dfe_dadi_params),
+  # melt(b_ovatus_dfe_dadi_params),
   melt(b_stercoris_dfe_dadi_params),
   melt(b_thetaiotaomicron_dfe_dadi_params),
-  melt(b_uniformis_dfe_dadi_params),
+  # melt(b_uniformis_dfe_dadi_params),
   melt(b_vulgatus_dfe_dadi_params),
   melt(b_xylanisolvens_dfe_dadi_params),
   melt(b_intestinihominis_dfe_dadi_params),
-  melt(d_invisus_dfe_dadi_params),
+  # melt(d_invisus_dfe_dadi_params),
   melt(e_eligens_dfe_dadi_params),
   melt(e_rectale_dfe_dadi_params),
   melt(f_prausnitzii_dfe_dadi_params),
@@ -7214,6 +7239,13 @@ dfe_dadi_df = rbind(
 )
 # dfe_df
 
+## Due to Dadi internal scaling which considers genotype
+## fitness as (1, 1 + 2sh, 1 + 2s), and the fact that
+## we are working with a haploid sample, we
+## wish to multiply the _inferred_ s by 2 to get the true
+## selective coefficient of the haploid bacteria.
+
+dfe_df$value = dfe_df$value * 2
 dfe_df$value[dfe_df$value <= 1e-12] = 1e-12
 dfe_df$value[dfe_df$value >= 1] = 1
 
@@ -7224,7 +7256,7 @@ ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev
     subtitle = 'Assuming a mutation rate of mu=4.08E-10'
   ) +
   theme_ridges() +
-  scale_x_log10() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
@@ -7236,7 +7268,7 @@ ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_high', ], aes(x=value, y=fct_re
     subtitle = 'Assuming a mutation rate of mu=6.93E-10'
   ) +
   theme_ridges() +
-  scale_x_log10() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
@@ -7248,7 +7280,7 @@ ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_
     subtitle = 'Assuming a mutation rate of mu=4.08E-10'
   ) +
   theme_ridges() +
-  scale_x_log10() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
@@ -7260,7 +7292,7 @@ ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_high', ], aes(x=value, y=fct
     subtitle = 'Assuming a mutation rate of mu=6.93E-10'
   ) +
   theme_ridges() +
-  scale_x_log10() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
@@ -7271,7 +7303,7 @@ ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'gamma_dfe_dist', ], aes(x=value, y=f
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
   labs(
     title = 'Gamma-Distributed DFE',
-    subtitle = 'Selective effect multiplied by 2N_anc'
+    subtitle = 'Selective effect multiplied by N_anc'
   ) +
   theme_ridges() +
   scale_x_log10() +
@@ -7291,23 +7323,24 @@ ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'neugamma_dfe_dist', ], aes(x=value, 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
 
-b_bacterium_dfe_df = melt(b_bacterium_dfe_params)
-b_bacterium_dfe_df$value[b_bacterium_dfe_df$value <= 1e-12] = 1e-12
-b_bacterium_dfe_df$value[b_bacterium_dfe_df$value >= 1] = 1
-# b_bacterium_dfe_df = b_bacterium_dfe_df[b_bacterium_dfe_df$variable == 'gamma_dfe_dist_low' || b_bacterium_dfe_df$variable == 'neugamma_dfe_dist_low', ]
-b_bacterium_dfe_df = rbind(
-  b_bacterium_dfe_df[b_bacterium_dfe_df$variable == 'gamma_dfe_dist_low', ],
-  b_bacterium_dfe_df[b_bacterium_dfe_df$variable == 'neugamma_dfe_dist_low',])
+a_shahii_dfe_df = melt(a_shahii_dfe_params)
+a_shahii_dfe_df$value = a_shahii_dfe_df$value * 2
+a_shahii_dfe_df$value[a_shahii_dfe_df$value <= 1e-12] = 1e-12
+a_shahii_dfe_df$value[a_shahii_dfe_df$value >= 1] = 1
+# a_shahii_dfe_df = a_shahii_dfe_df[a_shahii_dfe_df$variable == 'gamma_dfe_dist_low' || a_shahii_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+a_shahii_dfe_df = rbind(
+  a_shahii_dfe_df[a_shahii_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  a_shahii_dfe_df[a_shahii_dfe_df$variable == 'neugamma_dfe_dist_low',])
 
-b_bacterium_dfe_df$variable <- as.character(b_bacterium_dfe_df$variable)
+a_shahii_dfe_df$variable <- as.character(a_shahii_dfe_df$variable)
 
-b_bacterium_dfe_df$variable[b_bacterium_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
-b_bacterium_dfe_df$variable[b_bacterium_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+a_shahii_dfe_df$variable[a_shahii_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+a_shahii_dfe_df$variable[a_shahii_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
 
-ggplot(b_bacterium_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+ggplot(a_shahii_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
   geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
   labs(
-    title = 'Bacteroidales bacterium DFE',
+    title = 'Alistipes shahii DFE Comparison',
     subtitle = 'Assuming a mutation rate of mu=4.08E-10'
   ) +
   theme_ridges() +
@@ -7317,8 +7350,93 @@ ggplot(b_bacterium_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
   xlab('Selective Effect') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
+o_splanchnicus_dfe_df = melt(o_splanchnicus_dfe_params)
+o_splanchnicus_dfe_df$value = o_splanhcnicus_dfe_df$value * 2
+o_splanchnicus_dfe_df$value[o_splanchnicus_dfe_df$value <= 1e-12] = 1e-12
+o_splanchnicus_dfe_df$value[o_splanchnicus_dfe_df$value >= 1] = 1
+# o_splanchnicus_dfe_df = o_splanchnicus_dfe_df[o_splanchnicus_dfe_df$variable == 'gamma_dfe_dist_low' || o_splanchnicus_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+o_splanchnicus_dfe_df = rbind(
+  o_splanchnicus_dfe_df[o_splanchnicus_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  o_splanchnicus_dfe_df[o_splanchnicus_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+o_splanchnicus_dfe_df$variable <- as.character(o_splanchnicus_dfe_df$variable)
+
+o_splanchnicus_dfe_df$variable[o_splanchnicus_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+o_splanchnicus_dfe_df$variable[o_splanchnicus_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+o_splanchnicus_dfe_figure = ggplot(o_splanchnicus_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Odoribacter splanchnicus DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+e_eligens_dfe_df = melt(e_eligens_dfe_params)
+e_eligens_dfe_df$value = e_eligens_dfe_df$value * 2
+e_eligens_dfe_df$value[e_eligens_dfe_df$value <= 1e-12] = 1e-12
+e_eligens_dfe_df$value[e_eligens_dfe_df$value >= 1] = 1
+# e_eligens_dfe_df = e_eligens_dfe_df[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low' || e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+e_eligens_dfe_df = rbind(
+  e_eligens_dfe_df[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  e_eligens_dfe_df[e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+e_eligens_dfe_df$variable <- as.character(e_eligens_dfe_df$variable)
+
+e_eligens_dfe_df$variable[e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+e_eligens_dfe_df$variable[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+e_eligens_dfe_figure = ggplot(e_eligens_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Eubacterium eligens DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+b_cellulosilyticus_dfe_df = melt(b_cellulosilyticus_dfe_params)
+b_cellulosilyticus_dfe_df$value[b_cellulosilyticus_dfe_df$value <= 1e-12] = 1e-12
+b_cellulosilyticus_dfe_df$value[b_cellulosilyticus_dfe_df$value >= 1] = 1
+# b_cellulosilyticus_dfe_df = b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable == 'gamma_dfe_dist_low' || b_cellulosilyticus_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+b_cellulosilyticus_dfe_df = rbind(
+  b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_cellulosilyticus_dfe_df$variable <- as.character(b_cellulosilyticus_dfe_df$variable)
+
+b_cellulosilyticus_dfe_df$variable[b_cellulosilyticus_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_cellulosilyticus_dfe_df$variable[b_cellulosilyticus_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+b_cellulosilyticus_dfe_figure = ggplot(b_cellulosilyticus_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Bacteroides cellulosilyticus DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+o_splanchnicus_dfe_figure + e_eligens_dfe_figure + b_cellulosilyticus_dfe_figure + plot_layout(ncol = 1)
+
 two_epoch_nu_tau = read.csv('../Summary/two_epoch_demography_interpretation.csv')
 three_epoch_nu_tau= read.csv('../Summary/three_epoch_demography_interpretation.csv')
+two_epoch_nu_tau = two_epoch_nu_tau[-12, ]
+two_epoch_nu_tau = two_epoch_nu_tau[-6, ]
+three_epoch_nu_tau = three_epoch_nu_tau[-5, ]
 
 two_epoch_nu_tau$demography = 'Two Epoch'
 three_epoch_nu_tau$demography = 'Three Epoch'
@@ -7330,11 +7448,133 @@ demography_df =  rbind(two_epoch_nu_tau, three_epoch_nu_tau)
 demography_df$time_low = as.numeric(demography_df$time_low)
 demography_df$nu = as.numeric(demography_df$nu)
 
+demography_df_highlight = demography_df[demography_df$species %in% c('Odoribacter splanchnicus', 'Eubacterium eligens', 'Bacteroides cellulosilyticus'), ]
+
 ggscatter(demography_df, x="nu", y="time_low", color="species", shape='demography', size=3) + geom_vline(xintercept=1) +
   ylab('Estimated Time in Years') +
   xlab('Ratio of current to ancestral population size') +
   scale_shape_manual(name = "Best-Fit Demographic Model",
-                     labels = c("Two Epoch", "Three Epoch"),
-                     values = c(19, 17)) +
+                     labels = c("Three Epoch", "Two Epoch"),
+                     values = c(17, 19)) +
   theme(legend.position="right") +
-  guides(color=guide_legend(title="Species"))
+  geom_text_repel(aes(label = demography_df$species, color=demography_df$species)) +
+  guides(color=guide_legend(title="Species")) +
+  scale_x_log10(limits=c(1e-1, 1e1)) +
+  scale_y_log10(limits=c(1e1, 1e7)) +
+  theme(legend.title = element_text(size=30)) +
+  theme(legend.text = element_text(size=12)) +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  geom_point(data=demography_df_highlight, color='red', shape=1, size=6) +
+  # geom_point(data=demography_df_highlight, aes(x=nu, y=time_low, color='red', shape=1, size=4))  +
+  ggtitle('Commensal Gut Microbiota have Varied Demographic Histories') +
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
+
+# Full empirical SFS
+plot_original_empirical_sfs(b_vulgatus_no_clade_control) + ggtitle('B. vulgatus full empirical SFS (unfolded with no Clade Control)') +
+  scale_x_continuous() +
+  guides(color = 'none', size = 'none', fill = 'none') +
+  ggtitle('Bacteroides vulgatus empirical Site-frequency Spectrum') +
+  xlab('Allele Frequency')
+
+
+compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulsilyticus_complete_two_epoch, b_cellulosilyticus_complete_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_gamma_dfe, b_cellulosilyticus_complete_neugamma_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
+compare_hmp_sfs(e_eligens_hmp_qp_syn, one_epoch_14, e_eligens_complete_two_epoch, e_eligens_complete_three_epoch, e_eligens_hmp_qp_nonsyn, e_eligens_complete_gamma_dfe, e_eligens_complete_neugamma_dfe) + ggtitle('E. eligens (Downsampled to 14)')
+compare_hmp_sfs(b_ovatus_hmp_qp_syn, one_epoch_14, b_ovatus_complete_two_epoch, b_ovatus_complete_three_epoch, b_ovatus_hmp_qp_nonsyn, b_ovatus_complete_gamma_dfe, b_ovatus_complete_neugamma_dfe) + ggtitle('B. ovatus (Downsampled to 14)')
+
+x_axis = 1:length(one_epoch_14)
+
+o_splanchnicus_best_fit = cbind(
+  proportional_sfs(o_splanchnicus_hmp_qp_syn[-1]),
+  proportional_sfs(o_splanchnicus_complete_two_epoch),
+  proportional_sfs(o_splanchnicus_hmp_qp_nonsyn[-1]),
+  proportional_sfs(o_splanchnicus_complete_gamma_dfe),
+  rep('O. splanchnicus', length(o_splanchnicus_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_cellulosilyticus_best_fit = cbind(
+  proportional_sfs(b_cellulosilyticus_hmp_qp_syn[-1]),
+  proportional_sfs(b_cellulosilyticus_complete_three_epoch),
+  proportional_sfs(b_cellulosilyticus_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_cellulosilyticus_complete_gamma_dfe),
+  rep('B. cellulosilyticus', length(b_cellulosilyticus_hmp_qp_syn[-1])),
+  x_axis
+)
+
+e_eligens_best_fit = cbind(
+  proportional_sfs(e_eligens_hmp_qp_syn[-1]),
+  proportional_sfs(e_eligens_complete_two_epoch),
+  proportional_sfs(e_eligens_hmp_qp_nonsyn[-1]),
+  proportional_sfs(e_eligens_complete_gamma_dfe),
+  rep('E. eligens', length(e_eligens_hmp_qp_syn[-1])),
+  x_axis
+)
+# e_eligens_best_fit$species = 'E. eligens'
+colnames(e_eligens_best_fit) = c(
+  'Empirical Synonymous', 
+  'Model Synonymous',
+  'Empirical Nonsynonymous',
+  'Model Nonsynonymous',
+  'Species',
+  'X.axis')
+e_eligens_best_fit
+
+o_splanchnicus_best_fit = data.frame(o_splanchnicus_best_fit)
+e_eligens_best_fit = data.frame(e_eligens_best_fit)
+b_cellulosilyticus_best_fit = data.frame(b_cellulosilyticus_best_fit)
+
+colnames(o_splanchnicus_best_fit) = c(
+  'Empirical Synonymous', 
+  'Model Synonymous',
+  'Empirical Nonsynonymous',
+  'Model Nonsynonymous',
+  'Species',
+  'X.axis')
+colnames(e_eligens_best_fit) = c(
+  'Empirical Synonymous', 
+  'Model Synonymous',
+  'Empirical Nonsynonymous',
+  'Model Nonsynonymous',
+  'Species',
+  'X.axis')
+colnames(b_cellulosilyticus_best_fit) = c(
+  'Empirical Synonymous', 
+  'Model Synonymous',
+  'Empirical Nonsynonymous',
+  'Model Nonsynonymous',
+  'Species',
+  'X.axis')
+
+p1 = ggplot(melt(o_splanchnicus_best_fit, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  xlab('Minor Allele Frequency') + 
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+  ggtitle('Odoribacter splanchnicus')
+p1
+
+p2 = ggplot(melt(e_eligens_best_fit, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  xlab('Minor Allele Frequency') + 
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+  ggtitle('Eubacterium eligens')
+p2
+
+p3 = ggplot(melt(b_cellulosilyticus_best_fit, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+  geom_bar(position='dodge2', stat='identity') +
+  labs(x = "", fill = "") +
+  xlab('Minor Allele Frequency') + 
+  ylab('Proportion of Segregating Sites') +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+  ggtitle('Bacteroides cellulosilyticus')
+p3
+
+p1 + p2 + p3 + plot_layout(ncol = 1)
