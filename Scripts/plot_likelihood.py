@@ -466,7 +466,7 @@ class PlotLikelihood():
 
                 npts = 25
 
-                x_range = numpy.linspace(x * 0.5, x * 1.5, npts)
+                x_range = numpy.linspace(x * 0.75, x * 1.25, npts)
                 y_range = numpy.linspace(y * 0.9, y * 1.1, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
