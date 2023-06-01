@@ -8,7 +8,7 @@
 #$ -l h_rt=00:30:00
 #$ -t 1-30
 
-# SGE_TASK_ID=1
+SGE_TASK_ID=8
 
 # Complete SFS
 i=0
