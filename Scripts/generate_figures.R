@@ -7079,7 +7079,7 @@ p_merdae_dfe_params = read_dfe_params('../Analysis/Parabacteroides_merdae_56972_
 p_merdae_dfe_params$species = 'Parabacteroides merdae'
 
 p_sp_dfe_params = read_dfe_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
-p_sp_dfe_params$species = 'Phascolarcobacterium species'
+p_sp_dfe_params$species = 'Phascolarctobacterium species'
 
 p_copri_dfe_params = read_dfe_params('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt')
 p_copri_dfe_params$species = 'Prevotella copri'
@@ -7244,8 +7244,41 @@ dfe_dadi_df = rbind(
 ## we are working with a haploid sample, we
 ## wish to multiply the _inferred_ s by 2 to get the true
 ## selective coefficient of the haploid bacteria.
+## However, s is for the heterozygote case.
 
-dfe_df$value = dfe_df$value * 2
+phylogenetic_levels = c(
+  'Akkermansia muciniphila',
+  'Alistipes finegoldii',
+  'Alistipes onderdonkii',
+  'Alistipes putredinis',
+  'Alistipes shahii',
+  'Bacteroidales bacterium',
+  'Bacteroides caccae',
+  'Bacteroides cellulosilyticus',
+  'Bacteroides fragilis',
+  # 'Bacteroides ovatus',
+  'Bacteroides stercoris',
+  'Bacteroides thetaiotaomicron',
+  'Bacteroides uniformis',
+  'Bacteroides vulgatus',
+  'Bacteroides xylanisolvens',
+  'Barnesiella intestinihominis',
+  'Odoribacter splanchnicus',
+  'Parabacteroides distasonis',
+  'Parabacteroides merdae',
+  'Prevotella copri',
+  'Eubacterium eligens',
+  'Eubacterium rectale',
+  'Faecalibacterium prausnitzii',
+  'Ruminococcus bicirculans',
+  'Ruminococcus bromii',
+  'Oscillibacter species',
+  # 'Dialister invisus',
+  'Phascolarctobacterium species')
+dfe_df$species = factor(dfe_df$species, levels=phylogenetic_levels)
+
+
+# dfe_df$value = dfe_df$value * 2
 dfe_df$value[dfe_df$value <= 1e-12] = 1e-12
 dfe_df$value[dfe_df$value >= 1] = 1
 
@@ -7324,7 +7357,7 @@ ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'neugamma_dfe_dist', ], aes(x=value, 
   xlab('Selective Effect')
 
 a_shahii_dfe_df = melt(a_shahii_dfe_params)
-a_shahii_dfe_df$value = a_shahii_dfe_df$value * 2
+# a_shahii_dfe_df$value = a_shahii_dfe_df$value * 2
 a_shahii_dfe_df$value[a_shahii_dfe_df$value <= 1e-12] = 1e-12
 a_shahii_dfe_df$value[a_shahii_dfe_df$value >= 1] = 1
 # a_shahii_dfe_df = a_shahii_dfe_df[a_shahii_dfe_df$variable == 'gamma_dfe_dist_low' || a_shahii_dfe_df$variable == 'neugamma_dfe_dist_low', ]
@@ -7351,7 +7384,7 @@ ggplot(a_shahii_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 o_splanchnicus_dfe_df = melt(o_splanchnicus_dfe_params)
-o_splanchnicus_dfe_df$value = o_splanhcnicus_dfe_df$value * 2
+# o_splanchnicus_dfe_df$value = o_splanchnicus_dfe_df$value * 2
 o_splanchnicus_dfe_df$value[o_splanchnicus_dfe_df$value <= 1e-12] = 1e-12
 o_splanchnicus_dfe_df$value[o_splanchnicus_dfe_df$value >= 1] = 1
 # o_splanchnicus_dfe_df = o_splanchnicus_dfe_df[o_splanchnicus_dfe_df$variable == 'gamma_dfe_dist_low' || o_splanchnicus_dfe_df$variable == 'neugamma_dfe_dist_low', ]
@@ -7378,7 +7411,7 @@ o_splanchnicus_dfe_figure = ggplot(o_splanchnicus_dfe_df, aes(x=value, y=fct_rev
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 e_eligens_dfe_df = melt(e_eligens_dfe_params)
-e_eligens_dfe_df$value = e_eligens_dfe_df$value * 2
+# e_eligens_dfe_df$value = e_eligens_dfe_df$value * 2
 e_eligens_dfe_df$value[e_eligens_dfe_df$value <= 1e-12] = 1e-12
 e_eligens_dfe_df$value[e_eligens_dfe_df$value >= 1] = 1
 # e_eligens_dfe_df = e_eligens_dfe_df[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low' || e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low', ]
@@ -7447,6 +7480,8 @@ demography_df =  rbind(two_epoch_nu_tau, three_epoch_nu_tau)
 
 demography_df$time_low = as.numeric(demography_df$time_low)
 demography_df$nu = as.numeric(demography_df$nu)
+
+demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
 
 demography_df_highlight = demography_df[demography_df$species %in% c('Odoribacter splanchnicus', 'Eubacterium eligens', 'Bacteroides cellulosilyticus'), ]
 
