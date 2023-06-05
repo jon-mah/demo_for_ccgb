@@ -5,10 +5,10 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=00:30:00
-#$ -t 1
+#$ -l h_rt=02:00:00
+#$ -t 8
 
-SGE_TASK_ID=8
+SGE_TASK_ID=20
 
 # Complete SFS
 i=0
