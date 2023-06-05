@@ -466,7 +466,7 @@ class PlotLikelihood():
 
                 npts = 25
 
-                x_range = numpy.linspace(x * 0.75, x * 1.25, npts)
+                x_range = numpy.linspace(x * 0.5, x * 1.5, npts)
                 # x_range = numpy.linspace(1.6, 2.4, npts)
                 y_range = numpy.linspace(y * 0.75, y * 1.25, npts)
                 # y_range = numpy.linspace(0.98, 1.04, npts)
