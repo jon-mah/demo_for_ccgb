@@ -471,8 +471,8 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y  * 0.9, y * 1.3, npts)
 
                 # E. eligens
-                x_range = numpy.linspace(x * 0.6, x * 1.4, npts)
-                y_range = numpy.linspace(y * 0.6, y * 1.4, npts)
+                x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
+                y_range = numpy.linspace(y * 0.7, y * 1.3, npts)
                 
 
                 X, Y = numpy.meshgrid(x_range, y_range)
