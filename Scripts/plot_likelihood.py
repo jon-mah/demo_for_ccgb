@@ -464,20 +464,27 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                npts = 15
+                npts = 25
 
-                x_range = numpy.linspace(x * 0.95, x * 1.45, npts)
+                x_range = numpy.linspace(x * 0.95, x * 1.05, npts)
                 # x_range = numpy.linspace(1.6, 2.4, npts)
-                y_range = numpy.linspace(y * 0.93, y * 1.03, npts)
+                y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
                 # y_range = numpy.linspace(0.98, 1.04, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
                 Z = numpy.empty((npts, npts))
 
+                max_likelihood = -10000
                 for i in range(0, npts):
                     for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
+                        if Z[i, j] > max_likelihood:
+                            print(max_likelihood)
+                            print(Z[i, j])
+                            print(x_range[i], y_range[j])
+                            max_likelihood = Z[i, j] * 1.0
+                            best_params = [x_range[i], y_range[j]]
 
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
@@ -491,6 +498,8 @@ class PlotLikelihood():
                 # cbar.ax.set_ylabel('Log likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
+        logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
+        logger.info('Maximum likelihood found at ({0}).'.format(best_params))
         logger.info('Finished plotting likelihood surface.')
         logger.info('Pipeline executed succesfully.')
 
