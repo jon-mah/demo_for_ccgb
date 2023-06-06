@@ -355,7 +355,7 @@ class PlotLikelihood():
         popt = dadi.Inference.optimize_log_lbfgsb(
             p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
             lower_bound=None, upper_bound=None,
-            verbose=len(p0), maxiter=0)
+            verbose=len(p0), maxiter=3)
         syn_ns = syn_data.sample_sizes  # Number of samples.
         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
         theta = dadi.Inference.optimal_sfs_scaling(
