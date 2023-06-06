@@ -464,14 +464,14 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                npts = 25
+                npts = 15
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
                 # y_range = numpy.linspace(y  * 0.9, y * 1.3, npts)
 
                 # E. eligens
-                x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
+                x_range = numpy.linspace(x * 0.6, x * 1.4, npts)
                 y_range = numpy.linspace(y * 0.7, y * 1.3, npts)
                 
 
