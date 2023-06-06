@@ -368,7 +368,7 @@ class PlotLikelihood():
     def read_input_demography(self, input_demography):
         with open(input_demography, 'r') as file:
             first_line = file.readline()
-            print(first_line)
+            # print(first_line)
             start_idx = first_line.find('[')
             end_idx = first_line.find(']')
             params_str = first_line[start_idx+1:end_idx]
@@ -489,9 +489,9 @@ class PlotLikelihood():
                     for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
                         if Z[i, j] > max_likelihood:
-                            print(max_likelihood)
-                            print(Z[i, j])
-                            print(x_range[i], y_range[j])
+                            # print(max_likelihood)
+                            # print(Z[i, j])
+                            # print(x_range[i], y_range[j])
                             max_likelihood = Z[i, j] * 1.0
                             best_params = [x_range[i], y_range[j]]
 
