@@ -497,7 +497,7 @@ class PlotLikelihood():
 
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
-                z_min, z_max = max_likelihood - 5, max_likelihood
+                z_min, z_max = max_likelihood - 2, max_likelihood
                 # c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max, label='Log likelihood')
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
