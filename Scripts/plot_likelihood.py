@@ -497,11 +497,11 @@ class PlotLikelihood():
 
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
-                z_min, z_max = max_likelihood - 5, max_likelihood
+                z_min, z_max = max_likelihood - 10, max_likelihood
                 # c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max, label='Log likelihood')
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
-                levels = numpy.linspace(z_min, z_max, 10)
+                levels = numpy.linspace(z_min, z_max, 11)
                 contourplot = ax.contourf(X, Y, Z, levels=levels)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
