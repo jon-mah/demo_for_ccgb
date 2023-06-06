@@ -497,13 +497,14 @@ class PlotLikelihood():
 
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
-                z_min, z_max = -numpy.abs(Z).max() - 5, -numpy.abs(Z).max()
+                z_min, z_max = max_likelihood - 5, max_likelihood
                 # c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max, label='Log likelihood')
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
-                contourplot = ax.contourf(X, Y, Z)
-                ticks = numpy.arange(z_min, z_max, 1.0)
-                cbar = fig.colorbar(contourplot, label='Log likelihood', ticks=ticks) # Add a colorbar to a plot
+                levels = numpy.linspace(z_min, z_max, 10)
+                contourplot = ax.contourf(X, Y, Z, levels=levels)
+                # ticks = numpy.arange(z_min, z_max, 1.0)
+                cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
                 plt.savefig(file)
