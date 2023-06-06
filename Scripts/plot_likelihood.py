@@ -477,8 +477,8 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
                 
                 # Oscillibacter species
-                x_range = numpy.linspace(x * 0.75, x * 1.25, npts)
-                y_range = numpy.linspace(y * 0.75, y * 1.25, npts)
+                x_range = numpy.linspace(x * 0.85, x * 1.15, npts)
+                y_range = numpy.linspace(y * 0.85, y * 1.15, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
