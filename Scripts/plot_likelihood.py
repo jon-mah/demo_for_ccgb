@@ -352,10 +352,11 @@ class PlotLikelihood():
 
     def likelihood(self, nu, tau, syn_data, func_ex, pts_l):
         p0 = [nu, tau]
-        popt = dadi.Inference.optimize_log_lbfgsb(
-            p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-            lower_bound=None, upper_bound=None,
-            verbose=len(p0), maxiter=1)
+        # popt = dadi.Inference.optimize_log_lbfgsb(
+        #     p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
+        #     lower_bound=None, upper_bound=None,
+        #     verbose=len(p0), maxiter=1)
+        popt = p0
         syn_ns = syn_data.sample_sizes  # Number of samples.
         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
         theta = dadi.Inference.optimal_sfs_scaling(
@@ -367,10 +368,11 @@ class PlotLikelihood():
     def read_input_demography(self, input_demography):
         with open(input_demography, 'r') as file:
             first_line = file.readline()
+            print(first_line)
             start_idx = first_line.find('[')
             end_idx = first_line.find(']')
             params_str = first_line[start_idx+1:end_idx]
-            params = [float(param) for param in params_str.split()]
+            params = [float(param) for param in params_str.split(',')]
         return params[0], params[1]
 
     def main(self):
@@ -464,7 +466,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 25
+                npts = 15
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.7, x * 1.3, npts)

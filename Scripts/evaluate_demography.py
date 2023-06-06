@@ -423,6 +423,7 @@ class EvaluateDemography():
 
         # Construct initial Spectrum object from input synonymous sfs.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs).fold()
+        # syn_data = dadi.Spectrum.from_file(syn_input_sfs)
         #  syn_data = syn_data.fold()
         if mask_singletons:
             syn_data.mask[1] = True
@@ -464,11 +465,12 @@ class EvaluateDemography():
             p0 = initial_guess
             logger.info(
                 'Beginning optimization with guess, {0}.'.format(p0))
-            popt = dadi.Inference.optimize_log_fmin(
-                p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-                lower_bound=None,
-                upper_bound=None,
-                verbose=len(p0), maxiter=1)
+            # popt = dadi.Inference.optimize_log_fmin(
+            #    p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
+            #    lower_bound=None,
+            #    upper_bound=None,
+            #    verbose=len(p0), maxiter=1)
+            popt = p0
             logger.info(
                 'Finished optimization with guess, ' + str(p0) + '.')
             logger.info('Best fit parameters: {0}.'.format(popt))
