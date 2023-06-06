@@ -489,9 +489,9 @@ class PlotLikelihood():
                         if Z[i, j] > max_likelihood:
                             print(max_likelihood)
                             print(Z[i, j])
-                            print(x_range[i], y_range[j])
+                            print(x_range[i+1], y_range[j+1])
                             max_likelihood = Z[i, j] * 1.0
-                            best_params = [x_range[i], y_range[j]]
+                            best_params = [x_range[i+1], y_range[j+1]]
 
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
