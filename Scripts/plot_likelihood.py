@@ -464,7 +464,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 15
+                npts = 25
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
@@ -489,9 +489,9 @@ class PlotLikelihood():
                         if Z[i, j] > max_likelihood:
                             print(max_likelihood)
                             print(Z[i, j])
-                            print(x_range[i+1], y_range[j+1])
+                            print(x_range[i], y_range[j])
                             max_likelihood = Z[i, j] * 1.0
-                            best_params = [x_range[i+1], y_range[j+1]]
+                            best_params = [x_range[i], y_range[j]]
 
                 # fig = plt.figure()
                 fig, ax = plt.subplots()

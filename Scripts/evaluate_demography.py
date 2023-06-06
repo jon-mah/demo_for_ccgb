@@ -462,17 +462,13 @@ class EvaluateDemography():
         with open(output_file, 'w') as f:
             # Start at initial guess
             p0 = initial_guess
-            # Randomly perturb parameters before optimization.
-            # p0 = dadi.Misc.perturb_params(
-            #      p0, fold=1, upper_bound=None,
-            #      lower_bound=None)
             logger.info(
                 'Beginning optimization with guess, {0}.'.format(p0))
             popt = dadi.Inference.optimize_log_fmin(
                 p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
                 lower_bound=None,
                 upper_bound=None,
-                verbose=len(p0), maxiter=0)
+                verbose=len(p0), maxiter=1)
             logger.info(
                 'Finished optimization with guess, ' + str(p0) + '.')
             logger.info('Best fit parameters: {0}.'.format(popt))
