@@ -477,8 +477,8 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
                 
                 # Oscillibacter species
-                x_range = numpy.linspace(x * 0.97, x * 1.03, npts)
-                y_range = numpy.linspace(y * 0.97, y * 1.03, npts)
+                x_range = numpy.linspace(x * 0.8, x * 1.2, npts)
+                y_range = numpy.linspace(y * 0.8, y * 1.2, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
@@ -501,7 +501,18 @@ class PlotLikelihood():
                 # c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max, label='Log likelihood')
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
-                levels = numpy.linspace(z_min, z_max, num=21)
+                # levels = numpy.linspace(z_min, z_max, num=21)
+                levels = [max_likelihood - 50, 
+                          max_likelihood - 40,
+                          max_likelihood - 30,
+                          max_likelihood - 20,
+                          max_likelihood - 10,
+                          max_likelihood - 5,
+                          max_likelihood - 4,
+                          max_likelihood - 3,
+                          max_likelihood - 2,
+                          max_likelihood - 1,
+                          max_likelihood]
                 contourplot = ax.contourf(X, Y, Z, levels=levels)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
