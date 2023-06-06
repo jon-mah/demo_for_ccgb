@@ -464,7 +464,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                npts = 15
+                npts = 25
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
@@ -472,7 +472,7 @@ class PlotLikelihood():
 
                 # E. eligens
                 x_range = numpy.linspace(x * 0.8, x * 1.2, npts)
-                y_range = numpy.linspace(y * 0.5, y * 4.0, npts)
+                y_range = numpy.linspace(y * 0.5, y * 3.5, npts)
                 
 
                 X, Y = numpy.meshgrid(x_range, y_range)
