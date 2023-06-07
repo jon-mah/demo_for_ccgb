@@ -513,7 +513,7 @@ class PlotLikelihood():
                           max_likelihood - 1,
                           max_likelihood]
                 midnorm = MidpointNormalize(vmin=max_likelihood-100., vcenter=max_likelihood-5, vmax=max_likelihood)
-                contourplot = ax.contourf(X, Y, Z, norm=midnorm, cmap=cm.jet)
+                contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
