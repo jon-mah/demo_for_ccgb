@@ -521,11 +521,12 @@ class PlotLikelihood():
                 # plt.text(best_params[0], best_params[1], 
                 #          'MLE = ({0}, {1})'.replace(str(best_params[0]),
                 #                                     str(best_params[1])))
-                plt.annotate('({0}, {1})'.replace(str(best_params[0]),
-                                                  str(best_params[1])), # this is the text
+                label = 'MLE = ({0}, {1})'.replace(str(best_params[0]),
+                                                   str(best_params[1]))
+                plt.annotate(label, # this is the text
                              (best_params[0], best_params[1]), # these are the coordinates to position the label
                              textcoords="offset points", # how to position the text
-                             xytext=(0,10), # distance from text to points (x,y)
+                             xytext=(0, 0), # distance from text to points (x,y)
                              ha='center') # horizontal alignment can be left, right or center
                 plt.savefig(file)
         logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
