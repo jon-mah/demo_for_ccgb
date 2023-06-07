@@ -507,12 +507,9 @@ class PlotLikelihood():
                           max_likelihood - 50, 
                           max_likelihood - 10,
                           max_likelihood - 5,
-                          max_likelihood - 4,
                           max_likelihood - 3,
-                          max_likelihood - 2,
                           max_likelihood - 1,
                           max_likelihood - 0.5,
-                          max_likelihood - 0.25,
                           max_likelihood]
                 midnorm = MidpointNormalize(vmin=max_likelihood - 100., vcenter=max_likelihood - 5, vmax=max_likelihood)
                 contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
@@ -528,7 +525,7 @@ class PlotLikelihood():
                 plt.annotate(label, # this is the text
                              xy=(best_params[0], best_params[1]), # these are the coordinates to position the label
                              textcoords="offset points", # how to position the text
-                             ha='center') # horizontal alignment can be left, right or center
+                             ha='center', bbox=dict(boxstyle='round,pad=0.2', fc='yellow', alpha=0.3))
                 plt.scatter(best_params[0], best_params[1])
                 plt.savefig(file)
         logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
