@@ -12,6 +12,14 @@ library(ggridges)
 library(forcats)
 library("ggrepel")
 library(patchwork)
+library(ape)
+library(ggtree)
+library(treeio)
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# BiocManager::install("treeio")
+# BiocManager::install("ggtree")
 
 fold_sfs = function(input_sfs) {
   input_length = length(input_sfs)
@@ -7165,7 +7173,7 @@ p_merdae_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Parabacteroides_mer
 p_merdae_dfe_dadi_params$species = 'Parabacteroides merdae'
 
 p_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
-p_sp_dfe_dadi_params$species = 'Phascolarcobacterium species'
+p_sp_dfe_dadi_params$species = 'Phascolarctobacterium species'
 
 p_copri_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt')
 p_copri_dfe_dadi_params$species = 'Prevotella copri'
@@ -7259,7 +7267,7 @@ phylogenetic_levels = c(
   # 'Bacteroides ovatus',
   'Bacteroides stercoris',
   'Bacteroides thetaiotaomicron',
-  'Bacteroides uniformis',
+  # 'Bacteroides uniformis',
   'Bacteroides vulgatus',
   'Bacteroides xylanisolvens',
   'Barnesiella intestinihominis',
@@ -7275,8 +7283,43 @@ phylogenetic_levels = c(
   'Oscillibacter species',
   # 'Dialister invisus',
   'Phascolarctobacterium species')
-dfe_df$species = factor(dfe_df$species, levels=phylogenetic_levels)
 
+phylogenetic_levels = c(
+  'Bacteroidales bacterium',
+  'Alistipes putredinis',
+  'Alistipes finegoldii',
+  'Alistipes onderdonkii',
+  'Alistipes shahii',
+  'Odoribacter splanchnicus',
+  'Parabacteroides distasonis',
+  'Parabacteroides merdae',
+  'Prevotella copri',
+  'Bacteroides fragilis',
+  'Bacteroides cellulosilyticus',
+  'Bacteroides stercoris',
+  # 'Bacteroides uniformis',
+  'Bacteroides thetaiotaomicron',
+  # 'Bacteroides ovatus',
+  'Bacteroides xylanisolvens',
+  'Bacteroides caccae',
+  # 'Bacteroides massiliensis',
+  'Bacteroides vulgatus',
+  'Barnesiella intestinihominis',
+  'Akkermansia muciniphila',
+  # 'Dialister invivus',
+  'Phascolarctobacterium species',
+  'Eubacterium eligens',
+  'Eubacterium rectale',
+  # 'Coprococcus species',
+  'Oscillibacter species',
+  'Ruminococcus bromii',
+  'Ruminococcus bicirculans',
+  'Faecalibacterium prausnitzii'
+)
+
+
+dfe_df$species = factor(dfe_df$species, levels=phylogenetic_levels)
+dfe_dadi_df$species = factor(dfe_dadi_df$species, levels=phylogenetic_levels)
 
 # dfe_df$value = dfe_df$value * 2
 dfe_df$value[dfe_df$value <= 1e-12] = 1e-12
@@ -7613,3 +7656,94 @@ p3 = ggplot(melt(b_cellulosilyticus_best_fit, id=c('Species', 'X.axis')), aes(x=
 p3
 
 p1 + p2 + p3 + plot_layout(ncol = 1)
+
+# Phylogenetic Tree in APE
+
+get_species_code_reference = function(code, reference) {
+  if (code %in% reference$species_id) {
+    return(reference[reference$species_id == code, ]$midas_number)
+  } else if(code %in% reference$midas_number) {
+    return(reference[reference$midas_number == code, ]$species_id)
+  }
+}
+
+# Read the input TSV file
+input_table <- read.table("../Data/midas_tree/midas_db_v1.2/species_info.txt", header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+
+# Extract the midas_number from the species_id column
+input_table$midas_number <- sub(".+_(\\d+)$", "\\1", input_table$species_id)
+
+# Create a new data frame with species_id and midas_number columns
+output_table <- data.frame(species_id = input_table$species_id, midas_number = input_table$midas_number)
+
+# Save the output as a CSV file
+write.csv(output_table, file = "../Data/midas_tree/midas_db_v1.2/species_code_reference.txt", row.names = FALSE)
+
+# Print the output data frame
+print(output_table)
+
+# Load the ape package
+# library(ape)
+
+# Read the Newick file
+input_tree <- read.tree("../Data/midas_tree/midas_db_v1.2/species_tree.newick")
+
+# Specify the tip labels for the subtree you want to extract
+species_subtree = c(
+  'Akkermansia_muciniphila_55290',
+  'Alistipes_finegoldii_56071',
+  'Alistipes_onderdonkii_55464',
+  'Alistipes_putredinis_61533',
+  'Alistipes_shahii_62199',
+  'Bacteroidales_bacterium_58650',
+  'Bacteroides_caccae_53434',
+  'Bacteroides_cellulosilyticus_58046',
+  'Bacteroides_fragilis_54507',
+  'Bacteroides_massiliensis_44749',
+  'Bacteroides_ovatus_58035',
+  'Bacteroides_stercoris_56735',
+  'Bacteroides_thetaiotaomicron_56941',
+  'Bacteroides_uniformis_57318',
+  'Bacteroides_vulgatus_57955',
+  'Bacteroides_xylanisolvens_57185',
+  'Barnesiella_intestinihominis_62208',
+  'Coprococcus_sp_62244',
+  'Dialister_invisus_61905',
+  'Eubacterium_eligens_61678',
+  'Eubacterium_rectale_56927',
+  'Faecalibacterium_prausnitzii_57453',
+  'Odoribacter_splanchnicus_62174',
+  'Oscillibacter_sp_60799',
+  'Parabacteroides_distasonis_56985',
+  'Parabacteroides_merdae_56972',
+  'Phascolarctobacterium_sp_59817',
+  'Prevotella_copri_61740',
+  'Ruminococcus_bicirculans_59300',
+  'Ruminococcus_bromii_62047'
+)
+
+midas_code_subtree = c()
+
+for (species in species_subtree) {
+  midas_code_subtree = c(midas_code_subtree, get_species_code_reference(species, output_table))
+}
+
+print(midas_code_subtree)
+
+subtree_tips = midas_code_subtree
+
+# Extract the subtree
+subtree <- keep.tip(input_tree, subtree_tips)
+
+# Print the extracted subtree
+print(subtree)
+
+for (i in 1:length(subtree$tip.label)) {
+  print(subtree$tip.label[i])
+  new_tip = get_species_code_reference(subtree$tip.label[i], output_table)
+  # new_tip = str_sub(new_tip, 1, str_length(new_tip)-6)
+  subtree$tip.label[i] = new_tip
+  print(subtree$tip.label[i])
+}
+
+plot(subtree)
