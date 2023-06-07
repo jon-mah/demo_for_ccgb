@@ -477,18 +477,19 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
                 
                 # Oscillibacter species
-                x_range = numpy.linspace(x * 0.95, x * 1.05, npts)
-                y_range = numpy.linspace(y * 0.95, y * 1.05, npts)
+                x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
+                y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
                 Z = numpy.empty((npts, npts))
 
-                max_likelihood = -10000
+                max_likelihood = self.likelihood(input_nu, input_tau, syn_data, func_ex, pts_l)
+                best_params = [input_nu, input_tau]
                 for i in range(0, npts):
                     for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
-                        if Z[i, j] > max_likelihood:
+                        if Z[i, j] > max_likelihood + 0.01:
                             # print(max_likelihood)
                             # print(Z[i, j])
                             # print(x_range[i], y_range[j])
