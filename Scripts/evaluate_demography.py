@@ -20,6 +20,7 @@ import matplotlib
 matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
 import matplotlib.pyplot as plt
 from matplotlib import ticker, cm
+import pylab
 import pandas as pd
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
@@ -393,6 +394,9 @@ class EvaluateDemography():
         output_file = \
             '{0}{1}{2}_demography.txt'.format(
                 args['outprefix'], underscore, model_type)
+        residual = \
+            '{0}{1}{2}_sfs_residual.png'.format(
+                args['outprefix'], underscore, model_type)
         to_remove = [logfile, output_file]
         for f in to_remove:
             if os.path.isfile(f):
@@ -484,6 +488,13 @@ class EvaluateDemography():
             logger.info(
                 'Maximum log composite likelihood: {0}.'.format(
                     multinomial_ll_non_scaled_spectrum))
+
+            logger.info('Outputting residual between model and data.')
+            pylab.figure(figsize=(8, 6))
+            dadi.Plotting.plot_1d_comp_multinom(
+                model=non_scaled_spectrum, data=syn_data)
+            pylab.savefig(residual, dpi=250)
+
             theta = dadi.Inference.optimal_sfs_scaling(
                 non_scaled_spectrum, syn_data)
             logger.info(
