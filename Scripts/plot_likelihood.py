@@ -518,9 +518,15 @@ class PlotLikelihood():
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
-                plt.text(best_params[0], best_params[1], 
-                         'MLE = ({0}, {1})'.replace(str(best_params[0]),
-                                                    str(best_params[1])))
+                # plt.text(best_params[0], best_params[1], 
+                #          'MLE = ({0}, {1})'.replace(str(best_params[0]),
+                #                                     str(best_params[1])))
+                plt.annotate('({0}, {1})'.replace(str(best_params[0]),
+                                                  str(best_params[1])), # this is the text
+                             (best_params[0], best_params[1]), # these are the coordinates to position the label
+                             textcoords="offset points", # how to position the text
+                             xytext=(0,10), # distance from text to points (x,y)
+                             ha='center') # horizontal alignment can be left, right or center
                 plt.savefig(file)
         logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
         logger.info('Maximum likelihood found at ({0}).'.format(best_params))
