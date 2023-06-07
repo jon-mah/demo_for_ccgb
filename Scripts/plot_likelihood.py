@@ -521,8 +521,8 @@ class PlotLikelihood():
                 # plt.text(best_params[0], best_params[1], 
                 #          'MLE = ({0}, {1})'.format(str(best_params[0]),
                 #                                     str(best_params[1])))
-                label = 'MLE = ({0}, {1})'.format(str(best_params[0]),
-                                                  str(best_params[1]))
+                label = 'MLE = ({0}, {1})'.format(str(numpy.round(best_params[0], decimals=4)),
+                                                  str(numpy.round(best_params[1], decimals=4)))
                 plt.annotate(label, # this is the text
                              (best_params[0], best_params[1]), # these are the coordinates to position the label
                              textcoords="offset points", # how to position the text
