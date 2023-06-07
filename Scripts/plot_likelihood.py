@@ -519,10 +519,10 @@ class PlotLikelihood():
                 # cbar.ax.set_ylabel('Log likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
                 # plt.text(best_params[0], best_params[1], 
-                #          'MLE = ({0}, {1})'.replace(str(best_params[0]),
+                #          'MLE = ({0}, {1})'.format(str(best_params[0]),
                 #                                     str(best_params[1])))
-                label = 'MLE = ({0}, {1})'.replace(str(best_params[0]),
-                                                   str(best_params[1]))
+                label = 'MLE = ({0}, {1})'.format(str(best_params[0]),
+                                                  str(best_params[1]))
                 plt.annotate(label, # this is the text
                              (best_params[0], best_params[1]), # these are the coordinates to position the label
                              textcoords="offset points", # how to position the text
