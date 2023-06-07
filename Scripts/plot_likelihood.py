@@ -473,12 +473,12 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y  * 0.90, y * 1.1, npts)
 
                 # E. eligens
-                x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
-                y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
+                # x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
+                # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
                 
                 # Oscillibacter species
-                # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
-                # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
+                x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
+                y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
