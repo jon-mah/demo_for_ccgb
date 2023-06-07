@@ -514,7 +514,7 @@ class PlotLikelihood():
                           max_likelihood - 2,
                           max_likelihood - 1,
                           max_likelihood]
-                contourplot = ax.contourf(X, Y, Z, cmap=cm.jet)
+                contourplot = ax.contourf(X, Y, Z, levels=levels, cmap=cm.jet)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
