@@ -527,6 +527,7 @@ class PlotLikelihood():
                              xy=(best_params[0], best_params[1]), # these are the coordinates to position the label
                              textcoords="offset points", # how to position the text
                              ha='center') # horizontal alignment can be left, right or center
+                plt.scatter(best_params[0], best_params[1])
                 plt.savefig(file)
         logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
         logger.info('Maximum likelihood found at ({0}).'.format(best_params))
