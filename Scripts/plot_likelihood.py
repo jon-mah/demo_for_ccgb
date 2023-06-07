@@ -524,9 +524,8 @@ class PlotLikelihood():
                 label = 'MLE = ({0}, {1})'.format(str(numpy.round(best_params[0], decimals=4)),
                                                   str(numpy.round(best_params[1], decimals=4)))
                 plt.annotate(label, # this is the text
-                             (best_params[0], best_params[1]), # these are the coordinates to position the label
+                             xy=(best_params[0], best_params[1]), # these are the coordinates to position the label
                              textcoords="offset points", # how to position the text
-                             xytext=(0, 0), # distance from text to points (x,y)
                              ha='center') # horizontal alignment can be left, right or center
                 plt.savefig(file)
         logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
