@@ -466,7 +466,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 15
+                npts = 25
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
@@ -503,15 +503,15 @@ class PlotLikelihood():
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 # levels = numpy.linspace(z_min, z_max, num=21)
-                levels = [max_likelihood - 100,
-                          max_likelihood - 50, 
+                levels = [max_likelihood - 1000,
+                          max_likelihood - 100, 
                           max_likelihood - 10,
                           max_likelihood - 5,
                           max_likelihood - 3,
                           max_likelihood - 1,
                           max_likelihood - 0.5,
                           max_likelihood]
-                midnorm = MidpointNormalize(vmin=max_likelihood - 100., vcenter=max_likelihood - 5, vmax=max_likelihood)
+                midnorm = MidpointNormalize(vmin=max_likelihood - 1000., vcenter=max_likelihood - 10, vmax=max_likelihood)
                 contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
