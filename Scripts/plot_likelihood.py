@@ -466,7 +466,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 25
+                npts = 15
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
@@ -477,8 +477,8 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
                 
                 # Odoribacter splanchnicus
-                x_range = numpy.linspace(x * 0.70, x * 1.3, npts)
-                y_range = numpy.linspace(y * 0.70, y * 1.3, npts)
+                x_range = numpy.linspace(x * 0.50, x * 1.5, npts)
+                y_range = numpy.linspace(y * 0.50, y * 1.5, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 

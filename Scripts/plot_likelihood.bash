@@ -6,9 +6,9 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
 #$ -l h_rt=02:00:00
-#$ -t 20
+#$ -t 1-30
 
-SGE_TASK_ID=23
+# SGE_TASK_ID=8
 
 # Complete SFS
 i=0

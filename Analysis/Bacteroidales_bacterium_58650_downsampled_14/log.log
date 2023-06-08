@@ -1,14 +1,17 @@
-2023-05-31 17:15:17,134 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-06-08 11:25:19,206 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-05-31 17:15:17,134 - INFO - Progress is being logged to ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/log.log
+2023-06-08 11:25:19,207 - INFO - Progress is being logged to ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/log.log
 
-2023-05-31 17:15:17,134 - INFO - Parsed the following arguments:
+2023-06-08 11:25:19,207 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt
 	input_demography = ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/
 
-2023-05-31 17:15:17,136 - INFO - Beginning demographic inference for two-epoch demographic model.
-2023-05-31 17:18:39,237 - INFO - Finished plotting likelihood surface.
-2023-05-31 17:18:39,238 - INFO - Pipeline executed succesfully.
+2023-06-08 11:25:19,221 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-06-08 11:25:31,605 - WARNING - You have used the `textcoords` kwarg, but not the `xytext` kwarg.  This can lead to surprising results.
+2023-06-08 11:25:31,907 - INFO - Maximum likelihood computed to be: -38.47245035702326.
+2023-06-08 11:25:31,907 - INFO - Maximum likelihood found at ([0.56532496, 0.14106005]).
+2023-06-08 11:25:31,907 - INFO - Finished plotting likelihood surface.
+2023-06-08 11:25:31,907 - INFO - Pipeline executed succesfully.
