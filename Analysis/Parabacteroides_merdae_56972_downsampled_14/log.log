@@ -1,12 +1,17 @@
-2023-06-08 14:15:42,573 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-06-08 14:24:23,157 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-06-08 14:15:42,573 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/log.log
+2023-06-08 14:24:23,159 - INFO - Progress is being logged to ../Analysis/Parabacteroides_merdae_56972_downsampled_14/log.log
 
-2023-06-08 14:15:42,573 - INFO - Parsed the following arguments:
+2023-06-08 14:24:23,159 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt
 	input_demography = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_two_epoch_demography.txt
 	mask_singletons = False
 	mask_doubletons = False
 	outprefix = ../Analysis/Parabacteroides_merdae_56972_downsampled_14/
 
-2023-06-08 14:15:42,576 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-06-08 14:24:23,162 - INFO - Beginning demographic inference for two-epoch demographic model.
+2023-06-08 14:25:24,094 - WARNING - You have used the `textcoords` kwarg, but not the `xytext` kwarg.  This can lead to surprising results.
+2023-06-08 14:25:24,453 - INFO - Maximum likelihood computed to be: -34.93798179610803.
+2023-06-08 14:25:24,453 - INFO - Maximum likelihood found at ([0.3992568108333333, 0.8202463733333334]).
+2023-06-08 14:25:24,453 - INFO - Finished plotting likelihood surface.
+2023-06-08 14:25:24,453 - INFO - Pipeline executed succesfully.

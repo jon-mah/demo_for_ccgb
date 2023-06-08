@@ -477,7 +477,7 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
                 
                 # Odoribacter splanchnicus
-                x_range = numpy.linspace(0, x * 2, npts)
+                x_range = numpy.linspace(0.01, x * 2, npts)
                 y_range = numpy.linspace(y * 0.50, y * 1.5, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
