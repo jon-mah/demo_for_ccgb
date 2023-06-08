@@ -477,7 +477,7 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
                 
                 # Odoribacter splanchnicus
-                x_range = numpy.linspace(x * 0.50, x * 1.5, npts)
+                x_range = numpy.linspace(0, x * 2, npts)
                 y_range = numpy.linspace(y * 0.50, y * 1.5, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
@@ -509,7 +509,6 @@ class PlotLikelihood():
                           max_likelihood - 5,
                           max_likelihood - 3,
                           max_likelihood - 1,
-                          max_likelihood - 0.5,
                           max_likelihood]
                 midnorm = MidpointNormalize(vmin=max_likelihood - 1000., vcenter=max_likelihood - 10, vmax=max_likelihood)
                 contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
