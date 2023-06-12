@@ -410,6 +410,9 @@ class PlotLikelihood():
         output_plot = \
             '{0}{1}likelihood_surface.jpg'.format(
                 args['outprefix'], underscore)
+        likelihood_surface = \
+            '{0}{1}likelihood_surface.csv'.format(
+                args['outprefix'],underscore)
         logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
         # output_plot = \
         #     '{0}{1}full_likelihood_surface.jpg'.format(
@@ -466,7 +469,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 25
+                npts = 15
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
@@ -477,8 +480,8 @@ class PlotLikelihood():
                 # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
                 
                 # Odoribacter splanchnicus
-                x_range = numpy.linspace(0.01, x * 2, npts)
-                y_range = numpy.linspace(y * 0.50, y * 1.5, npts)
+                x_range = numpy.linspace(0.01 * x, x * 1.99, npts)
+                y_range = numpy.linspace(y * 0.75, y * 1.25, npts)
 
                 X, Y = numpy.meshgrid(x_range, y_range)
 
@@ -486,9 +489,15 @@ class PlotLikelihood():
 
                 max_likelihood = self.likelihood(input_nu, input_tau, syn_data, func_ex, pts_l)
                 best_params = [input_nu, input_tau]
+                x_val = []
+                y_val = []
+                z_val = []
                 for i in range(0, npts):
                     for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
+                        x_val.append(x_range[i])
+                        y_val.append(y_range[j])
+                        z_val.append(Z[i, j])
                         if Z[i, j] > max_likelihood + 0.01:
                             # print(max_likelihood)
                             # print(Z[i, j])
@@ -496,6 +505,9 @@ class PlotLikelihood():
                             max_likelihood = Z[i, j] * 1.0
                             best_params = [x_range[i], y_range[j]]
 
+                likelihood_data = [x_val, y_val, z_val]
+                df = pd.DataFrame(likelihood_data)
+                df.to_csv(likelihood_surface)
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
                 z_min, z_max = max_likelihood - 2, max_likelihood
