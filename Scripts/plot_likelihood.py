@@ -469,7 +469,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 15
+                npts = 50
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
@@ -498,15 +498,14 @@ class PlotLikelihood():
                         x_val.append(x_range[i])
                         y_val.append(y_range[j])
                         z_val.append(Z[i, j])
-                        if Z[i, j] > max_likelihood + 0.01:
+                        if Z[i, j] > max_likelihood:
                             # print(max_likelihood)
                             # print(Z[i, j])
                             # print(x_range[i], y_range[j])
                             max_likelihood = Z[i, j] * 1.0
                             best_params = [x_range[i], y_range[j]]
 
-                likelihood_data = [x_val, y_val, z_val]
-                df = pd.DataFrame(likelihood_data)
+                df = pd.DataFrame({'X': x_val, 'Y': y_val, 'Z': z_val})
                 df.to_csv(likelihood_surface)
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
@@ -515,7 +514,7 @@ class PlotLikelihood():
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 # levels = numpy.linspace(z_min, z_max, num=21)
-                levels = [max_likelihood - 1000,
+                levels = [max_likelihood - 1500,
                           max_likelihood - 100, 
                           max_likelihood - 10,
                           max_likelihood - 5,
