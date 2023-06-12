@@ -352,10 +352,6 @@ class PlotLikelihood():
 
     def likelihood(self, nu, tau, syn_data, func_ex, pts_l):
         p0 = [nu, tau]
-        # popt = dadi.Inference.optimize_log_lbfgsb(
-        #     p0=p0, data=syn_data, model_func=func_ex, pts=pts_l,
-        #     lower_bound=None, upper_bound=None,
-        #     verbose=len(p0), maxiter=1)
         popt = p0
         syn_ns = syn_data.sample_sizes  # Number of samples.
         non_scaled_spectrum = func_ex(popt, syn_ns, pts_l)
@@ -368,7 +364,6 @@ class PlotLikelihood():
     def read_input_demography(self, input_demography):
         with open(input_demography, 'r') as file:
             first_line = file.readline()
-            # print(first_line)
             start_idx = first_line.find('[')
             end_idx = first_line.find(']')
             params_str = first_line[start_idx+1:end_idx]
@@ -469,7 +464,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 50
+                npts = 25
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
@@ -500,8 +495,8 @@ class PlotLikelihood():
                         z_val.append(Z[i, j])
                         if Z[i, j] > max_likelihood:
                             # print(max_likelihood)
-                            # print(Z[i, j])
-                            # print(x_range[i], y_range[j])
+                            print(Z[i, j])
+                            print(x_range[i], y_range[j])
                             max_likelihood = Z[i, j] * 1.0
                             best_params = [x_range[i], y_range[j]]
 
