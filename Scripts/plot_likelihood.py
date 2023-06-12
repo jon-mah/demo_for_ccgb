@@ -367,7 +367,10 @@ class PlotLikelihood():
             start_idx = first_line.find('[')
             end_idx = first_line.find(']')
             params_str = first_line[start_idx+1:end_idx]
-            params = [float(param) for param in params_str.split(',')]
+            if ',' in params_str:
+                params = [float(param) for param in params_str.split(',')]
+            else:
+                params = [float(param) for param in params_str.split()]
         return params[0], params[1]
 
     def main(self):
@@ -464,7 +467,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 50
+                npts = 25
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
