@@ -495,11 +495,11 @@ class PlotLikelihood():
                         z_val.append(Z[i, j])
                         if Z[i, j] > max_likelihood:
                             # print(max_likelihood)
-                            print(Z[i, j])
-                            print(x_range[i], y_range[j])
-                            max_likelihood = Z[i, j] * 1.0
-                            best_params = [x_range[i], y_range[j]]
-
+                            # print(Z[i, j])
+                            # print(x_range[i], y_range[j])
+                            # max_likelihood = Z[i, j] * 1.0
+                            # best_params = [x_range[i], y_range[j]]
+                            temp = 0
                 df = pd.DataFrame({'X': x_val, 'Y': y_val, 'Z': z_val})
                 df.to_csv(likelihood_surface)
                 # fig = plt.figure()
