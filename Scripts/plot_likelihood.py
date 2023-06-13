@@ -494,8 +494,8 @@ class PlotLikelihood():
                 x_val = []
                 y_val = []
                 z_val = []
-                for j in range(0, npts):
-                    for i in range(0, npts):
+                for i in range(0, npts):
+                    for j in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
                         x_val.append(x_range[i])
                         y_val.append(y_range[j])
@@ -510,8 +510,7 @@ class PlotLikelihood():
                 df.to_csv(likelihood_surface)
                 # fig = plt.figure()
                 fig, ax = plt.subplots()
-                z_min, z_max = max_likelihood - 2, max_likelihood
-                # c = ax.pcolormesh(X, Y, Z, cmap='RdBu', vmin=z_min, vmax=z_max, label='Log likelihood')
+                Z = numpy.transpose(Z)
                 ax.set_xlabel('Nu (Current / Ancestral population size)')
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 # levels = numpy.linspace(z_min, z_max, num=21)
