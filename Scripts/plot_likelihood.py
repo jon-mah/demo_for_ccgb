@@ -467,7 +467,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
                 
-                npts = 25
+                npts = 50
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
@@ -524,7 +524,7 @@ class PlotLikelihood():
                           max_likelihood - 1,
                           max_likelihood]
                 midnorm = MidpointNormalize(vmin=max_likelihood - 1000., vcenter=max_likelihood - 10, vmax=max_likelihood)
-                contourplot = ax.contourf(Y, X, Z, norm=midnorm, levels=levels, cmap=cm.jet)
+                contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
