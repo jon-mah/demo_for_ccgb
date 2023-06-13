@@ -28,7 +28,7 @@
 
 # HMP-QP Complete
 # python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 0.3689 0.2787
-# python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 0.15425321880190246 0.8803433438899821
+python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 0.419587125 0.209025
 # python evaluate_demography.py ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete --params_list 0.3168 0.4385
 # python evaluate_demography.py ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete --params_list 0.2983 0.3886 0.1733 0.0000001245
 # python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete --params_list 3.357 0.7725 0.8615 0.001956
