@@ -57,7 +57,7 @@ python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/
 # python evaluate_demography.py ../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete --params_list 0.67229739 0.61518478
 # python evaluate_demography.py ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete --params_list 2.605 0.1906
 # python evaluate_demography.py ../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Prevotella_copri_61740_downsampled_14/complete --params_list 4.801 0.1114
-# python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete --params_list 5.25E+00 1.97E+00 3.65E+00 2.62E-07
+python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete --params_list 3.7307937912142863 2.2375123420408163
 # python evaluate_demography.py ../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete  --params_list 2.137 0.6508
 
 # Downsampled to 10
