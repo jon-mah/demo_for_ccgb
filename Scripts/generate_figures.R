@@ -15,6 +15,8 @@ library(patchwork)
 library(ape)
 library(ggtree)
 library(treeio)
+# install.packages('plotly')
+library(plotly)
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
@@ -120,34 +122,75 @@ empirical_sfs_from_dfe = function(input_file) {
 }
 
 plot_likelihood_surface = function(input) {
-  species_surface = read.csv(input, header=FALSE)
-  names(species_surface) = c('likelihood', 'nu', 'tau')
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+
   species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
-  print(head(species_surface, 1))
-  species_surface_quantile = quantile(species_surface$likelihood, 0.80)
-  species_surface_max_minus = max(species_surface$likelihood) - 10
-  species_surface_cutoff = max(c(species_surface_quantile, species_surface_max_minus))
-  
-  species_surface[species_surface$likelihood < species_surface_cutoff, ]$likelihood = species_surface_cutoff
-  
-  # species_surface_scatter = ggplot(data = species_surface) +
-  #   geom_tile(aes(x = nu, y = tau, fill = likelihood))
-    # stat_contour(aes(x = nu, y = tau, z = likelihood))
-    # scale_x_continuous(trans='log10') +
-    # scale_y_continuous(trans='log10')
-  
-  
-  species_surface_scatter = ggplot(data=species_surface, aes(x=nu, y=tau)) + 
-   geom_point(aes(color=likelihood)) +
-   scale_fill_brewer(palette = "Greys") +
-   scale_x_continuous(trans='log10') +
-   scale_y_continuous(trans='log10') +
-   geom_vline(xintercept=1.0, color='red') +
-   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-         panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+  MLE = max(species_surface$likelihood)
+  MLE_minus_3 = MLE - 3
+  MLE_minus_3_label = paste('<= ', str_trunc(toString(MLE_minus_3), 6, ellipsis=''), sep='')
+  MLE_minus_1 = MLE - 1
+  MLE_minus_1_label = paste(str_trunc(toString(MLE_minus_3), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_1), 9, ellipsis=''), sep='')
+  MLE_minus_half = MLE - 0.5
+  MLE_minus_half_label  = paste(str_trunc(toString(MLE_minus_1), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_half), 6, ellipsis=''), sep='')
+  MLE_label = paste(str_trunc(toString(MLE_minus_half), 6, ellipsis=''), ' < ', str_trunc(toString(MLE), 6, ellipsis=''), sep='')
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE))
+  species_surface_scatter = ggplot(data=species_surface, aes(x=nu, y=tau), color=likelihood) + 
+    # geom_point(aes(colour = likelihood), size=1) +
+    geom_point(aes(colour = color_breakpoints), size = 4, shape=15) +
+    scale_color_manual(name='Log Likelihood',
+                       values=c('#a6611a', '#dfc27d', '#80cdc1', '#018571'),
+                       labels=c(MLE_minus_3_label, MLE_minus_1_label, MLE_minus_half_label, MLE_label)) +
+    geom_vline(xintercept=1.0, color='red', linewidth=2) +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))
 
   return(species_surface_scatter)
 }
+
+plot_likelihood_surface_contour = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  unique_nu = unique(species_surface$nu)
+  unique_tau = unique(species_surface$tau)
+  Z = matrix(data=NA, nrow=length(unique_nu), ncol=length(unique_tau))
+  count = 1
+  for (i in 1:length(unique_nu)) {
+    for (j in 1:length(unique_tau)) {
+      Z[i, j] = species_surface$likelihood[count]
+      if (species_surface$nu[count] != unique_nu[i]) {
+        print('break')
+      } else if (species_surface$tau[count] != unique_tau[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+
+  #  print(Z)
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+
+  MLE = max(species_surface$likelihood)
+  MLE_minus_3 = MLE - 3
+  MLE_minus_3_label = paste('<= ', str_trunc(toString(MLE_minus_3), 6, ellipsis=''), sep='')
+  MLE_minus_1 = MLE - 1
+  MLE_minus_1_label = paste(str_trunc(toString(MLE_minus_3), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_1), 9, ellipsis=''), sep='')
+  MLE_minus_half = MLE - 0.5
+  MLE_minus_half_label  = paste(str_trunc(toString(MLE_minus_1), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_half), 6, ellipsis=''), sep='')
+  MLE_label = paste(str_trunc(toString(MLE_minus_half), 6, ellipsis=''), ' < ', str_trunc(toString(MLE), 6, ellipsis=''), sep='')
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE))
+
+  fig = plot_ly(
+    x = unique_nu,
+    y = unique_tau,
+    z = Z,
+    type = 'contour'
+  )
+  
+  return(fig)
+}
+
 
 compare_sfs = function(empirical, one_epoch, two_epoch) {
   x_axis = 1:length(empirical)
@@ -7747,3 +7790,37 @@ for (i in 1:length(subtree$tip.label)) {
 }
 
 plot(subtree)
+
+# Likelihood Surfaces
+plot_likelihood_surface('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv')
+plot_likelihood_surface('../Analysis/Alistipes_finegoldii_56071_downsampled_14/likelihood_surface.csv') + ggtitle('A. finegoldii likelihood surface')
+plot_likelihood_surface('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/likelihood_surface.csv') + ggtitle('A. onderdonkii likelihood surface')
+# plot_likelihood_surface('../Analysis/Alistipes_putredinis_61533_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface('../Analysis/Alistipes_shahii_62199_downsampled_14/likelihood_surface.csv') + ggtitle('A. shahii likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/likelihood_surface.csv') + ggtitle('B. bacterium likelihood surface')
+# plot_likelihood_surface('../Analysis/Bacteroides_caccae_53434_downsampled_14/likelihood_surface.csv') + ggtitle('B. caccae likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroides_fragilis_54507_downsampled_14/likelihood_surface.csv') + ggtitle('B. fragilis likelihood surface')
+# plot_likelihood_surface('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+# plot_likelihood_surface('../Analysis/Bacteroides_ovatus_58035_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroides_stercoris_56735_downsampled_14/likelihood_surface.csv') + ggtitle('B. stercoris likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface.csv') + ggtitle('B. thetaiotaomicron likelihood surface')
+# plot_likelihood_surface('../Analysis/Bacteroides_uniformis_57318_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/likelihood_surface.csv') + ggtitle('B. vulgatus likelihood surface')
+plot_likelihood_surface('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/likelihood_surface.csv') + ggtitle('B. xylanisolvens likelihood surface')
+plot_likelihood_surface('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/likelihood_surface.csv') + ggtitle('B. intestinihominis likelihood surface')
+# plot_likelihood_surface('../Analysis/Coprococcus_sp_62244_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+# plot_likelihood_surface('../Analysis/Dialister_invisus_61905_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
+plot_likelihood_surface('../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface.csv') + ggtitle('E. rectale likelihood surface')
+plot_likelihood_surface('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/likelihood_surface.csv') + ggtitle('F. prausnitzii likelihood surface')
+plot_likelihood_surface('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
+plot_likelihood_surface('../Analysis/Oscillibacter_sp_60799_downsampled_14/likelihood_surface.csv') + ggtitle('Oscillibacter species likelihood surface')
+plot_likelihood_surface('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface.csv') + ggtitle('P. distasonis likelihood surface')
+plot_likelihood_surface('../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface.csv') + ggtitle('P. merdae likelihood surface')
+plot_likelihood_surface('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/likelihood_surface.csv') + ggtitle('Phascolarctobacterium species likelihood surface')
+plot_likelihood_surface('../Analysis/Prevotella_copri_61740_downsampled_14/likelihood_surface.csv') + ggtitle('P. copri likelihood surface')
+plot_likelihood_surface('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/likelihood_surface.csv') + ggtitle('R. bicirculans likelihood surface')
+plot_likelihood_surface('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
+

@@ -466,7 +466,7 @@ class PlotLikelihood():
             with open(file, 'w') as f:
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
-                
+
                 npts = 100
 
                 # B. cellulosilyticus
@@ -476,7 +476,7 @@ class PlotLikelihood():
                 # E. eligens
                 # x_range = numpy.linspace(x * 0.7, x * 1.3, npts)
                 # y_range = numpy.linspace(y * 0.90, y * 1.1, npts)
-                
+
                 # Odoribacter splanchnicus
                 if (x * 1.99) < 2.0:
                     x_max = 2.0
@@ -494,8 +494,8 @@ class PlotLikelihood():
                 x_val = []
                 y_val = []
                 z_val = []
-                for i in range(0, npts):
-                    for j in range(0, npts):
+                for j in range(0, npts):
+                    for i in range(0, npts):
                         Z[i, j] = self.likelihood(x_range[i], y_range[j], syn_data, func_ex, pts_l)
                         x_val.append(x_range[i])
                         y_val.append(y_range[j])
@@ -516,7 +516,7 @@ class PlotLikelihood():
                 ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 # levels = numpy.linspace(z_min, z_max, num=21)
                 levels = [max_likelihood - 1500,
-                          max_likelihood - 100, 
+                          max_likelihood - 100,
                           max_likelihood - 10,
                           max_likelihood - 5,
                           max_likelihood - 3,
@@ -528,7 +528,7 @@ class PlotLikelihood():
                 cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
                 plt.title('Likelihood surface for {0}.'.format(species))
-                # plt.text(best_params[0], best_params[1], 
+                # plt.text(best_params[0], best_params[1],
                 #          'MLE = ({0}, {1})'.format(str(best_params[0]),
                 #                                     str(best_params[1])))
                 label = 'MLE = ({0}, {1})'.format(str(numpy.round(best_params[0], decimals=4)),
