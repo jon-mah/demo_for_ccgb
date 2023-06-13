@@ -28,11 +28,11 @@
 
 # HMP-QP Complete
 # python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 0.3689 0.2787
-python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 0.419587125 0.209025
+# python evaluate_demography.py ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete --params_list 0.419587125 0.209025
 # python evaluate_demography.py ../Analysis/Alistipes_finegoldii_56071_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Alistipes_finegoldii_56071_downsampled_14/complete --params_list 0.3168 0.4385
 # python evaluate_demography.py ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Alistipes_onderdonkii_55464_downsampled_14/complete --params_list 0.2983 0.3886 0.1733 0.0000001245
 # python evaluate_demography.py ../Analysis/Alistipes_putredinis_61533_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Alistipes_putredinis_61533_downsampled_14/complete --params_list 3.357 0.7725 0.8615 0.001956
-# python evaluate_demography.py ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Alistipes_shahii_62199_downsampled_14/complete --params_list 0.68984312 1.56431657
+python evaluate_demography.py ../Analysis/Alistipes_shahii_62199_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Alistipes_shahii_62199_downsampled_14/complete --params_list 0.68984312 1.56431657
 # python evaluate_demography.py ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete --params_list 0.56532496 0.14106005
 # python evaluate_demography.py ../Analysis/Bacteroides_caccae_53434_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Bacteroides_caccae_53434_downsampled_14/complete --params_list 1.185 1.064 0.04346 0.0000005608
 # python evaluate_demography.py ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete --params_list 1.29 1.72 0.003456 1.065
