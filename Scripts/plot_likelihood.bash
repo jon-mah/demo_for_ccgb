@@ -5,10 +5,11 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=15G
-#$ -l h_rt=02:00:00
+#$ -l h_rt=04:00:00
+#$ -l highp
 #$ -t 1-30
 
-SGE_TASK_ID=29
+# SGE_TASK_ID=29
 
 # Complete SFS
 i=0
