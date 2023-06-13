@@ -467,7 +467,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                npts = 100
+                npts = 15
 
                 # B. cellulosilyticus
                 # x_range = numpy.linspace(x * 0.90, x * 1.1, npts)
