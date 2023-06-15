@@ -9,7 +9,7 @@
 #$ -l highp
 #$ -t 1-30
 
-SGE_TASK_ID=8
+# SGE_TASK_ID=8
 
 # Complete SFS
 i=0
