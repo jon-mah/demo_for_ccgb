@@ -500,7 +500,7 @@ class PlotLikelihood():
                         x_val.append(x_range[i])
                         y_val.append(y_range[j])
                         z_val.append(Z[i, j])
-                        if Z[i, j] > max_likelihood:
+                        if Z[i, j] > max_likelihood + 0.01:
                             print(max_likelihood)
                             print(Z[i, j])
                             print(x_range[i], y_range[j])
