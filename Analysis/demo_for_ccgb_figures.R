@@ -8,8 +8,7 @@ library(dplyr)
 library(fitdistrplus)
 library(scales)
 library(reshape2)
-
-
+library(patchwork)
 
 fold_sfs = function(input_sfs) {
   input_length = length(input_sfs)
@@ -651,11 +650,10 @@ better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, orde
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x,)),
                 limits = c(0.0001, 0.2)) +
+  theme(legend.position = "none") +
   xlab('Species') + 
   ylab('Nucleotide Diversity') +
-  # ylim(0, 0.03) +
-  # stat_compare_means(method='wilcox.test', label = "p.signif", label.x = 0.75,
-  #                    label.y = 0.0275, size=6)
+  ggtitle('1A') +
   stat_compare_means(method='wilcox.test', label='p.signif', size=6)
 better_pi_comparison_iid
 
@@ -690,8 +688,7 @@ over_5_species = unique(c(over_5_afr_species, over_5_hmp_species))
 
 over_5_species_df = pi_summary_df[pi_summary_df$species %in% over_5_species, ]
 
-over_5_species_df = drop_duplicates(over_5_species_df, keep=False)
-
+# over_5_species_df = drop_duplicates(over_5_species_df, keep=False)
 over_5_species_df = over_5_species_df[!duplicated(over_5_species_df$pairwise_across_pi), ]
 
 over_5_species_df = over_5_species_df[order(over_5_species_df$species), ]
@@ -717,8 +714,13 @@ compare_iid_over_5_means <- ggplot(data=over_5_species_df, aes(x=Cohort, y=pairw
   ylab('Mean Nucleotide Diversity per Species') +
   # ylim(0, 0.03) +
   stat_compare_means(method='wilcox.test', label='p.signif', size=6) +
-  ggtitle('Mean Nucleotide Diversity per Species between Cohorts')
+  ggtitle('1B')
+  #ggtitle('Mean Nucleotide Diversity per Species between Cohorts')
 compare_iid_over_5_means
+
+better_pi_comparison_iid + compare_iid_over_5_means + plot_layout(widths = c(3, 1))
+# 1500 x 900 dimensions for saved image
+
 
 afr_mean_pi_values = over_5_species_df[over_5_species_df$Cohort==' African', ]$pairwise_across_pi
 hmp_mean_pi_values = over_5_species_df[over_5_species_df$Cohort==' HMP', ]$pairwise_across_pi

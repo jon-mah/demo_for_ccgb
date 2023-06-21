@@ -131,10 +131,10 @@ plot_likelihood_surface = function(input) {
   MLE_minus_3 = MLE - 3
   MLE_minus_3_label = paste('<= ', str_trunc(toString(MLE_minus_3), 6, ellipsis=''), sep='')
   MLE_minus_1 = MLE - 1
-  MLE_minus_1_label = paste(str_trunc(toString(MLE_minus_3), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_1), 9, ellipsis=''), sep='')
+  MLE_minus_1_label = paste(str_trunc(toString(MLE_minus_3), 6, ellipsis=''), ' <= ', str_trunc(toString(MLE_minus_1), 9, ellipsis=''), sep='')
   MLE_minus_half = MLE - 0.5
-  MLE_minus_half_label  = paste(str_trunc(toString(MLE_minus_1), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_half), 6, ellipsis=''), sep='')
-  MLE_label = paste(str_trunc(toString(MLE_minus_half), 6, ellipsis=''), ' < ', str_trunc(toString(MLE), 6, ellipsis=''), sep='')
+  MLE_minus_half_label  = paste(str_trunc(toString(MLE_minus_1), 6, ellipsis=''), ' <= ', str_trunc(toString(MLE_minus_half), 6, ellipsis=''), sep='')
+  MLE_label = paste(str_trunc(toString(MLE_minus_half), 6, ellipsis=''), ' <= ', str_trunc(toString(MLE), 6, ellipsis=''), sep='')
   color_breakpoints = cut(species_surface$likelihood, c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE))
   species_surface_scatter = ggplot(data=species_surface, aes(x=nu, y=tau), color=likelihood) + 
     # geom_point(aes(colour = likelihood), size=1) +
@@ -144,7 +144,9 @@ plot_likelihood_surface = function(input) {
                        labels=c(MLE_minus_3_label, MLE_minus_1_label, MLE_minus_half_label, MLE_label)) +
     geom_vline(xintercept=1.0, color='red', linewidth=2) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+    xlab('Nu') +
+    ylab('Tau')
 
   return(species_surface_scatter)
 }
@@ -171,6 +173,8 @@ plot_likelihood_surface_contour = function(input) {
   #  print(Z)
   species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
 
+  best_params = c(species_surface$nu[1], species_surface$tau[1])
+  # print(best_params)
   MLE = max(species_surface$likelihood)
   MLE_minus_3 = MLE - 3
   MLE_minus_3_label = paste('<= ', str_trunc(toString(MLE_minus_3), 6, ellipsis=''), sep='')
@@ -181,16 +185,22 @@ plot_likelihood_surface_contour = function(input) {
   MLE_label = paste(str_trunc(toString(MLE_minus_half), 6, ellipsis=''), ' < ', str_trunc(toString(MLE), 6, ellipsis=''), sep='')
   color_breakpoints = cut(species_surface$likelihood, c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE))
 
-  fig = plot_ly(
-    x = unique_nu,
-    y = unique_tau,
-    z = Z,
-    type = 'contour'
-  )
-  
+  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 5, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 5, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
+  fig = ggplot(species_surface) +
+    geom_contour_filled(aes(x=nu, y=tau, z=likelihood), 
+      breaks = c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE)) +
+    scale_fill_brewer(palette = "BrBG", name='Log Likelihood') +
+    geom_vline(xintercept=1.0, color='red', linewidth=2) +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+    # annotate("label", x = best_params[1], y = best_params[2] * 0.90, label = likelihood_surface_title, color='black') +
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=3) +
+    ggtitle(likelihood_surface_title)
   return(fig)
 }
-
 
 compare_sfs = function(empirical, one_epoch, two_epoch) {
   x_axis = 1:length(empirical)
@@ -478,8 +488,6 @@ compare_sfs_with_selection_proportional = function(input_directory) {
   return(p_input_comparison)
 }
 
-
-
 plot_original_empirical_sfs = function(input) {
   x_axis = 0:(length(input)-1)
   
@@ -719,6 +727,26 @@ plot_dfe = function(input_dfe_file) {
                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
     guides(fill=guide_legend(title="Estimated mutation rate"))
   return(dfe_df)
+}
+
+plot_best_fit_sfs = function(input_data) {
+  input_data = data.frame(input_data)
+  colnames(input_data) = c(
+    'Empirical Synonymous', 
+    'Model Synonymous',
+    'Empirical Nonsynonymous',
+    'Model Nonsynonymous',
+    'Species',
+    'X.axis')
+  fig = ggplot(melt(input_data, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    xlab('Minor Allele Frequency') + 
+    ylab('Proportion of Segregating Sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+    theme(legend.position="none")
+  return(fig)
 }
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -1224,28 +1252,28 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # ## Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_10/o_sp_10.csv')
-# o_sp_10_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_10/oscillibacter_sp_10.csv')
+# oscillibacter_sp_10_empirical =  read_input_sfs(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_10/empirical_sfs.txt'
 # )
-# o_sp_10_one_epoch = sfs_from_demography(
+# oscillibacter_sp_10_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_10/one_epoch_demography.txt'
 # )
-# o_sp_10_two_epoch = sfs_from_demography(
+# oscillibacter_sp_10_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_10/two_epoch_demography.txt'
 # )
-# o_sp_original_empirical = read_input_sfs_original(
+# oscillibacter_sp_original_empirical = read_input_sfs_original(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_10/original_empirical_sfs.txt'
 # )
-# compare_sfs(o_sp_10_empirical,
-#             o_sp_10_one_epoch,
-#             o_sp_10_two_epoch) +
+# compare_sfs(oscillibacter_sp_10_empirical,
+#             oscillibacter_sp_10_one_epoch,
+#             oscillibacter_sp_10_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 10')
 # 
-# compare_sfs(proportional_sfs(o_sp_10_empirical),
-#             proportional_sfs(o_sp_10_one_epoch),
-#             proportional_sfs(o_sp_10_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_10_empirical),
+#             proportional_sfs(oscillibacter_sp_10_one_epoch),
+#             proportional_sfs(oscillibacter_sp_10_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 10')
 # 
 # 
@@ -1354,28 +1382,28 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # ## Phascolarctobacterium sp.
-# plot_likelihood_surface('../Analysis/qp_gut_10/p_sp_10.csv')
-# p_sp_10_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_10/phascolarctobacterium_sp_10.csv')
+# phascolarctobacterium_sp_10_empirical =  read_input_sfs(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_10/empirical_sfs.txt'
 # )
-# p_sp_10_one_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_10_one_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_10/one_epoch_demography.txt'
 # )
-# p_sp_10_two_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_10_two_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_10/two_epoch_demography.txt'
 # )
-# p_sp_original_empirical = read_input_sfs_original(
+# phascolarctobacterium_sp_original_empirical = read_input_sfs_original(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_10/original_empirical_sfs.txt'
 # )
-# compare_sfs(p_sp_10_empirical,
-#             p_sp_10_one_epoch,
-#             p_sp_10_two_epoch) +
+# compare_sfs(phascolarctobacterium_sp_10_empirical,
+#             phascolarctobacterium_sp_10_one_epoch,
+#             phascolarctobacterium_sp_10_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 10')
 # 
-# compare_sfs(proportional_sfs(p_sp_10_empirical),
-#             proportional_sfs(p_sp_10_one_epoch),
-#             proportional_sfs(p_sp_10_two_epoch)) +
+# compare_sfs(proportional_sfs(phascolarctobacterium_sp_10_empirical),
+#             proportional_sfs(phascolarctobacterium_sp_10_one_epoch),
+#             proportional_sfs(phascolarctobacterium_sp_10_two_epoch)) +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 10')
 # 
 # 
@@ -1873,25 +1901,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_12/o_sp_12.csv')
-# o_sp_12_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_12/oscillibacter_sp_12.csv')
+# oscillibacter_sp_12_empirical =  read_input_sfs(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_12/empirical_sfs.txt'
 # )
-# o_sp_12_one_epoch = sfs_from_demography(
+# oscillibacter_sp_12_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_12/one_epoch_demography.txt'
 # )
-# o_sp_12_two_epoch = sfs_from_demography(
+# oscillibacter_sp_12_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_12/two_epoch_demography.txt'
 # )
-# compare_sfs(o_sp_12_empirical,
-#             o_sp_12_one_epoch,
-#             o_sp_12_two_epoch) +
+# compare_sfs(oscillibacter_sp_12_empirical,
+#             oscillibacter_sp_12_one_epoch,
+#             oscillibacter_sp_12_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 12')
 # 
-# compare_sfs(proportional_sfs(o_sp_12_empirical),
-#             proportional_sfs(o_sp_12_one_epoch),
-#             proportional_sfs(o_sp_12_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_12_empirical),
+#             proportional_sfs(oscillibacter_sp_12_one_epoch),
+#             proportional_sfs(oscillibacter_sp_12_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 12')
 # 
 # 
@@ -1988,25 +2016,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Phascolarctobacterium sp.
-# plot_likelihood_surface('../Analysis/qp_gut_12/p_sp_12.csv')
-# p_sp_12_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_12/phascolarctobacterium_sp_12.csv')
+# phascolarctobacterium_sp_12_empirical =  read_input_sfs(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_12/empirical_sfs.txt'
 # )
-# p_sp_12_one_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_12_one_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_12/one_epoch_demography.txt'
 # )
-# p_sp_12_two_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_12_two_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_12/two_epoch_demography.txt'
 # )
-# compare_sfs(p_sp_12_empirical,
-#             p_sp_12_one_epoch,
-#             p_sp_12_two_epoch) +
+# compare_sfs(phascolarctobacterium_sp_12_empirical,
+#             phascolarctobacterium_sp_12_one_epoch,
+#             phascolarctobacterium_sp_12_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 12')
 # 
-# compare_sfs(proportional_sfs(p_sp_12_empirical),
-#             proportional_sfs(p_sp_12_one_epoch),
-#             proportional_sfs(p_sp_12_two_epoch)) +
+# compare_sfs(proportional_sfs(phascolarctobacterium_sp_12_empirical),
+#             proportional_sfs(phascolarctobacterium_sp_12_one_epoch),
+#             proportional_sfs(phascolarctobacterium_sp_12_two_epoch)) +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 12')
 # 
 # 
@@ -2498,25 +2526,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_14/o_sp_14.csv')
-# o_sp_14_empirical = read_input_sfs_original(
+# plot_likelihood_surface('../Analysis/qp_gut_14/oscillibacter_sp_14.csv')
+# oscillibacter_sp_14_empirical = read_input_sfs_original(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_sfs.txt'
 # )
-# o_sp_14_one_epoch = sfs_from_demography(
+# oscillibacter_sp_14_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_14/one_epoch_demography.txt'
 # )
-# o_sp_14_two_epoch = sfs_from_demography(
+# oscillibacter_sp_14_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_14/two_epoch_demography.txt'
 # )
-# compare_sfs(o_sp_14_empirical,
-#             o_sp_14_one_epoch,
-#             o_sp_14_two_epoch) +
+# compare_sfs(oscillibacter_sp_14_empirical,
+#             oscillibacter_sp_14_one_epoch,
+#             oscillibacter_sp_14_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 14')
 # 
-# compare_sfs(proportional_sfs(o_sp_14_empirical),
-#             proportional_sfs(o_sp_14_one_epoch),
-#             proportional_sfs(o_sp_14_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_14_empirical),
+#             proportional_sfs(oscillibacter_sp_14_one_epoch),
+#             proportional_sfs(oscillibacter_sp_14_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 14')
 # 
 # 
@@ -2613,25 +2641,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Phascolarctobacterium sp.
-# plot_likelihood_surface('../Analysis/qp_gut_14/p_sp_14.csv')
-# p_sp_14_empirical = read_input_sfs_original(
+# plot_likelihood_surface('../Analysis/qp_gut_14/phascolarctobacterium_sp_14.csv')
+# phascolarctobacterium_sp_14_empirical = read_input_sfs_original(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_sfs.txt'
 # )
-# p_sp_14_one_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_14_one_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/one_epoch_demography.txt'
 # )
-# p_sp_14_two_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_14_two_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/two_epoch_demography.txt'
 # )
-# compare_sfs(p_sp_14_empirical,
-#             p_sp_14_one_epoch,
-#             p_sp_14_two_epoch) +
+# compare_sfs(phascolarctobacterium_sp_14_empirical,
+#             phascolarctobacterium_sp_14_one_epoch,
+#             phascolarctobacterium_sp_14_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 14')
 # 
-# compare_sfs(proportional_sfs(p_sp_14_empirical),
-#             proportional_sfs(p_sp_14_one_epoch),
-#             proportional_sfs(p_sp_14_two_epoch)) +
+# compare_sfs(proportional_sfs(phascolarctobacterium_sp_14_empirical),
+#             proportional_sfs(phascolarctobacterium_sp_14_one_epoch),
+#             proportional_sfs(phascolarctobacterium_sp_14_two_epoch)) +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 14')
 # 
 # 
@@ -3124,25 +3152,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_16/o_sp_16.csv')
-# o_sp_16_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_16/oscillibacter_sp_16.csv')
+# oscillibacter_sp_16_empirical =  read_input_sfs(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_16/empirical_sfs.txt'
 # )
-# o_sp_16_one_epoch = sfs_from_demography(
+# oscillibacter_sp_16_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_16/one_epoch_demography.txt'
 # )
-# o_sp_16_two_epoch = sfs_from_demography(
+# oscillibacter_sp_16_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_16/two_epoch_demography.txt'
 # )
-# compare_sfs(o_sp_16_empirical,
-#             o_sp_16_one_epoch,
-#             o_sp_16_two_epoch) +
+# compare_sfs(oscillibacter_sp_16_empirical,
+#             oscillibacter_sp_16_one_epoch,
+#             oscillibacter_sp_16_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 16')
 # 
-# compare_sfs(proportional_sfs(o_sp_16_empirical),
-#             proportional_sfs(o_sp_16_one_epoch),
-#             proportional_sfs(o_sp_16_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_16_empirical),
+#             proportional_sfs(oscillibacter_sp_16_one_epoch),
+#             proportional_sfs(oscillibacter_sp_16_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 16')
 # 
 # 
@@ -3239,25 +3267,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Phascolarctobacterium sp.
-# plot_likelihood_surface('../Analysis/qp_gut_16/p_sp_16.csv')
-# p_sp_16_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_16/phascolarctobacterium_sp_16.csv')
+# phascolarctobacterium_sp_16_empirical =  read_input_sfs(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_16/empirical_sfs.txt'
 # )
-# p_sp_16_one_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_16_one_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_16/one_epoch_demography.txt'
 # )
-# p_sp_16_two_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_16_two_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_16/two_epoch_demography.txt'
 # )
-# compare_sfs(p_sp_16_empirical,
-#             p_sp_16_one_epoch,
-#             p_sp_16_two_epoch) +
+# compare_sfs(phascolarctobacterium_sp_16_empirical,
+#             phascolarctobacterium_sp_16_one_epoch,
+#             phascolarctobacterium_sp_16_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 16')
 # 
-# compare_sfs(proportional_sfs(p_sp_16_empirical),
-#             proportional_sfs(p_sp_16_one_epoch),
-#             proportional_sfs(p_sp_16_two_epoch)) +
+# compare_sfs(proportional_sfs(phascolarctobacterium_sp_16_empirical),
+#             proportional_sfs(phascolarctobacterium_sp_16_one_epoch),
+#             proportional_sfs(phascolarctobacterium_sp_16_two_epoch)) +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 16')
 # 
 # 
@@ -3749,25 +3777,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_18/o_sp_18.csv')
-# o_sp_18_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_18/oscillibacter_sp_18.csv')
+# oscillibacter_sp_18_empirical =  read_input_sfs(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_18/empirical_sfs.txt'
 # )
-# o_sp_18_one_epoch = sfs_from_demography(
+# oscillibacter_sp_18_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_18/one_epoch_demography.txt'
 # )
-# o_sp_18_two_epoch = sfs_from_demography(
+# oscillibacter_sp_18_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_18/two_epoch_demography.txt'
 # )
-# compare_sfs(o_sp_18_empirical,
-#             o_sp_18_one_epoch,
-#             o_sp_18_two_epoch) +
+# compare_sfs(oscillibacter_sp_18_empirical,
+#             oscillibacter_sp_18_one_epoch,
+#             oscillibacter_sp_18_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 18')
 # 
-# compare_sfs(proportional_sfs(o_sp_18_empirical),
-#             proportional_sfs(o_sp_18_one_epoch),
-#             proportional_sfs(o_sp_18_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_18_empirical),
+#             proportional_sfs(oscillibacter_sp_18_one_epoch),
+#             proportional_sfs(oscillibacter_sp_18_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 18')
 # 
 # 
@@ -3864,25 +3892,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Phascolarctobacterium sp.
-# # plot_likelihood_surface('../Analysis/qp_gut_18/p_sp_18.csv')
-# # p_sp_18_empirical =  read_input_sfs(
+# # plot_likelihood_surface('../Analysis/qp_gut_18/phascolarctobacterium_sp_18.csv')
+# # phascolarctobacterium_sp_18_empirical =  read_input_sfs(
 # #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_18/empirical_sfs.txt'
 # # )
-# # p_sp_18_one_epoch = sfs_from_demography(
+# # phascolarctobacterium_sp_18_one_epoch = sfs_from_demography(
 # #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_18/one_epoch_demography.txt'
 # # )
-# # p_sp_18_two_epoch = sfs_from_demography(
+# # phascolarctobacterium_sp_18_two_epoch = sfs_from_demography(
 # #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_18/two_epoch_demography.txt'
 # # )
-# # compare_sfs(p_sp_18_empirical,
-# #             p_sp_18_one_epoch,
-# #             p_sp_18_two_epoch) +
+# # compare_sfs(phascolarctobacterium_sp_18_empirical,
+# #             phascolarctobacterium_sp_18_one_epoch,
+# #             phascolarctobacterium_sp_18_two_epoch) +
 # #   ylab('Raw Count of Segregating Sites') +
 # #   ggtitle('Phascolarctobacterium sp. Downsampled to 18')
 # # 
-# # compare_sfs(proportional_sfs(p_sp_18_empirical),
-# #             proportional_sfs(p_sp_18_one_epoch),
-# #             proportional_sfs(p_sp_18_two_epoch)) +
+# # compare_sfs(proportional_sfs(phascolarctobacterium_sp_18_empirical),
+# #             proportional_sfs(phascolarctobacterium_sp_18_one_epoch),
+# #             proportional_sfs(phascolarctobacterium_sp_18_two_epoch)) +
 # #   ggtitle('Phascolarctobacterium sp. Downsampled to 18')
 # # 
 # # 
@@ -4374,25 +4402,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_20/o_sp_20.csv')
-# o_sp_20_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_20/oscillibacter_sp_20.csv')
+# oscillibacter_sp_20_empirical =  read_input_sfs(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_20/empirical_sfs.txt'
 # )
-# o_sp_20_one_epoch = sfs_from_demography(
+# oscillibacter_sp_20_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_20/one_epoch_demography.txt'
 # )
-# o_sp_20_two_epoch = sfs_from_demography(
+# oscillibacter_sp_20_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_20/two_epoch_demography.txt'
 # )
-# compare_sfs(o_sp_20_empirical,
-#             o_sp_20_one_epoch,
-#             o_sp_20_two_epoch) +
+# compare_sfs(oscillibacter_sp_20_empirical,
+#             oscillibacter_sp_20_one_epoch,
+#             oscillibacter_sp_20_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 20')
 # 
-# compare_sfs(proportional_sfs(o_sp_20_empirical),
-#             proportional_sfs(o_sp_20_one_epoch),
-#             proportional_sfs(o_sp_20_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_20_empirical),
+#             proportional_sfs(oscillibacter_sp_20_one_epoch),
+#             proportional_sfs(oscillibacter_sp_20_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 20')
 # 
 # 
@@ -4489,25 +4517,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Phascolarctobacterium sp.
-# plot_likelihood_surface('../Analysis/qp_gut_20/p_sp_20.csv')
-# p_sp_20_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_20/phascolarctobacterium_sp_20.csv')
+# phascolarctobacterium_sp_20_empirical =  read_input_sfs(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_20/empirical_sfs.txt'
 # )
-# p_sp_20_one_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_20_one_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_20/one_epoch_demography.txt'
 # )
-# p_sp_20_two_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_20_two_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_20/two_epoch_demography.txt'
 # )
-# compare_sfs(p_sp_20_empirical,
-#             p_sp_20_one_epoch,
-#             p_sp_20_two_epoch) +
+# compare_sfs(phascolarctobacterium_sp_20_empirical,
+#             phascolarctobacterium_sp_20_one_epoch,
+#             phascolarctobacterium_sp_20_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 20')
 # 
-# compare_sfs(proportional_sfs(p_sp_20_empirical),
-#             proportional_sfs(p_sp_20_one_epoch),
-#             proportional_sfs(p_sp_20_two_epoch)) +
+# compare_sfs(proportional_sfs(phascolarctobacterium_sp_20_empirical),
+#             proportional_sfs(phascolarctobacterium_sp_20_one_epoch),
+#             proportional_sfs(phascolarctobacterium_sp_20_two_epoch)) +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 20')
 # 
 # 
@@ -4999,25 +5027,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Oscillibacter sp.
-# plot_likelihood_surface('../Analysis/qp_gut_30/o_sp_30.csv')
-# o_sp_30_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_30/oscillibacter_sp_30.csv')
+# oscillibacter_sp_30_empirical =  read_input_sfs(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_30/empirical_sfs.txt'
 # )
-# o_sp_30_one_epoch = sfs_from_demography(
+# oscillibacter_sp_30_one_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_30/one_epoch_demography.txt'
 # )
-# o_sp_30_two_epoch = sfs_from_demography(
+# oscillibacter_sp_30_two_epoch = sfs_from_demography(
 #   '../Analysis/Oscillibacter_sp_60799_downsampled_30/two_epoch_demography.txt'
 # )
-# compare_sfs(o_sp_30_empirical,
-#             o_sp_30_one_epoch,
-#             o_sp_30_two_epoch) +
+# compare_sfs(oscillibacter_sp_30_empirical,
+#             oscillibacter_sp_30_one_epoch,
+#             oscillibacter_sp_30_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Oscillibacter sp. Downsampled to 30')
 # 
-# compare_sfs(proportional_sfs(o_sp_30_empirical),
-#             proportional_sfs(o_sp_30_one_epoch),
-#             proportional_sfs(o_sp_30_two_epoch)) +
+# compare_sfs(proportional_sfs(oscillibacter_sp_30_empirical),
+#             proportional_sfs(oscillibacter_sp_30_one_epoch),
+#             proportional_sfs(oscillibacter_sp_30_two_epoch)) +
 #   ggtitle('Oscillibacter sp. Downsampled to 30')
 # 
 # 
@@ -5114,25 +5142,25 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # 
 # # Phascolarctobacterium sp.
-# plot_likelihood_surface('../Analysis/qp_gut_30/p_sp_30.csv')
-# p_sp_30_empirical =  read_input_sfs(
+# plot_likelihood_surface('../Analysis/qp_gut_30/phascolarctobacterium_sp_30.csv')
+# phascolarctobacterium_sp_30_empirical =  read_input_sfs(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_30/empirical_sfs.txt'
 # )
-# p_sp_30_one_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_30_one_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_30/one_epoch_demography.txt'
 # )
-# p_sp_30_two_epoch = sfs_from_demography(
+# phascolarctobacterium_sp_30_two_epoch = sfs_from_demography(
 #   '../Analysis/Phascolarctobacterium_sp_59817_downsampled_30/two_epoch_demography.txt'
 # )
-# compare_sfs(p_sp_30_empirical,
-#             p_sp_30_one_epoch,
-#             p_sp_30_two_epoch) +
+# compare_sfs(phascolarctobacterium_sp_30_empirical,
+#             phascolarctobacterium_sp_30_one_epoch,
+#             phascolarctobacterium_sp_30_two_epoch) +
 #   ylab('Raw Count of Segregating Sites') +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 30')
 # 
-# compare_sfs(proportional_sfs(p_sp_30_empirical),
-#             proportional_sfs(p_sp_30_one_epoch),
-#             proportional_sfs(p_sp_30_two_epoch)) +
+# compare_sfs(proportional_sfs(phascolarctobacterium_sp_30_empirical),
+#             proportional_sfs(phascolarctobacterium_sp_30_one_epoch),
+#             proportional_sfs(phascolarctobacterium_sp_30_two_epoch)) +
 #   ggtitle('Phascolarctobacterium sp. Downsampled to 30')
 # 
 # 
@@ -5217,10 +5245,10 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # plot_original_empirical_sfs(e_rectale_original_empirical) + ggtitle('E. rectale full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(f_prausnitzii_original_empirical) + ggtitle('F. prausnitzii full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(o_splanchnicus_original_empirical) + ggtitle('O. splanchnicus full empirical SFS (unfolded + Clade Control)')
-# plot_original_empirical_sfs(o_sp_original_empirical) + ggtitle('Oscillibacter sp full empirical SFS (unfolded + Clade Control)')
+# plot_original_empirical_sfs(oscillibacter_sp_original_empirical) + ggtitle('Oscillibacter sp full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(p_distasonis_original_empirical) + ggtitle('P. distasonis full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(p_merdae_original_empirical) + ggtitle('P. merdae full empirical SFS (unfolded + Clade Control)')
-# plot_original_empirical_sfs(p_sp_original_empirical) + ggtitle('Phascolarctobacterium sp. full empirical SFS (unfolded + Clade Control)')
+# plot_original_empirical_sfs(phascolarctobacterium_sp_original_empirical) + ggtitle('Phascolarctobacterium sp. full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(p_copri_original_empirical) + ggtitle('P. copri full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(r_bicirculans_original_empirical) + ggtitle('R. bicirculans full empirical SFS (unfolded + Clade Control)')
 # plot_original_empirical_sfs(r_bromii_original_empirical) + ggtitle('R. bromii full empirical SFS (unfolded + Clade Control)')
@@ -5250,10 +5278,10 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # plot_original_empirical_sfs(fold_sfs(e_rectale_original_empirical)) + ggtitle('E. rectale full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(f_prausnitzii_original_empirical)) + ggtitle('F. prausnitzii full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(o_splanchnicus_original_empirical)) + ggtitle('O. splanchnicus full empirical SFS (folded + Clade Control)')
-# plot_original_empirical_sfs(fold_sfs(o_sp_original_empirical)) + ggtitle('Oscillibacter sp full empirical SFS (folded + Clade Control)')
+# plot_original_empirical_sfs(fold_sfs(oscillibacter_sp_original_empirical)) + ggtitle('Oscillibacter sp full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(p_distasonis_original_empirical)) + ggtitle('P. distasonis full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(p_merdae_original_empirical)) + ggtitle('P. merdae full empirical SFS (folded + Clade Control)')
-# plot_original_empirical_sfs(fold_sfs(p_sp_original_empirical)) + ggtitle('Phascolarctobacterium sp. full empirical SFS (folded + Clade Control)')
+# plot_original_empirical_sfs(fold_sfs(phascolarctobacterium_sp_original_empirical)) + ggtitle('Phascolarctobacterium sp. full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(p_copri_original_empirical)) + ggtitle('P. copri full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(r_bicirculans_original_empirical)) + ggtitle('R. bicirculans full empirical SFS (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(r_bromii_original_empirical)) + ggtitle('R. bromii full empirical SFS (folded + Clade Control)')
@@ -5283,10 +5311,10 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # e_rectale_no_clade_control = read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_no_clade_control/empirical_sfs.txt')
 # f_prausnitzii_no_clade_control = read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_no_clade_control/empirical_sfs.txt')
 # o_splanchnicus_no_clade_control = read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_no_clade_control/empirical_sfs.txt')
-# o_sp_no_clade_control = read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_no_clade_control/empirical_sfs.txt')
+# oscillibacter_sp_no_clade_control = read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_no_clade_control/empirical_sfs.txt')
 # p_distasonis_no_clade_control = read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_no_clade_control/empirical_sfs.txt')
 # p_merdae_no_clade_control = read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_no_clade_control/empirical_sfs.txt')
-# p_sp_no_clade_control = read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_no_clade_control/empirical_sfs.txt')
+# phascolarctobacterium_sp_no_clade_control = read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_no_clade_control/empirical_sfs.txt')
 # p_copri_no_clade_control = read_input_sfs_original('../Analysis/Prevotella_copri_61740_no_clade_control/empirical_sfs.txt')
 # r_bicirculans_no_clade_control = read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_no_clade_control/empirical_sfs.txt')
 # r_bromii_no_clade_control = read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_no_clade_control/empirical_sfs.txt')
@@ -5338,13 +5366,13 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 #   scale_x_continuous()
 # plot_original_empirical_sfs(o_splanchnicus_no_clade_control) + ggtitle('O. splanchnicus full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
-# plot_original_empirical_sfs(o_sp_no_clade_control) + ggtitle('Oscillibacter sp full empirical SFS (unfolded with no Clade Control)') +
+# plot_original_empirical_sfs(oscillibacter_sp_no_clade_control) + ggtitle('Oscillibacter sp full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(p_distasonis_no_clade_control) + ggtitle('P. distasonis full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(p_merdae_no_clade_control) + ggtitle('P. merdae full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
-# plot_original_empirical_sfs(p_sp_no_clade_control) + ggtitle('Phascolarctobacterium sp. full empirical SFS (unfolded with no Clade Control)') +
+# plot_original_empirical_sfs(phascolarctobacterium_sp_no_clade_control) + ggtitle('Phascolarctobacterium sp. full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(p_copri_no_clade_control) + ggtitle('P. copri full empirical SFS (unfolded with no Clade Control)') +
 #   scale_x_continuous()
@@ -5402,13 +5430,13 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 #   scale_x_continuous()
 # plot_original_empirical_sfs(fold_sfs(o_splanchnicus_no_clade_control)) + ggtitle('O. splanchnicus full empirical SFS (folded with no Clade Control)') +
 #   scale_x_continuous()
-# plot_original_empirical_sfs(fold_sfs(o_sp_no_clade_control)) + ggtitle('Oscillibacter sp full empirical SFS (folded with no Clade Control)') +
+# plot_original_empirical_sfs(fold_sfs(oscillibacter_sp_no_clade_control)) + ggtitle('Oscillibacter sp full empirical SFS (folded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(fold_sfs(p_distasonis_no_clade_control)) + ggtitle('P. distasonis full empirical SFS (folded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(fold_sfs(p_merdae_no_clade_control)) + ggtitle('P. merdae full empirical SFS (folded with no Clade Control)') +
 #   scale_x_continuous()
-# plot_original_empirical_sfs(fold_sfs(p_sp_no_clade_control)) + ggtitle('Phascolarctobacterium sp. full empirical SFS (folded with no Clade Control)') +
+# plot_original_empirical_sfs(fold_sfs(phascolarctobacterium_sp_no_clade_control)) + ggtitle('Phascolarctobacterium sp. full empirical SFS (folded with no Clade Control)') +
 #   scale_x_continuous()
 # plot_original_empirical_sfs(fold_sfs(p_copri_no_clade_control)) + ggtitle('P. copri full empirical SFS (folded with no Clade Control)') +
 #   scale_x_continuous()
@@ -5441,10 +5469,10 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # plot_original_empirical_sfs(fold_sfs(e_rectale_14_empirical)) + ggtitle('E. rectale downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(f_prausnitzii_14_empirical)) + ggtitle('F. prausnitzii downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(o_splanchnicus_14_empirical)) + ggtitle('O. splanchnicus downsampled to 14 (folded + Clade Control)')
-# plot_original_empirical_sfs(fold_sfs(o_sp_14_empirical)) + ggtitle('Oscillibacter sp downsampled to 14 (folded + Clade Control)')
+# plot_original_empirical_sfs(fold_sfs(oscillibacter_sp_14_empirical)) + ggtitle('Oscillibacter sp downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(p_distasonis_14_empirical)) + ggtitle('P. distasonis downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(p_merdae_14_empirical)) + ggtitle('P. merdae downsampled to 14 (folded + Clade Control)')
-# plot_original_empirical_sfs(fold_sfs(p_sp_14_empirical)) + ggtitle('Phascolarctobacterium sp. downsampled to 14 (folded + Clade Control)')
+# plot_original_empirical_sfs(fold_sfs(phascolarctobacterium_sp_14_empirical)) + ggtitle('Phascolarctobacterium sp. downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(p_copri_14_empirical)) + ggtitle('P. copri downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(r_bicirculans_14_empirical)) + ggtitle('R. bicirculans downsampled to 14 (folded + Clade Control)')
 # plot_original_empirical_sfs(fold_sfs(r_bromii_14_empirical)) + ggtitle('R. bromii full empirical SFS (folded + Clade Control))')
@@ -6758,10 +6786,10 @@ e_eligens_orig = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_elige
 e_rectale_orig = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_downsampled_14/downsampled_syn_sfs.txt'))
 f_prausnitzii_orig = fold_sfs(read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/downsampled_syn_sfs.txt'))
 o_splanchnicus_orig = fold_sfs(read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/downsampled_syn_sfs.txt'))
-o_sp_orig = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/downsampled_syn_sfs.txt'))
+oscillibacter_sp_orig = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/downsampled_syn_sfs.txt'))
 p_distasonis_orig = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/downsampled_syn_sfs.txt'))
 p_merdae_orig = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_downsampled_14/downsampled_syn_sfs.txt'))
-p_sp_orig = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/downsampled_syn_sfs.txt'))
+phascolarctobacterium_sp_orig = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/downsampled_syn_sfs.txt'))
 p_copri_orig = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61740_downsampled_14/downsampled_syn_sfs.txt'))
 r_bicirculans_orig = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/downsampled_syn_sfs.txt'))
 r_bromii_orig = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/downsampled_syn_sfs.txt'))
@@ -6789,10 +6817,10 @@ e_eligens_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium
 e_rectale_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 f_prausnitzii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 o_splanchnicus_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-o_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+oscillibacter_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 p_distasonis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 p_merdae_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_syn_downsampled_sfs.txt'))
-p_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt'))
+phascolarctobacterium_sp_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 p_copri_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61740_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 r_bicirculans_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_syn_downsampled_sfs.txt'))
 r_bromii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_syn_downsampled_sfs.txt'))
@@ -6820,10 +6848,10 @@ e_eligens_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Eubacter
 e_rectale_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 f_prausnitzii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 o_splanchnicus_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
-o_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+oscillibacter_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 p_distasonis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 p_merdae_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Parabacteroides_merdae_56972_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
-p_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
+phascolarctobacterium_sp_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 p_copri_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Prevotella_copri_61740_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 r_bicirculans_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
 r_bromii_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../Analysis/Ruminococcus_bromii_62047_downsampled_14/empirical_nonsyn_downsampled_sfs.txt'))
@@ -6837,7 +6865,7 @@ a_putredinis_complete_two_epoch = sfs_from_demography('../Analysis/Alistipes_put
 a_shahii_complete_two_epoch = sfs_from_demography('../Analysis/Alistipes_shahii_62199_downsampled_14/complete_two_epoch_demography.txt') 
 b_bacterium_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/complete_two_epoch_demography.txt') 
 b_caccae_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_caccae_53434_downsampled_14/complete_two_epoch_demography.txt') 
-b_cellulsilyticus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete_two_epoch_demography.txt') 
+b_cellulosilyticus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/complete_two_epoch_demography.txt') 
 b_fragilis_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_two_epoch_demography.txt') 
 b_ovatus_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_ovatus_58035_downsampled_14/complete_two_epoch_demography.txt') 
 b_stercoris_complete_two_epoch = sfs_from_demography('../Analysis/Bacteroides_stercoris_56735_downsampled_14/complete_two_epoch_demography.txt') 
@@ -6851,10 +6879,10 @@ e_eligens_complete_two_epoch = sfs_from_demography('../Analysis/Eubacterium_elig
 e_rectale_complete_two_epoch = sfs_from_demography('../Analysis/Eubacterium_rectale_56927_downsampled_14/complete_two_epoch_demography.txt') 
 f_prausnitzii_complete_two_epoch = sfs_from_demography('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/complete_two_epoch_demography.txt') 
 o_splanchnicus_complete_two_epoch = sfs_from_demography('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete_two_epoch_demography.txt') 
-o_sp_complete_two_epoch = sfs_from_demography('../Analysis/Oscillibacter_sp_60799_downsampled_14/complete_two_epoch_demography.txt') 
+oscillibacter_sp_complete_two_epoch = sfs_from_demography('../Analysis/Oscillibacter_sp_60799_downsampled_14/complete_two_epoch_demography.txt') 
 p_distasonis_complete_two_epoch = sfs_from_demography('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete_two_epoch_demography.txt') 
 p_merdae_complete_two_epoch = sfs_from_demography('../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_two_epoch_demography.txt') 
-p_sp_complete_two_epoch = sfs_from_demography('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete_two_epoch_demography.txt') 
+phascolarctobacterium_sp_complete_two_epoch = sfs_from_demography('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete_two_epoch_demography.txt') 
 p_copri_complete_two_epoch = sfs_from_demography('../Analysis/Prevotella_copri_61740_downsampled_14/complete_two_epoch_demography.txt') 
 r_bicirculans_complete_two_epoch = sfs_from_demography('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete_two_epoch_demography.txt') 
 r_bromii_complete_two_epoch = sfs_from_demography('../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_two_epoch_demography.txt') 
@@ -6880,10 +6908,10 @@ e_eligens_complete_three_epoch = sfs_from_demography('../Analysis/Eubacterium_el
 e_rectale_complete_three_epoch = sfs_from_demography('../Analysis/Eubacterium_rectale_56927_downsampled_14/complete_three_epoch_demography.txt') 
 f_prausnitzii_complete_three_epoch = sfs_from_demography('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/complete_three_epoch_demography.txt') 
 o_splanchnicus_complete_three_epoch = sfs_from_demography('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/complete_three_epoch_demography.txt') 
-o_sp_complete_three_epoch = sfs_from_demography('../Analysis/Oscillibacter_sp_60799_downsampled_14/complete_three_epoch_demography.txt') 
+oscillibacter_sp_complete_three_epoch = sfs_from_demography('../Analysis/Oscillibacter_sp_60799_downsampled_14/complete_three_epoch_demography.txt') 
 p_distasonis_complete_three_epoch = sfs_from_demography('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/complete_three_epoch_demography.txt') 
 p_merdae_complete_three_epoch = sfs_from_demography('../Analysis/Parabacteroides_merdae_56972_downsampled_14/complete_three_epoch_demography.txt') 
-p_sp_complete_three_epoch = sfs_from_demography('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete_three_epoch_demography.txt') 
+phascolarctobacterium_sp_complete_three_epoch = sfs_from_demography('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/complete_three_epoch_demography.txt') 
 p_copri_complete_three_epoch = sfs_from_demography('../Analysis/Prevotella_copri_61740_downsampled_14/complete_three_epoch_demography.txt') 
 r_bicirculans_complete_three_epoch = sfs_from_demography('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/complete_three_epoch_demography.txt') 
 r_bromii_complete_three_epoch = sfs_from_demography('../Analysis/Ruminococcus_bromii_62047_downsampled_14/complete_three_epoch_demography.txt') 
@@ -6909,10 +6937,10 @@ e_eligens_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Eubacterium_elige
 e_rectale_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/inferred_DFE.txt') 
 f_prausnitzii_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/inferred_DFE.txt') 
 o_splanchnicus_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt') 
-o_sp_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt') 
+oscillibacter_sp_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt') 
 p_distasonis_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt') 
 p_merdae_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt') 
-p_sp_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt') 
+phascolarctobacterium_sp_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt') 
 p_copri_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt') 
 r_bicirculans_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/inferred_DFE.txt') 
 r_bromii_complete_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt') 
@@ -6938,10 +6966,10 @@ e_eligens_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Eubacterium
 e_rectale_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/inferred_DFE.txt') 
 f_prausnitzii_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/inferred_DFE.txt') 
 o_splanchnicus_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt') 
-o_sp_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt') 
+oscillibacter_sp_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt') 
 p_distasonis_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt') 
 p_merdae_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt') 
-p_sp_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt') 
+phascolarctobacterium_sp_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt') 
 p_copri_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt') 
 r_bicirculans_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/inferred_DFE.txt') 
 r_bromii_complete_neugamma_dfe = neugamma_sfs_from_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/inferred_DFE.txt') 
@@ -6953,7 +6981,7 @@ compare_hmp_sfs(a_putredinis_hmp_qp_syn, one_epoch_14, a_putredinis_complete_two
 compare_hmp_sfs(a_shahii_hmp_qp_syn, one_epoch_14, a_shahii_complete_two_epoch, a_shahii_complete_three_epoch, a_shahii_hmp_qp_nonsyn, a_shahii_complete_gamma_dfe, a_shahii_complete_neugamma_dfe) + ggtitle('Alistipes shahii (Downsampled to 14)')
 compare_hmp_sfs(b_bacterium_hmp_qp_syn, one_epoch_14, b_bacterium_complete_two_epoch, b_bacterium_complete_three_epoch, b_bacterium_hmp_qp_nonsyn, b_bacterium_complete_gamma_dfe, b_bacterium_complete_neugamma_dfe) + ggtitle('B. bacterium (Downsampled to 14)')
 compare_hmp_sfs(b_caccae_hmp_qp_syn, one_epoch_14, b_caccae_complete_two_epoch, b_caccae_complete_three_epoch, b_caccae_hmp_qp_nonsyn, b_caccae_complete_gamma_dfe, b_caccae_complete_neugamma_dfe) + ggtitle('B. caccae (Downsampled to 14)')
-compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulsilyticus_complete_two_epoch, b_cellulosilyticus_complete_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_gamma_dfe, b_cellulosilyticus_complete_neugamma_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
+compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulosilyticus_complete_two_epoch, b_cellulosilyticus_complete_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_gamma_dfe, b_cellulosilyticus_complete_neugamma_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
 compare_hmp_sfs(b_fragilis_hmp_qp_syn, one_epoch_14, b_fragilis_complete_two_epoch, b_fragilis_complete_three_epoch, b_fragilis_hmp_qp_nonsyn, b_fragilis_complete_gamma_dfe, b_fragilis_complete_neugamma_dfe) + ggtitle('B. fragilis (Downsampled to 14)')
 compare_hmp_sfs(b_ovatus_hmp_qp_syn, one_epoch_14, b_ovatus_complete_two_epoch, b_ovatus_complete_three_epoch, b_ovatus_hmp_qp_nonsyn, b_ovatus_complete_gamma_dfe, b_ovatus_complete_neugamma_dfe) + ggtitle('B. ovatus (Downsampled to 14)')
 compare_hmp_sfs(b_stercoris_hmp_qp_syn, one_epoch_14, b_stercoris_complete_two_epoch, b_stercoris_complete_three_epoch, b_stercoris_hmp_qp_nonsyn, b_stercoris_complete_gamma_dfe, b_stercoris_complete_neugamma_dfe) + ggtitle('B. stercoris (Downsampled to 14)')
@@ -6967,10 +6995,10 @@ compare_hmp_sfs(e_eligens_hmp_qp_syn, one_epoch_14, e_eligens_complete_two_epoch
 compare_hmp_sfs(e_rectale_hmp_qp_syn, one_epoch_14, e_rectale_complete_two_epoch, e_rectale_complete_three_epoch, e_rectale_hmp_qp_nonsyn, e_rectale_complete_gamma_dfe, e_rectale_complete_neugamma_dfe) + ggtitle('E. rectale (Downsampled to 14)')
 compare_hmp_sfs(f_prausnitzii_hmp_qp_syn, one_epoch_14, f_prausnitzii_complete_two_epoch, f_prausnitzii_complete_three_epoch, f_prausnitzii_hmp_qp_nonsyn, f_prausnitzii_complete_gamma_dfe, f_prausnitzii_complete_neugamma_dfe) + ggtitle('F. prausnitzii (Downsampled to 14)')
 compare_hmp_sfs(o_splanchnicus_hmp_qp_syn, one_epoch_14, o_splanchnicus_complete_two_epoch, o_splanchnicus_complete_three_epoch,  o_splanchnicus_hmp_qp_nonsyn, o_splanchnicus_complete_gamma_dfe, o_splanchnicus_complete_neugamma_dfe) + ggtitle('O. splanchnicus (Downsampled to 14)')
-compare_hmp_sfs(o_sp_hmp_qp_syn, one_epoch_14, o_sp_complete_two_epoch, o_sp_complete_three_epoch, o_sp_hmp_qp_nonsyn, o_sp_complete_gamma_dfe, o_sp_complete_neugamma_dfe) + ggtitle('Oscillibacter sp. (Downsampled to 14)')
+compare_hmp_sfs(oscillibacter_sp_hmp_qp_syn, one_epoch_14, oscillibacter_sp_complete_two_epoch, oscillibacter_sp_complete_three_epoch, oscillibacter_sp_hmp_qp_nonsyn, oscillibacter_sp_complete_gamma_dfe, oscillibacter_sp_complete_neugamma_dfe) + ggtitle('Oscillibacter sp. (Downsampled to 14)')
 compare_hmp_sfs(p_distasonis_hmp_qp_syn, one_epoch_14, p_distasonis_complete_two_epoch, p_distasonis_complete_three_epoch, p_distasonis_hmp_qp_nonsyn, p_distasonis_complete_gamma_dfe, p_distasonis_complete_neugamma_dfe) + ggtitle('P. distasonis (Downsampled to 14)')
 compare_hmp_sfs(p_merdae_hmp_qp_syn, one_epoch_14, p_merdae_complete_two_epoch, p_merdae_complete_three_epoch, p_merdae_hmp_qp_nonsyn, p_merdae_complete_gamma_dfe, p_merdae_complete_neugamma_dfe) + ggtitle('P. merdae (Downsampled to 14)')
-compare_hmp_sfs(p_sp_hmp_qp_syn, one_epoch_14, p_sp_complete_two_epoch, p_sp_complete_three_epoch, p_sp_hmp_qp_nonsyn, p_sp_complete_gamma_dfe, p_sp_complete_neugamma_dfe) + ggtitle('Phascolarctobacterium sp. (Downsampled to 14)')
+compare_hmp_sfs(phascolarctobacterium_sp_hmp_qp_syn, one_epoch_14, phascolarctobacterium_sp_complete_two_epoch, phascolarctobacterium_sp_complete_three_epoch, phascolarctobacterium_sp_hmp_qp_nonsyn, phascolarctobacterium_sp_complete_gamma_dfe, phascolarctobacterium_sp_complete_neugamma_dfe) + ggtitle('Phascolarctobacterium sp. (Downsampled to 14)')
 compare_hmp_sfs(p_copri_hmp_qp_syn, one_epoch_14, p_copri_complete_two_epoch, p_copri_complete_three_epoch, p_copri_hmp_qp_nonsyn, p_copri_complete_gamma_dfe, p_copri_complete_neugamma_dfe) + ggtitle('P. copri (Downsampled to 14)')
 compare_hmp_sfs(r_bicirculans_hmp_qp_syn, one_epoch_14, r_bicirculans_complete_two_epoch, r_bicirculans_complete_three_epoch, r_bicirculans_hmp_qp_nonsyn, r_bicirculans_complete_gamma_dfe, r_bicirculans_complete_neugamma_dfe) + ggtitle('R. bicirculans (Downsampled to 14)')
 compare_hmp_sfs(r_bromii_hmp_qp_syn, one_epoch_14, r_bromii_complete_two_epoch, r_bromii_complete_three_epoch, r_bromii_hmp_qp_nonsyn, r_bromii_complete_gamma_dfe, r_bromii_complete_neugamma_dfe) + ggtitle('R. bromii (Downsampled to 14)')
@@ -7120,8 +7148,8 @@ f_prausnitzii_dfe_params$species = 'Faecalibacterium prausnitzii'
 o_splanchnicus_dfe_params = read_dfe_params('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt')
 o_splanchnicus_dfe_params$species = 'Odoribacter splanchnicus'
 
-o_sp_dfe_params = read_dfe_params('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt')
-o_sp_dfe_params$species = 'Oscillibacter species'
+oscillibacter_sp_dfe_params = read_dfe_params('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt')
+oscillibacter_sp_dfe_params$species = 'Oscillibacter species'
 
 p_distasonis_dfe_params = read_dfe_params('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt')
 p_distasonis_dfe_params$species = 'Parabacteroides distasonis'
@@ -7129,8 +7157,8 @@ p_distasonis_dfe_params$species = 'Parabacteroides distasonis'
 p_merdae_dfe_params = read_dfe_params('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt')
 p_merdae_dfe_params$species = 'Parabacteroides merdae'
 
-p_sp_dfe_params = read_dfe_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
-p_sp_dfe_params$species = 'Phascolarctobacterium species'
+phascolarctobacterium_sp_dfe_params = read_dfe_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
+phascolarctobacterium_sp_dfe_params$species = 'Phascolarctobacterium species'
 
 p_copri_dfe_params = read_dfe_params('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt')
 p_copri_dfe_params$species = 'Prevotella copri'
@@ -7206,8 +7234,8 @@ f_prausnitzii_dfe_dadi_params$species = 'Faecalibacterium prausnitzii'
 o_splanchnicus_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/inferred_DFE.txt')
 o_splanchnicus_dfe_dadi_params$species = 'Odoribacter splanchnicus'
 
-o_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt')
-o_sp_dfe_dadi_params$species = 'Oscillibacter species'
+oscillibacter_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Oscillibacter_sp_60799_downsampled_14/inferred_DFE.txt')
+oscillibacter_sp_dfe_dadi_params$species = 'Oscillibacter species'
 
 p_distasonis_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/inferred_DFE.txt')
 p_distasonis_dfe_dadi_params$species = 'Parabacteroides distasonis'
@@ -7215,8 +7243,8 @@ p_distasonis_dfe_dadi_params$species = 'Parabacteroides distasonis'
 p_merdae_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Parabacteroides_merdae_56972_downsampled_14/inferred_DFE.txt')
 p_merdae_dfe_dadi_params$species = 'Parabacteroides merdae'
 
-p_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
-p_sp_dfe_dadi_params$species = 'Phascolarctobacterium species'
+phascolarctobacterium_sp_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/inferred_DFE.txt')
+phascolarctobacterium_sp_dfe_dadi_params$species = 'Phascolarctobacterium species'
 
 p_copri_dfe_dadi_params = read_dfe_dadi_params('../Analysis/Prevotella_copri_61740_downsampled_14/inferred_DFE.txt')
 p_copri_dfe_dadi_params$species = 'Prevotella copri'
@@ -7249,10 +7277,10 @@ dfe_df = rbind(
   melt(e_rectale_dfe_params),
   melt(f_prausnitzii_dfe_params),
   melt(o_splanchnicus_dfe_params),
-  melt(o_sp_dfe_params),
+  melt(oscillibacter_sp_dfe_params),
   melt(p_distasonis_dfe_params),
   melt(p_merdae_dfe_params),
-  melt(p_sp_dfe_params),
+  melt(phascolarctobacterium_sp_dfe_params),
   melt(p_copri_dfe_params),
   melt(r_bicirculans_dfe_params),
   melt(r_bromii_dfe_params)
@@ -7280,10 +7308,10 @@ dfe_dadi_df = rbind(
   melt(e_rectale_dfe_dadi_params),
   melt(f_prausnitzii_dfe_dadi_params),
   melt(o_splanchnicus_dfe_dadi_params),
-  melt(o_sp_dfe_dadi_params),
+  melt(oscillibacter_sp_dfe_dadi_params),
   melt(p_distasonis_dfe_dadi_params),
   melt(p_merdae_dfe_dadi_params),
-  melt(p_sp_dfe_dadi_params),
+  melt(phascolarctobacterium_sp_dfe_dadi_params),
   melt(p_copri_dfe_dadi_params),
   melt(r_bicirculans_dfe_dadi_params),
   melt(r_bromii_dfe_dadi_params)
@@ -7298,38 +7326,8 @@ dfe_dadi_df = rbind(
 ## However, s is for the heterozygote case.
 
 phylogenetic_levels = c(
-  'Akkermansia muciniphila',
-  'Alistipes finegoldii',
-  'Alistipes onderdonkii',
-  'Alistipes putredinis',
-  'Alistipes shahii',
   'Bacteroidales bacterium',
-  'Bacteroides caccae',
-  'Bacteroides cellulosilyticus',
-  'Bacteroides fragilis',
-  # 'Bacteroides ovatus',
-  'Bacteroides stercoris',
-  'Bacteroides thetaiotaomicron',
-  # 'Bacteroides uniformis',
-  'Bacteroides vulgatus',
-  'Bacteroides xylanisolvens',
-  'Barnesiella intestinihominis',
-  'Odoribacter splanchnicus',
-  'Parabacteroides distasonis',
-  'Parabacteroides merdae',
-  'Prevotella copri',
-  'Eubacterium eligens',
-  'Eubacterium rectale',
-  'Faecalibacterium prausnitzii',
-  'Ruminococcus bicirculans',
-  'Ruminococcus bromii',
-  'Oscillibacter species',
-  # 'Dialister invisus',
-  'Phascolarctobacterium species')
-
-phylogenetic_levels = c(
-  'Bacteroidales bacterium',
-  'Alistipes putredinis',
+  # 'Alistipes putredinis',
   'Alistipes finegoldii',
   'Alistipes onderdonkii',
   'Alistipes shahii',
@@ -7600,27 +7598,117 @@ plot_original_empirical_sfs(b_vulgatus_no_clade_control) + ggtitle('B. vulgatus 
   xlab('Allele Frequency')
 
 
-compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulsilyticus_complete_two_epoch, b_cellulosilyticus_complete_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_gamma_dfe, b_cellulosilyticus_complete_neugamma_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
+compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulosilyticus_complete_two_epoch, b_cellulosilyticus_complete_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_gamma_dfe, b_cellulosilyticus_complete_neugamma_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
 compare_hmp_sfs(e_eligens_hmp_qp_syn, one_epoch_14, e_eligens_complete_two_epoch, e_eligens_complete_three_epoch, e_eligens_hmp_qp_nonsyn, e_eligens_complete_gamma_dfe, e_eligens_complete_neugamma_dfe) + ggtitle('E. eligens (Downsampled to 14)')
 compare_hmp_sfs(b_ovatus_hmp_qp_syn, one_epoch_14, b_ovatus_complete_two_epoch, b_ovatus_complete_three_epoch, b_ovatus_hmp_qp_nonsyn, b_ovatus_complete_gamma_dfe, b_ovatus_complete_neugamma_dfe) + ggtitle('B. ovatus (Downsampled to 14)')
 
 x_axis = 1:length(one_epoch_14)
 
-o_splanchnicus_best_fit = cbind(
-  proportional_sfs(o_splanchnicus_hmp_qp_syn[-1]),
-  proportional_sfs(o_splanchnicus_complete_two_epoch),
-  proportional_sfs(o_splanchnicus_hmp_qp_nonsyn[-1]),
-  proportional_sfs(o_splanchnicus_complete_gamma_dfe),
-  rep('O. splanchnicus', length(o_splanchnicus_hmp_qp_syn[-1])),
+a_muciniphila_best_fit = cbind(
+  proportional_sfs(a_muciniphila_hmp_qp_syn[-1]),
+  proportional_sfs(a_muciniphila_complete_two_epoch),
+  proportional_sfs(a_muciniphila_hmp_qp_nonsyn[-1]),
+  proportional_sfs(a_muciniphila_complete_gamma_dfe),
+  rep('A. muciniphila', length(a_muciniphila_hmp_qp_syn[-1])),
+  x_axis
+)
+
+a_finegoldii_best_fit = cbind(
+  proportional_sfs(a_finegoldii_hmp_qp_syn[-1]),
+  proportional_sfs(a_finegoldii_complete_two_epoch),
+  proportional_sfs(a_finegoldii_hmp_qp_nonsyn[-1]),
+  proportional_sfs(a_finegoldii_complete_gamma_dfe),
+  rep('A. finegoldii', length(a_finegoldii_hmp_qp_syn[-1])),
+  x_axis
+)
+
+a_onderdonkii_best_fit = cbind(
+  proportional_sfs(a_onderdonkii_hmp_qp_syn[-1]),
+  proportional_sfs(a_onderdonkii_complete_two_epoch),
+  proportional_sfs(a_onderdonkii_hmp_qp_nonsyn[-1]),
+  proportional_sfs(a_onderdonkii_complete_gamma_dfe),
+  rep('A. onderdonkii', length(a_onderdonkii_hmp_qp_syn[-1])),
+  x_axis
+)
+
+a_shahii_best_fit = cbind(
+  proportional_sfs(a_shahii_hmp_qp_syn[-1]),
+  proportional_sfs(a_shahii_complete_two_epoch),
+  proportional_sfs(a_shahii_hmp_qp_nonsyn[-1]),
+  proportional_sfs(a_shahii_complete_gamma_dfe),
+  rep('A. shahii', length(a_shahii_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_bacterium_best_fit = cbind(
+  proportional_sfs(b_bacterium_hmp_qp_syn[-1]),
+  proportional_sfs(b_bacterium_complete_two_epoch),
+  proportional_sfs(b_bacterium_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_bacterium_complete_gamma_dfe),
+  rep('B. bacterium', length(b_bacterium_hmp_qp_syn[-1])),
   x_axis
 )
 
 b_cellulosilyticus_best_fit = cbind(
   proportional_sfs(b_cellulosilyticus_hmp_qp_syn[-1]),
-  proportional_sfs(b_cellulosilyticus_complete_three_epoch),
+  proportional_sfs(b_cellulosilyticus_complete_two_epoch),
   proportional_sfs(b_cellulosilyticus_hmp_qp_nonsyn[-1]),
   proportional_sfs(b_cellulosilyticus_complete_gamma_dfe),
   rep('B. cellulosilyticus', length(b_cellulosilyticus_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_fragilis_best_fit = cbind(
+  proportional_sfs(b_fragilis_hmp_qp_syn[-1]),
+  proportional_sfs(b_fragilis_complete_two_epoch),
+  proportional_sfs(b_fragilis_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_fragilis_complete_gamma_dfe),
+  rep('B. fragilis', length(b_fragilis_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_stercoris_best_fit = cbind(
+  proportional_sfs(b_stercoris_hmp_qp_syn[-1]),
+  proportional_sfs(b_stercoris_complete_two_epoch),
+  proportional_sfs(b_stercoris_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_stercoris_complete_gamma_dfe),
+  rep('B. stercoris', length(b_stercoris_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_thetaiotaomicron_best_fit = cbind(
+  proportional_sfs(b_thetaiotaomicron_hmp_qp_syn[-1]),
+  proportional_sfs(b_thetaiotaomicron_complete_two_epoch),
+  proportional_sfs(b_thetaiotaomicron_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_thetaiotaomicron_complete_gamma_dfe),
+  rep('B. thetaiotaomicron', length(b_thetaiotaomicron_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_vulgatus_best_fit = cbind(
+  proportional_sfs(b_vulgatus_hmp_qp_syn[-1]),
+  proportional_sfs(b_vulgatus_complete_two_epoch),
+  proportional_sfs(b_vulgatus_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_vulgatus_complete_gamma_dfe),
+  rep('B. vulgatus', length(b_vulgatus_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_xylanisolvens_best_fit = cbind(
+  proportional_sfs(b_xylanisolvens_hmp_qp_syn[-1]),
+  proportional_sfs(b_xylanisolvens_complete_two_epoch),
+  proportional_sfs(b_xylanisolvens_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_xylanisolvens_complete_gamma_dfe),
+  rep('B. xylanisolvens', length(b_xylanisolvens_hmp_qp_syn[-1])),
+  x_axis
+)
+
+b_intestinihominis_best_fit = cbind(
+  proportional_sfs(b_intestinihominis_hmp_qp_syn[-1]),
+  proportional_sfs(b_intestinihominis_complete_two_epoch),
+  proportional_sfs(b_intestinihominis_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_intestinihominis_complete_gamma_dfe),
+  rep('B. intestinihominis', length(b_intestinihominis_hmp_qp_syn[-1])),
   x_axis
 )
 
@@ -7632,73 +7720,108 @@ e_eligens_best_fit = cbind(
   rep('E. eligens', length(e_eligens_hmp_qp_syn[-1])),
   x_axis
 )
-# e_eligens_best_fit$species = 'E. eligens'
-colnames(e_eligens_best_fit) = c(
-  'Empirical Synonymous', 
-  'Model Synonymous',
-  'Empirical Nonsynonymous',
-  'Model Nonsynonymous',
-  'Species',
-  'X.axis')
-e_eligens_best_fit
 
-o_splanchnicus_best_fit = data.frame(o_splanchnicus_best_fit)
-e_eligens_best_fit = data.frame(e_eligens_best_fit)
-b_cellulosilyticus_best_fit = data.frame(b_cellulosilyticus_best_fit)
+e_rectale_best_fit = cbind(
+  proportional_sfs(e_rectale_hmp_qp_syn[-1]),
+  proportional_sfs(e_rectale_complete_two_epoch),
+  proportional_sfs(e_rectale_hmp_qp_nonsyn[-1]),
+  proportional_sfs(e_rectale_complete_gamma_dfe),
+  rep('E. rectale', length(e_rectale_hmp_qp_syn[-1])),
+  x_axis
+)
 
-colnames(o_splanchnicus_best_fit) = c(
-  'Empirical Synonymous', 
-  'Model Synonymous',
-  'Empirical Nonsynonymous',
-  'Model Nonsynonymous',
-  'Species',
-  'X.axis')
-colnames(e_eligens_best_fit) = c(
-  'Empirical Synonymous', 
-  'Model Synonymous',
-  'Empirical Nonsynonymous',
-  'Model Nonsynonymous',
-  'Species',
-  'X.axis')
-colnames(b_cellulosilyticus_best_fit) = c(
-  'Empirical Synonymous', 
-  'Model Synonymous',
-  'Empirical Nonsynonymous',
-  'Model Nonsynonymous',
-  'Species',
-  'X.axis')
+f_prausnitzii_best_fit = cbind(
+  proportional_sfs(f_prausnitzii_hmp_qp_syn[-1]),
+  proportional_sfs(f_prausnitzii_complete_two_epoch),
+  proportional_sfs(f_prausnitzii_hmp_qp_nonsyn[-1]),
+  proportional_sfs(f_prausnitzii_complete_gamma_dfe),
+  rep('F. prausnitzii', length(f_prausnitzii_hmp_qp_syn[-1])),
+  x_axis
+)
 
-p1 = ggplot(melt(o_splanchnicus_best_fit, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "") +
-  xlab('Minor Allele Frequency') + 
-  ylab('Proportion of Segregating Sites') +
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-  scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
-  ggtitle('Odoribacter splanchnicus')
-p1
+o_splanchnicus_best_fit = cbind(
+  proportional_sfs(o_splanchnicus_hmp_qp_syn[-1]),
+  proportional_sfs(o_splanchnicus_complete_two_epoch),
+  proportional_sfs(o_splanchnicus_hmp_qp_nonsyn[-1]),
+  proportional_sfs(o_splanchnicus_complete_gamma_dfe),
+  rep('O. splanchnicus', length(o_splanchnicus_hmp_qp_syn[-1])),
+  x_axis
+)
 
-p2 = ggplot(melt(e_eligens_best_fit, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "") +
-  xlab('Minor Allele Frequency') + 
-  ylab('Proportion of Segregating Sites') +
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-  scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
-  ggtitle('Eubacterium eligens')
-p2
+oscillibacter_sp_best_fit = cbind(
+  proportional_sfs(oscillibacter_sp_hmp_qp_syn[-1]),
+  proportional_sfs(oscillibacter_sp_complete_two_epoch),
+  proportional_sfs(oscillibacter_sp_hmp_qp_nonsyn[-1]),
+  proportional_sfs(oscillibacter_sp_complete_gamma_dfe),
+  rep('Oscilibacter sp', length(oscillibacter_sp_hmp_qp_syn[-1])),
+  x_axis
+)
 
-p3 = ggplot(melt(b_cellulosilyticus_best_fit, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
-  geom_bar(position='dodge2', stat='identity') +
-  labs(x = "", fill = "") +
-  xlab('Minor Allele Frequency') + 
-  ylab('Proportion of Segregating Sites') +
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-  scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
-  ggtitle('Bacteroides cellulosilyticus')
-p3
+p_distasonis_best_fit = cbind(
+  proportional_sfs(p_distasonis_hmp_qp_syn[-1]),
+  proportional_sfs(p_distasonis_complete_two_epoch),
+  proportional_sfs(p_distasonis_hmp_qp_nonsyn[-1]),
+  proportional_sfs(p_distasonis_complete_gamma_dfe),
+  rep('P. distasonis', length(p_distasonis_hmp_qp_syn[-1])),
+  x_axis
+)
 
+p_merdae_best_fit = cbind(
+  proportional_sfs(p_merdae_hmp_qp_syn[-1]),
+  proportional_sfs(p_merdae_complete_two_epoch),
+  proportional_sfs(p_merdae_hmp_qp_nonsyn[-1]),
+  proportional_sfs(p_merdae_complete_gamma_dfe),
+  rep('P. merdae', length(p_merdae_hmp_qp_syn[-1])),
+  x_axis
+)
+
+phascolarctobacterium_sp_best_fit = cbind(
+  proportional_sfs(phascolarctobacterium_sp_hmp_qp_syn[-1]),
+  proportional_sfs(phascolarctobacterium_sp_complete_two_epoch),
+  proportional_sfs(phascolarctobacterium_sp_hmp_qp_nonsyn[-1]),
+  proportional_sfs(phascolarctobacterium_sp_complete_gamma_dfe),
+  rep('Phascolarctobacterium sp', length(phascolarctobacterium_sp_hmp_qp_syn[-1])),
+  x_axis
+)
+
+p_copri_best_fit = cbind(
+  proportional_sfs(p_copri_hmp_qp_syn[-1]),
+  proportional_sfs(p_copri_complete_two_epoch),
+  proportional_sfs(p_copri_hmp_qp_nonsyn[-1]),
+  proportional_sfs(p_copri_complete_gamma_dfe),
+  rep('P. copri', length(p_copri_hmp_qp_syn[-1])),
+  x_axis
+)
+
+r_bicirculans_best_fit = cbind(
+  proportional_sfs(r_bicirculans_hmp_qp_syn[-1]),
+  proportional_sfs(r_bicirculans_complete_two_epoch),
+  proportional_sfs(r_bicirculans_hmp_qp_nonsyn[-1]),
+  proportional_sfs(r_bicirculans_complete_gamma_dfe),
+  rep('R. bicirculans', length(r_bicirculans_hmp_qp_syn[-1])),
+  x_axis
+)
+
+r_bromii_best_fit = cbind(
+  proportional_sfs(r_bromii_hmp_qp_syn[-1]),
+  proportional_sfs(r_bromii_complete_two_epoch),
+  proportional_sfs(r_bromii_hmp_qp_nonsyn[-1]),
+  proportional_sfs(r_bromii_complete_gamma_dfe),
+  rep('R. bromii', length(r_bromii_hmp_qp_syn[-1])),
+  x_axis
+)
+
+
+p1 = plot_best_fit_sfs(o_splanchnicus_best_fit) + ggtitle('Odoribacter splanchnicus')
+p2 = plot_best_fit_sfs(e_eligens_best_fit) + ggtitle('Eubacterium eligens')
+p3 = plot_best_fit_sfs(b_cellulosilyticus_best_fit) + ggtitle('Bacteroides cellulosilyticus')
 p1 + p2 + p3 + plot_layout(ncol = 1)
+
+p1_l = plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
+p2_l = plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
+p3_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
+
+p1 + p1_l + p2 + p2_l + p3 + p3_l +  plot_layout(ncol=2)
 
 # Phylogenetic Tree in APE
 
@@ -7793,34 +7916,158 @@ plot(subtree)
 
 # Likelihood Surfaces
 plot_likelihood_surface('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv')
-plot_likelihood_surface('../Analysis/Alistipes_finegoldii_56071_downsampled_14/likelihood_surface.csv') + ggtitle('A. finegoldii likelihood surface')
-plot_likelihood_surface('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/likelihood_surface.csv') + ggtitle('A. onderdonkii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_finegoldii_56071_downsampled_14/likelihood_surface.csv') + ggtitle('A. finegoldii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/likelihood_surface.csv') + ggtitle('A. onderdonkii likelihood surface')
 # plot_likelihood_surface('../Analysis/Alistipes_putredinis_61533_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface('../Analysis/Alistipes_shahii_62199_downsampled_14/likelihood_surface.csv') + ggtitle('A. shahii likelihood surface')
-plot_likelihood_surface('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/likelihood_surface.csv') + ggtitle('B. bacterium likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_shahii_62199_downsampled_14/likelihood_surface.csv') + ggtitle('A. shahii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/likelihood_surface.csv') + ggtitle('B. bacterium likelihood surface')
 # plot_likelihood_surface('../Analysis/Bacteroides_caccae_53434_downsampled_14/likelihood_surface.csv') + ggtitle('B. caccae likelihood surface')
 plot_likelihood_surface('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
-plot_likelihood_surface('../Analysis/Bacteroides_fragilis_54507_downsampled_14/likelihood_surface.csv') + ggtitle('B. fragilis likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_fragilis_54507_downsampled_14/likelihood_surface.csv') + ggtitle('B. fragilis likelihood surface')
 # plot_likelihood_surface('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
 # plot_likelihood_surface('../Analysis/Bacteroides_ovatus_58035_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface('../Analysis/Bacteroides_stercoris_56735_downsampled_14/likelihood_surface.csv') + ggtitle('B. stercoris likelihood surface')
-plot_likelihood_surface('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface.csv') + ggtitle('B. thetaiotaomicron likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_stercoris_56735_downsampled_14/likelihood_surface.csv') + ggtitle('B. stercoris likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface.csv') + ggtitle('B. thetaiotaomicron likelihood surface')
 # plot_likelihood_surface('../Analysis/Bacteroides_uniformis_57318_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/likelihood_surface.csv') + ggtitle('B. vulgatus likelihood surface')
-plot_likelihood_surface('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/likelihood_surface.csv') + ggtitle('B. xylanisolvens likelihood surface')
-plot_likelihood_surface('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/likelihood_surface.csv') + ggtitle('B. intestinihominis likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/likelihood_surface.csv') + ggtitle('B. vulgatus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/likelihood_surface.csv') + ggtitle('B. xylanisolvens likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/likelihood_surface.csv') + ggtitle('B. intestinihominis likelihood surface')
 # plot_likelihood_surface('../Analysis/Coprococcus_sp_62244_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
 # plot_likelihood_surface('../Analysis/Dialister_invisus_61905_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
 plot_likelihood_surface('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
-plot_likelihood_surface('../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface.csv') + ggtitle('E. rectale likelihood surface')
-plot_likelihood_surface('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/likelihood_surface.csv') + ggtitle('F. prausnitzii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface.csv') + ggtitle('E. rectale likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/likelihood_surface.csv') + ggtitle('F. prausnitzii likelihood surface')
 plot_likelihood_surface('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
-plot_likelihood_surface('../Analysis/Oscillibacter_sp_60799_downsampled_14/likelihood_surface.csv') + ggtitle('Oscillibacter species likelihood surface')
-plot_likelihood_surface('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface.csv') + ggtitle('P. distasonis likelihood surface')
-plot_likelihood_surface('../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface.csv') + ggtitle('P. merdae likelihood surface')
-plot_likelihood_surface('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/likelihood_surface.csv') + ggtitle('Phascolarctobacterium species likelihood surface')
-plot_likelihood_surface('../Analysis/Prevotella_copri_61740_downsampled_14/likelihood_surface.csv') + ggtitle('P. copri likelihood surface')
-plot_likelihood_surface('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/likelihood_surface.csv') + ggtitle('R. bicirculans likelihood surface')
-plot_likelihood_surface('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Oscillibacter_sp_60799_downsampled_14/likelihood_surface.csv') + ggtitle('Oscillibacter species likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface.csv') + ggtitle('P. distasonis likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface.csv') + ggtitle('P. merdae likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/likelihood_surface.csv') + ggtitle('Phascolarctobacterium species likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Prevotella_copri_61740_downsampled_14/likelihood_surface.csv') + ggtitle('P. copri likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/likelihood_surface.csv') + ggtitle('R. bicirculans likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
 
+p1 = plot_best_fit_sfs(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
+p2 = plot_best_fit_sfs(a_finegoldii_best_fit) + ggtitle('Alistipes finegoldii')
+p3 = plot_best_fit_sfs(a_onderdonkii_best_fit) + ggtitle('Alistipes onderdonkii')
+# p4 = plot_best_fit_sfs(_best_fit)
+p5 = plot_best_fit_sfs(a_shahii_best_fit) + ggtitle('Alistipes shahii')
+p6 = plot_best_fit_sfs(b_bacterium_best_fit) + ggtitle('Bacteroidales bacterium')
+# p7 = plot_best_fit_sfs(_best_fit)
+p8 = plot_best_fit_sfs(b_cellulosilyticus_best_fit) + ggtitle('Bacteroides cellulosilyticus')
+p9 = plot_best_fit_sfs(b_fragilis_best_fit) + ggtitle('Bacteroides fragilis')
+# p10 = plot_best_fit_sfs(_best_fit)
+# p11 = plot_best_fit_sfs(_best_fit)
+p12 = plot_best_fit_sfs(b_stercoris_best_fit) + ggtitle('Bacteroides stercoris')
+p13 = plot_best_fit_sfs(b_thetaiotaomicron_best_fit) + ggtitle('Bacteroides thetaiotaomicron')
+# p14 = plot_best_fit_sfs(_best_fit)
+p15 = plot_best_fit_sfs(b_vulgatus_best_fit) + ggtitle('Bacteroides vulgatus')
+p16 = plot_best_fit_sfs(b_xylanisolvens_best_fit) + ggtitle('Bacteroides xylanisolvens')
+p17 = plot_best_fit_sfs(b_intestinihominis_best_fit) + ggtitle('Barnesiella intestinihominis')
+# p18 = plot_best_fit_sfs(_best_fit)
+# p19 = plot_best_fit_sfs(_best_fit)
+p20 = plot_best_fit_sfs(e_eligens_best_fit) + ggtitle('Eubacterium eligens')
+p21 = plot_best_fit_sfs(e_rectale_best_fit) + ggtitle('Eubacterium rectale')
+p22 = plot_best_fit_sfs(f_prausnitzii_best_fit) + ggtitle('Faecalibacterium prausnitzii')
+p23 = plot_best_fit_sfs(o_splanchnicus_best_fit) + ggtitle('Odoribacter splanchnicus')
+p24 = plot_best_fit_sfs(oscillibacter_sp_best_fit) + ggtitle('Oscillibacter species')
+p25 = plot_best_fit_sfs(p_distasonis_best_fit) + ggtitle('Parabacteroides distasonis')
+p26 = plot_best_fit_sfs(p_merdae_best_fit) + ggtitle('Parabacteroides merdae')
+p27 = plot_best_fit_sfs(phascolarctobacterium_sp_best_fit) + ggtitle('Phascolarctobacterium species')
+p28 = plot_best_fit_sfs(p_copri_best_fit) + ggtitle('Prevotella copri')
+p29 = plot_best_fit_sfs(r_bicirculans_best_fit) + ggtitle('Ruminococcus bicirculans')
+p30 = plot_best_fit_sfs(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
+
+p1_l = plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv')
+p2_l = plot_likelihood_surface_contour('../Analysis/Alistipes_finegoldii_56071_downsampled_14/likelihood_surface.csv')
+p3_l = plot_likelihood_surface_contour('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/likelihood_surface.csv')
+# p4 = plot_likelihood_surface_contour('../Analysis/Alistipes_putredinis_61533_downsampled_14/likelihood_surface.csv')
+p5_l = plot_likelihood_surface_contour('../Analysis/Alistipes_shahii_62199_downsampled_14/likelihood_surface.csv')
+p6_l = plot_likelihood_surface_contour('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/likelihood_surface.csv')
+# p7 = plot_likelihood_surface_contour('../Analysis/Bacteroides_caccae_53434_downsampled_14/likelihood_surface.csv')
+p8_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv')
+p9_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_fragilis_54507_downsampled_14/likelihood_surface.csv')
+# p10 = plot_likelihood_surface_contour('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/likelihood_surface.csv')
+# p11 = plot_likelihood_surface_contour('../Analysis/Bacteroides_ovatus_58035_downsampled_14/likelihood_surface.csv')
+p12_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_stercoris_56735_downsampled_14/likelihood_surface.csv')
+p13_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface.csv')
+# p14 = plot_likelihood_surface_contour('../Analysis/Bacteroides_uniformis_57318_downsampled_14/likelihood_surface.csv')
+p15_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/likelihood_surface.csv')
+p16_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/likelihood_surface.csv')
+p17_l = plot_likelihood_surface_contour('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/likelihood_surface.csv')
+# p18 = plot_likelihood_surface_contour('../Analysis/Coprococcus_sp_62244_downsampled_14/likelihood_surface.csv')
+# p19 = plot_likelihood_surface_contour('../Analysis/Dialister_invisus_61905_downsampled_14/likelihood_surface.csv')
+p20_l = plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv')
+p21_l = plot_likelihood_surface_contour('../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface.csv')
+p22_l = plot_likelihood_surface_contour('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/likelihood_surface.csv')
+p23_l = plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv')
+p24_l = plot_likelihood_surface_contour('../Analysis/Oscillibacter_sp_60799_downsampled_14/likelihood_surface.csv')
+p25_l = plot_likelihood_surface_contour('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface.csv')
+p26_l = plot_likelihood_surface_contour('../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface.csv')
+p27_l = plot_likelihood_surface_contour('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/likelihood_surface.csv')
+p28_l = plot_likelihood_surface_contour('../Analysis/Prevotella_copri_61740_downsampled_14/likelihood_surface.csv')
+p29_l = plot_likelihood_surface_contour('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/likelihood_surface.csv')
+p30_l = plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv')
+
+#phylogenetic_levels = c(
+#  'Bacteroidales bacterium', p6
+#  # 'Alistipes putredinis', 
+#  'Alistipes finegoldii', p2
+#  'Alistipes onderdonkii', p3
+#  'Alistipes shahii', p5
+#  'Odoribacter splanchnicus',  p23
+#  'Parabacteroides distasonis',  p25
+#  'Parabacteroides merdae', p26
+#  'Prevotella copri', p28
+#  'Bacteroides fragilis',  p9
+#  'Bacteroides cellulosilyticus', p8
+#  'Bacteroides stercoris',  p12
+#  # 'Bacteroides uniformis', 
+#  'Bacteroides thetaiotaomicron', p13
+#  # 'Bacteroides ovatus',
+#  'Bacteroides xylanisolvens', p16
+#  # 'Bacteroides caccae',
+#  # 'Bacteroides massiliensis',
+#  'Bacteroides vulgatus', p15
+#  'Barnesiella intestinihominis', p17
+#  'Akkermansia muciniphila', p1
+#  # 'Dialister invivus',
+#  'Phascolarctobacterium species', p27
+#  'Eubacterium eligens', p20
+#  'Eubacterium rectale', p21
+#  # 'Coprococcus species',
+#  'Oscillibacter species', p24
+#  'Ruminococcus bromii', p30
+#  'Ruminococcus bicirculans',  p29
+#  'Faecalibacterium prausnitzii' p22
+#)
+
+
+# 1600 x 16000
+p6 + p6_l +
+  p2 + p2_l + 
+  p3 + p3_l + 
+  p5 + p5_l +
+  p23 + p23_l +
+  p25 + p25_l +
+  p26 + p26_l  +
+  p28 + p28_l +
+  p9 + p9_l +
+  p8 + p8_l +
+  p12 + p12_l +
+  p13 + p13_l +
+  p16 + p16_l +
+  p15 + p15_l +
+  p17 + p17_l +
+  p1 + p1_l +
+  p27 + p27_l +
+  p20 + p20_l +
+  p21 + p21_l +
+  p24 + p24_l +
+  p30 + p30_l +
+  p29 + p29_l +
+  p22 + p22_l +
+  plot_layout(ncol=2)
