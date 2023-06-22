@@ -141,7 +141,7 @@ plot_likelihood_surface = function(input) {
     geom_point(aes(colour = color_breakpoints), size = 4, shape=15) +
     scale_color_manual(name='Log Likelihood',
                        values=c('#a6611a', '#dfc27d', '#80cdc1', '#018571'),
-                       labels=c(MLE_minus_3_label, MLE_minus_1_label, MLE_minus_half_label, MLE_label)) +
+                       labels=c('(-Inf, -3]', '(-3, -1]', '(-1, -0.5', '(-0,5, 0]')) +
     geom_vline(xintercept=1.0, color='red', linewidth=2) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +
@@ -169,35 +169,25 @@ plot_likelihood_surface_contour = function(input) {
       count = count + 1
     }
  }
-
-  #  print(Z)
   species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
-
   best_params = c(species_surface$nu[1], species_surface$tau[1])
-  # print(best_params)
+  print(best_params)
   MLE = max(species_surface$likelihood)
-  MLE_minus_3 = MLE - 3
-  MLE_minus_3_label = paste('<= ', str_trunc(toString(MLE_minus_3), 6, ellipsis=''), sep='')
-  MLE_minus_1 = MLE - 1
-  MLE_minus_1_label = paste(str_trunc(toString(MLE_minus_3), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_1), 9, ellipsis=''), sep='')
-  MLE_minus_half = MLE - 0.5
-  MLE_minus_half_label  = paste(str_trunc(toString(MLE_minus_1), 6, ellipsis=''), ' < ', str_trunc(toString(MLE_minus_half), 6, ellipsis=''), sep='')
-  MLE_label = paste(str_trunc(toString(MLE_minus_half), 6, ellipsis=''), ' < ', str_trunc(toString(MLE), 6, ellipsis=''), sep='')
-  color_breakpoints = cut(species_surface$likelihood, c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE))
+  species_surface$likelihood = species_surface$likelihood - MLE
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, -3, -1, -0.5, 0))
 
-  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 5, ellipsis=''), sep='')
+  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 8, ellipsis=''), sep='')
   likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
-  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 5, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 8, ellipsis=''), sep='')
   likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
   fig = ggplot(species_surface) +
     geom_contour_filled(aes(x=nu, y=tau, z=likelihood), 
-      breaks = c(-Inf, MLE_minus_3, MLE_minus_1, MLE_minus_half, MLE)) +
-    scale_fill_brewer(palette = "BrBG", name='Log Likelihood') +
-    geom_vline(xintercept=1.0, color='red', linewidth=2) +
+      breaks = c(-Inf, -3, -1, -0.5, 0)) +
+    scale_fill_brewer(palette = "RdYlBu", name='Log Likelihood') +
+    geom_vline(xintercept=1.0, color='black', linewidth=2) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-    # annotate("label", x = best_params[1], y = best_params[2] * 0.90, label = likelihood_surface_title, color='black') +
-    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=3) +
+    annotate('point', x=best_params[1], y=best_params[2], color='green', size=3) +
     ggtitle(likelihood_surface_title)
   return(fig)
 }
