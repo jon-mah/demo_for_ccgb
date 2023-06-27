@@ -11,6 +11,7 @@ import logging
 import time
 import argparse
 import warnings
+import re
 
 import ast
 import numpy as np
@@ -168,9 +169,8 @@ class DFEInference():
 
         for line in lines:
             if 'Best fit parameters:' in line:
-                demog_params = str(line.split(': ')[1]).strip()
-                demog_params = demog_params[1:-3].split()
-                demog_params = [float(i.strip()) for i in demog_params]
+                demog_params = re.findall(r"\d+\.\d+", line)
+                demog_params = [float(param) for param in demog_params]
             if 'Optimal value of theta_syn:' in line:
                 theta_syn = str(line.split(': ')[1])
                 theta_syn = theta_syn[0:-2]
@@ -236,7 +236,7 @@ class DFEInference():
             popt = dadi.Inference.optimize_log_fmin(p0, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                verbose=len(sel_params), maxiter=25,
+                verbose=len(sel_params), maxiter=50,
                 multinom=False)
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
