@@ -211,20 +211,18 @@ class CrossSpeciesDFEInferece():
             current_t = next_t
         return phi
 
-    def likelihood(self, spectra, theta, alpha, beta, nonsyn_data, func_ex, pts_l):
-        p0 = [alpha, beta]
+    def likelihood(self, spectra, theta, alpha, beta, nonsyn_data, pts_l):
         theta_nonsyn = theta * 2.21
-        popt = p0
+        p0 = [alpha, beta]
         #popt = dadi.Inference.optimize_log_fmin(p0, nonsyn_data,
         #    spectra.integrate, pts=None,
         #    func_args=[DFE.PDFs.gamma, theta_nonsyn],
         #    verbose=len(sel_params), maxiter=0,
         #    multinom=False)
         model_sfs = spectra.integrate(
-            popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
-
+            p0, None, DFE.PDFs.gamma, theta_nonsyn, None)
         loglik = dadi.Inference.ll_multinom(
-            model=non_scaled_spectrum, data=nonsyn_data)
+            model=model_sfs, data=nonsyn_data)
         return(loglik)
 
     def read_input_demography(self, input_demography):
@@ -321,11 +319,11 @@ class CrossSpeciesDFEInferece():
 
         # Construct demography from input params
         spectra_A = DFE.Cache1D(demog_params_A, nonsyn_ns_A, DFE.DemogSelModels.two_epoch,
-                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
+                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=10,
                               verbose=True, cpus=1)
-        spectra_B  = DFE.Cache1D(demog_params_B, nonsyn_ns_B, DFE.DemogSelModels.two_epoch,
-                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
-                              verbose=True, cpus=1)
+        # spectra_B  = DFE.Cache1D(demog_params_B, nonsyn_ns_B, DFE.DemogSelModels.two_epoch,
+        #                      pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=10,
+        #                       verbose=True, cpus=1)
 
         # x = input_alpha  # Initial x value
         # y = input_beta  # Initial y value
@@ -333,7 +331,7 @@ class CrossSpeciesDFEInferece():
         x = 0.02
         y = 5E4
 
-        npts = 25
+        npts = 5
         x_range = numpy.linspace(0.01 * x, x *  3.99, npts)
         y_range = numpy.linspace(y * 0.01, x * 3.99, npts)
 
@@ -344,17 +342,15 @@ class CrossSpeciesDFEInferece():
         x_val = []
         y_val = []
         z_val = []
+        theta_A = 1
         for i in range(0, npts):
             for j in range(0, npts):
-                Z[i, j] = self.likelihood(spectra_A, theta_A, x_range[i], y_range[j], nonsyn_data, pts_l)
+                Z[i, j] = self.likelihood(spectra_A, theta_A, x_range[i], y_range[j], nonsyn_data_A, pts_l)
                 x_val.append(x_range[i])
                 y_val.append(y_range[j])
                 z_val.append(Z[i, j])
         df = pd.DataFrame({'X': x_val, 'Y': y_val, 'Z': z_val})
-        df.to_csv(likelihood_surface_A)
-        logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
-        logger.info('Maximum likelihood found at ({0}).'.format(best_params))
-        logger.info('Finished plotting likelihood surface.')
+        df.to_csv(likelihood_surface_A, index=False)
         logger.info('Pipeline executed succesfully.')
 
 
