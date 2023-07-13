@@ -71,17 +71,11 @@ class CrossSpeciesDFEInferece():
                 'specified for use by the python package, `easySFS.py`.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
-            'input_demography_A', type=self.ExistingFile,
-            help=('Best-fit demographic parameters for species A.'))
+            'input_demography', type=self.ExistingFile,
+            help=('Best-fit demographic parameters for given species.'))
         parser.add_argument(
-            'input_demography_B', type=self.ExistingFile,
-            help=('Best-fit demographic parameters for species B.'))
-        parser.add_argument(
-            'input_nonsyn_sfs_A', type=self.ExistingFile,
-            help=('Nonsynonymous SFS for species A.'))
-        parser.add_argument(
-            'input_nonsyn_sfs_B', type=self.ExistingFile,
-            help=('Nonsynonymous SFS for species B.'))
+            'input_nonsyn_sfs', type=self.ExistingFile,
+            help=('Nonsynonymous SFS for given species.'))
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files.')
@@ -225,18 +219,6 @@ class CrossSpeciesDFEInferece():
             model=model_sfs, data=nonsyn_data)
         return(loglik)
 
-    def read_input_demography(self, input_demography):
-        with open(input_demography, 'r') as file:
-            first_line = file.readline()
-            start_idx = first_line.find('[')
-            end_idx = first_line.find(']')
-            params_str = first_line[start_idx+1:end_idx]
-            if ',' in params_str:
-                params = [float(param) for param in params_str.split(',')]
-            else:
-                params = [float(param) for param in params_str.split()]
-        return params[0], params[1]
-
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -246,20 +228,24 @@ class CrossSpeciesDFEInferece():
 
         # Assign arguments
         outprefix = args['outprefix']
-        input_demography_A = args['input_demography_A']
-        input_demography_B = args['input_demography_B']
-        demog_params_A = self.read_input_demography(
-            input_demography_A)
-        start_idx = input_demography_A.find("Analysis") + 9
-        end_idx = input_demography_A.find("_downsampled")
-        species_A = input_demography_A[start_idx:end_idx]
-        demog_params_B = self.read_input_demography(
-            input_demography_B)
-        start_idx = input_demography_B.find("Analysis") + 9
-        end_idx = input_demography_B.find("_downsampled")
-        species_B = input_demography_B[start_idx:end_idx]
-        nonsyn_sfs_A = args['input_nonsyn_sfs_A']
-        nonsyn_sfs_B = args['input_nonsyn_sfs_B']
+        input_demography = args['input_demography']
+        with open(input_demography, 'r') as f:
+            lines = [line for line in f]
+            for line in lines:
+                if 'Best fit parameters:' in line:
+                    demog_params = re.findall(r"\d+\.\d+", line)
+                    demog_params = [float(param) for param in demog_params]
+                if 'Optimal value of theta_syn:' in line:
+                    theta_syn = str(line.split(': ')[1])
+                    theta_syn = theta_syn[0:-2]
+                    theta_syn = float(theta_syn)
+        logger.info('Input demographic parameters are: ' +
+                    str(demog_params) + '.')
+        logger.info('Input theta_syn is: ' + str(theta_syn) + '.')
+        start_idx = input_demography.find("Analysis") + 9
+        end_idx = input_demography.find("_downsampled")
+        species = input_demography[start_idx:end_idx]
+        nonsyn_sfs = args['input_nonsyn_sfs']
 
         # Numpy options
         numpy.set_printoptions(linewidth=numpy.inf)
@@ -275,13 +261,11 @@ class CrossSpeciesDFEInferece():
         # Output files: logfile
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        likelihood_surface_A = \
-            '{0}{1}likelihood_surface_{2}.csv'.format(
-                args['outprefix'], underscore, species_A)
-        likelihood_surface_A = \
-            '{0}{1}likelihood_surface_{2}.csv'.format(
-                args['outprefix'], underscore, species_B)
-        logfile = '{0}{1}log.log'.format(args['outprefix'], underscore)
+        likelihood_surface = \
+            '{0}{1}{2}likelihood_surface.csv'.format(
+                args['outprefix'], species, underscore)
+        logfile = '{0}{1}{2}log.log'.format(
+            args['outprefix'], species, underscore)
         to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
@@ -311,29 +295,22 @@ class CrossSpeciesDFEInferece():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # Construct initial Spectrum object from input synonymous sfs.
-        nonsyn_data_A = dadi.Spectrum.from_file(nonsyn_sfs_A).fold()
-        nonsyn_data_B = dadi.Spectrum.from_file(nonsyn_sfs_B).fold()
-        nonsyn_ns_A = nonsyn_data_A.sample_sizes  # Number of samples.
-        nonsyn_ns_B = nonsyn_data_B.sample_sizes  # Number of samples.
+        nonsyn_data = dadi.Spectrum.from_file(nonsyn_sfs).fold()
+        nonsyn_ns = nonsyn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
 
         # Construct demography from input params
-        spectra_A = DFE.Cache1D(demog_params_A, nonsyn_ns_A, DFE.DemogSelModels.two_epoch,
-                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=10,
+        spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
+                              pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                               verbose=True, cpus=1)
-        # spectra_B  = DFE.Cache1D(demog_params_B, nonsyn_ns_B, DFE.DemogSelModels.two_epoch,
-        #                      pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=10,
-        #                       verbose=True, cpus=1)
-
-        # x = input_alpha  # Initial x value
-        # y = input_beta  # Initial y value
-
-        x = 0.02
-        y = 5E4
+        x_min = 1E-2
+        x_max = 1
+        y_min = 1E2
+        y_max = 1E13
 
         npts = 5
-        x_range = numpy.linspace(0.01 * x, x *  3.99, npts)
-        y_range = numpy.linspace(y * 0.01, x * 3.99, npts)
+        x_range = numpy.linspace(x_min, x_max, npts)
+        y_range = numpy.linspace(y_min, y_max, npts)
 
         X, Y = numpy.meshgrid(x_range, y_range)
 
@@ -342,15 +319,14 @@ class CrossSpeciesDFEInferece():
         x_val = []
         y_val = []
         z_val = []
-        theta_A = 1
         for i in range(0, npts):
             for j in range(0, npts):
-                Z[i, j] = self.likelihood(spectra_A, theta_A, x_range[i], y_range[j], nonsyn_data_A, pts_l)
+                Z[i, j] = self.likelihood(spectra, theta, x_range[i], y_range[j], nonsyn_data, pts_l)
                 x_val.append(x_range[i])
                 y_val.append(y_range[j])
                 z_val.append(Z[i, j])
         df = pd.DataFrame({'X': x_val, 'Y': y_val, 'Z': z_val})
-        df.to_csv(likelihood_surface_A, index=False)
+        df.to_csv(likelihood_surface, index=False)
         logger.info('Pipeline executed succesfully.')
 
 
