@@ -19,6 +19,9 @@ library(treeio)
 library(plotly)
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
+library(latex2exp)
+library(ggvis)
+
 
 # BiocManager::install("treeio")
 # BiocManager::install("ggtree")
@@ -180,17 +183,123 @@ plot_likelihood_surface_contour = function(input) {
   likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
   likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 8, ellipsis=''), sep='')
   likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
+  
+  xlabel_text = expression(nu == frac(N[current], N[ancestral]))
+  ylabel_text = expression(tau == frac(generations, 2 * N[ancestral]))
   fig = ggplot(species_surface) +
     geom_contour_filled(aes(x=nu, y=tau, z=likelihood), 
-      breaks = c(-Inf, -3, -1, -0.5, 0)) +
-    scale_fill_brewer(palette = "RdYlBu", name='Log Likelihood') +
-    geom_vline(xintercept=1.0, color='black', linewidth=2) +
+      # breaks = c(-Inf, -3, -1, -0.5, 0)) +
+      breaks = c(0, -0.5, -1, -3, -Inf)) +
+    scale_fill_brewer(palette = "YlGnBu", direction=1, name='Log Likelihood') +
+    geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-    annotate('point', x=best_params[1], y=best_params[2], color='green', size=3) +
-    ggtitle(likelihood_surface_title)
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=2) +
+    xlab(xlabel_text)  +
+    ylab(ylabel_text)
+    # ggtitle(likelihood_surface_title)
   return(fig)
 }
+
+plot_likelihood_surface_contour_3C = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  unique_nu = unique(species_surface$nu)
+  unique_tau = unique(species_surface$tau)
+  Z = matrix(data=NA, nrow=length(unique_nu), ncol=length(unique_tau))
+  count = 1
+  for (i in 1:length(unique_nu)) {
+    for (j in 1:length(unique_tau)) {
+      Z[i, j] = species_surface$likelihood[count]
+      if (species_surface$nu[count] != unique_nu[i]) {
+        print('break')
+      } else if (species_surface$tau[count] != unique_tau[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  best_params = c(species_surface$nu[1], species_surface$tau[1])
+  print(best_params)
+  MLE = max(species_surface$likelihood)
+  species_surface$likelihood = species_surface$likelihood - MLE
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, -3, -1, -0.5, 0))
+
+  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
+  
+  xlabel_text = expression(nu == frac(N[current], N[ancestral]))
+  ylabel_text = expression(tau == frac(generations, 2 * N[ancestral]))
+  fig = ggplot(species_surface) +
+    geom_contour_filled(aes(x=nu, y=tau, z=likelihood), 
+      # breaks = c(-Inf, -3, -1, -0.5, 0)) +
+      breaks = c(0, -0.5, -1, -3, -Inf)) +
+    scale_fill_brewer(palette = "YlGnBu", direction=1, name='Log Likelihood') +
+    geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=1) +
+    theme(legend.position = c(0.77, 0.75)) +
+    theme(legend.text=element_text(size=10)) +
+    theme(axis.title.x = element_blank()) +
+    ylab(ylabel_text) +
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
+  return(fig)
+}
+
+plot_likelihood_surface_contour_3D = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  unique_nu = unique(species_surface$nu)
+  unique_tau = unique(species_surface$tau)
+  Z = matrix(data=NA, nrow=length(unique_nu), ncol=length(unique_tau))
+  count = 1
+  for (i in 1:length(unique_nu)) {
+    for (j in 1:length(unique_tau)) {
+      Z[i, j] = species_surface$likelihood[count]
+      if (species_surface$nu[count] != unique_nu[i]) {
+        print('break')
+      } else if (species_surface$tau[count] != unique_tau[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  best_params = c(species_surface$nu[1], species_surface$tau[1])
+  print(best_params)
+  MLE = max(species_surface$likelihood)
+  species_surface$likelihood = species_surface$likelihood - MLE
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, -3, -1, -0.5, 0))
+
+  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
+  
+  xlabel_text = expression(nu == frac(N[current], N[ancestral]))
+  ylabel_text = expression(tau == frac(generations, 2 * N[ancestral]))
+  fig = ggplot(species_surface) +
+    geom_contour_filled(aes(x=nu, y=tau, z=likelihood), 
+      breaks = c(0, -0.5, -1, -3, -Inf)) +
+    scale_fill_brewer(palette = "YlGnBu", direction=1, name='Log Likelihood') +
+    geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=1) +
+    theme(legend.position = "none") +
+    xlab(xlabel_text) +
+    ylab(ylabel_text) +
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
+    # ggtitle(likelihood_surface_title)
+  return(fig)
+}
+
 
 compare_sfs = function(empirical, one_epoch, two_epoch) {
   x_axis = 1:length(empirical)
@@ -211,8 +320,8 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
                                                          fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
     ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
@@ -248,8 +357,8 @@ compare_hmp_sfs = function(complete, one_epoch, two_epoch, three_epoch, nonsyn, 
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
     scale_fill_manual(values=c("blue4", "dodgerblue3", "steelblue1",  "lightskyblue2",
@@ -279,8 +388,8 @@ compare_isolate_sfs = function(HMP_QP, Isolate, one_epoch, two_epoch) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
     ylim(0, 1.0)
@@ -317,8 +426,8 @@ compare_sfs_cornejo_count = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
   ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
@@ -353,8 +462,8 @@ compare_isolate_hmp_sfs = function(hmp_orig, orig_demo, hmp_complete, complete_d
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
     ylim(0, 1.0)
@@ -391,8 +500,8 @@ compare_sfs_cornejo_proportional = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
   ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
@@ -430,8 +539,8 @@ compare_sfs_with_selection_count = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
-    ylab('Proportion of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
   ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
@@ -469,7 +578,7 @@ compare_sfs_with_selection_proportional = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Count of Segregating Sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -493,7 +602,7 @@ plot_original_empirical_sfs = function(input) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
     ylab('Number of Segregating Sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -516,7 +625,7 @@ plot_empirical_sfs = function(input) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor Allele Frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
     ylab('Number of Segregating Sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -553,8 +662,8 @@ read_dfe_params = function(input_dfe_file) {
   # gamma_dfe_bound_high = compute_dfe_height(shape=gamma_shape, scale=gamma_scale_high)
   #  gamma_dfe_bound_low = compute_dfe_height(shape=gamma_shape, scale=gamma_scale_low)
   
-  gamma_dfe_dist_high = rgamma(10000, shape=gamma_shape, scale=gamma_scale_high)
-  gamma_dfe_dist_low = rgamma(10000, shape=gamma_shape, scale=gamma_scale_low)
+  gamma_dfe_dist_high = rgamma(100000, shape=gamma_shape, scale=gamma_scale_high)
+  gamma_dfe_dist_low = rgamma(100000, shape=gamma_shape, scale=gamma_scale_low)
   
   param_string_high = readLines(this_file)[11]
   param_string_high = strsplit(param_string_high, split=': ')
@@ -612,7 +721,7 @@ read_dfe_dadi_params = function(input_dfe_file) {
   gamma_shape = param_string[1]
   gamma_scale = param_string[2]
 
-  gamma_dfe_dist = rgamma(10000, shape=gamma_shape, scale=gamma_scale)
+  gamma_dfe_dist = rgamma(100000, shape=gamma_shape, scale=gamma_scale)
 
   param_string = readLines(this_file)[10]
   param_string = strsplit(param_string, split=': ')
@@ -664,8 +773,8 @@ plot_dfe = function(input_dfe_file) {
   # gamma_dfe_bound_high = compute_dfe_height(shape=gamma_shape, scale=gamma_scale_high)
   # gamma_dfe_bound_low = compute_dfe_height(shape=gamma_shape, scale=gamma_scale_low)
   
-  gamma_dfe_dist_high = rgamma(10000, shape=gamma_shape, scale=gamma_scale_high)
-  gamma_dfe_dist_low = rgamma(10000, shape=gamma_shape, scale=gamma_scale_low)
+  gamma_dfe_dist_high = rgamma(100000, shape=gamma_shape, scale=gamma_scale_high)
+  gamma_dfe_dist_low = rgamma(100000, shape=gamma_shape, scale=gamma_scale_low)
   
   param_string_high = readLines(this_file)[11]
   param_string_high = strsplit(param_string_high, split=': ')
@@ -690,10 +799,10 @@ plot_dfe = function(input_dfe_file) {
   # neugamma_dfe_bound_high = compute_dfe_height(shape=neugamma_shape, scale=neugamma_scale_high)
   # neugamma_dfe_bound_low = compute_dfe_height(shape=neugamma_shape, scale=neugamma_scale_low)
   
-  neugamma_dfe_dist_high = rgamma(10000, shape=neugamma_shape, scale=neugamma_scale_high)
-  neugamma_dfe_dist_low = rgamma(10000, shape=neugamma_shape, scale=neugamma_scale_low)
+  neugamma_dfe_dist_high = rgamma(100000, shape=neugamma_shape, scale=neugamma_scale_high)
+  neugamma_dfe_dist_low = rgamma(100000, shape=neugamma_shape, scale=neugamma_scale_low)
   
-  zeroed_sites = as.integer(10000 * neugamma_proportion)
+  zeroed_sites = as.integer(100000 * neugamma_proportion)
   
   neugamma_dfe_dist_high[1:zeroed_sites] = 1e-06* 1.1
   neugamma_dfe_dist_low[1:zeroed_sites] = 1e-06 * 1.1
@@ -731,11 +840,63 @@ plot_best_fit_sfs = function(input_data) {
   fig = ggplot(melt(input_data, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    xlab('Minor Allele Frequency') + 
-    ylab('Proportion of Segregating Sites') +
-    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    xlab('Minor allele frequency') + 
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
     scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
-    theme(legend.position="none")
+    theme(legend.position="none") +
+    theme(plot.title = element_text(face = "italic"))
+  return(fig)
+}
+
+plot_best_fit_sfs_3A = function(input_data) {
+  input_data = data.frame(input_data)
+  colnames(input_data) = c(
+    'Empirical Synonymous', 
+    'MLE Synonymous',
+    'Empirical Nonsynonymous',
+    'MLE Nonsynonymous',
+    'Species',
+    'X.axis')
+  fig = ggplot(melt(input_data, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
+    scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    theme(legend.position = c(0.72, 0.75)) +
+    theme(legend.text=element_text(size=10)) +    
+    theme(plot.title = element_text(face = "italic", size=16)) +
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
+  return(fig)
+}
+
+plot_best_fit_sfs_3B = function(input_data) {
+  input_data = data.frame(input_data)
+  colnames(input_data) = c(
+    'Empirical Synonymous', 
+    'Model Synonymous',
+    'Empirical Nonsynonymous',
+    'Model Nonsynonymous',
+    'Species',
+    'X.axis')
+  fig = ggplot(melt(input_data, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    xlab('Minor allele frequency') + 
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+    scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    theme(legend.position="none") +
+    theme(plot.title = element_text(face = "italic", size=16)) +
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
   return(fig)
 }
 
@@ -6024,7 +6185,7 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # plot_original_empirical_sfs(proportional_sfs(b_eggerthii)) + 
 #   xlim(-1.5, 20) +
 #   ggtitle('B. eggerthii synonymous SFS (Isolates w/ Clade control)') +
-#   ylab('Proportion of Segregating Sites')
+#   ylab('Proportion of segregating sites')
 # 
 # b_eggerthii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_eggerthii/one_epoch_demography.txt')
 # b_eggerthii_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_eggerthii/two_epoch_demography.txt')
@@ -6059,7 +6220,7 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # plot_original_empirical_sfs(proportional_sfs(b_fragilis)) + 
 #   xlim(-1.5, 20) +
 #   ggtitle('B. fragilis synonymous SFS (Isolates w/ Clade control)') +
-#   ylab('Proportion of Segregating Sites')
+#   ylab('Proportion of segregating sites')
 # 
 # b_fragilis_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_fragilis/one_epoch_demography.txt')
 # b_fragilis_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_fragilis/two_epoch_demography.txt')
@@ -6157,7 +6318,7 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # plot_original_empirical_sfs(proportional_sfs(b_stercoris)) + 
 #   xlim(-1.5, 20) +
 #   ggtitle('B. stercoris synonymous SFS (Isolates w/ Clade control)') +
-#   ylab('Proportion of Segregating Sites')
+#   ylab('Proportion of segregating sites')
 # 
 # b_stercoris_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_stercoris/one_epoch_demography.txt')
 # b_stercoris_UHGG_two_epoch = sfs_from_demography('../Data/UHGG/UHGG_Bacteroides_stercoris/two_epoch_demography.txt')
@@ -6206,7 +6367,7 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # plot_original_empirical_sfs(proportional_sfs(f_prausnitzii)) + 
 #   xlim(-1.5, 20) +
 #   ggtitle('F. prausnitzii [K] synonymous SFS (Isolates w/ Clade control)') +
-#   ylab('Proportion of Segregating Sites')
+#   ylab('Proportion of segregating sites')
 # 
 # 
 # f_prausnitzii_UHGG_one_epoch = sfs_from_demography('../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/one_epoch_demography.txt')
@@ -6289,7 +6450,7 @@ b_vulgatus_no_clade_control = read_input_sfs_original('../Analysis/Bacteroides_v
 # plot_original_empirical_sfs(proportional_sfs(p_copri)) + 
 #   xlim(-1.5, 20) +
 #   ggtitle('P. copri synonymous SFS (Isolates w/ Clade control)') +
-#   ylab('Proportion of Segregating Sites')
+#   ylab('Proportion of segregating sites')
 # 
 # 
 # p_copri = fold_sfs(p_copri)
@@ -7249,10 +7410,10 @@ dfe_df = rbind(
   melt(a_muciniphila_dfe_params),
   melt(a_finegoldii_dfe_params),
   melt(a_onderdonkii_dfe_params),
-  melt(a_putredinis_dfe_params),
+  # melt(a_putredinis_dfe_params),
   melt(a_shahii_dfe_params),
   melt(b_bacterium_dfe_params),
-  melt(b_caccae_dfe_params),
+  # melt(b_caccae_dfe_params),
   melt(b_cellulosilyticus_dfe_params),
   melt(b_fragilis_dfe_params),
   # melt(b_ovatus_dfe_params),
@@ -7280,10 +7441,10 @@ dfe_dadi_df = rbind(
   melt(a_muciniphila_dfe_dadi_params),
   melt(a_finegoldii_dfe_dadi_params),
   melt(a_onderdonkii_dfe_dadi_params),
-  melt(a_putredinis_dfe_dadi_params),
+  # melt(a_putredinis_dfe_dadi_params),
   melt(a_shahii_dfe_dadi_params),
   melt(b_bacterium_dfe_dadi_params),
-  melt(b_caccae_dfe_dadi_params),
+  # melt(b_caccae_dfe_dadi_params),
   melt(b_cellulosilyticus_dfe_dadi_params),
   melt(b_fragilis_dfe_dadi_params),
   # melt(b_ovatus_dfe_dadi_params),
@@ -7332,7 +7493,7 @@ phylogenetic_levels = c(
   'Bacteroides thetaiotaomicron',
   # 'Bacteroides ovatus',
   'Bacteroides xylanisolvens',
-  'Bacteroides caccae',
+  # 'Bacteroides caccae',
   # 'Bacteroides massiliensis',
   'Bacteroides vulgatus',
   'Barnesiella intestinihominis',
@@ -7356,17 +7517,22 @@ dfe_dadi_df$species = factor(dfe_dadi_df$species, levels=phylogenetic_levels)
 dfe_df$value[dfe_df$value <= 1e-12] = 1e-12
 dfe_df$value[dfe_df$value >= 1] = 1
 
+### Figure 4
+# 600 x 800
+
+# DFE Comparison
+
+
 ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
-  labs(
-    title = 'Gamma-Distributed DFE',
-    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
-  ) +
   theme_ridges() +
   scale_x_log10(limits=c(1e-13, 1e2)) +
-  theme(axis.title.y = element_blank()) + 
+  ylab('Proportion of Sites') +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.title.y.right = element_text('Test')) +
   theme(legend.position = "none") + 
-  xlab('Selective Effect')
+  xlab('Selection Coefficient')
 
 ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_high', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
@@ -7377,6 +7543,7 @@ ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_high', ], aes(x=value, y=fct_re
   theme_ridges() +
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
+  theme(axis.text.y = element_text(face='italic')) +
   theme(legend.position = "none") + 
   xlab('Selective Effect')
 
@@ -7389,6 +7556,7 @@ ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_
   theme_ridges() +
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
+  theme(axis.text.y = element_text(face='italic')) +
   theme(legend.position = "none") + 
   xlab('Selective Effect')
 
@@ -7400,6 +7568,7 @@ ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_high', ], aes(x=value, y=fct
   ) +
   theme_ridges() +
   scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.text.y = element_text(face='italic')) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
   xlab('Selective Effect')
@@ -7537,13 +7706,283 @@ b_cellulosilyticus_dfe_figure = ggplot(b_cellulosilyticus_dfe_df, aes(x=value, y
   xlab('Selective Effect') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
+b_stercoris_dfe_df = melt(b_stercoris_dfe_params)
+b_stercoris_dfe_df$value[b_stercoris_dfe_df$value <= 1e-12] = 1e-12
+b_stercoris_dfe_df$value[b_stercoris_dfe_df$value >= 1] = 1
+# b_stercoris_dfe_df = b_stercoris_dfe_df[b_stercoris_dfe_df$variable == 'gamma_dfe_dist_low' || b_stercoris_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+b_stercoris_dfe_df = rbind(
+  b_stercoris_dfe_df[b_stercoris_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_stercoris_dfe_df[b_stercoris_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_stercoris_dfe_df$variable <- as.character(b_stercoris_dfe_df$variable)
+
+b_stercoris_dfe_df$variable[b_stercoris_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_stercoris_dfe_df$variable[b_stercoris_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+b_stercoris_dfe_figure = ggplot(b_stercoris_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Bacteroides stercoris DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+a_finegoldii_dfe_df = melt(a_finegoldii_dfe_params)
+a_finegoldii_dfe_df$value[a_finegoldii_dfe_df$value <= 1e-12] = 1e-12
+a_finegoldii_dfe_df$value[a_finegoldii_dfe_df$value >= 1] = 1
+# a_finegoldii_dfe_df = a_finegoldii_dfe_df[a_finegoldii_dfe_df$variable == 'gamma_dfe_dist_low' || a_finegoldii_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+a_finegoldii_dfe_df = rbind(
+  a_finegoldii_dfe_df[a_finegoldii_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  a_finegoldii_dfe_df[a_finegoldii_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+a_finegoldii_dfe_df$variable <- as.character(a_finegoldii_dfe_df$variable)
+
+a_finegoldii_dfe_df$variable[a_finegoldii_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+a_finegoldii_dfe_df$variable[a_finegoldii_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+a_finegoldii_dfe_figure = ggplot(a_finegoldii_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Bacteroides stercoris DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+
+a_onderdonkii_dfe_df = melt(a_onderdonkii_dfe_params)
+a_onderdonkii_dfe_df$value[a_onderdonkii_dfe_df$value <= 1e-12] = 1e-12
+a_onderdonkii_dfe_df$value[a_onderdonkii_dfe_df$value >= 1] = 1
+# a_onderdonkii_dfe_df = a_onderdonkii_dfe_df[a_onderdonkii_dfe_df$variable == 'gamma_dfe_dist_low' || a_onderdonkii_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+a_onderdonkii_dfe_df = rbind(
+  a_onderdonkii_dfe_df[a_onderdonkii_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  a_onderdonkii_dfe_df[a_onderdonkii_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+a_onderdonkii_dfe_df$variable <- as.character(a_onderdonkii_dfe_df$variable)
+
+a_onderdonkii_dfe_df$variable[a_onderdonkii_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+a_onderdonkii_dfe_df$variable[a_onderdonkii_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+a_onderdonkii_dfe_figure = ggplot(a_onderdonkii_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Bacteroides stercoris DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+e_eligens_dfe_df = melt(e_eligens_dfe_params)
+e_eligens_dfe_df$value[e_eligens_dfe_df$value <= 1e-12] = 1e-12
+e_eligens_dfe_df$value[e_eligens_dfe_df$value >= 1] = 1
+# e_eligens_dfe_df = e_eligens_dfe_df[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low' || e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+e_eligens_dfe_df = rbind(
+  e_eligens_dfe_df[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  e_eligens_dfe_df[e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+e_eligens_dfe_df$variable <- as.character(e_eligens_dfe_df$variable)
+
+e_eligens_dfe_df$variable[e_eligens_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+e_eligens_dfe_df$variable[e_eligens_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+e_eligens_dfe_figure = ggplot(e_eligens_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Bacteroides stercoris DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+e_rectale_dfe_df = melt(e_rectale_dfe_params)
+e_rectale_dfe_df$value[e_rectale_dfe_df$value <= 1e-12] = 1e-12
+e_rectale_dfe_df$value[e_rectale_dfe_df$value >= 1] = 1
+# e_rectale_dfe_df = e_rectale_dfe_df[e_rectale_dfe_df$variable == 'gamma_dfe_dist_low' || e_rectale_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+e_rectale_dfe_df = rbind(
+  e_rectale_dfe_df[e_rectale_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  e_rectale_dfe_df[e_rectale_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+e_rectale_dfe_df$variable <- as.character(e_rectale_dfe_df$variable)
+
+e_rectale_dfe_df$variable[e_rectale_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+e_rectale_dfe_df$variable[e_rectale_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+e_rectale_dfe_figure = ggplot(e_rectale_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
+  labs(
+    title = 'Bacteroides stercoris DFE Comparison',
+    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  ) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selective Effect') +
+  scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+a_muciniphila_dfe_df = melt(a_muciniphila_dfe_params)
+# a_muciniphila_dfe_df$value = a_muciniphila_dfe_df$value * 2
+a_muciniphila_dfe_df$value[a_muciniphila_dfe_df$value <= 1e-12] = 1e-12
+a_muciniphila_dfe_df$value[a_muciniphila_dfe_df$value >= 1] = 1
+# a_muciniphila_dfe_df = a_muciniphila_dfe_df[a_muciniphila_dfe_df$variable == 'gamma_dfe_dist_low' || a_muciniphila_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+a_muciniphila_dfe_df = rbind(
+  a_muciniphila_dfe_df[a_muciniphila_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  a_muciniphila_dfe_df[a_muciniphila_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+a_muciniphila_dfe_df$variable <- as.character(a_muciniphila_dfe_df$variable)
+
+a_muciniphila_dfe_df$variable[a_muciniphila_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+a_muciniphila_dfe_df$variable[a_muciniphila_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+r_bromii_dfe_df = melt(r_bromii_dfe_params)
+# r_bromii_dfe_df$value = r_bromii_dfe_df$value * 2
+r_bromii_dfe_df$value[r_bromii_dfe_df$value <= 1e-12] = 1e-12
+r_bromii_dfe_df$value[r_bromii_dfe_df$value >= 1] = 1
+# r_bromii_dfe_df = r_bromii_dfe_df[r_bromii_dfe_df$variable == 'gamma_dfe_dist_low' || r_bromii_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+r_bromii_dfe_df = rbind(
+  r_bromii_dfe_df[r_bromii_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  r_bromii_dfe_df[r_bromii_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+r_bromii_dfe_df$variable <- as.character(r_bromii_dfe_df$variable)
+
+r_bromii_dfe_df$variable[r_bromii_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+r_bromii_dfe_df$variable[r_bromii_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+a_muciniphila_dfe_figure = ggplot(a_muciniphila_dfe_df[a_muciniphila_dfe_df$variable == 'Gamma-Distributed DFE', ], aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 2.5) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.x = element_blank()) + 
+  ylab('Proportion of Sites') +
+  theme(legend.position = "none") + 
+  xlab('Selection Coefficient') +
+  ggtitle('Akkermansia muciniphila') +
+  theme(plot.title = element_text(face = "italic")) +
+  scale_fill_manual(values=c("#3da1ff"))
+
+r_bromii_dfe_figure = ggplot(r_bromii_dfe_df[r_bromii_dfe_df$variable == 'Gamma-Distributed DFE', ], aes(x=value, y=fct_rev(variable), fill=variable)) +
+  geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 2.5) +
+  theme_ridges() +
+  scale_x_log10(limits=c(1e-13, 1e2)) +
+  theme(axis.title.y = element_blank()) + 
+  theme(legend.position = "none") + 
+  xlab('Selection Coefficient') +
+  ggtitle('Ruminococcus bromii') +
+  theme(plot.title = element_text(face = "italic")) +
+  scale_fill_manual(values=c("#fe61cf"))
+
+a_muciniphila_dfe_figure + r_bromii_dfe_figure + plot_layout(ncol = 1)
+
+# Weakly Deleterious
+
+weakly_deleterious_s =  1E-6
+moderately_deleterious_s = 1E-2
+lethal_s = 0.99
+
+DFE_cutoffs = c(-Inf, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, Inf)
+
+a_muciniphila_gamma_dfe = a_muciniphila_dfe_df[a_muciniphila_dfe_df$variable=='Gamma-Distributed DFE', ]
+r_bromii_gamma_dfe = r_bromii_dfe_df[r_bromii_dfe_df$variable=='Gamma-Distributed DFE', ]
+
+a_muciniphila_gamma_dfe[a_muciniphila_gamma_dfe$value < 1e-13, ]= 1e-13
+a_muciniphila_gamma_dfe[a_muciniphila_gamma_dfe$value > 1e2, ]= 1e2
+a_muciniphila_gamma_dfe_bins = cut(a_muciniphila_gamma_dfe$value, breaks=DFE_cutoffs)
+
+r_bromii_gamma_dfe[r_bromii_gamma_dfe$value < 1e-13, ]= 1e-13
+r_bromii_gamma_dfe[r_bromii_gamma_dfe$value > 1e2, ]= 1e2
+r_bromii_gamma_dfe_bins = cut(r_bromii_gamma_dfe$value, breaks=DFE_cutoffs)
+
+a_muciniphila_weakly_deleterious = mean(a_muciniphila_gamma_dfe$value < weakly_deleterious_s)
+a_muciniphila_weakly_deleterious
+a_muciniphila_moderately_deleterious =  mean(weakly_deleterious_s < a_muciniphila_gamma_dfe$value & a_muciniphila_gamma_dfe$value < moderately_deleterious_s)
+a_muciniphila_moderately_deleterious
+a_muciniphila_highly_deleterious = mean(moderately_deleterious_s < a_muciniphila_gamma_dfe$value & a_muciniphila_gamma_dfe$value < lethal_s)
+a_muciniphila_highly_deleterious
+a_muciniphila_lethal = mean(a_muciniphila_gamma_dfe$value > lethal_s)
+a_muciniphila_lethal
+
+r_bromii_weakly_deleterious = mean(r_bromii_gamma_dfe$value < weakly_deleterious_s)
+r_bromii_weakly_deleterious
+r_bromii_moderately_deleterious =  mean(weakly_deleterious_s < r_bromii_gamma_dfe$value & r_bromii_gamma_dfe$value < moderately_deleterious_s)
+r_bromii_moderately_deleterious
+r_bromii_highly_deleterious = mean(moderately_deleterious_s < r_bromii_gamma_dfe$value & r_bromii_gamma_dfe$value < lethal_s)
+r_bromii_highly_deleterious
+r_bromii_lethal = mean(r_bromii_gamma_dfe$value > lethal_s)
+r_bromii_lethal
+
+b_cellulosilyticus_gamma_dfe = b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable=='Gamma-Distributed DFE', ]
+b_stercoris_gamma_dfe = b_stercoris_dfe_df[b_stercoris_dfe_df$variable=='Gamma-Distributed DFE', ]
+
+b_cellulosilyticus_weakly_deleterious = mean(b_cellulosilyticus_gamma_dfe$value < weakly_deleterious_s)
+b_cellulosilyticus_weakly_deleterious
+b_cellulosilyticus_moderately_deleterious =  mean(weakly_deleterious_s < b_cellulosilyticus_gamma_dfe$value & b_cellulosilyticus_gamma_dfe$value < moderately_deleterious_s)
+b_cellulosilyticus_moderately_deleterious
+b_cellulosilyticus_highly_deleterious = mean(moderately_deleterious_s < b_cellulosilyticus_gamma_dfe$value & b_cellulosilyticus_gamma_dfe$value < lethal_s)
+b_cellulosilyticus_highly_deleterious
+b_cellulosilyticus_lethal = mean(b_cellulosilyticus_gamma_dfe$value > lethal_s)
+b_cellulosilyticus_lethal
+
+b_cellulosilyticus_gamma_dfe[b_cellulosilyticus_gamma_dfe$value < 1e-13, ]= 1e-13
+b_cellulosilyticus_gamma_dfe[b_cellulosilyticus_gamma_dfe$value > 1e2, ]= 1e2
+b_cellulosilyticus_gamma_dfe_bins = cut(b_cellulosilyticus_gamma_dfe$value, breaks=DFE_cutoffs)
+
+b_stercoris_weakly_deleterious = mean(b_stercoris_gamma_dfe$value < weakly_deleterious_s)
+b_stercoris_weakly_deleterious
+b_stercoris_moderately_deleterious =  mean(weakly_deleterious_s < b_stercoris_gamma_dfe$value & b_stercoris_gamma_dfe$value < moderately_deleterious_s)
+b_stercoris_moderately_deleterious
+b_stercoris_highly_deleterious = mean(moderately_deleterious_s < b_stercoris_gamma_dfe$value & b_stercoris_gamma_dfe$value < lethal_s)
+b_stercoris_highly_deleterious
+b_stercoris_lethal = mean(b_stercoris_gamma_dfe$value > lethal_s)
+b_stercoris_lethal
+
+b_stercoris_gamma_dfe[b_stercoris_gamma_dfe$value < 1e-13, ]= 1e-13
+b_stercoris_gamma_dfe[b_stercoris_gamma_dfe$value > 1e2, ]= 1e2
+b_stercoris_gamma_dfe_bins = cut(b_stercoris_gamma_dfe$value, breaks=DFE_cutoffs)
+
+e_eligens_gamma_dfe = e_eligens_dfe_df[e_eligens_dfe_df$variable=='Gamma-Distributed DFE', ]
+e_rectale_gamma_dfe = e_rectale_dfe_df[e_rectale_dfe_df$variable=='Gamma-Distributed DFE', ]
+
+e_eligens_weakly_deleterious = mean(e_eligens_gamma_dfe$value < weakly_deleterious_s)
+e_eligens_weakly_deleterious
+e_eligens_moderately_deleterious =  mean(weakly_deleterious_s < e_eligens_gamma_dfe$value & e_eligens_gamma_dfe$value < moderately_deleterious_s)
+e_eligens_moderately_deleterious
+e_eligens_highly_deleterious = mean(moderately_deleterious_s < e_eligens_gamma_dfe$value & e_eligens_gamma_dfe$value < lethal_s)
+e_eligens_highly_deleterious
+e_eligens_lethal = mean(e_eligens_gamma_dfe$value > lethal_s)
+e_eligens_lethal
+
+e_rectale_weakly_deleterious = mean(e_rectale_gamma_dfe$value < weakly_deleterious_s)
+e_rectale_weakly_deleterious
+e_rectale_moderately_deleterious =  mean(weakly_deleterious_s < e_rectale_gamma_dfe$value & e_rectale_gamma_dfe$value < moderately_deleterious_s)
+e_rectale_moderately_deleterious
+e_rectale_highly_deleterious = mean(moderately_deleterious_s < e_rectale_gamma_dfe$value & e_rectale_gamma_dfe$value < lethal_s)
+e_rectale_highly_deleterious
+e_rectale_lethal = mean(e_rectale_gamma_dfe$value > lethal_s)
+e_rectale_lethal
+
+b_cellulosilyticus_dfe_figure + b_stercoris_dfe_figure + plot_layout(ncol=1)
+
 o_splanchnicus_dfe_figure + e_eligens_dfe_figure + b_cellulosilyticus_dfe_figure + plot_layout(ncol = 1)
 
 two_epoch_nu_tau = read.csv('../Summary/two_epoch_demography_interpretation.csv')
-three_epoch_nu_tau= read.csv('../Summary/three_epoch_demography_interpretation.csv')
-two_epoch_nu_tau = two_epoch_nu_tau[-12, ]
-two_epoch_nu_tau = two_epoch_nu_tau[-6, ]
-three_epoch_nu_tau = three_epoch_nu_tau[-5, ]
+three_epoch_nu_tau= read.csv('../Summary/three_epoch_demography_interpretation.csv', nrows=1)
 
 two_epoch_nu_tau$demography = 'Two Epoch'
 three_epoch_nu_tau$demography = 'Three Epoch'
@@ -7557,28 +7996,31 @@ demography_df$nu = as.numeric(demography_df$nu)
 
 demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
 
-demography_df_highlight = demography_df[demography_df$species %in% c('Odoribacter splanchnicus', 'Eubacterium eligens', 'Bacteroides cellulosilyticus'), ]
+species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
 
-ggscatter(demography_df, x="nu", y="time_low", color="species", shape='demography', size=3) + geom_vline(xintercept=1) +
-  ylab('Estimated Time in Years') +
-  xlab('Ratio of current to ancestral population size') +
+typeface = ifelse(demography_df$species %in% species_highlight, 5, 4)
+
+demography_df_highlight = demography_df[demography_df$species %in% species_highlight, ]
+options(ggrepel.max.overlaps = Inf)
+x_label_text = expression(nu == frac(N[current], N[ancestral]))
+demography_scatter = ggscatter(demography_df, x="nu", y="time_low", color="species", shape='demography', size=3) +
+  ylab('Estimated time in years since most recent demographic event') +
+  xlab(x_label_text) +
+  geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
   scale_shape_manual(name = "Best-Fit Demographic Model",
                      labels = c("Three Epoch", "Two Epoch"),
                      values = c(17, 19)) +
-  theme(legend.position="right") +
-  geom_text_repel(aes(label = demography_df$species, color=demography_df$species)) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=typeface) +
   guides(color=guide_legend(title="Species")) +
-  scale_x_log10(limits=c(1e-1, 1e1)) +
-  scale_y_log10(limits=c(1e1, 1e7)) +
-  theme(legend.title = element_text(size=30)) +
-  theme(legend.text = element_text(size=12)) +
+  scale_x_log10(limits=c(5e-2, 2e1)) +
+  scale_y_log10(limits=c(1e4, 1e7)) +
+  theme(legend.position = 'none') +
   guides(color = 'none') +
   guides(shape = 'none')  +
-  geom_point(data=demography_df_highlight, color='red', shape=1, size=6) +
-  # geom_point(data=demography_df_highlight, aes(x=nu, y=time_low, color='red', shape=1, size=4))  +
-  ggtitle('Commensal Gut Microbiota have Varied Demographic Histories') +
-  theme(axis.text=element_text(size=14),
-        axis.title=element_text(size=16,face="bold"))
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16))
+
+demography_scatter
 
 # Full empirical SFS
 plot_original_empirical_sfs(b_vulgatus_no_clade_control) + ggtitle('B. vulgatus full empirical SFS (unfolded with no Clade Control)') +
@@ -7740,7 +8182,7 @@ o_splanchnicus_best_fit = cbind(
 
 oscillibacter_sp_best_fit = cbind(
   proportional_sfs(oscillibacter_sp_hmp_qp_syn[-1]),
-  proportional_sfs(oscillibacter_sp_complete_two_epoch),
+  proportional_sfs(oscillibacter_sp_complete_three_epoch),
   proportional_sfs(oscillibacter_sp_hmp_qp_nonsyn[-1]),
   proportional_sfs(oscillibacter_sp_complete_gamma_dfe),
   rep('Oscilibacter sp', length(oscillibacter_sp_hmp_qp_syn[-1])),
@@ -7801,18 +8243,7 @@ r_bromii_best_fit = cbind(
   x_axis
 )
 
-
-p1 = plot_best_fit_sfs(o_splanchnicus_best_fit) + ggtitle('Odoribacter splanchnicus')
-p2 = plot_best_fit_sfs(e_eligens_best_fit) + ggtitle('Eubacterium eligens')
-p3 = plot_best_fit_sfs(b_cellulosilyticus_best_fit) + ggtitle('Bacteroides cellulosilyticus')
-p1 + p2 + p3 + plot_layout(ncol = 1)
-
-p1_l = plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
-p2_l = plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
-p3_l = plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
-
-p1 + p1_l + p2 + p2_l + p3 + p3_l +  plot_layout(ncol=2)
-
+# 800 x 1200
 # Phylogenetic Tree in APE
 
 get_species_code_reference = function(code, reference) {
@@ -7849,22 +8280,22 @@ species_subtree = c(
   'Akkermansia_muciniphila_55290',
   'Alistipes_finegoldii_56071',
   'Alistipes_onderdonkii_55464',
-  'Alistipes_putredinis_61533',
+  # 'Alistipes_putredinis_61533',
   'Alistipes_shahii_62199',
   'Bacteroidales_bacterium_58650',
-  'Bacteroides_caccae_53434',
+  # 'Bacteroides_caccae_53434',
   'Bacteroides_cellulosilyticus_58046',
   'Bacteroides_fragilis_54507',
-  'Bacteroides_massiliensis_44749',
-  'Bacteroides_ovatus_58035',
+  # 'Bacteroides_massiliensis_44749',
+  # 'Bacteroides_ovatus_58035',
   'Bacteroides_stercoris_56735',
   'Bacteroides_thetaiotaomicron_56941',
-  'Bacteroides_uniformis_57318',
+  # 'Bacteroides_uniformis_57318',
   'Bacteroides_vulgatus_57955',
   'Bacteroides_xylanisolvens_57185',
   'Barnesiella_intestinihominis_62208',
-  'Coprococcus_sp_62244',
-  'Dialister_invisus_61905',
+  # 'Coprococcus_sp_62244',
+  # 'Dialister_invisus_61905',
   'Eubacterium_eligens_61678',
   'Eubacterium_rectale_56927',
   'Faecalibacterium_prausnitzii_57453',
@@ -7903,9 +8334,11 @@ for (i in 1:length(subtree$tip.label)) {
 }
 
 plot(subtree)
+write.tree(subtree, file='../Summary/good_species.newick')
+
 
 # Likelihood Surfaces
-plot_likelihood_surface('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv')
 plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
 plot_likelihood_surface_contour('../Analysis/Alistipes_finegoldii_56071_downsampled_14/likelihood_surface.csv') + ggtitle('A. finegoldii likelihood surface')
 plot_likelihood_surface_contour('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/likelihood_surface.csv') + ggtitle('A. onderdonkii likelihood surface')
@@ -8037,7 +8470,7 @@ p30_l = plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_d
 
 
 # 1600 x 16000
-p6 + p6_l +
+sfs_and_likelihood = p6 + p6_l +
   p2 + p2_l + 
   p3 + p3_l + 
   p5 + p5_l +
@@ -8060,4 +8493,241 @@ p6 + p6_l +
   p30 + p30_l +
   p29 + p29_l +
   p22 + p22_l +
-  plot_layout(ncol=2)
+  plot_layout(ncol=2) 
+
+# 3200 x 16000
+
+# Reorder area distribution
+# Take out E. eligens
+# Rescaale legends to match font size
+# Legend in upper right corner of figure
+
+### Figure 3
+
+design = c(
+  area(1, 1, 1, 1),
+  area(1, 2, 1, 2),
+  area(2, 1, 2, 1),
+  area(2, 2, 2, 2),
+  area(1, 3, 2, 5)
+)
+
+p1 = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
+p1_l = plot_likelihood_surface_contour_3C('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv')
+
+p30 = plot_best_fit_sfs_3B(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
+p30_l = plot_likelihood_surface_contour_3D('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv')
+
+# 2000 x 900
+p1 + p1_l + # A. muciniphila
+  p30 + p30_l + #R. bicirculans
+  demography_scatter +
+  plot_layout(design=design)
+
+# Nucleotide diversity
+
+pi_summary_df = data.frame(read.csv('../Analysis/summarized_pi.csv', header=TRUE))
+names(pi_summary_df) = c('species', 'Cohort', 'average_pi', 'num_sites', 
+                         'num_samples', 'aggregate_across_pi', 'pairwise_across_pi')
+
+list_iid = c('Bifidobacterium_longum_57796',
+             'Blautia_wexlerae_56130',
+             'Butyrivibrio_crossotus_61674',
+             'Escherichia_coli_58110',
+             'Eubacterium_eligens_61678',
+             'Faecalibacterium_cf_62236',
+             'Faecalibacterium_prausnitzii_57453',
+             'Faecalibacterium_prausnitzii_61481',
+             'Faecalibacterium_prausnitzii_62201',
+             'Oscillibacter_sp_60799',
+             'Prevotella_copri_61740',
+             'Roseburia_inulinivorans_61943',
+             'Ruminococcus_bromii_62047')
+
+over_iid_df = subset(pi_summary_df, species %in% list_iid)
+
+position_jitterdodge(
+  jitter.width = NULL,
+  jitter.height = 0,
+  dodge.width = 0.5,
+  seed = NA
+)
+
+# pairwise_pi_comparison_10 + stat_compare_means(label = "p.signif", method = "t.test")
+
+over_iid_df$ordered_pi = 0
+
+over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Bifidobacterium_longum_57796' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Blautia_wexlerae_56130' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Butyrivibrio_crossotus_61674' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Eubacterium_eligens_61678' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Escherichia_coli_58110' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_cf_62236' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_61481' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_57453' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Faecalibacterium_prausnitzii_62201' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Oscillibacter_sp_60799' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Prevotella_copri_61740' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Roseburia_inulinivorans_61943' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' HMP', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$ordered_pi = 
+  mean(over_iid_df[over_iid_df$species=='Ruminococcus_bromii_62047' & over_iid_df$Cohort==' African', ]$pairwise_across_pi)
+
+unique(over_iid_df$species)
+over_iid_df$species[over_iid_df$species == 'Bifidobacterium_longum_57796'] = 'Bifidobacterium longum'
+over_iid_df$species[over_iid_df$species == 'Blautia_wexlerae_56130'] = 'Blautia wexlerae'
+over_iid_df$species[over_iid_df$species == 'Butyrivibrio_crossotus_61674'] = 'Butyrivibrio crossotus'
+over_iid_df$species[over_iid_df$species == 'Eubacterium_eligens_61678'] = 'Eubacterium eligens'
+over_iid_df$species[over_iid_df$species == 'Escherichia_coli_58110'] = 'Escherichia coli'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_61481'] = 'Faecalibacterium prausnitzii (61481)'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_57453'] = 'Faecalibacterium prausnitzii (57453)'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_prausnitzii_62201'] = 'Faecalibacterium prausnitzii (62201)'
+over_iid_df$species[over_iid_df$species == 'Faecalibacterium_cf_62236'] = 'Faecalibacterium cf'
+over_iid_df$species[over_iid_df$species == 'Oscillibacter_sp_60799'] = 'Oscillibacter species'
+over_iid_df$species[over_iid_df$species == 'Prevotella_copri_61740'] = 'Prevotella copri'
+over_iid_df$species[over_iid_df$species == 'Roseburia_inulinivorans_61943'] = 'Roseburia inulinovrans'
+over_iid_df$species[over_iid_df$species == 'Ruminococcus_bromii_62047'] = 'Ruminococcus bromii'
+
+better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, ordered_pi), y=average_pi, fill=Cohort)) +
+  geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
+  geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
+  geom_point(aes(x=species, y=pairwise_across_pi, color=Cohort), size=4, shape=16, position=position_dodge(width=0.75)) +
+  theme_bw() +
+  theme(plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(size=rel(1.5), angle=40, vjust=1.0, hjust=1)) +
+  theme(axis.text.y = element_text(size=rel(1.5))) +
+  theme(axis.title.x = element_blank()) +
+  theme(axis.title.y = element_text(size=rel(1.5))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x,)),
+                limits = c(0.0001, 0.2)) +
+  scale_fill_manual(values=c('dodgerblue3', 'goldenrod1')) +
+  scale_color_manual(values=c('dodgerblue3', 'goldenrod1')) +
+  theme(axis.text.x=element_text(face="italic")) +
+  theme(legend.position = "none") +
+  xlab('Species') + 
+  ylab('Nucleotide diversity') +
+  # ggtitle('Distribution of within and between-host nucleotide diversity across cohorts') +
+  # stat_compare_means(method='wilcox.test', label='p.signif', size=6)
+  stat_compare_means(method='wilcox.test', size=2)
+better_pi_comparison_iid
+
+distinct_iid_df = distinct(over_iid_df, pairwise_across_pi, .keep_all=TRUE)
+distinct_df = distinct(pi_summary_df, pairwise_across_pi, .keep_all=TRUE)
+HMP_distinct = distinct_df[distinct_df$Cohort==' HMP', ]$pairwise_across_pi
+African_distinct = distinct_df[distinct_df$Cohort==' African', ]$pairwise_across_pi
+
+HMP_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' HMP', ]$pairwise_across_pi
+African_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' African', ]$pairwise_across_pi
+
+wilcox.test(HMP_distinct_pairwise, African_distinct_pairwise, paired=TRUE, exact=TRUE)
+wilcox.test(HMP_distinct, African_distinct, paired=FALSE, exact=TRUE)
+
+hmp_summary_df = pi_summary_df[pi_summary_df$Cohort==' HMP', ]
+afr_summary_df = pi_summary_df[pi_summary_df$Cohort==' African', ]
+
+# Number of species in each cohort
+length(unique(hmp_summary_df$species))
+length(unique(afr_summary_df$species))
+
+# Number of shared species
+sum(unique(afr_summary_df$species) %in% unique(hmp_summary_df$species))
+
+afr_species_freq = data.frame(table(afr_summary_df$species))
+hmp_species_freq = data.frame(table(hmp_summary_df$species))
+
+over_5_afr_species = afr_species_freq[afr_species_freq$Freq > 5, ]$Var1
+over_5_hmp_species = hmp_species_freq[hmp_species_freq$Freq > 5, ]$Var1
+
+over_5_species = unique(c(over_5_afr_species, over_5_hmp_species))
+
+over_5_species_df = pi_summary_df[pi_summary_df$species %in% over_5_species, ]
+
+# over_5_species_df = drop_duplicates(over_5_species_df, keep=False)
+over_5_species_df = over_5_species_df[!duplicated(over_5_species_df$pairwise_across_pi), ]
+
+over_5_species_df = over_5_species_df[order(over_5_species_df$species), ]
+over_5_species_df
+
+compare_iid_over_5_means <- ggplot(data=over_5_species_df, aes(x=Cohort, y=pairwise_across_pi, fill=Cohort)) +
+  geom_boxplot(aes(fill=Cohort), outlier.shape=NA) +
+  geom_point(pch = 21, position = position_jitterdodge(), size=1.5) +
+  theme_bw() +
+  theme(plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(size=rel(1.5), angle=40, vjust=1.0, hjust=1)) +
+  theme(axis.text.y = element_text(size=rel(1.5))) +
+  theme(axis.title.x = element_blank()) +
+  theme(axis.title.y = element_blank()) +
+  theme(legend.text = element_text(size=rel(1.5))) +
+  theme(legend.title = element_text(size=rel(1.5))) +
+  scale_fill_manual(values=c('dodgerblue3', 'goldenrod1')) +
+  scale_color_manual(values=c('dodgerblue3', 'goldenrod1')) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x,)),
+                limits = c(0.0001, 0.2)) +
+  ylab('Mean Nucleotide diversity per Species') +
+  # ylim(0, 0.03) +
+  stat_compare_means(method='wilcox.test', label='p.signif', size=6)
+  # ggtitle('Mean Nucleotide diversity per Species between Cohorts')
+compare_iid_over_5_means
+
+better_pi_comparison_iid + compare_iid_over_5_means + plot_layout(widths = c(3, 1))
+# 1500 x 900 dimensions for saved image

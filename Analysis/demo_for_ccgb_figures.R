@@ -653,7 +653,7 @@ better_pi_comparison_iid <- ggplot(data=over_iid_df, aes(x=reorder(species, orde
   theme(legend.position = "none") +
   xlab('Species') + 
   ylab('Nucleotide Diversity') +
-  ggtitle('1A') +
+  ggtitle('Distribution of nucleotide diversity within and between hosts') +
   stat_compare_means(method='wilcox.test', label='p.signif', size=6)
 better_pi_comparison_iid
 
@@ -714,8 +714,7 @@ compare_iid_over_5_means <- ggplot(data=over_5_species_df, aes(x=Cohort, y=pairw
   ylab('Mean Nucleotide Diversity per Species') +
   # ylim(0, 0.03) +
   stat_compare_means(method='wilcox.test', label='p.signif', size=6) +
-  ggtitle('1B')
-  #ggtitle('Mean Nucleotide Diversity per Species between Cohorts')
+  ggtitle('Mean Nucleotide Diversity per Species between Cohorts')
 compare_iid_over_5_means
 
 better_pi_comparison_iid + compare_iid_over_5_means + plot_layout(widths = c(3, 1))
