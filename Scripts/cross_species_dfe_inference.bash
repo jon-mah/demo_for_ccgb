@@ -22,4 +22,4 @@ do
   fi
 done < ../Data/good_species_list.txt
 
-python cross_species_dfe_inference.py ../Analysis/${species}_downsampled_14/complete_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/empirical_nonsyn_downsampled_sfs ../Analysis/bacteroides_dfe/
+python cross_species_dfe_inference.py ../Analysis/${species}_downsampled_14/complete_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/empirical_nonsyn_downsampled_sfs.txt ../Analysis/cross_species_dfe/

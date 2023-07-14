@@ -1,0 +1,17 @@
+2023-07-13 18:18:34,031 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-07-13 18:18:34,032 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Akkermansia_muciniphila_55290_log.log
+
+2023-07-13 18:18:34,032 - INFO - Parsed the following arguments:
+	input_demography = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/complete_two_epoch_demography.txt
+	input_nonsyn_sfs = ../Analysis/Akkermansia_muciniphila_55290_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+	outprefix = ../Analysis/cross_species_dfe/
+
+2023-07-13 18:18:34,295 - INFO - Input demographic parameters are: [0.412975, 0.1958707].
+2023-07-13 18:18:34,295 - INFO - Input theta_syn is: 12473.264716383515.
+2023-07-13 18:18:52,306 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-07-13 21:44:04,177 - WARNING - The algorithm does not converge.  Roundoff error is detected
+  in the extrapolation table.  It is assumed that the requested tolerance
+  cannot be achieved, and that the returned result (if full_output = 1) is 
+  the best which can be obtained.
+2023-07-13 21:45:16,723 - INFO - Pipeline executed succesfully.

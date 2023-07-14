@@ -10,6 +10,7 @@ import logging
 import time
 import argparse
 import warnings
+import re
 
 import numpy
 import dadi
@@ -239,9 +240,6 @@ class CrossSpeciesDFEInferece():
                     theta_syn = str(line.split(': ')[1])
                     theta_syn = theta_syn[0:-2]
                     theta_syn = float(theta_syn)
-        logger.info('Input demographic parameters are: ' +
-                    str(demog_params) + '.')
-        logger.info('Input theta_syn is: ' + str(theta_syn) + '.')
         start_idx = input_demography.find("Analysis") + 9
         end_idx = input_demography.find("_downsampled")
         species = input_demography[start_idx:end_idx]
@@ -262,10 +260,10 @@ class CrossSpeciesDFEInferece():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         likelihood_surface = \
-            '{0}{1}{2}likelihood_surface.csv'.format(
-                args['outprefix'], species, underscore)
-        logfile = '{0}{1}{2}log.log'.format(
-            args['outprefix'], species, underscore)
+            '{0}{1}{2}_likelihood_surface.csv'.format(
+                args['outprefix'], underscore, species)
+        logfile = '{0}{1}{2}_log.log'.format(
+            args['outprefix'], underscore, species)
         to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
@@ -300,6 +298,10 @@ class CrossSpeciesDFEInferece():
         pts_l = [1200, 1400, 1600]
 
         # Construct demography from input params
+
+        logger.info('Input demographic parameters are: ' +
+                    str(demog_params) + '.')
+        logger.info('Input theta_syn is: ' + str(theta_syn) + '.')
         spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
                               pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                               verbose=True, cpus=1)
@@ -308,7 +310,7 @@ class CrossSpeciesDFEInferece():
         y_min = 1E2
         y_max = 1E13
 
-        npts = 5
+        npts = 500
         x_range = numpy.linspace(x_min, x_max, npts)
         y_range = numpy.linspace(y_min, y_max, npts)
 
@@ -321,7 +323,7 @@ class CrossSpeciesDFEInferece():
         z_val = []
         for i in range(0, npts):
             for j in range(0, npts):
-                Z[i, j] = self.likelihood(spectra, theta, x_range[i], y_range[j], nonsyn_data, pts_l)
+                Z[i, j] = self.likelihood(spectra, theta_syn, x_range[i], y_range[j], nonsyn_data, pts_l)
                 x_val.append(x_range[i])
                 y_val.append(y_range[j])
                 z_val.append(Z[i, j])
