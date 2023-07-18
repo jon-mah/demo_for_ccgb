@@ -307,10 +307,10 @@ class CrossSpeciesDFEInferece():
                               verbose=True, cpus=1)
         x_min = 1E-2
         x_max = 1
-        y_min = 1E2
+        y_min = 1E-2
         y_max = 1E13
 
-        npts = 500
+        npts = 1000
         x_range = numpy.linspace(x_min, x_max, npts)
         y_range = numpy.linspace(y_min, y_max, npts)
 

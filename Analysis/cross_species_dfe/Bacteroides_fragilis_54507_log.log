@@ -1,17 +1,17 @@
-2023-07-13 18:42:43,514 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-07-16 17:49:08,369 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-07-13 18:42:43,514 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Bacteroides_fragilis_54507_log.log
+2023-07-16 17:49:08,370 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Bacteroides_fragilis_54507_log.log
 
-2023-07-13 18:42:43,514 - INFO - Parsed the following arguments:
+2023-07-16 17:49:08,370 - INFO - Parsed the following arguments:
 	input_demography = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/complete_two_epoch_demography.txt
 	input_nonsyn_sfs = ../Analysis/Bacteroides_fragilis_54507_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
 	outprefix = ../Analysis/cross_species_dfe/
 
-2023-07-13 18:42:43,526 - INFO - Input demographic parameters are: [2.1107446, 0.1853915].
-2023-07-13 18:42:43,526 - INFO - Input theta_syn is: 7496.470459189607.
-2023-07-13 18:43:05,603 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-07-13 22:16:51,665 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-07-16 17:49:08,386 - INFO - Input demographic parameters are: [2.1107446, 0.1853915].
+2023-07-16 17:49:08,386 - INFO - Input theta_syn is: 7496.470459189607.
+2023-07-16 17:49:29,414 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-07-17 06:36:01,005 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-07-13 22:18:02,286 - INFO - Pipeline executed succesfully.
+2023-07-17 06:47:58,195 - INFO - Pipeline executed succesfully.

@@ -3,9 +3,9 @@
 #$ -V
 #$ -m a
 #$ -l h_data=25G
-#$ -l h_rt=12:00:00
+#$ -l h_rt=48:00:00
 #$ -l highp
-#$ -t 1-30
+#$ -t 28
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N cross_species_inference
