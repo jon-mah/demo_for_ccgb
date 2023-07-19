@@ -71,10 +71,10 @@ class ComputeSFS():
             help=("Within host allele frequency to call consensus"),
             type=float, default=0.2)
         parser.add_argument('--core', default=False,
-            action=argparse.BooleanOptionalAction,
+            action='store_true',
             help=('Boolean flag for only core genes.'))
         parser.add_argument('--accesory', default=False,
-            action=argparse.BooleanOptionalAction,
+            action='store_true',
             help=('Boolean flag for only accessory  genes.'))
         parser.add_argument(
             'outprefix', type=str,
@@ -266,8 +266,8 @@ class ComputeSFS():
         min_depth = args['min_depth']
         min_MAF = args['min_MAF']
         f_star = args['f_star']
-        core_bool = args['--core']
-        accessory_bool = args['--accesory']
+        core_bool = args['core']
+        accessory_bool = args['accesory']
         random.seed(1)
 
         # Numpy options
@@ -284,17 +284,23 @@ class ComputeSFS():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
+        if core_bool:
+           file_tag = 'core_'
+        elif accessory_bool: 
+           file_tag = 'accessory_'
+        else:
+           file_tag = ''
         sfs_dataframe = \
-           '{0}{1}sfs_dataframe.csv'.format(
-                args['outprefix'], underscore)
+           '{0}{1}{2}sfs_dataframe.csv'.format(
+                args['outprefix'], underscore, file_tag)
         empirical_syn_sfs = \
-            '{0}{1}empirical_syn_sfs.txt'.format(
-                args['outprefix'], underscore)
+            '{0}{1}{2}empirical_syn_sfs.txt'.format(
+                args['outprefix'], underscore, file_tag)
         empirical_nonsyn_sfs = \
-            '{0}{1}empirical_nonsyn_sfs.txt'.format(
-                args['outprefix'], underscore)
-        logfile = '{0}{1}compute_sfs.log'.format(
-            args['outprefix'], underscore)
+            '{0}{1}{2}empirical_nonsyn_sfs.txt'.format(
+                args['outprefix'], underscore, file_tag)
+        logfile = '{0}{1}{2}compute_sfs.log'.format(
+            args['outprefix'], underscore, file_tag)
         to_remove = [logfile, sfs_dataframe,
                      empirical_syn_sfs, empirical_nonsyn_sfs]
         for f in to_remove:
@@ -329,10 +335,6 @@ class ComputeSFS():
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = parse_midas_data.load_core_genes(species)
-
-        print(core_genes)
-        for i in range(1):
-            break
 
         # Default parameters
         alpha = 0.5 # Confidence interval range for rate estimates
@@ -419,6 +421,8 @@ class ComputeSFS():
 
         # max_gene_count = 25 # Uncomment for testing
 
+
+
         for i,chunk_size in enumerate(gene_lengths):
 
             # if i > max_gene_count:
@@ -430,8 +434,16 @@ class ComputeSFS():
             gene_name = unq_genes[i]
             # print(str(unq_genes[i]))
             if 'non' in str(unq_genes[i]):
-                pass
+                logger.info('Ignoring non-coding gene.')
+                continue
 
+            if core_bool and gene_name not in core_genes:
+                logger.info('Ignoring non-core gene.')
+                continue
+
+            if accessory_bool and gene_name not in accessory_genes:
+                logger.info('Ignoring non-accessory gene.')
+                continue
             logger.info('Processing ' + str(unq_genes[i]) + '.')
 
             df_depth.columns = [d[:-1] if d[-1] == "c" else d for d in df_depth.columns]
@@ -514,17 +526,16 @@ class ComputeSFS():
             str(len(bins_clade))))
 
         logger.info('Outputting SFSs in Dadi format.')
+        if core_bool:
+            logger.info('Outputting SFS of just core genes.')
+        if accessory_bool:
+            logger.info('Outputting SFS of just accessory genes.')
 
         syn_clade_sfs = dadi.Spectrum(sfs_clade_4[0])
         syn_clade_sfs.to_file(empirical_syn_sfs)
         nonsyn_clade_sfs = dadi.Spectrum(sfs_clade_1[0])
         nonsyn_clade_sfs.to_file(empirical_nonsyn_sfs)
 
-        if core_bool:
-            logger.info('Outputting SFS of just core genes.')
-
-        if accessory_bool:
-            logger.info('Outputting SFS of just accessory genes.')
 
         logger.info('Pipeline executed succesfully.')
 
