@@ -21,6 +21,7 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 library(latex2exp)
 library(ggvis)
+library(pheatmap)
 
 
 # BiocManager::install("treeio")
@@ -898,6 +899,115 @@ plot_best_fit_sfs_3B = function(input_data) {
     theme(axis.text=element_text(size=12),
       axis.title=element_text(size=16))
   return(fig)
+}
+
+plot_dfe_grid = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('shape', 'scale', 'likelihood')
+  unique_shape = unique(species_surface$shape)
+  unique_scale = unique(species_surface$scale)
+  Z = matrix(data=NA, nrow=length(unique_shape), ncol=length(unique_scale))
+  count = 1
+  for (i in 1:length(unique_shape)) {
+    for (j in 1:length(unique_scale)) {
+      Z[i, j] = species_surface$likelihood[count]
+      if (species_surface$shape[count] != unique_shape[i]) {
+        print('break')
+      } else if (species_surface$scale[count] != unique_scale[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  best_params = c(species_surface$shape[1], species_surface$scale[1])
+  print(best_params)
+  MLE = max(species_surface$likelihood)
+  species_surface$likelihood = species_surface$likelihood - MLE
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, -3, -1, -0.5, 0))
+
+  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
+  
+  fig = ggplot(species_surface) +
+    geom_contour_filled(aes(x=shape, y=scale, z=likelihood), 
+      breaks = c(0, -0.5, -1, -3, -Inf)) +
+    scale_fill_brewer(palette = "YlGnBu", direction=1, name='Log Likelihood') +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=2) +
+    xlab('Shape')  +
+    ylab('Scale') +
+    scale_y_log10()
+    #ggtitle(likelihood_surface_title)
+  return(fig)
+}
+
+find_dfe_mle = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('shape', 'scale', 'likelihood')
+  unique_shape = unique(species_surface$shape)
+  unique_scale = unique(species_surface$scale)
+  Z = matrix(data=NA, nrow=length(unique_shape), ncol=length(unique_scale))
+  count = 1
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  best_params = c(species_surface$shape[1], species_surface$scale[1])
+  print(best_params)
+  MLE = max(species_surface$likelihood)
+  print(MLE)
+}
+
+cross_species_dfe_comparison = function(input_A, input_B) {
+  species_surface_A = read.csv(input_A, header=TRUE)
+  names(species_surface_A) = c('shape', 'scale', 'likelihood')
+  unique_shape_A = unique(species_surface_A$shape)
+  unique_scale_A = unique(species_surface_A$scale)
+  Z_A = matrix(data=NA, nrow=length(unique_shape_A), ncol=length(unique_scale_A))
+  count = 1
+  for (i in 1:length(unique_shape_A)) {
+    for (j in 1:length(unique_scale_A)) {
+      Z_A[i, j] = species_surface_A$likelihood[count]
+      if (species_surface_A$shape[count] != unique_shape_A[i]) {
+        print('break')
+      } else if (species_surface_A$scale[count] != unique_scale_A[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+  temp_surface_A = species_surface_A[order(species_surface_A$likelihood, decreasing=TRUE), ]
+  best_params_A = c(temp_surface_A$shape[1], temp_surface_A$scale[1])
+  ML_A = temp_surface_A$likelihood[1]
+  
+  species_surface_B = read.csv(input_B, header=TRUE)
+  names(species_surface_B) = c('shape', 'scale', 'likelihood')
+  unique_shape_B = unique(species_surface_B$shape)
+  unique_scale_B = unique(species_surface_B$scale)
+  Z_B = matrix(data=NA, nrow=length(unique_shape_B), ncol=length(unique_scale_B))
+  count = 1
+  for (i in 1:length(unique_shape_B)) {
+    for (j in 1:length(unique_scale_B)) {
+      Z_B[i, j] = species_surface_B$likelihood[count]
+      if (species_surface_B$shape[count] != unique_shape_B[i]) {
+        print('break')
+      } else if (species_surface_B$scale[count] != unique_scale_B[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+  temp_surface_B = species_surface_B[order(species_surface_B$likelihood, decreasing=TRUE), ]
+  best_params_B = c(temp_surface_B$shape[1], temp_surface_B$scale[1])
+  ML_B = temp_surface_B$likelihood[1]
+  combined_likelihood = species_surface_A$likelihood + species_surface_B$likelihood
+  comparison_surface = data.frame(species_surface_A$shape, species_surface_A$scale, combined_likelihood)
+  temp_comparison_surface = comparison_surface[order(comparison_surface$combined_likelihood, decreasing=TRUE), ]
+  best_params_comparison = c(temp_comparison_surface$species_surface_A.shape[1], temp_comparison_surface$species_surface_A.scale[1])
+  ML_comparison = temp_comparison_surface$combined_likelihood[1]
+  independent_sum = ML_A + ML_B
+  return(ML_comparison - independent_sum)
 }
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -8731,3 +8841,78 @@ compare_iid_over_5_means
 
 better_pi_comparison_iid + compare_iid_over_5_means + plot_layout(widths = c(3, 1))
 # 1500 x 900 dimensions for saved image
+
+
+
+# Plot DFE Grid
+
+DFE_grid_file_list = c(
+  '../Analysis/cross_species_dfe/Bacteroidales_bacterium_58650_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Alistipes_finegoldii_56071_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Alistipes_onderdonkii_55464_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Alistipes_shahii_62199_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Odoribacter_splanchnicus_62174_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Parabacteroides_distasonis_56985_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Parabacteroides_merdae_56972_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Prevotella_copri_61740_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Bacteroides_fragilis_54507_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Bacteroides_cellulosilyticus_58046_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Bacteroides_stercoris_56735_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Bacteroides_thetaiotaomicron_56941_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Bacteroides_xylanisolvens_57185_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Bacteroides_vulgatus_57955_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Barnesiella_intestinihominis_62208_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Akkermansia_muciniphila_55290_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Phascolarctobacterium_sp_59817_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Eubacterium_eligens_61678_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Eubacterium_rectale_56927_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Oscillibacter_sp_60799_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Ruminococcus_bromii_62047_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Ruminococcus_bicirculans_59300_likelihood_surface.csv', 
+  '../Analysis/cross_species_dfe/Faecalibacterium_prausnitzii_57453_likelihood_surface.csv')
+
+for (species in DFE_grid_file_list) {
+  print(species)
+  find_dfe_mle(species)
+}
+
+# test
+cross_species_dfe_comparison(
+  '../Analysis/cross_species_dfe/Akkermansia_muciniphila_55290_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Alistipes_finegoldii_56071_likelihood_surface.csv')
+
+dfe_comparison_matrix = matrix(, nrow=23, ncol=23)
+
+for (i in 1:23) {
+  for (j in 1:23) {
+    print(DFE_grid_file_list[i])
+    print(DFE_grid_file_list[j])
+    comparison = cross_species_dfe_comparison(DFE_grid_file_list[i], DFE_grid_file_list[j])
+    print(comparison)
+    dfe_comparison_matrix[i, j] = comparison
+  }
+}
+
+row.names(dfe_comparison_matrix) = phylogenetic_levels
+colnames(dfe_comparison_matrix) = phylogenetic_levels
+dfe_comparison_matrix
+
+# write.csv(dfe_comparison_matrix, '../Analysis/cross_species_dfe/dfe_comparison_matrix.csv')
+
+# Read in `.csv`
+
+dfe_comparison_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_matrix.csv',
+  header=TRUE)
+
+dfe_comparison_matrix = dfe_comparison_matrix[, -1]
+row.names(dfe_comparison_matrix) = phylogenetic_levels
+colnames(dfe_comparison_matrix) = phylogenetic_levels
+dfe_comparison_matrix
+
+pheatmap(dfe_comparison_matrix, 
+  cluster_rows = F, cluster_cols = F, fontsize_number = 10,
+  display_numbers = T,
+  show_colnames     = FALSE,
+  show_rownames     = FALSE,
+  color = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.05)(100),
+  legend=TRUE)

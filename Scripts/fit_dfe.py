@@ -77,15 +77,15 @@ class DFEInference():
             'input_model', type=str,
             help=('Input demographic model.'))
         parser.add_argument(
-            '--mask_singletons', dest='mask_singletons',
-            help=('Boolean flag for masking singlestons in Spectrum.'),
-            action='store_true')
+            '--initial_alpha', type=float,
+            dest='initial_alpha',
+            help=('Float value for initial alpha of gamma-DFE.'),
+            default=0.2)
         parser.add_argument(
-            '--mask_doubletons', dest='mask_doubletons',
-            help=('Boolean flag for masking doublestons in Spectrum.'),
-            action='store_true')
-        parser.set_defaults(mask_singletons=False)
-        parser.set_defaults(mask_doubletons=False)
+            '--initial_beta', type=float,
+            dest='initial_beta',
+            help=('Float value for initial beta of gamma-DFE.'),
+            default=0.1)
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
@@ -104,8 +104,8 @@ class DFEInference():
         outprefix = args['outprefix']
         input_demography = args['input_demography']
         input_model = args['input_model']
-        mask_singletons = args['mask_singletons']
-        mask_doubletons = args['mask_doubletons']
+        initial_alpha = args[initial_alpha]
+        initial_beta = args[initial_beta]
 
         # Numpy options
         np.set_printoptions(linewidth=np.inf)
@@ -200,7 +200,7 @@ class DFEInference():
         logger.info('Fitting DFE.')
         # sel_params = [0.2, 10.]
         initial_guesses = []
-        initial_guesses.append([0.2, 0.1])
+        initial_guesses.append([initial_alpha, initial_beta])
         initial_guesses.append([0.2, 1.])
         initial_guesses.append([0.2, 10.])
         initial_guesses.append([0.2, 100.])
@@ -227,7 +227,7 @@ class DFEInference():
         initial_guesses.append([10., 100000.])
 
         max_ll = -100000000000
-        for i in range(25):
+        for i in range(1):
             sel_params = initial_guesses[i]
             lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
             p0 = dadi.Misc.perturb_params(
@@ -274,9 +274,9 @@ class DFEInference():
         ng_initial_guesses.append([0.15, 5., 100000.])
         ng_initial_guesses.append([0.15, 5., 1000000.])
         ng_initial_guesses.append([0.15, 10., 100000.])
-        
+
         ng_max_ll = -100000000000
-        for i in range(25):
+        for i in range(1):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-15, 1e-15, 1e-2], [1, 1000, 1000000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
