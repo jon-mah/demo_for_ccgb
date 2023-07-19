@@ -68,8 +68,14 @@ class ComputeSFS():
                  "allele. Large fluctuations in allele frequency across "
                  "hosts can bias this."), type=float, default=0.0)
         parser.add_argument('--f_star',
-            help=("WIthin host allele frequency to call consensus"),
+            help=("Within host allele frequency to call consensus"),
             type=float, default=0.2)
+        parser.add_argument('--core', default=False,
+            action=argparse.BooleanOptionalAction,
+            help=('Boolean flag for only core genes.'))
+        parser.add_argument('--accesory', default=False,
+            action=argparse.BooleanOptionalAction,
+            help=('Boolean flag for only accessory  genes.'))
         parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
@@ -260,6 +266,8 @@ class ComputeSFS():
         min_depth = args['min_depth']
         min_MAF = args['min_MAF']
         f_star = args['f_star']
+        core_bool = args['--core']
+        accessory_bool = args['--accesory']
         random.seed(1)
 
         # Numpy options
@@ -321,6 +329,10 @@ class ComputeSFS():
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = parse_midas_data.load_core_genes(species)
+
+        print(core_genes)
+        for i in range(1):
+            break
 
         # Default parameters
         alpha = 0.5 # Confidence interval range for rate estimates
@@ -507,6 +519,12 @@ class ComputeSFS():
         syn_clade_sfs.to_file(empirical_syn_sfs)
         nonsyn_clade_sfs = dadi.Spectrum(sfs_clade_1[0])
         nonsyn_clade_sfs.to_file(empirical_nonsyn_sfs)
+
+        if core_bool:
+            logger.info('Outputting SFS of just core genes.')
+
+        if accessory_bool:
+            logger.info('Outputting SFS of just accessory genes.')
 
         logger.info('Pipeline executed succesfully.')
 

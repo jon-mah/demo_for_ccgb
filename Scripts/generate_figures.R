@@ -8883,19 +8883,19 @@ cross_species_dfe_comparison(
 
 dfe_comparison_matrix = matrix(, nrow=23, ncol=23)
 
-for (i in 1:23) {
-  for (j in 1:23) {
-    print(DFE_grid_file_list[i])
-    print(DFE_grid_file_list[j])
-    comparison = cross_species_dfe_comparison(DFE_grid_file_list[i], DFE_grid_file_list[j])
-    print(comparison)
-    dfe_comparison_matrix[i, j] = comparison
-  }
-}
+#for (i in 1:23) {
+#  for (j in 1:23) {
+#    print(DFE_grid_file_list[i])
+#    print(DFE_grid_file_list[j])
+#    comparison = cross_species_dfe_comparison(DFE_grid_file_list[i], DFE_grid_file_list[j])
+#    print(comparison)
+#    dfe_comparison_matrix[i, j] = comparison
+#  }
+#}
 
-row.names(dfe_comparison_matrix) = phylogenetic_levels
-colnames(dfe_comparison_matrix) = phylogenetic_levels
-dfe_comparison_matrix
+#row.names(dfe_comparison_matrix) = phylogenetic_levels
+#colnames(dfe_comparison_matrix) = phylogenetic_levels
+#dfe_comparison_matrix
 
 # write.csv(dfe_comparison_matrix, '../Analysis/cross_species_dfe/dfe_comparison_matrix.csv')
 
