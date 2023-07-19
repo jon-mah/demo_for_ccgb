@@ -104,8 +104,8 @@ class DFEInference():
         outprefix = args['outprefix']
         input_demography = args['input_demography']
         input_model = args['input_model']
-        initial_alpha = args[initial_alpha]
-        initial_beta = args[initial_beta]
+        initial_alpha = args['initial_alpha']
+        initial_beta = args['initial_beta']
 
         # Numpy options
         np.set_printoptions(linewidth=np.inf)
@@ -156,10 +156,7 @@ class DFEInference():
         # Construct initial Spectrum object from input sfs's.
         syn_data = dadi.Spectrum.from_file(syn_input_sfs).fold()
         nonsyn_data = dadi.Spectrum.from_file(nonsyn_input_sfs).fold()
-        if mask_singletons:
-            syn_data.mask[1] = True
-        if mask_doubletons:
-            syn_data.mask[2] = True
+
         syn_ns = syn_data.sample_sizes # Number of samples.
         nonsyn_ns = nonsyn_data.sample_sizes # Number of samples
 
@@ -178,13 +175,13 @@ class DFEInference():
         logger.info('Input demographic parameters are: ' +
                     str(demog_params) + '.')
         logger.info('Input theta_syn is: ' + str(theta_syn) + '.')
-        theta_nonsyn = theta_syn * 2.31
+        theta_nonsyn = theta_syn * 2.21
 
         pts_l = [1200, 1400, 1600]
         logger.info('Generating spectrum from input demography.')
         # input_model = 'two_epoch'
         if input_model == 'two_epoch':
-            print(demog_params)
+            print('Demographic parameters are: ' + str(demog_params) + '.')
             spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
                                   pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                                   verbose=True, cpus=1)
@@ -227,20 +224,23 @@ class DFEInference():
         initial_guesses.append([10., 100000.])
 
         max_ll = -100000000000
+
         for i in range(1):
             sel_params = initial_guesses[i]
-            lower_bound, upper_bound = [1e-3, 1e-2], [1, 50000.]
             p0 = dadi.Misc.perturb_params(
                 sel_params, lower_bound=None,
                 upper_bound=None)
-            popt = dadi.Inference.optimize_log_fmin(p0, nonsyn_data,
+            popt = dadi.Inference.optimize_log_fmin(sel_params, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
                 verbose=len(sel_params), maxiter=50,
-                multinom=False)
+                multinom=True)
+            # popt = sel_params
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
-            this_ll = dadi.Inference.ll(model_sfs, nonsyn_data)
+            model_sfs = dadi.Inference.optimally_scaled_sfs(model_sfs, nonsyn_data)
+            this_ll = dadi.Inference.ll_multinom(model_sfs, nonsyn_data)
+            print(this_ll)
             if this_ll > max_ll:
                 best_model = model_sfs
                 max_ll = this_ll
