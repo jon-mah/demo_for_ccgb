@@ -1010,6 +1010,35 @@ cross_species_dfe_comparison = function(input_A, input_B) {
   return(ML_comparison - independent_sum)
 }
 
+compare_core_accessory_sfs = function(all, core, accessory) {
+  x_axis = 1:length(all)
+
+  input_df = data.frame(all,
+                        core,
+                        accessory,
+                        x_axis)
+  
+  names(input_df) = c('All genes',
+                      'Core genes',
+                      'Accessory genes',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
+
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 # # Downsampled to 10

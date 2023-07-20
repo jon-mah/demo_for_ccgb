@@ -21,6 +21,7 @@ import pandas as pd
 import config
 from utils import parse_midas_data, diversity_utils
 from utils import clade_utils, parse_HMP_data
+from utils import gene_diversity_utils
 import numpy as np
 import gzip
 import dadi
@@ -252,6 +253,30 @@ class ComputeSFS():
 
         return
 
+    def load_accessory_genes(self, desired_species_name, min_copynum=0.3, min_prevalence=0.4, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=True):
+
+        # Load subject and sample metadata
+        subject_sample_map = parse_HMP_data.parse_subject_sample_map()
+
+        # Load reference genes
+        reference_genes = parse_midas_data.load_reference_genes(desired_species_name)
+
+        gene_samples, gene_names, gene_presence_matrix, gene_depth_matrix, marker_coverages, gene_reads_matrix = parse_midas_data.parse_pangenome_data(desired_species_name)
+
+        gene_names = numpy.array(gene_names)
+
+        reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
+
+        if unique_individuals:
+            sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
+        else:
+            sample_idxs = marker_coverages>=min_marker_coverage
+
+        prevalences = gene_diversity_utils.calculate_fractional_gene_prevalences(gene_depth_matrix[:,sample_idxs], marker_coverages[sample_idxs], min_copynum)
+
+        accessory_gene_idxs = reference_gene_idxs*(prevalences>=min_prevalence and prevalences<=max_prevalence)
+
+        return set(gene_names[accessory_gene_idxs])
 
     def main(self):
         """Execute main function."""
@@ -286,7 +311,7 @@ class ComputeSFS():
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         if core_bool:
            file_tag = 'core_'
-        elif accessory_bool: 
+        elif accessory_bool:
            file_tag = 'accessory_'
         else:
            file_tag = ''
@@ -335,6 +360,7 @@ class ComputeSFS():
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = parse_midas_data.load_core_genes(species)
+        accessory_genes = self.load_accesory_genes(species, )
 
         # Default parameters
         alpha = 0.5 # Confidence interval range for rate estimates
