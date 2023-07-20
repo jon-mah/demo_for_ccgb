@@ -253,7 +253,7 @@ class ComputeSFS():
 
         return
 
-    def load_accessory_genes(self, desired_species_name, min_copynum=0.3, min_prevalence=0.3, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=False):
+    def load_accessory_genes(self, desired_species_name, min_copynum=0.3, max_copynum=3.0, min_prevalence=0.3, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=False):
 
         # Load subject and sample metadata
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()

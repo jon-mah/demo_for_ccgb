@@ -1011,16 +1011,42 @@ cross_species_dfe_comparison = function(input_A, input_B) {
 }
 
 compare_core_accessory_sfs = function(all, core, accessory) {
-  x_axis = 1:length(all)
+  x_axis = 1:length(fold_sfs(all))
 
-  input_df = data.frame(all,
-                        core,
-                        accessory,
+  input_df = data.frame(fold_sfs(proportional_sfs(all)),
+                        fold_sfs(proportional_sfs(core)),
+                        fold_sfs(proportional_sfs(accessory)),
                         x_axis)
   
   names(input_df) = c('All genes',
                       'Core genes',
                       'Accessory genes',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
+
+compare_core_sfs = function(all, core) {
+  x_axis = 1:length(all)
+
+  input_df = data.frame(proportional_sfs(all),
+                        proportional_sfs(core),
+                        x_axis)
+  
+  names(input_df) = c('All genes',
+                      'Core genes',
                       'x_axis')
   
   p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
@@ -7661,7 +7687,6 @@ dfe_df$value[dfe_df$value >= 1] = 1
 
 # DFE Comparison
 
-
 ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
   theme_ridges() +
@@ -8945,3 +8970,346 @@ pheatmap(dfe_comparison_matrix,
   show_rownames     = FALSE,
   color = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.05)(100),
   legend=TRUE)
+
+# Core vs. Accessory genes
+b_bacterium_all = read_input_sfs('../Analysis/Bacteroidales_bacterium_58650/empirical_syn_sfs.txt')
+b_bacterium_core = read_input_sfs('../Analysis/Bacteroidales_bacterium_58650/core_empirical_syn_sfs.txt')
+b_bacterium_accessory = read_input_sfs('../Analysis/Bacteroidales_bacterium_58650/accessory_empirical_syn_sfs.txt')
+
+compare_core_sfs(b_bacterium_all,
+  b_bacterium_core) + ggtitle('B. bacterium synonymous')
+
+a_finegoldii_all = read_input_sfs('../Analysis/Alistipes_finegoldii_56071/empirical_syn_sfs.txt')
+a_finegoldii_core = read_input_sfs('../Analysis/Alistipes_finegoldii_56071/core_empirical_syn_sfs.txt')
+a_finegoldii_accessory = read_input_sfs('../Analysis/Alistipes_finegoldii_56071/accessory_empirical_syn_sfs.txt')
+
+compare_core_sfs(a_finegoldii_all,
+  a_finegoldii_core) + ggtitle('A. finegoldii synonymous')
+
+a_onderdonkii_all = read_input_sfs('../Analysis/Alistipes_onderdonkii_55464/empirical_syn_sfs.txt')
+a_onderdonkii_core = read_input_sfs('../Analysis/Alistipes_onderdonkii_55464/core_empirical_syn_sfs.txt')
+a_onderdonkii_accessory = read_input_sfs('../Analysis/Alistipes_onderdonkii_55464/accessory_empirical_syn_sfs.txt')
+
+compare_core_sfs(a_onderdonkii_all,
+  a_onderdonkii_core) + ggtitle('A. onderdonkii synonymous')
+
+a_shahii_all = read_input_sfs('../Analysis/Alistipes_shahii_62199/empirical_syn_sfs.txt')
+a_shahii_core = read_input_sfs('../Analysis/Alistipes_shahii_62199/core_empirical_syn_sfs.txt')
+a_shahii_accessory = read_input_sfs('../Analysis/Alistipes_shahii_62199/accessory_empirical_syn_sfs.txt')
+
+compare_core_sfs(a_shahii_all,
+  a_shahii_core) + ggtitle('A. shahii synonymous')
+
+o_splanchnicus_all = read_input_sfs('../Analysis/Odoribacter_splanchnicus_62174/empirical_syn_sfs.txt') 
+o_splanchnicus_core = read_input_sfs('../Analysis/Odoribacter_splanchnicus_62174/core_empirical_syn_sfs.txt') 
+o_splanchnicus_accessory = read_input_sfs('../Analysis/Odoribacter_splanchnicus_62174/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(o_splanchnicus_all,
+  o_splanchnicus_core) + ggtitle('O. splanchnicus synonymous')
+
+p_distasonis_all = read_input_sfs('../Analysis/Parabacteroides_distasonis_56985/empirical_syn_sfs.txt') 
+p_distasonis_core = read_input_sfs('../Analysis/Parabacteroides_distasonis_56985/core_empirical_syn_sfs.txt') 
+p_distasonis_accessory = read_input_sfs('../Analysis/Parabacteroides_distasonis_56985/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(p_distasonis_all,
+  p_distasonis_core) + ggtitle('P. distasonis synonymous')
+
+p_merdae_all = read_input_sfs('../Analysis/Parabacteroides_merdae_56972/empirical_syn_sfs.txt') 
+p_merdae_core = read_input_sfs('../Analysis/Parabacteroides_merdae_56972/core_empirical_syn_sfs.txt') 
+p_merdae_accessory = read_input_sfs('../Analysis/Parabacteroides_merdae_56972/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(p_merdae_all,
+  p_merdae_core) + ggtitle('P. merdae synonymous')
+
+p_copri_all = read_input_sfs('../Analysis/Prevotella_copri_61740/empirical_syn_sfs.txt') 
+p_copri_core = read_input_sfs('../Analysis/Prevotella_copri_61740/empirical_syn_sfs.txt') 
+p_copri_accessory = read_input_sfs('../Analysis/Prevotella_copri_61740/empirical_syn_sfs.txt') 
+
+compare_core_sfs(p_copri_all,
+  p_copri_core) + ggtitle('P. copri synonymous')
+
+b_fragilis_all = read_input_sfs('../Analysis/Bacteroides_fragilis_54507/empirical_syn_sfs.txt') 
+b_fragilis_core = read_input_sfs('../Analysis/Bacteroides_fragilis_54507/core_empirical_syn_sfs.txt') 
+b_fragilis_accessory = read_input_sfs('../Analysis/Bacteroides_fragilis_54507/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(b_fragilis_all,
+  b_fragilis_core) + ggtitle('B. fragilis synonymous')
+
+b_cellulosilyticus_all = read_input_sfs('../Analysis/Bacteroides_cellulosilyticus_58046/empirical_syn_sfs.txt') 
+b_cellulosilyticus_core = read_input_sfs('../Analysis/Bacteroides_cellulosilyticus_58046/core_empirical_syn_sfs.txt') 
+b_cellulosilyticus_accessory = read_input_sfs('../Analysis/Bacteroides_cellulosilyticus_58046/accessory_empirical_syn_sfs.txt') 
+
+compare_core_accessory_sfs(b_cellulosilyticus_all,
+  b_cellulosilyticus_core,
+  b_cellulosilyticus_accessory)
+
+compare_core_sfs(b_cellulosilyticus_all,
+  b_cellulosilyticus_core) + ggtitle('B. cellulosilyticus synonymous')
+
+b_stercoris_all = read_input_sfs('../Analysis/Bacteroides_stercoris_56735/empirical_syn_sfs.txt') 
+b_stercoris_core = read_input_sfs('../Analysis/Bacteroides_stercoris_56735/core_empirical_syn_sfs.txt') 
+b_stercoris_accessory = read_input_sfs('../Analysis/Bacteroides_stercoris_56735/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(b_stercoris_all,
+  b_stercoris_core) + ggtitle('B. stercoris synonymous')
+
+b_thetaiotaomicron_all = read_input_sfs('../Analysis/Bacteroides_thetaiotaomicron_56941/empirical_syn_sfs.txt') 
+b_thetaiotaomicron_core = read_input_sfs('../Analysis/Bacteroides_thetaiotaomicron_56941/core_empirical_syn_sfs.txt') 
+b_thetaiotaomicron_accessory = read_input_sfs('../Analysis/Bacteroides_thetaiotaomicron_56941/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(b_thetaiotaomicron_all,
+  b_thetaiotaomicron_core) + ggtitle('B. thetaiotaomicron synonymous')
+
+b_xylanisolvens_all = read_input_sfs('../Analysis/Bacteroides_xylanisolvens_57185/empirical_syn_sfs.txt') 
+b_xylanisolvens_core = read_input_sfs('../Analysis/Bacteroides_xylanisolvens_57185/core_empirical_syn_sfs.txt') 
+b_xylanisolvens_accessory = read_input_sfs('../Analysis/Bacteroides_xylanisolvens_57185/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(b_xylanisolvens_all,
+  b_xylanisolvens_core) + ggtitle('B. xylanisolvens synonymous')
+
+b_vulgatus_all = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/empirical_syn_sfs.txt') 
+b_vulgatus_core = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/core_empirical_syn_sfs.txt') 
+b_vulgatus_accessory = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(b_vulgatus_all,
+  b_vulgatus_core) + ggtitle('B. vulgatus synonymous')
+
+b_intestinihominis_all = read_input_sfs('../Analysis/Barnesiella_intestinihominis_62208/empirical_syn_sfs.txt') 
+b_intestinihominis_core = read_input_sfs('../Analysis/Barnesiella_intestinihominis_62208/core_empirical_syn_sfs.txt') 
+b_intestinihominis_accessory = read_input_sfs('../Analysis/Barnesiella_intestinihominis_62208/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(b_intestinihominis_all,
+  b_intestinihominis_core) + ggtitle('B. intestinihominis')
+
+a_muciniphila_all = read_input_sfs('../Analysis/Akkermansia_muciniphila_55290/empirical_syn_sfs.txt')
+a_muciniphila_core = read_input_sfs('../Analysis/Akkermansia_muciniphila_55290/core_empirical_syn_sfs.txt')
+a_muciniphila_accessory = read_input_sfs('../Analysis/Akkermansia_muciniphila_55290/accessory_empirical_syn_sfs.txt')
+
+compare_core_accessory_sfs(a_muciniphila_all,
+  a_muciniphila_core,
+  a_muciniphila_accessory)  + ggtitle('A. muciniphila synonymous')
+
+compare_core_sfs(a_muciniphila_all,
+  a_muciniphila_core) + ggtitle('A. muciniphila synonymous')
+
+p_sp_all = read_input_sfs('../Analysis/Phascolarctobacterium_sp_59817/empirical_syn_sfs.txt') 
+p_sp_core = read_input_sfs('../Analysis/Phascolarctobacterium_sp_59817/core_empirical_syn_sfs.txt') 
+p_sp_accessory = read_input_sfs('../Analysis/Phascolarctobacterium_sp_59817/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(p_sp_all,
+  p_sp_core) + ggtitle('Phascolarctobacterium species synonymous')
+
+e_eligens_all = read_input_sfs('../Analysis/Eubacterium_eligens_61678/empirical_syn_sfs.txt') 
+e_eligens_core = read_input_sfs('../Analysis/Eubacterium_eligens_61678/core_empirical_syn_sfs.txt') 
+e_eligens_accessory = read_input_sfs('../Analysis/Eubacterium_eligens_61678/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(e_eligens_all,
+  e_eligens_core) + ggtitle('E. eligens synonymous')
+
+e_rectale_all = read_input_sfs('../Analysis/Eubacterium_rectale_56927/empirical_syn_sfs.txt') 
+e_rectale_core = read_input_sfs('../Analysis/Eubacterium_rectale_56927/empirical_syn_sfs.txt') 
+e_rectale_accessory = read_input_sfs('../Analysis/Eubacterium_rectale_56927/empirical_syn_sfs.txt') 
+
+compare_core_sfs(e_rectale_all,
+  e_rectale_core) + ggtitle('E. rectale synonymous')
+
+o_sp_all = read_input_sfs('../Analysis/Oscillibacter_sp_60799/empirical_syn_sfs.txt') 
+o_sp_core = read_input_sfs('../Analysis/Oscillibacter_sp_60799/core_empirical_syn_sfs.txt') 
+o_sp_accessory = read_input_sfs('../Analysis/Oscillibacter_sp_60799/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(o_sp_all,
+  o_sp_core) + ggtitle('Oscillibacter species synonymous')
+
+compare_core_accessory_sfs(o_sp_all,
+  o_sp_core,
+  o_sp_accessory) + ggtitle('Oscillibacter species synonymous')
+
+r_bromii_all = read_input_sfs('../Analysis/Ruminococcus_bromii_62047/empirical_syn_sfs.txt')
+r_bromii_core = read_input_sfs('../Analysis/Ruminococcus_bromii_62047/core_empirical_syn_sfs.txt')
+r_bromii_accessory = read_input_sfs('../Analysis/Ruminococcus_bromii_62047/accessory_empirical_syn_sfs.txt')
+
+compare_core_sfs(r_bromii_all,
+  r_bromii_core) + ggtitle('Ruminococcus bromii synonymous')
+
+r_bicirculans_all = read_input_sfs('../Analysis/Ruminococcus_bicirculans_59300/empirical_syn_sfs.txt') 
+r_bicirculans_core = read_input_sfs('../Analysis/Ruminococcus_bicirculans_59300/core_empirical_syn_sfs.txt') 
+r_bicirculans_accessory = read_input_sfs('../Analysis/Ruminococcus_bicirculans_59300/accessory_empirical_syn_sfs.txt') 
+
+compare_core_sfs(r_bicirculans_all,
+  r_bicirculans_core) + ggtitle('Ruminococcus bicirculans synonymous')
+
+f_prausnitzii_all = read_input_sfs('../Analysis/Faecalibacterium_prausnitzii_57453/empirical_syn_sfs.txt')
+f_prausnitzii_core = read_input_sfs('../Analysis/Faecalibacterium_prausnitzii_57453/core_empirical_syn_sfs.txt')
+f_prausnitzii_accessory = read_input_sfs('../Analysis/Faecalibacterium_prausnitzii_57453/accessory_empirical_syn_sfs.txt')
+
+compare_core_sfs(f_prausnitzii_all,
+  f_prausnitzii_core) + ggtitle('F. prausnitzii synonymous')
+
+b_bacterium_all_ns = read_input_sfs('../Analysis/Bacteroidales_bacterium_58650/empirical_nonsyn_sfs.txt')
+b_bacterium_core_ns = read_input_sfs('../Analysis/Bacteroidales_bacterium_58650/core_empirical_nonsyn_sfs.txt')
+b_bacterium_accessory_ns = read_input_sfs('../Analysis/Bacteroidales_bacterium_58650/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_sfs(b_bacterium_all_ns,
+  b_bacterium_core_ns) + ggtitle('B. bacterium nonsynonymous')
+
+a_finegoldii_all_ns = read_input_sfs('../Analysis/Alistipes_finegoldii_56071/empirical_nonsyn_sfs.txt')
+a_finegoldii_core_ns = read_input_sfs('../Analysis/Alistipes_finegoldii_56071/core_empirical_nonsyn_sfs.txt')
+a_finegoldii_accessory_ns = read_input_sfs('../Analysis/Alistipes_finegoldii_56071/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_sfs(a_finegoldii_all_ns,
+  a_finegoldii_core_ns) + ggtitle('A. finegoldii nonsynonymous')
+
+a_onderdonkii_all_ns = read_input_sfs('../Analysis/Alistipes_onderdonkii_55464/empirical_nonsyn_sfs.txt')
+a_onderdonkii_core_ns = read_input_sfs('../Analysis/Alistipes_onderdonkii_55464/core_empirical_nonsyn_sfs.txt')
+a_onderdonkii_accessory_ns = read_input_sfs('../Analysis/Alistipes_onderdonkii_55464/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_sfs(a_onderdonkii_all_ns,
+  a_onderdonkii_core_ns) + ggtitle('A. onderdonkii nonsynonymous')
+
+a_shahii_all_ns = read_input_sfs('../Analysis/Alistipes_shahii_62199/empirical_nonsyn_sfs.txt')
+a_shahii_core_ns = read_input_sfs('../Analysis/Alistipes_shahii_62199/core_empirical_nonsyn_sfs.txt')
+a_shahii_accessory_ns = read_input_sfs('../Analysis/Alistipes_shahii_62199/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_sfs(a_shahii_all_ns,
+  a_shahii_core_ns) + ggtitle('A. shahii nonsynonymous')
+
+o_splanchnicus_all_ns = read_input_sfs('../Analysis/Odoribacter_splanchnicus_62174/empirical_nonsyn_sfs.txt') 
+o_splanchnicus_core_ns = read_input_sfs('../Analysis/Odoribacter_splanchnicus_62174/core_empirical_nonsyn_sfs.txt') 
+o_splanchnicus_accessory_ns = read_input_sfs('../Analysis/Odoribacter_splanchnicus_62174/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(o_splanchnicus_all_ns,
+  o_splanchnicus_core_ns) + ggtitle('O. splanchnicus nonsynonymous')
+
+p_distasonis_all_ns = read_input_sfs('../Analysis/Parabacteroides_distasonis_56985/empirical_nonsyn_sfs.txt') 
+p_distasonis_core_ns = read_input_sfs('../Analysis/Parabacteroides_distasonis_56985/core_empirical_nonsyn_sfs.txt') 
+p_distasonis_accessory_ns = read_input_sfs('../Analysis/Parabacteroides_distasonis_56985/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(p_distasonis_all_ns,
+  p_distasonis_core_ns) + ggtitle('P. distasonis nonsynonymous')
+
+p_merdae_all_ns = read_input_sfs('../Analysis/Parabacteroides_merdae_56972/empirical_nonsyn_sfs.txt') 
+p_merdae_core_ns = read_input_sfs('../Analysis/Parabacteroides_merdae_56972/core_empirical_nonsyn_sfs.txt') 
+p_merdae_accessory_ns = read_input_sfs('../Analysis/Parabacteroides_merdae_56972/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(p_merdae_all_ns,
+  p_merdae_core_ns) + ggtitle('P. merdae nonsynonymous')
+
+p_copri_all_ns = read_input_sfs('../Analysis/Prevotella_copri_61740/empirical_nonsyn_sfs.txt') 
+p_copri_core_ns = read_input_sfs('../Analysis/Prevotella_copri_61740/empirical_nonsyn_sfs.txt') 
+p_copri_accessory_ns = read_input_sfs('../Analysis/Prevotella_copri_61740/empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(p_copri_all_ns,
+  p_copri_core_ns) + ggtitle('P. copri nonsynonymous')
+
+b_fragilis_all_ns = read_input_sfs('../Analysis/Bacteroides_fragilis_54507/empirical_nonsyn_sfs.txt') 
+b_fragilis_core_ns = read_input_sfs('../Analysis/Bacteroides_fragilis_54507/core_empirical_nonsyn_sfs.txt') 
+b_fragilis_accessory_ns = read_input_sfs('../Analysis/Bacteroides_fragilis_54507/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(b_fragilis_all_ns,
+  b_fragilis_core_ns) + ggtitle('B. fragilis nonsynonymous')
+
+b_cellulosilyticus_all_ns = read_input_sfs('../Analysis/Bacteroides_cellulosilyticus_58046/empirical_nonsyn_sfs.txt') 
+b_cellulosilyticus_core_ns = read_input_sfs('../Analysis/Bacteroides_cellulosilyticus_58046/core_empirical_nonsyn_sfs.txt') 
+b_cellulosilyticus_accessory_ns = read_input_sfs('../Analysis/Bacteroides_cellulosilyticus_58046/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_accessory_sfs(b_cellulosilyticus_all_ns,
+  b_cellulosilyticus_core_ns,
+  b_cellulosilyticus_accessory_ns)
+
+compare_core_sfs(b_cellulosilyticus_all_ns,
+  b_cellulosilyticus_core_ns) + ggtitle('B. cellulosilyticus nonsynonymous')
+
+b_stercoris_all_ns = read_input_sfs('../Analysis/Bacteroides_stercoris_56735/empirical_nonsyn_sfs.txt') 
+b_stercoris_core_ns = read_input_sfs('../Analysis/Bacteroides_stercoris_56735/core_empirical_nonsyn_sfs.txt') 
+b_stercoris_accessory_ns = read_input_sfs('../Analysis/Bacteroides_stercoris_56735/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(b_stercoris_all_ns,
+  b_stercoris_core_ns) + ggtitle('B. stercoris nonsynonymous')
+
+b_thetaiotaomicron_all_ns = read_input_sfs('../Analysis/Bacteroides_thetaiotaomicron_56941/empirical_nonsyn_sfs.txt') 
+b_thetaiotaomicron_core_ns = read_input_sfs('../Analysis/Bacteroides_thetaiotaomicron_56941/core_empirical_nonsyn_sfs.txt') 
+b_thetaiotaomicron_accessory_ns = read_input_sfs('../Analysis/Bacteroides_thetaiotaomicron_56941/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(b_thetaiotaomicron_all_ns,
+  b_thetaiotaomicron_core_ns) + ggtitle('B. thetaiotaomicron nonsynonymous')
+
+b_xylanisolvens_all_ns = read_input_sfs('../Analysis/Bacteroides_xylanisolvens_57185/empirical_nonsyn_sfs.txt') 
+b_xylanisolvens_core_ns = read_input_sfs('../Analysis/Bacteroides_xylanisolvens_57185/core_empirical_nonsyn_sfs.txt') 
+b_xylanisolvens_accessory_ns = read_input_sfs('../Analysis/Bacteroides_xylanisolvens_57185/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(b_xylanisolvens_all_ns,
+  b_xylanisolvens_core_ns) + ggtitle('B. xylanisolvens nonsynonymous')
+
+b_vulgatus_all_ns = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/empirical_nonsyn_sfs.txt') 
+b_vulgatus_core_ns = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/core_empirical_nonsyn_sfs.txt') 
+b_vulgatus_accessory_ns = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(b_vulgatus_all_ns,
+  b_vulgatus_core_ns) + ggtitle('B. vulgatus nonsynonymous')
+
+b_intestinihominis_all_ns = read_input_sfs('../Analysis/Barnesiella_intestinihominis_62208/empirical_nonsyn_sfs.txt') 
+b_intestinihominis_core_ns = read_input_sfs('../Analysis/Barnesiella_intestinihominis_62208/core_empirical_nonsyn_sfs.txt') 
+b_intestinihominis_accessory_ns = read_input_sfs('../Analysis/Barnesiella_intestinihominis_62208/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(b_intestinihominis_all_ns,
+  b_intestinihominis_core_ns) + ggtitle('B. intestinihominis')
+
+a_muciniphila_all_ns = read_input_sfs('../Analysis/Akkermansia_muciniphila_55290/empirical_nonsyn_sfs.txt')
+a_muciniphila_core_ns = read_input_sfs('../Analysis/Akkermansia_muciniphila_55290/core_empirical_nonsyn_sfs.txt')
+a_muciniphila_accessory_ns = read_input_sfs('../Analysis/Akkermansia_muciniphila_55290/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_accessory_sfs(a_muciniphila_all_ns,
+  a_muciniphila_core_ns,
+  a_muciniphila_accessory_ns)  + ggtitle('A. muciniphila nonsynonymous')
+
+compare_core_sfs(a_muciniphila_all_ns,
+  a_muciniphila_core_ns) + ggtitle('A. muciniphila nonsynonymous')
+
+p_sp_all_ns = read_input_sfs('../Analysis/Phascolarctobacterium_sp_59817/empirical_nonsyn_sfs.txt') 
+p_sp_core_ns = read_input_sfs('../Analysis/Phascolarctobacterium_sp_59817/core_empirical_nonsyn_sfs.txt') 
+p_sp_accessory_ns = read_input_sfs('../Analysis/Phascolarctobacterium_sp_59817/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(p_sp_all_ns,
+  p_sp_core_ns) + ggtitle('Phascolarctobacterium species nonsynonymous')
+
+e_eligens_all_ns = read_input_sfs('../Analysis/Eubacterium_eligens_61678/empirical_nonsyn_sfs.txt') 
+e_eligens_core_ns = read_input_sfs('../Analysis/Eubacterium_eligens_61678/core_empirical_nonsyn_sfs.txt') 
+e_eligens_accessory_ns = read_input_sfs('../Analysis/Eubacterium_eligens_61678/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(e_eligens_all_ns,
+  e_eligens_core_ns) + ggtitle('E. eligens nonsynonymous')
+
+e_rectale_all_ns = read_input_sfs('../Analysis/Eubacterium_rectale_56927/empirical_nonsyn_sfs.txt') 
+e_rectale_core_ns = read_input_sfs('../Analysis/Eubacterium_rectale_56927/empirical_nonsyn_sfs.txt') 
+e_rectale_accessory_ns = read_input_sfs('../Analysis/Eubacterium_rectale_56927/empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(e_rectale_all_ns,
+  e_rectale_core_ns) + ggtitle('E. rectale nonsynonymous')
+
+o_sp_all_ns = read_input_sfs('../Analysis/Oscillibacter_sp_60799/empirical_nonsyn_sfs.txt') 
+o_sp_core_ns = read_input_sfs('../Analysis/Oscillibacter_sp_60799/core_empirical_nonsyn_sfs.txt') 
+o_sp_accessory_ns = read_input_sfs('../Analysis/Oscillibacter_sp_60799/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(o_sp_all_ns,
+  o_sp_core_ns) + ggtitle('Oscillibacter species nonsynonymous')
+
+r_bromii_all_ns = read_input_sfs('../Analysis/Ruminococcus_bromii_62047/empirical_nonsyn_sfs.txt')
+r_bromii_core_ns = read_input_sfs('../Analysis/Ruminococcus_bromii_62047/core_empirical_nonsyn_sfs.txt')
+r_bromii_accessory_ns = read_input_sfs('../Analysis/Ruminococcus_bromii_62047/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_sfs(r_bromii_all_ns,
+  r_bromii_core_ns) + ggtitle('Ruminococcus bromii nonsynonymous')
+
+r_bicirculans_all_ns = read_input_sfs('../Analysis/Ruminococcus_bicirculans_59300/empirical_nonsyn_sfs.txt') 
+r_bicirculans_core_ns = read_input_sfs('../Analysis/Ruminococcus_bicirculans_59300/core_empirical_nonsyn_sfs.txt') 
+r_bicirculans_accessory_ns = read_input_sfs('../Analysis/Ruminococcus_bicirculans_59300/accessory_empirical_nonsyn_sfs.txt') 
+
+compare_core_sfs(r_bicirculans_all_ns,
+  r_bicirculans_core_ns) + ggtitle('Ruminococcus bicirculans nonsynonymous')
+
+f_prausnitzii_all_ns = read_input_sfs('../Analysis/Faecalibacterium_prausnitzii_57453/empirical_nonsyn_sfs.txt')
+f_prausnitzii_core_ns = read_input_sfs('../Analysis/Faecalibacterium_prausnitzii_57453/core_empirical_nonsyn_sfs.txt')
+f_prausnitzii_accessory_ns = read_input_sfs('../Analysis/Faecalibacterium_prausnitzii_57453/accessory_empirical_nonsyn_sfs.txt')
+
+compare_core_sfs(f_prausnitzii_all_ns,
+  f_prausnitzii_core_ns) + ggtitle('F. prausnitzii nonsynonymous')
