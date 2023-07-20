@@ -4,8 +4,8 @@
 #$ -V
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_data=25G
-#$ -l h_rt=01:50:00
+#$ -l h_data=15G
+#$ -l h_rt=00:20:00
 #$ -t 1-30
 
 # python downsample_sfs.py ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/full_sfs.txt 14 ../Data/UHGG/UHGG_Akkermansia_muciniphila_B/
@@ -27,6 +27,8 @@
 # python downsample_sfs.py ../Data/UHGG/UHGG_Prevotella_copri/full_sfs.txt 14 ../Data/UHGG/UHGG_Prevotella_copri/
 # python downsample_sfs.py ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/full_sfs.txt 14 ../Data/UHGG/UHGG_Ruminococcus_E_bromii_B/
 
+# SGE_TASK_ID=1
+
 i=0
 while read line;
 do
@@ -39,11 +41,11 @@ done < ../Data/good_species_list.txt
 
 # sample_size=14
 
-# python downsample_sfs.py ../Analysis/${species}/empirical_syn_sfs.txt 14 ../Analysis/${species}_downsampled_14/empirical_syn
+python downsample_sfs.py ../Analysis/${species}/empirical_syn_sfs.txt 14 ../Analysis/${species}_downsampled_14/empirical_syn
 python downsample_sfs.py ../Analysis/${species}/core_empirical_syn_sfs.txt 14 ../Analysis/${species}_downsampled_14/core_empirical_syn
 python downsample_sfs.py ../Analysis/${species}/accessory_empirical_syn_sfs.txt 14 ../Analysis/${species}_downsampled_14/accessory_empirical_syn
 
 
-# python downsample_sfs.py ../Analysis/${species}/empirical_nonsyn_sfs.txt 14 ../Analysis/${species}_downsampled_14/empirical_nonsyn
+python downsample_sfs.py ../Analysis/${species}/empirical_nonsyn_sfs.txt 14 ../Analysis/${species}_downsampled_14/empirical_nonsyn
 python downsample_sfs.py ../Analysis/${species}/core_empirical_nonsyn_sfs.txt 14 ../Analysis/${species}_downsampled_14/core_empirical_nonsyn
 python downsample_sfs.py ../Analysis/${species}/accessory_empirical_nonsyn_sfs.txt 14 ../Analysis/${species}_downsampled_14/accessory_empirical_nonsyn
