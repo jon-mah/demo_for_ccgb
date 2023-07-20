@@ -4,22 +4,22 @@
 #$ -l h_data=20G
 #$ -l h_rt=2:00:00
 #$ -l highp
-#$ -t 1
+#$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_gut_HMP
 
-SGE_TASK_ID=24
+# SGE_TASK_ID=1
 
-# i=0
-# while read line;
-# do
-#    i=$((i+1))
-#    if [ $i -eq $SGE_TASK_ID ]
-#     then
-#       species=$line
-#    fi
-# done < ../Data/good_species_list.txt
+i=0
+while read line;
+do
+  i=$((i+1))
+  if [ $i -eq $SGE_TASK_ID ]
+    then
+      species=$line
+  fi
+done < ../Data/good_species_list.txt
 
 # i=0
 # while read line;
@@ -32,14 +32,14 @@ SGE_TASK_ID=24
 # done < ./oral_sfs_list.txt
 
 # i=0
-while read line;
-do
-  i=$((i+1))
-  if [ $i -eq $SGE_TASK_ID ]
-    then
-      species=$line
-  fi
-done < ./gut_sfs_list.txt
+# while read line;
+# do
+#   i=$((i+1))
+#   if [ $i -eq $SGE_TASK_ID ]
+#     then
+#       species=$line
+#   fi
+# done < ./gut_sfs_list.txt
 
 # i=0
 # while read line;
@@ -64,7 +64,7 @@ done < ./gut_sfs_list.txt
 # Downsampled analysis
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_10/empirical_sfs.txt ../Analysis/${species}_downsampled_10/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_12/empirical_sfs.txt ../Analysis/${species}_downsampled_12/
-python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/complete
+# python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/complete
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_16/empirical_sfs.txt ../Analysis/${species}_downsampled_16/
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_18/empirical_sfs.txt ../Analysis/${species}_downsampled_18/
 
@@ -78,3 +78,9 @@ python fit_one_epoch.py ../Analysis/${species}_downsampled_14/empirical_syn_down
 # python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_stercoris/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_stercoris/
 # python fit_one_epoch.py ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/full_output_sfs.txt ../Data/UHGG/UHGG_Faecalibacterium_prausnitzii_K/
 # python fit_one_epoch.py ../Data/UHGG/UHGG_${species}/downsampled_sfs.txt ../Data/UHGG/UHGG_${species}/
+
+# Core genes
+python fit_one_epoch.py ../Analysis/${species}_downsampled_14/core_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/core
+
+# Accessory genes
+# python fit_one_epoch.py ../Analysis/${species}_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/accessory
