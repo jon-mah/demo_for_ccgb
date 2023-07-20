@@ -1,5 +1,5 @@
 #!/bin/bash
-#$ -N compute_sfs
+#$ -N compute_sfs_accessory
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -cwd
