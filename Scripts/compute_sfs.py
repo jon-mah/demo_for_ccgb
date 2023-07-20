@@ -253,6 +253,37 @@ class ComputeSFS():
 
         return
 
+    def load_core_genes(self, desired_species_name, min_copynum=0.3, max_copynum=3.0, min_prevalence=0.95, max_prevalence=1.0, min_marker_coverage=20, unique_individuals=False):
+
+        # Load subject and sample metadata
+        subject_sample_map = parse_HMP_data.parse_subject_sample_map()
+
+        # Load reference genes
+        reference_genes = parse_midas_data.load_reference_genes(desired_species_name)
+
+        gene_samples, gene_names, gene_presence_matrix, gene_depth_matrix, marker_coverages, gene_reads_matrix = parse_midas_data.parse_pangenome_data(desired_species_name)
+
+        gene_names = numpy.array(gene_names)
+
+        reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
+
+        print(len(gene_names))
+
+        if unique_individuals:
+            sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
+        else:
+            sample_idxs = marker_coverages>=min_marker_coverage
+
+        prevalences = gene_diversity_utils.calculate_fractional_gene_prevalences(gene_depth_matrix[:,sample_idxs], marker_coverages[sample_idxs], min_copynum)
+
+        over_prevalence = prevalences >= min_prevalence
+        under_prevalence = prevalences <= max_prevalence
+
+        accessory_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
+        accessory_gene_idxs = reference_gene_idxs*(accessory_prevalence)
+
+        return set(gene_names[accessory_gene_idxs])
+
     def load_accessory_genes(self, desired_species_name, min_copynum=0.3, max_copynum=3.0, min_prevalence=0.3, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=False):
 
         # Load subject and sample metadata
@@ -283,6 +314,7 @@ class ComputeSFS():
         accessory_gene_idxs = reference_gene_idxs*(accessory_prevalence)
 
         return set(gene_names[accessory_gene_idxs])
+
 
     def main(self):
         """Execute main function."""
@@ -365,7 +397,7 @@ class ComputeSFS():
 
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
-        core_genes = parse_midas_data.load_core_genes(species)
+        core_genes = self.load_core_genes(species)
         accessory_genes = self.load_accessory_genes(species)
 
         # Default parameters
