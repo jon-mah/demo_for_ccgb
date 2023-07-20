@@ -16,5 +16,5 @@ readarray good_spec < ../Data/good_species_list.txt
 good_spec=( null ${good_spec[@]} )
 
 # python compute_sfs.py ${good_spec[$SGE_TASK_ID]} ../Analysis/${good_spec[$SGE_TASK_ID]}/
-python compute_sfs.py ${good_spec[$SGE_TASK_ID]} ../Analysis/${good_spec[$SGE_TASK_ID]}/ --core
-# python compute_sfs.py ${good_spec[$SGE_TASK_ID]} ../Analysis/${good_spec[$SGE_TASK_ID]}/ --accessory
+# python compute_sfs.py ${good_spec[$SGE_TASK_ID]} ../Analysis/${good_spec[$SGE_TASK_ID]}/ --core
+python compute_sfs.py ${good_spec[$SGE_TASK_ID]} ../Analysis/${good_spec[$SGE_TASK_ID]}/ --accessory

@@ -74,7 +74,7 @@ class ComputeSFS():
         parser.add_argument('--core', default=False,
             action='store_true',
             help=('Boolean flag for only core genes.'))
-        parser.add_argument('--accesory', default=False,
+        parser.add_argument('--accessory', default=False,
             action='store_true',
             help=('Boolean flag for only accessory  genes.'))
         parser.add_argument(
@@ -253,7 +253,7 @@ class ComputeSFS():
 
         return
 
-    def load_accessory_genes(self, desired_species_name, min_copynum=0.3, min_prevalence=0.4, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=True):
+    def load_accessory_genes(self, desired_species_name, min_copynum=0.3, min_prevalence=0.3, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=False):
 
         # Load subject and sample metadata
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
@@ -274,7 +274,15 @@ class ComputeSFS():
 
         prevalences = gene_diversity_utils.calculate_fractional_gene_prevalences(gene_depth_matrix[:,sample_idxs], marker_coverages[sample_idxs], min_copynum)
 
-        accessory_gene_idxs = reference_gene_idxs*(prevalences>=min_prevalence and prevalences<=max_prevalence)
+        over_prevalence = prevalences >= min_prevalence
+        under_prevalence = prevalences <= max_prevalence
+
+        print(len(over_prevalence))
+        print(len(under_prevalence))
+        accessory_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
+        print(len(accessory_prevalence))
+
+        accessory_gene_idxs = reference_gene_idxs*(accessory_prevalence)
 
         return set(gene_names[accessory_gene_idxs])
 
@@ -292,7 +300,7 @@ class ComputeSFS():
         min_MAF = args['min_MAF']
         f_star = args['f_star']
         core_bool = args['core']
-        accessory_bool = args['accesory']
+        accessory_bool = args['accessory']
         random.seed(1)
 
         # Numpy options
@@ -360,7 +368,7 @@ class ComputeSFS():
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = parse_midas_data.load_core_genes(species)
-        accessory_genes = self.load_accesory_genes(species, )
+        accessory_genes = self.load_accessory_genes(species)
 
         # Default parameters
         alpha = 0.5 # Confidence interval range for rate estimates
