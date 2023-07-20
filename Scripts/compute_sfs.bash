@@ -5,11 +5,11 @@
 #$ -cwd
 #$ -V
 #$ -l h_data=25G
-#$ -l h_rt=11:00:00
+#$ -l h_rt=11:50:00
 #$ -l highp
 #$ -t 1:30
 
-SGE_TASK_ID=1
+# SGE_TASK_ID=1
 
 readarray good_spec < ../Data/good_species_list.txt
 

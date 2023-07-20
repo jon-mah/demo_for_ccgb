@@ -267,6 +267,8 @@ class ComputeSFS():
 
         reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
 
+        print(len(gene_names))
+
         if unique_individuals:
             sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
         else:
@@ -277,11 +279,7 @@ class ComputeSFS():
         over_prevalence = prevalences >= min_prevalence
         under_prevalence = prevalences <= max_prevalence
 
-        print(len(over_prevalence))
-        print(len(under_prevalence))
         accessory_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
-        print(len(accessory_prevalence))
-
         accessory_gene_idxs = reference_gene_idxs*(accessory_prevalence)
 
         return set(gene_names[accessory_gene_idxs])
