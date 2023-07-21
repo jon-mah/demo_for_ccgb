@@ -22,4 +22,4 @@ while read line;
     fi
 done < ../Data/good_species_list.txt
 
-python plot_likelihood.py ../Analysis/${species}_downsampled_14/empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/complete_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/
+python plot_likelihood.py ../Analysis/${species}_downsampled_14/core_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/core_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/
