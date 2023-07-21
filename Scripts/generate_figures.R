@@ -2238,8 +2238,8 @@ demography_scatter = ggscatter(demography_df, x="nu", y="time_low", color="speci
                      values = c(17, 19)) +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=typeface) +
   guides(color=guide_legend(title="Species")) +
-  scale_x_log10(limits=c(5e-2, 2e1)) +
-  scale_y_log10(limits=c(1e4, 1e7)) +
+  scale_x_log10(limits=c(1e-2, 2e4)) +
+  scale_y_log10(limits=c(1e3, 1e7)) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
   guides(shape = 'none')  +
@@ -2925,7 +2925,6 @@ plot_likelihood_surface_contour('../Analysis/Phascolarctobacterium_sp_59817_down
 plot_likelihood_surface_contour('../Analysis/Prevotella_copri_61740_downsampled_14/likelihood_surface.csv') + ggtitle('P. copri likelihood surface')
 plot_likelihood_surface_contour('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/likelihood_surface.csv') + ggtitle('R. bicirculans likelihood surface')
 plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
-
 
 p1 = plot_best_fit_sfs(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
 p2 = plot_best_fit_sfs(a_finegoldii_best_fit) + ggtitle('Alistipes finegoldii')
