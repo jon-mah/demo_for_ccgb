@@ -522,6 +522,8 @@ class EvaluateDemography():
             f.write('Optimal value of theta_syn: {0}.\n'.format(theta_syn))
             f.write('Optimal value of theta_nonsyn: {0}.\n'.format(
                 theta_nonsyn))
+            f.write('Empirical synonymous sfs: {0}.\n'.format(
+                syn_data))
             f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                 scaled_spectrum))
             logger.info('Converting and interpreting Tau estimates.')
