@@ -499,35 +499,35 @@ class PlotLikelihood():
                 df = pd.DataFrame({'X': x_val, 'Y': y_val, 'Z': z_val})
                 df.to_csv(likelihood_surface)
                 # fig = plt.figure()
-                fig, ax = plt.subplots()
-                Z = numpy.transpose(Z)
-                ax.set_xlabel('Nu (Current / Ancestral population size)')
-                ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
+                # fig, ax = plt.subplots()
+                # Z = numpy.transpose(Z)
+                # ax.set_xlabel('Nu (Current / Ancestral population size)')
+                # ax.set_ylabel('Tau (Time in 2 * N_Anc generations)')
                 # levels = numpy.linspace(z_min, z_max, num=21)
-                levels = [max_likelihood - 1500,
-                          max_likelihood - 100,
-                          max_likelihood - 10,
-                          max_likelihood - 5,
-                          max_likelihood - 3,
-                          max_likelihood - 1,
-                          max_likelihood]
-                midnorm = MidpointNormalize(vmin=max_likelihood - 1000., vcenter=max_likelihood - 10, vmax=max_likelihood)
-                contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
+                # levels = [max_likelihood - 1500,
+                #           max_likelihood - 100,
+                #           max_likelihood - 10,
+                #           max_likelihood - 5,
+                #           max_likelihood - 3,
+                #           max_likelihood - 1,
+                #           max_likelihood]
+                # midnorm = MidpointNormalize(vmin=max_likelihood - 1000., vcenter=max_likelihood - 10, vmax=max_likelihood)
+                # contourplot = ax.contourf(X, Y, Z, norm=midnorm, levels=levels, cmap=cm.jet)
                 # ticks = numpy.arange(z_min, z_max, 1.0)
-                cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
+                # cbar = fig.colorbar(contourplot, label='Log likelihood') # Add a colorbar to a plot
                 # cbar.ax.set_ylabel('Log likelihood')
-                plt.title('Likelihood surface for {0}.'.format(species))
+                # plt.title('Likelihood surface for {0}.'.format(species))
                 # plt.text(best_params[0], best_params[1],
                 #          'MLE = ({0}, {1})'.format(str(best_params[0]),
                 #                                     str(best_params[1])))
-                label = 'MLE = ({0}, {1})'.format(str(numpy.round(best_params[0], decimals=4)),
-                                                  str(numpy.round(best_params[1], decimals=4)))
-                plt.annotate(label, # this is the text
-                             xy=(best_params[0], best_params[1]), # these are the coordinates to position the label
-                             textcoords="offset points", # how to position the text
-                             ha='center', bbox=dict(boxstyle='round,pad=0.2', fc='yellow', alpha=0.3))
-                plt.scatter(best_params[0], best_params[1])
-                plt.savefig(file)
+                # label = 'MLE = ({0}, {1})'.format(str(numpy.round(best_params[0], decimals=4)),
+                #                                   str(numpy.round(best_params[1], decimals=4)))
+                # plt.annotate(label, # this is the text
+                #              xy=(best_params[0], best_params[1]), # these are the coordinates to position the label
+                #              textcoords="offset points", # how to position the text
+                #              ha='center', bbox=dict(boxstyle='round,pad=0.2', fc='yellow', alpha=0.3))
+                # plt.scatter(best_params[0], best_params[1])
+                # plt.savefig(file)
         logger.info('Maximum likelihood computed to be: {0}.'.format(max_likelihood))
         logger.info('Maximum likelihood found at ({0}).'.format(best_params))
         logger.info('Finished plotting likelihood surface.')

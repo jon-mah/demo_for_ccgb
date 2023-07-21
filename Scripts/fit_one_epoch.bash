@@ -3,11 +3,10 @@
 #$ -V
 #$ -l h_data=20G
 #$ -l h_rt=2:00:00
-#$ -l highp
 #$ -t 1-30
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -N fit_one_epoch_gut_HMP
+#$ -N fit_one_epoch_gut_accessory
 
 # SGE_TASK_ID=1
 
@@ -69,7 +68,7 @@ done < ../Data/good_species_list.txt
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_18/empirical_sfs.txt ../Analysis/${species}_downsampled_18/
 
 # Original analysis
-# python fit_one_epoch.py ../Data/${species}_syn.sfs ../Analysis/${species}/ --mask_singletons
+#  python fit_one_epoch.py ../Data/${species}_syn.sfs ../Analysis/${species}/ --mask_singletons
 
 # UHGG Isolates
 # python fit_one_epoch.py ../Data/UHGG/UHGG_Bacteroides_A_coprocola/full_output_sfs.txt ../Data/UHGG/UHGG_Bacteroides_A_coprocola/
@@ -80,7 +79,7 @@ done < ../Data/good_species_list.txt
 # python fit_one_epoch.py ../Data/UHGG/UHGG_${species}/downsampled_sfs.txt ../Data/UHGG/UHGG_${species}/
 
 # Core genes
-python fit_one_epoch.py ../Analysis/${species}_downsampled_14/core_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/core
+# python fit_one_epoch.py ../Analysis/${species}_downsampled_14/core_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/core
 
 # Accessory genes
-# python fit_one_epoch.py ../Analysis/${species}_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/accessory
+python fit_one_epoch.py ../Analysis/${species}_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/accessory
