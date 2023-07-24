@@ -225,7 +225,7 @@ class DFEInference():
 
         max_ll = -100000000000
 
-        for i in range(1):
+        for i in range(25):
             sel_params = initial_guesses[i]
             p0 = dadi.Misc.perturb_params(
                 sel_params, lower_bound=None,
@@ -235,7 +235,6 @@ class DFEInference():
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
                 verbose=len(sel_params), maxiter=50,
                 multinom=True)
-            # popt = sel_params
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
             model_sfs = dadi.Inference.optimally_scaled_sfs(model_sfs, nonsyn_data)
@@ -276,7 +275,7 @@ class DFEInference():
         ng_initial_guesses.append([0.15, 10., 100000.])
 
         ng_max_ll = -100000000000
-        for i in range(1):
+        for i in range(25):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-15, 1e-15, 1e-2], [1, 1000, 1000000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
@@ -288,7 +287,7 @@ class DFEInference():
                                                   lower_bound=lower_bound,
                                                   upper_bound=upper_bound,
                                                   verbose=len(sel_params),
-                                                  maxiter=25, multinom=False)
+                                                  maxiter=50, multinom=False)
             ng_model_sfs = spectra.integrate(
                 ng_popt, None, self.neugamma, theta_nonsyn, None)
             ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)
