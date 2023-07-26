@@ -852,44 +852,46 @@ species_list = c('A. muciniphila',
                  'R. bicirculans',
                  'R. bromii')
 
-num_qp_samples = c(19, 39, 53, 33, 55,
-                   29, 31, 33, 29, 
-                   47, 59, 67, 75, 49, 
-                   45, 41, 33, 25, 
-                   67, 31, 31, 47, 47, 
-                   37, 21, 15, 61, 33)
+# Core Genes
+
+num_qp_samples = c(25, 45, 62, 41, 58,
+                   31, 35, 35, 31, 
+                   51, 71, 67, 88, 44, 
+                   50, 50, 36, 25, 
+                   74, 30, 32, 47, 40, 
+                   43, 17, 15, 71, 36)
 
 qp_samples_per_species_csv = 
-'Akkermansia_muciniphila_55200, 19
-Alistipes_finegoldii_56071, 39
-Alistipes_onderdonkii_55464, 53
-Alistipes_putredinis_61533, 33
-Alistipes_shahii_62199, 55
-Bacteroidales_bacterium_58650, 29
-Bacteroides_caccae_53434, 31
-Bacteroides_cellulosilyticus, 33
-Bacteroides_fragilis_5507, 29
-Bacteroides_massiliensis_44749, 9
-Bacteroides_ovatus_58035, 47
-Bacteroides_stercoris, 59
+'Akkermansia_muciniphila_55200, 25
+Alistipes_finegoldii_56071, 45
+Alistipes_onderdonkii_55464, 62
+Alistipes_putredinis_61533, 41
+Alistipes_shahii_62199, 58
+Bacteroidales_bacterium_58650, 31
+Bacteroides_caccae_53434, 35
+Bacteroides_cellulosilyticus, 35
+Bacteroides_fragilis_5507, 31
+Bacteroides_massiliensis_44749, 13
+Bacteroides_ovatus_58035, 51
+Bacteroides_stercoris, 71
 Bacteroides_thetaiotaomicron_56941, 67
-Bacteroides_uniformis_57318, 75
-Bacteroides_vulgatus_57955, 49
-Bacteroides_xylanisolvens_57185, 45
-Barnesiella_intestinihominis_62208, 41
-Coprococcus_sp_62244, 9
-Dialest_invisus_61905, 33
+Bacteroides_uniformis_57318, 88
+Bacteroides_vulgatus_57955, 44
+Bacteroides_xylanisolvens_57185, 50
+Barnesiella_intestinihominis_62208, 50
+Coprococcus_sp_62244, 10
+Dialest_invisus_61905, 36
 Eubacterium_eligens_61678, 25
-Eubacterium_rectale_56927, 67
-Faecalibacterium_prausnitzii_57453, 31
-Odoribacter_splanchnicus_62174, 31
+Eubacterium_rectale_56927, 74
+Faecalibacterium_prausnitzii_57453, 30
+Odoribacter_splanchnicus_62174, 32
 Oscillibacter_sp_60799, 47
-Parabacteroides_distasonis_56985, 47
-Parabacteroides_merdae_56972, 37
-Phasolarctobacterium_sp_59817, 21
+Parabacteroides_distasonis_56985, 40
+Parabacteroides_merdae_56972, 43
+Phasolarctobacterium_sp_59817, 17
 Prevotella_copri_61740, 15
-Ruminococcus_bicirculans_59300, 61
-Ruminococcus_bromii_62047, 33
+Ruminococcus_bicirculans_59300, 71
+Ruminococcus_bromii_62047, 36
 '
 
 qp_samples_per_species = data.frame(species_list, num_qp_samples)
@@ -919,17 +921,36 @@ qp_samples_per_species_plot_ordered = ggplot(qp_samples_per_species, aes(x = reo
   theme(legend.position = "none")
 qp_samples_per_species_plot_ordered
 
-ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples, fill=species_list)) +  geom_bar(stat='identity') +
+ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples)) +  geom_bar(stat='identity', fill='grey') +
   theme(legend.position = "none") +
   coord_flip() +
   xlab('Species') +
   ylab('Number of Quasi-phaseable samples') +
-  ggtitle('Number of Quasi-phaseable samples per species')  +
+  ggtitle('Number of Quasi-phaseable samples per species from core genes')  +
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
   theme(legend.position = "none")  +
-  # geom_hline(yintercept=20, linetype="dashed", color = "red")
+  geom_hline(yintercept=14, linetype="dashed", color = "red")
 
+# Accessory Genes
+
+num_qp_samples = c(25, 45, 59, 40, 55,
+                   27, 35, 35, 31, 
+                   51, 71, 66, 88, 44, 
+                   50, 47, 35, 22, 
+                   74, 30, 25, 47, 40, 
+                   41, 17, 15, 64, 30)
+
+ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples)) +  geom_bar(stat='identity', fill='grey') +
+  theme(legend.position = "none") +
+  coord_flip() +
+  xlab('Species') +
+  ylab('Number of Quasi-phaseable samples') +
+  ggtitle('Number of Quasi-phaseable samples per species from accessory genes')  +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(legend.position = "none")  +
+  geom_hline(yintercept=14, linetype="dashed", color = "red")
 
 set.seed(1)
 
