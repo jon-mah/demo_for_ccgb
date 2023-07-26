@@ -1,17 +1,17 @@
-2023-07-16 17:49:08,363 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-07-25 11:02:08,736 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-07-16 17:49:08,364 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Bacteroides_xylanisolvens_57185_log.log
+2023-07-25 11:02:08,736 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Bacteroides_xylanisolvens_57185_log.log
 
-2023-07-16 17:49:08,364 - INFO - Parsed the following arguments:
-	input_demography = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/complete_two_epoch_demography.txt
-	input_nonsyn_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+2023-07-25 11:02:08,736 - INFO - Parsed the following arguments:
+	input_demography = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/core_two_epoch_demography.txt
+	input_nonsyn_sfs = ../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt
 	outprefix = ../Analysis/cross_species_dfe/
 
-2023-07-16 17:49:08,386 - INFO - Input demographic parameters are: [0.3802602, 0.0188616].
-2023-07-16 17:49:08,386 - INFO - Input theta_syn is: 11079.408438642275.
-2023-07-16 17:49:12,979 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-07-17 06:55:51,061 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-07-25 11:02:08,748 - INFO - Input demographic parameters are: [0.7597557, 0.1988618].
+2023-07-25 11:02:08,748 - INFO - Input theta_syn is: 5925.668405933141.
+2023-07-25 11:02:40,218 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-07-26 14:09:07,728 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-07-17 07:08:47,906 - INFO - Pipeline executed succesfully.
+2023-07-26 14:33:38,805 - INFO - Pipeline executed succesfully.

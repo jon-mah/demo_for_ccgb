@@ -1,17 +1,17 @@
-2023-07-14 21:41:26,764 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2023-07-25 11:02:34,460 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2023-07-14 21:41:26,764 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Eubacterium_rectale_56927_log.log
+2023-07-25 11:02:34,461 - INFO - Progress is being logged to ../Analysis/cross_species_dfe/Eubacterium_rectale_56927_log.log
 
-2023-07-14 21:41:26,765 - INFO - Parsed the following arguments:
-	input_demography = ../Analysis/Eubacterium_rectale_56927_downsampled_14/complete_two_epoch_demography.txt
-	input_nonsyn_sfs = ../Analysis/Eubacterium_rectale_56927_downsampled_14/empirical_nonsyn_downsampled_sfs.txt
+2023-07-25 11:02:34,461 - INFO - Parsed the following arguments:
+	input_demography = ../Analysis/Eubacterium_rectale_56927_downsampled_14/core_two_epoch_demography.txt
+	input_nonsyn_sfs = ../Analysis/Eubacterium_rectale_56927_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt
 	outprefix = ../Analysis/cross_species_dfe/
 
-2023-07-14 21:41:26,780 - INFO - Input demographic parameters are: [1.557711, 1.43994].
-2023-07-14 21:41:26,780 - INFO - Input theta_syn is: 9975.77108433409.
-2023-07-14 21:44:38,997 - WARNING - The integral is probably divergent, or slowly convergent.
-2023-07-15 12:04:19,846 - WARNING - The algorithm does not converge.  Roundoff error is detected
+2023-07-25 11:02:34,463 - INFO - Input demographic parameters are: [1.6264469, 0.5756775].
+2023-07-25 11:02:34,463 - INFO - Input theta_syn is: 8478.466855152737.
+2023-07-25 11:04:49,998 - WARNING - The integral is probably divergent, or slowly convergent.
+2023-07-26 03:12:10,382 - WARNING - The algorithm does not converge.  Roundoff error is detected
   in the extrapolation table.  It is assumed that the requested tolerance
   cannot be achieved, and that the returned result (if full_output = 1) is 
   the best which can be obtained.
-2023-07-15 12:17:05,325 - INFO - Pipeline executed succesfully.
+2023-07-26 03:25:34,542 - INFO - Pipeline executed succesfully.
