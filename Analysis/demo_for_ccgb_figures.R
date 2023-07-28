@@ -861,7 +861,7 @@ num_qp_samples = c(25, 45, 62, 41, 58,
                    74, 30, 32, 47, 40, 
                    43, 17, 15, 71, 36)
 
-qp_samples_per_species_csv = 
+core_qp_samples_per_species_csv = 
 'Akkermansia_muciniphila_55200, 25
 Alistipes_finegoldii_56071, 45
 Alistipes_onderdonkii_55464, 62
@@ -894,7 +894,7 @@ Ruminococcus_bicirculans_59300, 71
 Ruminococcus_bromii_62047, 36
 '
 
-qp_samples_per_species = data.frame(species_list, num_qp_samples)
+qp_samples_per_species = data.frame(species_list, as.numeric(num_qp_samples))
 
 # qp_samples_per_species = data.frame(qp_samples_per_species_csv, header=TRUE)
 
@@ -927,12 +927,53 @@ ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y 
   xlab('Species') +
   ylab('Number of Quasi-phaseable samples') +
   ggtitle('Number of Quasi-phaseable samples per species from core genes')  +
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+  theme_bw() + theme(panel.border = element_blank(), 
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
   theme(legend.position = "none")  +
-  geom_hline(yintercept=14, linetype="dashed", color = "red")
+  geom_hline(yintercept=14, linetype="dashed", color = "red") +
+  scale_y_continuous(breaks = seq(0, 75, by = 5))
+
 
 # Accessory Genes
+
+accessory_qp_samples_per_species_csv = 
+'Akkermansia_muciniphila_55200, 25
+Alistipes_finegoldii_56071, 45
+Alistipes_onderdonkii_55464, 59
+Alistipes_putredinis_61533, 40
+Alistipes_shahii_62199, 55
+Bacteroidales_bacterium_58650, 27
+Bacteroides_caccae_53434, 35
+Bacteroides_cellulosilyticus, 35
+Bacteroides_fragilis_5507, 31
+Bacteroides_massiliensis_44749, 13
+Bacteroides_ovatus_58035, 51
+Bacteroides_stercoris, 71
+Bacteroides_thetaiotaomicron_56941, 66
+Bacteroides_uniformis_57318, 88
+Bacteroides_vulgatus_57955, 44
+Bacteroides_xylanisolvens_57185, 50
+Barnesiella_intestinihominis_62208, 47
+Coprococcus_sp_62244, 10
+Dialest_invisus_61905, 35
+Eubacterium_eligens_61678, 22
+Eubacterium_rectale_56927, 74
+Faecalibacterium_prausnitzii_57453, 30
+Odoribacter_splanchnicus_62174, 25
+Oscillibacter_sp_60799, 47
+Parabacteroides_distasonis_56985, 40
+Parabacteroides_merdae_56972, 41
+Phasolarctobacterium_sp_59817, 17
+Prevotella_copri_61740, 15
+Ruminococcus_bicirculans_59300, 64
+Ruminococcus_bromii_62047, 30
+'
+
+accessory_qp_samples_per_species = data.frame(species_list, num_qp_samples)
+
+
+# write.csv(core_qp_samples_per_species_csv, '../Summary/core_num_qp.csv')
+# write.csv(accessory_qp_samples_per_species_csv, '../Summary/accessory_num_qp.csv')
 
 num_qp_samples = c(25, 45, 59, 40, 55,
                    27, 35, 35, 31, 
@@ -941,16 +982,18 @@ num_qp_samples = c(25, 45, 59, 40, 55,
                    74, 30, 25, 47, 40, 
                    41, 17, 15, 64, 30)
 
-ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples)) +  geom_bar(stat='identity', fill='grey') +
+ggplot(accessory_qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples)) +  geom_bar(stat='identity', fill='grey') +
   theme(legend.position = "none") +
   coord_flip() +
   xlab('Species') +
   ylab('Number of Quasi-phaseable samples') +
   ggtitle('Number of Quasi-phaseable samples per species from accessory genes')  +
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+  theme_bw() + theme(panel.border = element_blank(), 
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
   theme(legend.position = "none")  +
-  geom_hline(yintercept=14, linetype="dashed", color = "red")
+  geom_hline(yintercept=14, linetype="dashed", color = "red") +
+  scale_y_continuous(breaks = seq(0, 75, by = 5))
+
 
 set.seed(1)
 

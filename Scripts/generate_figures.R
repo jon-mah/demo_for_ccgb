@@ -3,7 +3,7 @@ library(ggrepel)
 library(ggsignif)
 # install.packages("ggpubr")
 library(ggpubr)
-# library(dplyr)
+library(dplyr)
 library(fitdistrplus)
 library(scales)
 library(reshape2)
@@ -1146,6 +1146,76 @@ AIC_from_demography = function(input_file) {
   return(k - 2*loglik)
 }
 
+return_nu_high = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  MLE = max(species_surface$likelihood)
+  
+  # Task 1: Remove rows with likelihood less than MLE - 3
+  species_surface <- species_surface[species_surface$likelihood >= MLE - 3, ]
+  
+  # Task 2: Get the highest nu value from the remaining rows
+  highest_nu <- max(species_surface$nu)
+  
+  return(highest_nu)
+}
+
+return_nu_low = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  MLE = max(species_surface$likelihood)
+  
+  # Task 1: Remove rows with likelihood less than MLE - 3
+  species_surface <- species_surface[species_surface$likelihood >= MLE - 3, ]
+  
+  # Task 2: Get the highest nu value from the remaining rows
+  lowest_nu <- min(species_surface$nu)
+  
+  return(lowest_nu)
+}
+
+return_nu_mle = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  return(species_surface$nu[1])
+}
+
+return_tau_high = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  MLE = max(species_surface$likelihood)
+  
+  # Task 1: Remove rows with likelihood less than MLE - 3
+  species_surface <- species_surface[species_surface$likelihood >= MLE - 3, ]
+  
+  # Task 2: Get the highest nu value from the remaining rows
+  highest_tau <- max(species_surface$tau)
+  
+  return(highest_tau)
+}
+
+return_tau_low = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  MLE = max(species_surface$likelihood)
+  
+  # Task 1: Remove rows with likelihood less than MLE - 3
+  species_surface <- species_surface[species_surface$likelihood >= MLE - 3, ]
+  
+  # Task 2: Get the highest nu value from the remaining rows
+  lowest_tau <- min(species_surface$tau)
+  
+  return(lowest_tau)
+}
+
+return_tau_mle = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  return(species_surface$tau[1])
+}
+
 
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -1754,7 +1824,7 @@ dfe_df = rbind(
   melt(b_caccae_dfe_params),
   melt(b_cellulosilyticus_dfe_params),
   melt(b_fragilis_dfe_params),
-  melt(b_ovatus_dfe_params),
+  # melt(b_ovatus_dfe_params),
   melt(b_stercoris_dfe_params),
   melt(b_thetaiotaomicron_dfe_params),
   melt(b_uniformis_dfe_params),
@@ -1785,7 +1855,7 @@ dfe_dadi_df = rbind(
   melt(b_caccae_dfe_dadi_params),
   melt(b_cellulosilyticus_dfe_dadi_params),
   melt(b_fragilis_dfe_dadi_params),
-  melt(b_ovatus_dfe_dadi_params),
+  # melt(b_ovatus_dfe_dadi_params),
   melt(b_stercoris_dfe_dadi_params),
   melt(b_thetaiotaomicron_dfe_dadi_params),
   melt(b_uniformis_dfe_dadi_params),
@@ -1829,7 +1899,7 @@ phylogenetic_levels = c(
   'Bacteroides stercoris',
   'Bacteroides uniformis',
   'Bacteroides thetaiotaomicron',
-  'Bacteroides ovatus',
+  # 'Bacteroides ovatus',
   'Bacteroides xylanisolvens',
   'Bacteroides caccae',
   # 'Bacteroides massiliensis',
@@ -1852,89 +1922,99 @@ dfe_df$species = factor(dfe_df$species, levels=phylogenetic_levels)
 dfe_dadi_df$species = factor(dfe_dadi_df$species, levels=phylogenetic_levels)
 
 # dfe_df$value = dfe_df$value * 2
-dfe_df$value[dfe_df$value <= 1e-12] = 1e-12
-dfe_df$value[dfe_df$value >= 1] = 1
+dfe_df$value[dfe_df$value <= 1e-11] = 1e-11
+dfe_df$value[dfe_df$value >= 0.5] = 0.5
 
 ### Figure 4
-# 600 x 800
+# 600 x 1000
 
 # DFE Comparison
 
 ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
-  geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
+  geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
+  #labs(
+  #  title = 'Gamma-Distributed DFE',
+  #  subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  #) +  
   theme_ridges() +
-  scale_x_log10(limits=c(1e-13, 1e2)) +
+  scale_x_log10(limits=c(1e-12, 1e1)) +
   ylab('Proportion of Sites') +
   theme(axis.text.y = element_text(face='italic')) +
   theme(axis.text.y = element_text(hjust=0)) +
-  theme(axis.title.y.right = element_text('Test')) +
   theme(legend.position = "none") + 
   xlab('Selection Coefficient')
 
 ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_high', ], aes(x=value, y=fct_rev(species), fill=species)) +
-  geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
-  labs(
-    title = 'Gamma-Distributed DFE',
-    subtitle = 'Assuming a mutation rate of mu=6.93E-10'
-  ) +
+  geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
+  #labs(
+  #  title = 'Gamma-Distributed DFE',
+  #  subtitle = 'Assuming a mutation rate of mu=6.93E-10'
+  #) +
   theme_ridges() +
-  scale_x_log10(limits=c(1e-13, 1e2)) +
-  theme(axis.title.y = element_blank()) + 
+  scale_x_log10(limits=c(1e-12, 1e1)) +
+  ylab('Proportion of Sites') +
   theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") + 
-  xlab('Selective Effect')
+  xlab('Selection Coefficient')
 
 ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
-  labs(
-    title = 'Neutral + Gamma-Distributed DFE',
-    subtitle = 'Assuming a mutation rate of mu=4.08E-10'
-  ) +
+  #labs(
+  #  title = 'Neutral + Gamma-Distributed DFE',
+  #  subtitle = 'Assuming a mutation rate of mu=4.08E-10'
+  #) +
   theme_ridges() +
-  scale_x_log10(limits=c(1e-13, 1e2)) +
-  theme(axis.title.y = element_blank()) + 
+  scale_x_log10(limits=c(1e-12, 1e1)) +
+  ylab('Proportion of Sites') +
   theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") + 
-  xlab('Selective Effect')
+  xlab('Selection Coefficient')
 
 ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_high', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
-  labs(
-    title = 'Neutral + Gamma-Distributed DFE',
-    subtitle = 'Assuming a mutation rate of mu=6.93E-10'
-  ) +
+  #labs(
+  #  title = 'Neutral + Gamma-Distributed DFE',
+  #  subtitle = 'Assuming a mutation rate of mu=6.93E-10'
+  #) +
   theme_ridges() +
-  scale_x_log10(limits=c(1e-13, 1e2)) +
+  scale_x_log10(limits=c(1e-12, 1e1)) +
+  ylab('Proportion of Sites') +
   theme(axis.text.y = element_text(face='italic')) +
-  theme(axis.title.y = element_blank()) + 
+  theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") + 
-  xlab('Selective Effect')
+  xlab('Selection Coefficient')
 
 dfe_dadi_df$value[dfe_dadi_df$value <= 1e-1] = 1e-1
 
 ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'gamma_dfe_dist', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
-  labs(
-    title = 'Gamma-Distributed DFE',
-    subtitle = 'Selective effect multiplied by N_anc'
-  ) +
+  #labs(
+  #  title = 'Gamma-Distributed DFE',
+  #  subtitle = 'Selective effect multiplied by N_anc'
+  #) +
   theme_ridges() +
   scale_x_log10() +
-  theme(axis.title.y = element_blank()) + 
+  ylab('Proportion of Sites') +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") + 
-  xlab('Selective Effect')
+  xlab('Selection Coefficient')
 
 ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'neugamma_dfe_dist', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
-  labs(
-    title = 'Neutral + Gamma-Distributed DFE',
-    subtitle = 'Selective effect multiplied by 2N_anc'
-  ) +
+  #labs(
+  #  title = 'Neutral + Gamma-Distributed DFE',
+  #  subtitle = 'Selective effect multiplied by 2N_anc'
+  #) +
   theme_ridges() +
   scale_x_log10() +
-  theme(axis.title.y = element_blank()) + 
+  ylab('Proportion of Sites') +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") + 
-  xlab('Selective Effect')
+  xlab('Selection Coefficient')
 
 a_shahii_dfe_df = melt(a_shahii_dfe_params)
 # a_shahii_dfe_df$value = a_shahii_dfe_df$value * 2
@@ -2369,7 +2449,8 @@ three_epoch_nu_tau$demography = 'Three Epoch'
 three_epoch_nu_tau = three_epoch_nu_tau[-c(2,4:7)]
 
 colnames(three_epoch_nu_tau) = c('species', 'nu', 'time_low', 'time_high', 'demography')
-demography_df =  rbind(two_epoch_nu_tau, three_epoch_nu_tau)
+# demography_df =  rbind(two_epoch_nu_tau, three_epoch_nu_tau)
+demography_df = rbind(two_epoch_nu_tau)
 
 # demography_df$time_low = as.numeric(demography_df$time_low)
 # demography_df$nu = as.numeric(demography_df$nu)
@@ -2618,7 +2699,7 @@ o_splanchnicus_best_fit = cbind(
 
 oscillibacter_sp_best_fit = cbind(
   proportional_sfs(oscillibacter_sp_hmp_qp_syn[-1]),
-  proportional_sfs(oscillibacter_sp_core_three_epoch),
+  proportional_sfs(oscillibacter_sp_core_two_epoch),
   proportional_sfs(oscillibacter_sp_hmp_qp_nonsyn[-1]),
   proportional_sfs(oscillibacter_sp_core_gamma_dfe),
   rep('Oscilibacter sp', length(oscillibacter_sp_hmp_qp_syn[-1])),
@@ -2972,22 +3053,22 @@ species_subtree = c(
   'Akkermansia_muciniphila_55290',
   'Alistipes_finegoldii_56071',
   'Alistipes_onderdonkii_55464',
-  # 'Alistipes_putredinis_61533',
+  'Alistipes_putredinis_61533',
   'Alistipes_shahii_62199',
   'Bacteroidales_bacterium_58650',
-  # 'Bacteroides_caccae_53434',
+  'Bacteroides_caccae_53434',
   'Bacteroides_cellulosilyticus_58046',
   'Bacteroides_fragilis_54507',
   # 'Bacteroides_massiliensis_44749',
   # 'Bacteroides_ovatus_58035',
   'Bacteroides_stercoris_56735',
   'Bacteroides_thetaiotaomicron_56941',
-  # 'Bacteroides_uniformis_57318',
+  'Bacteroides_uniformis_57318',
   'Bacteroides_vulgatus_57955',
   'Bacteroides_xylanisolvens_57185',
   'Barnesiella_intestinihominis_62208',
   # 'Coprococcus_sp_62244',
-  # 'Dialister_invisus_61905',
+  'Dialister_invisus_61905',
   'Eubacterium_eligens_61678',
   'Eubacterium_rectale_56927',
   'Faecalibacterium_prausnitzii_57453',
@@ -4384,7 +4465,7 @@ one_epoch_file_list = c(
   '../Analysis/Bacteroides_caccae_53434_downsampled_14/core_one_epoch_demography.txt',
   '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/core_one_epoch_demography.txt',
   '../Analysis/Bacteroides_fragilis_54507_downsampled_14/core_one_epoch_demography.txt',
-  '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_one_epoch_demography.txt',
+  # '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_one_epoch_demography.txt',
   '../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_one_epoch_demography.txt',
   '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_one_epoch_demography.txt',
   '../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_one_epoch_demography.txt',
@@ -4415,7 +4496,7 @@ two_epoch_file_list = c(
   '../Analysis/Bacteroides_caccae_53434_downsampled_14/core_two_epoch_demography.txt',
   '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/core_two_epoch_demography.txt',
   '../Analysis/Bacteroides_fragilis_54507_downsampled_14/core_two_epoch_demography.txt',
-  '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_two_epoch_demography.txt',
+  # '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_two_epoch_demography.txt',
   '../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_two_epoch_demography.txt',
   '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_two_epoch_demography.txt',
   '../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_two_epoch_demography.txt',
@@ -4446,7 +4527,7 @@ three_epoch_file_list = c(
   '../Analysis/Bacteroides_caccae_53434_downsampled_14/core_three_epoch_demography.txt',
   '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/core_three_epoch_demography.txt',
   '../Analysis/Bacteroides_fragilis_54507_downsampled_14/core_three_epoch_demography.txt',
-  '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_three_epoch_demography.txt',
+  # '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_three_epoch_demography.txt',
   '../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_three_epoch_demography.txt',
   '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_three_epoch_demography.txt',
   '../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_three_epoch_demography.txt',
@@ -4477,7 +4558,7 @@ species_list = c(
   'Bacteroides_caccae_53434',
   'Bacteroides_cellulosilyticus_58046',
   'Bacteroides_fragilis_54507',
-  'Bacteroides_ovatus_58035',
+  # 'Bacteroides_ovatus_58035',
   'Bacteroides_stercoris_56735',
   'Bacteroides_thetaiotaomicron_56941',
   'Bacteroides_uniformis_57318',
@@ -4516,3 +4597,97 @@ for (i in 1:length(species_list)) {
 AIC_matrix
 
 write.csv(AIC_matrix,  file='../Summary/AIC_matrix.csv')
+
+#  Distributions of Nu and Tau
+
+likelihood_surface_file_list = c(
+  '../Analysis/Akkermansia_muciniphila_55290_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Alistipes_finegoldii_56071_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Alistipes_onderdonkii_55464_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Alistipes_putredinis_61533_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Alistipes_shahii_62199_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroidales_bacterium_58650_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_caccae_53434_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_fragilis_54507_downsampled_14/core_likelihood_surface.csv',
+  # '../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Dialister_invisus_61905_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Oscillibacter_sp_60799_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Parabacteroides_merdae_56972_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Prevotella_copri_61740_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/core_likelihood_surface.csv',
+  '../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_likelihood_surface.csv'
+)
+
+nu_tau_distribution = data.frame(species=phylogenetic_levels, 
+  nu_mle = numeric(27),
+  tau_mle = numeric(27),
+  nu_low = numeric(27), 
+  nu_high = numeric(27), 
+  tau_low = numeric(27), 
+  tau_high = numeric(27))
+
+nu_tau_distribution
+
+for (i in 1:length(likelihood_surface_file_list)) {
+  # nu_mle
+  nu_tau_distribution[i, 2] = return_nu_mle(likelihood_surface_file_list[i])
+  # nu_low
+  nu_tau_distribution[i, 4] = return_nu_low(likelihood_surface_file_list[i])
+  # nu_high
+  nu_tau_distribution[i, 5] =  return_nu_high(likelihood_surface_file_list[i])
+  # tau_mle
+  nu_tau_distribution[i, 3] = return_tau_mle(likelihood_surface_file_list[i])
+  # tau_low
+  nu_tau_distribution[i, 6] = return_tau_low(likelihood_surface_file_list[i])
+  # tau_high
+  nu_tau_distribution[i, 7] =  return_tau_high(likelihood_surface_file_list[i])
+}
+
+nu_tau_distribution$species = factor(nu_tau_distribution$species, levels=phylogenetic_levels)
+
+nu_label_text = expression(nu == frac(N[current], N[ancestral]))
+tau_label_text = expression(tau == frac(generations, 2 * N[ancestral]))
+
+
+plot_nu_distribution = ggplot() +
+  geom_linerange(data=nu_tau_distribution, mapping=aes(x=fct_rev(species), ymin=nu_low, ymax=nu_high), size=1, color="blue") + 
+  geom_point(data=nu_tau_distribution, mapping=aes(x=fct_rev(species), y=nu_mle), size=4, shape=21, fill="white") +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw() +
+  xlab('') +
+  ylab(nu_label_text) +
+  geom_hline(yintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0))
+
+plot_nu_distribution
+
+plot_tau_distribution = ggplot() +
+  geom_linerange(data=nu_tau_distribution, mapping=aes(x=fct_rev(species), ymin=tau_low, ymax=tau_high), size=1, color="blue") + 
+  geom_point(data=nu_tau_distribution, mapping=aes(x=fct_rev(species), y=tau_mle), size=4, shape=21, fill="white") +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw() +
+  xlab('') +
+  ylab(tau_label_text) +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0))
+
+plot_tau_distribution
+
+
+
