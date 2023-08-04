@@ -75,6 +75,9 @@ class CrossSpeciesDFEInferece():
             'input_demography', type=self.ExistingFile,
             help=('Best-fit demographic parameters for given species.'))
         parser.add_argument(
+            'input_syn_sfs', type=self.ExistingFile,
+            help=('Synonymous SFS for given species.'))
+        parser.add_argument(
             'input_nonsyn_sfs', type=self.ExistingFile,
             help=('Nonsynonymous SFS for given species.'))
         parser.add_argument(
@@ -239,6 +242,7 @@ class CrossSpeciesDFEInferece():
         start_idx = input_demography.find("Analysis") + 9
         end_idx = input_demography.find("_downsampled")
         species = input_demography[start_idx:end_idx]
+        syn_sfs = args['input_syn_sfs']
         nonsyn_sfs = args['input_nonsyn_sfs']
 
         # Numpy options
@@ -256,7 +260,7 @@ class CrossSpeciesDFEInferece():
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         likelihood_surface = \
-            '{0}{1}{2}_likelihood_surface.csv'.format(
+            '{0}{1}{2}_constant_s_likelihood_surface.csv'.format(
                 args['outprefix'], underscore, species)
         logfile = '{0}{1}{2}_log.log'.format(
             args['outprefix'], underscore, species)
@@ -289,6 +293,7 @@ class CrossSpeciesDFEInferece():
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
         # Construct initial Spectrum object from input synonymous sfs.
+        syn_data = dadi.Spectrum.from_file(syn_sfs).fold()
         nonsyn_data = dadi.Spectrum.from_file(nonsyn_sfs).fold()
         nonsyn_ns = nonsyn_data.sample_sizes  # Number of samples.
         pts_l = [1200, 1400, 1600]
@@ -301,17 +306,16 @@ class CrossSpeciesDFEInferece():
         spectra = DFE.Cache1D(demog_params, nonsyn_ns, DFE.DemogSelModels.two_epoch,
                               pts=pts_l, gamma_bounds=(1e-5, 500), gamma_pts=100,
                               verbose=True, cpus=1)
-        print(spectra)
-        x_min = 1E-2
+        x_min = 1E-4
         x_max = 1
-        y_min = 1E-2
+        y_min = 1E-6
         y_max = 1
 
         mu_low = 4.08E-10
-        allele_sum = numpy.sum(spectrum)
+        allele_sum = numpy.sum(syn_data)
         N_anc = theta_syn / (4 * allele_sum * mu_low)
 
-        npts = 10
+        npts = 1000
         x_range = numpy.linspace(x_min, x_max, npts)
         y_range = numpy.linspace(y_min, y_max, npts)
 
