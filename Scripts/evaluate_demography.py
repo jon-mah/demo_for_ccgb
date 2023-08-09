@@ -527,7 +527,8 @@ class EvaluateDemography():
             f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                 scaled_spectrum))
             logger.info('Converting and interpreting Tau estimates.')
-            allele_sum = numpy.sum(scaled_spectrum)
+            allele_sum_data = dadi.Spectrum.from_file(syn_input_sfs, mask_corners=False).fold()
+            allele_sum = numpy.sum(allele_sum_data)
             # Don't hard  code in mu as value
             mu_low = 4.08E-10
             mu_high = 6.93E-10
