@@ -353,6 +353,18 @@ class EvaluateDemography():
             current_t = next_t
         return phi
 
+    def compute_allele_sum(self, file_path):
+        """Return sum of allele counts from input SFS file.
+        """
+        with open(file_path, 'r') as file:
+             lines = file.readlines()
+             if len(lines) >= 2:
+                 second_line = lines[1].strip()
+                 values = list(map(float, second_line.split()))
+                 array_sum = sum(values)
+                 return array_sum
+
+
     def main(self):
         """Execute main function."""
         # Parse command line arguments
@@ -527,8 +539,7 @@ class EvaluateDemography():
             f.write('Scaled best-fit model spectrum: {0}.\n'.format(
                 scaled_spectrum))
             logger.info('Converting and interpreting Tau estimates.')
-            allele_sum_data = dadi.Spectrum.from_file(syn_input_sfs, mask_corners=False).fold()
-            allele_sum = numpy.sum(allele_sum_data)
+            allele_sum = self.compute_allele_sum(syn_input_sfs)
             # Don't hard  code in mu as value
             mu_low = 4.08E-10
             mu_high = 6.93E-10
