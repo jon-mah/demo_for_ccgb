@@ -1,0 +1,24 @@
+2023-08-11 13:38:48,685 - INFO - Beginning execution of evaluate_demography.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2023-08-11 13:38:48,685 - INFO - Progress is being logged to ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_evaluate_demography.log
+
+2023-08-11 13:38:48,685 - INFO - Parsed the following arguments:
+	syn_input_sfs = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt
+	model_type = two_epoch
+	params_list = [0.62780136, 0.132541]
+	mask_singletons = False
+	mask_doubletons = False
+	outprefix = ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory
+
+2023-08-11 13:38:48,697 - INFO - Beginning demographic evaluation for two-epoch demographic model.
+2023-08-11 13:38:48,698 - INFO - Beginning optimization with guess, [0.62780136, 0.132541].
+2023-08-11 13:38:48,698 - INFO - Finished optimization with guess, [0.62780136, 0.132541].
+2023-08-11 13:38:48,698 - INFO - Best fit parameters: [0.62780136, 0.132541].
+2023-08-11 13:38:48,728 - INFO - Maximum log composite likelihood: -27.44342884178411.
+2023-08-11 13:38:48,728 - INFO - Outputting residual between model and data.
+2023-08-11 13:38:49,177 - INFO - Optimal value of theta: 943.9817399046262.
+2023-08-11 13:38:49,178 - INFO - Synonymous input SFS: [-- 796.5982595136799 501.17533268761406 362.8684255116483 311.1201429538206 288.9152222507039 277.66194212875155 136.9003872267509 -- -- -- -- -- -- --].
+2023-08-11 13:38:49,178 - INFO - Scaled spectrum: [-- 800.6535183156244 485.5290931886214 374.81641539229673 319.23687209195043 288.52447825180536 272.6346219013253 133.84471313134523 -- -- -- -- -- -- --].
+2023-08-11 13:38:49,179 - INFO - Converting and interpreting Tau estimates.
+2023-08-11 13:38:49,180 - INFO - Finished demographic evaluation.
+2023-08-11 13:38:49,180 - INFO - Pipeline executed succesfully.
