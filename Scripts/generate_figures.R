@@ -2391,6 +2391,34 @@ r_bromii_dfe_df$variable <- as.character(r_bromii_dfe_df$variable)
 r_bromii_dfe_df$variable[r_bromii_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
 r_bromii_dfe_df$variable[r_bromii_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
 
+p_distasonis_dfe_df = melt(p_distasonis_dfe_params)
+# p_distasonis_dfe_df$value = p_distasonis_dfe_df$value * 2
+p_distasonis_dfe_df$value[p_distasonis_dfe_df$value <= 1e-12] = 1e-12
+p_distasonis_dfe_df$value[p_distasonis_dfe_df$value >= 1] = 1
+# p_distasonis_dfe_df = p_distasonis_dfe_df[p_distasonis_dfe_df$variable == 'gamma_dfe_dist_low' || p_distasonis_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+p_distasonis_dfe_df = rbind(
+  p_distasonis_dfe_df[p_distasonis_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  p_distasonis_dfe_df[p_distasonis_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+p_distasonis_dfe_df$variable <- as.character(p_distasonis_dfe_df$variable)
+
+p_distasonis_dfe_df$variable[p_distasonis_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+p_distasonis_dfe_df$variable[p_distasonis_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+p_merdae_dfe_df = melt(p_merdae_dfe_params)
+# p_merdae_dfe_df$value = p_merdae_dfe_df$value * 2
+p_merdae_dfe_df$value[p_merdae_dfe_df$value <= 1e-12] = 1e-12
+p_merdae_dfe_df$value[p_merdae_dfe_df$value >= 1] = 1
+# p_merdae_dfe_df = p_merdae_dfe_df[p_merdae_dfe_df$variable == 'gamma_dfe_dist_low' || p_merdae_dfe_df$variable == 'neugamma_dfe_dist_low', ]
+p_merdae_dfe_df = rbind(
+  p_merdae_dfe_df[p_merdae_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  p_merdae_dfe_df[p_merdae_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+p_merdae_dfe_df$variable <- as.character(p_merdae_dfe_df$variable)
+
+p_merdae_dfe_df$variable[p_merdae_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+p_merdae_dfe_df$variable[p_merdae_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
 a_muciniphila_dfe_figure = ggplot(a_muciniphila_dfe_df[a_muciniphila_dfe_df$variable == 'Gamma-Distributed DFE', ], aes(x=value, y=fct_rev(variable), fill=variable)) +
   geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 2.5) +
   theme_ridges() +
@@ -2503,6 +2531,37 @@ e_rectale_highly_deleterious
 e_rectale_lethal = mean(e_rectale_gamma_dfe$value > lethal_s)
 e_rectale_lethal
 
+p_merdae_gamma_dfe = p_merdae_dfe_df[p_merdae_dfe_df$variable=='Gamma-Distributed DFE', ]
+p_distasonis_gamma_dfe = p_distasonis_dfe_df[p_distasonis_dfe_df$variable=='Gamma-Distributed DFE', ]
+
+p_merdae_gamma_dfe[p_merdae_gamma_dfe$value < 1e-13, ]= 1e-13
+p_merdae_gamma_dfe[p_merdae_gamma_dfe$value > 1e2, ]= 1e2
+p_merdae_gamma_dfe_bins = cut(p_merdae_gamma_dfe$value, breaks=DFE_cutoffs)
+
+p_distasonis_gamma_dfe[p_distasonis_gamma_dfe$value < 1e-13, ]= 1e-13
+p_distasonis_gamma_dfe[p_distasonis_gamma_dfe$value > 1e2, ]= 1e2
+p_distasonis_gamma_dfe_bins = cut(p_distasonis_gamma_dfe$value, breaks=DFE_cutoffs)
+
+p_merdae_weakly_deleterious = mean(p_merdae_gamma_dfe$value < weakly_deleterious_s)
+p_merdae_weakly_deleterious
+p_merdae_moderately_deleterious =  mean(weakly_deleterious_s < p_merdae_gamma_dfe$value & p_merdae_gamma_dfe$value < moderately_deleterious_s)
+p_merdae_moderately_deleterious
+p_merdae_highly_deleterious = mean(moderately_deleterious_s < p_merdae_gamma_dfe$value & p_merdae_gamma_dfe$value < lethal_s)
+p_merdae_highly_deleterious
+p_merdae_lethal = mean(p_merdae_gamma_dfe$value > lethal_s)
+p_merdae_lethal
+
+p_distasonis_weakly_deleterious = mean(p_distasonis_gamma_dfe$value < weakly_deleterious_s)
+p_distasonis_weakly_deleterious
+p_distasonis_moderately_deleterious =  mean(weakly_deleterious_s < p_distasonis_gamma_dfe$value & p_distasonis_gamma_dfe$value < moderately_deleterious_s)
+p_distasonis_moderately_deleterious
+p_distasonis_highly_deleterious = mean(moderately_deleterious_s < p_distasonis_gamma_dfe$value & p_distasonis_gamma_dfe$value < lethal_s)
+p_distasonis_highly_deleterious
+p_distasonis_lethal = mean(p_distasonis_gamma_dfe$value > lethal_s)
+p_distasonis_lethal
+
+
+
 b_cellulosilyticus_dfe_figure + b_stercoris_dfe_figure + plot_layout(ncol=1)
 
 o_splanchnicus_dfe_figure + e_eligens_dfe_figure + b_cellulosilyticus_dfe_figure + plot_layout(ncol = 1)
@@ -2555,6 +2614,7 @@ three_epoch_nu_tau= read.csv('../Summary/three_epoch_demography_interpretation.c
 two_epoch_nu_tau$demography = 'Two Epoch'
 three_epoch_nu_tau$demography = 'Three Epoch'
 
+two_epoch_nu_tau = two_epoch_nu_tau[-c(10), ]
 three_epoch_nu_tau = three_epoch_nu_tau[-c(2,4:7)]
 
 colnames(three_epoch_nu_tau) = c('species', 'nu', 'time_low', 'time_high', 'demography')
@@ -2591,8 +2651,10 @@ demography_scatter = ggscatter(demography_df, x="nu", y="time_low", color="speci
                      values = c(17, 19)) +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=typeface) +
   guides(color=guide_legend(title="Species")) +
-  scale_x_log10(limits=c(1e-2, 2e4)) +
-  scale_y_log10(limits=c(2e2, 5e7)) +
+  #scale_x_log10(limits=c(1e-2, 2e4)) +
+  #scale_y_log10(limits=c(3e2, 5e6)) +
+  scale_x_log10() +
+  scale_y_log10() +
   theme(legend.position = 'none') +
   guides(color = 'none') +
   guides(shape = 'none')  +
@@ -3191,38 +3253,38 @@ species_subtree = c(
   'Ruminococcus_bromii_62047'
 )
 
-# species_subtree = c(
-#   # 'Akkermansia_muciniphila_55290',
-#   # 'Alistipes_finegoldii_56071',
-#   # 'Alistipes_onderdonkii_55464',
-#   # 'Alistipes_putredinis_61533',
-#   # 'Alistipes_shahii_62199',
-#   # 'Bacteroidales_bacterium_58650',
-#   # 'Bacteroides_caccae_53434',
-#   # 'Bacteroides_cellulosilyticus_58046',
-#   # 'Bacteroides_fragilis_54507',
-#   # # 'Bacteroides_massiliensis_44749',
-#   # # 'Bacteroides_ovatus_58035',
-#   # 'Bacteroides_stercoris_56735',
-#   'Bacteroides_thetaiotaomicron_56941',
-#   'Bacteroides_uniformis_57318',
-#   'Bacteroides_vulgatus_57955',
-#   # 'Bacteroides_xylanisolvens_57185',
-#   'Barnesiella_intestinihominis_62208',
-#   # # 'Coprococcus_sp_62244',
-#   # 'Dialister_invisus_61905',
-#   # 'Eubacterium_eligens_61678',
-#   'Eubacterium_rectale_56927',
-#   'Faecalibacterium_prausnitzii_57453',
-#   # 'Odoribacter_splanchnicus_62174',
-#   # 'Oscillibacter_sp_60799',
-#   'Parabacteroides_distasonis_56985'
-#   # 'Parabacteroides_merdae_56972',
-#   # 'Phascolarctobacterium_sp_59817',
-#   # 'Prevotella_copri_61740',
-#   # 'Ruminococcus_bicirculans_59300',
-#   # 'Ruminococcus_bromii_62047'
-# )
+species_subtree = c(
+  # 'Akkermansia_muciniphila_55290',
+  # 'Alistipes_finegoldii_56071',
+  # 'Alistipes_onderdonkii_55464',
+  # 'Alistipes_putredinis_61533',
+  # 'Alistipes_shahii_62199',
+  # 'Bacteroidales_bacterium_58650',
+  # 'Bacteroides_caccae_53434',
+  # 'Bacteroides_cellulosilyticus_58046',
+  # 'Bacteroides_fragilis_54507',
+  # # 'Bacteroides_massiliensis_44749',
+  # # 'Bacteroides_ovatus_58035',
+  # 'Bacteroides_stercoris_56735',
+  'Bacteroides_thetaiotaomicron_56941',
+  'Bacteroides_uniformis_57318',
+  # 'Bacteroides_vulgatus_57955',
+  # 'Bacteroides_xylanisolvens_57185',
+  # 'Barnesiella_intestinihominis_62208',
+  # # 'Coprococcus_sp_62244',
+  # 'Dialister_invisus_61905',
+  # 'Eubacterium_eligens_61678',
+  'Eubacterium_rectale_56927',
+  'Faecalibacterium_prausnitzii_57453'
+  # 'Odoribacter_splanchnicus_62174',
+  # 'Oscillibacter_sp_60799',
+  # 'Parabacteroides_distasonis_56985'
+  # 'Parabacteroides_merdae_56972',
+  # 'Phascolarctobacterium_sp_59817',
+  # 'Prevotella_copri_61740',
+  # 'Ruminococcus_bicirculans_59300',
+  # 'Ruminococcus_bromii_62047'
+)
 
 midas_code_subtree = c()
 
@@ -3251,7 +3313,7 @@ for (i in 1:length(subtree$tip.label)) {
 plot(subtree)
 # write.tree(subtree, file='../Summary/good_species.newick')
 
-# write.tree(subtree, file='../Summary/core_accessory.newick')
+write.tree(subtree, file='../Summary/core_accessory.newick')
 
 # Likelihood Surfaces for Core Genes
 plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/core_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
@@ -3467,7 +3529,7 @@ phylogenetic_levels = c(
   'Bacteroides vulgatus',
   'Barnesiella intestinihominis',
   'Akkermansia muciniphila',
-  'Dialister invivus',
+  'Dialister invisus',
   'Phascolarctobacterium species',
   'Eubacterium eligens',
   'Eubacterium rectale',
@@ -3556,16 +3618,16 @@ p9_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_fragilis_54507_do
 # p10 = plot_core_accessory_dfe('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. massiliensis, Core Genes')
 p11_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. ovatus, Core Genes')
 p12_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. stercoris, Core Genes')
-p13_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. thetaiotaomicron, Core Genes')
-p14_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. uniformis, Core Genes')
+p13_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
+p14_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
 p15_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. vulgatus, Core Genes')
 p16_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. xylanisolvens, Core Genes')
 p17_core_dfe = plot_core_accessory_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. intestinihominis, Core Genes')
 # p18 = plot_core_accessory_dfe('../Analysis/Coprococcus_sp_62244_downsampled_14/core_inferred_DFE.txt') + ggtitle('Coprococcus species, Core Genes')
 p19_core_dfe = plot_core_accessory_dfe('../Analysis/Dialister_invisus_61905_downsampled_14/core_inferred_DFE.txt') + ggtitle('D. invisus, Core Genes')
 p20_core_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_eligens_61678_downsampled_14/core_inferred_DFE.txt') + ggtitle('E. eligens, Core Genes')
-p21_core_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/core_inferred_DFE.txt') + ggtitle('E. rectale, Core Genes')
-p22_core_dfe = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_inferred_DFE.txt') + ggtitle('F. prausnitzii, Core Genes')
+p21_core_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
+p22_core_dfe = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
 p23_core_dfe = plot_core_accessory_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/core_inferred_DFE.txt') + ggtitle('O. splanchnicus, Core Genes')
 p24_core_dfe = plot_core_accessory_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/core_inferred_DFE.txt') + ggtitle('Oscillibacter species, Core Genes')
 p25_core_dfe = plot_core_accessory_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core_inferred_DFE.txt') + ggtitle('P. distasonis, Core Genes')
@@ -3587,16 +3649,16 @@ p9_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_fragilis_54507_dow
 # p10 = plot_core_accessory_dfe('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. massiliensis, Accessory Genes')
 p11_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_ovatus_58035_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. ovatus, Accessory Genes')
 p12_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_stercoris_56735_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. stercoris, Accessory Genes')
-p13_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. thetaiotaomicron, Accessory Genes')
-p14_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. uniformis, Accessory Genes')
+p13_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
+p14_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
 p15_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. vulgatus, Accessory Genes')
 p16_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. xylanisolvens, Accessory Genes')
 p17_acc_dfe = plot_core_accessory_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. intestinihominis, Accessory Genes')
 # p18 = plot_core_accessory_dfe('../Analysis/Coprococcus_sp_62244_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Coprococcus species, Accessory Genes')
 p19_acc_dfe = plot_core_accessory_dfe('../Analysis/Dialister_invisus_61905_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('D. invisus, Accessory Genes')
 p20_acc_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_eligens_61678_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('E. eligens, Accessory Genes')
-p21_acc_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('E. rectale, Accessory Genes')
-p22_acc_dfe = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('F. prausnitzii, Accessory Genes')
+p21_acc_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
+p22_acc_dfe = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
 p23_acc_dfe = plot_core_accessory_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('O. splanchnicus, Accessory Genes')
 p24_acc_dfe = plot_core_accessory_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Oscillibacter species, Accessory Genes')
 p25_acc_dfe = plot_core_accessory_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('P. distasonis, Accessory Genes')
@@ -3606,17 +3668,23 @@ p28_acc_dfe = plot_core_accessory_dfe('../Analysis/Prevotella_copri_61740_downsa
 p29_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bicirculans, Accessory Genes')
 p30_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bromii, Accessory Genes')
 
-# 600 x 2400
+# 1600 x 1600
+
+design = "ABCC
+          ABDD
+          EFGG
+          EFHH
+          IJKK
+          IJLL
+          MNOO
+          MNPP"
 
 core_accessory_comparison = 
-  p25_core_dfe + p25_acc_dfe +
-  p14_core_dfe + p14_acc_dfe +
-  p13_core_dfe + p13_acc_dfe +
-  p15_core_dfe + p15_acc_dfe +
-  p17_core_dfe + p17_acc_dfe +
-  p21_core_dfe + p21_acc_dfe +
-  p22_core_dfe + p22_acc_dfe +
-  plot_layout(ncol=1)
+  p14a + p14_l_accessory + p14_core_dfe + p14_acc_dfe +
+  p13a + p13_l_accessory + p13_core_dfe + p13_acc_dfe +
+  p21a + p21_l_accessory + p21_core_dfe + p21_acc_dfe +
+  p22a + p22_l_accessory + p22_core_dfe + p22_acc_dfe +
+  plot_layout(design=design)
 
 core_accessory_comparison
 
@@ -3958,12 +4026,16 @@ rownames(dfe_comparison_matrix) = phylogenetic_levels
 colnames(dfe_comparison_matrix) = phylogenetic_levels
 dfe_comparison_matrix
 
+sum(dfe_comparison_matrix < -17.71234) / 2
+
 dfe_constant_s_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_constant_s_matrix.csv', header=TRUE)
 
 dfe_constant_s_matrix = dfe_constant_s_matrix[, -1]
 rownames(dfe_constant_s_matrix) = phylogenetic_levels
 colnames(dfe_constant_s_matrix) = phylogenetic_levels
 dfe_constant_s_matrix
+
+sum(dfe_constant_s_matrix < -17.71234) / 2
 
 
 pheatmap(dfe_comparison_matrix,
