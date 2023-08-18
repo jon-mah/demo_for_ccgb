@@ -22,6 +22,8 @@ if (!require("BiocManager", quietly = TRUE))
 library(latex2exp)
 library(ggvis)
 library(pheatmap)
+library(ComplexHeatmap)
+# BiocManager::install("ComplexHeatmap")
 
 
 # BiocManager::install("treeio")
@@ -1300,6 +1302,21 @@ return_time_mle = function(input, sfs_file, theta_file) {
   return(years)
 }
 
+read_demography_info <- function(filepath) {
+  # Read the content of the file
+  file_content <- readLines(filepath)
+  
+  # Extract the relevant lines
+  nu <- as.numeric(regmatches(file_content[1], regexpr("\\d+\\.\\d+", file_content[1])))
+  low_years <- as.numeric(regmatches(file_content[length(file_content)-3], regexpr("\\d+\\.\\d+", file_content[length(file_content)-3])))
+  low_ancestral_size <- as.numeric(regmatches(file_content[length(file_content)-1], regexpr("\\d+\\.\\d+", file_content[length(file_content)-1])))
+  
+  # Create a vector with the extracted information
+  result_vector <- c(nu, low_years, low_ancestral_size)
+  
+  return(result_vector)
+}
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 
@@ -1606,7 +1623,6 @@ phascolarctobacterium_sp_accessory_gamma_dfe = gamma_sfs_from_dfe('../Analysis/P
 p_copri_accessory_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/accessory_inferred_DFE.txt') 
 r_bicirculans_accessory_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_inferred_DFE.txt') 
 r_bromii_accessory_gamma_dfe = gamma_sfs_from_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_inferred_DFE.txt') 
-
 
 a_muciniphila_accessory_two_epoch = sfs_from_demography('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/accessory_two_epoch_demography.txt')
 a_finegoldii_accessory_two_epoch = sfs_from_demography('../Analysis/Alistipes_finegoldii_56071_downsampled_14/accessory_two_epoch_demography.txt') 
@@ -3313,7 +3329,7 @@ for (i in 1:length(subtree$tip.label)) {
 plot(subtree)
 # write.tree(subtree, file='../Summary/good_species.newick')
 
-write.tree(subtree, file='../Summary/core_accessory.newick')
+# write.tree(subtree, file='../Summary/core_accessory.newick')
 
 # Likelihood Surfaces for Core Genes
 plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/core_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
@@ -3842,11 +3858,11 @@ better_pi_comparison_iid
 
 distinct_iid_df = distinct(over_iid_df, pairwise_across_pi, .keep_all=TRUE)
 distinct_df = distinct(pi_summary_df, pairwise_across_pi, .keep_all=TRUE)
-HMP_distinct = distinct_df[distinct_df$Cohort=='North American', ]$pairwise_across_pi
-African_distinct = distinct_df[distinct_df$Cohort=='African', ]$pairwise_across_pi
+HMP_distinct = distinct_df[distinct_df$Cohort==' HMP', ]$pairwise_across_pi
+African_distinct = distinct_df[distinct_df$Cohort==' African', ]$pairwise_across_pi
 
-HMP_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort=='North American', ]$pairwise_across_pi
-African_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort=='African', ]$pairwise_across_pi
+HMP_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' HMP', ]$pairwise_across_pi
+African_distinct_pairwise = distinct_iid_df[distinct_iid_df$Cohort==' African', ]$pairwise_across_pi
 
 wilcox.test(HMP_distinct_pairwise, African_distinct_pairwise, paired=TRUE, exact=TRUE)
 wilcox.test(HMP_distinct, African_distinct, paired=FALSE, exact=TRUE)
@@ -4046,14 +4062,165 @@ pheatmap(dfe_comparison_matrix,
   color = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.05)(100),
   legend=TRUE)
 
+dfe_comparison_matrix[upper.tri(dfe_comparison_matrix)] <- NA
+#dfe_constant_s_matrix[is.na(dfe_constant_s_matrix)] = as.double('NA')
+dfe_constant_s_matrix[upper.tri(dfe_constant_s_matrix)] <- NA
+
+
+# test_matrix =  dfe_constant_s_matrix
+# test_matrix[upper.tri(test_matrix)] = NA
+# test_matrix[is.na(test_matrix)] = ''
+
 pheatmap(dfe_constant_s_matrix,
   cluster_rows = F, cluster_cols = F, fontsize_number = 10,
+  na_col="white",
   display_numbers = T,
-  show_colnames     = FALSE,
-  show_rownames     = FALSE,
-  color = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.05)(100),
-  legend=TRUE)
+  show_colnames     = T,
+  show_rownames     = T,
+  row_names_side='left',
+  fontface_row = 'italic',
+  fontface_col = 'italic',
+  color = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.5)(100),
+  legend=TRUE,
+  border_color ="white" )
 
+color_scale = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.5)(100)
+
+### 1200 x 800
+
+col_scheme = c(rep('black', each=1), rep('darkorange', each=4), rep('black', each=4), rep('darkviolet', each=8), rep('black', each=10
+))
+
+Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
+  col=color_scale,
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  cell_fun = function(j, i, x, y, w, h, fill) {
+    if (dfe_comparison_matrix[i, j] < -17.7 && i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'black', fontface='italic'))
+      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 10, col='blue'))
+    }
+    else if(i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
+      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 10))      
+    }
+  },
+  row_names_side='left',
+  column_names_gp = gpar(fontsize = 12,fontface='italic', col=col_scheme),
+  row_names_gp = gpar(fontsize = 12,fontface='italic', col=col_scheme),
+  show_heatmap_legend = F
+  )
+
+Heatmap(dfe_constant_s_matrix, rect_gp = gpar(type = "none"),
+  col=color_scale,
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  cell_fun = function(j, i, x, y, w, h, fill) {
+    if (dfe_constant_s_matrix[i, j] < -17.7 && i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'black', fontface='italic'))
+      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 10, col='blue'))
+    }
+    else if(i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
+      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 10))      
+    }
+  },
+  row_names_side='left',
+  column_names_gp = gpar(fontsize = 12,fontface='italic', col=col_scheme),
+  row_names_gp = gpar(fontsize = 12,fontface='italic', col=col_scheme),
+  show_heatmap_legend = F
+  )
+
+
+# Bacteroides is 10:17 in phylogenetic levels
+
+dfe_comparison_significant = numeric(27)
+dfe_constant_s_significant = numeric(27)
+
+dfe_comparison_significant_within = numeric(27)
+dfe_constant_s_significant_within = numeric(27)
+
+# Comparing outside of genus
+
+for (i in 1:27) {
+  for (j in 1:i) {
+    genus_i = strsplit(phylogenetic_levels[i], ' ')[[1]][1]
+    genus_j = strsplit(phylogenetic_levels[j], ' ')[[1]][1]
+    if (genus_i !=  genus_j){
+      if (dfe_comparison_matrix[i, j] < -17.7) {
+        dfe_comparison_significant[i] = dfe_comparison_significant[i] + 1
+        dfe_comparison_significant[j] = dfe_comparison_significant[j] + 1
+      }
+      if (dfe_constant_s_matrix[i, j] < -17.7) {
+        dfe_constant_s_significant[i] = dfe_constant_s_significant[i] + 1
+        dfe_constant_s_significant[j] = dfe_constant_s_significant[j] + 1
+      }
+    }
+    if (genus_i == genus_j){
+      if (dfe_comparison_matrix[i, j] < -17.7) {
+        dfe_comparison_significant_within[i] = dfe_comparison_significant_within[i] + 1
+        dfe_comparison_significant_within[j] = dfe_comparison_significant_within[j] + 1
+      }
+      if (dfe_constant_s_matrix[i, j] < -17.7) {
+        dfe_constant_s_significant_within[i] = dfe_constant_s_significant_within[i] + 1
+        dfe_constant_s_significant_within[j] = dfe_constant_s_significant_within[j] + 1
+      }
+    }
+  }
+}
+
+#dfe_comparison_significant_total = dfe_comparison_significant + dfe_comparison_significant_within
+#dfe_constant_s_significant_total = dfe_constant_s_significant + dfe_constant_s_significant_within
+
+dfe_comparison_table = data.frame(species=phylogenetic_levels, 
+  dfe_comparison_between=dfe_comparison_significant,
+  dfe_comparison_within=dfe_comparison_significant_within,
+  dfe_constant_s_between=dfe_constant_s_significant,
+  dfe_constant_s_within=dfe_constant_s_significant_within)
+
+names(dfe_comparison_table) = c(
+  'Species',
+  'num_sig outside genera, s',
+  'num_sig within genera, s',
+  'num_sig outside genera, 2Na*s',
+  'num_sig within genera, 2Na*s'
+)
+
+
+# 156 significant comparisons when holding s constant
+sum(dfe_comparison_table[2:3]) / 2
+# 67 significant comparisons when holding 2Nas constant
+sum(dfe_comparison_table[4:5])/ 2
+
+sum(dfe_comparison_table$`num_sig outside genera, s`) / 2
+sum(dfe_comparison_table$`num_sig within genera, s`) / 2
+sum(dfe_comparison_table$`num_sig outside genera, 2Na*s`) / 2
+sum(dfe_comparison_table$`num_sig within genera, 2Na*s`) / 2
+
+sum(dfe_comparison_table[2:5, ]$`num_sig outside genera, s`)
+sum(dfe_comparison_table[2:5, ]$`num_sig within genera, s`)
+sum(dfe_comparison_table[2:5, ]$`num_sig outside genera, 2Na*s`)
+sum(dfe_comparison_table[2:5, ]$`num_sig within genera, 2Na*s`)
+
+sum(dfe_comparison_table[10:17, ]$`num_sig outside genera, s`)
+sum(dfe_comparison_table[10:17, ]$`num_sig within genera, s`)
+sum(dfe_comparison_table[10:17, ]$`num_sig outside genera, 2Na*s`)
+sum(dfe_comparison_table[10:17, ]$`num_sig within genera, 2Na*s`)
+
+write.csv(dfe_comparison_table, '../Summary/DFE_comparison_summary.csv', row.names=FALSE)
+
+
+
+
+# Count entries in each row less than -17.7
+row_counts <- apply(lower_left_matrix, 1, function(row) sum(row < -17.7, na.rm = TRUE))
+
+# Count entries in each column less than -17.7
+col_counts <- apply(lower_left_matrix, 2, function(col) sum(col < -17.7, na.rm = TRUE))
+
+# Print the results
+cat("Row counts:", row_counts, "\n")
+cat("Column counts:", col_counts, "\n")
+
+as.numeric((dfe_comparison_matrix[10, ] < -17.7))
 
 # Core vs. Accessory genes
 ## Proportional
@@ -4858,6 +5025,36 @@ two_epoch_file_list = c(
   '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_two_epoch_demography.txt'
 )
 
+accessory_two_epoch_file_list = c(
+  '../Analysis/Bacteroidales_bacterium_58650_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Alistipes_putredinis_61533_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Alistipes_finegoldii_56071_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Alistipes_onderdonkii_55464_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Alistipes_shahii_62199_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Parabacteroides_merdae_56972_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Prevotella_copri_61740_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_fragilis_54507_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_stercoris_56735_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_caccae_53434_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Akkermansia_muciniphila_55290_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Dialister_invisus_61905_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Oscillibacter_sp_60799_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_two_epoch_demography.txt'
+)
+
 three_epoch_file_list = c(
   '../Analysis/Bacteroidales_bacterium_58650_downsampled_14/core_three_epoch_demography.txt',
   '../Analysis/Alistipes_putredinis_61533_downsampled_14/core_three_epoch_demography.txt',
@@ -5131,3 +5328,41 @@ p1 + p1_l + # A. muciniphila
   plot_nu_distribution_fig +
   plot_tau_distribution_fig +
   plot_layout(design=design)
+
+# Accessory vs. Core genes demographic comparison
+accessory_core_demography = data.frame(species=phylogenetic_levels, 
+  core_nu = numeric(27),
+  core_years = numeric(27),
+  core_na = numeric(27),
+  acc_nu = numeric(27),
+  acc_years = numeric(27),
+  acc_na = numeric(27))
+
+for (i in 1:length(two_epoch_file_list)) {
+  accessory_core_demography[i, 2:4] = read_demography_info(two_epoch_file_list[i])
+  accessory_core_demography[i, 5:7] = read_demography_info(accessory_two_epoch_file_list[i])
+}
+
+colnames(accessory_core_demography) = c('Species', 
+  'Core, Nu',
+  'Core, Years',
+  'Core, N_anc',
+  'Accessory, Nu',
+  'Accessory, Years',
+  'Accessory, N_Anc')
+
+# write.csv(accessory_core_demography, '../Summary/accessory_core_demography_comparison.csv', row.names=FALSE)
+
+accessory_core_demography$`Accessory, N_Anc`
+accessory_core_demography[c(7, 13, 14, 17, 18, 22, 23, 27), ]
+
+ggplot(accessory_core_demography[c(7, 13, 14, 17, 18, 22, 23, 27), ], aes(x = `Core, N_anc`, y = `Accessory, N_Anc`)) +
+  geom_point(aes(color=Species), show.legend=FALSE) +
+  labs(x = "Core genes", y = "Accessory genes") +
+  ggtitle("Estimated ancestral effective population size") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  xlim(0, 4E7) +
+  ylim(0, 4E7) +
+  geom_text_repel(aes(label = Species, color=Species, fontface = 'italic'), show.legend = FALSE) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))
