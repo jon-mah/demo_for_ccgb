@@ -3,9 +3,9 @@
 #$ -V
 #$ -m a
 #$ -l h_data=25G
-#$ -l h_rt=48:00:00
+#$ -l h_rt=72:00:00
 #$ -l highp
-#$ -t 26-30
+#$ -t 25
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N cross_species_inference
@@ -22,5 +22,7 @@ do
   fi
 done < ../Data/good_species_list.txt
 
-python cross_species_dfe_inference.py ../Analysis/${species}_downsampled_14/core_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt ../Analysis/cross_species_dfe/
+# python cross_species_dfe_inference.py ../Analysis/${species}_downsampled_14/core_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt ../Analysis/cross_species_dfe/
 # python cross_species_dfe_inference.py ../Analysis/${species}_downsampled_14/core_three_epoch_demography.txt ../Analysis/${species}_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt ../Analysis/cross_species_dfe/
+
+python cross_species_dfe_inference.py ../Analysis/${species}_downsampled_14/accessory_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/accessory_empirical_nonsyn_downsampled_sfs.txt ../Analysis/accessory_cross_species_dfe/
