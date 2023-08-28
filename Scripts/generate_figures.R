@@ -1195,6 +1195,13 @@ return_nu_mle = function(input) {
   return(species_surface$nu[1])
 }
 
+return_tau_mle = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  return(species_surface$nu[2])
+}
+
 return_time_high = function(input, sfs_file, theta_file) {
   species_surface = read.csv(input, header=TRUE)
   names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
@@ -1349,6 +1356,43 @@ compute_selection_coefficients <- function(input_file) {
   input_highly_deleterious = mean(moderately_deleterious_s < input_gamma_dfe$value & input_gamma_dfe$value < lethal_s)
   input_lethal = mean(input_gamma_dfe$value > lethal_s)
   return(c(input_mean_s, input_weakly_deleterious, input_moderately_deleterious, input_highly_deleterious, input_lethal))
+}
+
+return_model_params = function(input_file) {
+  # Read the first line of the file
+  first_line <- readLines(input_file, n = 1)
+  # Extract numeric values using regular expression
+  model_params <- as.numeric(unlist(strsplit(gsub("[^0-9.]", " ", first_line), " ")))
+  model_params <- model_params[!is.na(model_params)]
+  return(model_params)
+}
+
+return_demography_likelihood = function(input_file) {
+  # Read the second line of the file
+  second_line <- readLines(input_file, n = 2)[2]
+  # Extract numeric values using regular expression
+  model_likelihood <- as.numeric(regmatches(second_line, regexpr("-[0-9]+\\.[0-9]+", second_line)))
+  return(model_likelihood)
+}
+
+time_from_demography = function(input_file) {
+  # Read the content of the file
+  file_content <- readLines(input_file)
+  
+  # Extract the relevant lines
+  years <- as.numeric(regmatches(file_content[length(file_content)-3], regexpr("\\d+\\.\\d+", file_content[length(file_content)-3])))
+  
+  return(years)
+}
+
+na_from_demography = function(input_file) {
+  # Read the content of the file
+  file_content <- readLines(input_file)
+  
+  # Extract the relevant lines
+  ancestral_size <- as.numeric(regmatches(file_content[length(file_content)-1], regexpr("\\d+\\.\\d+", file_content[length(file_content)-1])))
+  
+  return(ancestral_size)
 }
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -2985,7 +3029,6 @@ ggplot(lethality_engraftment_correlation, aes(x = more_than_moderate_s, y = engr
   stat_smooth(method = "lm",
               formula = y ~ x,
               geom = "smooth")
-
 
 # all_genes
 
@@ -5825,3 +5868,55 @@ ggplot(accessory_core_demography[c(7, 13, 14, 17, 18, 22, 23, 27), ], aes(x = `C
   geom_text_repel(aes(label = Species, color=Species, fontface = 'italic'), show.legend = FALSE) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+### Supplemental Table 3
+
+one_epoch_likelihood = numeric(27)
+one_epoch_AIC = numeric(27)
+two_epoch_likelihood = numeric(27)
+two_epoch_AIC = numeric(27)
+two_epoch_nu = numeric(27)
+two_epoch_tau = numeric(27)
+two_epoch_time = numeric(27)
+three_epoch_likelihood = numeric(27)
+three_epoch_AIC = numeric(27)
+three_epoch_nu_bottleneck = numeric(27)
+three_epoch_nu_contemporary = numeric(27)
+three_epoch_tau_bottleneck = numeric(27)
+three_epoch_tau_contemporary = numeric(27)
+three_epoch_time_total = numeric(27)
+
+for (i in 1:length(one_epoch_file_list)) {
+  one_epoch_likelihood[i] = return_demography_likelihood(one_epoch_file_list[i])
+  one_epoch_AIC[i] = AIC_from_demography(one_epoch_file_list[i])
+  two_epoch_likelihood[i] = return_demography_likelihood(two_epoch_file_list[i])
+  two_epoch_AIC[i] = AIC_from_demography(two_epoch_file_list[i])
+  two_epoch_nu[i] = return_model_params(two_epoch_file_list[i])[1]
+  two_epoch_tau[i] = return_model_params(two_epoch_file_list[i])[2]
+  two_epoch_time[i] = time_from_demography(two_epoch_file_list[i])
+  three_epoch_likelihood[i] = return_demography_likelihood(three_epoch_file_list[i])
+  three_epoch_AIC[i] = AIC_from_demography(three_epoch_file_list[i])
+  three_epoch_nu_bottleneck[i] = return_model_params(three_epoch_file_list[i])[1]
+  three_epoch_nu_contemporary[i] = return_model_params(three_epoch_file_list[i])[2]
+  three_epoch_tau_bottleneck[i] = return_model_params(three_epoch_file_list[i])[3]
+  three_epoch_tau_contemporary[i] = return_model_params(three_epoch_file_list[i])[4]
+  three_epoch_time_total[i] = time_from_demography(three_epoch_file_list[i])
+}
+
+table_s3 = data.frame(
+  species=phylogenetic_levels,
+  one_epoch_likelihood,
+  one_epoch_AIC,
+  two_epoch_likelihood,
+  two_epoch_AIC,
+  two_epoch_nu,
+  two_epoch_tau,
+  two_epoch_time,
+  three_epoch_likelihood,
+  three_epoch_AIC,
+  three_epoch_nu_bottleneck,
+  three_epoch_nu_contemporary,
+  three_epoch_tau_bottleneck,
+  three_epoch_tau_contemporary,
+  three_epoch_time_total
+)
