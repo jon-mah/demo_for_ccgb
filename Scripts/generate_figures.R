@@ -5935,7 +5935,7 @@ names(table_s3) = c(
   'Three epoch, nu (bottleneck)',
   'Three epoch, nu (contemporary)',
   'Three epoch, tau (bottleneck)',
-  'Three epoch, tau (contemporary',
+  'Three epoch, tau (contemporary)',
   'Three epoch, time in years'
 )
 
