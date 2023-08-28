@@ -1317,6 +1317,40 @@ read_demography_info <- function(filepath) {
   return(result_vector)
 }
 
+compute_selection_coefficients <- function(input_file) {
+  input_dfe_params = read_dfe_params(input_file)
+  input_dfe_df = melt(input_dfe_params)
+  input_dfe_df$value[input_dfe_df$value <= 1e-12] = 1e-12
+  input_dfe_df$value[input_dfe_df$value >= 1] = 1
+  input_dfe_df = rbind(
+    input_dfe_df[input_dfe_df$variable == 'gamma_dfe_dist_low', ],
+    input_dfe_df[input_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+  input_dfe_df$variable <- as.character(input_dfe_df$variable)
+
+  input_dfe_df$variable[input_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+  input_dfe_df$variable[input_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+  
+  weakly_deleterious_s =  1E-6
+  moderately_deleterious_s = 1E-2
+  lethal_s = 0.5
+  
+  DFE_cutoffs = c(-Inf, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, Inf)
+  
+  input_gamma_dfe = input_dfe_df[input_dfe_df$variable=='Gamma-Distributed DFE', ]
+
+  input_gamma_dfe[input_gamma_dfe$value < 1e-13, ]= 1e-13
+  input_gamma_dfe[input_gamma_dfe$value > 1e2, ]= 1e2
+  input_gamma_dfe_bins = cut(input_gamma_dfe$value, breaks=DFE_cutoffs)
+
+  input_mean_s = mean(input_gamma_dfe$value)
+  input_weakly_deleterious = mean(input_gamma_dfe$value < weakly_deleterious_s)
+  input_moderately_deleterious =  mean(weakly_deleterious_s < input_gamma_dfe$value & input_gamma_dfe$value < moderately_deleterious_s)
+  input_highly_deleterious = mean(moderately_deleterious_s < input_gamma_dfe$value & input_gamma_dfe$value < lethal_s)
+  input_lethal = mean(input_gamma_dfe$value > lethal_s)
+  return(c(input_mean_s, input_weakly_deleterious, input_moderately_deleterious, input_highly_deleterious, input_lethal))
+}
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 
 
@@ -2222,10 +2256,21 @@ e_eligens_dfe_figure = ggplot(e_eligens_dfe_df, aes(x=value, y=fct_rev(variable)
   xlab('Selective Effect') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
+b_fragilis_dfe_df = melt(b_fragilis_dfe_params)
+b_fragilis_dfe_df$value[b_fragilis_dfe_df$value <= 1e-12] = 1e-12
+b_fragilis_dfe_df$value[b_fragilis_dfe_df$value >= 1] = 1
+b_fragilis_dfe_df = rbind(
+  b_fragilis_dfe_df[b_fragilis_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_fragilis_dfe_df[b_fragilis_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_fragilis_dfe_df$variable <- as.character(b_fragilis_dfe_df$variable)
+
+b_fragilis_dfe_df$variable[b_fragilis_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_fragilis_dfe_df$variable[b_fragilis_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
 b_cellulosilyticus_dfe_df = melt(b_cellulosilyticus_dfe_params)
 b_cellulosilyticus_dfe_df$value[b_cellulosilyticus_dfe_df$value <= 1e-12] = 1e-12
 b_cellulosilyticus_dfe_df$value[b_cellulosilyticus_dfe_df$value >= 1] = 1
-# b_cellulosilyticus_dfe_df = b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable == 'gamma_dfe_dist_low' || b_cellulosilyticus_dfe_df$variable == 'neugamma_dfe_dist_low', ]
 b_cellulosilyticus_dfe_df = rbind(
   b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable == 'gamma_dfe_dist_low', ],
   b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable == 'neugamma_dfe_dist_low',])
@@ -2234,6 +2279,7 @@ b_cellulosilyticus_dfe_df$variable <- as.character(b_cellulosilyticus_dfe_df$var
 
 b_cellulosilyticus_dfe_df$variable[b_cellulosilyticus_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
 b_cellulosilyticus_dfe_df$variable[b_cellulosilyticus_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
 
 b_cellulosilyticus_dfe_figure = ggplot(b_cellulosilyticus_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
   geom_density_ridges2(aes(fill = variable), stat = "binline", binwidth = 1, scale = 0.95) +
@@ -2273,6 +2319,67 @@ b_stercoris_dfe_figure = ggplot(b_stercoris_dfe_df, aes(x=value, y=fct_rev(varia
   theme(legend.position = "none") + 
   xlab('Selective Effect') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
+
+b_uniformis_dfe_df = melt(b_uniformis_dfe_params)
+b_uniformis_dfe_df$value[b_uniformis_dfe_df$value <= 1e-12] = 1e-12
+b_uniformis_dfe_df$value[b_uniformis_dfe_df$value >= 1] = 1
+b_uniformis_dfe_df = rbind(
+  b_uniformis_dfe_df[b_uniformis_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_uniformis_dfe_df[b_uniformis_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_uniformis_dfe_df$variable <- as.character(b_uniformis_dfe_df$variable)
+
+b_uniformis_dfe_df$variable[b_uniformis_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_uniformis_dfe_df$variable[b_uniformis_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+b_thetaiotaomicron_dfe_df = melt(b_thetaiotaomicron_dfe_params)
+b_thetaiotaomicron_dfe_df$value[b_thetaiotaomicron_dfe_df$value <= 1e-12] = 1e-12
+b_thetaiotaomicron_dfe_df$value[b_thetaiotaomicron_dfe_df$value >= 1] = 1
+b_thetaiotaomicron_dfe_df = rbind(
+  b_thetaiotaomicron_dfe_df[b_thetaiotaomicron_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_thetaiotaomicron_dfe_df[b_thetaiotaomicron_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_thetaiotaomicron_dfe_df$variable <- as.character(b_thetaiotaomicron_dfe_df$variable)
+
+b_thetaiotaomicron_dfe_df$variable[b_thetaiotaomicron_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_thetaiotaomicron_dfe_df$variable[b_thetaiotaomicron_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+b_xylanisolvens_dfe_df = melt(b_xylanisolvens_dfe_params)
+b_xylanisolvens_dfe_df$value[b_xylanisolvens_dfe_df$value <= 1e-12] = 1e-12
+b_xylanisolvens_dfe_df$value[b_xylanisolvens_dfe_df$value >= 1] = 1
+b_xylanisolvens_dfe_df = rbind(
+  b_xylanisolvens_dfe_df[b_xylanisolvens_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_xylanisolvens_dfe_df[b_xylanisolvens_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_xylanisolvens_dfe_df$variable <- as.character(b_xylanisolvens_dfe_df$variable)
+
+b_xylanisolvens_dfe_df$variable[b_xylanisolvens_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_xylanisolvens_dfe_df$variable[b_xylanisolvens_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+b_caccae_dfe_df = melt(b_caccae_dfe_params)
+b_caccae_dfe_df$value[b_caccae_dfe_df$value <= 1e-12] = 1e-12
+b_caccae_dfe_df$value[b_caccae_dfe_df$value >= 1] = 1
+b_caccae_dfe_df = rbind(
+  b_caccae_dfe_df[b_caccae_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_caccae_dfe_df[b_caccae_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_caccae_dfe_df$variable <- as.character(b_caccae_dfe_df$variable)
+
+b_caccae_dfe_df$variable[b_caccae_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_caccae_dfe_df$variable[b_caccae_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
+b_vulgatus_dfe_df = melt(b_vulgatus_dfe_params)
+b_vulgatus_dfe_df$value[b_vulgatus_dfe_df$value <= 1e-12] = 1e-12
+b_vulgatus_dfe_df$value[b_vulgatus_dfe_df$value >= 1] = 1
+b_vulgatus_dfe_df = rbind(
+  b_vulgatus_dfe_df[b_vulgatus_dfe_df$variable == 'gamma_dfe_dist_low', ],
+  b_vulgatus_dfe_df[b_vulgatus_dfe_df$variable == 'neugamma_dfe_dist_low',])
+
+b_vulgatus_dfe_df$variable <- as.character(b_vulgatus_dfe_df$variable)
+
+b_vulgatus_dfe_df$variable[b_vulgatus_dfe_df$variable == 'neugamma_dfe_dist_low'] <- 'Neutral + Gamma-Distributed DFE'
+b_vulgatus_dfe_df$variable[b_vulgatus_dfe_df$variable == 'gamma_dfe_dist_low'] <- 'Gamma-Distributed DFE'
+
 
 a_finegoldii_dfe_df = melt(a_finegoldii_dfe_params)
 a_finegoldii_dfe_df$value[a_finegoldii_dfe_df$value <= 1e-12] = 1e-12
@@ -2497,8 +2604,27 @@ r_bromii_highly_deleterious
 r_bromii_lethal = mean(r_bromii_gamma_dfe$value > lethal_s)
 r_bromii_lethal
 
+b_fragilis_gamma_dfe = b_fragilis_dfe_df[b_fragilis_dfe_df$variable=='Gamma-Distributed DFE', ]
 b_cellulosilyticus_gamma_dfe = b_cellulosilyticus_dfe_df[b_cellulosilyticus_dfe_df$variable=='Gamma-Distributed DFE', ]
 b_stercoris_gamma_dfe = b_stercoris_dfe_df[b_stercoris_dfe_df$variable=='Gamma-Distributed DFE', ]
+b_uniformis_gamma_dfe = b_uniformis_dfe_df[b_uniformis_dfe_df$variable=='Gamma-Distributed DFE', ]
+b_thetaiotaomicron_gamma_dfe = b_thetaiotaomicron_dfe_df[b_thetaiotaomicron_dfe_df$variable=='Gamma-Distributed DFE', ]
+b_xylanisolvens_gamma_dfe = b_xylanisolvens_dfe_df[b_xylanisolvens_dfe_df$variable=='Gamma-Distributed DFE', ]
+b_caccae_gamma_dfe = b_caccae_dfe_df[b_caccae_dfe_df$variable=='Gamma-Distributed DFE', ]
+b_vulgatus_gamma_dfe = b_vulgatus_dfe_df[b_vulgatus_dfe_df$variable=='Gamma-Distributed DFE', ]
+
+b_fragilis_weakly_deleterious = mean(b_fragilis_gamma_dfe$value < weakly_deleterious_s)
+b_fragilis_weakly_deleterious
+b_fragilis_moderately_deleterious =  mean(weakly_deleterious_s < b_fragilis_gamma_dfe$value & b_fragilis_gamma_dfe$value < moderately_deleterious_s)
+b_fragilis_moderately_deleterious
+b_fragilis_highly_deleterious = mean(moderately_deleterious_s < b_fragilis_gamma_dfe$value & b_fragilis_gamma_dfe$value < lethal_s)
+b_fragilis_highly_deleterious
+b_fragilis_lethal = mean(b_fragilis_gamma_dfe$value > lethal_s)
+b_fragilis_lethal
+
+b_fragilis_gamma_dfe[b_fragilis_gamma_dfe$value < 1e-13, ]= 1e-13
+b_fragilis_gamma_dfe[b_fragilis_gamma_dfe$value > 1e2, ]= 1e2
+b_fragilis_gamma_dfe_bins = cut(b_fragilis_gamma_dfe$value, breaks=DFE_cutoffs)
 
 b_cellulosilyticus_weakly_deleterious = mean(b_cellulosilyticus_gamma_dfe$value < weakly_deleterious_s)
 b_cellulosilyticus_weakly_deleterious
@@ -2513,6 +2639,7 @@ b_cellulosilyticus_gamma_dfe[b_cellulosilyticus_gamma_dfe$value < 1e-13, ]= 1e-1
 b_cellulosilyticus_gamma_dfe[b_cellulosilyticus_gamma_dfe$value > 1e2, ]= 1e2
 b_cellulosilyticus_gamma_dfe_bins = cut(b_cellulosilyticus_gamma_dfe$value, breaks=DFE_cutoffs)
 
+
 b_stercoris_weakly_deleterious = mean(b_stercoris_gamma_dfe$value < weakly_deleterious_s)
 b_stercoris_weakly_deleterious
 b_stercoris_moderately_deleterious =  mean(weakly_deleterious_s < b_stercoris_gamma_dfe$value & b_stercoris_gamma_dfe$value < moderately_deleterious_s)
@@ -2525,6 +2652,144 @@ b_stercoris_lethal
 b_stercoris_gamma_dfe[b_stercoris_gamma_dfe$value < 1e-13, ]= 1e-13
 b_stercoris_gamma_dfe[b_stercoris_gamma_dfe$value > 1e2, ]= 1e2
 b_stercoris_gamma_dfe_bins = cut(b_stercoris_gamma_dfe$value, breaks=DFE_cutoffs)
+
+b_uniformis_weakly_deleterious = mean(b_uniformis_gamma_dfe$value < weakly_deleterious_s)
+b_uniformis_weakly_deleterious
+b_uniformis_moderately_deleterious =  mean(weakly_deleterious_s < b_uniformis_gamma_dfe$value & b_uniformis_gamma_dfe$value < moderately_deleterious_s)
+b_uniformis_moderately_deleterious
+b_uniformis_highly_deleterious = mean(moderately_deleterious_s < b_uniformis_gamma_dfe$value & b_uniformis_gamma_dfe$value < lethal_s)
+b_uniformis_highly_deleterious
+b_uniformis_lethal = mean(b_uniformis_gamma_dfe$value > lethal_s)
+b_uniformis_lethal
+
+b_uniformis_gamma_dfe[b_uniformis_gamma_dfe$value < 1e-13, ]= 1e-13
+b_uniformis_gamma_dfe[b_uniformis_gamma_dfe$value > 1e2, ]= 1e2
+b_uniformis_gamma_dfe_bins = cut(b_uniformis_gamma_dfe$value, breaks=DFE_cutoffs)
+
+b_thetaiotaomicron_weakly_deleterious = mean(b_thetaiotaomicron_gamma_dfe$value < weakly_deleterious_s)
+b_thetaiotaomicron_weakly_deleterious
+b_thetaiotaomicron_moderately_deleterious =  mean(weakly_deleterious_s < b_thetaiotaomicron_gamma_dfe$value & b_thetaiotaomicron_gamma_dfe$value < moderately_deleterious_s)
+b_thetaiotaomicron_moderately_deleterious
+b_thetaiotaomicron_highly_deleterious = mean(moderately_deleterious_s < b_thetaiotaomicron_gamma_dfe$value & b_thetaiotaomicron_gamma_dfe$value < lethal_s)
+b_thetaiotaomicron_highly_deleterious
+b_thetaiotaomicron_lethal = mean(b_thetaiotaomicron_gamma_dfe$value > lethal_s)
+b_thetaiotaomicron_lethal
+
+b_thetaiotaomicron_gamma_dfe[b_thetaiotaomicron_gamma_dfe$value < 1e-13, ]= 1e-13
+b_thetaiotaomicron_gamma_dfe[b_thetaiotaomicron_gamma_dfe$value > 1e2, ]= 1e2
+b_thetaiotaomicron_gamma_dfe_bins = cut(b_thetaiotaomicron_gamma_dfe$value, breaks=DFE_cutoffs)
+
+b_xylanisolvens_weakly_deleterious = mean(b_xylanisolvens_gamma_dfe$value < weakly_deleterious_s)
+b_xylanisolvens_weakly_deleterious
+b_xylanisolvens_moderately_deleterious =  mean(weakly_deleterious_s < b_xylanisolvens_gamma_dfe$value & b_xylanisolvens_gamma_dfe$value < moderately_deleterious_s)
+b_xylanisolvens_moderately_deleterious
+b_xylanisolvens_highly_deleterious = mean(moderately_deleterious_s < b_xylanisolvens_gamma_dfe$value & b_xylanisolvens_gamma_dfe$value < lethal_s)
+b_xylanisolvens_highly_deleterious
+b_xylanisolvens_lethal = mean(b_xylanisolvens_gamma_dfe$value > lethal_s)
+b_xylanisolvens_lethal
+
+b_xylanisolvens_gamma_dfe[b_xylanisolvens_gamma_dfe$value < 1e-13, ]= 1e-13
+b_xylanisolvens_gamma_dfe[b_xylanisolvens_gamma_dfe$value > 1e2, ]= 1e2
+b_xylanisolvens_gamma_dfe_bins = cut(b_xylanisolvens_gamma_dfe$value, breaks=DFE_cutoffs)
+
+b_caccae_weakly_deleterious = mean(b_caccae_gamma_dfe$value < weakly_deleterious_s)
+b_caccae_weakly_deleterious
+b_caccae_moderately_deleterious =  mean(weakly_deleterious_s < b_caccae_gamma_dfe$value & b_caccae_gamma_dfe$value < moderately_deleterious_s)
+b_caccae_moderately_deleterious
+b_caccae_highly_deleterious = mean(moderately_deleterious_s < b_caccae_gamma_dfe$value & b_caccae_gamma_dfe$value < lethal_s)
+b_caccae_highly_deleterious
+b_caccae_lethal = mean(b_caccae_gamma_dfe$value > lethal_s)
+b_caccae_lethal
+
+b_caccae_gamma_dfe[b_caccae_gamma_dfe$value < 1e-13, ]= 1e-13
+b_caccae_gamma_dfe[b_caccae_gamma_dfe$value > 1e2, ]= 1e2
+b_caccae_gamma_dfe_bins = cut(b_caccae_gamma_dfe$value, breaks=DFE_cutoffs)
+
+b_vulgatus_weakly_deleterious = mean(b_vulgatus_gamma_dfe$value < weakly_deleterious_s)
+b_vulgatus_weakly_deleterious
+b_vulgatus_moderately_deleterious =  mean(weakly_deleterious_s < b_vulgatus_gamma_dfe$value & b_vulgatus_gamma_dfe$value < moderately_deleterious_s)
+b_vulgatus_moderately_deleterious
+b_vulgatus_highly_deleterious = mean(moderately_deleterious_s < b_vulgatus_gamma_dfe$value & b_vulgatus_gamma_dfe$value < lethal_s)
+b_vulgatus_highly_deleterious
+b_vulgatus_lethal = mean(b_vulgatus_gamma_dfe$value > lethal_s)
+b_vulgatus_lethal
+
+b_vulgatus_gamma_dfe[b_vulgatus_gamma_dfe$value < 1e-13, ]= 1e-13
+b_vulgatus_gamma_dfe[b_vulgatus_gamma_dfe$value > 1e2, ]= 1e2
+b_vulgatus_gamma_dfe_bins = cut(b_vulgatus_gamma_dfe$value, breaks=DFE_cutoffs)
+
+# Bacteroides genus
+sum(b_fragilis_weakly_deleterious,
+  b_cellulosilyticus_weakly_deleterious,
+  b_stercoris_weakly_deleterious,
+  b_uniformis_weakly_deleterious,
+  b_thetaiotaomicron_weakly_deleterious,
+  b_xylanisolvens_weakly_deleterious,
+  b_caccae_weakly_deleterious,
+  b_vulgatus_weakly_deleterious) / 8
+
+sum(b_fragilis_moderately_deleterious,
+  b_cellulosilyticus_moderately_deleterious,
+  b_stercoris_moderately_deleterious,
+  b_uniformis_moderately_deleterious,
+  b_thetaiotaomicron_moderately_deleterious,
+  b_xylanisolvens_moderately_deleterious,
+  b_caccae_moderately_deleterious,
+  b_vulgatus_moderately_deleterious) / 8
+
+sum(b_fragilis_highly_deleterious,
+  b_cellulosilyticus_highly_deleterious,
+  b_stercoris_highly_deleterious,
+  b_uniformis_highly_deleterious,
+  b_thetaiotaomicron_highly_deleterious,
+  b_xylanisolvens_highly_deleterious,
+  b_caccae_highly_deleterious,
+  b_vulgatus_highly_deleterious) / 8
+
+sum(b_fragilis_lethal,
+  b_cellulosilyticus_lethal,
+  b_stercoris_lethal,
+  b_uniformis_lethal,
+  b_thetaiotaomicron_lethal,
+  b_xylanisolvens_lethal,
+  b_caccae_lethal,
+  b_vulgatus_lethal) / 8
+
+print(c(b_fragilis_weakly_deleterious,
+  b_cellulosilyticus_weakly_deleterious,
+  b_stercoris_weakly_deleterious,
+  b_uniformis_weakly_deleterious,
+  b_thetaiotaomicron_weakly_deleterious,
+  b_xylanisolvens_weakly_deleterious,
+  b_caccae_weakly_deleterious,
+  b_vulgatus_weakly_deleterious))
+
+print(c(b_fragilis_moderately_deleterious,
+  b_cellulosilyticus_moderately_deleterious,
+  b_stercoris_moderately_deleterious,
+  b_uniformis_moderately_deleterious,
+  b_thetaiotaomicron_moderately_deleterious,
+  b_xylanisolvens_moderately_deleterious,
+  b_caccae_moderately_deleterious,
+  b_vulgatus_moderately_deleterious))
+
+print(c(b_fragilis_highly_deleterious,
+  b_cellulosilyticus_highly_deleterious,
+  b_stercoris_highly_deleterious,
+  b_uniformis_highly_deleterious,
+  b_thetaiotaomicron_highly_deleterious,
+  b_xylanisolvens_highly_deleterious,
+  b_caccae_highly_deleterious,
+  b_vulgatus_highly_deleterious))
+
+print(c(b_fragilis_lethal,
+  b_cellulosilyticus_lethal,
+  b_stercoris_lethal,
+  b_uniformis_lethal,
+  b_thetaiotaomicron_lethal,
+  b_xylanisolvens_lethal,
+  b_caccae_lethal,
+  b_vulgatus_lethal))
 
 e_eligens_gamma_dfe = e_eligens_dfe_df[e_eligens_dfe_df$variable=='Gamma-Distributed DFE', ]
 e_rectale_gamma_dfe = e_rectale_dfe_df[e_rectale_dfe_df$variable=='Gamma-Distributed DFE', ]
@@ -2576,11 +2841,151 @@ p_distasonis_highly_deleterious
 p_distasonis_lethal = mean(p_distasonis_gamma_dfe$value > lethal_s)
 p_distasonis_lethal
 
-
-
 b_cellulosilyticus_dfe_figure + b_stercoris_dfe_figure + plot_layout(ncol=1)
 
 o_splanchnicus_dfe_figure + e_eligens_dfe_figure + b_cellulosilyticus_dfe_figure + plot_layout(ncol = 1)
+
+DFE_file_list = c(
+  '../Analysis/Bacteroidales_bacterium_58650_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Alistipes_putredinis_61533_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Alistipes_finegoldii_56071_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Alistipes_onderdonkii_55464_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Alistipes_shahii_62199_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Parabacteroides_merdae_56972_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Prevotella_copri_61740_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_fragilis_54507_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_caccae_53434_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Akkermansia_muciniphila_55290_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Dialister_invisus_61905_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Eubacterium_eligens_61678_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Oscillibacter_sp_60799_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/core_inferred_DFE.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_inferred_DFE.txt'
+)
+
+mean_s = numeric(27)
+weak_s = numeric(27)
+moderate_s = numeric(27)
+high_s = numeric(27)
+lethal_s = numeric(27)
+
+for (i in 1:length(DFE_file_list)) {
+  mean_s[i] = compute_selection_coefficients(DFE_file_list[i])[1]
+  weak_s[i] = compute_selection_coefficients(DFE_file_list[i])[2]
+  moderate_s[i] = compute_selection_coefficients(DFE_file_list[i])[3]
+  high_s[i] = compute_selection_coefficients(DFE_file_list[i])[4]
+  lethal_s[i] = compute_selection_coefficients(DFE_file_list[i])[5]
+}
+
+DFE_lethality = data.frame(
+  species=phylogenetic_levels,
+  mean_s,
+  weak_s,
+  moderate_s,
+  high_s,
+  lethal_s
+)
+
+DFE_lethality
+
+# write.csv(DFE_lethality, file = "../Summary/DFE_lethality.csv", row.names = FALSE)
+
+lethality_engraftment_correlation = read.csv('../Summary/lethality_engraftment_correlation.csv')
+names(lethality_engraftment_correlation) = c(
+  'species_ianiro',
+  'species_midas',
+  'engraftment',
+  'mean_s',
+  'weak_s',
+  'moderate_s',
+  'high_s',
+  'lethal_s'
+)
+
+lethality_engraftment_correlation$more_than_high_s = lethality_engraftment_correlation$high_s + lethality_engraftment_correlation$lethal_s
+lethality_engraftment_correlation$more_than_moderate_s = lethality_engraftment_correlation$moderate_s + lethality_engraftment_correlation$high_s + lethality_engraftment_correlation$lethal_s
+lethality_engraftment_correlation
+
+ggplot(lethality_engraftment_correlation, aes(x = mean_s, y = engraftment)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Average selection coefficient", y = "Engraftment Rate") +
+  ggtitle("Correlation between mean selection coefficient and engraftment rate") +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth")
+
+ggplot(lethality_engraftment_correlation, aes(x = mean_s, y = engraftment)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Average selection coefficient", y = "Engraftment Rate") +
+  ggtitle("Correlation between mean selection coefficient and engraftment rate") +
+  xlim(0, 0.75) +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth")
+
+ggplot(lethality_engraftment_correlation, aes(x = lethal_s, y = engraftment)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Proportion of lethal mutations", y = "Engraftment Rate") +
+  ggtitle("Correlation between lethal proportion and engraftment rate") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth")
+
+ggplot(lethality_engraftment_correlation, aes(x = more_than_high_s, y = engraftment)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Proportion of mutations with s >= 1E-2", y = "Engraftment Rate") +
+  ggtitle("Correlation between deleterious proportion and engraftment rate") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth")
+
+ggplot(lethality_engraftment_correlation, aes(x = more_than_moderate_s, y = engraftment)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Proportion of mutations with s >= 1E-6", y = "Engraftment Rate") +
+  ggtitle("Correlation between deleterious proportion and engraftment rate") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth")
+
 
 # all_genes
 
@@ -4034,6 +4439,73 @@ cross_species_dfe_comparison(
 # dfe_constant_s_matrix
 # 
 
+DFE_core_file_list = c(
+  '../Analysis/cross_species_dfe/Parabacteroides_distasonis_56985_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Bacteroides_uniformis_57318_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Bacteroides_thetaiotaomicron_56941_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Bacteroides_vulgatus_57955_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Barnesiella_intestinihominis_62208_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Eubacterium_rectale_56927_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Faecalibacterium_prausnitzii_57453_likelihood_surface.csv'
+)
+
+DFE_core_file_list_constant_s = c(
+  '../Analysis/cross_species_dfe/Parabacteroides_distasonis_56985_constant_s_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Bacteroides_uniformis_57318_constant_s_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Bacteroides_thetaiotaomicron_56941_constant_s_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Bacteroides_vulgatus_57955_constant_s_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Barnesiella_intestinihominis_62208_constant_s_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Eubacterium_rectale_56927_constant_s_likelihood_surface.csv',
+  '../Analysis/cross_species_dfe/Faecalibacterium_prausnitzii_57453_constant_s_likelihood_surface.csv'
+)
+
+DFE_acc_file_list = c(
+  '../Analysis/accessory_cross_species_dfe/Parabacteroides_distasonis_56985_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Bacteroides_uniformis_57318_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Bacteroides_thetaiotaomicron_56941_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Bacteroides_vulgatus_57955_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Barnesiella_intestinihominis_62208_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Eubacterium_rectale_56927_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Faecalibacterium_prausnitzii_57453_likelihood_surface.csv'
+)
+
+DFE_acc_file_list_constant_s = c(
+  '../Analysis/accessory_cross_species_dfe/Parabacteroides_distasonis_56985_constant_s_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Bacteroides_uniformis_57318_constant_s_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Bacteroides_thetaiotaomicron_56941_constant_s_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Bacteroides_vulgatus_57955_constant_s_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Barnesiella_intestinihominis_62208_constant_s_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Eubacterium_rectale_56927_constant_s_likelihood_surface.csv',
+  '../Analysis/accessory_cross_species_dfe/Faecalibacterium_prausnitzii_57453_constant_s_likelihood_surface.csv'
+)
+
+core_acc_species_list = c(
+  'Parabacteroides distasonis',
+  'Bacteroides uniformis',
+  'Bacteroides thetaiotaomicron',
+  'Bacteroides vulgatus',
+  'Barnesiella intestinihominis',
+  'Eubacterium rectale',
+  'Faecalibacterium prausnitzii'
+)
+
+acc_core_dfe_comparison = numeric(7)
+acc_core_dfe_comparison_constant_s = numeric(7)
+
+for (i in 1:length(core_acc_species_list)) {
+  acc_core_dfe_comparison[i] = cross_species_dfe_comparison(DFE_core_file_list[i], DFE_acc_file_list[i])
+  acc_core_dfe_comparison_constant_s[i] = cross_species_dfe_comparison(DFE_core_file_list_constant_s[i], DFE_acc_file_list_constant_s[i])
+}
+
+acc_core_dfe_LRT_table = data.frame(species=core_acc_species_list, constant_2NAs=acc_core_dfe_comparison, constant_s=acc_core_dfe_comparison_constant_s)
+
+acc_core_dfe_LRT_table
+
+write.csv(acc_core_dfe_LRT_table, '../Summary/core_acc_dfe_LRT.csv', row.names =FALSE)
+
+# 95% CI based on chi-squared distribution with two degrees of freedom (Gamma DFE)
+qchisq(1 - 0.05/7, df=2) / 2
+
 # write.csv(dfe_constant_s_matrix, '../Analysis/cross_species_dfe/dfe_comparison_constant_s_matrix.csv')
 dfe_comparison_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_matrix.csv', header=TRUE)
 
@@ -4206,19 +4678,6 @@ sum(dfe_comparison_table[10:17, ]$`num_sig outside genera, 2Na*s`)
 sum(dfe_comparison_table[10:17, ]$`num_sig within genera, 2Na*s`)
 
 write.csv(dfe_comparison_table, '../Summary/DFE_comparison_summary.csv', row.names=FALSE)
-
-
-
-
-# Count entries in each row less than -17.7
-row_counts <- apply(lower_left_matrix, 1, function(row) sum(row < -17.7, na.rm = TRUE))
-
-# Count entries in each column less than -17.7
-col_counts <- apply(lower_left_matrix, 2, function(col) sum(col < -17.7, na.rm = TRUE))
-
-# Print the results
-cat("Row counts:", row_counts, "\n")
-cat("Column counts:", col_counts, "\n")
 
 as.numeric((dfe_comparison_matrix[10, ] < -17.7))
 
