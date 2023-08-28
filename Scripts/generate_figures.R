@@ -5920,3 +5920,23 @@ table_s3 = data.frame(
   three_epoch_tau_contemporary,
   three_epoch_time_total
 )
+
+names(table_s3) = c(
+  'Species',
+  'One epoch, log likelihood',
+  'One epoch, AIC',
+  'Two epoch, log likelihood',
+  'Two epoch, AIC',
+  'Two epoch, nu',
+  'Two epoch, tau',
+  'Two epoch, time in years',
+  'Three epoch, log likelihood',
+  'Three epoch, AIC',
+  'Three epoch, nu (bottleneck)',
+  'Three epoch, nu (contemporary)',
+  'Three epoch, tau (bottleneck)',
+  'Three epoch, tau (contemporary',
+  'Three epoch, time in years'
+)
+
+write.csv(table_s3, '../Summary/Supplementary_Table_3.csv', row.names = F)
