@@ -5940,3 +5940,16 @@ names(table_s3) = c(
 )
 
 write.csv(table_s3, '../Summary/Supplementary_Table_3.csv', row.names = F)
+
+### Supplemental Table 4
+names(nu_tau_distribution) = c(
+  'Species',
+  'Nu, MLE',
+  'Time in years, MLE',
+  'Low estimate of Nu',
+  'High estimate of Nu',
+  'Low estimate of time in years',
+  'High estimate of time in years'
+)
+
+write.csv(nu_tau_distribution, '../Summary/Supplemental_Table_4.csv', row.names = F)
