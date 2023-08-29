@@ -1358,7 +1358,7 @@ compute_selection_coefficients <- function(input_file) {
   return(c(input_mean_s, input_weakly_deleterious, input_moderately_deleterious, input_highly_deleterious, input_lethal))
 }
 
-return_model_params = function(input_file) {
+return_demography_params = function(input_file) {
   # Read the first line of the file
   first_line <- readLines(input_file, n = 1)
   # Extract numeric values using regular expression
@@ -1395,7 +1395,64 @@ na_from_demography = function(input_file) {
   return(ancestral_size)
 }
 
+return_DFE_params = function(input_file) {
+  # # Read the first line of the file
+  fifth_line <- readLines(input_file)[5]
+  # # Extract numeric values using regular expression
+  pattern <- "[-+]?\\d*\\.?\\d+(?:[eE][-+]?\\d+)?"
+  
+  matches <- regmatches(fifth_line, gregexpr(pattern, fifth_line, perl = TRUE))[[1]]
+  
+  if (length(matches) < 2) {
+    stop("Insufficient number of floats found in the input string.")
+  }
+  
+  gamma_params <- numeric(2)
+  for (i in 1:2) {
+    gamma_params[i] <- as.numeric(matches[i])
+  }
+  
+  twelfth_line <- readLines(input_file)[12]
+  # Extract numeric values using regular expression
+  matches <- regmatches(twelfth_line, gregexpr(pattern, twelfth_line, perl = TRUE))[[1]]
+  
+  if (length(matches) < 3) {
+    stop("Insufficient number of floats found in the input string.")
+  }
+  
+  neugamma_params <- numeric(3)
+  for (i in 1:3) {
+    neugamma_params[i] <- as.numeric(matches[i])
+  }
+  return_vector = c(
+    gamma_params[1],
+    gamma_params[2],
+    neugamma_params[1],
+    neugamma_params[2],
+    neugamma_params[3]
+  )
+  return(return_vector)
+}
+
+return_DFE_likelihood = function(input_file) {
+  # Read the second line of the file
+  second_line <- readLines(input_file)[2]
+  # Extract numeric values using regular expression
+  gamma_likelihood <- as.numeric(regmatches(second_line, regexpr("-[0-9]+\\.[0-9]+", second_line)))
+  # Read the ninth line of the file
+  ninth_line <- readLines(input_file)[9]
+  # Extract numeric values using regular expression
+  neugamma_likelihood <- as.numeric(regmatches(ninth_line, regexpr("-[0-9]+\\.[0-9]+", ninth_line)))
+  return_vector = c(
+    gamma_likelihood,
+    neugamma_likelihood
+  )
+  return(return_vector)
+}
+
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+options(digits = 15)
 # 
 
 # HMP-QP with and without 0-tons
@@ -3717,39 +3774,6 @@ species_subtree = c(
   'Ruminococcus_bromii_62047'
 )
 
-species_subtree = c(
-  # 'Akkermansia_muciniphila_55290',
-  # 'Alistipes_finegoldii_56071',
-  # 'Alistipes_onderdonkii_55464',
-  # 'Alistipes_putredinis_61533',
-  # 'Alistipes_shahii_62199',
-  # 'Bacteroidales_bacterium_58650',
-  # 'Bacteroides_caccae_53434',
-  # 'Bacteroides_cellulosilyticus_58046',
-  # 'Bacteroides_fragilis_54507',
-  # # 'Bacteroides_massiliensis_44749',
-  # # 'Bacteroides_ovatus_58035',
-  # 'Bacteroides_stercoris_56735',
-  'Bacteroides_thetaiotaomicron_56941',
-  'Bacteroides_uniformis_57318',
-  # 'Bacteroides_vulgatus_57955',
-  # 'Bacteroides_xylanisolvens_57185',
-  # 'Barnesiella_intestinihominis_62208',
-  # # 'Coprococcus_sp_62244',
-  # 'Dialister_invisus_61905',
-  # 'Eubacterium_eligens_61678',
-  'Eubacterium_rectale_56927',
-  'Faecalibacterium_prausnitzii_57453'
-  # 'Odoribacter_splanchnicus_62174',
-  # 'Oscillibacter_sp_60799',
-  # 'Parabacteroides_distasonis_56985'
-  # 'Parabacteroides_merdae_56972',
-  # 'Phascolarctobacterium_sp_59817',
-  # 'Prevotella_copri_61740',
-  # 'Ruminococcus_bicirculans_59300',
-  # 'Ruminococcus_bromii_62047'
-)
-
 midas_code_subtree = c()
 
 for (species in species_subtree) {
@@ -5891,15 +5915,15 @@ for (i in 1:length(one_epoch_file_list)) {
   one_epoch_AIC[i] = AIC_from_demography(one_epoch_file_list[i])
   two_epoch_likelihood[i] = return_demography_likelihood(two_epoch_file_list[i])
   two_epoch_AIC[i] = AIC_from_demography(two_epoch_file_list[i])
-  two_epoch_nu[i] = return_model_params(two_epoch_file_list[i])[1]
-  two_epoch_tau[i] = return_model_params(two_epoch_file_list[i])[2]
+  two_epoch_nu[i] = return_demography_params(two_epoch_file_list[i])[1]
+  two_epoch_tau[i] = return_demography_params(two_epoch_file_list[i])[2]
   two_epoch_time[i] = time_from_demography(two_epoch_file_list[i])
   three_epoch_likelihood[i] = return_demography_likelihood(three_epoch_file_list[i])
   three_epoch_AIC[i] = AIC_from_demography(three_epoch_file_list[i])
-  three_epoch_nu_bottleneck[i] = return_model_params(three_epoch_file_list[i])[1]
-  three_epoch_nu_contemporary[i] = return_model_params(three_epoch_file_list[i])[2]
-  three_epoch_tau_bottleneck[i] = return_model_params(three_epoch_file_list[i])[3]
-  three_epoch_tau_contemporary[i] = return_model_params(three_epoch_file_list[i])[4]
+  three_epoch_nu_bottleneck[i] = return_demography_params(three_epoch_file_list[i])[1]
+  three_epoch_nu_contemporary[i] = return_demography_params(three_epoch_file_list[i])[2]
+  three_epoch_tau_bottleneck[i] = return_demography_params(three_epoch_file_list[i])[3]
+  three_epoch_tau_contemporary[i] = return_demography_params(three_epoch_file_list[i])[4]
   three_epoch_time_total[i] = time_from_demography(three_epoch_file_list[i])
 }
 
@@ -5939,7 +5963,7 @@ names(table_s3) = c(
   'Three epoch, time in years'
 )
 
-write.csv(table_s3, '../Summary/Supplementary_Table_3.csv', row.names = F)
+write.csv(table_s3, '../Summary/Supplemental_Table_3.csv', row.names = F)
 
 ### Supplemental Table 4
 names(nu_tau_distribution) = c(
@@ -5953,3 +5977,155 @@ names(nu_tau_distribution) = c(
 )
 
 write.csv(nu_tau_distribution, '../Summary/Supplemental_Table_4.csv', row.names = F)
+
+### Supplemental Table 5
+
+gamma_likelihood = numeric(27)
+gamma_AIC = numeric(27)
+gamma_alpha = numeric(27)
+gamma_beta = numeric(27)
+neugamma_likelihood = numeric(27)
+neugamma_AIC = numeric(27)
+neugamma_pneu = numeric(27)
+neugamma_alpha = numeric(27)
+neugamma_beta = numeric(27)
+
+for (i in 1:length(DFE_file_list)) {
+  gamma_likelihood[i] = return_DFE_likelihood(DFE_file_list[i])[1]
+  gamma_AIC[i] = 4 - 2 * gamma_likelihood[i]
+  gamma_alpha[i] = return_DFE_params(DFE_file_list[i])[1]
+  gamma_beta[i] = return_DFE_params(DFE_file_list[i])[2]
+  neugamma_likelihood[i] = return_DFE_likelihood(DFE_file_list[i])[2]
+  neugamma_AIC[i] = 6 - 2 * neugamma_likelihood[i]
+  neugamma_pneu[i] = return_DFE_params(DFE_file_list[i])[3]
+  neugamma_alpha[i] = return_DFE_params(DFE_file_list[i])[4]
+  neugamma_beta[i] = return_DFE_params(DFE_file_list[i])[5]
+}
+
+table_s5 = data.frame(
+  species=phylogenetic_levels,
+  gamma_likelihood,
+  gamma_AIC,
+  gamma_alpha,
+  gamma_beta,
+  neugamma_likelihood,
+  neugamma_AIC,
+  neugamma_pneu,
+  neugamma_alpha,
+  neugamma_beta
+)
+
+names(table_s5) = c(
+  'Species',
+  'Gamma DFE, Log likelihood',
+  'Gamma DFE, AIC',
+  'Gamma DFE, Shape',
+  'Gamma DFE, Scale',
+  'Neu-Gamma DFE, Log likelihood',
+  'Neu-Gamma DFE, AIC',
+  'Neu-Gamma DFE, Proportion of Neutral Mutations',
+  'Neu-Gamma DFE, Shape',
+  'Neu-Gamma DFE, Scale'
+)
+
+table_s5
+
+write.csv(table_s5, '../Summary/Supplemental_Table_5.csv', row.names = F)
+
+### Supplemental Table 6
+accessory_phylogenetic_levels = c(
+  'Parabacteroides distasonis',
+  'Bacteroides uniformis',
+  'Bacteroides thetaiotaomicron',
+  'Bacteroides vulgatus',
+  'Barnesiella intestinihominis',
+  'Eubacterium rectale',
+  'Faecalibacterium prausnitzii'
+)
+
+accessory_one_epoch_file_list = c(
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_one_epoch_demography.txt',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_one_epoch_demography.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_one_epoch_demography.txt',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_one_epoch_demography.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_one_epoch_demography.txt',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_one_epoch_demography.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_one_epoch_demography.txt'
+)
+
+accessory_two_epoch_file_list = c(
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_two_epoch_demography.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_two_epoch_demography.txt'
+)
+
+accessory_three_epoch_file_list = c(
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_three_epoch_demography.txt',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_three_epoch_demography.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_three_epoch_demography.txt',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_three_epoch_demography.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_three_epoch_demography.txt',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_three_epoch_demography.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_three_epoch_demography.txt'
+)
+
+accessory_one_epoch_likelihood = numeric(7)
+accessory_one_epoch_AIC = numeric(7)
+accessory_two_epoch_likelihood = numeric(7)
+accessory_two_epoch_AIC = numeric(7)
+accessory_two_epoch_nu = numeric(7)
+accessory_two_epoch_tau = numeric(7)
+accessory_two_epoch_time = numeric(7)
+accessory_three_epoch_likelihood = numeric(7)
+accessory_three_epoch_AIC = numeric(7)
+accessory_three_epoch_nu_bottleneck = numeric(7)
+accessory_three_epoch_nu_contemporary = numeric(7)
+accessory_three_epoch_tau_bottleneck = numeric(7)
+accessory_three_epoch_tau_contemporary = numeric(7)
+accessory_three_epoch_time_total = numeric(7)
+
+for (i in 1:length(accessory_one_epoch_file_list)) {
+  accessory_one_epoch_likelihood[i] = return_demography_likelihood(accessory_one_epoch_file_list[i])
+  accessory_one_epoch_AIC[i] = AIC_from_demography(accessory_one_epoch_file_list[i])
+  accessory_two_epoch_likelihood[i] = return_demography_likelihood(accessory_two_epoch_file_list[i])
+  accessory_two_epoch_AIC[i] = AIC_from_demography(accessory_two_epoch_file_list[i])
+  accessory_two_epoch_nu[i] = return_demography_params(accessory_two_epoch_file_list[i])[1]
+  accessory_two_epoch_tau[i] = return_demography_params(accessory_two_epoch_file_list[i])[2]
+  accessory_two_epoch_time[i] = time_from_demography(accessory_two_epoch_file_list[i])
+  accessory_three_epoch_likelihood[i] = return_demography_likelihood(accessory_three_epoch_file_list[i])
+  accessory_three_epoch_AIC[i] = AIC_from_demography(accessory_three_epoch_file_list[i])
+  accessory_three_epoch_nu_bottleneck[i] = return_demography_params(accessory_three_epoch_file_list[i])[1]
+  accessory_three_epoch_nu_contemporary[i] = return_demography_params(accessory_three_epoch_file_list[i])[2]
+  accessory_three_epoch_tau_bottleneck[i] = return_demography_params(accessory_three_epoch_file_list[i])[3]
+  accessory_three_epoch_tau_contemporary[i] = return_demography_params(accessory_three_epoch_file_list[i])[4]
+  accessory_three_epoch_time_total[i] = time_from_demography(accessory_three_epoch_file_list[i])
+}
+
+table_s6 = data.frame(
+  species=phylogenetic_levels,
+  accessory_one_epoch_likelihood,
+  accessory_one_epoch_AIC,
+  accessory_two_epoch_likelihood,
+  accessory_two_epoch_AIC,
+  accessory_two_epoch_nu,
+  accessory_two_epoch_tau,
+  accessory_two_epoch_time,
+  accessory_three_epoch_likelihood,
+  accessory_three_epoch_AIC,
+  accessory_three_epoch_nu_bottleneck,
+  accessory_three_epoch_nu_contemporary,
+  accessory_three_epoch_tau_bottleneck,
+  accessory_three_epoch_tau_contemporary,
+  accessory_three_epoch_time_total
+)
+
+write.csv(table_s6, '../Summary/Supplemental_Table_6.csv', row.names = F)
+
+### Supplemental Table 7
+
+
+### Supplemental Table 8
