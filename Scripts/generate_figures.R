@@ -6106,7 +6106,7 @@ for (i in 1:length(accessory_one_epoch_file_list)) {
 }
 
 table_s6 = data.frame(
-  species=phylogenetic_levels,
+  species=accessory_phylogenetic_levels,
   accessory_one_epoch_likelihood,
   accessory_one_epoch_AIC,
   accessory_two_epoch_likelihood,
@@ -6123,9 +6123,78 @@ table_s6 = data.frame(
   accessory_three_epoch_time_total
 )
 
+table_s6
 write.csv(table_s6, '../Summary/Supplemental_Table_6.csv', row.names = F)
 
 ### Supplemental Table 7
+accessory_DFE_file_list = c(
+  '../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_inferred_DFE.txt',
+  '../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_inferred_DFE.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_inferred_DFE.txt',
+  '../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_inferred_DFE.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_inferred_DFE.txt',
+  '../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_inferred_DFE.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_inferred_DFE.txt'
+)
+
+accessory_gamma_likelihood = numeric(7)
+accessory_gamma_AIC = numeric(7)
+accessory_gamma_alpha = numeric(7)
+accessory_gamma_beta = numeric(7)
+accessory_neugamma_likelihood = numeric(7)
+accessory_neugamma_AIC = numeric(7)
+accessory_neugamma_pneu = numeric(7)
+accessory_neugamma_alpha = numeric(7)
+accessory_neugamma_beta = numeric(7)
+
+for (i in 1:length(accessory_DFE_file_list)) {
+  accessory_gamma_likelihood[i] = return_DFE_likelihood(accessory_DFE_file_list[i])[1]
+  accessory_gamma_AIC[i] = 4 - 2 * accessory_gamma_likelihood[i]
+  accessory_gamma_alpha[i] = return_DFE_params(accessory_DFE_file_list[i])[1]
+  accessory_gamma_beta[i] = return_DFE_params(accessory_DFE_file_list[i])[2]
+  accessory_neugamma_likelihood[i] = return_DFE_likelihood(accessory_DFE_file_list[i])[2]
+  accessory_neugamma_AIC[i] = 6 - 2 * accessory_neugamma_likelihood[i]
+  accessory_neugamma_pneu[i] = return_DFE_params(accessory_DFE_file_list[i])[3]
+  accessory_neugamma_alpha[i] = return_DFE_params(accessory_DFE_file_list[i])[4]
+  accessory_neugamma_beta[i] = return_DFE_params(accessory_DFE_file_list[i])[5]
+}
+
+table_s7 = data.frame(
+  species=accessory_phylogenetic_levels,
+  accessory_gamma_likelihood,
+  accessory_gamma_AIC,
+  accessory_gamma_alpha,
+  accessory_gamma_beta,
+  accessory_neugamma_likelihood,
+  accessory_neugamma_AIC,
+  accessory_neugamma_pneu,
+  accessory_neugamma_alpha,
+  accessory_neugamma_beta
+)
+
+names(table_s7) = c(
+  'Species',
+  'Gamma DFE, Log likelihood',
+  'Gamma DFE, AIC',
+  'Gamma DFE, Shape',
+  'Gamma DFE, Scale',
+  'Neu-Gamma DFE, Log likelihood',
+  'Neu-Gamma DFE, AIC',
+  'Neu-Gamma DFE, Proportion of Neutral Mutations',
+  'Neu-Gamma DFE, Shape',
+  'Neu-Gamma DFE, Scale'
+)
+
+table_s7
+
+write.csv(table_s7, '../Summary/Supplemental_Table_7.csv', row.names = F)
 
 
 ### Supplemental Table 8
+names(acc_core_dfe_LRT_table) = c(
+  'Species',
+  'LRT Statistic, 2N_Anc*s',
+  'LRT Statistic, s'
+)
+
+write.csv(acc_core_dfe_LRT_table, '../Summary/Supplemental_Table_8.csv', row.names = F)
