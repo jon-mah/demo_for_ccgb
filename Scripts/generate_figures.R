@@ -324,7 +324,7 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
                                                          fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -361,7 +361,7 @@ compare_hmp_sfs = function(complete, one_epoch, two_epoch, three_epoch, nonsyn, 
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
@@ -392,7 +392,7 @@ compare_isolate_sfs = function(HMP_QP, Isolate, one_epoch, two_epoch) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
@@ -430,7 +430,7 @@ compare_sfs_cornejo_count = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -466,7 +466,7 @@ compare_isolate_hmp_sfs = function(hmp_orig, orig_demo, hmp_complete, complete_d
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
@@ -504,7 +504,7 @@ compare_sfs_cornejo_proportional = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -543,7 +543,7 @@ compare_sfs_with_selection_count = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -582,7 +582,7 @@ compare_sfs_with_selection_proportional = function(input_directory) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Count of Segregating Sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -606,7 +606,7 @@ plot_original_empirical_sfs = function(input) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
     ylab('Number of Segregating Sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -629,7 +629,7 @@ plot_empirical_sfs = function(input) {
                                    fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
     ylab('Number of Segregating Sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -1044,7 +1044,7 @@ compare_core_accessory_sfs = function(all, core, accessory) {
                                                          fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -1072,7 +1072,7 @@ compare_core_accessory_sfs_count = function(all, core, accessory) {
                                                          fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -1102,7 +1102,7 @@ compare_core_accessory_sfs_syn_ns = function(core_syn, core_nonsyn, accessory_sy
                                                          fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
@@ -1129,7 +1129,7 @@ compare_core_sfs = function(all, core) {
                                                          fill=variable)) +
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in Sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -2218,6 +2218,9 @@ ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_high', ], aes(x=value, y=fct_re
   theme(legend.position = "none") + 
   xlab('Selection Coefficient')
 
+### Figure S3
+# 600 x 1000
+
 ggplot(dfe_df[dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
   #labs(
@@ -3087,110 +3090,6 @@ ggplot(lethality_engraftment_correlation, aes(x = more_than_moderate_s, y = engr
               formula = y ~ x,
               geom = "smooth")
 
-# all_genes
-
-all_genes_two_epoch_nu_tau = read.csv('../Summary/all_genes_two_epoch_demography_interpretation.csv')
-all_genes_three_epoch_nu_tau = read.csv('../Summary/all_genes_three_epoch_demography_interpretation.csv', nrows=1)
-
-all_genes_two_epoch_nu_tau$demography = 'Two Epoch'
-all_genes_three_epoch_nu_tau$demography = 'Three Epoch'
-
-all_genes_three_epoch_nu_tau = all_genes_three_epoch_nu_tau[-c(2,4:7)]
-
-colnames(all_genes_two_epoch_nu_tau) = c('species', 'nu', 'time_low', 'time_high', 'demography')
-colnames(all_genes_three_epoch_nu_tau) = c('species', 'nu', 'time_low', 'time_high', 'demography')
-all_genes_demography_df =  rbind(all_genes_two_epoch_nu_tau, all_genes_three_epoch_nu_tau)
-
-all_genes_demography_df$species = factor(all_genes_demography_df$species, levels=phylogenetic_levels)
-
-all_genes_species_highlight = c('Alistipes shahii', 'Bacteroides vulgatus', 'Oscillibacter species')
-
-all_genes_typeface = ifelse(all_genes_demography_df$species %in% all_genes_species_highlight, 4, 3)
-
-all_genes_demography_df_highlight = all_genes_demography_df[all_genes_demography_df$species %in% all_genes_species_highlight, ]
-options(ggrepel.max.overlaps = Inf)
-x_label_text = expression(nu == frac(N[current], N[ancestral]))
-all_genes_demography_scatter = ggscatter(all_genes_demography_df, x="nu", y="time_low", color='species', shape='demography', size=3) +
-  ylab('Estimated time in years since most recent demographic event') +
-  xlab(x_label_text) +
-  geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
-  scale_shape_manual(name = "Best-Fit Demographic Model",
-                     labels = c("Three Epoch", "Two Epoch"),
-                     values = c(17, 19)) +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=all_genes_typeface) +
-  guides(color=guide_legend(title="Species")) +
-  scale_x_log10(limits=c(1e-2, 2e4)) +
-  scale_y_log10(limits=c(1e3, 1e7)) +
-  theme(legend.position = 'none') +
-  guides(color = 'none') +
-  guides(shape = 'none')  +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16))
-
-all_genes_demography_scatter
-
-two_epoch_nu_tau = read.csv('../Summary/two_epoch_demography_interpretation.csv')
-three_epoch_nu_tau= read.csv('../Summary/three_epoch_demography_interpretation.csv')
-
-two_epoch_nu_tau$demography = 'Two Epoch'
-three_epoch_nu_tau$demography = 'Three Epoch'
-
-two_epoch_nu_tau = two_epoch_nu_tau[-c(10), ]
-three_epoch_nu_tau = three_epoch_nu_tau[-c(2,4:7)]
-
-colnames(three_epoch_nu_tau) = c('species', 'nu', 'time_low', 'time_high', 'demography')
-# demography_df =  rbind(two_epoch_nu_tau, three_epoch_nu_tau)
-demography_df = rbind(two_epoch_nu_tau)
-
-# demography_df$time_low = as.numeric(demography_df$time_low)
-# demography_df$nu = as.numeric(demography_df$nu)
-
-demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
-temp_demography_df = demography_df
-temp_demography_df$species = factor(demography_df$species, levels=all_genes_demography_df$species)
-temp_demography_df = na.omit(temp_demography_df)
-
-temp_demography_df <- temp_demography_df[order(temp_demography_df$species), ]
-row.names(temp_demography_df) = NULL
-
-temp_demography_df$species
-all_genes_demography_df$species
-
-species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
-
-typeface = ifelse(demography_df$species %in% species_highlight, 5, 4)
-
-demography_df_highlight = demography_df[demography_df$species %in% species_highlight, ]
-options(ggrepel.max.overlaps = Inf)
-x_label_text = expression(nu == frac(N[current], N[ancestral]))
-demography_scatter = ggscatter(demography_df, x="nu", y="time_low", color="species", shape=18, size=4) +
-  ylab('Estimated time in years since most recent demographic event') +
-  xlab(x_label_text) +
-  geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
-  scale_shape_manual(name = "Best-Fit Demographic Model",
-                     labels = c("Three Epoch", "Two Epoch"),
-                     values = c(17, 19)) +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=typeface) +
-  guides(color=guide_legend(title="Species")) +
-  #scale_x_log10(limits=c(1e-2, 2e4)) +
-  #scale_y_log10(limits=c(3e2, 5e6)) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme(legend.position = 'none') +
-  guides(color = 'none') +
-  guides(shape = 'none')  +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16))
-
-demography_scatter
-
-difference_plot = all_genes_demography_scatter +
-  geom_point(data = temp_demography_df, color='green', size=3)  +
-  geom_segment(aes(x = all_genes_demography_df$nu, y=all_genes_demography_df$time_low,
-    xend = temp_demography_df$nu, yend=temp_demography_df$time_low), linejoin = 'round', lineend='round')
-
-difference_plot
-
 compare_hmp_sfs(b_cellulosilyticus_hmp_qp_syn, one_epoch_14, b_cellulosilyticus_core_two_epoch, b_cellulosilyticus_core_three_epoch, b_cellulosilyticus_hmp_qp_nonsyn, b_cellulosilyticus_complete_gamma_dfe, b_cellulosilyticus_complete_neugamma_dfe) + ggtitle('B. cellulosilyticus (Downsampled to 14)')
 compare_hmp_sfs(e_eligens_hmp_qp_syn, one_epoch_14, e_eligens_core_two_epoch, e_eligens_core_three_epoch, e_eligens_hmp_qp_nonsyn, e_eligens_complete_gamma_dfe, e_eligens_complete_neugamma_dfe) + ggtitle('E. eligens (Downsampled to 14)')
 compare_hmp_sfs(b_ovatus_hmp_qp_syn, one_epoch_14, b_ovatus_core_two_epoch, b_ovatus_core_three_epoch, b_ovatus_hmp_qp_nonsyn, b_ovatus_complete_gamma_dfe, b_ovatus_complete_neugamma_dfe) + ggtitle('B. ovatus (Downsampled to 14)')
@@ -3836,39 +3735,38 @@ plot_likelihood_surface_contour('../Analysis/Ruminococcus_bicirculans_59300_down
 plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
 
 # Likelihood Surfaces for accessory genes
-plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Alistipes_finegoldii_56071_downsampled_14/likelihood_surface.csv') + ggtitle('A. finegoldii likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/likelihood_surface.csv') + ggtitle('A. onderdonkii likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Alistipes_putredinis_61533_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Alistipes_shahii_62199_downsampled_14/likelihood_surface.csv') + ggtitle('A. shahii likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/likelihood_surface.csv') + ggtitle('B. bacterium likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_caccae_53434_downsampled_14/likelihood_surface.csv') + ggtitle('B. caccae likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_fragilis_54507_downsampled_14/likelihood_surface.csv') + ggtitle('B. fragilis likelihood surface')
-# plot_likelihood_surface('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_ovatus_58035_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_stercoris_56735_downsampled_14/likelihood_surface.csv') + ggtitle('B. stercoris likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/likelihood_surface.csv') + ggtitle('B. thetaiotaomicron likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_uniformis_57318_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/likelihood_surface.csv') + ggtitle('B. vulgatus likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/likelihood_surface.csv') + ggtitle('B. xylanisolvens likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/likelihood_surface.csv') + ggtitle('B. intestinihominis likelihood surface')
-# plot_likelihood_surface('../Analysis/Coprococcus_sp_62244_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Dialister_invisus_61905_downsampled_14/likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Eubacterium_rectale_56927_downsampled_14/likelihood_surface.csv') + ggtitle('E. rectale likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/likelihood_surface.csv') + ggtitle('F. prausnitzii likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Oscillibacter_sp_60799_downsampled_14/likelihood_surface.csv') + ggtitle('Oscillibacter species likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/likelihood_surface.csv') + ggtitle('P. distasonis likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Parabacteroides_merdae_56972_downsampled_14/likelihood_surface.csv') + ggtitle('P. merdae likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/likelihood_surface.csv') + ggtitle('Phascolarctobacterium species likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Prevotella_copri_61740_downsampled_14/likelihood_surface.csv') + ggtitle('P. copri likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/likelihood_surface.csv') + ggtitle('R. bicirculans likelihood surface')
-plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_downsampled_14/likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_finegoldii_56071_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. finegoldii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_onderdonkii_55464_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. onderdonkii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_putredinis_61533_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Alistipes_shahii_62199_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. shahii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroidales_bacterium_58650_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. bacterium likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_caccae_53434_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. caccae likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_cellulosilyticus_58046_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. cellulosilyticus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_fragilis_54507_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. fragilis likelihood surface')
+# plot_likelihood_surface('../Analysis/Bacteroides_massiliensis_44749_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_ovatus_58035_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_stercoris_56735_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. stercoris likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. thetaiotaomicron likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. vulgatus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. xylanisolvens likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('B. intestinihominis likelihood surface')
+# plot_likelihood_surface('../Analysis/Coprococcus_sp_62244_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Dialister_invisus_61905_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('A. muciniphila likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Eubacterium_eligens_61678_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('E. eligens likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('E. rectale likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('F. prausnitzii likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('O. splanchnicus likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Oscillibacter_sp_60799_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('Oscillibacter species likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('P. distasonis likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Parabacteroides_merdae_56972_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('P. merdae likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('Phascolarctobacterium species likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Prevotella_copri_61740_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('P. copri likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('R. bicirculans likelihood surface')
+plot_likelihood_surface_contour('../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_likelihood_surface.csv') + ggtitle('R. bromii likelihood surface')
 
 p1 = plot_best_fit_sfs(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
 p2 = plot_best_fit_sfs(a_finegoldii_best_fit) + ggtitle('Alistipes finegoldii')
@@ -4028,6 +3926,7 @@ phylogenetic_levels = c(
   'Faecalibacterium prausnitzii'
 )
 
+### Figure S1
 
 # 1600 x 16000
 sfs_and_likelihood = p6 + p6_l +
@@ -4044,7 +3943,7 @@ sfs_and_likelihood = p6 + p6_l +
   p12 + p12_l +
   p14 + p14_l +
   p13 + p13_l +
-  p11 + p11_l +
+  # p11 + p11_l +
   p16 + p16_l +
   p7 + p7_l +
   p15 + p15_l +
@@ -4062,6 +3961,9 @@ sfs_and_likelihood = p6 + p6_l +
 
 sfs_and_likelihood
 
+### Figure S6
+# 1600 x 16000
+
 sfs_and_likelihood_accessory = p6a + p6_l_accessory +
   p4a + p4_l_accessory +
   p2a + p2_l_accessory + 
@@ -4076,7 +3978,7 @@ sfs_and_likelihood_accessory = p6a + p6_l_accessory +
   p12a + p12_l_accessory +
   p14a + p14_l_accessory +
   p13a + p13_l_accessory +
-  p11a + p11_l_accessory +
+  # p11a + p11_l_accessory +
   p16a + p16_l_accessory +
   p7a + p7_l_accessory +
   p15a + p15_l_accessory +
@@ -4156,22 +4058,22 @@ p28_acc_dfe = plot_core_accessory_dfe('../Analysis/Prevotella_copri_61740_downsa
 p29_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bicirculans, Accessory Genes')
 p30_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bromii, Accessory Genes')
 
-# 1600 x 1600
+# 1200 x 1600
 
-design = "ABCC
-          ABDD
-          EFGG
-          EFHH
-          IJKK
-          IJLL
-          MNOO
-          MNPP"
+design = "ABB
+          ACC
+          DEE
+          DFF
+          GHH
+          GII
+          JKK
+          JLL"
 
 core_accessory_comparison = 
-  p14a + p14_l_accessory + p14_core_dfe + p14_acc_dfe +
-  p13a + p13_l_accessory + p13_core_dfe + p13_acc_dfe +
-  p21a + p21_l_accessory + p21_core_dfe + p21_acc_dfe +
-  p22a + p22_l_accessory + p22_core_dfe + p22_acc_dfe +
+  p14a + p14_core_dfe + p14_acc_dfe +
+  p13a + p13_core_dfe + p13_acc_dfe +
+  p21a + p21_core_dfe + p21_acc_dfe +
+  p22a + p22_core_dfe + p22_acc_dfe +
   plot_layout(design=design)
 
 core_accessory_comparison
@@ -4625,17 +4527,19 @@ pheatmap(dfe_constant_s_matrix,
 
 color_scale = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.5)(100)
 
-### 1200 x 800
 
 col_scheme = c(rep('black', each=1), rep('darkorange', each=4), rep('black', each=4), rep('darkviolet', each=8), rep('black', each=10
 ))
+
+### Figure S4
+# 1200 x 800
 
 Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
   col=color_scale,
   cluster_rows = FALSE, cluster_columns = FALSE,
   cell_fun = function(j, i, x, y, w, h, fill) {
     if (dfe_comparison_matrix[i, j] < -17.7 && i >= j) {
-      grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'black', fontface='italic'))
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white', fontface='italic'))
       grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 10, col='blue'))
     }
     else if(i >= j) {
@@ -4649,12 +4553,15 @@ Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
   show_heatmap_legend = F
   )
 
+### Figure S5
+# 1200 x 800
+
 Heatmap(dfe_constant_s_matrix, rect_gp = gpar(type = "none"),
   col=color_scale,
   cluster_rows = FALSE, cluster_columns = FALSE,
   cell_fun = function(j, i, x, y, w, h, fill) {
     if (dfe_constant_s_matrix[i, j] < -17.7 && i >= j) {
-      grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'black', fontface='italic'))
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'white', fontface='italic'))
       grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 10, col='blue'))
     }
     else if(i >= j) {
@@ -5351,145 +5258,172 @@ d_invisus_all_ns = read_input_sfs('../Analysis/Dialister_invisus_61905_downsampl
 d_invisus_core_ns = read_input_sfs('../Analysis/Dialister_invisus_61905_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt')
 d_invisus_accessory_ns = read_input_sfs('../Analysis/Dialister_invisus_61905_downsampled_14/accessory_empirical_nonsyn_downsampled_sfs.txt')
 
-compare_core_accessory_sfs_syn_ns(b_bacterium_core,
+fig_s5_1 = compare_core_accessory_sfs_syn_ns(b_bacterium_core,
   b_bacterium_core_ns,
   b_bacterium_accessory,
   b_bacterium_accessory_ns) + ggtitle('B. bacterium')
 
-compare_core_accessory_sfs_syn_ns(a_putredinis_core,
+fig_s5_2 = compare_core_accessory_sfs_syn_ns(a_putredinis_core,
   a_putredinis_core_ns,
   a_putredinis_accessory,
   a_putredinis_accessory_ns) + ggtitle('A. putredinis')
 
-compare_core_accessory_sfs_syn_ns(a_finegoldii_core,
+fig_s5_3 = compare_core_accessory_sfs_syn_ns(a_finegoldii_core,
   a_finegoldii_core_ns,
   a_finegoldii_accessory,
   a_finegoldii_accessory_ns) + ggtitle('A. finegoldii')
 
-compare_core_accessory_sfs_syn_ns(a_onderdonkii_core,
+fig_s5_4 = compare_core_accessory_sfs_syn_ns(a_onderdonkii_core,
   a_onderdonkii_core_ns,
   a_onderdonkii_accessory,
   a_onderdonkii_accessory_ns) + ggtitle('A. onderdonkii')
 
-compare_core_accessory_sfs_syn_ns(a_shahii_core,
+fig_s5_5 = compare_core_accessory_sfs_syn_ns(a_shahii_core,
   a_shahii_core_ns,
   a_shahii_accessory,
   a_shahii_accessory_ns) + ggtitle('A. shahii')
 
-compare_core_accessory_sfs_syn_ns(o_splanchnicus_core,
+fig_s5_6 = compare_core_accessory_sfs_syn_ns(o_splanchnicus_core,
   o_splanchnicus_core_ns,
   o_splanchnicus_accessory,
   o_splanchnicus_accessory_ns) + ggtitle('O. splanchnicus')
 
-compare_core_accessory_sfs_syn_ns(p_distasonis_core,
+fig_s5_7 = compare_core_accessory_sfs_syn_ns(p_distasonis_core,
   p_distasonis_core_ns,
   p_distasonis_accessory,
   p_distasonis_accessory_ns) + ggtitle('P. distasonis')
 
-compare_core_accessory_sfs_syn_ns(p_merdae_core,
+fig_s5_8 = compare_core_accessory_sfs_syn_ns(p_merdae_core,
   p_merdae_core_ns,
   p_merdae_accessory,
   p_merdae_accessory_ns) + ggtitle('P. merdae')
 
-compare_core_accessory_sfs_syn_ns(p_copri_core,
+fig_s5_9 = compare_core_accessory_sfs_syn_ns(p_copri_core,
   p_copri_core_ns,
   p_copri_accessory,
   p_copri_accessory_ns) + ggtitle('P. copri')
 
-compare_core_accessory_sfs_syn_ns(b_fragilis_core,
+fig_s5_10 = compare_core_accessory_sfs_syn_ns(b_fragilis_core,
   b_fragilis_core_ns,
   b_fragilis_accessory,
   b_fragilis_accessory_ns) + ggtitle('B. fragilis')
 
-compare_core_accessory_sfs_syn_ns(b_cellulosilyticus_core,
+fig_s5_11 = compare_core_accessory_sfs_syn_ns(b_cellulosilyticus_core,
   b_cellulosilyticus_core_ns,
   b_cellulosilyticus_accessory,
   b_cellulosilyticus_accessory_ns) + ggtitle('B. cellulosilyticus')
 
-compare_core_accessory_sfs_syn_ns(b_stercoris_core,
+fig_s5_12 = compare_core_accessory_sfs_syn_ns(b_stercoris_core,
   b_stercoris_core_ns,
   b_stercoris_accessory,
   b_stercoris_accessory_ns) + ggtitle('B. stercoris')
 
-compare_core_accessory_sfs_syn_ns(b_uniformis_core,
+fig_s5_13 = compare_core_accessory_sfs_syn_ns(b_uniformis_core,
   b_uniformis_core_ns,
   b_vulgatus_accessory,
   b_vulgatus_accessory_ns) +  ggtitle('B. uniformis')
 
-compare_core_accessory_sfs_syn_ns(b_thetaiotaomicron_core,
+fig_s5_14 = compare_core_accessory_sfs_syn_ns(b_thetaiotaomicron_core,
   b_thetaiotaomicron_core_ns,
   b_thetaiotaomicron_accessory,
   b_thetaiotaomicron_accessory_ns) + ggtitle('B. thetaiotaomicron')
 
-compare_core_accessory_sfs_syn_ns(b_ovatus_core,
-  b_ovatus_core_ns,
-  b_ovatus_accessory,
-  b_ovatus_accessory_ns) + ggtitle('B. ovatus')
-
-compare_core_accessory_sfs_syn_ns(b_xylanisolvens_core,
+fig_s5_15 = compare_core_accessory_sfs_syn_ns(b_xylanisolvens_core,
   b_xylanisolvens_core_ns,
   b_xylanisolvens_accessory,
   b_xylanisolvens_accessory_ns) + ggtitle('B. xylanisolvens')
 
-compare_core_accessory_sfs_syn_ns(b_caccae_core,
+fig_s5_16 = compare_core_accessory_sfs_syn_ns(b_caccae_core,
   b_caccae_core_ns,
   b_caccae_accessory,
   b_caccae_accessory_ns) + ggtitle('B. caccae')
 
-compare_core_accessory_sfs_syn_ns(b_vulgatus_core,
+fig_s5_17 = compare_core_accessory_sfs_syn_ns(b_vulgatus_core,
   b_vulgatus_core_ns,
   b_vulgatus_accessory,
   b_vulgatus_accessory_ns) + ggtitle('B. vulgatus')
 
-compare_core_accessory_sfs_syn_ns(b_intestinihominis_core,
+fig_s5_18 = compare_core_accessory_sfs_syn_ns(b_intestinihominis_core,
   b_intestinihominis_core_ns,
   b_intestinihominis_accessory,
   b_intestinihominis_accessory_ns) + ggtitle('B. intestinihominis')
 
-compare_core_accessory_sfs_syn_ns(a_muciniphila_core,
+fig_s5_19 = compare_core_accessory_sfs_syn_ns(a_muciniphila_core,
   a_muciniphila_core_ns,
   a_muciniphila_accessory,
   a_muciniphila_accessory_ns)  + ggtitle('A. muciniphila')
 
-compare_core_accessory_sfs_syn_ns(d_invisus_core,
+fig_s5_20 = compare_core_accessory_sfs_syn_ns(d_invisus_core,
   d_invisus_core_ns,
   d_invisus_accessory,
   d_invisus_accessory_ns) + ggtitle('D. invisus')
 
-compare_core_accessory_sfs_syn_ns(p_sp_core,
+fig_s5_21 = compare_core_accessory_sfs_syn_ns(p_sp_core,
   p_sp_core_ns,
   p_sp_accessory,
   p_sp_accessory_ns) + ggtitle('Phascolarctobacterium species')
 
-compare_core_accessory_sfs_syn_ns(e_eligens_core,
+fig_s5_22 = compare_core_accessory_sfs_syn_ns(e_eligens_core,
   e_eligens_core_ns,
   e_eligens_accessory,
   e_eligens_accessory_ns) + ggtitle('E. eligens')
 
-compare_core_accessory_sfs_syn_ns(e_rectale_core,
+fig_s5_23 = compare_core_accessory_sfs_syn_ns(e_rectale_core,
   e_rectale_core_ns,
   e_rectale_accessory,
   e_rectale_accessory_ns) + ggtitle('E. rectale')
 
-compare_core_accessory_sfs_syn_ns(o_sp_core,
+fig_s5_24 = compare_core_accessory_sfs_syn_ns(o_sp_core,
   o_sp_core_ns,
   o_sp_accessory,
   o_sp_accessory_ns) + ggtitle('Oscillibacter species')
 
-compare_core_accessory_sfs_syn_ns(r_bromii_core,
+fig_s5_25 = compare_core_accessory_sfs_syn_ns(r_bromii_core,
   r_bromii_core_ns,
   r_bromii_accessory,
   r_bromii_accessory_ns) + ggtitle('Ruminococcus bromii')
 
-compare_core_accessory_sfs_syn_ns(r_bicirculans_core,
+fig_s5_26 = compare_core_accessory_sfs_syn_ns(r_bicirculans_core,
   r_bicirculans_core_ns,
   r_bicirculans_accessory,
   r_bicirculans_accessory_ns) + ggtitle('Ruminococcus bicirculans')
 
-compare_core_accessory_sfs_syn_ns(f_prausnitzii_core,
+fig_s5_27 = compare_core_accessory_sfs_syn_ns(f_prausnitzii_core,
   f_prausnitzii_core_ns,
   f_prausnitzii_accessory,
   f_prausnitzii_accessory_ns) + ggtitle('F. prausnitzii')
+
+### Figure S5
+# 800 x 16000
+
+fig_s5_1 +
+  fig_s5_2 +
+  fig_s5_3 +
+  fig_s5_4 +
+  fig_s5_5 +
+  fig_s5_6 +
+  fig_s5_7 +
+  fig_s5_8 +
+  fig_s5_9 +
+  fig_s5_10 +
+  fig_s5_11 +
+  fig_s5_12 +
+  fig_s5_13 +
+  fig_s5_14 +
+  fig_s5_15 +
+  fig_s5_16 +
+  fig_s5_17 +
+  fig_s5_18 +
+  fig_s5_19 +
+  fig_s5_20 +
+  fig_s5_21 +
+  fig_s5_22 +
+  fig_s5_23 +
+  fig_s5_24 +
+  fig_s5_25 +
+  fig_s5_26 +
+  fig_s5_27 +
+  plot_layout(ncol=1)
 
 one_epoch_file_list = c(
   '../Analysis/Bacteroidales_bacterium_58650_downsampled_14/core_one_epoch_demography.txt',
@@ -5760,8 +5694,9 @@ nu_tau_distribution$species = factor(nu_tau_distribution$species, levels=phyloge
 nu_label_text = expression(nu == frac(N[current], N[ancestral]))
 # tau_label_text = expression(tau == frac(generations, 2 * N[ancestral]))
 tau_label_text = 'Estimated time in years since most recent demographic event'
-# 1000 x 1000
 
+
+# 1000 x 1000
 plot_nu_distribution = ggplot() +
   geom_linerange(data=nu_tau_distribution, mapping=aes(x=fct_rev(species), ymin=nu_low, ymax=nu_high), size=1, color="blue") + 
   geom_point(data=nu_tau_distribution, mapping=aes(x=fct_rev(species), y=nu_mle), size=4, shape=21, fill="white") +
@@ -5822,7 +5757,45 @@ plot_tau_distribution_fig = ggplot() +
 
 plot_tau_distribution_fig
 
+### Figure S2
+# 2000 x 1100
+
+plot_nu_distribution_fig + plot_tau_distribution_fig + plot_layout(ncol=2)
+
 ### Figure 3
+
+demography_df = nu_tau_distribution[1:3]
+
+demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
+
+species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
+
+typeface = ifelse(demography_df$species %in% species_highlight, 5, 4)
+
+demography_df_highlight = demography_df[demography_df$species %in% species_highlight, ]
+options(ggrepel.max.overlaps = Inf)
+x_label_text = expression(nu == frac(N[current], N[ancestral]))
+
+demography_scatter = ggscatter(demography_df, x="nu_mle", y="time_mle", color="species", shape=18, size=4) +
+  ylab('Estimated time in years since most recent demographic event') +
+  xlab(x_label_text) +
+  geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+  scale_shape_manual(name = "Best-Fit Demographic Model",
+                     labels = c("Three Epoch", "Two Epoch"),
+                     values = c(17, 19)) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=typeface) +
+  guides(color=guide_legend(title="Species")) +
+  #scale_x_log10(limits=c(1e-2, 2e4)) +
+  #scale_y_log10(limits=c(3e2, 5e6)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16))
+
+demography_scatter
 
 design = c(
   area(1, 1, 1, 1),
@@ -5848,12 +5821,12 @@ p1 + p1_l + # A. muciniphila
 
 # 2000 x 1900
 
-p1 + p1_l + # A. muciniphila
-  p30 + p30_l + #R. bicirculans
-  demography_scatter +
-  plot_nu_distribution_fig +
-  plot_tau_distribution_fig +
-  plot_layout(design=design)
+# p1 + p1_l + # A. muciniphila
+#   p30 + p30_l + #R. bicirculans
+#   demography_scatter +
+#   plot_nu_distribution_fig +
+#   plot_tau_distribution_fig +
+#   plot_layout(design=design)
 
 # Accessory vs. Core genes demographic comparison
 accessory_core_demography = data.frame(species=phylogenetic_levels, 
@@ -6197,4 +6170,107 @@ names(acc_core_dfe_LRT_table) = c(
   'LRT Statistic, s'
 )
 
+acc_core_dfe_LRT_table
+
 write.csv(acc_core_dfe_LRT_table, '../Summary/Supplemental_Table_8.csv', row.names = F)
+
+### Figure S7
+
+all_genes_phylogenetic_levels = c(
+  'Bacteroidales bacterium',
+  'Alistipes finegoldii',
+  'Alistipes onderdonkii',
+  'Alistipes shahii',
+  'Odoribacter splanchnicus',
+  'Parabacteroides distasonis',
+  'Parabacteroides merdae',
+  'Prevotella copri',
+  'Bacteroides fragilis',
+  'Bacteroides cellulosilyticus',
+  'Bacteroides stercoris',
+  'Bacteroides thetaiotaomicron',
+  'Bacteroides xylanisolvens',
+  'Bacteroides vulgatus',
+  'Barnesiella intestinihominis',
+  'Akkermansia muciniphila',
+  'Phascolarctobacterium species',
+  'Eubacterium eligens',
+  'Eubacterium rectale',
+  'Oscillibacter species',
+  'Ruminococcus bromii',
+  'Ruminococcus bicirculans',
+  'Faecalibacterium prausnitzii'
+)
+
+temp_demography_df = demography_df
+temp_demography_df
+temp_demography_df$species = factor(demography_df$species, levels=all_genes_phylogenetic_levels)
+temp_demography_df = na.omit(temp_demography_df)
+
+temp_demography_df <- temp_demography_df[order(temp_demography_df$species), ]
+row.names(temp_demography_df) = NULL
+temp_demography_df
+
+all_genes_two_epoch_nu_tau = read.csv('../Summary/all_genes_two_epoch_demography_interpretation.csv')
+all_genes_three_epoch_nu_tau = read.csv('../Summary/all_genes_three_epoch_demography_interpretation.csv', nrows=1)
+
+all_genes_two_epoch_nu_tau$demography = 'Two Epoch'
+all_genes_three_epoch_nu_tau$demography = 'Three Epoch'
+
+all_genes_three_epoch_nu_tau = all_genes_three_epoch_nu_tau[-c(2,4:7)]
+
+colnames(all_genes_two_epoch_nu_tau) = c('species', 'nu_mle', 'time_mle', 'time_high', 'demography')
+colnames(all_genes_three_epoch_nu_tau) = c('species', 'nu_mle', 'time_mle', 'time_high', 'demography')
+all_genes_demography_df =  rbind(all_genes_two_epoch_nu_tau, all_genes_three_epoch_nu_tau)
+
+all_genes_demography_df
+
+all_genes_demography_df$species = factor(all_genes_demography_df$species, levels=all_genes_phylogenetic_levels)
+all_genes_demography_df <- all_genes_demography_df[order(all_genes_demography_df$species), ]
+row.names(all_genes_demography_df) = NULL
+
+all_genes_demography_df
+
+all_genes_species_highlight = c()
+
+all_genes_typeface = ifelse(all_genes_demography_df$species %in% all_genes_species_highlight, 4, 3)
+
+all_genes_demography_df_highlight = all_genes_demography_df[all_genes_demography_df$species %in% all_genes_species_highlight, ]
+options(ggrepel.max.overlaps = Inf)
+x_label_text = expression(nu == frac(N[current], N[ancestral]))
+
+temp_demography_scatter = ggscatter(temp_demography_df, x="nu_mle", y="time_mle", color='species', size=3) +
+  ylab('Estimated time in years since most recent demographic event') +
+  xlab(x_label_text) +
+  geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+  scale_shape_manual(name = "Best-Fit Demographic Model",
+                     labels = c("Three Epoch", "Two Epoch"),
+                     values = c(17, 19)) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=all_genes_typeface) +
+  guides(color=guide_legend(title="Species")) +
+  scale_x_log10(limits=c(1e-2, 2e5)) +
+  scale_y_log10(limits=c(2e2, 1e7)) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16))
+
+temp_demography_scatter
+
+plot_build <- ggplot_build(temp_demography_scatter)
+color_mapping <- plot_build$data[[1]]$colour
+print(color_mapping)
+
+# 800 x 750
+
+difference_plot = temp_demography_scatter +
+  geom_point(data = all_genes_demography_df,  color=color_mapping, shape=18, size=3) +
+  geom_segment(aes(x=temp_demography_df$nu_mle, y=temp_demography_df$time_mle,
+    xend=all_genes_demography_df$nu_mle, yend=all_genes_demography_df$time_mle),
+    linejoin='round',
+    lineend='round',
+    linetype=2,
+    color=color_mapping)
+
+difference_plot

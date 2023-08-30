@@ -308,12 +308,12 @@ python evaluate_demography.py ../Analysis/Eubacterium_eligens_61678_downsampled_
 python evaluate_demography.py ../Analysis/Eubacterium_rectale_56927_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Eubacterium_rectale_56927_downsampled_14/core --params_list 1.6264469 0.5756775
 python evaluate_demography.py ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core --params_list 0.72112499 0.02686827
 python evaluate_demography.py ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/core --params_list 0.88191563 1.19597271
-python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Oscillibacter_sp_60799_downsampled_14/core --params_list 593.661335 0.037568
+python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Oscillibacter_sp_60799_downsampled_14/core --params_list 1020.882920000 0.038206203
 python evaluate_demography.py ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core --params_list 0.87930973 0.29828882
 python evaluate_demography.py ../Analysis/Parabacteroides_merdae_56972_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Parabacteroides_merdae_56972_downsampled_14/core --params_list 0.1503162 0.5010130
 python evaluate_demography.py ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/core --params_list 2.904182 0.263328
 python evaluate_demography.py ../Analysis/Prevotella_copri_61740_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Prevotella_copri_61740_downsampled_14/core --params_list 3.3056753 0.3307203
-python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/core --params_list 15.56247 11.91874
+python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/core --params_list 26.88557317 21.45612532
 python evaluate_demography.py ../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_empirical_syn_downsampled_sfs.txt two_epoch ../Analysis/Ruminococcus_bromii_62047_downsampled_14/core  --params_list 2.5349463 0.7217352
 
 # Core Genes three epoch
