@@ -1022,7 +1022,8 @@ cross_species_dfe_comparison = function(input_A, input_B) {
   best_params_comparison = c(temp_comparison_surface$species_surface_A.shape[1], temp_comparison_surface$species_surface_A.scale[1])
   ML_comparison = temp_comparison_surface$combined_likelihood[1]
   independent_sum = ML_A + ML_B
-  return(ML_comparison - independent_sum)
+  Lambda = independent_sum - ML_comparison
+  return(2 * Lambda)
 }
 
 compare_core_accessory_sfs = function(all, core, accessory) {
@@ -4388,7 +4389,7 @@ cross_species_dfe_comparison(
 # colnames(dfe_comparison_matrix) = phylogenetic_levels
 # dfe_comparison_matrix
 
-# write.csv(dfe_comparison_matrix, '../Analysis/cross_species_dfe/dfe_comparison_matrix.csv')
+write.csv(dfe_comparison_matrix, '../Analysis/cross_species_dfe/dfe_comparison_matrix.csv')
 
 # dfe_constant_s_matrix = matrix(, nrow=27, ncol=27)
 # 
@@ -4473,9 +4474,12 @@ acc_core_dfe_LRT_table
 write.csv(acc_core_dfe_LRT_table, '../Summary/core_acc_dfe_LRT.csv', row.names =FALSE)
 
 # 95% CI based on chi-squared distribution with two degrees of freedom (Gamma DFE)
-qchisq(1 - 0.05/7, df=2) / 2
+qchisq(1 - 0.05/7, df=2)
+
+qchisq(1 - 0.05/351, df=2)
 
 # write.csv(dfe_constant_s_matrix, '../Analysis/cross_species_dfe/dfe_comparison_constant_s_matrix.csv')
+
 dfe_comparison_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_matrix.csv', header=TRUE)
 
 dfe_comparison_matrix = dfe_comparison_matrix[, -1]
@@ -4483,7 +4487,8 @@ rownames(dfe_comparison_matrix) = phylogenetic_levels
 colnames(dfe_comparison_matrix) = phylogenetic_levels
 dfe_comparison_matrix
 
-sum(dfe_comparison_matrix < -17.71234) / 2
+# 206
+sum(dfe_comparison_matrix > 17.71234) / 2
 
 dfe_constant_s_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_constant_s_matrix.csv', header=TRUE)
 
@@ -4492,7 +4497,8 @@ rownames(dfe_constant_s_matrix) = phylogenetic_levels
 colnames(dfe_constant_s_matrix) = phylogenetic_levels
 dfe_constant_s_matrix
 
-sum(dfe_constant_s_matrix < -17.71234) / 2
+# 131
+sum(dfe_constant_s_matrix > 17.71234) / 2
 
 
 pheatmap(dfe_comparison_matrix,
@@ -4531,20 +4537,20 @@ color_scale = colorRampPalette(c('red','orange', 'yellow', 'white'), bias=0.5)(1
 col_scheme = c(rep('black', each=1), rep('darkorange', each=4), rep('black', each=4), rep('darkviolet', each=8), rep('black', each=10
 ))
 
-### Figure S4
-# 1200 x 800
+### Figure S4A
+# 800 x 1200
 
 Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
   col=color_scale,
   cluster_rows = FALSE, cluster_columns = FALSE,
   cell_fun = function(j, i, x, y, w, h, fill) {
-    if (dfe_comparison_matrix[i, j] < -17.7 && i >= j) {
+    if (dfe_comparison_matrix[i, j] > 17.7 && i >= j) {
       grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white', fontface='italic'))
-      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 10, col='blue'))
+      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 8, col='blue'))
     }
     else if(i >= j) {
       grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
-      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 10))      
+      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 8))      
     }
   },
   row_names_side='left',
@@ -4553,20 +4559,20 @@ Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
   show_heatmap_legend = F
   )
 
-### Figure S5
-# 1200 x 800
+### Figure S4B
+# 800 x 1200
 
 Heatmap(dfe_constant_s_matrix, rect_gp = gpar(type = "none"),
   col=color_scale,
   cluster_rows = FALSE, cluster_columns = FALSE,
   cell_fun = function(j, i, x, y, w, h, fill) {
-    if (dfe_constant_s_matrix[i, j] < -17.7 && i >= j) {
+    if (dfe_constant_s_matrix[i, j] > 17.7 && i >= j) {
       grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'white', fontface='italic'))
-      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 10, col='blue'))
+      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 8, col='blue'))
     }
     else if(i >= j) {
       grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
-      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 10))      
+      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 8))      
     }
   },
   row_names_side='left',
@@ -4591,21 +4597,21 @@ for (i in 1:27) {
     genus_i = strsplit(phylogenetic_levels[i], ' ')[[1]][1]
     genus_j = strsplit(phylogenetic_levels[j], ' ')[[1]][1]
     if (genus_i !=  genus_j){
-      if (dfe_comparison_matrix[i, j] < -17.7) {
+      if (dfe_comparison_matrix[i, j] > 17.7) {
         dfe_comparison_significant[i] = dfe_comparison_significant[i] + 1
         dfe_comparison_significant[j] = dfe_comparison_significant[j] + 1
       }
-      if (dfe_constant_s_matrix[i, j] < -17.7) {
+      if (dfe_constant_s_matrix[i, j] > 17.7) {
         dfe_constant_s_significant[i] = dfe_constant_s_significant[i] + 1
         dfe_constant_s_significant[j] = dfe_constant_s_significant[j] + 1
       }
     }
     if (genus_i == genus_j){
-      if (dfe_comparison_matrix[i, j] < -17.7) {
+      if (dfe_comparison_matrix[i, j] > 17.7) {
         dfe_comparison_significant_within[i] = dfe_comparison_significant_within[i] + 1
         dfe_comparison_significant_within[j] = dfe_comparison_significant_within[j] + 1
       }
-      if (dfe_constant_s_matrix[i, j] < -17.7) {
+      if (dfe_constant_s_matrix[i, j] > 17.7) {
         dfe_constant_s_significant_within[i] = dfe_constant_s_significant_within[i] + 1
         dfe_constant_s_significant_within[j] = dfe_constant_s_significant_within[j] + 1
       }
@@ -4631,9 +4637,9 @@ names(dfe_comparison_table) = c(
 )
 
 
-# 156 significant comparisons when holding s constant
+# 206 significant comparisons when holding s constant
 sum(dfe_comparison_table[2:3]) / 2
-# 67 significant comparisons when holding 2Nas constant
+# 131 significant comparisons when holding 2Nas constant
 sum(dfe_comparison_table[4:5])/ 2
 
 sum(dfe_comparison_table$`num_sig outside genera, s`) / 2
@@ -4653,7 +4659,7 @@ sum(dfe_comparison_table[10:17, ]$`num_sig within genera, 2Na*s`)
 
 write.csv(dfe_comparison_table, '../Summary/DFE_comparison_summary.csv', row.names=FALSE)
 
-as.numeric((dfe_comparison_matrix[10, ] < -17.7))
+as.numeric((dfe_comparison_matrix[10, ] > 17.7))
 
 # Core vs. Accessory genes
 ## Proportional
@@ -6274,3 +6280,5 @@ difference_plot = temp_demography_scatter +
     color=color_mapping)
 
 difference_plot
+
+wilcox.test(temp_demography_df$nu_mle, all_genes_demography_df$nu_mle, paired=T)
