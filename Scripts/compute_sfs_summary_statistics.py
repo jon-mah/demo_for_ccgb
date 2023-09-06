@@ -13,16 +13,8 @@ import argparse
 import warnings
 import random
 
-import numpy
-import bz2
-import pandas as pd
-import numpy
-import gzip
 import dadi
-import scipy.stats.distributions
-import scipy.integrate
-import scipy.optimize
-
+import numpy
 
 class ArgumentParserNoArgHelp(argparse.ArgumentParser):
     """Like *argparse.ArgumentParser*, but prints help when no arguments."""
@@ -88,7 +80,7 @@ class SFSSummaryStatistics():
                 args['outprefix'], underscore)
         logfile = '{0}{1}sfs_summary_statistics.log'.format(
             args['outprefix'], underscore)
-        to_remove = [logfile, output_csv]
+        to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -131,16 +123,18 @@ class SFSSummaryStatistics():
         # Extract the desired substring
         species = species_string[start_index:end_index]
 
-        # Print the result
-        print(species)
-
         theta_w = str(input_spectrum.Watterson_theta())
         heterozygosity = str(input_spectrum.pi())
         tajima_d = str(input_spectrum.Tajima_D())
-        #with open(output_csv, 'a+') as f:
-        #    f.write(species + ', ' + theta_w + ', ' heterozygosity + ', ' tajima_d)
 
-        logger.info('Finished downsampling.')
+        output_string = species + ', '
+        output_string += theta_w + ', '
+        output_string += heterozygosity + ', '
+        output_string += tajima_d + '\n'
+
+        with open(output_csv, 'a+') as f:
+            f.write(output_string)
+        logger.info('Finished computing summary statistics.')
         logger.info('Pipeline executed succesfully.')
 
 
