@@ -1161,6 +1161,24 @@ AIC_from_demography = function(input_file) {
   return(k - 2*loglik)
 }
 
+theta_from_demography = function(input_file) {
+  ## Returns theta from given *demography.txt
+  # Read the second line of the file
+  theta_line <- readLines(input_file, n = 5)[5]
+  # Extract numeric values using regular expression
+  theta <- as.numeric(regmatches(theta_line, regexpr("[0-9]+\\.[0-9]+", theta_line)))
+  return(theta)
+}
+
+nanc_from_demography = function(input_file) {
+  ## Returns nanc from given *demography.txt
+  # Read the second line of the file
+  nanc_line <- readLines(input_file)[length(readLines(input_file))]
+  # Extract numeric values using regular expression
+  nanc <- as.numeric(regmatches(nanc_line, regexpr("[0-9]+\\.[0-9]+", nanc_line)))
+  return(nanc)
+}
+
 return_nu_high = function(input) {
   species_surface = read.csv(input, header=TRUE)
   names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
@@ -1381,19 +1399,9 @@ time_from_demography = function(input_file) {
   file_content <- readLines(input_file)
   
   # Extract the relevant lines
-  years <- as.numeric(regmatches(file_content[length(file_content)-3], regexpr("\\d+\\.\\d+", file_content[length(file_content)-3])))
+  years <- as.numeric(regmatches(file_content[length(file_content)-2], regexpr("\\d+\\.\\d+", file_content[length(file_content)-2])))
   
   return(years)
-}
-
-na_from_demography = function(input_file) {
-  # Read the content of the file
-  file_content <- readLines(input_file)
-  
-  # Extract the relevant lines
-  ancestral_size <- as.numeric(regmatches(file_content[length(file_content)-1], regexpr("\\d+\\.\\d+", file_content[length(file_content)-1])))
-  
-  return(ancestral_size)
 }
 
 return_DFE_params = function(input_file) {
@@ -4362,10 +4370,10 @@ DFE_grid_file_list_constant_s = c(
   '../Analysis/cross_species_dfe/Faecalibacterium_prausnitzii_57453_constant_s_likelihood_surface.csv'
 )
 
-for (species in DFE_grid_file_list) {
-  print(species)
-  find_dfe_mle(species)
-}
+# for (species in DFE_grid_file_list) {
+#   print(species)
+#   find_dfe_mle(species)
+# }
 
 # test
 cross_species_dfe_comparison(
@@ -4389,7 +4397,7 @@ cross_species_dfe_comparison(
 # colnames(dfe_comparison_matrix) = phylogenetic_levels
 # dfe_comparison_matrix
 
-write.csv(dfe_comparison_matrix, '../Analysis/cross_species_dfe/dfe_comparison_matrix.csv')
+# write.csv(dfe_comparison_matrix, '../Analysis/cross_species_dfe/dfe_comparison_matrix.csv')
 
 # dfe_constant_s_matrix = matrix(, nrow=27, ncol=27)
 # 
@@ -4657,7 +4665,7 @@ sum(dfe_comparison_table[10:17, ]$`num_sig within genera, s`)
 sum(dfe_comparison_table[10:17, ]$`num_sig outside genera, 2Na*s`)
 sum(dfe_comparison_table[10:17, ]$`num_sig within genera, 2Na*s`)
 
-write.csv(dfe_comparison_table, '../Summary/DFE_comparison_summary.csv', row.names=FALSE)
+# write.csv(dfe_comparison_table, '../Summary/DFE_comparison_summary.csv', row.names=FALSE)
 
 as.numeric((dfe_comparison_matrix[10, ] > 17.7))
 
@@ -5876,11 +5884,15 @@ ggplot(accessory_core_demography[c(7, 13, 14, 17, 18, 22, 23, 27), ], aes(x = `C
 
 one_epoch_likelihood = numeric(27)
 one_epoch_AIC = numeric(27)
+one_epoch_theta = numeric(27)
+one_epoch_nanc = numeric(27)
 two_epoch_likelihood = numeric(27)
 two_epoch_AIC = numeric(27)
 two_epoch_nu = numeric(27)
 two_epoch_tau = numeric(27)
 two_epoch_time = numeric(27)
+two_epoch_theta = numeric(27)
+two_epoch_nanc = numeric(27)
 three_epoch_likelihood = numeric(27)
 three_epoch_AIC = numeric(27)
 three_epoch_nu_bottleneck = numeric(27)
@@ -5888,15 +5900,21 @@ three_epoch_nu_contemporary = numeric(27)
 three_epoch_tau_bottleneck = numeric(27)
 three_epoch_tau_contemporary = numeric(27)
 three_epoch_time_total = numeric(27)
+three_epoch_theta = numeric(27)
+three_epoch_nanc = numeric(27)
 
 for (i in 1:length(one_epoch_file_list)) {
   one_epoch_likelihood[i] = return_demography_likelihood(one_epoch_file_list[i])
   one_epoch_AIC[i] = AIC_from_demography(one_epoch_file_list[i])
+  one_epoch_theta[i] = theta_from_demography(one_epoch_file_list[i])
+  one_epoch_nanc[i] = nanc_from_demography(one_epoch_file_list[i])
   two_epoch_likelihood[i] = return_demography_likelihood(two_epoch_file_list[i])
   two_epoch_AIC[i] = AIC_from_demography(two_epoch_file_list[i])
   two_epoch_nu[i] = return_demography_params(two_epoch_file_list[i])[1]
   two_epoch_tau[i] = return_demography_params(two_epoch_file_list[i])[2]
   two_epoch_time[i] = time_from_demography(two_epoch_file_list[i])
+  two_epoch_theta[i] = theta_from_demography(two_epoch_file_list[i])
+  two_epoch_nanc[i] = nanc_from_demography(two_epoch_file_list[i])
   three_epoch_likelihood[i] = return_demography_likelihood(three_epoch_file_list[i])
   three_epoch_AIC[i] = AIC_from_demography(three_epoch_file_list[i])
   three_epoch_nu_bottleneck[i] = return_demography_params(three_epoch_file_list[i])[1]
@@ -5904,42 +5922,56 @@ for (i in 1:length(one_epoch_file_list)) {
   three_epoch_tau_bottleneck[i] = return_demography_params(three_epoch_file_list[i])[3]
   three_epoch_tau_contemporary[i] = return_demography_params(three_epoch_file_list[i])[4]
   three_epoch_time_total[i] = time_from_demography(three_epoch_file_list[i])
+  three_epoch_theta[i] = theta_from_demography(three_epoch_file_list[i])
+  three_epoch_nanc[i] = nanc_from_demography(three_epoch_file_list[i])
 }
 
 table_s3 = data.frame(
   species=phylogenetic_levels,
   one_epoch_likelihood,
   one_epoch_AIC,
+  one_epoch_theta,
+  one_epoch_nanc,
   two_epoch_likelihood,
   two_epoch_AIC,
   two_epoch_nu,
   two_epoch_tau,
   two_epoch_time,
+  two_epoch_theta,
+  two_epoch_nanc,
   three_epoch_likelihood,
   three_epoch_AIC,
   three_epoch_nu_bottleneck,
   three_epoch_nu_contemporary,
   three_epoch_tau_bottleneck,
   three_epoch_tau_contemporary,
-  three_epoch_time_total
+  three_epoch_time_total,
+  three_epoch_theta,
+  three_epoch_nanc
 )
 
 names(table_s3) = c(
   'Species',
   'One epoch, log likelihood',
   'One epoch, AIC',
+  'One epoch, theta',
+  'One epoch, Ancestral effective population size',
   'Two epoch, log likelihood',
   'Two epoch, AIC',
   'Two epoch, nu',
   'Two epoch, tau',
   'Two epoch, time in years',
+  'Two epoch, theta',
+  'Two epoch, Ancestral effective population size',
   'Three epoch, log likelihood',
   'Three epoch, AIC',
   'Three epoch, nu (bottleneck)',
   'Three epoch, nu (contemporary)',
   'Three epoch, tau (bottleneck)',
   'Three epoch, tau (contemporary)',
-  'Three epoch, time in years'
+  'Three epoch, time in years',
+  'Three epoch, theta',
+  'Three epoch, Ancestral effective population size'
 )
 
 write.csv(table_s3, '../Summary/Supplemental_Table_3.csv', row.names = F)
@@ -5959,6 +5991,7 @@ write.csv(nu_tau_distribution, '../Summary/Supplemental_Table_4.csv', row.names 
 
 ### Supplemental Table 5
 
+dfe_nanc = numeric(27)
 gamma_likelihood = numeric(27)
 gamma_AIC = numeric(27)
 gamma_alpha = numeric(27)
@@ -5969,7 +6002,9 @@ neugamma_pneu = numeric(27)
 neugamma_alpha = numeric(27)
 neugamma_beta = numeric(27)
 
+
 for (i in 1:length(DFE_file_list)) {
+  dfe_nanc[i] = nanc_from_demography(two_epoch_file_list[i])
   gamma_likelihood[i] = return_DFE_likelihood(DFE_file_list[i])[1]
   gamma_AIC[i] = 4 - 2 * gamma_likelihood[i]
   gamma_alpha[i] = return_DFE_params(DFE_file_list[i])[1]
@@ -5983,6 +6018,7 @@ for (i in 1:length(DFE_file_list)) {
 
 table_s5 = data.frame(
   species=phylogenetic_levels,
+  dfe_nanc,
   gamma_likelihood,
   gamma_AIC,
   gamma_alpha,
@@ -5996,6 +6032,7 @@ table_s5 = data.frame(
 
 names(table_s5) = c(
   'Species',
+  'Ancestral effective population size',
   'Gamma DFE, Log likelihood',
   'Gamma DFE, AIC',
   'Gamma DFE, Shape',
@@ -6054,11 +6091,15 @@ accessory_three_epoch_file_list = c(
 
 accessory_one_epoch_likelihood = numeric(7)
 accessory_one_epoch_AIC = numeric(7)
+accessory_one_epoch_theta = numeric(7)
+accessory_one_epoch_nanc = numeric(7)
 accessory_two_epoch_likelihood = numeric(7)
 accessory_two_epoch_AIC = numeric(7)
 accessory_two_epoch_nu = numeric(7)
 accessory_two_epoch_tau = numeric(7)
 accessory_two_epoch_time = numeric(7)
+accessory_two_epoch_theta = numeric(7)
+accessory_two_epoch_nanc = numeric(7)
 accessory_three_epoch_likelihood = numeric(7)
 accessory_three_epoch_AIC = numeric(7)
 accessory_three_epoch_nu_bottleneck = numeric(7)
@@ -6066,15 +6107,21 @@ accessory_three_epoch_nu_contemporary = numeric(7)
 accessory_three_epoch_tau_bottleneck = numeric(7)
 accessory_three_epoch_tau_contemporary = numeric(7)
 accessory_three_epoch_time_total = numeric(7)
+accessory_three_epoch_theta = numeric(7)
+accessory_three_epoch_nanc = numeric(7)
 
 for (i in 1:length(accessory_one_epoch_file_list)) {
   accessory_one_epoch_likelihood[i] = return_demography_likelihood(accessory_one_epoch_file_list[i])
   accessory_one_epoch_AIC[i] = AIC_from_demography(accessory_one_epoch_file_list[i])
+  accessory_one_epoch_theta[i] = theta_from_demography(accessory_one_epoch_file_list[i])
+  accessory_one_epoch_nanc[i] = nanc_from_demography(accessory_one_epoch_file_list[i])
   accessory_two_epoch_likelihood[i] = return_demography_likelihood(accessory_two_epoch_file_list[i])
   accessory_two_epoch_AIC[i] = AIC_from_demography(accessory_two_epoch_file_list[i])
   accessory_two_epoch_nu[i] = return_demography_params(accessory_two_epoch_file_list[i])[1]
   accessory_two_epoch_tau[i] = return_demography_params(accessory_two_epoch_file_list[i])[2]
   accessory_two_epoch_time[i] = time_from_demography(accessory_two_epoch_file_list[i])
+  accessory_two_epoch_theta[i] = theta_from_demography(accessory_two_epoch_file_list[i])
+  accessory_two_epoch_nanc[i] = nanc_from_demography(accessory_two_epoch_file_list[i])
   accessory_three_epoch_likelihood[i] = return_demography_likelihood(accessory_three_epoch_file_list[i])
   accessory_three_epoch_AIC[i] = AIC_from_demography(accessory_three_epoch_file_list[i])
   accessory_three_epoch_nu_bottleneck[i] = return_demography_params(accessory_three_epoch_file_list[i])[1]
@@ -6082,24 +6129,56 @@ for (i in 1:length(accessory_one_epoch_file_list)) {
   accessory_three_epoch_tau_bottleneck[i] = return_demography_params(accessory_three_epoch_file_list[i])[3]
   accessory_three_epoch_tau_contemporary[i] = return_demography_params(accessory_three_epoch_file_list[i])[4]
   accessory_three_epoch_time_total[i] = time_from_demography(accessory_three_epoch_file_list[i])
+  accessory_three_epoch_theta[i] = theta_from_demography(accessory_three_epoch_file_list[i])
+  accessory_three_epoch_nanc[i] = nanc_from_demography(accessory_three_epoch_file_list[i])
 }
 
 table_s6 = data.frame(
   species=accessory_phylogenetic_levels,
   accessory_one_epoch_likelihood,
   accessory_one_epoch_AIC,
+  accessory_one_epoch_theta,
+  accessory_one_epoch_nanc,
   accessory_two_epoch_likelihood,
   accessory_two_epoch_AIC,
   accessory_two_epoch_nu,
   accessory_two_epoch_tau,
   accessory_two_epoch_time,
+  accessory_two_epoch_theta,
+  accessory_two_epoch_nanc,
   accessory_three_epoch_likelihood,
   accessory_three_epoch_AIC,
   accessory_three_epoch_nu_bottleneck,
   accessory_three_epoch_nu_contemporary,
   accessory_three_epoch_tau_bottleneck,
   accessory_three_epoch_tau_contemporary,
-  accessory_three_epoch_time_total
+  accessory_three_epoch_time_total,
+  accessory_three_epoch_theta,
+  accessory_three_epoch_nanc
+)
+
+names(table_s6) = c(
+  'Species',
+  'One epoch, log likelihood',
+  'One epoch, AIC',
+  'One epoch, theta',
+  'One epoch, Ancestral effective population size',
+  'Two epoch, log likelihood',
+  'Two epoch, AIC',
+  'Two epoch, nu',
+  'Two epoch, tau',
+  'Two epoch, time in years',
+  'Two epoch, theta',
+  'Two epoch, Ancestral effective population size',
+  'Three epoch, log likelihood',
+  'Three epoch, AIC',
+  'Three epoch, nu (bottleneck)',
+  'Three epoch, nu (contemporary)',
+  'Three epoch, tau (bottleneck)',
+  'Three epoch, tau (contemporary)',
+  'Three epoch, time in years',
+  'Three epoch, theta',
+  'Three epoch, Ancestral effective population size'
 )
 
 table_s6
@@ -6116,6 +6195,7 @@ accessory_DFE_file_list = c(
   '../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_inferred_DFE.txt'
 )
 
+accessory_dfe_nanc = numeric(7)
 accessory_gamma_likelihood = numeric(7)
 accessory_gamma_AIC = numeric(7)
 accessory_gamma_alpha = numeric(7)
@@ -6127,6 +6207,7 @@ accessory_neugamma_alpha = numeric(7)
 accessory_neugamma_beta = numeric(7)
 
 for (i in 1:length(accessory_DFE_file_list)) {
+  accessory_dfe_nanc[i] = nanc_from_demography(accessory_two_epoch_file_list[i])
   accessory_gamma_likelihood[i] = return_DFE_likelihood(accessory_DFE_file_list[i])[1]
   accessory_gamma_AIC[i] = 4 - 2 * accessory_gamma_likelihood[i]
   accessory_gamma_alpha[i] = return_DFE_params(accessory_DFE_file_list[i])[1]
@@ -6140,6 +6221,7 @@ for (i in 1:length(accessory_DFE_file_list)) {
 
 table_s7 = data.frame(
   species=accessory_phylogenetic_levels,
+  accessory_dfe_nanc,
   accessory_gamma_likelihood,
   accessory_gamma_AIC,
   accessory_gamma_alpha,
@@ -6153,6 +6235,7 @@ table_s7 = data.frame(
 
 names(table_s7) = c(
   'Species',
+  'Ancestral effective population size',
   'Gamma DFE, Log likelihood',
   'Gamma DFE, AIC',
   'Gamma DFE, Shape',
@@ -6167,7 +6250,6 @@ names(table_s7) = c(
 table_s7
 
 write.csv(table_s7, '../Summary/Supplemental_Table_7.csv', row.names = F)
-
 
 ### Supplemental Table 8
 names(acc_core_dfe_LRT_table) = c(

@@ -543,7 +543,14 @@ class EvaluateDemography():
             # Don't hard  code in mu as value
             mu_low = 4.08E-10
             mu_high = 6.93E-10
-            if model_type == 'two_epoch':
+            if model_type == 'one_epoch':
+                f.write(
+                    'Low estimate for ancestral population size is ' +
+                    str(theta / (4 * allele_sum * mu_high)) + '.\n')
+                f.write(
+                    'High estimate for ancestral population size is ' +
+                    str(theta / (4 * allele_sum * mu_low)) + '.\n')
+            else if model_type == 'two_epoch':
                 generations_low = 2 * tau * theta / (4 * mu_high * allele_sum)
                 generations_high = 2 * tau * theta / (4 * mu_low * allele_sum)
                 f.write(
