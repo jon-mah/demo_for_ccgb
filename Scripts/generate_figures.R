@@ -3682,6 +3682,40 @@ species_subtree = c(
   'Ruminococcus_bromii_62047'
 )
 
+# Specify the tip labels for the subtree you want to extract
+species_subtree = c(
+  #'Akkermansia_muciniphila_55290',
+  #'Alistipes_finegoldii_56071',
+  #'Alistipes_onderdonkii_55464',
+  #'Alistipes_putredinis_61533',
+  #'Alistipes_shahii_62199',
+  #'Bacteroidales_bacterium_58650',
+  #'Bacteroides_caccae_53434',
+  #'Bacteroides_cellulosilyticus_58046',
+  #'Bacteroides_fragilis_54507',
+  # 'Bacteroides_massiliensis_44749',
+  # 'Bacteroides_ovatus_58035',
+  #'Bacteroides_stercoris_56735',
+  'Bacteroides_thetaiotaomicron_56941',
+  'Bacteroides_uniformis_57318',
+  'Bacteroides_vulgatus_57955',
+  #'Bacteroides_xylanisolvens_57185',
+  'Barnesiella_intestinihominis_62208',
+  # 'Coprococcus_sp_62244',
+  #'Dialister_invisus_61905',
+  #'Eubacterium_eligens_61678',
+  'Eubacterium_rectale_56927',
+  'Faecalibacterium_prausnitzii_57453',
+  #'Odoribacter_splanchnicus_62174',
+  #'Oscillibacter_sp_60799',
+  'Parabacteroides_distasonis_56985'
+  #'Parabacteroides_merdae_56972',
+  #'Phascolarctobacterium_sp_59817',
+  #'Prevotella_copri_61740',
+  #'Ruminococcus_bicirculans_59300',
+  #'Ruminococcus_bromii_62047'
+)
+
 midas_code_subtree = c()
 
 for (species in species_subtree) {
@@ -4067,20 +4101,31 @@ p28_acc_dfe = plot_core_accessory_dfe('../Analysis/Prevotella_copri_61740_downsa
 p29_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bicirculans, Accessory Genes')
 p30_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bromii, Accessory Genes')
 
-# 1200 x 1600
+# 1200 x 2800
 
-design = "ABB
-          ACC
-          DEE
-          DFF
-          GHH
-          GII
-          JKK
-          JLL"
+design = "
+ABB
+ACC
+DEE
+DFF
+GHH
+GII
+JKK
+JLL
+MNN
+MOO
+PQQ
+PRR
+STT
+SUU
+"
 
 core_accessory_comparison = 
+  p25a + p25_core_dfe + p25_acc_dfe +
   p14a + p14_core_dfe + p14_acc_dfe +
   p13a + p13_core_dfe + p13_acc_dfe +
+  p15a + p15_core_dfe + p15_acc_dfe +
+  p17a + p17_core_dfe + p17_acc_dfe +
   p21a + p21_core_dfe + p21_acc_dfe +
   p22a + p22_core_dfe + p22_acc_dfe +
   plot_layout(design=design)
@@ -5780,6 +5825,12 @@ plot_nu_distribution_fig + plot_tau_distribution_fig + plot_layout(ncol=2)
 
 demography_df = nu_tau_distribution[1:3]
 
+names(demography_df) = c(
+  'species',
+  'nu_mle',
+  'time_mle'
+)
+
 demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
 
 species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
@@ -5817,8 +5868,6 @@ design = c(
   area(2, 1, 2, 1),
   area(2, 2, 2, 2),
   area(1, 3, 2, 6)
-  #area(3, 3, 6, 4),
-  #area(3, 5, 6, 6)
 )
 
 p1 = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
