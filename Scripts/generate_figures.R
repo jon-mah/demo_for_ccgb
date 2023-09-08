@@ -802,7 +802,7 @@ plot_dfe = function(input_dfe_file) {
                    breaks=c(0.000000001, 0.00000001,  0.0000001, 0.000001, 0.0001)) +
     scale_x_log10() +
     ylab('Proportion of sites') +
-    xlab('Selective Effect') +
+    xlab('Selection coefficient') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
     guides(fill=guide_legend(title="Estimated mutation rate"))
@@ -838,7 +838,7 @@ plot_core_accessory_dfe = function(input_dfe_file) {
     # geom_density() +
     scale_x_log10(limits=c(1E-13, 1E1)) +
     ylab('Proportion of sites') +
-    xlab('Selective Effect') +
+    xlab('Selection coefficient') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
   return(fig)
@@ -1108,6 +1108,71 @@ compare_core_accessory_sfs_syn_ns = function(core_syn, core_nonsyn, accessory_sy
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
     scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"))
+  
+  return(p_input_comparison)
+}
+
+compare_core_accessory_sfs_syn_ns_5A = function(core_syn, core_nonsyn, accessory_syn, accessory_nonsyn) {
+  x_axis = 1:length(core_syn)
+
+  input_df = data.frame(proportional_sfs(core_syn),
+                        proportional_sfs(core_nonsyn),
+                        proportional_sfs(accessory_syn),
+                        proportional_sfs(accessory_nonsyn),
+                        x_axis)
+  
+  names(input_df) = c('Core genes (Syn)',
+                      'Core genes (Nonsyn)',
+                      'Accessory genes (Syn)',
+                      'Accessory genes (Nonsyn)',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
+    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+    theme(legend.position = c(0.72, 0.75)) +
+    theme(plot.title = element_text(face = "italic", size=16)) +
+    theme(legend.text=element_text(size=10))
+  
+  return(p_input_comparison)
+}
+
+compare_core_accessory_sfs_syn_ns_5B = function(core_syn, core_nonsyn, accessory_syn, accessory_nonsyn) {
+  x_axis = 1:length(core_syn)
+
+  input_df = data.frame(proportional_sfs(core_syn),
+                        proportional_sfs(core_nonsyn),
+                        proportional_sfs(accessory_syn),
+                        proportional_sfs(accessory_nonsyn),
+                        x_axis)
+  
+  names(input_df) = c('Core genes (Syn)',
+                      'Core genes (Nonsyn)',
+                      'Accessory genes (Syn)',
+                      'Accessory genes (Nonsyn)',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
+    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+    theme(plot.title = element_text(face = "italic", size=16)) +
+    theme(legend.position='none')
   
   return(p_input_comparison)
 }
@@ -2264,7 +2329,7 @@ ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'gamma_dfe_dist', ], aes(x=value, y=f
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
   #labs(
   #  title = 'Gamma-Distributed DFE',
-  #  subtitle = 'Selective effect multiplied by N_anc'
+  #  subtitle = 'Selection coefficient multiplied by N_anc'
   #) +
   theme_ridges() +
   scale_x_log10() +
@@ -2278,7 +2343,7 @@ ggplot(dfe_dadi_df[dfe_dadi_df$variable == 'neugamma_dfe_dist', ], aes(x=value, 
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 0.95) +
   #labs(
   #  title = 'Neutral + Gamma-Distributed DFE',
-  #  subtitle = 'Selective effect multiplied by 2N_anc'
+  #  subtitle = 'Selection coefficient multiplied by 2N_anc'
   #) +
   theme_ridges() +
   scale_x_log10() +
@@ -2312,7 +2377,7 @@ ggplot(a_shahii_dfe_df, aes(x=value, y=fct_rev(variable), fill=variable)) +
   scale_x_log10() +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 o_splanchnicus_dfe_df = melt(o_splanchnicus_dfe_params)
@@ -2339,7 +2404,7 @@ o_splanchnicus_dfe_figure = ggplot(o_splanchnicus_dfe_df, aes(x=value, y=fct_rev
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 e_eligens_dfe_df = melt(e_eligens_dfe_params)
@@ -2366,7 +2431,7 @@ e_eligens_dfe_figure = ggplot(e_eligens_dfe_df, aes(x=value, y=fct_rev(variable)
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 b_fragilis_dfe_df = melt(b_fragilis_dfe_params)
@@ -2404,7 +2469,7 @@ b_cellulosilyticus_dfe_figure = ggplot(b_cellulosilyticus_dfe_df, aes(x=value, y
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 b_stercoris_dfe_df = melt(b_stercoris_dfe_params)
@@ -2430,7 +2495,7 @@ b_stercoris_dfe_figure = ggplot(b_stercoris_dfe_df, aes(x=value, y=fct_rev(varia
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 b_uniformis_dfe_df = melt(b_uniformis_dfe_params)
@@ -2517,7 +2582,7 @@ a_finegoldii_dfe_figure = ggplot(a_finegoldii_dfe_df, aes(x=value, y=fct_rev(var
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 
@@ -2544,7 +2609,7 @@ a_onderdonkii_dfe_figure = ggplot(a_onderdonkii_dfe_df, aes(x=value, y=fct_rev(v
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 e_eligens_dfe_df = melt(e_eligens_dfe_params)
@@ -2570,7 +2635,7 @@ e_eligens_dfe_figure = ggplot(e_eligens_dfe_df, aes(x=value, y=fct_rev(variable)
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 e_rectale_dfe_df = melt(e_rectale_dfe_params)
@@ -2596,7 +2661,7 @@ e_rectale_dfe_figure = ggplot(e_rectale_dfe_df, aes(x=value, y=fct_rev(variable)
   scale_x_log10(limits=c(1e-13, 1e2)) +
   theme(axis.title.y = element_blank()) + 
   theme(legend.position = "none") + 
-  xlab('Selective Effect') +
+  xlab('Selection coefficient') +
   scale_fill_manual(values=c("goldenrod1", "yellow2"))
 
 a_muciniphila_dfe_df = melt(a_muciniphila_dfe_params)
@@ -4101,37 +4166,6 @@ p28_acc_dfe = plot_core_accessory_dfe('../Analysis/Prevotella_copri_61740_downsa
 p29_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bicirculans, Accessory Genes')
 p30_acc_dfe = plot_core_accessory_dfe('../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('R. bromii, Accessory Genes')
 
-# 1200 x 2800
-
-design = "
-ABB
-ACC
-DEE
-DFF
-GHH
-GII
-JKK
-JLL
-MNN
-MOO
-PQQ
-PRR
-STT
-SUU
-"
-
-core_accessory_comparison = 
-  p25a + p25_core_dfe + p25_acc_dfe +
-  p14a + p14_core_dfe + p14_acc_dfe +
-  p13a + p13_core_dfe + p13_acc_dfe +
-  p15a + p15_core_dfe + p15_acc_dfe +
-  p17a + p17_core_dfe + p17_acc_dfe +
-  p21a + p21_core_dfe + p21_acc_dfe +
-  p22a + p22_core_dfe + p22_acc_dfe +
-  plot_layout(design=design)
-
-core_accessory_comparison
-
 # 3200 x 16000
 
 # Reorder area distribution
@@ -5382,6 +5416,8 @@ fig_s5_13 = compare_core_accessory_sfs_syn_ns(b_uniformis_core,
   b_vulgatus_accessory,
   b_vulgatus_accessory_ns) +  ggtitle('B. uniformis')
 
+### used in Figure 5
+
 fig_s5_14 = compare_core_accessory_sfs_syn_ns(b_thetaiotaomicron_core,
   b_thetaiotaomicron_core_ns,
   b_thetaiotaomicron_accessory,
@@ -5426,6 +5462,8 @@ fig_s5_22 = compare_core_accessory_sfs_syn_ns(e_eligens_core,
   e_eligens_core_ns,
   e_eligens_accessory,
   e_eligens_accessory_ns) + ggtitle('E. eligens')
+
+### used in Figure 5
 
 fig_s5_23 = compare_core_accessory_sfs_syn_ns(e_rectale_core,
   e_rectale_core_ns,
@@ -6413,3 +6451,63 @@ difference_plot = temp_demography_scatter +
 difference_plot
 
 wilcox.test(temp_demography_df$nu_mle, all_genes_demography_df$nu_mle, paired=T)
+
+### Figure S8
+# 1200 x 2800
+
+design = "
+ABB
+ACC
+DEE
+DFF
+GHH
+GII
+JKK
+JLL
+MNN
+MOO
+PQQ
+PRR
+STT
+SUU
+"
+
+core_accessory_comparison = 
+  p25a + p25_core_dfe + p25_acc_dfe +
+  p14a + p14_core_dfe + p14_acc_dfe +
+  p13a + p13_core_dfe + p13_acc_dfe +
+  p15a + p15_core_dfe + p15_acc_dfe +
+  p17a + p17_core_dfe + p17_acc_dfe +
+  p21a + p21_core_dfe + p21_acc_dfe +
+  p22a + p22_core_dfe + p22_acc_dfe +
+  plot_layout(design=design)
+
+core_accessory_comparison
+
+### Figure 5
+
+# 1000 x 800
+
+design = "
+ABB
+ACC
+DEE
+DFF
+"
+
+fig_5A = compare_core_accessory_sfs_syn_ns_5A(b_thetaiotaomicron_core,
+  b_thetaiotaomicron_core_ns,
+  b_thetaiotaomicron_accessory,
+  b_thetaiotaomicron_accessory_ns) + ggtitle('B. thetaiotaomicron')
+
+fig_5B = compare_core_accessory_sfs_syn_ns_5B(e_rectale_core,
+  e_rectale_core_ns,
+  e_rectale_accessory,
+  e_rectale_accessory_ns) + ggtitle('E. rectale')
+
+fig_5A + p13_core_dfe + p13_acc_dfe +
+  fig_5B + p21_core_dfe + p21_acc_dfe +
+  plot_layout(design=design)
+
+
+### Figure S9
