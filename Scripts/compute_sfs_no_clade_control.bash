@@ -21,14 +21,4 @@ do
    fi
 done < ../Data/good_species_list.txt
 
-i=0
-while read line;
-do
-   i=$((i+1))
-   if [ $i -eq $SGE_TASK_ID ]
-   then
-      species=$line
-   fi
-done < ../Data/good_species_list.txt
-
 python compute_sfs_no_clade_control.py ${species} ../Analysis/${species}_no_clade_control/

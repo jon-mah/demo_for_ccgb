@@ -361,7 +361,7 @@ class ComputeDownSampledSFS():
                     string = string + str(refs) + '\t' + 'G' + '\t' + str(alts)
                     string = string + '\t' + site_id + '\n'
                     f.write(string)
-        nonsyn_sfs_dict = {}
+        syn_sfs_dict = {}
 
         syn_input_tsv_file = open(syn_output_matrix, 'r')
         for line in syn_input_tsv_file:
@@ -374,6 +374,8 @@ class ComputeDownSampledSFS():
                     syn_sfs_dict[allele_frequency] += 1
                 else:
                     syn_sfs_dict[allele_frequency] = 0
+
+        nonsyn_sfs_dict = {}
 
         nonsyn_input_tsv_file = open(nonsyn_output_matrix, 'r')
         for line in nonsyn_input_tsv_file:

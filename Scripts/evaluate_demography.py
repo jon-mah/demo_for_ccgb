@@ -550,7 +550,7 @@ class EvaluateDemography():
                 f.write(
                     'High estimate for ancestral population size is ' +
                     str(theta / (4 * allele_sum * mu_low)) + '.\n')
-            else if model_type == 'two_epoch':
+            elif model_type == 'two_epoch':
                 generations_low = 2 * tau * theta / (4 * mu_high * allele_sum)
                 generations_high = 2 * tau * theta / (4 * mu_low * allele_sum)
                 f.write(
