@@ -23,8 +23,9 @@ library(latex2exp)
 library(ggvis)
 library(pheatmap)
 library(ComplexHeatmap)
+library(phytools)
 # BiocManager::install("ComplexHeatmap")
-
+library(mdthemes)
 
 # BiocManager::install("treeio")
 # BiocManager::install("ggtree")
@@ -607,7 +608,7 @@ plot_original_empirical_sfs = function(input) {
     geom_bar(position='dodge2', stat='identity') +
     labs(x = "", fill = "") +
     scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
-    ylab('Number of Segregating Sites') +
+    ylab('Number of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
@@ -627,12 +628,13 @@ plot_empirical_sfs = function(input) {
                                aes(x=x_axis, 
                                    y=value,
                                    fill=variable)) +
-    geom_bar(position='dodge2', stat='identity') +
+    geom_bar(position='dodge2', stat='identity', color='black', fill='black') +
     labs(x = "", fill = "") +
-    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(-0.5, length(x_axis) + 0.5)) +
-    ylab('Number of Segregating Sites') +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Number of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    theme(legend.position='none')
 
   return(p_input_comparison)
 }
@@ -3747,39 +3749,39 @@ species_subtree = c(
   'Ruminococcus_bromii_62047'
 )
 
-# Specify the tip labels for the subtree you want to extract
-species_subtree = c(
-  #'Akkermansia_muciniphila_55290',
-  #'Alistipes_finegoldii_56071',
-  #'Alistipes_onderdonkii_55464',
-  #'Alistipes_putredinis_61533',
-  #'Alistipes_shahii_62199',
-  #'Bacteroidales_bacterium_58650',
-  #'Bacteroides_caccae_53434',
-  #'Bacteroides_cellulosilyticus_58046',
-  #'Bacteroides_fragilis_54507',
-  # 'Bacteroides_massiliensis_44749',
-  # 'Bacteroides_ovatus_58035',
-  #'Bacteroides_stercoris_56735',
-  'Bacteroides_thetaiotaomicron_56941',
-  'Bacteroides_uniformis_57318',
-  'Bacteroides_vulgatus_57955',
-  #'Bacteroides_xylanisolvens_57185',
-  'Barnesiella_intestinihominis_62208',
-  # 'Coprococcus_sp_62244',
-  #'Dialister_invisus_61905',
-  #'Eubacterium_eligens_61678',
-  'Eubacterium_rectale_56927',
-  'Faecalibacterium_prausnitzii_57453',
-  #'Odoribacter_splanchnicus_62174',
-  #'Oscillibacter_sp_60799',
-  'Parabacteroides_distasonis_56985'
-  #'Parabacteroides_merdae_56972',
-  #'Phascolarctobacterium_sp_59817',
-  #'Prevotella_copri_61740',
-  #'Ruminococcus_bicirculans_59300',
-  #'Ruminococcus_bromii_62047'
-)
+#' # Specify the tip labels for the subtree you want to extract
+#' species_subtree = c(
+#'   #'Akkermansia_muciniphila_55290',
+#'   #'Alistipes_finegoldii_56071',
+#'   #'Alistipes_onderdonkii_55464',
+#'   #'Alistipes_putredinis_61533',
+#'   #'Alistipes_shahii_62199',
+#'   #'Bacteroidales_bacterium_58650',
+#'   #'Bacteroides_caccae_53434',
+#'   #'Bacteroides_cellulosilyticus_58046',
+#'   #'Bacteroides_fragilis_54507',
+#'   # 'Bacteroides_massiliensis_44749',
+#'   # 'Bacteroides_ovatus_58035',
+#'   #'Bacteroides_stercoris_56735',
+#'   'Bacteroides_thetaiotaomicron_56941',
+#'   'Bacteroides_uniformis_57318',
+#'   'Bacteroides_vulgatus_57955',
+#'   #'Bacteroides_xylanisolvens_57185',
+#'   'Barnesiella_intestinihominis_62208',
+#'   # 'Coprococcus_sp_62244',
+#'   #'Dialister_invisus_61905',
+#'   #'Eubacterium_eligens_61678',
+#'   'Eubacterium_rectale_56927',
+#'   'Faecalibacterium_prausnitzii_57453',
+#'   #'Odoribacter_splanchnicus_62174',
+#'   #'Oscillibacter_sp_60799',
+#'   'Parabacteroides_distasonis_56985'
+#'   #'Parabacteroides_merdae_56972',
+#'   #'Phascolarctobacterium_sp_59817',
+#'   #'Prevotella_copri_61740',
+#'   #'Ruminococcus_bicirculans_59300',
+#'   #'Ruminococcus_bromii_62047'
+#' )
 
 midas_code_subtree = c()
 
@@ -6509,5 +6511,61 @@ fig_5A + p13_core_dfe + p13_acc_dfe +
   fig_5B + p21_core_dfe + p21_acc_dfe +
   plot_layout(design=design)
 
-
 ### Figure S9
+
+# B. vulgatus, no clade control
+
+b_vulgatus_all_clades_syn = fold_sfs(read_input_sfs('../Analysis/Bacteroides_vulgatus_57955_no_clade_control/empirical_syn_sfs.txt'))
+b_vulgatus_all_clades_nonsyn = fold_sfs(read_input_sfs('../Analysis/Bacteroides_vulgatus_57955_no_clade_control/empirical_nonsyn_sfs.txt'))
+
+fig_s9_a = plot_empirical_sfs(b_vulgatus_all_clades_syn) + 
+  ggtitle('*Bacteroides vulgatus*, synonymous') + 
+  md_theme_minimal() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+fig_s9_b = plot_empirical_sfs(b_vulgatus_all_clades_nonsyn) + 
+  ggtitle('*Bacteroides vulgatus*, nonsynonymous') + 
+  md_theme_minimal() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+
+# B. vulgatus, clade control
+
+b_vulgatus_clade_control_syn = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/core_empirical_syn_sfs.txt')
+b_vulgatus_clade_control_nonsyn = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955/core_empirical_nonsyn_sfs.txt')
+
+fig_s9_c = plot_empirical_sfs(b_vulgatus_clade_control_syn)
+fig_s9_d = plot_empirical_sfs(b_vulgatus_clade_control_nonsyn)
+
+# B. vulgatus, clade control + downsampling
+
+b_vulgatus_clade_control_downsampled_syn = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_empirical_syn_downsampled_sfs.txt')
+b_vulgatus_clade_control_downsampled_nonsyn = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt')
+
+fig_s9_e = plot_empirical_sfs(b_vulgatus_clade_control_downsampled_syn)
+fig_s9_f = plot_empirical_sfs(b_vulgatus_clade_control_downsampled_nonsyn)
+
+design = "
+AB
+CD
+EF
+"
+
+# 2400 x 800
+
+fig_s9_a + fig_s9_b +
+  fig_s9_c + fig_s9_d +
+  fig_s9_e + fig_s9_f +
+  plot_layout(design=design)
+
+### Is there a phylogenetic relationship for `nu`?
+
+phylosig(subtree, nu_tau_distribution$`Nu, MLE`)
+
+K<-phylosig(subtree,nu_tau_distribution$`Nu, MLE`,test=T)
+
+lambda<-phylosig(subtree,nu_tau_distribution$`Nu, MLE`,method="lambda",test=T)
+
+# There does not appear to be a phylogenetic trend in `nu`
