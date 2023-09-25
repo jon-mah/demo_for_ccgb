@@ -1,7 +1,7 @@
 library(ggplot2)
 library(ggrepel)
 library(ggsignif)
-# install.packages("ggpubr")
+#install.packages("ggpubr")
 library(ggpubr)
 library(dplyr)
 library(fitdistrplus)
@@ -304,6 +304,59 @@ plot_likelihood_surface_contour_3D = function(input) {
     # ggtitle(likelihood_surface_title)
   return(fig)
 }
+
+plot_likelihood_surface_contour_talk = function(input) {
+  species_surface = read.csv(input, header=TRUE)
+  names(species_surface) = c('index', 'nu', 'tau', 'likelihood')
+  unique_nu = unique(species_surface$nu)
+  unique_tau = unique(species_surface$tau)
+  Z = matrix(data=NA, nrow=length(unique_nu), ncol=length(unique_tau))
+  count = 1
+  for (i in 1:length(unique_nu)) {
+    for (j in 1:length(unique_tau)) {
+      Z[i, j] = species_surface$likelihood[count]
+      if (species_surface$nu[count] != unique_nu[i]) {
+        print('break')
+      } else if (species_surface$tau[count] != unique_tau[j]) {
+        print('break')
+      }
+      count = count + 1
+    }
+ }
+  species_surface = species_surface[order(species_surface$likelihood, decreasing=TRUE), ]
+  best_params = c(species_surface$nu[1], species_surface$tau[1])
+  print(best_params)
+  MLE = max(species_surface$likelihood)
+  species_surface$likelihood = species_surface$likelihood - MLE
+  color_breakpoints = cut(species_surface$likelihood, c(-Inf, -3, -1, -0.5, 0))
+
+  likelihood_surface_title = paste('MLE @ [', str_trunc(toString(best_params[1]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ', ', sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, str_trunc(toString(best_params[2]), 8, ellipsis=''), sep='')
+  likelihood_surface_title = paste(likelihood_surface_title, ']', sep='')
+  
+  xlabel_text = expression(nu == frac(N[current], N[ancestral]))
+  ylabel_text = expression(tau == frac(generations, 2 * N[ancestral]))
+  fig = ggplot(species_surface) +
+    geom_contour_filled(aes(x=nu, y=tau, z=likelihood), 
+      # breaks = c(-Inf, -3, -1, -0.5, 0)) +
+      breaks = c(0, -0.5, -1, -3, -Inf)) +
+    scale_fill_brewer(palette = "YlGnBu", direction=1, name='Log Likelihood') +
+    geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=1) +
+    theme(legend.position = c(0.77, 0.65)) +
+    theme(legend.text=element_text(size=14)) +
+    xlab(xlabel_text) +
+    ylab(ylabel_text) +
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
+  return(fig)
+}
+
 
 
 compare_sfs = function(empirical, one_epoch, two_epoch) {
@@ -832,14 +885,28 @@ plot_core_accessory_dfe = function(input_dfe_file) {
   dfe_df[dfe_df < 1e-15] = 1e-12
   dfe_df[dfe_df > 0.5] = 0.5
 
+  grey_red_gradient <- c("#9b9b9b",
+  "#9f9391",
+  "#a28b87",
+  "#a5837d",
+  "#a77b74",
+  "#a9736a",
+  "#aa6a61",
+  "#ab6257",
+  "#ab594e",
+  "#ab5045",
+  "#ab463c",
+  "#aa3c33",
+  "#a9302b",
+  "#a82222")
+
   fig = ggplot(melt(dfe_df), aes(x=value, y=..density.., fill=variable)) +
     geom_histogram(position='dodge',
                    breaks=c(1E-13, 1E-12, 1E-11, 1E-10, 1E-9, 1E-8, 1E-7, 1E-6, 1E-5, 1E-4, 1E-3, 1E-2, 1E-1, 1E0, 1E1),
-      show.legend = FALSE,
-      fill='grey') +
+      show.legend = FALSE, fill=grey_red_gradient) +
     # geom_density() +
     scale_x_log10(limits=c(1E-13, 1E1)) +
-    ylab('Proportion of sites') +
+    ylab('Proportion of variants') +
     xlab('Selection coefficient') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
@@ -883,8 +950,8 @@ plot_best_fit_sfs_3A = function(input_data) {
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
-    # scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
+    scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
     theme(legend.position = c(0.72, 0.75)) +
     theme(legend.text=element_text(size=10)) +    
     theme(plot.title = element_text(face = "italic", size=16)) +
@@ -909,9 +976,37 @@ plot_best_fit_sfs_3B = function(input_data) {
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
-    # scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+    scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
     theme(legend.position="none") +
+    theme(plot.title = element_text(face = "italic", size=16)) +
+    theme(axis.text=element_text(size=12),
+      axis.title=element_text(size=16))
+  return(fig)
+}
+
+plot_best_fit_sfs_talk = function(input_data) {
+  input_data = data.frame(input_data)
+  colnames(input_data) = c(
+    'Empirical Synonymous', 
+    'MLE Synonymous',
+    'Empirical Nonsynonymous',
+    'MLE Nonsynonymous',
+    'Species',
+    'X.axis')
+  
+  input_data <- input_data[, c(1, 2, 5, 6)]
+  
+  fig = ggplot(melt(input_data, id=c('Species', 'X.axis')), aes(x=X.axis, y=as.numeric(value), fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
+    scale_fill_manual(values=c("#cb181d", "#fb6a4a"), name='Site-frequency-spectra') +
+    theme(legend.position = c(0.72, 0.75)) +
+    theme(legend.text=element_text(size=10)) +    
     theme(plot.title = element_text(face = "italic", size=16)) +
     theme(axis.text=element_text(size=12),
       axis.title=element_text(size=16))
@@ -1525,6 +1620,43 @@ return_DFE_likelihood = function(input_file) {
   )
   return(return_vector)
 }
+
+plot_figure_s9 = function(no_clade_control,
+  clade_control,
+  downsample) {
+  x_axis = 1:(length(no_clade_control))
+  
+  max_length <- max(length(no_clade_control), length(clade_control), length(downsample))
+  
+  # Extend the vectors with "0" to make them all the same length
+  no_clade_control <- c(no_clade_control, rep(0, max_length - length(no_clade_control)))
+  clade_control <- c(clade_control, rep(0, max_length - length(clade_control)))
+  downsample <- c(downsample, rep(0, max_length - length(downsample)))
+  
+
+  fig_s9_a = plot_empirical_sfs(no_clade_control) + 
+    ggtitle('*Bacteroides vulgatus*, synonymous without clade control') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+  
+  fig_s9_c = plot_empirical_sfs(clade_control) +
+    ggtitle('*Bacteroides vulgatus*, synonymous with clade control') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+  fig_s9_e = plot_empirical_sfs(downsample) +
+    ggtitle('*Bacteroides vulgatus*, synonymous with clade control and downsampling') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+  
+  figure_s9 = fig_s9_a + fig_s9_c + fig_s9_e + plot_layout(ncol=1)
+  
+}
+
 
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -2254,6 +2386,36 @@ phylogenetic_levels = c(
   'Faecalibacterium prausnitzii'
 )
 
+phylogenetic_levels_MIDAS = c(
+  'Bacteroidales_bacterium_58650',
+  'Alistipes_putredinis_61533',
+  'Alistipes_finegoldii_56071',
+  'Alistipes_onderdonkii_55464',
+  'Alistipes_shahii_62199',
+  'Odoribacter_splanchnicus_62174',
+  'Parabacteroides_distasonis_56985',
+  'Parabacteroides_merdae_56972',
+  'Prevotella_copri_61740',
+  'Bacteroides_fragilis_54507',
+  'Bacteroides_cellulosilyticus_58046',
+  'Bacteroides_stercoris_56735',
+  'Bacteroides_uniformis_57318',
+  'Bacteroides_thetaiotaomicron_56941',
+  'Bacteroides_xylanisolvens_57185',
+  'Bacteroides_caccae_53434',
+  'Bacteroides_vulgatus_57955',
+  'Barnesiella_intestinihominis_62208',
+  'Akkermansia_muciniphila_55290',
+  'Dialister_invisus_61905',
+  'Phascolarctobacterium_sp_59817',
+  'Eubacterium_eligens_61678',
+  'Eubacterium_rectale_56927',
+  'Oscillibacter_sp_60799',
+  'Ruminococcus_bromii_62047',
+  'Ruminococcus_bicirculans_59300',
+  'Faecalibacterium_prausnitzii_57453'
+)
+
 dfe_df$species = factor(dfe_df$species, levels=phylogenetic_levels)
 dfe_dadi_df$species = factor(dfe_dadi_df$species, levels=phylogenetic_levels)
 
@@ -2265,6 +2427,21 @@ dfe_df$value[dfe_df$value >= 0.5] = 0.5
 # 600 x 1000
 
 # DFE Comparison
+
+grey_red_gradient <- c("#9b9b9b",
+"#9f9391",
+"#a28b87",
+"#a5837d",
+"#a77b74",
+"#a9736a",
+"#aa6a61",
+"#ab6257",
+"#ab594e",
+"#ab5045",
+"#ab463c",
+"#aa3c33",
+"#a9302b",
+"#a82222")
 
 ggplot(dfe_df[dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
@@ -4119,18 +4296,51 @@ p9_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_fragilis_54507_do
 p11_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_ovatus_58035_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. ovatus, Core Genes')
 p12_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_stercoris_56735_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. stercoris, Core Genes')
 p13_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
+p13_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/core_inferred_DFE.txt') + ggtitle('*B. thetaiotaomicron*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
 p14_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
+p14_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/core_inferred_DFE.txt') + ggtitle('*B. uniformis*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
 p15_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. vulgatus, Core Genes')
+p15_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_inferred_DFE.txt') + ggtitle('*B. vulgatus*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p16_core_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. xylanisolvens, Core Genes')
 p17_core_dfe = plot_core_accessory_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/core_inferred_DFE.txt') + ggtitle('B. intestinihominis, Core Genes')
+p17_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/core_inferred_DFE.txt') + ggtitle('*B. intestinihominis*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 # p18 = plot_core_accessory_dfe('../Analysis/Coprococcus_sp_62244_downsampled_14/core_inferred_DFE.txt') + ggtitle('Coprococcus species, Core Genes')
 p19_core_dfe = plot_core_accessory_dfe('../Analysis/Dialister_invisus_61905_downsampled_14/core_inferred_DFE.txt') + ggtitle('D. invisus, Core Genes')
 p20_core_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_eligens_61678_downsampled_14/core_inferred_DFE.txt') + ggtitle('E. eligens, Core Genes')
 p21_core_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
+p21_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/core_inferred_DFE.txt') + ggtitle('*E. rectale*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p22_core_dfe = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_inferred_DFE.txt') + ggtitle('Core Genes')
+p22_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/core_inferred_DFE.txt') + ggtitle('*F. prausnitzii*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p23_core_dfe = plot_core_accessory_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/core_inferred_DFE.txt') + ggtitle('O. splanchnicus, Core Genes')
 p24_core_dfe = plot_core_accessory_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/core_inferred_DFE.txt') + ggtitle('Oscillibacter species, Core Genes')
 p25_core_dfe = plot_core_accessory_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core_inferred_DFE.txt') + ggtitle('P. distasonis, Core Genes')
+p25_core_dfe_talk = plot_core_accessory_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/core_inferred_DFE.txt') + ggtitle('*P. distasonis*') + 
+    md_theme_minimal() + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p26_core_dfe = plot_core_accessory_dfe('../Analysis/Parabacteroides_merdae_56972_downsampled_14/core_inferred_DFE.txt') + ggtitle('P. merdae, Core Genes')
 p27_core_dfe = plot_core_accessory_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/core_inferred_DFE.txt') + ggtitle('Phascolarctobacterium species, Core Genes')
 p28_core_dfe = plot_core_accessory_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/core_inferred_DFE.txt') + ggtitle('P.  copri, Core Genes')
@@ -4150,18 +4360,53 @@ p9_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_fragilis_54507_dow
 p11_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_ovatus_58035_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. ovatus, Accessory Genes')
 p12_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_stercoris_56735_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. stercoris, Accessory Genes')
 p13_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
+p13_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Bacteroides_thetaiotaomicron_56941_downsampled_14/accessory_inferred_DFE.txt')  # + ggtitle('*Bacteroides thetaiotaomicron*, Accessory Genes') + 
+    # md_theme_minimal() + 
+    # theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    #   panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p14_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
+p14_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Bacteroides_uniformis_57318_downsampled_14/accessory_inferred_DFE.txt') # + ggtitle('*Bacteroides uniformis*, Accessory Genes') + 
+#     md_theme_minimal() + 
+#     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#       panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p15_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. vulgatus, Accessory Genes')
+p15_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/accessory_inferred_DFE.txt') #+ ggtitle('*Bacteroides vulgatus*, Accessory Genes') + 
+    # md_theme_minimal() + 
+    # theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    #   panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p16_acc_dfe = plot_core_accessory_dfe('../Analysis/Bacteroides_xylanisolvens_57185_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. xylanisolvens, Accessory Genes')
 p17_acc_dfe = plot_core_accessory_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('B. intestinihominis, Accessory Genes')
+p17_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Barnesiella_intestinihominis_62208_downsampled_14/accessory_inferred_DFE.txt') # + ggtitle('*Barnesiella intestinihominis*, Accessory Genes') + 
+    # md_theme_minimal() + 
+    # theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    #   panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 # p18 = plot_core_accessory_dfe('../Analysis/Coprococcus_sp_62244_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Coprococcus species, Accessory Genes')
 p19_acc_dfe = plot_core_accessory_dfe('../Analysis/Dialister_invisus_61905_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('D. invisus, Accessory Genes')
 p20_acc_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_eligens_61678_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('E. eligens, Accessory Genes')
 p21_acc_dfe = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
+p21_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Eubacterium_rectale_56927_downsampled_14/accessory_inferred_DFE.txt') #+ ggtitle('*Eubacterium rectale*, Accessory Genes') + 
+    # md_theme_minimal() + 
+    # theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    #   panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p22_acc_dfe = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Accessory Genes')
+p22_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/accessory_inferred_DFE.txt') #+ ggtitle('*Faecalibacterium prausnitzii*, Accessory Genes') + 
+    # md_theme_minimal() + 
+    # theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    #   panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p23_acc_dfe = plot_core_accessory_dfe('../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('O. splanchnicus, Accessory Genes')
 p24_acc_dfe = plot_core_accessory_dfe('../Analysis/Oscillibacter_sp_60799_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Oscillibacter species, Accessory Genes')
 p25_acc_dfe = plot_core_accessory_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('P. distasonis, Accessory Genes')
+p25_acc_dfe_talk = plot_core_accessory_dfe('../Analysis/Parabacteroides_distasonis_56985_downsampled_14/accessory_inferred_DFE.txt') #+ ggtitle('*Parabacteroides distasonis*, Accessory Genes') + 
+    # md_theme_minimal() + 
+    # theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    #   panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
 p26_acc_dfe = plot_core_accessory_dfe('../Analysis/Parabacteroides_merdae_56972_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('P. merdae, Accessory Genes')
 p27_acc_dfe = plot_core_accessory_dfe('../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('Phascolarctobacterium species, Accessory Genes')
 p28_acc_dfe = plot_core_accessory_dfe('../Analysis/Prevotella_copri_61740_downsampled_14/accessory_inferred_DFE.txt') + ggtitle('P. copri, Accessory Genes')
@@ -5873,9 +6118,11 @@ names(demography_df) = c(
 
 demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
 
-species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
+# species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
 
-typeface = ifelse(demography_df$species %in% species_highlight, 5, 4)
+species_highlight = c('Ruminococcus bromii')
+
+typeface = ifelse(demography_df$species %in% species_highlight, 6, 4)
 
 demography_df_highlight = demography_df[demography_df$species %in% species_highlight, ]
 options(ggrepel.max.overlaps = Inf)
@@ -5914,13 +6161,28 @@ p1 = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia mucinip
 p1_l = plot_likelihood_surface_contour_3C('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/core_likelihood_surface.csv')
 
 p30 = plot_best_fit_sfs_3B(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
-p30_l = plot_likelihood_surface_contour_3D('../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_likelihood_surface.csv')
+p30_l = plot_likelihood_surface_contour_talk('../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_likelihood_surface.csv')
 
-# 2000 x 900
+p1_talk = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
+# p30_talk = plot_best_fit_sfs_3B(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
+
+p30_talk = plot_best_fit_sfs_talk(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
+
 p1 + p1_l + # A. muciniphila
   p30 + p30_l + #R. bicirculans
   demography_scatter +
   plot_layout(design=design)
+
+# Talk version
+
+design = "
+AACCC
+BBCCC
+"
+
+# 1200 x 700
+
+p30_talk + p30_l + demography_scatter + plot_layout(design=design)
 
 # 2000 x 1900
 
@@ -6016,7 +6278,7 @@ for (i in 1:length(one_epoch_file_list)) {
 }
 
 table_s3 = data.frame(
-  species=phylogenetic_levels,
+  species=phylogenetic_levels_MIDAS,
   one_epoch_likelihood,
   one_epoch_AIC,
   one_epoch_theta,
@@ -6106,7 +6368,7 @@ for (i in 1:length(DFE_file_list)) {
 }
 
 table_s5 = data.frame(
-  species=phylogenetic_levels,
+  species=phylogenetic_levels_MIDAS,
   dfe_nanc,
   gamma_likelihood,
   gamma_AIC,
@@ -6139,13 +6401,13 @@ write.csv(table_s5, '../Summary/Supplemental_Table_5.csv', row.names = F)
 
 ### Supplemental Table 6
 accessory_phylogenetic_levels = c(
-  'Parabacteroides distasonis',
-  'Bacteroides uniformis',
-  'Bacteroides thetaiotaomicron',
-  'Bacteroides vulgatus',
-  'Barnesiella intestinihominis',
-  'Eubacterium rectale',
-  'Faecalibacterium prausnitzii'
+  'Parabacteroides_distasonis_56985',
+  'Bacteroides_uniformis_57318',
+  'Bacteroides_thetaiotaomicron_56941',
+  'Bacteroides_vulgatus_57955',
+  'Barnesiella_intestinihominis_62208',
+  'Eubacterium_rectale_56927',
+  'Faecalibacterium_prausnitzii_57453'
 )
 
 accessory_one_epoch_file_list = c(
@@ -6497,6 +6759,8 @@ DEE
 DFF
 "
 
+# p <- ggplot( c, aes(x=c$a, fill=c$b) ) + geom_histogram( binwidth=0.2 ) + 
+
 fig_5A = compare_core_accessory_sfs_syn_ns_5A(b_thetaiotaomicron_core,
   b_thetaiotaomicron_core_ns,
   b_thetaiotaomicron_accessory,
@@ -6510,6 +6774,24 @@ fig_5B = compare_core_accessory_sfs_syn_ns_5B(e_rectale_core,
 fig_5A + p13_core_dfe + p13_acc_dfe +
   fig_5B + p21_core_dfe + p21_acc_dfe +
   plot_layout(design=design)
+
+# Talk Version
+# 600 x 800
+p13_core_dfe_talk + p13_acc_dfe_talk + p21_core_dfe_talk + p21_acc_dfe_talk + plot_layout(ncol=1)
+
+p25_core_dfe_talk + p25_acc_dfe_talk +
+  p14_core_dfe_talk + p14_acc_dfe_talk +
+  p13_core_dfe_talk + p13_acc_dfe_talk +
+  p15_core_dfe_talk + p15_acc_dfe_talk +
+  p17_core_dfe_talk + p17_acc_dfe_talk +
+  p21_core_dfe_talk + p21_acc_dfe_talk +
+  p22_core_dfe_talk + p22_acc_dfe_talk + plot_layout(ncol=2)
+
+# 1400 x 600
+
+p25_core_dfe_talk + p14_core_dfe_talk + p13_core_dfe_talk + p15_core_dfe_talk + p17_core_dfe_talk + p21_core_dfe_talk + p22_core_dfe_talk +
+  p25_acc_dfe_talk + p14_acc_dfe_talk + p13_acc_dfe_talk + p15_acc_dfe_talk + p17_acc_dfe_talk + p21_acc_dfe_talk + p22_acc_dfe_talk +
+  plot_layout(ncol=7)
 
 ### Figure S9
 
@@ -6555,12 +6837,22 @@ EF
 
 # 2400 x 800
 
-fig_s9_a + fig_s9_b +
-  fig_s9_c + fig_s9_d +
-  fig_s9_e + fig_s9_f +
-  plot_layout(design=design)
+fig_s9 = plot_figure_s9(b_vulgatus_all_clades_syn,
+  b_vulgatus_clade_control_syn,
+  b_vulgatus_clade_control_downsampled_syn)
 
-### Is there a phylogenetic relationship for `nu`?
+fig_s9
+
+# fig_s9_a + fig_s9_b +
+#   fig_s9_c + fig_s9_d +
+#   fig_s9_e + fig_s9_f +
+#   plot_layout(design=design)
+
+fig_s9_a
+fig_s9_c
+fig_s9_e
+
+ ### Is there a phylogenetic relationship for `nu`?
 
 phylosig(subtree, nu_tau_distribution$`Nu, MLE`)
 

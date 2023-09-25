@@ -931,8 +931,8 @@ ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y 
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
   theme(legend.position = "none")  +
   geom_hline(yintercept=14, linetype="dashed", color = "red") +
-  scale_y_continuous(breaks = seq(0, 75, by = 5))
-
+  theme(axis.text.y=element_text(face="italic")) +
+  scale_y_continuous(breaks = seq(0, 90, by = 5))
 
 # Accessory Genes
 
