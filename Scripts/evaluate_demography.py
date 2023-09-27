@@ -377,7 +377,9 @@ class EvaluateDemography():
         outprefix = args['outprefix']
         model_type = args['model_type']
         params_list = args['params_list']
-        if model_type == 'two_epoch':
+        if model_type == 'one_epoch':
+            dummy = params_list[0]
+        elif model_type == 'two_epoch':
             nu = params_list[0]
             tau = params_list[1]
         else:
@@ -470,7 +472,7 @@ class EvaluateDemography():
             logger.info('Beginning demographic evaluation for three-epoch '
                         'demographic model.')
         elif model_type == 'one_epoch':
-            # initial_guess = [0.1]
+            initial_guess = [0.1]
             # file = one_epoch_demography
             func_ex = dadi.Numerics.make_extrap_log_func(self.snm)
             logger.info('Beginning demographic evaluation for one-epoch '
