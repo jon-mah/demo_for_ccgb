@@ -345,7 +345,7 @@ plot_likelihood_surface_contour_talk = function(input) {
     geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=1) +
+    annotate('point', x=best_params[1], y=best_params[2], color='orange', size=2) +
     theme(legend.position = c(0.77, 0.65)) +
     theme(legend.text=element_text(size=14)) +
     xlab(xlabel_text) +
@@ -6861,3 +6861,64 @@ K<-phylosig(subtree,nu_tau_distribution$`Nu, MLE`,test=T)
 lambda<-phylosig(subtree,nu_tau_distribution$`Nu, MLE`,method="lambda",test=T)
 
 # There does not appear to be a phylogenetic trend in `nu`
+
+### Current effective population size
+N_anc = table_s3$`Two epoch, Ancestral effective population size`
+
+N_curr_low = nu_tau_distribution$`Low estimate of Nu` * N_anc
+N_curr_high = nu_tau_distribution$`High estimate of Nu` * N_anc
+N_curr_MLE = nu_tau_distribution$`Nu, MLE` * N_anc
+
+N_curr_data = data.frame(
+  species=phylogenetic_levels,
+  N_curr_MLE = N_curr_MLE,
+  N_curr_low = N_curr_low,
+  N_curr_high = N_curr_high
+)
+
+N_curr_label = expression(N[current])
+
+N_curr_data$species = factor(N_curr_data$species, levels=phylogenetic_levels)
+
+plot_N_curr_distribution = ggplot() +
+  geom_linerange(data=N_curr_data, mapping=aes(x=fct_rev(species), ymin=N_curr_low, ymax=N_curr_high, col=species), size=1, show.legend=FALSE) + 
+  geom_point(data=N_curr_data, mapping=aes(x=fct_rev(species), y=N_curr_MLE, col=species), size=3, shape=18, show.legend=FALSE) +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw() +
+  xlab('') +
+  ylab(N_curr_label) +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.text=element_text(size=16)) +
+  theme(axis.title=element_text(size=16,face="bold"))
+
+plot_N_curr_distribution
+
+# N_curr for core genes vs. for all genes
+
+core_all_N_curr = data.frame(species=all_genes_phylogenetic_levels,
+  core_nu=temp_demography_df$nu_mle,
+  core_time=temp_demography_df$time_mle,
+  all_nu=all_genes_demography_df$nu_mle,
+  all_time=all_genes_demography_df$time_mle)
+
+core_all_N_curr$species = factor(core_all_N_curr$species, levels=all_genes_phylogenetic_levels)
+
+plot_core_acc_N_curr_comparison = ggplot() +
+  geom_linerange(data=core_all_N_curr, mapping=aes(x=fct_rev(species), ymin=core_nu, ymax=all_nu, col=species), size=1, show.legend=FALSE) + 
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw() +
+  xlab('') +
+  ylab(N_curr_label) +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.text=element_text(size=16)) +
+  theme(axis.title=element_text(size=16,face="bold"))
+
+plot_core_acc_N_curr_comparison
+
+all_genes_demography_df
+temp_demography_df
+### 

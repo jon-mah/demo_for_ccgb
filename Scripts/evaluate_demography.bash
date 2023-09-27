@@ -148,7 +148,7 @@
 # python evaluate_demography.py ../Analysis/Eubacterium_rectale_56927_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 2.16442 1.87647 ../Analysis/Eubacterium_rectale_56927_downsampled_14/
 # python evaluate_demography.py ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 1.06848 0.243666 ../Analysis/Faecalibacterium_prausnitzii_57453_downsampled_14/
 # python evaluate_demography.py ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 2.43161 7.38277 ../Analysis/Odoribacter_splanchnicus_62174_downsampled_14/
-# python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 5.09949 0.0852462 ../Analysis/Oscillibacter_sp_60799_downsampled_14/
+#python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 5.09949 0.0852462 ../Analysis/Oscillibacter_sp_60799_downsampled_14/
 # python evaluate_demography.py ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 0.807558 0.136155 ../Analysis/Parabacteroides_distasonis_56985_downsampled_14/
 # python evaluate_demography.py ../Analysis/Parabacteroides_merdae_56972_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 0.737274 0.391528 ../Analysis/Parabacteroides_merdae_56972_downsampled_14/
 # python evaluate_demography.py ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/downsampled_syn_sfs.txt two_epoch --params_list 2.57614 0.355933 ../Analysis/Phascolarctobacterium_sp_59817_downsampled_14/
@@ -444,3 +444,6 @@ python evaluate_demography.py ../Analysis/Phascolarctobacterium_sp_59817_downsam
 python evaluate_demography.py ../Analysis/Prevotella_copri_61740_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Prevotella_copri_61740_downsampled_14/accessory --params_list 0.05227766 0.03266077 0.00544861 0.00150649
 python evaluate_demography.py ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Ruminococcus_bicirculans_59300_downsampled_14/accessory --params_list 0.42678307 0.06223002 0.00134277 0.001341
 python evaluate_demography.py ../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Ruminococcus_bromii_62047_downsampled_14/accessory  --params_list 0.09107036 0.0535221  0.00383398 0.0025581
+
+# N_anc for all Genes
+python evaluate_demography.py ../Analysis/Oscillibacter_sp_60799_downsampled_14/empirical_syn_downsampled_sfs.txt three_epoch ../Analysis/Oscillibacter_sp_60799_downsampled_14/complete --params_list 0.85839529 1.60475845 0.49794894 0.05835165
