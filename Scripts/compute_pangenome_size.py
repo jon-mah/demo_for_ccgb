@@ -267,8 +267,6 @@ class ComputePangenomeSize():
 
         reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
 
-        print(len(gene_names))
-
         if unique_individuals:
             sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
         else:
@@ -279,10 +277,12 @@ class ComputePangenomeSize():
         over_prevalence = prevalences >= min_prevalence
         under_prevalence = prevalences <= max_prevalence
 
-        accessory_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
-        accessory_gene_idxs = reference_gene_idxs*(accessory_prevalence)
+        core_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
+        core_gene_idxs = reference_gene_idxs*(accessory_prevalence)
 
-        return set(gene_names[accessory_gene_idxs])
+        print(len(set(gene_names[core_gene_idxs])))
+
+        return set(gene_names[core_gene_idxs])
 
     def load_accessory_genes(self, desired_species_name, min_copynum=0.3, max_copynum=3.0, min_prevalence=0.3, max_prevalence=0.7, min_marker_coverage=20, unique_individuals=False):
 
@@ -298,8 +298,6 @@ class ComputePangenomeSize():
 
         reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
 
-        print(len(gene_names))
-
         if unique_individuals:
             sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
         else:
@@ -312,6 +310,8 @@ class ComputePangenomeSize():
 
         accessory_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
         accessory_gene_idxs = reference_gene_idxs*(accessory_prevalence)
+
+        print(len(set(gene_names[accessory_gene_idxs])))
 
         return set(gene_names[accessory_gene_idxs])
 
@@ -535,13 +535,17 @@ class ComputePangenomeSize():
             df_haplotypes = df_haplotypes.reorder_levels(["contig",'gene_id', 'site_pos','site_type'])
 
             sfs_all = df_haplotypes.T.mean()
-            print(df_haplotypes[clade].head())
             sfs_clade = df_haplotypes[clade].T.mean()
 
             sfs_df = pd.DataFrame(columns=["all","largest_clade"],index=sfs_all.index)
 
             sfs_df["all"] = sfs_all
             sfs_df["largest_clade"] = sfs_clade
+
+            sfs_clade = sfs_clade.dropna()
+
+            #clade_1 = df.dropna()["largest_clade"].xs("1D",level="site_type")
+            #clade_4 = df.dropna()["largest_clade"].xs("4D",level="site_type")
 
             print(sfs_clade)
 
