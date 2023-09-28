@@ -278,7 +278,7 @@ class ComputePangenomeSize():
         under_prevalence = prevalences <= max_prevalence
 
         core_prevalence = [over_prevalence[i] and under_prevalence[i] for i in range(len(prevalences))]
-        core_gene_idxs = reference_gene_idxs*(accessory_prevalence)
+        core_gene_idxs = reference_gene_idxs*(core_prevalence)
 
         print(len(set(gene_names[core_gene_idxs])))
 
@@ -390,6 +390,11 @@ class ComputePangenomeSize():
         core_genes = self.load_core_genes(species)
         accessory_genes = self.load_accessory_genes(species)
 
+        # print(len(core_genes) + len(accessory_genes))
+
+        core_accessory_genes = core_genes.union(accessory_genes)
+        print(len(core_accessory_genes))
+
         # Default parameters
         alpha = 0.5 # Confidence interval range for rate estimates
         low_divergence_threshold = 5e-04
@@ -473,14 +478,14 @@ class ComputePangenomeSize():
 
         sfs = []
 
-        max_gene_count = 25 # Uncomment for testing
+        # max_gene_count = 25 # Uncomment for testing
 
-
+        pangenome_genes = set()
 
         for i,chunk_size in enumerate(gene_lengths):
 
-            if i > max_gene_count:
-                break
+            # if i > max_gene_count:
+            #     break
             ## read next chunk_size number of lines
             df_depth = df_depth_reader.get_chunk(chunk_size)
             df_refreq = df_refreq_reader.get_chunk(chunk_size)
@@ -488,16 +493,13 @@ class ComputePangenomeSize():
             gene_name = unq_genes[i]
             # print(str(unq_genes[i]))
             if 'non' in str(unq_genes[i]):
-                logger.info('Ignoring non-coding gene.')
+                logger.info('Ignoring non-coding sites.')
                 continue
 
-            if core_bool and gene_name not in core_genes:
-                logger.info('Ignoring non-core gene.')
-                continue
+            if gene_name not in core_accessory_genes:
+                logger.info('Ignoring non-core or non-accessory gene.')
+                continue            
 
-            if accessory_bool and gene_name not in accessory_genes:
-                logger.info('Ignoring non-accessory gene.')
-                continue
             logger.info('Processing ' + str(unq_genes[i]) + '.')
 
             df_depth.columns = [d[:-1] if d[-1] == "c" else d for d in df_depth.columns]
@@ -539,19 +541,35 @@ class ComputePangenomeSize():
 
             sfs_df = pd.DataFrame(columns=["all","largest_clade"],index=sfs_all.index)
 
-            sfs_df["all"] = sfs_all
+            # sfs_df["all"] = sfs_all
             sfs_df["largest_clade"] = sfs_clade
 
-            sfs_clade = sfs_clade.dropna()
+            # sfs_clade = sfs_clade.dropna()
 
-            #clade_1 = df.dropna()["largest_clade"].xs("1D",level="site_type")
-            #clade_4 = df.dropna()["largest_clade"].xs("4D",level="site_type")
+            try:
+                sfs_clade_1 = sfs_clade.dropna().xs("1D",level="site_type")
+            except KeyError:
+                continue
+            try:
+                sfs_clade_4 = sfs_clade.dropna().xs("4D",level="site_type")
+            except KeyError:
+                continue
 
-            print(sfs_clade)
+            # sfs.append(sfs_df)
+            if 'sfs_clade_1' in locals() and not sfs_clade_1.empty:
+                include_gene = True
+            # Check if sfs_clade_4 exists and is not empty
+            elif 'sfs_clade_4' in locals() and not sfs_clade_4.empty:
+                include_gene = True
+            else:
+                include_gene = False
 
-            sfs.append(sfs_df)
+            if include_gene:
+                pangenome_genes.add(str(unq_genes[i]))
 
-        df = pd.concat(sfs)
+        # df = pd.concat(sfs)
+
+        logger.info('There are {0} genes in the pangenome'.format(str(len(pangenome_genes))))
 
         logger.info('Pipeline executed succesfully.')
 
