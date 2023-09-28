@@ -6658,8 +6658,8 @@ all_genes_three_epoch_nu_tau$demography = 'Three Epoch'
 
 all_genes_three_epoch_nu_tau = all_genes_three_epoch_nu_tau[-c(2,4:7)]
 
-colnames(all_genes_two_epoch_nu_tau) = c('species', 'nu_mle', 'time_mle', 'time_high', 'demography')
-colnames(all_genes_three_epoch_nu_tau) = c('species', 'nu_mle', 'time_mle', 'time_high', 'demography')
+colnames(all_genes_two_epoch_nu_tau) = c('species', 'nu_mle', 'time_mle', 'time_high', 'n_anc', 'demography')
+colnames(all_genes_three_epoch_nu_tau) = c('species', 'nu_mle', 'time_mle', 'time_high', 'n_anc', 'demography')
 all_genes_demography_df =  rbind(all_genes_two_epoch_nu_tau, all_genes_three_epoch_nu_tau)
 
 all_genes_demography_df
@@ -6897,16 +6897,22 @@ plot_N_curr_distribution
 
 # N_curr for core genes vs. for all genes
 
+N_curr_data$N_anc = N_anc
+N_curr_data$species = factor(N_curr_data$species, levels=all_genes_phylogenetic_levels)
+N_curr_data = na.omit(N_curr_data)
+N_curr_data <- N_curr_data[order(N_curr_data$species), ]
+row.names(N_curr_data) = NULL
+
 core_all_N_curr = data.frame(species=all_genes_phylogenetic_levels,
-  core_nu=temp_demography_df$nu_mle,
+  core_N_curr=N_curr_data$N_curr_MLE,
   core_time=temp_demography_df$time_mle,
-  all_nu=all_genes_demography_df$nu_mle,
+  all_N_curr=all_genes_demography_df$nu_mle * all_genes_demography_df$n_anc,
   all_time=all_genes_demography_df$time_mle)
 
 core_all_N_curr$species = factor(core_all_N_curr$species, levels=all_genes_phylogenetic_levels)
 
-plot_core_acc_N_curr_comparison = ggplot() +
-  geom_linerange(data=core_all_N_curr, mapping=aes(x=fct_rev(species), ymin=core_nu, ymax=all_nu, col=species), size=1, show.legend=FALSE) + 
+plot_core_all_N_curr_comparison = ggplot() +
+  # geom_linerange(data=core_all_N_curr, mapping=aes(x=fct_rev(species), ymin=core_N_curr, ymax=all_N_curr, col=species), size=1, show.legend=FALSE) + 
   scale_y_log10() +
   coord_flip() +
   theme_bw() +
@@ -6915,10 +6921,87 @@ plot_core_acc_N_curr_comparison = ggplot() +
   theme(axis.text.y = element_text(face='italic')) +
   theme(axis.text.y = element_text(hjust=0)) +
   theme(axis.text=element_text(size=16)) +
-  theme(axis.title=element_text(size=16,face="bold"))
+  theme(axis.title=element_text(size=16,face="bold")) +
+  geom_segment(data=core_all_N_curr, aes(x=fct_rev(species), y=core_N_curr, xend=fct_rev(species), yend=all_N_curr, col=species), arrow = arrow(length=unit(.5, 'cm')), show.legend=FALSE)
 
-plot_core_acc_N_curr_comparison
+plot_core_all_N_curr_comparison
 
-all_genes_demography_df
-temp_demography_df
-### 
+plot_core_all_time_comparison = ggplot() +
+  #geom_linerange(data=core_all_N_curr, mapping=aes(x=fct_rev(species), ymin=core_time, ymax=all_time, col=species), size=1, show.legend=FALSE) + 
+  #geom_point(data=core_all_N_curr, mapping=aes(x=fct_rev(species), y=core_time), size=4, shape=21, fill="white") +
+  #geom_point(data=core_all_N_curr, mapping=aes(x=fct_rev(species), y=all_time), size=4, shape=21, fill="black") +
+  scale_y_log10() +
+  coord_flip() +
+  theme_bw() +
+  xlab('') +
+  ylab('Estimated time in years since most recent demographic event') +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.text=element_text(size=16)) +
+  theme(axis.title=element_text(size=16,face="bold")) +
+  geom_segment(data=core_all_N_curr, aes(x=fct_rev(species), y=core_time, xend=fct_rev(species), yend=all_time, col=species), arrow = arrow(length=unit(.5, 'cm')), show.legend=FALSE)
+
+plot_core_all_time_comparison
+
+### Delta AIC
+
+table_s3$Species = factor(table_s3$Species, levels=phylogenetic_levels_MIDAS)
+table_s3 = table_s3[order(table_s3$Species), ]
+
+plot_AIC = ggplot() +
+  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`Three epoch, AIC`), size=2, shape=21, fill="blue", width = 0.1) +
+  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`Two epoch, AIC`), size=2, shape=21, fill="green", width = 0.1) +
+  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`One epoch, AIC`), size=2, shape=21, fill="red", width = 0.1) +
+  scale_y_log10() +
+  # coord_flip() +
+  theme_bw() +
+  xlab('') +
+  ylab('Aikake Information Criteria') +
+  theme(axis.text.y = element_text(face='italic')) +
+  theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.text=element_text(size=16)) +
+  theme(axis.title=element_text(size=16,face="bold")) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+plot_AIC
+
+### Mean selection coefficient, N_curr, 2Ns
+
+
+
+table_s5$Species = factor(table_s3$Species, levels=phylogenetic_levels_MIDAS)
+table_s5 = table_s5[order(table_s5$Species), ]
+
+mean_s = table_s5$`Gamma DFE, Shape` * table_s5$`Gamma DFE, Scale`
+mean_2Ns = mean_s * 2 * N_anc
+
+selection_vs_N_curr = data.frame(
+  species=phylogenetic_levels_MIDAS,
+  N_curr=N_curr_MLE,
+  mean_s=mean_s,
+  mean_2Ns=mean_2Ns
+)
+
+# Calculate the correlation coefficient
+cor_mean_s_N_curr_MLE = cor(mean_s, N_curr_MLE)
+cor_mean_2Ns_N_curr_MLE = cor(N_curr_MLE, mean_2Ns)
+cor_mean_s_mean_2Ns = cor(mean_s, mean_2Ns)
+
+plot(mean_s, N_curr_MLE)
+abline(lm(N_curr_MLE ~ mean_s))
+text(20, 2E10, paste("Correlation:", round(cor_mean_s_N_curr_MLE, 2)), pos = 3)
+text(20, 1.5E10, paste("P-value:", round(cor.test(mean_s, N_curr_MLE)$p.value, 2)), pos = 3)
+title('No correlation between N_curr_MLE and mean_s')
+cor.test(mean_s, N_curr_MLE)
+
+plot(mean_2Ns, N_curr_MLE)
+abline(lm(N_curr_MLE ~ mean_2Ns))
+text(1E8, 2E10, paste("Correlation:", round(cor_mean_2Ns_N_curr_MLE, 2)), pos = 3)
+text(1E8, 1.5E10, paste("P-value:", round(cor.test(mean_2Ns, N_curr_MLE)$p.value, 2)), pos = 3)
+title('No correlation between N_curr_MLE and mean_2Ns')
+
+plot(mean_s, mean_2Ns)
+abline(lm(mean_2Ns ~ mean_s))
+text(60, 1.5E8, paste("Correlation:", round(cor_mean_s_mean_2Ns, 2)), pos=3)
+text(60, 1E8, paste("P-value:", round(cor.test(mean_2Ns, mean_s)$p.value, 4), pos=3))
+title('Correlation between mean_s and mean_2Ns')
