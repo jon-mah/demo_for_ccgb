@@ -353,19 +353,9 @@ class ComputePangenomeSize():
            file_tag = 'accessory_'
         else:
            file_tag = ''
-        sfs_dataframe = \
-           '{0}{1}{2}sfs_dataframe.csv'.format(
-                args['outprefix'], underscore, file_tag)
-        empirical_syn_sfs = \
-            '{0}{1}{2}empirical_syn_sfs.txt'.format(
-                args['outprefix'], underscore, file_tag)
-        empirical_nonsyn_sfs = \
-            '{0}{1}{2}empirical_nonsyn_sfs.txt'.format(
-                args['outprefix'], underscore, file_tag)
-        logfile = '{0}{1}{2}compute_sfs.log'.format(
+        logfile = '{0}{1}{2}compute_pangenome_size.log'.format(
             args['outprefix'], underscore, file_tag)
-        to_remove = [logfile, sfs_dataframe,
-                     empirical_syn_sfs, empirical_nonsyn_sfs]
+        to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -552,6 +542,8 @@ class ComputePangenomeSize():
 
             sfs_df["all"] = sfs_all
             sfs_df["largest_clade"] = sfs_clade
+
+            print(sfs_clade)
 
             sfs.append(sfs_df)
 
