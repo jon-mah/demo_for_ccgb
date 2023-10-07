@@ -247,7 +247,7 @@ plot_likelihood_surface_contour_3C = function(input) {
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +
     annotate('point', x=best_params[1], y=best_params[2], color='orange', size=1) +
-    theme(legend.position = c(0.77, 0.75)) +
+    theme(legend.position = c(0.75, 0.75)) +
     theme(legend.text=element_text(size=10)) +
     theme(axis.title.x = element_blank()) +
     ylab(ylabel_text) +
@@ -950,9 +950,9 @@ plot_best_fit_sfs_3A = function(input_data) {
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
-    scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
-    theme(legend.position = c(0.72, 0.75)) +
+    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
+    # scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    theme(legend.position = c(0.7, 0.75)) +
     theme(legend.text=element_text(size=10)) +    
     theme(plot.title = element_text(face = "italic", size=16)) +
     theme(axis.text=element_text(size=12),
@@ -976,8 +976,8 @@ plot_best_fit_sfs_3B = function(input_data) {
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-    # scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
-    scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
+    # scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
     theme(legend.position="none") +
     theme(plot.title = element_text(face = "italic", size=16)) +
     theme(axis.text=element_text(size=12),
@@ -1654,14 +1654,24 @@ plot_figure_s9 = function(no_clade_control,
 
   
   figure_s9 = fig_s9_a + fig_s9_c + fig_s9_e + plot_layout(ncol=1)
-  
 }
 
-
+get_pangenome_size = function(input_file) {
+  # Read the last two lines from the file
+  lines <- readLines(input_file)
+  
+  # Extract the number of genes from the second to last line
+  second_to_last_line <- lines[length(lines) - 1]
+  gene_count <- as.numeric(sub(".*There are (\\d+) genes in the pangenome.*", "\\1", second_to_last_line))
+  
+  return(gene_count)
+}
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 options(digits = 15)
 # 
+
+# Analysis assumes a mutation rate of mu = 4.08E-10 substitutions / bp per generation
 
 # HMP-QP with and without 0-tons
 
@@ -6108,6 +6118,8 @@ plot_nu_distribution_fig + plot_tau_distribution_fig + plot_layout(ncol=2)
 
 ### Figure 3
 
+# 2000 x 900
+
 demography_df = nu_tau_distribution[1:3]
 
 names(demography_df) = c(
@@ -6118,9 +6130,9 @@ names(demography_df) = c(
 
 demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
 
-# species_highlight = c('Akkermansia muciniphila', 'Ruminococcus bromii')
+species_highlight = c('Bacteroides fragilis', 'Ruminococcus bromii')
 
-species_highlight = c('Ruminococcus bromii')
+# species_highlight = c('Ruminococcus bromii')
 
 typeface = ifelse(demography_df$species %in% species_highlight, 6, 4)
 
@@ -6157,18 +6169,18 @@ design = c(
   area(1, 3, 2, 6)
 )
 
-p1 = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
-p1_l = plot_likelihood_surface_contour_3C('../Analysis/Akkermansia_muciniphila_55290_downsampled_14/core_likelihood_surface.csv')
+p9 = plot_best_fit_sfs_3A(b_fragilis_best_fit) + ggtitle('Bacteroides fragilis')
+p9_l = plot_likelihood_surface_contour_3C('../Analysis/Bacteroides_fragilis_54507_downsampled_14/core_likelihood_surface.csv')
 
 p30 = plot_best_fit_sfs_3B(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
-p30_l = plot_likelihood_surface_contour_talk('../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_likelihood_surface.csv')
+p30_l = plot_likelihood_surface_contour_3D('../Analysis/Ruminococcus_bromii_62047_downsampled_14/core_likelihood_surface.csv')
 
-p1_talk = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
+p9_talk = plot_best_fit_sfs_3A(a_muciniphila_best_fit) + ggtitle('Akkermansia muciniphila')
 # p30_talk = plot_best_fit_sfs_3B(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
 
 p30_talk = plot_best_fit_sfs_talk(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
 
-p1 + p1_l + # A. muciniphila
+p9 + p9_l + # A. muciniphila
   p30 + p30_l + #R. bicirculans
   demography_scatter +
   plot_layout(design=design)
@@ -6685,7 +6697,7 @@ temp_demography_scatter = ggscatter(temp_demography_df, x="nu_mle", y="time_mle"
   scale_shape_manual(name = "Best-Fit Demographic Model",
                      labels = c("Three Epoch", "Two Epoch"),
                      values = c(17, 19)) +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=all_genes_typeface) +
+  # geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=all_genes_typeface) +
   guides(color=guide_legend(title="Species")) +
   scale_x_log10(limits=c(1e-2, 2e5)) +
   scale_y_log10(limits=c(2e2, 1e7)) +
@@ -6703,14 +6715,17 @@ print(color_mapping)
 
 # 800 x 750
 
-difference_plot = temp_demography_scatter +
-  geom_point(data = all_genes_demography_df,  color=color_mapping, shape=18, size=3) +
+difference_plot = 
+  temp_demography_scatter +
+  # geom_point(data = all_genes_demography_df,  color=color_mapping, shape=18, size=1) +
   geom_segment(aes(x=temp_demography_df$nu_mle, y=temp_demography_df$time_mle,
     xend=all_genes_demography_df$nu_mle, yend=all_genes_demography_df$time_mle),
     linejoin='round',
     lineend='round',
-    linetype=2,
-    color=color_mapping)
+    linetype=1,
+    color=color_mapping,
+    arrow = arrow(length=unit(.2, 'cm'))) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4)
 
 difference_plot
 
@@ -6920,6 +6935,7 @@ plot_core_all_N_curr_comparison = ggplot() +
   ylab(N_curr_label) +
   theme(axis.text.y = element_text(face='italic')) +
   theme(axis.text.y = element_text(hjust=0)) +
+  #theme(axis.text.y = element_blank()) +
   theme(axis.text=element_text(size=16)) +
   theme(axis.title=element_text(size=16,face="bold")) +
   geom_segment(data=core_all_N_curr, aes(x=fct_rev(species), y=core_N_curr, xend=fct_rev(species), yend=all_N_curr, col=species), arrow = arrow(length=unit(.5, 'cm')), show.legend=FALSE)
@@ -6937,11 +6953,23 @@ plot_core_all_time_comparison = ggplot() +
   ylab('Estimated time in years since most recent demographic event') +
   theme(axis.text.y = element_text(face='italic')) +
   theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.text.y = element_blank()) +
   theme(axis.text=element_text(size=16)) +
   theme(axis.title=element_text(size=16,face="bold")) +
   geom_segment(data=core_all_N_curr, aes(x=fct_rev(species), y=core_time, xend=fct_rev(species), yend=all_time, col=species), arrow = arrow(length=unit(.5, 'cm')), show.legend=FALSE)
 
 plot_core_all_time_comparison
+
+### Core vs. All Figure S7
+
+# 1500 x 1500
+
+design = "
+AAA
+BBC
+"
+
+difference_plot + plot_core_all_N_curr_comparison + plot_core_all_time_comparison + plot_layout(design=design)
 
 ### Delta AIC
 
@@ -6949,14 +6977,14 @@ table_s3$Species = factor(table_s3$Species, levels=phylogenetic_levels_MIDAS)
 table_s3 = table_s3[order(table_s3$Species), ]
 
 plot_AIC = ggplot() +
-  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`Three epoch, AIC`), size=2, shape=21, fill="blue", width = 0.1) +
-  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`Two epoch, AIC`), size=2, shape=21, fill="green", width = 0.1) +
-  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`One epoch, AIC`), size=2, shape=21, fill="red", width = 0.1) +
+  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`Three epoch, AIC`), size=2, shape=21, fill="blue", width = 0.15) +
+  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`Two epoch, AIC`), size=2, shape=21, fill="green", width = 0.15) +
+  geom_jitter(data=table_s3, mapping=aes(x=Species, y=`One epoch, AIC`), size=2, shape=21, fill="red", width = 0.15) +
   scale_y_log10() +
   # coord_flip() +
   theme_bw() +
   xlab('') +
-  ylab('Aikake Information Criteria') +
+  ylab('Aikake information criteria') +
   theme(axis.text.y = element_text(face='italic')) +
   theme(axis.text.y = element_text(hjust=0)) +
   theme(axis.text=element_text(size=16)) +
@@ -6966,8 +6994,6 @@ plot_AIC = ggplot() +
 plot_AIC
 
 ### Mean selection coefficient, N_curr, 2Ns
-
-
 
 table_s5$Species = factor(table_s3$Species, levels=phylogenetic_levels_MIDAS)
 table_s5 = table_s5[order(table_s5$Species), ]
@@ -7005,3 +7031,153 @@ abline(lm(mean_2Ns ~ mean_s))
 text(60, 1.5E8, paste("Correlation:", round(cor_mean_s_mean_2Ns, 2)), pos=3)
 text(60, 1E8, paste("P-value:", round(cor.test(mean_2Ns, mean_s)$p.value, 4), pos=3))
 title('Correlation between mean_s and mean_2Ns')
+
+### Pangenome size
+
+pangenome_size = numeric(27)
+
+pangenome_file_list = c(
+  '../Analysis/Bacteroidales_bacterium_58650/compute_pangenome_size.log',
+  '../Analysis/Alistipes_putredinis_61533/compute_pangenome_size.log',
+  '../Analysis/Alistipes_finegoldii_56071/compute_pangenome_size.log',
+  '../Analysis/Alistipes_onderdonkii_55464/compute_pangenome_size.log',
+  '../Analysis/Alistipes_shahii_62199/compute_pangenome_size.log',
+  '../Analysis/Odoribacter_splanchnicus_62174/compute_pangenome_size.log',
+  '../Analysis/Parabacteroides_distasonis_56985/compute_pangenome_size.log',
+  '../Analysis/Parabacteroides_merdae_56972/compute_pangenome_size.log',
+  '../Analysis/Prevotella_copri_61740/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_fragilis_54507/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_cellulosilyticus_58046/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_stercoris_56735/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_uniformis_57318/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_xylanisolvens_57185/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_caccae_53434/compute_pangenome_size.log',
+  '../Analysis/Bacteroides_vulgatus_57955/compute_pangenome_size.log',
+  '../Analysis/Barnesiella_intestinihominis_62208/compute_pangenome_size.log',
+  '../Analysis/Akkermansia_muciniphila_55290/compute_pangenome_size.log',
+  '../Analysis/Dialister_invisus_61905/compute_pangenome_size.log',
+  '../Analysis/Phascolarctobacterium_sp_59817/compute_pangenome_size.log',
+  '../Analysis/Eubacterium_eligens_61678/compute_pangenome_size.log',
+  '../Analysis/Eubacterium_rectale_56927/compute_pangenome_size.log',
+  '../Analysis/Oscillibacter_sp_60799/compute_pangenome_size.log',
+  '../Analysis/Ruminococcus_bromii_62047/compute_pangenome_size.log',
+  '../Analysis/Ruminococcus_bicirculans_59300/compute_pangenome_size.log',
+  '../Analysis/Faecalibacterium_prausnitzii_57453/compute_pangenome_size.log'
+)
+
+for (i in 1:length(pangenome_file_list)) {
+  pangenome_size[i] = get_pangenome_size(pangenome_file_list[i])
+}
+
+pangenome_size_data = data.frame(
+  species=phylogenetic_levels,
+  pangenome_size=pangenome_size,
+  N_curr=N_curr_MLE,
+  N_anc=N_anc
+)
+
+cor_pangenome_size_N_curr = cor(pangenome_size, N_curr_MLE)
+plot(pangenome_size, N_curr_MLE)
+abline(lm(N_curr_MLE ~ pangenome_size))
+text(3000, 2E10, paste("Correlation:", round(cor_pangenome_size_N_curr, 2)), pos = 3)
+text(3000, 1.5E10, paste("P-value:", round(cor.test(pangenome_size, N_curr_MLE)$p.value, 2)), pos = 3)
+title('No correlation between N_curr and pangenome size')
+
+cor_pangenome_size_N_anc = cor(pangenome_size, N_anc)
+plot(pangenome_size, N_anc)
+abline(lm(N_anc ~ pangenome_size))
+text(3000, 3E7, paste("Correlation:", round(cor_pangenome_size_N_anc, 2)), pos = 3)
+text(3000, 2.5E7, paste("P-value:", round(cor.test(pangenome_size, N_anc)$p.value, 2)), pos = 3)
+title('No correlation between N_anc and pangenome size')
+
+pangenome_size_regression = lm(N_curr_MLE ~ pangenome_size)
+
+pangenome_size_data_reduced <- pangenome_size_data[-c(5, 17, 20, 24), ]
+
+pangenome_size_regression_reduced = lm(pangenome_size_data_reduced$N_curr ~ pangenome_size_data_reduced$pangenome_size)
+
+pangenome_size_scatter = ggscatter(pangenome_size_data_reduced, x="pangenome_size", y="N_curr", color="species", shape=18, size=4) +
+  ylab('Estimated current effective population size') +
+  xlab('Number of core and accessory genes') +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=3) +
+  guides(color=guide_legend(title="Species")) +
+  geom_abline(intercept=pangenome_size_regression_reduced$coefficients[1], slope = pangenome_size_regression_reduced$coefficients[2],
+    color="red", 
+    linetype="dashed", size=1.5) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16))
+  
+pangenome_size_scatter
+
+cor.test(pangenome_size_data_reduced$N_curr, pangenome_size_data_reduced$pangenome_size)
+
+pangenome_size_scatter = ggscatter(pangenome_size_data_reduced, x="pangenome_size", y="N_anc", color="species", shape=18, size=4) +
+  ylab('Estimated ancestral effective population size') +
+  xlab('Number of core and accessory genes') +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=3) +
+  guides(color=guide_legend(title="Species")) +
+  geom_abline(intercept=lm(pangenome_size_data_reduced$N_anc ~ pangenome_size_data_reduced$pangenome_size)$coefficients[1], 
+    slope = lm(pangenome_size_data_reduced$N_anc ~ pangenome_size_data_reduced$pangenome_size)$coefficients[2],
+    color="red", 
+    linetype="dashed", size=1.5) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16))
+
+pangenome_size_scatter
+
+cor.test(pangenome_size_data_reduced$N_anc, pangenome_size_data_reduced$pangenome_size)
+
+### Correlation between mean relative abundance and N_curr
+
+N_curr_reduced = pangenome_size_data_reduced$N_curr
+
+mean_relative_abundance = read.table(
+  '../Analysis/HMP1_2_relative_abundance_prevalence/species_mean_relative_abundance.txt', 
+  header=TRUE)
+
+mean_relative_abundance
+
+mean_relative_abundance_reduced <- mean_relative_abundance[-c(5, 17, 20, 24), ]
+
+cor_N_curr_relative_abundance = cor(N_curr_reduced, mean_relative_abundance_reduced$mean_relative_abundance)
+plot(mean_relative_abundance_reduced$mean_relative_abundance, N_curr_reduced,
+  ylab='Current effective population size',
+  xlab='Mean relative abundance')
+abline(lm(N_curr_reduced ~ mean_relative_abundance_reduced$mean_relative_abundance))
+text(0.04, 3E7, paste("Correlation:", round(cor_N_curr_relative_abundance, 2)), pos = 3)
+text(0.04, 2.5E7, paste("P-value:", round(cor.test(N_curr_reduced, mean_relative_abundance_reduced$mean_relative_abundance)$p.value, 2)), pos = 3)
+title('No correlation between current effective population size and mean relative abundance')
+
+### Correlation between prevalence and N_curr
+
+species_prevalence = read.table(
+  '../Analysis/HMP1_2_relative_abundance_prevalence/species_prevalence_filtered.txt',
+  header=TRUE
+)
+
+species_prevalence
+species_prevalence$species_id = factor(species_prevalence$species_id,
+  levels=phylogenetic_levels_MIDAS)
+
+species_prevalence = species_prevalence[order(species_prevalence$species_id), ]
+row.names(species_prevalence) = NULL
+
+species_prevalence
+
+species_prevalence_reduced <- species_prevalence[-c(5, 17, 20, 24), ]
+
+cor_N_curr_prevalence = cor(N_curr_reduced, species_prevalence_reduced$prevalence)
+plot(species_prevalence_reduced$prevalence, N_curr_reduced,
+  ylab='Current effective population size',
+  xlab='Species prevalence')
+abline(lm(N_curr_reduced ~ species_prevalence_reduced$prevalence))
+text(100, 3E7, paste("Correlation:", round(cor_N_curr_prevalence, 2)), pos = 3)
+text(100, 2.5E7, paste("P-value:", round(cor.test(N_curr_reduced, species_prevalence_reduced$prevalence)$p.value, 2)), pos = 3)
+title('No correlation between current effective population size and species prevalence')
