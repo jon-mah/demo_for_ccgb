@@ -1539,15 +1539,18 @@ compute_selection_coefficients <- function(input_file) {
   return(c(input_mean_s, input_weakly_deleterious, input_moderately_deleterious, input_highly_deleterious, input_lethal))
 }
 
-return_demography_params = function(input_file) {
-  # Read the first line of the file
-  first_line <- readLines(input_file, n = 1)
-  # Extract numeric values using regular expression
-  model_params <- as.numeric(unlist(strsplit(gsub("[^0-9.]", " ", first_line), " ")))
-  model_params <- model_params[!is.na(model_params)]
-  return(model_params)
-}
+return_demography_params <- function(input_file) {
+  # Read the line from the input file
+  line <- readLines(input_file, n = 1)
 
+  # Extract the list of floats using regular expressions
+  matches <- regmatches(line, gregexpr("\\d+\\.\\d+", line))
+
+  # Convert the matched strings to numeric values
+  floats <- as.numeric(matches[[1]])
+
+  return(floats)
+}
 return_demography_likelihood = function(input_file) {
   # Read the second line of the file
   second_line <- readLines(input_file, n = 2)[2]
@@ -6256,6 +6259,7 @@ two_epoch_tau = numeric(27)
 two_epoch_time = numeric(27)
 two_epoch_theta = numeric(27)
 two_epoch_nanc = numeric(27)
+two_epoch_ncurr = numeric(27)
 three_epoch_likelihood = numeric(27)
 three_epoch_AIC = numeric(27)
 three_epoch_nu_bottleneck = numeric(27)
@@ -6265,6 +6269,7 @@ three_epoch_tau_contemporary = numeric(27)
 three_epoch_time_total = numeric(27)
 three_epoch_theta = numeric(27)
 three_epoch_nanc = numeric(27)
+three_epoch_ncurr = numeric(27)
 
 for (i in 1:length(one_epoch_file_list)) {
   one_epoch_likelihood[i] = return_demography_likelihood(one_epoch_file_list[i])
@@ -6278,6 +6283,7 @@ for (i in 1:length(one_epoch_file_list)) {
   two_epoch_time[i] = time_from_demography(two_epoch_file_list[i])
   two_epoch_theta[i] = theta_from_demography(two_epoch_file_list[i])
   two_epoch_nanc[i] = nanc_from_demography(two_epoch_file_list[i])
+  two_epoch_ncurr[i] = two_epoch_nu[i] * two_epoch_nanc[i]
   three_epoch_likelihood[i] = return_demography_likelihood(three_epoch_file_list[i])
   three_epoch_AIC[i] = AIC_from_demography(three_epoch_file_list[i])
   three_epoch_nu_bottleneck[i] = return_demography_params(three_epoch_file_list[i])[1]
@@ -6287,6 +6293,7 @@ for (i in 1:length(one_epoch_file_list)) {
   three_epoch_time_total[i] = time_from_demography(three_epoch_file_list[i])
   three_epoch_theta[i] = theta_from_demography(three_epoch_file_list[i])
   three_epoch_nanc[i] = nanc_from_demography(three_epoch_file_list[i])
+  three_epoch_ncurr[i] = three_epoch_nu_contemporary[i] * three_epoch_nanc[i]
 }
 
 table_s3 = data.frame(
@@ -6302,6 +6309,7 @@ table_s3 = data.frame(
   two_epoch_time,
   two_epoch_theta,
   two_epoch_nanc,
+  two_epoch_ncurr,
   three_epoch_likelihood,
   three_epoch_AIC,
   three_epoch_nu_bottleneck,
@@ -6310,7 +6318,8 @@ table_s3 = data.frame(
   three_epoch_tau_contemporary,
   three_epoch_time_total,
   three_epoch_theta,
-  three_epoch_nanc
+  three_epoch_nanc,
+  three_epoch_ncurr
 )
 
 names(table_s3) = c(
@@ -6326,6 +6335,7 @@ names(table_s3) = c(
   'Two epoch, time in years',
   'Two epoch, theta',
   'Two epoch, Ancestral effective population size',
+  'Two epoch, Current effective population size',
   'Three epoch, log likelihood',
   'Three epoch, AIC',
   'Three epoch, nu (bottleneck)',
@@ -6334,10 +6344,11 @@ names(table_s3) = c(
   'Three epoch, tau (contemporary)',
   'Three epoch, time in years',
   'Three epoch, theta',
-  'Three epoch, Ancestral effective population size'
+  'Three epoch, Ancestral effective population size',
+  'Three epoch, Current effective population size'
 )
 
-write.csv(table_s3, '../Summary/Supplemental_Table_3.csv', row.names = F)
+write.csv(table_s3, '../Supplement/Supplemental_Table_3.csv', row.names = F)
 
 ### Supplemental Table 4
 names(nu_tau_distribution) = c(
@@ -6350,7 +6361,7 @@ names(nu_tau_distribution) = c(
   'High estimate of time in years'
 )
 
-write.csv(nu_tau_distribution, '../Summary/Supplemental_Table_4.csv', row.names = F)
+write.csv(nu_tau_distribution, '../Supplement/Supplemental_Table_4.csv', row.names = F)
 
 ### Supplemental Table 5
 
@@ -6409,7 +6420,7 @@ names(table_s5) = c(
 
 table_s5
 
-write.csv(table_s5, '../Summary/Supplemental_Table_5.csv', row.names = F)
+write.csv(table_s5, '../Supplement/Supplemental_Table_5.csv', row.names = F)
 
 ### Supplemental Table 6
 accessory_phylogenetic_levels = c(
@@ -6463,6 +6474,7 @@ accessory_two_epoch_tau = numeric(7)
 accessory_two_epoch_time = numeric(7)
 accessory_two_epoch_theta = numeric(7)
 accessory_two_epoch_nanc = numeric(7)
+accessory_two_epoch_ncurr = numeric(7)
 accessory_three_epoch_likelihood = numeric(7)
 accessory_three_epoch_AIC = numeric(7)
 accessory_three_epoch_nu_bottleneck = numeric(7)
@@ -6472,6 +6484,7 @@ accessory_three_epoch_tau_contemporary = numeric(7)
 accessory_three_epoch_time_total = numeric(7)
 accessory_three_epoch_theta = numeric(7)
 accessory_three_epoch_nanc = numeric(7)
+accessory_three_epoch_ncurr = numeric(7)
 
 for (i in 1:length(accessory_one_epoch_file_list)) {
   accessory_one_epoch_likelihood[i] = return_demography_likelihood(accessory_one_epoch_file_list[i])
@@ -6485,6 +6498,7 @@ for (i in 1:length(accessory_one_epoch_file_list)) {
   accessory_two_epoch_time[i] = time_from_demography(accessory_two_epoch_file_list[i])
   accessory_two_epoch_theta[i] = theta_from_demography(accessory_two_epoch_file_list[i])
   accessory_two_epoch_nanc[i] = nanc_from_demography(accessory_two_epoch_file_list[i])
+  accessory_two_epoch_ncurr[i] = accessory_two_epoch_nu[i] * accessory_two_epoch_ncurr[i]
   accessory_three_epoch_likelihood[i] = return_demography_likelihood(accessory_three_epoch_file_list[i])
   accessory_three_epoch_AIC[i] = AIC_from_demography(accessory_three_epoch_file_list[i])
   accessory_three_epoch_nu_bottleneck[i] = return_demography_params(accessory_three_epoch_file_list[i])[1]
@@ -6494,7 +6508,10 @@ for (i in 1:length(accessory_one_epoch_file_list)) {
   accessory_three_epoch_time_total[i] = time_from_demography(accessory_three_epoch_file_list[i])
   accessory_three_epoch_theta[i] = theta_from_demography(accessory_three_epoch_file_list[i])
   accessory_three_epoch_nanc[i] = nanc_from_demography(accessory_three_epoch_file_list[i])
+  accessory_three_epoch_ncurr[i] = accessory_three_epoch_nu_contemporary[i] * accessory_three_epoch_nanc[i]
 }
+
+core_ancestral = table_s3[c(7, 13, 14, 17, 18, 23, 27)]
 
 table_s6 = data.frame(
   species=accessory_phylogenetic_levels,
@@ -6509,6 +6526,7 @@ table_s6 = data.frame(
   accessory_two_epoch_time,
   accessory_two_epoch_theta,
   accessory_two_epoch_nanc,
+  accessory_two_epoch_ncurr,
   accessory_three_epoch_likelihood,
   accessory_three_epoch_AIC,
   accessory_three_epoch_nu_bottleneck,
@@ -6517,35 +6535,42 @@ table_s6 = data.frame(
   accessory_three_epoch_tau_contemporary,
   accessory_three_epoch_time_total,
   accessory_three_epoch_theta,
-  accessory_three_epoch_nanc
+  accessory_three_epoch_nanc,
+  accessory_three_epoch_ncurr
 )
 
 names(table_s6) = c(
   'Species',
-  'One epoch, log likelihood',
-  'One epoch, AIC',
-  'One epoch, theta',
-  'One epoch, Ancestral effective population size',
-  'Two epoch, log likelihood',
-  'Two epoch, AIC',
-  'Two epoch, nu',
-  'Two epoch, tau',
-  'Two epoch, time in years',
-  'Two epoch, theta',
-  'Two epoch, Ancestral effective population size',
-  'Three epoch, log likelihood',
-  'Three epoch, AIC',
-  'Three epoch, nu (bottleneck)',
-  'Three epoch, nu (contemporary)',
-  'Three epoch, tau (bottleneck)',
-  'Three epoch, tau (contemporary)',
-  'Three epoch, time in years',
-  'Three epoch, theta',
-  'Three epoch, Ancestral effective population size'
+  'One epoch, log likelihood (Accessory)',
+  'One epoch, AIC (Accessory)',
+  'One epoch, theta (Accessory)',
+  'One epoch, Ancestral effective population size (Accessory)',
+  'Two epoch, log likelihood (Accessory)',
+  'Two epoch, AIC (Accessory)',
+  'Two epoch, nu (Accessory)',
+  'Two epoch, tau (Accessory)',
+  'Two epoch, time in years (Accessory)',
+  'Two epoch, theta (Accessory)',
+  'Two epoch, Ancestral effective population size (Accessory)',
+  'Two epoch, Current effective population size (Accessory)',
+  'Three epoch, log likelihood (Accessory)',
+  'Three epoch, AIC (Accessory)',
+  'Three epoch, nu at end of epoch one (Accessory)',
+  'Three epoch, nu at end of epoch two (Accessory)',
+  'Three epoch, tau at end of epoch one (Accessory)',
+  'Three epoch, tau at end of epoch two (Accessory)',
+  'Three epoch, time in years (Accessory)',
+  'Three epoch, theta (Accessory)',
+  'Three epoch, Ancestral effective population size (Accessory)',
+  'Three epoch, Current effective population size (Accessory)',
+  'One epoch, Ancestral effective population size (Core)',
+  'Two epoch, Ancestral effective population size (Core)',
+  'Three epoch, Ancestral effective population size (Core)'
 )
 
 table_s6
-write.csv(table_s6, '../Summary/Supplemental_Table_6.csv', row.names = F)
+write.csv(table_s6, '../Supplement/Supplemental_Table_6.csv', row.names = F)
+
 
 ### Supplemental Table 7
 accessory_DFE_file_list = c(
@@ -6612,7 +6637,7 @@ names(table_s7) = c(
 
 table_s7
 
-write.csv(table_s7, '../Summary/Supplemental_Table_7.csv', row.names = F)
+write.csv(table_s7, '../Supplement/Supplemental_Table_7.csv', row.names = F)
 
 ### Supplemental Table 8
 names(acc_core_dfe_LRT_table) = c(
@@ -6623,7 +6648,7 @@ names(acc_core_dfe_LRT_table) = c(
 
 acc_core_dfe_LRT_table
 
-write.csv(acc_core_dfe_LRT_table, '../Summary/Supplemental_Table_8.csv', row.names = F)
+write.csv(acc_core_dfe_LRT_table, '../Supplement/Supplemental_Table_8.csv', row.names = F)
 
 ### Figure S7
 
@@ -6964,6 +6989,8 @@ plot_core_all_time_comparison
 
 # 1500 x 1500
 
+difference_plot
+
 design = "
 AAA
 BBC
@@ -7146,6 +7173,11 @@ mean_relative_abundance
 
 mean_relative_abundance_reduced <- mean_relative_abundance[-c(5, 17, 20, 24), ]
 
+mean_relative_abundance_reduced = cbind(mean_relative_abundance_reduced, N_curr_reduced
+  )
+
+relative_abundance_regression = lm(N_curr_reduced ~ mean_relative_abundance_reduced$mean_relative_abundance)
+
 cor_N_curr_relative_abundance = cor(N_curr_reduced, mean_relative_abundance_reduced$mean_relative_abundance)
 plot(mean_relative_abundance_reduced$mean_relative_abundance, N_curr_reduced,
   ylab='Current effective population size',
@@ -7154,6 +7186,25 @@ abline(lm(N_curr_reduced ~ mean_relative_abundance_reduced$mean_relative_abundan
 text(0.04, 3E7, paste("Correlation:", round(cor_N_curr_relative_abundance, 2)), pos = 3)
 text(0.04, 2.5E7, paste("P-value:", round(cor.test(N_curr_reduced, mean_relative_abundance_reduced$mean_relative_abundance)$p.value, 2)), pos = 3)
 title('No correlation between current effective population size and mean relative abundance')
+
+# 1000 x 1000
+
+mean_relative_abundance_scatter = ggscatter(mean_relative_abundance_reduced, x="mean_relative_abundance", y="N_curr_reduced", color="species_id", shape=18, size=4) +
+  ylab('Estimated current effective population size') +
+  xlab('Mean relative abundance') +
+  geom_text_repel(aes(label = species_id, color=species_id, fontface = 'italic'), size=3) +
+  guides(color=guide_legend(title="Species")) +
+  geom_abline(intercept=relative_abundance_regression$coefficients[1], slope = relative_abundance_regression$coefficients[2],
+    color="red", 
+    linetype="dashed", size=1.5) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16)) +
+  ggtitle('Correlation: 0.13, P-value: 0.54')
+  
+mean_relative_abundance_scatter
 
 ### Correlation between prevalence and N_curr
 
@@ -7173,6 +7224,13 @@ species_prevalence
 
 species_prevalence_reduced <- species_prevalence[-c(5, 17, 20, 24), ]
 
+species_prevalence_reduced <- species_prevalence[-c(5, 17, 20, 24), ]
+
+species_prevalence_reduced = cbind(species_prevalence_reduced, N_curr_reduced
+  )
+
+species_prevalence_regression = lm(N_curr_reduced ~ species_prevalence_reduced$prevalence)
+
 cor_N_curr_prevalence = cor(N_curr_reduced, species_prevalence_reduced$prevalence)
 plot(species_prevalence_reduced$prevalence, N_curr_reduced,
   ylab='Current effective population size',
@@ -7181,3 +7239,20 @@ abline(lm(N_curr_reduced ~ species_prevalence_reduced$prevalence))
 text(100, 3E7, paste("Correlation:", round(cor_N_curr_prevalence, 2)), pos = 3)
 text(100, 2.5E7, paste("P-value:", round(cor.test(N_curr_reduced, species_prevalence_reduced$prevalence)$p.value, 2)), pos = 3)
 title('No correlation between current effective population size and species prevalence')
+  
+prevalence_scatter = ggscatter(species_prevalence_reduced, x="prevalence", y="N_curr_reduced", color="species_id", shape=18, size=4) +
+  ylab('Estimated current effective population size') +
+  xlab('Species prevalence') +
+  geom_text_repel(aes(label = species_id, color=species_id, fontface = 'italic'), size=3) +
+  guides(color=guide_legend(title="Species")) +
+  geom_abline(intercept=species_prevalence_regression$coefficients[1], slope = species_prevalence_regression$coefficients[2],
+    color="red", 
+    linetype="dashed", size=1.5) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16)) +
+  ggtitle('Correlation: -0.08, P-value: 0.72')
+  
+prevalence_scatter
