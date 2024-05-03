@@ -128,8 +128,10 @@ class ComputeSFS():
 
     def load_substitution_rate_map(self, species):
         """Read pre-computed substitution rate map for species."""
-        data_directory = os.path.expanduser(
-            "/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
+        # data_directory = os.path.expanduser(
+        #     "/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1-2/data")
+        # data_directory = config.data_directory
+        data_directory = "/u/project/ngarud/Garud_lab/metagenomic_fastq_files/HMP1_2_Kuleshov_Qin_Twins_Korpela"
         substitution_rate_directory = '%s/substitution_rates/' % data_directory
         intermediate_filename_template = '%s%s.txt.gz'
 
@@ -138,7 +140,10 @@ class ComputeSFS():
 
         substitution_rate_map = {}
 
+        print(intermediate_filename)
+
         if not os.path.isfile(intermediate_filename):
+            print('empty map')
             return substitution_rate_map
 
         file = gzip.open(intermediate_filename,"r")
