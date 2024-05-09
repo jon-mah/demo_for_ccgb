@@ -6511,7 +6511,7 @@ for (i in 1:length(accessory_one_epoch_file_list)) {
   accessory_three_epoch_ncurr[i] = accessory_three_epoch_nu_contemporary[i] * accessory_three_epoch_nanc[i]
 }
 
-core_ancestral = table_s3[c(7, 13, 14, 17, 18, 23, 27)]
+core_ancestral = table_s3[c(7, 13, 14, 17, 18, 23, 27), ]
 
 table_s6 = data.frame(
   species=accessory_phylogenetic_levels,
@@ -6536,7 +6536,10 @@ table_s6 = data.frame(
   accessory_three_epoch_time_total,
   accessory_three_epoch_theta,
   accessory_three_epoch_nanc,
-  accessory_three_epoch_ncurr
+  accessory_three_epoch_ncurr,
+  core_ancestral$`One epoch, Ancestral effective population size`,
+  core_ancestral$`Two epoch, Ancestral effective population size`,
+  core_ancestral$`Three epoch, Ancestral effective population size`
 )
 
 names(table_s6) = c(
@@ -6570,7 +6573,6 @@ names(table_s6) = c(
 
 table_s6
 write.csv(table_s6, '../Supplement/Supplemental_Table_6.csv', row.names = F)
-
 
 ### Supplemental Table 7
 accessory_DFE_file_list = c(
@@ -7161,6 +7163,7 @@ pangenome_size_scatter
 
 cor.test(pangenome_size_data_reduced$N_anc, pangenome_size_data_reduced$pangenome_size)
 
+### Figure S13
 ### Correlation between mean relative abundance and N_curr
 
 N_curr_reduced = pangenome_size_data_reduced$N_curr
@@ -7256,3 +7259,27 @@ prevalence_scatter = ggscatter(species_prevalence_reduced, x="prevalence", y="N_
   ggtitle('Correlation: -0.08, P-value: 0.72')
   
 prevalence_scatter
+
+### Figure S14
+accessory_core_demography_reduced = accessory_core_demography[c(7, 13, 14, 17, 18, 23, 27), ]
+
+accessory_core_demography_reduced$`Core, N_anc`
+accessory_core_demography_reduced$`Accessory, N_Anc`
+
+accessory_core_demography_scatter = ggscatter(accessory_core_demography_reduced, x="Core, N_anc", y="Accessory, N_Anc", color="Species", shape=18, size=4) +
+  ylab('Estimated current effective population size') +
+  xlab('species accessory_core_demography') +
+  geom_text_repel(aes(label = Species, color=Species, fontface = 'italic'), size=3) +
+  guides(color=guide_legend(title="species")) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16)) +
+  ylim(0, 3E7) +
+  xlim(0, 3E7) +
+  xlab('Ancestral effective population size, Accessory genes') +
+  ylab('Ancestral effective population size, Core genes') +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed")
+
+accessory_core_demography_scatter
