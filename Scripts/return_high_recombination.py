@@ -152,15 +152,15 @@ class HighRecombination():
         # sp = LG.index.get_level_values("Reference genome end loc")
         core_sp_max = LG["Core genome end loc"].max()
         core_sp_min = LG["Core genome start loc"].min()
-        core_sp = np.arange(core_sp_min, core_sp_max, ws/10)
+        core_sp = np.arange(core_sp_min, core_sp_max, ws)
 
         # core_sp
         num_transfers = {}
         # print(core_sp_max)
         for i in range(len(core_sp)):
             if i + ws < len(core_sp):
-                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[int(i+10)])).sum()
-                num_transfers[(core_sp[int(i)],core_sp[int(i+10)])] = n
+                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[int(i+ws)])).sum()
+                num_transfers[(core_sp[int(i)],core_sp[int(i+ws)])] = n
             else:
                 n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[-1])).sum()
                 num_transfers[(core_sp[int(i)], core_sp[-1])] = n
@@ -196,8 +196,11 @@ class HighRecombination():
                         where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
 
         ax.scatter(midpoints, transfer_rate.values)
-        ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
+        # ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
         plt.savefig('../HighRecombinationAnalysis/' + species + '_recombination_map.png')
+        print(midpoints)
+        print(num_transfers.values)
+        print(transfer_rate.values)
         logger.info('Pipeline executed succesfully.')
 
 
