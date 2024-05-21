@@ -358,6 +358,61 @@ plot_likelihood_surface_contour_talk = function(input) {
 }
 
 
+compare_sfs_high_recombination = function(original, recombination) {
+  x_axis = 1:length(original)
+
+  input_df = data.frame(original,
+                        recombination,
+                        x_axis)
+  
+  names(input_df) = c('Original',
+                      'Recombination',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
+
+
+
+compare_sfs = function(empirical, one_epoch, two_epoch) {
+  x_axis = 1:length(empirical)
+
+  input_df = data.frame(empirical,
+                        two_epoch,
+                        one_epoch,
+                        x_axis)
+  
+  names(input_df) = c('Empirical',
+                      'Two-epoch',
+                      'One-epoch',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
 
 compare_sfs = function(empirical, one_epoch, two_epoch) {
   x_axis = 1:length(empirical)
