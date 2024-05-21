@@ -142,7 +142,7 @@ class HighRecombination():
         iLDS = iLDS.loc[iLDS['Species'] == species]
         iLDS_site_pos = iLDS.get('site_pos')
 
-        print(iLDS_site_pos)
+        # print(iLDS_site_pos)
 
         LG = LG.loc[LG["between clade?"] == "N"]
 
@@ -195,12 +195,9 @@ class HighRecombination():
         ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
                         where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
 
-        ax.scatter(midpoints, transfer_rate.values)
-        # ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
+        # ax.scatter(midpoints, transfer_rate.values)
+        ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
         plt.savefig('../HighRecombinationAnalysis/' + species + '_recombination_map.png')
-        print(midpoints)
-        print(num_transfers.values)
-        print(transfer_rate.values)
         logger.info('Pipeline executed succesfully.')
 
 
