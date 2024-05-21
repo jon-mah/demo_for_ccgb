@@ -159,10 +159,10 @@ class HighRecombination():
         # print(core_sp_max)
         for i in range(len(core_sp)):
             if i + ws < len(core_sp):
-                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[int(i+ws)])).sum()
+                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Core genome start loc"] < core_sp[int(i+ws)])).sum()
                 num_transfers[(core_sp[int(i)],core_sp[int(i+ws)])] = n
             else:
-                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[-1])).sum()
+                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Core genome start loc"] < core_sp[-1])).sum()
                 num_transfers[(core_sp[int(i)], core_sp[-1])] = n
 
         num_transfers = pd.Series(num_transfers)
