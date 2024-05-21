@@ -140,7 +140,7 @@ class HighRecombination():
 
         LG = LG.loc[species]
         iLDS = iLDS.loc[iLDS['Species'] == species]
-        iLDS_site_pos = iLDS.get('site_pos')
+        iLDS_site_pos = iLDS.get('SNV position (genome)')
 
         # print(iLDS_site_pos)
 
@@ -150,26 +150,26 @@ class HighRecombination():
         ws = 1000
 
         # sp = LG.index.get_level_values("Reference genome end loc")
-        core_sp_max = LG["Core genome end loc"].max()
-        core_sp_min = LG["Core genome start loc"].min()
-        core_sp = np.arange(core_sp_min, core_sp_max, ws)
+        ref_sp_max = LG["Reference genome end loc"].max()
+        ref_sp_min = LG["Reference genome start loc"].min()
+        ref_sp = np.arange(ref_sp_min, ref_sp_max, ws)
 
         # core_sp
         num_transfers = {}
         # print(core_sp_max)
-        for i in range(len(core_sp)):
-            if i + ws < len(core_sp):
-                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Core genome start loc"] < core_sp[int(i+ws)])).sum()
-                num_transfers[(core_sp[int(i)],core_sp[int(i+ws)])] = n
+        for i in range(len(ref_sp)):
+            if i + ws < len(ref_sp):
+                n = ((LG["Reference genome start loc"] >= ref_sp[i])&(LG["Reference genome start loc"] < ref_sp[int(i+ws)])).sum()
+                num_transfers[(ref_sp[int(i)],ref_sp[int(i+ws)])] = n
             else:
-                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Core genome start loc"] < core_sp[-1])).sum()
-                num_transfers[(core_sp[int(i)], core_sp[-1])] = n
+                n = ((LG["Reference genome start loc"] >= ref_sp[i])&(LG["Reference genome start loc"] < ref_sp[-1])).sum()
+                num_transfers[(ref_sp[int(i)], ref_sp[-1])] = n
 
         num_transfers = pd.Series(num_transfers)
-        num_transfers.index.names = ["core_start", "core_end"]
+        num_transfers.index.names = ["ref_start", "ref_end"]
         # print(num_transfers)
 
-        midpoints = num_transfers.index.get_level_values("core_start") + (num_transfers.index.get_level_values("core_end") - num_transfers.index.get_level_values("core_start"))/2
+        midpoints = num_transfers.index.get_level_values("ref_start") + (num_transfers.index.get_level_values("ref_end") - num_transfers.index.get_level_values("ref_start"))/2
 
         # Initialize pass_positions with False
         pass_positions = np.full(len(midpoints), False, dtype=bool)
@@ -183,14 +183,16 @@ class HighRecombination():
 
         # Output the pass_positions vector
         # print(pass_positions)
+        # print([i for i, x in enumerate(pass_positions) if x])
+
 
         fix, ax = plt.subplots(figsize=(16, 8))
-        transfer_rate = num_transfers.values / (num_transfers.index.get_level_values("core_end") - num_transfers.index.get_level_values("core_start"))
+        transfer_rate = num_transfers.values / (num_transfers.index.get_level_values("ref_end") - num_transfers.index.get_level_values("ref_start"))
         transfer_rate = pd.Series(transfer_rate, index=num_transfers.index)
 
         ax.plot(midpoints, transfer_rate.values)
         ax.set_ylabel("Recombinations / bp", size=25)
-        ax.set_xlabel("Core genome position (bp)", size=25)
+        ax.set_xlabel("Reference genome position (bp)", size=25)
         ax.axhline(transfer_rate.quantile(percentile), color="k")
         ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
                         where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
