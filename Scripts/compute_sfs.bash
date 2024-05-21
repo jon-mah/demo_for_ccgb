@@ -9,7 +9,7 @@
 #$ -l highp
 #$ -t 1:72
 
-SGE_TASK_ID=1
+SGE_TASK_ID=2
 
 # readarray good_spec < ../Data/good_species_list.txt
 readarray good_spec < ../HighRecombinationData/good_species_list.txt

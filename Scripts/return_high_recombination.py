@@ -23,6 +23,8 @@ from utils import parse_midas_data, diversity_utils
 from utils import clade_utils, parse_HMP_data
 from utils import gene_diversity_utils
 import numpy as np
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import gzip
 import dadi
@@ -131,15 +133,71 @@ class HighRecombination():
         logger.info('Computing SFS of ' + str(species) + '.')
 
         LG = pd.read_csv("../HighRecombinationData/LiuGood2024TableS3.csv", index_col=1)
-        print(LG)
+        iLDS = pd.read_csv("../HighRecombinationData/RW_TableS4.csv", index_col=1)
 
         # Remove potential duplicates
         LG = LG.loc[LG["Potential duplicate of other events?"] == False]
 
         LG = LG.loc[species]
+        iLDS = iLDS.loc[iLDS['Species'] == species]
+        iLDS_site_pos = iLDS.get('site_pos')
+
+        print(iLDS_site_pos)
 
         LG = LG.loc[LG["between clade?"] == "N"]
 
+        # set window size
+        ws = 1000
+
+        # sp = LG.index.get_level_values("Reference genome end loc")
+        core_sp_max = LG["Core genome end loc"].max()
+        core_sp_min = LG["Core genome start loc"].min()
+        core_sp = np.arange(core_sp_min, core_sp_max, ws/10)
+
+        # core_sp
+        num_transfers = {}
+        # print(core_sp_max)
+        for i in range(len(core_sp)):
+            if i + ws < len(core_sp):
+                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[int(i+10)])).sum()
+                num_transfers[(core_sp[int(i)],core_sp[int(i+10)])] = n
+            else:
+                n = ((LG["Core genome start loc"] >= core_sp[i])&(LG["Reference genome start loc"] < core_sp[-1])).sum()
+                num_transfers[(core_sp[int(i)], core_sp[-1])] = n
+
+        num_transfers = pd.Series(num_transfers)
+        num_transfers.index.names = ["core_start", "core_end"]
+        # print(num_transfers)
+
+        midpoints = num_transfers.index.get_level_values("core_start") + (num_transfers.index.get_level_values("core_end") - num_transfers.index.get_level_values("core_start"))/2
+
+        # Initialize pass_positions with False
+        pass_positions = np.full(len(midpoints), False, dtype=bool)
+
+        # Check each midpoint against all iLDS_site_pos values
+        for i, midpoint in enumerate(midpoints):
+            for pos in iLDS_site_pos:
+                if abs(midpoint - pos) <= 1000:
+                    pass_positions[i] = True
+                    break  # No need to check further if we found a iLDS_site_pos within 1000 units
+
+        # Output the pass_positions vector
+        # print(pass_positions)
+
+        fix, ax = plt.subplots(figsize=(16, 8))
+        transfer_rate = num_transfers.values / (num_transfers.index.get_level_values("core_end") - num_transfers.index.get_level_values("core_start"))
+        transfer_rate = pd.Series(transfer_rate, index=num_transfers.index)
+
+        ax.plot(midpoints, transfer_rate.values)
+        ax.set_ylabel("Recombinations / bp", size=25)
+        ax.set_xlabel("Core genome position (bp)", size=25)
+        ax.axhline(transfer_rate.quantile(percentile), color="k")
+        ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
+                        where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
+
+        ax.scatter(midpoints, transfer_rate.values)
+        ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
+        plt.savefig('../HighRecombinationAnalysis/' + species + '_recombination_map.png')
         logger.info('Pipeline executed succesfully.')
 
 
