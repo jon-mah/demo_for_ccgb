@@ -13,19 +13,6 @@ import argparse
 import warnings
 import random
 
-import numpy
-import itertools
-import glob
-import pandas as pd
-import config
-from utils import parse_midas_data, diversity_utils
-from utils import clade_utils, parse_HMP_data
-from utils import gene_diversity_utils
-import numpy as np
-import matplotlib
-matplotlib.use('agg')
-import matplotlib.pyplot as plt
-import gzip
 import dadi
 import scipy.stats.distributions
 import scipy.integrate
@@ -59,7 +46,7 @@ class ReturnSummaryStatisticsForPeter():
                 'Computes a downsampled SFS for a given species.'),
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument(
-            'input_syn_sfs', type=self.ExistingFile,
+            'syn_input_sfs', type=self.ExistingFile,
             help=('Synonymous SFS for given species.'))
         parser.add_argument(
             'outprefix', type=str,
@@ -76,10 +63,7 @@ class ReturnSummaryStatisticsForPeter():
 
         # Assign arguments
         outprefix = args['outprefix']
-        input_syn_sfs = args['input_syn_sfs']
-
-        # Numpy options
-        numpy.set_printoptions(linewidth=numpy.inf)
+        syn_input_sfs = args['syn_input_sfs']
 
         # create output directory if needed
         outdir = os.path.dirname(args['outprefix'])
@@ -92,10 +76,9 @@ class ReturnSummaryStatisticsForPeter():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        logfile = '{0}{1}return_summary_statistics.log'.format(
-            args['outprefix'], underscore, e)
-        to_remove = [logfile, sfs_dataframe,
-                     empirical_syn_sfs, empirical_nonsyn_sfs]
+        logfile = '{0}{1}summary_statistics.log'.format(
+            args['outprefix'], underscore)
+        to_remove = [logfile]
         for f in to_remove:
             if os.path.isfile(f):
                 os.remove(f)
@@ -126,12 +109,26 @@ class ReturnSummaryStatisticsForPeter():
         logger.info('Loading in given input file.')
         syn_data = dadi.Spectrum.from_file(syn_input_sfs)
 
+
+        with open(syn_input_sfs, 'r') as file:
+            lines = file.readlines()
+
+            # Extract 0 to n-tons
+            sfs_line = lines[1]
+            counts = sfs_line.split()
+
+            # Convert the strings to floats
+            float_counts = [float(num) for num in counts]
+
+            # Calculate the sum
+            num_bp = sum(float_counts)
+
         logger.info("Computing Watterson's Theta for input file.")
-        thetaW = syn_data.Watterson_theta()
+        thetaW = syn_data.Watterson_theta() / num_bp
         logger.info("Watterson's Theta for input file is {}.".format(str(thetaW)))
 
         logger.info("Computing pi per base-pair")
-        pi = syn_data.pi()
+        pi = syn_data.pi() / num_bp
         logger.info("Pi per base pair for input file is {}.".format(str(pi)))
 
         logger.info('Pipeline executed succesfully.')
