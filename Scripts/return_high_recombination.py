@@ -432,7 +432,7 @@ class HighRecombination():
         ref_sp_min = LG["Reference genome start loc"].min()
         # print(ref_sp_max)
         # print(ref_sp_min)
-        ref_sp = np.arange(ref_sp_min, ref_sp_max, ws)
+        ref_sp = np.arange(ref_sp_min, ref_sp_max, 1)
 
         num_transfers = {}
         for i in range(len(ref_sp)):
