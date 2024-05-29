@@ -148,7 +148,7 @@ class HighRecombination():
 
         substitution_rate_map = {}
 
-        print(intermediate_filename)
+        # print(intermediate_filename)
 
         if not os.path.isfile(intermediate_filename):
             print('empty map')
@@ -280,7 +280,7 @@ class HighRecombination():
 
         reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
 
-        print(len(gene_names))
+        # print(len(gene_names))
 
         if unique_individuals:
             sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
@@ -311,7 +311,7 @@ class HighRecombination():
 
         reference_gene_idxs = numpy.array([gene_name in reference_genes for gene_name in gene_names])
 
-        print(len(gene_names))
+        # print(len(gene_names))
 
         if unique_individuals:
             sample_idxs = (self.calculate_unique_samples(subject_sample_map, gene_samples))*(marker_coverages>=min_marker_coverage)
@@ -414,14 +414,15 @@ class HighRecombination():
 
         # Remove potential duplicates
         LG = LG.loc[LG["Potential duplicate of other events?"] == False]
+        # print(LG)
 
         LG = LG.loc[species]
+        # print(species)
+
         iLDS = iLDS.loc[iLDS['Species'] == species]
         iLDS_site_pos = iLDS.get('SNV position (genome)')
 
-        # print(iLDS_site_pos)
-
-        LG = LG.loc[LG["between clade?"] == "N"]
+        LG = LG.loc[(LG["between clade?"] == "N") | (LG["between clade?"].isna())]
 
         # set window size
         ws = 1000
@@ -429,11 +430,11 @@ class HighRecombination():
         # sp = LG.index.get_level_values("Reference genome end loc")
         ref_sp_max = LG["Reference genome end loc"].max()
         ref_sp_min = LG["Reference genome start loc"].min()
-        ref_sp = np.arange(ref_sp_min, ref_sp_max, ws)
+        # print(ref_sp_max)
+        # print(ref_sp_min)
+        ref_sp = np.arange(ref_sp_min, ref_sp_max, 100)
 
-        # core_sp
         num_transfers = {}
-        # print(core_sp_max)
         for i in range(len(ref_sp)):
             if i + ws < len(ref_sp):
                 n = ((LG["Reference genome start loc"] >= ref_sp[i])&(LG["Reference genome start loc"] < ref_sp[int(i+ws)])).sum()
@@ -459,27 +460,53 @@ class HighRecombination():
                     break  # No need to check further if we found a iLDS_site_pos within 1000 units
 
         # Output the pass_positions vector
-        # print(pass_positions)
-        # print([i for i, x in enumerate(pass_positions) if x])
 
 
-        # fix, ax = plt.subplots(figsize=(16, 8))
+        fig, ax = plt.subplots(figsize=(16, 8))
         transfer_rate = num_transfers.values / (num_transfers.index.get_level_values("ref_end") - num_transfers.index.get_level_values("ref_start"))
         transfer_rate = pd.Series(transfer_rate, index=num_transfers.index)
 
-        high_recombination_sites = where(transfer_rate > trasnfer_rate.quantile(percentile))
-        print(high_recombination_sites)
+        high_recombination_sites = transfer_rate[transfer_rate > transfer_rate.quantile(percentile)]
+        high_recombination_midpoints = high_recombination_sites.index.get_level_values("ref_start") + \
+            (high_recombination_sites.index.get_level_values("ref_end") - high_recombination_sites.index.get_level_values("ref_start"))/2
+        high_recombination_sites_set = set()
+        for site_index in high_recombination_midpoints:
+            lower_bound = site_index - 1000
+            upper_bound = site_index + 1000
+            sites_to_add = range(lower_bound, upper_bound, 1)
+            for site in sites_to_add:
+                high_recombination_sites_set.add(site)
+        # print(high_recombination_sites_set)
+        # print(midpoints[pass_positions])
 
-        # ax.plot(midpoints, transfer_rate.values)
-        # ax.set_ylabel("Recombinations / bp", size=25)
-        # ax.set_xlabel("Reference genome position (bp)", size=25)
-        # ax.axhline(transfer_rate.quantile(percentile), color="k")
-        # ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
-        #                 where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
+        high_selection_sites_set = set()
+        for site_index in midpoints[pass_positions]:
+            lower_bound = site_index - 1000
+            upper_bound = site_index + 1000
+            sites_to_remove = range(lower_bound, upper_bound, 1)
+            for site in sites_to_remove:
+                 high_selection_sites_set.add(site)
+        # print(high_selection_sites_set)
 
-        # ax.scatter(midpoints, transfer_rate.values)
-        # ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
-        # plt.savefig('../HighRecombinationAnalysis/' + species + '_recombination_map.png')
+        sites_for_sfs = high_recombination_sites_set - high_selection_sites_set
+        print('This is the number of high recombination sites in {0}'.format(species))
+        print(len(high_recombination_sites_set))
+        print('This is the number of high selection sites in {0}'.format(species))
+        print(len(high_selection_sites_set))
+        print('This is the number of included sites in {0} when given a percentile of {1}'.format(species, percentile))
+        print(len(sites_for_sfs))
+
+        ax.plot(midpoints, transfer_rate.values)
+        ax.set_ylabel("Recombinations / bp", size=25)
+        ax.set_xlabel("Reference genome position (bp)", size=25)
+        ax.axhline(transfer_rate.quantile(percentile), color="k")
+        ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
+                        where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
+
+        ax.scatter(midpoints, transfer_rate.values)
+        ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
+        plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
+            str(percentile) + 'recombination_map.png')
 
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
@@ -552,6 +579,8 @@ class HighRecombination():
         ## as well as information about sites (contig/gene, S/NS etc)
         df_sites,gene_lengths,unq_genes,unq_cont = self.read_sites(species)
 
+        df_sites = df_sites[df_sites.index.get_level_values('site_pos').astype(float).isin(sites_for_sfs)]
+
         ## frequency of each nucleotide at each site
         atcg = df_sites["allele_props"].dropna().str.split("|")
         atcg = pd.DataFrame([[elem[2:] for elem in e] for e in atcg],index=atcg.index,columns=["a","c","t","g"])
@@ -569,9 +598,8 @@ class HighRecombination():
 
         sfs = []
 
-        # max_gene_count = 25 # Uncomment for testing
-
-
+        # print('Test run with 500 max genes')
+        # max_gene_count = 500 # Uncomment for testing
 
         for i,chunk_size in enumerate(gene_lengths):
 
