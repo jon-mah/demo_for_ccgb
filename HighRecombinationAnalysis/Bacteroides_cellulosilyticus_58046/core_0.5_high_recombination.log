@@ -9886,3 +9886,20 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 2024-05-29 15:37:39,245 - INFO - Computing SFS of Bacteroides_cellulosilyticus_58046.
 2024-05-29 15:37:39,792 - WARNING - sys:1: DtypeWarning: Columns (2,6) have mixed types. Specify dtype option on import or set low_memory=False.
 
+2024-05-29 15:50:10,392 - INFO - Beginning execution of return_high_recombination.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2024-05-29 15:50:10,393 - INFO - Progress is being logged to ../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/core_0.5_high_recombination.log
+
+2024-05-29 15:50:10,393 - INFO - Parsed the following arguments:
+	core = True
+	min_MAF = 0.0
+	accessory = False
+	min_depth = 20
+	percentile = 0.5
+	outprefix = ../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/
+	species = Bacteroides_cellulosilyticus_58046
+	f_star = 0.2
+
+2024-05-29 15:50:10,393 - INFO - Computing SFS of Bacteroides_cellulosilyticus_58046.
+2024-05-29 15:50:10,898 - WARNING - sys:1: DtypeWarning: Columns (2,6) have mixed types. Specify dtype option on import or set low_memory=False.
+
