@@ -380,9 +380,9 @@ class HighRecombination():
             args['outprefix'], underscore, file_tag, percentile)
         to_remove = [logfile, sfs_dataframe,
                      empirical_syn_sfs, empirical_nonsyn_sfs]
-        for f in to_remove:
-            if os.path.isfile(f):
-                os.remove(f)
+        # for f in to_remove:
+        #     if os.path.isfile(f):
+        #         os.remove(f)
 
         # Set up to log everything to logfile.
         logging.shutdown()
@@ -432,7 +432,7 @@ class HighRecombination():
         ref_sp_min = LG["Reference genome start loc"].min()
         # print(ref_sp_max)
         # print(ref_sp_min)
-        ref_sp = np.arange(ref_sp_min, ref_sp_max, 100)
+        ref_sp = np.arange(ref_sp_min, ref_sp_max, ws)
 
         num_transfers = {}
         for i in range(len(ref_sp)):
@@ -503,11 +503,10 @@ class HighRecombination():
         ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
                         where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
 
-        ax.scatter(midpoints, transfer_rate.values)
         ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
         plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
-            str(percentile) + 'recombination_map.png')
-
+            str(percentile) + '_recombination_map.png')
+        sys.exit()
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = self.load_core_genes(species)
