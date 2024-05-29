@@ -9997,3 +9997,20 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 2024-05-29 14:37:35,554 - INFO - Outputting SFSs in Dadi format.
 2024-05-29 14:37:35,554 - INFO - Outputting SFS of just core genes.
 2024-05-29 14:37:35,593 - INFO - Pipeline executed succesfully.
+2024-05-29 15:24:02,862 - INFO - Beginning execution of return_high_recombination.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2024-05-29 15:24:02,863 - INFO - Progress is being logged to ../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/core_0.5_high_recombination.log
+
+2024-05-29 15:24:02,863 - INFO - Parsed the following arguments:
+	core = True
+	min_MAF = 0.0
+	accessory = False
+	min_depth = 20
+	percentile = 0.5
+	outprefix = ../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/
+	species = Bacteroides_thetaiotaomicron_56941
+	f_star = 0.2
+
+2024-05-29 15:24:02,863 - INFO - Computing SFS of Bacteroides_thetaiotaomicron_56941.
+2024-05-29 15:24:03,625 - WARNING - sys:1: DtypeWarning: Columns (2,6) have mixed types. Specify dtype option on import or set low_memory=False.
+
