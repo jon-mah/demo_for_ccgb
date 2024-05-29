@@ -504,7 +504,7 @@ class HighRecombination():
                         where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
 
         ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
-        plt.title(str(species))
+        plt.title(str(species), fontsize=35)
         plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
             str(percentile) + '_recombination_map.png')
         sys.exit()
