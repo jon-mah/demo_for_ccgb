@@ -507,7 +507,7 @@ class HighRecombination():
         plt.title(str(species), fontsize=35)
         plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
             str(percentile) + '_recombination_map.png')
-        sys.exit()
+        # sys.exit()
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = self.load_core_genes(species)

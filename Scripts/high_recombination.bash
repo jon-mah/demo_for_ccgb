@@ -2,8 +2,9 @@
 #$ -cwd
 #$ -V
 #$ -l h_data=20G
-#$ -l h_rt=2:00:00
+#$ -l h_rt=4:00:00
 #$ -t 1-22
+#$ -l highp
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N high_recombination_sfs
