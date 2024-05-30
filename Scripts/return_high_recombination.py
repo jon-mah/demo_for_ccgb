@@ -425,7 +425,7 @@ class HighRecombination():
         LG = LG.loc[(LG["between clade?"] == "N") | (LG["between clade?"].isna())]
 
         # set window size
-        ws = 1000
+        ws = 30000
 
         # sp = LG.index.get_level_values("Reference genome end loc")
         ref_sp_max = LG["Reference genome end loc"].max()
