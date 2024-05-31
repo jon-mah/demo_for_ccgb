@@ -96,4 +96,4 @@ done < ../HighRecombinationData/good_species_list.txt
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/accessory
 
 # High Recombination core
-python fit_one_epoch.py ../HighRecombinationAnalysis/${species}/core_0.5_empirical_syn_downsampled_sfs.txt ../HighRecombinationAnalysis/${species}/core_0.5
+python fit_one_epoch.py ../HighRecombinationAnalysis/${species}/core_0.5_empirical_syn_14_downsampled_sfs.txt ../HighRecombinationAnalysis/${species}/core_0.5

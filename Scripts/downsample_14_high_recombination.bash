@@ -6,7 +6,7 @@
 #$ -l h_data=25G
 #$ -l h_rt=00:10:00
 #$ -t 1-22
-#$ -N compute_downsample_14
+#$ -N downsample_14_high_recombination
 
 # SGE_TASK_ID=1
 
