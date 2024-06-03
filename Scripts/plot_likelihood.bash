@@ -34,4 +34,4 @@ done < ../HighRecombinationData/good_species_list.txt
 
 # python plot_likelihood.py ../Analysis/${species}_downsampled_14/core_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/core_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/core
 # python plot_likelihood.py ../Analysis/${species}_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/accessory_two_epoch_demography.txt ../Analysis/${species}_downsampled_14/accessory
-python plot_likelihood.py ../HighRecombinationAnalysis/${species}/core_0.5_empirical_syn_14_downsampled_sfs.txt ../HighRecombinationAnalysis/${species}/core_0.05_two_epoch_demography.txt ../HighRecombinationAnalysis/${species}/
+python plot_likelihood.py ../HighRecombinationAnalysis/${species}/core_0.5_empirical_syn_14_downsampled_sfs.txt ../HighRecombinationAnalysis/${species}/core_0.5_two_epoch_demography.txt ../HighRecombinationAnalysis/${species}/
