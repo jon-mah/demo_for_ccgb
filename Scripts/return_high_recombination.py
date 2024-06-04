@@ -488,6 +488,10 @@ class HighRecombination():
                  high_selection_sites_set.add(site)
         # print(high_selection_sites_set)
 
+
+        file_name = '../HighRecombinationData/' + str(species) + '_survival_curve.txt'
+        with open(file_name, 'w+') as f:
+            f.write(str(percentile) + str(len(sites_for_sfs)))
         sites_for_sfs = high_recombination_sites_set - high_selection_sites_set
         print('This is the number of high recombination sites in {0}'.format(species))
         print(len(high_recombination_sites_set))
@@ -505,9 +509,9 @@ class HighRecombination():
 
         ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
         plt.title(str(species), fontsize=35)
-        plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
-            str(percentile) + '_recombination_map.png')
-        # sys.exit()
+        # plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
+        #X     str(percentile) + '_recombination_map.png')
+        sys.exit()
         # Load core genes
         subject_sample_map = parse_HMP_data.parse_subject_sample_map()
         core_genes = self.load_core_genes(species)
