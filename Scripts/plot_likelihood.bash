@@ -4,7 +4,7 @@
 #$ -N high_recombination_likelihood
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_rt=01:00:00
+#$ -l h_rt=12:00:00
 #$ -l highp
 #$ -t 1-22
 
