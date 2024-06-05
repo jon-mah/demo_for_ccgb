@@ -424,7 +424,7 @@ class HighRecombination():
         transfer_rate = num_transfers.values / (num_transfers.index.get_level_values("ref_end") - num_transfers.index.get_level_values("ref_start"))
         transfer_rate = pd.Series(transfer_rate, index=num_transfers.index)
 
-        percentiles = np.arange(0.0, 1.0, 0.01)
+        percentiles = np.arange(0.0, 1.01, 0.01)
         survival_sites = []
 
         for percentile in percentiles:
@@ -452,9 +452,10 @@ class HighRecombination():
             sites_for_sfs = high_recombination_sites_set - high_selection_sites_set
             survival_sites.append(len(sites_for_sfs))
 
-        data = [percentiles, survival_sites]
-        survival_curve = pd.DataFrame(data, columnns=['Percentile', 'Remaining Sites')
-        survival_curve.to_csv(survival_curve_csv)
+        data = {'Recombination percentile': percentiles,
+                'Remaining sites': survival_sites}
+        survival_curve = pd.DataFrame(data)
+        survival_curve.to_csv(survival_curve_csv, index=False)
 
         logger.info('Pipeline executed succesfully.')
 
