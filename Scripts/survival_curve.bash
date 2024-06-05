@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -V
 #$ -l h_data=20G
-#$ -l h_rt=4:00:00
+#$ -l h_rt=1:00:00
 #$ -t 1-22
 #$ -l highp
 #$ -e /u/home/j/jonmah/postproc_error
@@ -25,11 +25,7 @@ done < ../HighRecombinationData/good_species_list.txt
 
 # percentile=0.50
 
-percentile = 0.0
-while percentile < 1.01
-do
-  python return_high_recombination.py $species $percentile ../HighRecombinationAnalysis/${species}/ --core
-  percentile=$((percentile+0.01))
+python survival_curve.py $species ../HighRecombinationAnalysis/${species}/
 
 # mkdir ../HighRecombinationAnalysis/${species}/
 

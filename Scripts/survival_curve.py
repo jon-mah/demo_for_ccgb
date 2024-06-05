@@ -63,29 +63,6 @@ class HighRecombination():
             'species', type=str,
             help=('String describing the species being analyzed.'))
         parser.add_argument(
-            'percentile', type=float,
-            help=
-                ('Float describing the minimum percentile of recombination '
-                 'rate for inclusion'))
-        parser.add_argument('--min_depth',
-            help=("Minimum depth to use to call a variant at a site in "
-                  "a sample"), type=int, default=20)
-        parser.add_argument('--min_MAF',
-            help=("Minimum allele frequency to be considered a polymorphic "
-                 "site. Note: allele frequency is determined as percentage of "
-                 "total number of reads across all hosts supporting an "
-                 "allele. Large fluctuations in allele frequency across "
-                 "hosts can bias this."), type=float, default=0.0)
-        parser.add_argument('--f_star',
-            help=("Within host allele frequency to call consensus"),
-            type=float, default=0.2)
-        parser.add_argument('--core', default=False,
-            action='store_true',
-            help=('Boolean flag for only core genes.'))
-        parser.add_argument('--accessory', default=False,
-            action='store_true',
-            help=('Boolean flag for only accessory  genes.'))
-        parser.add_argument(
             'outprefix', type=str,
             help='The file prefix for the output files')
         return parser
@@ -339,12 +316,6 @@ class HighRecombination():
         # Assign arguments
         outprefix = args['outprefix']
         species = args['species']
-        min_depth = args['min_depth']
-        min_MAF = args['min_MAF']
-        f_star = args['f_star']
-        core_bool = args['core']
-        accessory_bool = args['accessory']
-        percentile = args['percentile']
         random.seed(1)
 
         # Numpy options
@@ -361,25 +332,12 @@ class HighRecombination():
         # Output files: logfile, snp_matrix.csv
         # Remove output files if they already exist
         underscore = '' if args['outprefix'][-1] == '/' else '_'
-        if core_bool:
-           file_tag = 'core_'
-        elif accessory_bool:
-           file_tag = 'accessory_'
-        else:
-           file_tag = ''
-        sfs_dataframe = \
-           '{0}{1}{2}{3}_sfs_dataframe.csv'.format(
-                args['outprefix'], underscore, file_tag, percentile)
-        empirical_syn_sfs = \
-            '{0}{1}{2}{3}_empirical_syn_sfs.txt'.format(
-                args['outprefix'], underscore, file_tag, percentile)
-        empirical_nonsyn_sfs = \
-            '{0}{1}{2}{3}_empirical_nonsyn_sfs.txt'.format(
-                args['outprefix'], underscore, file_tag, percentile)
-        logfile = '{0}{1}{2}{3}_high_recombination.log'.format(
-            args['outprefix'], underscore, file_tag, percentile)
-        to_remove = [logfile, sfs_dataframe,
-                     empirical_syn_sfs, empirical_nonsyn_sfs]
+        survival_curve_csv = \
+           '{0}{1}survival_curve.csv'.format(
+                args['outprefix'], underscore)
+        logfile = '{0}{1}survival_curve.log'.format(
+            args['outprefix'], underscore)
+        to_remove = [logfile, survival_curve_csv]
         # for f in to_remove:
         #     if os.path.isfile(f):
         #         os.remove(f)
@@ -466,254 +424,37 @@ class HighRecombination():
         transfer_rate = num_transfers.values / (num_transfers.index.get_level_values("ref_end") - num_transfers.index.get_level_values("ref_start"))
         transfer_rate = pd.Series(transfer_rate, index=num_transfers.index)
 
-        high_recombination_sites = transfer_rate[transfer_rate > transfer_rate.quantile(percentile)]
-        high_recombination_midpoints = high_recombination_sites.index.get_level_values("ref_start") + \
-            (high_recombination_sites.index.get_level_values("ref_end") - high_recombination_sites.index.get_level_values("ref_start"))/2
-        high_recombination_sites_set = set()
-        for site_index in high_recombination_midpoints:
-            lower_bound = site_index - 1000
-            upper_bound = site_index + 1000
-            sites_to_add = range(lower_bound, upper_bound, 1)
-            for site in sites_to_add:
-                high_recombination_sites_set.add(site)
-        # print(high_recombination_sites_set)
-        # print(midpoints[pass_positions])
+        percentiles = np.arange(0.0, 1.0, 0.01)
+        survival_sites = []
 
-        high_selection_sites_set = set()
-        for site_index in midpoints[pass_positions]:
-            lower_bound = site_index - 1000
-            upper_bound = site_index + 1000
-            sites_to_remove = range(lower_bound, upper_bound, 1)
-            for site in sites_to_remove:
-                 high_selection_sites_set.add(site)
-        # print(high_selection_sites_set)
+        for percentile in percentiles:
+            high_recombination_sites = transfer_rate[transfer_rate > transfer_rate.quantile(percentile)]
+            high_recombination_midpoints = high_recombination_sites.index.get_level_values("ref_start") + \
+                (high_recombination_sites.index.get_level_values("ref_end") - high_recombination_sites.index.get_level_values("ref_start"))/2
+            high_recombination_sites_set = set()
+            for site_index in high_recombination_midpoints:
+                lower_bound = site_index - 1000
+                upper_bound = site_index + 1000
+                sites_to_add = range(lower_bound, upper_bound, 1)
+                for site in sites_to_add:
+                    high_recombination_sites_set.add(site)
+            # print(high_recombination_sites_set)
+            # print(midpoints[pass_positions])
 
-        sites_for_sfs = high_recombination_sites_set - high_selection_sites_set
-        print('This is the number of high recombination sites in {0}'.format(species))
-        print(len(high_recombination_sites_set))
-        print('This is the number of high selection sites in {0}'.format(species))
-        print(len(high_selection_sites_set))
-        print('This is the number of included sites in {0} when given a percentile of {1}'.format(species, percentile))
-        print(len(sites_for_sfs))
+            high_selection_sites_set = set()
+            for site_index in midpoints[pass_positions]:
+                lower_bound = site_index - 1000
+                upper_bound = site_index + 1000
+                sites_to_remove = range(lower_bound, upper_bound, 1)
+                for site in sites_to_remove:
+                     high_selection_sites_set.add(site)
 
-        ax.plot(midpoints, transfer_rate.values)
-        ax.set_ylabel("Recombinations / bp", size=25)
-        ax.set_xlabel("Reference genome position (bp)", size=25)
-        ax.axhline(transfer_rate.quantile(percentile), color="k")
-        ax.fill_between(midpoints, transfer_rate.quantile(percentile), transfer_rate,
-                        where=transfer_rate > transfer_rate.quantile(percentile), alpha=.5)
+            sites_for_sfs = high_recombination_sites_set - high_selection_sites_set
+            survival_sites.append(len(sites_for_sfs))
 
-        ax.scatter(midpoints[pass_positions], transfer_rate.values[pass_positions], color="red")
-        plt.title(str(species), fontsize=35)
-        # plt.savefig('../HighRecombinationAnalysis/' + species + '/' + \
-        #X     str(percentile) + '_recombination_map.png')
-        # sys.exit()
-        # Load core genes
-        subject_sample_map = parse_HMP_data.parse_subject_sample_map()
-        core_genes = self.load_core_genes(species)
-        accessory_genes = self.load_accessory_genes(species)
-
-        # Default parameters
-        alpha = 0.5 # Confidence interval range for rate estimates
-        low_divergence_threshold = 5e-04
-        min_change = 0.8
-
-        snp_samples = diversity_utils.calculate_haploid_samples(species)
-        snp_samples = snp_samples[self.calculate_unique_samples(
-            subject_sample_map, snp_samples)]
-        snp_samples = snp_samples.ravel()
-        snp_samples = [s.decode("utf-8")  for s in snp_samples]
-
-        # Pre-computed substituion rates for species
-        subject_sample_map = parse_HMP_data.parse_subject_sample_map()
-        substitution_rate_map = self.load_substitution_rate_map(species)
-        dummy_samples, snp_difference_matrix, snp_opportunity_matrix = \
-            self.calculate_matrices_from_substitution_rate_map(
-                substitution_rate_map, 'core', allowed_samples=snp_samples)
-        snp_samples = numpy.array(dummy_samples)
-        substitution_rate = snp_difference_matrix * 1.0 / \
-            (snp_opportunity_matrix+(snp_opportunity_matrix==0))
-
-        coarse_grained_idxs, coarse_grained_cluster_list = \
-            clade_utils.cluster_samples(
-                substitution_rate, min_d=low_divergence_threshold)
-
-        coarse_grained_samples = snp_samples[coarse_grained_idxs]
-        clade_sets = clade_utils.load_manual_clades(species)
-
-        clade_idxss = clade_utils.calculate_clade_idxs_from_clade_sets(
-            coarse_grained_samples, clade_sets)
-
-        clade_sizes = numpy.array(
-            [clade_idxs.sum() for clade_idxs in clade_idxss])
-
-        largest_clade_samples = \
-            coarse_grained_samples[ clade_idxss[clade_sizes.argmax()] ]
-
-        # clade = clade_utils.load_largest_clade(species)
-        clade = largest_clade_samples
-        snps_dir = "%ssnps/%s" % (config.data_directory,species)
-        snps_summary = pd.read_csv(
-            "%s/snps_summary.txt" % snps_dir,sep="\t",index_col=0)
-        L = snps_summary["covered_bases"]
-        mean_coverage = snps_summary["mean_coverage"]
-
-        samples_host = list(pd.read_csv(
-            "%s/snps_depth.txt.bz2" % snps_dir,sep="\t",index_col=0, nrows=0))
-        samples_tuples = list(itertools.combinations(
-            samples_host, 2)) + [(s1,s1) for s1 in samples_host]
-
-        reader=True
-
-        haploid_samples = diversity_utils.calculate_haploid_samples(species)
-
-        ## initialize chunk readers for sample depth and allele frequency
-        df_depth_reader = pd.read_csv("%s/snps_depth.txt.bz2" % snps_dir,sep="\t",index_col=0, iterator=True,low_memory=False)
-        df_refreq_reader = pd.read_csv("%s/snps_ref_freq.txt.bz2" % snps_dir,sep="\t",index_col=0, iterator=True,low_memory=False)
-
-        ## reads header. chunking can now proceed on data in files
-        df_depth_header = df_depth_reader.get_chunk(0)
-        df_refreq_header = df_refreq_reader.get_chunk(0)
-
-        ## read snps_info file, which contains cohort-wide information about allele frequency,
-        ## as well as information about sites (contig/gene, S/NS etc)
-        df_sites,gene_lengths,unq_genes,unq_cont = self.read_sites(species)
-
-        df_sites = df_sites[df_sites.index.get_level_values('site_pos').astype(float).isin(sites_for_sfs)]
-
-        ## frequency of each nucleotide at each site
-        atcg = df_sites["allele_props"].dropna().str.split("|")
-        atcg = pd.DataFrame([[elem[2:] for elem in e] for e in atcg],index=atcg.index,columns=["a","c","t","g"])
-        atcg = atcg.astype(float)
-
-        ## pulls S/NS status for each nucleotide mutation at each site relative to ref state
-        syn_non = df_sites["snps"].loc[df_sites.index]
-        syn_non = syn_non.fillna("A:SYN|C:SYN|T:SYN|G:SYN")
-        syn_non = syn_non.loc[[len(s) > 1 for s in syn_non]]
-        syn_non = pd.DataFrame([[elem[2:] for elem in e] for e in syn_non.str.split("|")],index=syn_non.index,columns=["a","c","t","g"])
-
-        logger.info('Looping over genes.')
-
-        all_haplotypes = []
-
-        sfs = []
-
-        # print('Test run with 500 max genes')
-        # max_gene_count = 500 # Uncomment for testing
-
-        for i,chunk_size in enumerate(gene_lengths):
-
-            # if i > max_gene_count:
-            #     break
-            ## read next chunk_size number of lines
-            df_depth = df_depth_reader.get_chunk(chunk_size)
-            df_refreq = df_refreq_reader.get_chunk(chunk_size)
-
-            gene_name = unq_genes[i]
-            # print(str(unq_genes[i]))
-            if 'non' in str(unq_genes[i]):
-                logger.info('Ignoring non-coding gene.')
-                continue
-
-            if core_bool and gene_name not in core_genes:
-                logger.info('Ignoring non-core gene.')
-                continue
-
-            if accessory_bool and gene_name not in accessory_genes:
-                logger.info('Ignoring non-accessory gene.')
-                continue
-            logger.info('Processing ' + str(unq_genes[i]) + '.')
-
-            df_depth.columns = [d[:-1] if d[-1] == "c" else d for d in df_depth.columns]
-            df_refreq.columns = [d[:-1] if d[-1] == "c" else d for d in df_refreq.columns]
-
-            df_depth = df_depth[haploid_samples]
-            df_refreq = df_refreq[haploid_samples]
-
-            ## initialize haplotype dataframe as alternate allele freq in each sample
-            df_haplotypes = 1 - df_refreq.copy()
-
-            ## treat sites with less than min_depth coverage as missing data
-            df_haplotypes = df_haplotypes.mask(df_depth < min_depth)
-
-            ## if alternate is consensus, mark sample as 1. if ref is consensus, mark as 0.
-            df_haplotypes = df_haplotypes.mask(df_haplotypes >= .8,1)
-            df_haplotypes = df_haplotypes.mask(df_haplotypes <= .2,0)
-
-            ## treat intermediate frequency variants as missing data
-            df_depth = df_depth.mask(np.logical_and(df_haplotypes < .8,df_haplotypes > .2))
-            df_haplotypes = df_haplotypes.mask(np.logical_and(df_haplotypes < .8,df_haplotypes > .2))
-
-            df_haplotypes.index = [d.split("|")[1] for d in df_haplotypes.index]
-            df_haplotypes.index.set_names("site_pos",inplace=True)
-            df_haplotypes["gene_id"] = df_haplotypes.shape[0]*[gene_name]
-            df_haplotypes["contig"] = df_haplotypes.shape[0]*[unq_cont[i]]
-            df_haplotypes.set_index('gene_id', append=True, inplace=True)
-            df_haplotypes.set_index('contig', append=True, inplace=True)
-            df_haplotypes = df_haplotypes.reorder_levels(["contig",'gene_id', 'site_pos'])
-
-            df_haplotypes = df_haplotypes.loc[[d for d in df_haplotypes.index if d in df_sites.index]]
-
-            df_haplotypes["site_type"] = df_sites.loc[df_haplotypes.index]["site_type"]
-            df_haplotypes.set_index('site_type', append=True, inplace=True)
-            df_haplotypes = df_haplotypes.reorder_levels(["contig",'gene_id', 'site_pos','site_type'])
-
-            sfs_all = df_haplotypes.T.mean()
-            # print(df_haplotypes)
-            sfs_clade = df_haplotypes[clade].T.mean()
-
-            sfs_df = pd.DataFrame(columns=["all","largest_clade"],index=sfs_all.index)
-
-            sfs_df["all"] = sfs_all
-            sfs_df["largest_clade"] = sfs_clade
-
-            sfs.append(sfs_df)
-
-        df = pd.concat(sfs)
-
-        # Save intermediate dataframe if desired
-        # df.to_csv(sfs_dataframe)
-
-        df.loc[df["all"] > 0.5]["all"] = df.loc[df["all"] > 0.5]["all"].values
-        df.loc[df["largest_clade"] > 0.5]["largest_clade"] = df.loc[df["largest_clade"] > 0.5]["largest_clade"].values
-
-        all_1 = df.dropna()["all"].xs("1D",level="site_type")
-        all_4 = df.dropna()["all"].xs("4D",level="site_type")
-
-        clade_1 = df.dropna()["largest_clade"].xs("1D",level="site_type")
-        clade_4 = df.dropna()["largest_clade"].xs("4D",level="site_type")
-
-        # Compute frequency of singletons
-        all_min = min(all_1.loc[all_1 > 0].min(),all_4.loc[all_4 > 0].min())
-        clade_min = min(clade_1.loc[clade_1 > 0].min(),clade_4.loc[clade_4 > 0].min())
-
-        # Include 0-tons and n-tons
-        bins_all = list(np.arange(0, 1.0 + all_min, all_min))
-
-        # Include 0-tons and n-tons
-        bins_clade = list(np.arange(0, 1.0 + clade_min, clade_min))
-
-        sfs_1 = np.histogram(all_1, bins=bins_all, density=False)
-        sfs_4 = np.histogram(all_4, bins=bins_all, density=False)
-        sfs_clade_1 = np.histogram(clade_1, bins=bins_clade, density=False)
-        sfs_clade_4 = np.histogram(clade_4, bins=bins_clade, density=False)
-
-        logger.info('There are {0} species in the largest clade.'.format(
-            str(len(clade))))
-        logger.info('There are {0} bins in the SFS.'.format(
-            str(len(bins_clade))))
-
-        logger.info('Outputting SFSs in Dadi format.')
-        if core_bool:
-            logger.info('Outputting SFS of just core genes.')
-        if accessory_bool:
-            logger.info('Outputting SFS of just accessory genes.')
-
-        syn_clade_sfs = dadi.Spectrum(sfs_clade_4[0])
-        syn_clade_sfs.to_file(empirical_syn_sfs)
-        nonsyn_clade_sfs = dadi.Spectrum(sfs_clade_1[0])
-        nonsyn_clade_sfs.to_file(empirical_nonsyn_sfs)
-
+        data = [percentiles, survival_sites]
+        survival_curve = pd.DataFrame(data, columnns=['Percentile', 'Remaining Sites')
+        survival_curve.to_csv(survival_curve_csv)
 
         logger.info('Pipeline executed succesfully.')
 
