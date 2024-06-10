@@ -357,7 +357,31 @@ plot_likelihood_surface_contour_talk = function(input) {
   return(fig)
 }
 
+compare_sfs_high_recombination = function(original, recombination) {
+  x_axis = 1:length(original)
 
+  input_df = data.frame(original,
+                        recombination,
+                        x_axis)
+  
+  names(input_df) = c('Original',
+                      'Top 50% recombination',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
 
 compare_sfs = function(empirical, one_epoch, two_epoch) {
   x_axis = 1:length(empirical)
@@ -369,6 +393,36 @@ compare_sfs = function(empirical, one_epoch, two_epoch) {
   
   names(input_df) = c('Empirical',
                       'Two-epoch',
+                      'One-epoch',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                                                     aes(x=x_axis, 
+                                                         y=value,
+                                                         fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
+  
+  return(p_input_comparison)
+}
+
+compare_sfs = function(empirical, one_epoch, two_epoch, three_epoch) {
+  x_axis = 1:length(empirical)
+
+  input_df = data.frame(empirical,
+                        two_epoch,
+                        three_epoch,
+                        one_epoch,
+                        x_axis)
+  
+  names(input_df) = c('Empirical',
+                      'Two-epoch',
+                      'Three-epoch',
                       'One-epoch',
                       'x_axis')
   
@@ -1668,4 +1722,13 @@ get_pangenome_size = function(input_file) {
   gene_count <- as.numeric(sub(".*There are (\\d+) genes in the pangenome.*", "\\1", second_to_last_line))
   
   return(gene_count)
+}
+
+plot_survival_curve = function(data) {
+  ggplot(data, aes(x = Recombination.percentile, y = Remaining.sites)) +
+    geom_point() +
+    labs(title = "Scatter Plot of Recombination Percentile vs Remaining Sites",
+         x = "Recombination Percentile",
+         y = "Remaining Sites") +
+    theme_minimal()
 }
