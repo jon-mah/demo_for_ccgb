@@ -4,7 +4,7 @@
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
-#$ -l h_rt=01:00:00
+#$ -l h_rt=02:00:00
 #$ -t 1-128
 #$ -N compute_downsample_14
 
@@ -29,8 +29,6 @@ do
       species=$line
    fi
 done < ../SupplementaryAnalysis/supplementary_species_list.txt
-
-
 
 sample_size=14
 
