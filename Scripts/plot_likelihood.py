@@ -467,7 +467,7 @@ class PlotLikelihood():
                 x = input_nu  # Initial x value
                 y = input_tau  # Initial y value
 
-                npts = 250
+                npts = 25
                 if (x * 1.99) < 2.0:
                     x_max = 2.0
                 else:
