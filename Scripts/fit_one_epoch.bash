@@ -4,7 +4,7 @@
 #$ -l h_data=20G
 #$ -l h_rt=4:00:00
 #$ -l highp
-#$ -t 1-22
+#$ -t 1-41
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_high_recombination
@@ -21,6 +21,7 @@
 #   fi
 # done < ../Data/good_species_list.txt
 
+
 i=0
 while read line;
 do
@@ -29,7 +30,18 @@ do
     then
       species=$line
   fi
-done < ../HighRecombinationData/good_species_list.txt
+done < ../SupplementaryAnalysis/supplementary_species_list.txt
+
+
+# i=0
+# while read line;
+# do
+#   i=$((i+1))
+#   if [ $i -eq $SGE_TASK_ID ]
+#    then
+#       species=$line
+#   fi
+# done < ../HighRecombinationData/good_species_list.txt
 
 # i=0
 # while read line;
@@ -96,4 +108,7 @@ done < ../HighRecombinationData/good_species_list.txt
 # python fit_one_epoch.py ../Analysis/${species}_downsampled_14/accessory_empirical_syn_downsampled_sfs.txt ../Analysis/${species}_downsampled_14/accessory
 
 # High Recombination core
-python fit_one_epoch.py ../HighRecombinationAnalysis/${species}/core_0.5_empirical_syn_14_downsampled_sfs.txt ../HighRecombinationAnalysis/${species}/core_0.5
+# python fit_one_epoch.py ../HighRecombinationAnalysis/${species}/core_0.5_empirical_syn_14_downsampled_sfs.txt ../HighRecombinationAnalysis/${species}/core_0.5
+
+# Supplementary Analysis
+python fit_one_epoch.py ../SupplementaryAnalysis/${species}/core_empirical_syn_downsampled_sfs.txt ../SupplementaryAnalysis/${species}/
