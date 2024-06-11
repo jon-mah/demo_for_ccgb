@@ -1,13 +1,12 @@
 #!/bin/bash
-#$ -N compute_sfs_accessory
+#$ -N compute_sfs_supplementary
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -cwd
 #$ -V
 #$ -l h_data=25G
 #$ -l h_rt=2:00:00
-#$ -l highp
-#$ -t 1:128
+#$ -t 1:41
 
 # SGE_TASK_ID=2
 

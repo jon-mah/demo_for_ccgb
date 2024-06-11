@@ -5,7 +5,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -l h_data=25G
 #$ -l h_rt=02:00:00
-#$ -t 1-128
+#$ -t 1-41
 #$ -N compute_downsample_14
 
 # SGE_TASK_ID=1
@@ -32,4 +32,4 @@ done < ../SupplementaryAnalysis/supplementary_species_list.txt
 
 sample_size=14
 
-python compute_downsampled_sfs.py ${species} ../SupplementaryAnalysis/${species}_downsampled_${sample_size}/ ${sample_size}
+python compute_downsampled_sfs.py ${species} ../SupplementaryAnalysis/${species} ${sample_size}
