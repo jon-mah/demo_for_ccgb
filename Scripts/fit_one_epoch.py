@@ -416,11 +416,11 @@ class DemographicInference():
         # First set parameter bounds for optimization
         # model_list = ['exponential_growth', 'two_epoch', 'bottleneck_growth',
         #               'three_epoch', 'one_epoch']
-        # model_list = ['three_epoch']
+        model_list = ['three_epoch']
         # model_list = ['two_epoch']
         # model_list = ['one_epoch', 'two_epoch']
         # model_list = ['two_epoch', 'three_epoch']
-        model_list = ['one_epoch', 'two_epoch', 'three_epoch']
+        # model_list = ['one_epoch', 'two_epoch', 'three_epoch']
         # Fit different one-epoch models and compute likelihood
         # method_list = ['expectation']
         method_list = ['null']
