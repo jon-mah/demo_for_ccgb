@@ -4,9 +4,9 @@
 #$ -N supplementary_likelihood
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -l h_rt=1:00:00
+#$ -l h_rt=6:00:00
 #$ -l highp
-#$ -t 1-41
+#$ -t 1-40
 
 # SGE_TASK_ID=1
 
