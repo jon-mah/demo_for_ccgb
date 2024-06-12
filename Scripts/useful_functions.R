@@ -1732,3 +1732,17 @@ plot_survival_curve = function(data) {
          y = "Remaining Sites") +
     theme_minimal()
 }
+
+get_species_prevalence = function(input_file) {
+    # Read the last two lines from the file
+  lines <- readLines(input_file)
+  
+  first_line <- readLines(input_file, n = 1)
+  
+  # Split the first line into individual elements
+  elements <- unlist(strsplit(first_line, "\\s+"))
+  
+  # Filter out the elements that can be interpreted as floats
+  floats <- as.numeric(elements)
+  return(floats[1] - 1)
+}
