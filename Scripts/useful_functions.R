@@ -57,6 +57,7 @@ read_input_sfs = function(input_file)  {
   on.exit(close(this_file))
   sfs_string = readLines(this_file)[2]
   output_sfs = as.numeric(unlist(strsplit(sfs_string, ' ')))
+  output_sfs = output_sfs[-length(output_sfs)] ## Remove n-tons
   output_sfs = output_sfs[-1] ## Remove 0-tons
   output_sfs = fold_sfs(output_sfs)
   return(output_sfs)
