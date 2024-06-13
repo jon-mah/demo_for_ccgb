@@ -9,7 +9,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_high_recombination
 
-SGE_TASK_ID=27
+# SGE_TASK_ID=27
 
 # i=0
 # while read line;
