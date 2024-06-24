@@ -4,12 +4,12 @@
 #$ -l h_data=20G
 #$ -l h_rt=4:00:00
 #$ -l highp
-#$ -t 1-41
+#$ -t 9
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_one_epoch_high_recombination
 
-# SGE_TASK_ID=27
+SGE_TASK_ID=18
 
 # i=0
 # while read line;
