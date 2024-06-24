@@ -748,7 +748,7 @@ plot_empirical_sfs = function(input) {
 }
 
 read_dfe_params = function(input_dfe_file) {
-    ## Reads input DFE from output *inferred_DFE.txt
+  ## Reads input DFE from output *inferred_DFE.txt
   this_file = file(input_dfe_file) # Open file
   on.exit(close(this_file)) # Close when done
   # Parse file and string manipulation
@@ -799,6 +799,37 @@ read_dfe_params = function(input_dfe_file) {
                       neugamma_dfe_dist_high,
                       neugamma_dfe_dist_low)
   return(dfe_df)
+}
+
+return_shape_from_dfe = function(input_dfe_file) {
+  ## Reads input DFE from output *inferred_DFE.txt
+  this_file = file(input_dfe_file) # Open file
+  on.exit(close(this_file)) # Close when done
+  # Parse file and string manipulation
+  param_string_high = readLines(this_file)[4]
+
+  # Extract the two floats using regular expression
+  floats <- str_extract_all(param_string_high, "[+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?")
+  
+  # Convert the extracted strings to numeric values
+  gamma_shape <- as.numeric(floats[[1]][1])
+  return(gamma_shape)
+}
+
+return_scale_from_dfe = function(input_dfe_file) {
+  ## Reads input DFE from output *inferred_DFE.txt
+  this_file = file(input_dfe_file) # Open file
+  on.exit(close(this_file)) # Close when done
+  # Parse file and string manipulation
+
+  param_string_high = readLines(this_file)[4]
+
+  # Extract the two floats using regular expression
+  floats <- str_extract_all(param_string_high, "[+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?")
+  
+  # Convert the extracted strings to numeric values
+  gamma_scale_high <- as.numeric(floats[[1]][2])
+  return(gamma_scale_high)
 }
 
 read_dfe_dadi_params = function(input_dfe_file) {
@@ -1746,4 +1777,32 @@ get_species_prevalence = function(input_file) {
   # Filter out the elements that can be interpreted as floats
   floats <- as.numeric(elements)
   return(floats[1] - 1)
+}
+
+
+compare_dfe_sfs = function(empirical_nonsyn_sfs, model_nonsyn_sfs, neugamma_nonsyn_sfs) {
+  x_axis = 1:length(empirical_nonsyn_sfs)
+  
+  input_df = data.frame(proportional_sfs(empirical_nonsyn_sfs),
+                        proportional_sfs(model_nonsyn_sfs),
+                        proportional_sfs(neugamma_nonsyn_sfs),
+                        x_axis)
+  
+  names(input_df) = c('Empirical nonsynonymous',
+                      'Gamma-distributed DFE',
+                      'Neu-gamma-distributed DFE',
+                      'x_axis')
+  
+  p_input_comparison <- ggplot(data = melt(input_df, id='x_axis'),
+                               aes(x=x_axis, 
+                                   y=value,
+                                   fill=variable)) +
+    geom_bar(position='dodge2', stat='identity') +
+    labs(x = "", fill = "") +
+    scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
+    ylab('Proportion of segregating sites') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+
+  return(p_input_comparison)  
 }
