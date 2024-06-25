@@ -1892,6 +1892,129 @@ r_bicirculans_FD_likelihood_surface + ggtitle('Ruminococcus bicirculans (FD) lik
 r_bromii_FD_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Ruminococcus_bromii_62047/likelihood_surface.csv')
 r_bromii_FD_likelihood_surface + ggtitle('Ruminococcus bromii (FD) likelihood surface')
 
+## Accessory genes
+
+a_muciniphila_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Akkermansia_muciniphila_55290/accessory_likelihood_surface.csv')
+a_muciniphila_FD_accessory_likelihood_surface + ggtitle('Akkermansia muciniphila (FD, accessory genome) likelihood surface')
+
+a_finegoldii_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Alistipes_finegoldii_56071/accessory_likelihood_surface.csv')
+a_finegoldii_FD_accessory_likelihood_surface + ggtitle('Alistipes finegoldi (FD, accessory genome) likelihood surface')
+
+a_onderdonkii_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Alistipes_onderdonkii_55464/accessory_likelihood_surface.csv')
+a_onderdonkii_FD_accessory_likelihood_surface + ggtitle('Alistipes onderdonkii (FD, accessory genome) likelihood surface')
+
+a_putredinis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Alistipes_putredinis_61533/accessory_likelihood_surface.csv')
+a_putredinis_FD_accessory_likelihood_surface + ggtitle('Alistipes putredinis (FD, accessory genome) likelihood surface')
+
+a_shahii_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Alistipes_shahii_62199/accessory_likelihood_surface.csv')
+a_shahii_FD_accessory_likelihood_surface + ggtitle('Alistipes shahii (FD, accessory genome) likelihood surface')
+
+alistipes_sp_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Alistipes_sp_60764/accessory_likelihood_surface.csv')
+alistipes_sp_FD_accessory_likelihood_surface + ggtitle('Alistipes sp. (FD, accessory genome) likelihood surface')
+
+b_bacterium_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_likelihood_surface.csv')
+b_bacterium_FD_accessory_likelihood_surface + ggtitle('Bacteroides bacterium (FD, accessory genome) likelihood surface')
+
+b_caccae_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_likelihood_surface.csv')
+b_caccae_FD_accessory_likelihood_surface + ggtitle('Bacteroides caccae (FD, accessory genome) likelihood surface')
+
+b_cellulosilyticus_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_likelihood_surface.csv')
+b_cellulosilyticus_FD_accessory_likelihood_surface + ggtitle('Bacteroides cellulosilyticus (FD, accessory genome) likelihood surface')
+
+b_coprocola_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_coprocola_61586/accessory_likelihood_surface.csv')
+b_coprocola_FD_accessory_likelihood_surface + ggtitle('Bacteroides coprocola (FD, accessory genome) likelihood surface')
+
+b_eggerthii_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_eggerthii_54457/accessory_likelihood_surface.csv')
+b_eggerthii_FD_accessory_likelihood_surface + ggtitle('Bacteroides eggerthii (FD, accessory genome) likelihood surface')
+
+b_fragilis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_fragilis_54507/accessory_likelihood_surface.csv')
+b_fragilis_FD_accessory_likelihood_surface + ggtitle('Bacteroides fragilis (FD, accessory genome) likelihood surface')
+
+b_massiliensis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_massiliensis_44749/accessory_likelihood_surface.csv')
+b_massiliensis_FD_accessory_likelihood_surface + ggtitle('Bacteroides massiliensis (FD, accessory genome) likelihood surface')
+
+b_ovatus_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_likelihood_surface.csv')
+b_ovatus_FD_accessory_likelihood_surface + ggtitle('Bacteroides ovatus (FD, accessory genome) likelihood surface')
+
+b_plebeius_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_plebeius_61623/accessory_likelihood_surface.csv')
+b_plebeius_FD_accessory_likelihood_surface + ggtitle('Bacteroides plebeius (FD, accessory genome) likelihood surface')
+
+b_stercoris_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_stercoris_56735/accessory_likelihood_surface.csv')
+b_stercoris_FD_accessory_likelihood_surface + ggtitle('Bacteroides stercoris (FD, accessory genome) likelihood surface')
+
+b_thetaiotaomicron_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_likelihood_surface.csv')
+b_thetaiotaomicron_FD_accessory_likelihood_surface + ggtitle('Bacteroides thetaiotaomicron (FD, accessory genome) likelihood surface')
+
+b_uniformis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_uniformis_57318/accessory_likelihood_surface.csv')
+b_uniformis_FD_accessory_likelihood_surface + ggtitle('Bacteroides uniformis (FD, accessory genome) likelihood surface')
+
+b_vulgatus_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_likelihood_surface.csv')
+b_vulgatus_FD_accessory_likelihood_surface + ggtitle('Bacteroides vulgatus (FD, accessory genome) likelihood surface')
+
+b_xylanisolvens_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/accessory_likelihood_surface.csv')
+b_xylanisolvens_FD_accessory_likelihood_surface + ggtitle('Bacteroides xylanisolvens (FD, accessory genome) likelihood surface')
+
+b_intestinihominis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/accessory_likelihood_surface.csv')
+b_intestinihominis_FD_accessory_likelihood_surface + ggtitle('Barnesiella intestinihominis (FD, accessory genome) likelihood surface')
+
+coprococcus_sp_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Coprococcus_sp_62244/accessory_likelihood_surface.csv')
+coprococcus_sp_FD_accessory_likelihood_surface + ggtitle('Coprococcus sp. (FD, accessory genome) likelihood surface')
+
+d_invisus_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Dialister_invisus_61905/accessory_likelihood_surface.csv')
+d_invisus_FD_accessory_likelihood_surface + ggtitle('Dialister invisus (FD, accessory genome) likelihood surface')
+
+e_eligens_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Eubacterium_eligens_61678/accessory_likelihood_surface.csv')
+e_eligens_FD_accessory_likelihood_surface + ggtitle('Eubacterium eligens (FD, accessory genome) likelihood surface')
+
+e_rectale_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Eubacterium_rectale_56927/accessory_likelihood_surface.csv')
+e_rectale_FD_accessory_likelihood_surface + ggtitle('Eubacterium rectale (FD, accessory genome) likelihood surface')
+
+e_siraeum_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_likelihood_surface.csv')
+e_siraeum_FD_accessory_likelihood_surface + ggtitle('Eubacterium siraeum (FD, accessory genome) likelihood surface')
+
+f_prausnitzii_57453_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/accessory_likelihood_surface.csv')
+f_prausnitzii_57453_FD_accessory_likelihood_surface + ggtitle('Faecalibacterium prausnitzii 57453 (FD, accessory genome) likelihood surface')
+
+f_prausnitzii_61481_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/accessory_likelihood_surface.csv')
+f_prausnitzii_61481_FD_accessory_likelihood_surface + ggtitle('Faecalibacterium prausnitzii 61481 (FD, accessory genome) likelihood surface')
+
+f_prausnitzii_62201_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_likelihood_surface.csv')
+f_prausnitzii_62201_FD_accessory_likelihood_surface + ggtitle('Faecalibacterium prausnitzii 62201 (FD, accessory genome) likelihood surface')
+
+l_bacterium_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/accessory_likelihood_surface.csv')
+l_bacterium_FD_accessory_likelihood_surface + ggtitle('Lachnospiraceae bacterium (FD, accessory genome) likelihood surface')
+
+o_splanchnicus_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/accessory_likelihood_surface.csv')
+o_splanchnicus_FD_accessory_likelihood_surface + ggtitle('Odoribacter splanchnicus (FD, accessory genome) likelihood surface')
+
+oscillibacter_sp_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Oscillibacter_sp_60799/accessory_likelihood_surface.csv')
+oscillibacter_sp_FD_accessory_likelihood_surface + ggtitle('Oscillibacter sp. (FD, accessory genome) likelihood surface')
+
+p_distasonis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_likelihood_surface.csv')
+p_distasonis_FD_accessory_likelihood_surface + ggtitle('Parabacteroides distasonis (FD, accessory genome) likelihood surface')
+
+p_merdae_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_likelihood_surface.csv')
+p_merdae_FD_accessory_likelihood_surface + ggtitle('Parabacteroides merdae (FD, accessory genome) likelihood surface')
+
+phascolarctobacterium_sp_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/accessory_likelihood_surface.csv')
+phascolarctobacterium_sp_FD_accessory_likelihood_surface + ggtitle('Phascolarctobacterium sp. (FD, accessory genome) likelihood surface')
+
+p_copri_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Prevotella_copri_61740/accessory_likelihood_surface.csv')
+p_copri_FD_accessory_likelihood_surface + ggtitle('Prevotella copri (FD, accessory genome) likelihood surface')
+
+r_intestinalis_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Roseburia_intestinalis_56239/accessory_likelihood_surface.csv')
+r_intestinalis_FD_accessory_likelihood_surface + ggtitle('Roseburia intestinalis (FD, accessory genome) likelihood surface')
+
+r_inulinivorans_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Roseburia_inulinivorans_61943/accessory_likelihood_surface.csv')
+r_inulinivorans_FD_accessory_likelihood_surface + ggtitle('Roseburia inulinovrans (FD, accessory genome) likelihood surface')
+
+r_bicirculans_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/accessory_likelihood_surface.csv')
+r_bicirculans_FD_accessory_likelihood_surface + ggtitle('Ruminococcus bicirculans (FD, accessory genome) likelihood surface')
+
+r_bromii_FD_accessory_likelihood_surface = plot_likelihood_surface_contour('../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_likelihood_surface.csv')
+r_bromii_FD_accessory_likelihood_surface + ggtitle('Ruminococcus bromii (FD, accessory genome) likelihood surface')
+
+
 # HR DFE Comparison
 a_muciniphila_HR_dfe_params = read_dfe_params('../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/core_0.5_inferred_DFE.txt')
 a_muciniphila_HR_dfe_params$species = 'Akkermansia muciniphila'
