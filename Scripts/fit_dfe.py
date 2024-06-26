@@ -177,7 +177,7 @@ class DFEInference():
         logger.info('Input theta_syn is: ' + str(theta_syn) + '.')
         theta_nonsyn = theta_syn * 2.21
 
-        pts_l = [1200, 1400, 1600]
+        pts_l = [120, 140, 160]
         logger.info('Generating spectrum from input demography.')
         # input_model = 'two_epoch'
         if input_model == 'two_epoch':
@@ -225,7 +225,7 @@ class DFEInference():
 
         max_ll = -100000000000
 
-        for i in range(25):
+        for i in range(5):
             sel_params = initial_guesses[i]
             p0 = dadi.Misc.perturb_params(
                 sel_params, lower_bound=None,
@@ -233,7 +233,7 @@ class DFEInference():
             popt = dadi.Inference.optimize_log_fmin(sel_params, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                verbose=len(sel_params), maxiter=50,
+                verbose=len(sel_params), maxiter=20,
                 multinom=True)
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
@@ -275,7 +275,7 @@ class DFEInference():
         ng_initial_guesses.append([0.15, 10., 100000.])
 
         ng_max_ll = -100000000000
-        for i in range(25):
+        for i in range(5):
             sel_params = ng_initial_guesses[i]
             lower_bound, upper_bound = [1e-15, 1e-15, 1e-2], [1, 1000, 1000000.]
             ng_p0 = dadi.Misc.perturb_params(sel_params, lower_bound=lower_bound,
@@ -287,7 +287,7 @@ class DFEInference():
                                                   lower_bound=lower_bound,
                                                   upper_bound=upper_bound,
                                                   verbose=len(sel_params),
-                                                  maxiter=50, multinom=False)
+                                                  maxiter=20, multinom=False)
             ng_model_sfs = spectra.integrate(
                 ng_popt, None, self.neugamma, theta_nonsyn, None)
             ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)

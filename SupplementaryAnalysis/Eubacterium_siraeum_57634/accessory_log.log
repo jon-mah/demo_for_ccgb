@@ -1,16 +1,27 @@
-2024-06-24 16:39:04,288 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2024-06-25 13:54:42,356 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2024-06-24 16:39:04,288 - INFO - Progress is being logged to ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_log.log
+2024-06-25 13:54:42,356 - INFO - Progress is being logged to ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_log.log
 
-2024-06-24 16:39:04,288 - INFO - Parsed the following arguments:
-	mask_doubletons = False
-	input_demography = ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_two_epoch_demography.txt
+2024-06-25 13:54:42,356 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_empirical_syn_downsampled_sfs.txt
-	mask_singletons = False
+	nonsyn_input_sfs = ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_two_epoch_demography.txt
+	input_model = two_epoch
+	initial_alpha = 0.2
+	initial_beta = 0.1
 	outprefix = ../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory
 
-2024-06-24 16:39:04,290 - INFO - Beginning demographic inference for two-epoch demographic model.
-2024-06-24 18:09:00,566 - INFO - Maximum likelihood computed to be: -27.9370587802.
-2024-06-24 18:09:00,568 - INFO - Maximum likelihood found at ([0.85345863, 0.2008028]).
-2024-06-24 18:09:00,568 - INFO - Finished plotting likelihood surface.
-2024-06-24 18:09:00,568 - INFO - Pipeline executed succesfully.
+2024-06-25 13:54:42,360 - INFO - Loading input demography.
+2024-06-25 13:54:42,386 - INFO - Input demographic parameters are: [0.856307, 0.2138429].
+2024-06-25 13:54:42,386 - INFO - Input theta_syn is: 1235.30662434.
+2024-06-25 13:54:42,386 - INFO - Generating spectrum from input demography.
+2024-06-25 13:55:00,337 - INFO - Fitting DFE.
+2024-06-25 13:55:35,907 - WARNING - The integral is probably divergent, or slowly convergent.
+2024-06-25 13:55:36,027 - WARNING - The algorithm does not converge.  Roundoff error is detected
+  in the extrapolation table.  It is assumed that the requested tolerance
+  cannot be achieved, and that the returned result (if full_output = 1) is 
+  the best which can be obtained.
+2024-06-25 13:56:14,261 - INFO - Fitting Neutral + Gamma DFE
+2024-06-25 13:57:24,518 - INFO - Computing intermediate summary statistics.
+2024-06-25 13:57:24,521 - INFO - Outputting results.
+2024-06-25 13:57:24,524 - INFO - Pipeline executed succesfully.

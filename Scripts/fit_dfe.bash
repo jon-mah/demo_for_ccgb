@@ -5,13 +5,13 @@
 #$ -l h_data=25G
 #$ -l h_rt=12:00:00
 #$ -l highp
-#$ -t 1-22
+#$ -t 1-40
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
-#$ -N fit_dfe_HR
+#$ -N fit_dfe_FD_accessory
 
-# SGE_TASK_ID=27
-
+SGE_TASK_ID=14
+#### Python 3
 # i=0
 # while read line;
 # do

@@ -1,16 +1,35 @@
-2024-06-24 16:39:04,271 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2024-06-25 13:51:47,219 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2024-06-24 16:39:04,272 - INFO - Progress is being logged to ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_log.log
+2024-06-25 13:51:47,219 - INFO - Progress is being logged to ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_log.log
 
-2024-06-24 16:39:04,272 - INFO - Parsed the following arguments:
-	mask_doubletons = False
-	input_demography = ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_two_epoch_demography.txt
+2024-06-25 13:51:47,219 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_empirical_syn_downsampled_sfs.txt
-	mask_singletons = False
+	nonsyn_input_sfs = ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory_two_epoch_demography.txt
+	input_model = two_epoch
+	initial_alpha = 0.2
+	initial_beta = 0.1
 	outprefix = ../SupplementaryAnalysis/Bacteroides_ovatus_58035/accessory
 
-2024-06-24 16:39:04,274 - INFO - Beginning demographic inference for two-epoch demographic model.
-2024-06-24 17:06:53,373 - INFO - Maximum likelihood computed to be: -34.481692579.
-2024-06-24 17:06:53,374 - INFO - Maximum likelihood found at ([9.788490000000001e-05, 6.468500000000001e-06]).
-2024-06-24 17:06:53,374 - INFO - Finished plotting likelihood surface.
-2024-06-24 17:06:53,374 - INFO - Pipeline executed succesfully.
+2024-06-25 13:51:47,235 - INFO - Loading input demography.
+2024-06-25 13:51:47,244 - INFO - Input demographic parameters are: [9.78849, 6.4685].
+2024-06-25 13:51:47,244 - INFO - Input theta_syn is: 4664.86101775.
+2024-06-25 13:51:47,244 - INFO - Generating spectrum from input demography.
+2024-06-25 14:08:01,995 - INFO - Fitting DFE.
+2024-06-25 14:08:02,680 - WARNING - Warning: converting a masked element to nan.
+2024-06-25 14:08:03,555 - WARNING - The integral is probably divergent, or slowly convergent.
+2024-06-25 14:08:03,806 - WARNING - The maximum number of subdivisions (50) has been achieved.
+  If increasing the limit yields no improvement it is advised to analyze 
+  the integrand in order to determine the difficulties.  If the position of a 
+  local difficulty can be determined (singularity, discontinuity) one will 
+  probably gain from splitting up the interval and calling the integrator 
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+2024-06-25 14:08:31,926 - WARNING - The integral is probably divergent, or slowly convergent.
+2024-06-25 14:08:32,055 - WARNING - The algorithm does not converge.  Roundoff error is detected
+  in the extrapolation table.  It is assumed that the requested tolerance
+  cannot be achieved, and that the returned result (if full_output = 1) is 
+  the best which can be obtained.
+2024-06-25 14:10:18,201 - INFO - Fitting Neutral + Gamma DFE
+2024-06-25 14:11:31,850 - INFO - Computing intermediate summary statistics.
+2024-06-25 14:11:31,854 - INFO - Outputting results.
+2024-06-25 14:11:31,861 - INFO - Pipeline executed succesfully.
