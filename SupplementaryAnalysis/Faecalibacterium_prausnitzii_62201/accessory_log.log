@@ -1,16 +1,22 @@
-2024-06-24 16:39:04,040 - INFO - Beginning execution of plot_likelihood.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+2024-06-26 09:22:29,261 - INFO - Beginning execution of fit_dfe.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
 
-2024-06-24 16:39:04,040 - INFO - Progress is being logged to ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_log.log
+2024-06-26 09:22:29,262 - INFO - Progress is being logged to ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_log.log
 
-2024-06-24 16:39:04,040 - INFO - Parsed the following arguments:
-	mask_doubletons = False
-	input_demography = ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_two_epoch_demography.txt
+2024-06-26 09:22:29,262 - INFO - Parsed the following arguments:
 	syn_input_sfs = ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_empirical_syn_downsampled_sfs.txt
-	mask_singletons = False
+	nonsyn_input_sfs = ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_empirical_nonsyn_downsampled_sfs.txt
+	input_demography = ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_two_epoch_demography.txt
+	input_model = two_epoch
+	initial_alpha = 0.2
+	initial_beta = 0.1
 	outprefix = ../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory
 
-2024-06-24 16:39:04,042 - INFO - Beginning demographic inference for two-epoch demographic model.
-2024-06-24 17:07:05,049 - INFO - Maximum likelihood computed to be: -27.414257231.
-2024-06-24 17:07:05,049 - INFO - Maximum likelihood found at ([0.000117675462, 1.92956125e-05]).
-2024-06-24 17:07:05,050 - INFO - Finished plotting likelihood surface.
-2024-06-24 17:07:05,050 - INFO - Pipeline executed succesfully.
+2024-06-26 09:22:29,309 - INFO - Loading input demography.
+2024-06-26 09:22:29,333 - INFO - Input demographic parameters are: [1.176755, 1.929561].
+2024-06-26 09:22:29,333 - INFO - Input theta_syn is: 1171.89221886.
+2024-06-26 09:22:29,334 - INFO - Generating spectrum from input demography.
+2024-06-26 09:23:00,652 - INFO - Fitting DFE.
+2024-06-26 09:23:02,439 - INFO - Fitting Neutral + Gamma DFE
+2024-06-26 09:23:04,368 - INFO - Computing intermediate summary statistics.
+2024-06-26 09:23:04,375 - INFO - Outputting results.
+2024-06-26 09:23:04,384 - INFO - Pipeline executed succesfully.

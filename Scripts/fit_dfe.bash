@@ -5,12 +5,12 @@
 #$ -l h_data=25G
 #$ -l h_rt=12:00:00
 #$ -l highp
-#$ -t 1-40
+#$ -t 1-23
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_dfe_FD_accessory
 
-SGE_TASK_ID=14
+# SGE_TASK_ID=14
 #### Python 3
 # i=0
 # while read line;
@@ -22,25 +22,25 @@ SGE_TASK_ID=14
 #   fi
 # done < ../Data/good_species_list.txt
 
-i=0
-while read line;
-do
-  i=$((i+1))
-  if [ $i -eq $SGE_TASK_ID ]
-    then
-      species=$line
-  fi
-done < ../HighRecombinationData/good_species_list.txt
-
 # i=0
 # while read line;
 # do
 #   i=$((i+1))
 #   if [ $i -eq $SGE_TASK_ID ]
-#    then
-#      species=$line
+#     then
+#       species=$line
 #   fi
-# done < ../SupplementaryAnalysis/supplementary_species_list.txt
+# done < ../HighRecombinationData/good_species_list.txt
+
+i=0
+while read line;
+do
+  i=$((i+1))
+  if [ $i -eq $SGE_TASK_ID ]
+   then
+     species=$line
+  fi
+done < ../SupplementaryAnalysis/temp_supplementary_species_list.txt
 
 sample_size=14
 

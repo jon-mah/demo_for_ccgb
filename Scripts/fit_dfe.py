@@ -233,7 +233,7 @@ class DFEInference():
             popt = dadi.Inference.optimize_log_fmin(sel_params, nonsyn_data,
                 spectra.integrate, pts=None,
                 func_args=[DFE.PDFs.gamma, theta_nonsyn],
-                verbose=len(sel_params), maxiter=20,
+                verbose=len(sel_params), maxiter=5,
                 multinom=True)
             model_sfs = spectra.integrate(
                 popt, None, DFE.PDFs.gamma, theta_nonsyn, None)
@@ -287,7 +287,7 @@ class DFEInference():
                                                   lower_bound=lower_bound,
                                                   upper_bound=upper_bound,
                                                   verbose=len(sel_params),
-                                                  maxiter=20, multinom=False)
+                                                  maxiter=5, multinom=False)
             ng_model_sfs = spectra.integrate(
                 ng_popt, None, self.neugamma, theta_nonsyn, None)
             ng_this_ll = dadi.Inference.ll(ng_model_sfs, nonsyn_data)
