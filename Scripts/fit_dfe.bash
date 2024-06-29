@@ -2,15 +2,15 @@
 #$ -cwd
 #$ -V
 #$ -m a
-#$ -l h_data=25G
+#$ -l h_data=50G
 #$ -l h_rt=12:00:00
 #$ -l highp
-#$ -t 1-23
+#$ -t 21
 #$ -e /u/home/j/jonmah/postproc_error
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N fit_dfe_FD_accessory
 
-# SGE_TASK_ID=14
+SGE_TASK_ID=21
 #### Python 3
 # i=0
 # while read line;
@@ -40,7 +40,7 @@ do
    then
      species=$line
   fi
-done < ../SupplementaryAnalysis/temp_supplementary_species_list.txt
+done < ../SupplementaryAnalysis/supplementary_species_list.txt
 
 sample_size=14
 
