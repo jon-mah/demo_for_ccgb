@@ -3914,6 +3914,27 @@ FD_core_accessory_DFE = alistipes_sp_fd_core_dfe_plot + alistipes_sp_fd_accessor
 
 # ggsave(filename='./FD_core_accessory_DFE.png', plot=FD_core_accessory_DFE, width=20, height=225, units="in", limitsize=FALSE)
 
+FD_core_accessory_DFE_reduced = a_putredinis_fd_core_dfe_plot + a_putredinis_fd_accessory_dfe_plot +
+  a_finegoldii_fd_core_dfe_plot + a_finegoldii_fd_accessory_dfe_plot +
+  a_onderdonkii_fd_core_dfe_plot + a_onderdonkii_fd_accessory_dfe_plot +
+  a_shahii_fd_core_dfe_plot + a_shahii_fd_accessory_dfe_plot +
+  b_bacterium_fd_core_dfe_plot + b_bacterium_fd_accessory_dfe_plot +
+  p_distasonis_fd_core_dfe_plot + p_distasonis_fd_accessory_dfe_plot +
+  p_merdae_fd_core_dfe_plot + p_merdae_fd_accessory_dfe_plot +
+  b_cellulosilyticus_fd_core_dfe_plot + b_cellulosilyticus_fd_accessory_dfe_plot +
+  b_stercoris_fd_core_dfe_plot + b_stercoris_fd_accessory_dfe_plot +
+  b_thetaiotaomicron_fd_core_dfe_plot + b_thetaiotaomicron_fd_accessory_dfe_plot +
+  b_caccae_fd_core_dfe_plot + b_caccae_fd_accessory_dfe_plot +
+  b_massiliensis_fd_core_dfe_plot + b_massiliensis_fd_accessory_dfe_plot +
+  b_vulgatus_fd_core_dfe_plot + b_vulgatus_fd_accessory_dfe_plot +
+  d_invisus_fd_core_dfe_plot + d_invisus_fd_accessory_dfe_plot +
+  e_eligens_fd_core_dfe_plot + e_eligens_fd_accessory_dfe_plot +
+  e_rectale_fd_core_dfe_plot + e_rectale_fd_accessory_dfe_plot +
+  e_siraeum_fd_core_dfe_plot + e_siraeum_fd_accessory_dfe_plot +
+  r_bromii_fd_core_dfe_plot + r_bromii_fd_accessory_dfe_plot +
+  plot_layout(ncol=2)
+
+ggsave(filename='./FD_core_accessory_DFE_reduced.png', plot=FD_core_accessory_DFE_reduced, width=20, height=150, units="in", limitsize=FALSE)
 
 # HR SFS DFE comparison
 a_muciniphila_HR_DFE = compare_dfe_sfs(a_muciniphila_HR_nonsyn,
