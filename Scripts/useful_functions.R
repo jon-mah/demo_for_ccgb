@@ -1806,3 +1806,11 @@ compare_dfe_sfs = function(empirical_nonsyn_sfs, model_nonsyn_sfs, neugamma_nons
 
   return(p_input_comparison)  
 }
+
+get_species_code_reference = function(code, reference) {
+  if (code %in% reference$species_id) {
+    return(reference[reference$species_id == code, ]$midas_number)
+  } else if(code %in% reference$midas_number) {
+    return(reference[reference$midas_number == code, ]$species_id)
+  }
+}
