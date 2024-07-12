@@ -365,8 +365,6 @@ class HighRecombination():
         logger.info('Parsed the following arguments:\n{0}\n'.format(
             '\n'.join(['\t{0} = {1}'.format(*tup) for tup in args.items()])))
 
-        logger.info('Computing SFS of ' + str(species) + '.')
-
         LG = pd.read_csv("../HighRecombinationData/LiuGood2024TableS3.csv", index_col=1)
         iLDS = pd.read_csv("../HighRecombinationData/RW_TableS4.csv", index_col=1)
 
@@ -457,6 +455,9 @@ class HighRecombination():
         survival_curve = pd.DataFrame(data)
         survival_curve.to_csv(survival_curve_csv, index=False)
 
+        logger.info('The 25th percentile of recombination is: {1}'.format(transfer_rate.quantile(0.25)))
+        logger.info('The 50th percentile of recombination is: {1}'.format(transfer_rate.quantile(0.50)))
+        logger.info('The 75th percentile of recombination is: {1}'.format(transfer_rate.quantile(0.75)))
         logger.info('Pipeline executed succesfully.')
 
 
