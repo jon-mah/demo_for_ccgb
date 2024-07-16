@@ -455,9 +455,9 @@ class HighRecombination():
         survival_curve = pd.DataFrame(data)
         survival_curve.to_csv(survival_curve_csv, index=False)
 
-        logger.info('The 25th percentile of recombination is: {1}'.format(transfer_rate.quantile(0.25)))
-        logger.info('The 50th percentile of recombination is: {1}'.format(transfer_rate.quantile(0.50)))
-        logger.info('The 75th percentile of recombination is: {1}'.format(transfer_rate.quantile(0.75)))
+        logger.info('The 25th percentile of recombination is: {0}'.format(transfer_rate.quantile(0.25)))
+        logger.info('The 50th percentile of recombination is: {0}'.format(transfer_rate.quantile(0.50)))
+        logger.info('The 75th percentile of recombination is: {0}'.format(transfer_rate.quantile(0.75)))
         logger.info('Pipeline executed succesfully.')
 
 
