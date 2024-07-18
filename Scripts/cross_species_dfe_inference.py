@@ -241,7 +241,7 @@ class CrossSpeciesDFEInferece():
                     theta_syn = theta_syn[0:-2]
                     theta_syn = float(theta_syn)
         start_idx = input_demography.find("Analysis") + 9
-        end_idx = input_demography.find("_downsampled")
+        end_idx = input_demography.find("/two_epoch")
         species = input_demography[start_idx:end_idx]
         nonsyn_sfs = args['input_nonsyn_sfs']
 
@@ -258,6 +258,7 @@ class CrossSpeciesDFEInferece():
 
         # Output files: logfile
         # Remove output files if they already exist
+        print(species)
         underscore = '' if args['outprefix'][-1] == '/' else '_'
         likelihood_surface = \
             '{0}{1}{2}_likelihood_surface.csv'.format(

@@ -1,8 +1,8 @@
 #!/bin/bash
 #$ -cwd
 #$ -V
-#$ -l h_data=20G
-#$ -l h_rt=12:00:00
+#$ -l h_data=30G
+#$ -l h_rt=24:00:00
 #$ -t 1-22
 #$ -l highp
 #$ -e /u/home/j/jonmah/postproc_error

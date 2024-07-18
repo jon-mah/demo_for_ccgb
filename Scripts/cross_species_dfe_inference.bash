@@ -10,7 +10,7 @@
 #$ -o /u/home/j/jonmah/postproc_output
 #$ -N cross_species_inference
 
-# SGE_TASK_ID=25
+# SGE_TASK_ID=1
 
 i=0
 while read line;
