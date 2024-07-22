@@ -1,0 +1,17 @@
+2024-07-19 02:30:22,192 - INFO - Beginning execution of cross_species_dfe_inference.py in directory /u/project/ngarud/jonmah/demo_for_ccgb/Scripts
+
+2024-07-19 02:30:22,192 - INFO - Progress is being logged to ../SupplementaryAnalysis/cross_species_dfe/Coprococcus_sp_62244_log.log
+
+2024-07-19 02:30:22,193 - INFO - Parsed the following arguments:
+	input_demography = ../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt
+	input_nonsyn_sfs = ../SupplementaryAnalysis/Coprococcus_sp_62244/core_empirical_nonsyn_downsampled_sfs.txt
+	outprefix = ../SupplementaryAnalysis/cross_species_dfe/
+
+2024-07-19 02:30:22,217 - INFO - Input demographic parameters are: [1.6128842, 0.2150851].
+2024-07-19 02:30:22,217 - INFO - Input theta_syn is: 5117.007453492517.
+2024-07-19 02:30:58,015 - WARNING - The integral is probably divergent, or slowly convergent.
+2024-07-20 04:37:16,832 - WARNING - The algorithm does not converge.  Roundoff error is detected
+  in the extrapolation table.  It is assumed that the requested tolerance
+  cannot be achieved, and that the returned result (if full_output = 1) is 
+  the best which can be obtained.
+2024-07-20 05:00:49,567 - INFO - Pipeline executed succesfully.
