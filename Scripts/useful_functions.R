@@ -30,6 +30,11 @@ library(ape)
 library(adephylo)
 library(phylobase)
 library(phylosignal)
+library(caper)
+library(geiger)
+library(nlme)
+library(phytools)
+library(svglite)
 
 
 # BiocManager::install("treeio")

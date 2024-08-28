@@ -444,6 +444,7 @@ sporulation_species_subtree = c(
   'Bacteroides_caccae_53434',
   'Bacteroides_coprocola_61586',
   'Bacteroides_fragilis_54507',
+  'Bacteroides_ovatus_58035',
   'Bacteroides_plebeius_61623',
   'Bacteroides_thetaiotaomicron_56941',
   'Bacteroides_uniformis_57318',
@@ -454,8 +455,8 @@ sporulation_species_subtree = c(
   'Eubacterium_rectale_56927',
   'Eubacterium_siraeum_57634',
   'Faecalibacterium_prausnitzii_57453',
-  'Faecalibacterium_prausnitzii_61481',
   'Faecalibacterium_prausnitzii_62201',
+  'Faecalibacterium_prausnitzii_61481',
   'Parabacteroides_distasonis_56985',
   'Parabacteroides_merdae_56972',
   'Prevotella_copri_61740',
@@ -463,6 +464,8 @@ sporulation_species_subtree = c(
   'Roseburia_inulinivorans_61943',
   'Ruminococcus_bromii_62047'
 )
+
+
 
 sporulation_midas_code_subtree = c()
 
@@ -1787,93 +1790,93 @@ fd_accessory_dfe_file_list = c(
 )
 
 
-# original_demography_df = data.frame(species=shared_species_list, 
-#   nu_mle = numeric(18),
-#   time_mle = numeric(18)
-# )
-# 
-# for (i in 1:length(shared_species_list)) {
-#   # nu_mle
-#   original_demography_df[i, 2] = return_nu_mle(original_likelihood_surface_list[i])
-#   # tau_mle
-#   original_demography_df[i, 3] = return_time_mle(original_likelihood_surface_list[i], 
-#     original_sfs_list[i], 
-#     original_demography_file_list[i])
-# }
-# 
-# original_demography_df
-# 
-# hr_demography_df = data.frame(species=shared_species_list,
-#   sample_size = numeric(18))
-# 
-# for (i in 1:length(shared_species_list)) {
-#   hr_demography_df[i, 2] = get_species_prevalence(hr_sfs_list[i])
-# }
-# 
-# hr_demography_df
-# 
-# ggplot(hr_demography_df, aes(x = reorder(species, sample_size), y = sample_size)) +
-#   geom_bar(stat = "identity") +
-#   coord_flip() +
-#   labs(title = "Sample Size by Species (HR Data)",
-#        x = "Species",
-#        y = "Sample Size") +
-#   theme_minimal()
-# 
-# hr_demography_df = data.frame(species=shared_species_list, 
-#   nu_mle = numeric(18),
-#   time_mle = numeric(18)
-# )
-# 
-# for (i in 1:length(shared_species_list)) {
-#   # nu_mle
-#   hr_demography_df[i, 2] = return_nu_mle(hr_likelihood_surface_list[i])
-#   # tau_mle
-#   hr_demography_df[i, 3] = return_time_mle(hr_likelihood_surface_list[i], 
-#     hr_sfs_list[i], 
-#     hr_demography_file_list[i])
-# }
-# 
-# hr_demography_df
-# 
-# x_label_text = expression(nu == frac(N[current], N[ancestral]))
-# 
-# original_demography_scatter = ggscatter(original_demography_df, x="nu_mle", y="time_mle", color='species', size=3) +
-#   ylab('Estimated time in years since most recent demographic event') +
-#   xlab(x_label_text) +
-#   geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
-#   scale_shape_manual(name = "Best-Fit Demographic Model",
-#                      labels = c("Three Epoch", "Two Epoch"),
-#                      values = c(17, 19)) +
-#   # geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=all_genes_typeface) +
-#   guides(color=guide_legend(title="Species")) +
-#   scale_x_log10(limits=c(1e-2, 2e5)) +
-#   scale_y_log10(limits=c(2e2, 1e7)) +
-#   theme(legend.position = 'none') +
-#   guides(color = 'none') +
-#   guides(shape = 'none')  +
-#   theme(axis.text=element_text(size=12),
-#     axis.title=element_text(size=16))
-# 
-# original_demography_scatter
-# 
-# plot_build <- ggplot_build(original_demography_scatter)
-# color_mapping <- plot_build$data[[1]]$colour
-# print(color_mapping)
-# 
-# difference_plot =
-#   original_demography_scatter +
-#   geom_segment(aes(x=original_demography_df$nu_mle, y=original_demography_df$time_mle,
-#     xend=hr_demography_df$nu_mle, yend=hr_demography_df$time_mle),
-#     linejoin='round',
-#     lineend='round',
-#     linetype=1,
-#     color=color_mapping,
-#     arrow = arrow(length=unit(0.2, 'cm'))) +
-#   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-#   ggtitle('Change in demography before and after taking top 50th % of recombination')
-# 
-# difference_plot
+original_demography_df = data.frame(species=shared_species_list,
+  nu_mle = numeric(18),
+  time_mle = numeric(18)
+)
+
+for (i in 1:length(shared_species_list)) {
+  # nu_mle
+  original_demography_df[i, 2] = return_nu_mle(original_likelihood_surface_list[i])
+  # tau_mle
+  original_demography_df[i, 3] = return_time_mle(original_likelihood_surface_list[i],
+    original_sfs_list[i],
+    original_demography_file_list[i])
+}
+
+original_demography_df
+
+hr_demography_df = data.frame(species=shared_species_list,
+  sample_size = numeric(18))
+
+for (i in 1:length(shared_species_list)) {
+  hr_demography_df[i, 2] = get_species_prevalence(hr_sfs_list[i])
+}
+
+hr_demography_df
+
+ggplot(hr_demography_df, aes(x = reorder(species, sample_size), y = sample_size)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Sample Size by Species (HR Data)",
+       x = "Species",
+       y = "Sample Size") +
+  theme_minimal()
+
+hr_demography_df = data.frame(species=shared_species_list,
+  nu_mle = numeric(18),
+  time_mle = numeric(18)
+)
+
+for (i in 1:length(shared_species_list)) {
+  # nu_mle
+  hr_demography_df[i, 2] = return_nu_mle(hr_likelihood_surface_list[i])
+  # tau_mle
+  hr_demography_df[i, 3] = return_time_mle(hr_likelihood_surface_list[i],
+    hr_sfs_list[i],
+    hr_demography_file_list[i])
+}
+
+hr_demography_df
+
+x_label_text = expression(nu == frac(N[current], N[ancestral]))
+
+original_demography_scatter = ggscatter(original_demography_df, x="nu_mle", y="time_mle", color='species', size=3) +
+  ylab('Estimated time in years since most recent demographic event') +
+  xlab(x_label_text) +
+  geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
+  scale_shape_manual(name = "Best-Fit Demographic Model",
+                     labels = c("Three Epoch", "Two Epoch"),
+                     values = c(17, 19)) +
+  # geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=all_genes_typeface) +
+  guides(color=guide_legend(title="Species")) +
+  scale_x_log10(limits=c(1e-2, 2e5)) +
+  scale_y_log10(limits=c(2e2, 1e7)) +
+  theme(legend.position = 'none') +
+  guides(color = 'none') +
+  guides(shape = 'none')  +
+  theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=16))
+
+original_demography_scatter
+
+plot_build <- ggplot_build(original_demography_scatter)
+color_mapping <- plot_build$data[[1]]$colour
+print(color_mapping)
+
+difference_plot =
+  original_demography_scatter +
+  geom_segment(aes(x=original_demography_df$nu_mle, y=original_demography_df$time_mle,
+    xend=hr_demography_df$nu_mle, yend=hr_demography_df$time_mle),
+    linejoin='round',
+    lineend='round',
+    linetype=1,
+    color=color_mapping,
+    arrow = arrow(length=unit(0.2, 'cm'))) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  ggtitle('Change in demography before and after removing low-recombination sites')
+
+difference_plot
 
 ## Supplemental SFSs
 
@@ -2003,6 +2006,47 @@ supplementary_downsampled_sfs_file_list = c(
   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_empirical_syn_downsampled_sfs.txt'
 )
 
+old_full_sfs_file_list = c(
+  '../Analysis/Akkermansia_muciniphila_55290/core_empirical_syn_sfs.txt',
+  '../Analysis/Alistipes_finegoldii_56071/core_empirical_syn_sfs.txt',
+  '../Analysis/Alistipes_onderdonkii_55464/core_empirical_syn_sfs.txt',
+  '../Analysis/Alistipes_putredinis_61533/core_empirical_syn_sfs.txt',
+  '../Analysis/Alistipes_shahii_62199/core_empirical_syn_sfs.txt',
+  '../Analysis/Alistipes_sp_60764/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroidales_bacterium_58650/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_caccae_53434/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_cellulosilyticus_58046/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_coprocola_61586/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_eggerthii_54457/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_fragilis_54507/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_massiliensis_44749/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_plebeius_61623/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_stercoris_56735/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_thetaiotaomicron_56941/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_uniformis_57318/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_vulgatus_57955/core_empirical_syn_sfs.txt',
+  '../Analysis/Bacteroides_xylanisolvens_57185/core_empirical_syn_sfs.txt',
+  '../Analysis/Barnesiella_intestinihominis_62208/core_empirical_syn_sfs.txt',
+  '../Analysis/Coprococcus_sp_62244/core_empirical_syn_sfs.txt',
+  '../Analysis/Dialister_invisus_61905/core_empirical_syn_sfs.txt',
+  '../Analysis/Eubacterium_eligens_61678/core_empirical_syn_sfs.txt',
+  '../Analysis/Eubacterium_rectale_56927/core_empirical_syn_sfs.txt',
+  '../Analysis/Eubacterium_siraeum_57634/core_empirical_syn_sfs.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_57453/core_empirical_syn_sfs.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_61481/core_empirical_syn_sfs.txt',
+  '../Analysis/Faecalibacterium_prausnitzii_62201/core_empirical_syn_sfs.txt',
+  '../Analysis/Lachnospiraceae_bacterium_51870/core_empirical_syn_sfs.txt',
+  '../Analysis/Odoribacter_splanchnicus_62174/core_empirical_syn_sfs.txt',
+  '../Analysis/Oscillibacter_sp_60799/core_empirical_syn_sfs.txt',
+  '../Analysis/Parabacteroides_distasonis_56985/core_empirical_syn_sfs.txt',
+  '../Analysis/Parabacteroides_merdae_56972/core_empirical_syn_sfs.txt',
+  '../Analysis/Phascolarctobacterium_sp_59817/core_empirical_syn_sfs.txt',
+  '../Analysis/Prevotella_copri_61740/core_empirical_syn_sfs.txt',
+  '../Analysis/Roseburia_intestinalis_56239/core_empirical_syn_sfs.txt',
+  '../Analysis/Roseburia_inulinivorans_61943/core_empirical_syn_sfs.txt',
+  '../Analysis/Ruminococcus_bicirculans_59300/core_empirical_syn_sfs.txt',
+  '../Analysis/Ruminococcus_bromii_62047/core_empirical_syn_sfs.txt'
+)
 
 supplementary_full_sfs_file_list = c(
   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_empirical_syn_sfs.txt',
@@ -2088,23 +2132,43 @@ supplementary_species_list = c(
   'Ruminococcus bromii'
 )
 
-# supplementary_demography_df = data.frame(species=supplementary_species_list, 
-#   sample_size=numeric(39)
-# )
-# 
-# for (i in 1:length(supplementary_species_list)) {
-#   supplementary_demography_df[i, 2] = get_species_prevalence(supplementary_full_sfs_file_list[i])
-# }
-# 
-# supplementary_demography_df
-# 
-# ggplot(supplementary_demography_df, aes(x = reorder(species, sample_size), y = sample_size)) +
-#   geom_bar(stat = "identity") +
-#   coord_flip() +
-#   labs(title = "Sample Size by Species (Full Data)",
-#        x = "Species",
-#        y = "Sample Size") +
-#   theme_minimal()
+supplementary_demography_df = data.frame(species=supplementary_species_list,
+  new_sample_size=numeric(39),
+  old_sample_size=numeric(39)
+)
+
+for (i in 1:length(supplementary_species_list)) {
+  supplementary_demography_df[i, 2] = get_species_prevalence(supplementary_full_sfs_file_list[i])
+  if (file.exists(old_full_sfs_file_list[i])) {
+    supplementary_demography_df[i, 3] = get_species_prevalence(old_full_sfs_file_list[i])
+  }
+}
+
+supplementary_demography_df
+supplementary_demography_df$species = reorder(supplementary_demography_df$species, supplementary_demography_df$new_sample_size)
+
+supplementary_demography_df %>% arrange(desc(new_sample_size))
+
+ggplot(supplementary_demography_df, aes(x = reorder(species, new_sample_size), y = new_sample_size)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Sample Size by Species (Augmented Data)",
+       x = "Species",
+       y = "Sample Size",
+    ) +
+  theme_minimal()
+
+ggplot(melt(supplementary_demography_df), aes(x=species, y=value, fill=variable)) +
+  geom_bar(stat='identity', position = "identity") +
+  coord_flip() +
+  labs(title = "Sample Size by Species (Augmented Data)",
+       x = "Species",
+       y = "Sample Size",
+  fill = "Data") +
+  scale_fill_manual(labels = c("Augmented data", "Original submission"), values = c("blue", "red")) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(face = 'italic'))
+
 # 
 # supplementary_demography_df = data.frame(species=supplementary_species_list, 
 #   nu_mle = numeric(39),
@@ -3676,7 +3740,7 @@ ggplot(HR_dfe_df[HR_dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=f
   theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") +
   xlab('Selection Coefficient') +
-  ggtitle('Gamma-distributed DFE, low recombination sites removed')
+  ggtitle('Gamma-distributed DFE, Low recombination sites and selective sweeps removed')
 
 ggplot(HR_dfe_df[HR_dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
@@ -3691,7 +3755,7 @@ ggplot(HR_dfe_df[HR_dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, 
   theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") +
   xlab('Selection Coefficient') +
-  ggtitle('Neutral+Gamma-distributed DFE, low recombination sites removed')
+  ggtitle('Neutral+Gamma-distributed DFE, Low recombination sites and selective sweeps removed')
 
 # ggsave(filename='../HighRecombinationAnalysis/HR_gamma_dfe.png', plot=HR_gamma_dfe, width=800, height=1500, units="px", limitsize=TRUE)
 
@@ -4222,7 +4286,7 @@ ggplot(HR_dfe_dadi_df[HR_dfe_dadi_df$variable == 'gamma_dfe_dist', ], aes(x=valu
   theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") +
   xlab('Selection Coefficient') +
-  ggtitle('Gamma-distributed DFE * 2Ns, low recombination sites removed')
+  ggtitle('Gamma-distributed DFE * 2Ns, Low recombination sites and selective sweeps removed')
 
 ggplot(HR_dfe_dadi_df[HR_dfe_dadi_df$variable == 'neugamma_dfe_dist', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
@@ -4237,7 +4301,7 @@ ggplot(HR_dfe_dadi_df[HR_dfe_dadi_df$variable == 'neugamma_dfe_dist', ], aes(x=v
   theme(axis.text.y = element_text(hjust=0)) +
   theme(legend.position = "none") +
   xlab('Selection Coefficient') +
-  ggtitle('Neutral+Gamma-distributed DFE * 2Ns, low recombination sites removed')
+  ggtitle('Neutral+Gamma-distributed DFE * 2Ns, Low recombination sites and selective sweeps removed')
 
 # FD DFE comparison (core)
 
@@ -5607,47 +5671,7 @@ FD_accessory_DFE = alistipes_sp_FD_accessory_DFE +
 
 # ggsave(filename='./FD_accessory_DFE.png', plot=FD_accessory_DFE, width=10, height=225, units="in", limitsize=FALSE)
 
-### FD vs. HR
 
-# temp_supp_df = supplementary_demography_df[which(supplementary_demography_df$species %in% shared_species_list), ]
-# 
-# temp_supplementary_demography_scatter = ggscatter(temp_supp_df, x="nu_mle", y="time_mle", color='species', size=3) +
-#   ylab('Estimated time in years since most recent demographic event') +
-#   xlab(x_label_text) +
-#   geom_vline(xintercept=1.0, color='red', linewidth=1, linetype='dashed') +
-#   scale_shape_manual(name = "Best-Fit Demographic Model",
-#                      labels = c("Three Epoch", "Two Epoch"),
-#                      values = c(17, 19)) +
-#   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-#   guides(color=guide_legend(title="Species")) +
-#   scale_x_log10(limits=c(1e-2, 2e5)) +
-#   scale_y_log10(limits=c(2e2, 1e7)) +
-#   theme(legend.position = 'none') +
-#   guides(color = 'none') +
-#   guides(shape = 'none')  +
-#   theme(axis.text=element_text(size=12),
-#     axis.title=element_text(size=16))
-# 
-# temp_supplementary_demography_scatter
-# 
-# plot_build <- ggplot_build(temp_supplementary_demography_scatter)
-# color_mapping <- plot_build$data[[1]]$colour
-# print(color_mapping)
-# 
-# difference_plot =
-#   temp_supplementary_demography_scatter +
-#   geom_segment(aes(x=temp_supp_df$nu_mle, y=temp_supp_df$time_mle,
-#     xend=hr_demography_df$nu_mle, yend=hr_demography_df$time_mle),
-#     linejoin='round',
-#     lineend='round',
-#     linetype=1,
-#     color=color_mapping,
-#     arrow = arrow(length=unit(0.2, 'cm'))) +
-#   # geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-#   ggtitle('Change in demography from full data to high recombination')
-# 
-# difference_plot
-# 
 shared_species_df = data.frame(species=shared_species_list,
   HR_nu_mle = numeric(18),
   FD_nu_mle = numeric(18),
@@ -5723,8 +5747,12 @@ shared_species_df
 shared_species_df$HR_2ns = shared_species_df$HR_nanc * 2 * shared_species_df$HR_mean_s
 shared_species_df$FD_2ns = shared_species_df$FD_nanc * 2 * shared_species_df$FD_mean_s
 
+nu_comparison = c('FD_nu_mle', 'HR_nu_mle')
+
+t.test(shared_species_df$FD_nu_mle, shared_species_df$HR_nu_mle, paired=TRUE)
+
 HR_FD_nu_mle_scatter = ggscatter(shared_species_df, x="FD_nu_mle", y="HR_nu_mle", color='species', size=3) +
-  ylab('High recombination data') +
+  ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(1E-2, 1E4)) +
@@ -5735,13 +5763,14 @@ HR_FD_nu_mle_scatter = ggscatter(shared_species_df, x="FD_nu_mle", y="HR_nu_mle"
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Maximum likelihood estimate of Nu')
+    axis.title=element_text(size=18)) +
+  ggtitle('Maximum likelihood estimate of Nu') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_nu_mle_scatter
 
 HR_FD_time_mle_scatter = ggscatter(shared_species_df, x="FD_time_mle", y="HR_time_mle", color='species', size=3) +
-  ylab('High recombination data') +
+  ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(1E2, 1E6)) +
@@ -5752,13 +5781,14 @@ HR_FD_time_mle_scatter = ggscatter(shared_species_df, x="FD_time_mle", y="HR_tim
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Maximum likelihood estimate of Time (years)')
+    axis.title=element_text(size=18)) +
+  ggtitle('Maximum likelihood estimate of Time (years)') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_time_mle_scatter
 
 HR_FD_tau_mle_scatter = ggscatter(shared_species_df, x="FD_tau_mle", y="HR_tau_mle", color='species', size=3) +
-  ylab('High recombination data') +
+  ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(1E-1, 1E4)) +
@@ -5769,13 +5799,14 @@ HR_FD_tau_mle_scatter = ggscatter(shared_species_df, x="FD_tau_mle", y="HR_tau_m
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Maximum likelihood estimate of tau')
+    axis.title=element_text(size=18)) +
+  ggtitle('Maximum likelihood estimate of tau') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_tau_mle_scatter
 
 HR_FD_nanc_scatter = ggscatter(shared_species_df, x="FD_nanc", y="HR_nanc", color='species', size=3) +
-  ylab('High recombination data') +
+  ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(3E6, 3E8)) +
@@ -5786,14 +5817,15 @@ HR_FD_nanc_scatter = ggscatter(shared_species_df, x="FD_nanc", y="HR_nanc", colo
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Effective ancestral population size')
+    axis.title=element_text(size=18)) +
+  ggtitle('Effective ancestral population size') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_nanc_scatter
 
 HR_FD_shape_scatter = ggscatter(shared_species_df, x="FD_shape", y="HR_shape", color='species', size=3) +
-  ylab('Low recombination sites removed') +
-  xlab('Full SFS') +
+  ylab('Low recombination sites and selective sweeps removed') +
+  xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(0.003, 2.00)) +
   scale_y_log10(limits=c(0.003, 2.00)) +
@@ -5803,14 +5835,15 @@ HR_FD_shape_scatter = ggscatter(shared_species_df, x="FD_shape", y="HR_shape", c
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Gamma-distributed DFE shape parameter')
+    axis.title=element_text(size=18)) +
+  ggtitle('Gamma-distributed DFE shape parameter') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_shape_scatter
 
 HR_FD_scale_scatter = ggscatter(shared_species_df, x="FD_scale", y="HR_scale", color='species', size=3) +
-  ylab('Low recombination sites removed') +
-  xlab('Full SFS') +
+  ylab('Low recombination sites and selective sweeps removed') +
+  xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(1E-14, 1E3)) +
   scale_y_log10(limits=c(1E-14, 1E3)) +
@@ -5820,14 +5853,15 @@ HR_FD_scale_scatter = ggscatter(shared_species_df, x="FD_scale", y="HR_scale", c
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Gamma-distributed DFE scale parameter')
+    axis.title=element_text(size=18)) +
+  ggtitle('Gamma-distributed DFE scale parameter') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_scale_scatter
 
 HR_FD_mean_s_scatter = ggscatter(shared_species_df, x="FD_mean_s", y="HR_mean_s", color='species', size=3) +
-  ylab('Low recombination sites removed') +
-  xlab('Full SFS') +
+  ylab('Low recombination sites and selective sweeps removed') +
+  xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(1E-14, 1E3)) +
   scale_y_log10(limits=c(1E-14, 1E3)) +
@@ -5837,14 +5871,15 @@ HR_FD_mean_s_scatter = ggscatter(shared_species_df, x="FD_mean_s", y="HR_mean_s"
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Gamma-distributed DFE mean selection coefficient')
+    axis.title=element_text(size=18)) +
+  ggtitle('Gamma-distributed DFE mean selection coefficient') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_mean_s_scatter
 
 HR_FD_2ns_scatter = ggscatter(shared_species_df, x="FD_2ns", y="HR_2ns", color='species', size=3) +
-  ylab('Low recombination sites removed') +
-  xlab('Full SFS') +
+  ylab('Low recombination sites and selective sweeps removed') +
+  xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(1E-8, 1E10)) +
   scale_y_log10(limits=c(1E-8, 1E10)) +
@@ -5854,14 +5889,15 @@ HR_FD_2ns_scatter = ggscatter(shared_species_df, x="FD_2ns", y="HR_2ns", color='
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Estimated 2ns of gamma-distributed DFE')
+    axis.title=element_text(size=18)) +
+  ggtitle('Estimated 2ns of gamma-distributed DFE') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_2ns_scatter
 
 HR_FD_allele_count_scatter = ggscatter(shared_species_df, x="FD_allele_sum", y="HR_allele_sum", color='species', size=3) +
-  ylab('Low recombination sites removed') +
-  xlab('Full SFS') +
+  ylab('Low recombination sites and selective sweeps removed') +
+  xlab('Full data') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
   scale_x_log10(limits=c(9E4, 5E5)) +
   scale_y_log10(limits=c(9E4, 5E5)) +
@@ -5871,21 +5907,29 @@ HR_FD_allele_count_scatter = ggscatter(shared_species_df, x="FD_allele_sum", y="
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
   theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16)) +
-  ggtitle('Number of sites included in SFS')
+    axis.title=element_text(size=18)) +
+  ggtitle('Number of sites included in SFS') +
+  theme(plot.title=element_text(size=22))
 
 HR_FD_allele_count_scatter
 
-HR_FD_nu_mle_scatter + HR_FD_time_mle_scatter +
-  HR_FD_nanc_scatter + HR_FD_allele_count_scatter +
-  HR_FD_mean_s_scatter + HR_FD_2ns_scatter +
-  HR_FD_shape_scatter + HR_FD_scale_scatter +
-  plot_layout(ncol=2)
+# design = "
+# AABCDE
+# AAFGHI
+# "
+# 
+# difference_plot + 
+#   HR_FD_nu_mle_scatter + HR_FD_time_mle_scatter +
+#   HR_FD_nanc_scatter + HR_FD_allele_count_scatter +
+#   HR_FD_mean_s_scatter + HR_FD_2ns_scatter +
+#   HR_FD_shape_scatter + HR_FD_scale_scatter +
+#   plot_layout(design=design)
 
-HR_FD_2ns_scatter + HR_FD_mean_s_scatter + 
-  HR_FD_scale_scatter + HR_FD_shape_scatter + 
-  plot_layout(ncol=2)
+HR_FD_param_scatter = HR_FD_nu_mle_scatter + HR_FD_time_mle_scatter + HR_FD_nanc_scatter +
+  HR_FD_mean_s_scatter + HR_FD_shape_scatter + HR_FD_scale_scatter +
+  plot_layout(ncol=3)
 
+ggsave('../Summary/HR_FD_param_scatter.svg', HR_FD_param_scatter, width=24, height=16, units='in', dpi=600)
 
 # Accessory vs. Core (FD)
 
@@ -6240,15 +6284,15 @@ DFE_grid_file_list_constant_s = c(
   '../SupplementaryAnalysis/cross_species_dfe/Faecalibacterium_prausnitzii_61481_constant_s_likelihood_surface.csv'
 )
 
-for (species in DFE_grid_file_list_constant_s) {
-  print(species)
-  find_dfe_mle(species)
-}
-
-cross_species_dfe_comparison(
-  DFE_grid_file_list_constant_s[1],
-  DFE_grid_file_list_constant_s[2]
-)
+# for (species in DFE_grid_file_list_constant_s) {
+#   print(species)
+#   find_dfe_mle(species)
+# }
+# 
+# cross_species_dfe_comparison(
+#   DFE_grid_file_list_constant_s[1],
+#   DFE_grid_file_list_constant_s[2]
+# )
 
 dfe_constant_s_matrix = matrix(, nrow=39, ncol=39)
 
@@ -6286,15 +6330,15 @@ HR_DFE_grid_file_list = c(
   '../HighRecombinationAnalysis/cross_species_dfe/Ruminococcus_bromii_62047_likelihood_surface.csv'
 )
 
-for (species in HR_DFE_grid_file_list) {
-  print(species)
-  find_dfe_mle(species)
-}
-
-cross_species_dfe_comparison(
-  HR_DFE_grid_file_list[1],
-  HR_DFE_grid_file_list[2]
-)
+# for (species in HR_DFE_grid_file_list) {
+#   print(species)
+#   find_dfe_mle(species)
+# }
+# 
+# cross_species_dfe_comparison(
+#   HR_DFE_grid_file_list[1],
+#   HR_DFE_grid_file_list[2]
+# )
 
 HR_dfe_comparison_matrix = matrix(, nrow=18, ncol=18)
 
@@ -6332,15 +6376,15 @@ HR_DFE_grid_file_list_constant_s = c(
   '../HighRecombinationAnalysis/cross_species_dfe/Ruminococcus_bromii_62047_constant_s_likelihood_surface.csv'
 )
 
-for (species in HR_DFE_grid_file_list_constant_s) {
-  print(species)
-  find_dfe_mle(species)
-}
+# for (species in HR_DFE_grid_file_list_constant_s) {
+#   print(species)
+#   find_dfe_mle(species)
+# }
 
-cross_species_dfe_comparison(
-  HR_DFE_grid_file_list_constant_s[1],
-  HR_DFE_grid_file_list_constant_s[2]
-)
+# cross_species_dfe_comparison(
+#   HR_DFE_grid_file_list_constant_s[1],
+#   HR_DFE_grid_file_list_constant_s[2]
+# )
 
 HR_dfe_comparison_matrix_constant_s = matrix(, nrow=18, ncol=18)
 
@@ -6447,29 +6491,19 @@ quantile_label = "Proportion of area:"
 
 quantile_label = paste(quantile_label, sum(between_within_mean_diff > permutation_mean_data) / 100000, sep=' ')
 
-ggplot(permutation_mean_data, aes(x=value, y=..count..)) +
+permutation_LRT = ggplot(permutation_mean_data, aes(x=value, y=..count..)) +
   geom_histogram(bins=100) +
-  xlab('Difference of means') +
+  xlab('Difference of mean LRT statistics') +
   ylab('Number of simulations') +
-  geom_vline(xintercept = between_within_mean_diff, color='red', linetype='dashed') +
+  geom_vline(xintercept = between_within_mean_diff, color='green', linetype='dotted', linewidth=3) +
   theme_minimal() +
-  ggtitle('Simulated difference of means for DFE comparisons within and between genera') +
-  annotate("text", x=25, y=2500, label= quantile_label)
+  ggtitle('Simulated difference of mean LRT statistics') +
+  annotate("text", x=25, y=2500, label= quantile_label, size=5) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20))
 
+ggsave('../Summary/permutation_LRT.svg', permutation_LRT, width=18, height=12, dpi=600)
 
-
-ggplot(LRT_list, aes(x=L1, y=value, fill=L1)) +
-  geom_boxplot() +
-  ylab('LRT statistic') +
-  xlab('Comparison') +
-  scale_fill_manual(values=c("#69b3a2", "#95fd34"),
-    labels=c('Between-genera', 'Within-genera')) +
-  theme_minimal() +
-  theme(axis.text.x=element_blank(),) +
-  guides(fill=guide_legend(title="Type of DFE comparison")) +
-  ggtitle('LRT statistics for between-genera and within-genera DFE comparisons') +
-  geom_abline(intercept=19.20747, color='red', linetype='dashed') +
-  stat_compare_means(method='wilcox.test', size=4, label.y=800)
 
 set.seed(1)
 LRT_scramble_within_genera = sample(LRT_list$value, size=85, replace=FALSE)
@@ -6499,7 +6533,7 @@ my_other_comparisons <- list( c("between_genera", "scrambled_between"),
 
 vertical_adjustments = c(0, -0.25, -0.5, -0.75)
 
-ggplot(LRT_list, aes(x=L1, y=value, fill=L1)) +
+LRT_distribution = ggplot(LRT_list, aes(x=L1, y=value, fill=L1)) +
   geom_boxplot() +
   ylab('LRT statistic') +
   xlab('Comparison') +
@@ -6511,31 +6545,24 @@ ggplot(LRT_list, aes(x=L1, y=value, fill=L1)) +
   guides(fill=guide_legend(title="Type of DFE comparison")) +
   ggtitle('LRT statistics for between-genera and within-genera DFE comparisons') +
   geom_abline(intercept=19.20747, color='red', linetype='dashed') +
-  geom_signif(position='identity', y_position=750,
+  geom_signif(position='identity', size=1, y_position=750,
     comparisons = comparison_1,
                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', y_position=850,
+  geom_signif(position='identity', size=1, y_position=850,
     comparisons = comparison_2,
                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
   geom_signif(position='identity', 
-    comparisons = comparison_3, y_position=800,
+    comparisons = comparison_3, size=1, y_position=800,
                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', 
+  geom_signif(position='identity', size=1,
     comparisons = comparison_4, y_position=900,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x)))
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20)) +
+  theme(legend.title=element_text(size=18)) +
+  theme(legend.text=element_text(size=16))
 
-
-ggplot(LRT_list, aes(x=L1, y=value, fill=L1)) +
-  geom_boxplot() +
-  ylab('LRT statistic') +
-  xlab('Comparison') +
-  scale_fill_manual(values=c("#69b3a2", 'black', 'grey', "#95fd34"),
-    labels=c('Between-genera', 'Permutation test (between)', 'Permutation test (within)', 'Within-genera')) +
-  theme_minimal() +
-  theme(axis.text.x=element_blank(),) +
-  guides(fill=guide_legend(title="Type of DFE comparison")) +
-  ggtitle('LRT statistics for between-genera and within-genera DFE comparisons') +
-  geom_hline(yintercept=19.20747, color='red', linetype='dashed')
+ggsave('../Summary/LRT_distribution.svg', LRT_distribution, width=18, height=12, dpi=600)
 
 
 ### s DFE comparison within-vs-between genera (Core genes)
@@ -6761,14 +6788,122 @@ sum(HR_dfe_constant_s_matrix > 16.05234) / 2
 # Proportion of neutrality
 # Assume neutrality is selection coefficient < 1E-6
 
+engraftment_dfe_file_list = c(
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt'
+)
+
+
+engraftment_demography_file_list = c(
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt'
+)
+
+# engraftment_mean_s = numeric(36)
+# engraftment_n_anc = numeric(36)
+# engraftment_proportion_neutrality = numeric(36)
+# engraftment_shape = numeric(36)
+# for (i in 1:length(engraftment_dfe_file_list)) {
+#   engraftment_mean_s[i] = compute_selection_coefficients(engraftment_dfe_file_list[i])[1]
+#   engraftment_n_anc[i] = nanc_from_demography(engraftment_demography_file_list[i])
+#   engraftment_proportion_neutrality[i] = compute_selection_coefficients(engraftment_dfe_file_list[i])[2]
+#   engraftment_shape[i] = return_shape_from_dfe(engraftment_dfe_file_list[i])
+# }
+# 
+# engraftment_mean_2ns = engraftment_n_anc * 2 * engraftment_mean_s
+# 
+# engraftment_dataframe = data.frame(
+#   engraftment_mean_s,
+#   engraftment_n_anc,
+#   engraftment_mean_2ns,
+#   engraftment_proportion_neutrality,
+#   engraftment_shape
+# )
+# 
+# write.csv(engraftment_dataframe, file='../Summary/engraftment_dataframe.csv')
+
 neutrality_threshold = 1E-6
+
+engraftment_tree = read.tree('../Summary/engraftment_species.newick')
 
 neutrality_engraftment = read.csv('../Summary/lethality_engraftment_correlation.csv')
 names(neutrality_engraftment) = c(
   'species_ianiro',
   'species_midas',
   'engraftment_rate',
-  'proportion_of_neutrality'
+  'proportion_of_neutrality',
+  'mean_s',
+  'n_anc',
+  'mean_2ns',
+  'shape'
 )
 
 ggplot(neutrality_engraftment, aes(x = proportion_of_neutrality, y = engraftment_rate)) +
@@ -6782,7 +6917,122 @@ ggplot(neutrality_engraftment, aes(x = proportion_of_neutrality, y = engraftment
         panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
   stat_smooth(method = "lm",
               formula = y ~ x,
-              geom = "smooth")
+              geom = "smooth") +
+  stat_cor()
+
+pgls_engraftment_proportion_neutrality = gls(engraftment_rate ~ proportion_of_neutrality, correlation=corBrownian(phy=engraftment_tree),
+    data=neutrality_engraftment, method='ML')
+
+summary(pgls_engraftment_proportion_neutrality)
+
+ggplot(neutrality_engraftment, aes(x = mean_s, y = engraftment_rate)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Mean selection coefficient", y = "Engraftment Rate") +
+  ggtitle("Correlation between mean selection coefficient and engraftment rate") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+pgls_engraftment_mean_s = gls(engraftment_rate ~ mean_s, correlation=corBrownian(phy=engraftment_tree),
+    data=neutrality_engraftment, method='ML')
+
+summary(pgls_engraftment_mean_s)
+
+ggplot(neutrality_engraftment, aes(x = n_anc, y = engraftment_rate)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Estimated ancestral effective population size", y = "Engraftment Rate") +
+  ggtitle("Correlation between estimated ancestral effective population size and engraftment rate") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+
+pgls_engraftment_n_anc = gls(engraftment_rate ~ n_anc, correlation=corBrownian(phy=engraftment_tree),
+    data=neutrality_engraftment, method='ML')
+
+summary(pgls_engraftment_n_anc)
+
+ggplot(neutrality_engraftment, aes(x = mean_2ns, y = engraftment_rate)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Population-scaled mean selection coefficient", y = "Engraftment Rate") +
+  ggtitle("Correlation between population-scaled mean selection coefficient and engraftment rate") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+pgls_engraftment_mean_2ns = gls(engraftment_rate ~ mean_2ns, correlation=corBrownian(phy=engraftment_tree),
+    data=neutrality_engraftment, method='ML')
+
+summary(pgls_engraftment_mean_2ns)
+
+plot(pgls_engraftment_mean_2ns)
+
+engraftmentPic <- pic(neutrality_engraftment$engraftment_rate, engraftment_tree)
+mean_sPic <- pic(neutrality_engraftment$mean_s, engraftment_tree)
+mean_2nsPic <- pic(neutrality_engraftment$mean_2ns, engraftment_tree)
+n_ancPic <- pic(neutrality_engraftment$n_anc, engraftment_tree)
+proportion_of_neutralityPic <- pic(neutrality_engraftment$proportion_of_neutrality, engraftment_tree)
+shapePic <- pic(neutrality_engraftment$shape, engraftment_tree)
+
+# PIC models
+engraftment_mean_2nsPic <- lm(engraftmentPic ~ mean_2nsPic)
+summary(engraftment_mean_2nsPic)
+
+engraftment_mean_sPic <- lm(engraftmentPic ~ mean_sPic)
+summary(engraftment_mean_sPic)
+
+engraftment_n_ancPic <- lm(engraftmentPic ~ n_ancPic)
+summary(engraftment_n_ancPic)
+
+engraftment_proportion_of_neutralityPic <- lm(engraftmentPic ~ proportion_of_neutralityPic)
+summary(engraftment_proportion_of_neutralityPic)
+
+engraftment_shapePic <- lm(engraftmentPic ~ shapePic)
+summary(engraftment_shapePic)
+
+plot(engraftmentPic ~ mean_2nsPic)
+
+ggplot(neutrality_engraftment, aes(x = shape, y = engraftment_rate)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Gamma-distributed DFE shape parameter", y = "Engraftment Rate") +
+  ggtitle("Correlation between DFE shape parameter and engraftment rate") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+
+pgls_engraftment_shape = gls(engraftment_rate ~ shape, correlation=corBrownian(phy=engraftment_tree),
+    data=neutrality_engraftment, method='ML')
+
+summary(pgls_engraftment_shape)
 
 # Phylosignal
 
@@ -6938,7 +7188,8 @@ FD_vcv = vcv(FD_subtree)
 
 phylosignal_dataframe = phylosignal_dataframe[match(FD_subtree$tip.label, phylosignal_dataframe$species),]
 phylosignal_dataframe = phylosignal_dataframe[, -c(1)]
-
+# names(phylosignal_dataframe) = c('Mean selection coefficient', 'Ancestral effective population size', 'Mean population-scaled selection coefficient')
+ 
 fd_core_phylo_4d = phylo4d(FD_subtree, phylosignal_dataframe)
 
 fd_core_phylo_4d
@@ -6955,17 +7206,17 @@ lambdaTest(fd_core_mean_2ns, FD_vcv)
 lambdaTest(fd_core_proportion_neutrality, FD_vcv)
 lambdaTest(fd_core_shape, FD_vcv)
 
-phylosim <- phyloSim(tree = FD_subtree, method = "all", nsim = 100, reps = 99)
-plot(phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
-plot.phylosim(phylosim, what = "pval", stacked.methods = TRUE)
+# phylosim <- phyloSim(tree = FD_subtree, method = "all", nsim = 100, reps = 99)
+# plot(phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
+# plot.phylosim(phylosim, what = "pval", stacked.methods = TRUE)
 fd_core_correlogram = phyloCorrelogram(fd_core_phylo_4d)
 plot(fd_core_correlogram)
 
-plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'mean_s'), main='Phylogenetic correlogram of mean selection coefficient')
-plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'N_anc'), main='Phylogenetic correlogram of ancestral effective population size')
-plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'mean_2ns'), main='Phylogenetic correlogram of mean population-scaled selection coefficient')
-plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'proportion_neutral'), main='Phylogenetic correlogram of proportion of neutrality')
-plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'shape'), main='Phylogenetic correlogram of Gamma-distributed DFE shape parameter')
+# plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'mean_s'), main='Phylogenetic correlogram of mean selection coefficient')
+# plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'N_anc'), main='Phylogenetic correlogram of ancestral effective population size')
+# plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'mean_2ns'), main='Phylogenetic correlogram of mean population-scaled selection coefficient')
+# plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'proportion_neutral'), main='Phylogenetic correlogram of proportion of neutrality')
+# plot(phyloCorrelogram(fd_core_phylo_4d, trait = 'shape'), main='Phylogenetic correlogram of Gamma-distributed DFE shape parameter')
 
 # Engraftment phylosignal
 engraftment_subtree$node.label = NULL
@@ -6988,6 +7239,252 @@ barplot(engraftment_phylo_4d, center=FALSE, scale=FALSE)
 
 barplot(engraftment_phylo_4d)
 
+# Sporulation correlation
+sporulation_species = c(
+  'Akkermansia_muciniphila_55290',
+  'Alistipes_finegoldii_56071',
+  'Bacteroides_caccae_53434',
+  'Bacteroides_coprocola_61586',
+  'Bacteroides_fragilis_54507',
+  'Bacteroides_ovatus_58035',
+  'Bacteroides_plebeius_61623',
+  'Bacteroides_thetaiotaomicron_56941',
+  'Bacteroides_uniformis_57318',
+  'Bacteroides_vulgatus_57955',
+  'Bacteroides_xylanisolvens_57185',
+  'Coprococcus_sp_62244',
+  'Eubacterium_eligens_61678',
+  'Eubacterium_rectale_56927',
+  'Eubacterium_siraeum_57634',
+  'Faecalibacterium_prausnitzii_57453',
+  'Faecalibacterium_prausnitzii_62201',
+  'Faecalibacterium_prausnitzii_61481',
+  'Parabacteroides_distasonis_56985',
+  'Parabacteroides_merdae_56972',
+  'Prevotella_copri_61740',
+  'Roseburia_intestinalis_56239',
+  'Roseburia_inulinivorans_61943',
+  'Ruminococcus_bromii_62047'
+)
+
+sporulation_demography_file_list = c(
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_ovatus_58035/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt'
+)
+
+sporulation_dfe_file_list = c(
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_ovatus_58035/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt'
+)
+
+sporulation_mean_s = numeric(24)
+sporulation_n_anc = numeric(24)
+sporulation_proportion_neutrality = numeric(24)
+sporulation_shape = numeric(24)
+for (i in 1:length(sporulation_dfe_file_list)) {
+  sporulation_mean_s[i] = compute_selection_coefficients(sporulation_dfe_file_list[i])[1]
+  sporulation_n_anc[i] = nanc_from_demography(sporulation_demography_file_list[i])
+  sporulation_proportion_neutrality[i] = compute_selection_coefficients(sporulation_dfe_file_list[i])[2]
+  sporulation_shape[i] = return_shape_from_dfe(sporulation_dfe_file_list[i])
+}
+
+sporulation_mean_2ns = sporulation_n_anc * 2 * sporulation_mean_s
+
+sporulation_dataframe = data.frame(
+  species=sporulation_species,
+  sporulation_mean_s,
+  sporulation_n_anc,
+  sporulation_mean_2ns,
+  sporulation_proportion_neutrality,
+  sporulation_shape
+)
+
+write.csv(sporulation_dataframe, file='../Summary/sporulation_dataframe.csv')
+
+sporulation_tree = read.tree('../Summary/sporulation_species.newick')
+sporulation_tree$node.label = NULL
+
+sporulation_correlation = read.csv('../Summary/sporulation_correlation.csv')
+
+names(sporulation_correlation) = c(
+  'species_browne',
+  'species_midas',
+  'sporulation_score',
+  'mean_s',
+  'n_anc',
+  'mean_2ns',
+  'sporulation_proportion_neutrality',
+  'shape'
+)
+
+sporulationPic <- pic(sporulation_correlation$sporulation_score, sporulation_tree)
+mean_sPic <- pic(sporulation_correlation$mean_s, sporulation_tree)
+mean_2nsPic <- pic(sporulation_correlation$mean_2ns, sporulation_tree)
+n_ancPic <- pic(sporulation_correlation$n_anc, sporulation_tree)
+proportion_of_neutralityPic <- pic(sporulation_correlation$sporulation_proportion_neutrality, sporulation_tree)
+shapePic <- pic(sporulation_correlation$shape, sporulation_tree)
+
+# Make a model
+sporulation_mean_2nsPic <- lm(sporulationPic ~ mean_2nsPic)
+summary(sporulation_mean_2nsPic)
+
+sporulation_mean_sPic <- lm(sporulationPic ~ mean_sPic)
+summary(sporulation_mean_sPic)
+
+sporulation_n_ancPic <- lm(sporulationPic ~ n_ancPic)
+summary(sporulation_n_ancPic)
+
+sporulation_proportion_of_neutralityPic <- lm(sporulationPic ~ proportion_of_neutralityPic)
+summary(sporulation_proportion_of_neutralityPic)
+
+sporulation_shapePic <- lm(sporulationPic ~ shapePic)
+summary(sporulation_shapePic)
+
+ggplot(sporulation_correlation, aes(x = sporulation_proportion_neutrality, y = sporulation_score)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Proportion of neutrality", y = "Mean sporulation signature") +
+  ggtitle("Correlation between proportion of neutrality and mean sporulation signature") +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+pgls_sporulation_proportion_neutrality = gls(sporulation_score ~ sporulation_proportion_neutrality, correlation=corBrownian(phy=sporulation_tree),
+    data=sporulation_correlation, method='ML')
+
+summary(pgls_sporulation_proportion_neutrality)
+
+ggplot(sporulation_correlation, aes(x = mean_s, y = sporulation_score)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Mean selection coefficient", y = "Mean sporulation signature") +
+  ggtitle("Correlation between mean selection coefficient and mean sporulation signature") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+pgls_sporulation_mean_s = gls(sporulation_score ~ mean_s, correlation=corBrownian(phy=sporulation_tree),
+    data=sporulation_correlation, method='ML')
+
+summary(pgls_sporulation_mean_s)
+
+ggplot(sporulation_correlation, aes(x = n_anc, y = sporulation_score)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Estimated ancestral effective population size", y = "Mean sporulation signature") +
+  ggtitle("Correlation between estimated ancestral effective population size and mean sporulation signature") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+
+pgls_sporulation_n_anc = gls(sporulation_score ~ n_anc, correlation=corBrownian(phy=sporulation_tree),
+    data=sporulation_correlation, method='ML')
+
+summary(pgls_sporulation_n_anc)
+
+ggplot(sporulation_correlation, aes(x = mean_2ns, y = sporulation_score)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Population-scaled mean selection coefficient", y = "Mean sporulation signature") +
+  ggtitle("Correlation between population-scaled mean selection coefficient and mean sporulation signature") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+pgls_sporulation_mean_2ns = gls(sporulation_score ~ mean_2ns, correlation=corBrownian(phy=sporulation_tree),
+    data=sporulation_correlation, method='ML')
+
+summary(pgls_sporulation_mean_2ns)
+
+ggplot(sporulation_correlation, aes(x = shape, y = sporulation_score)) +
+  geom_point(aes(color=species_midas), show.legend=FALSE) +
+  labs(x = "Gamma-distributed DFE shape parameter", y = "Mean sporulation signature") +
+  ggtitle("Correlation between DFE shape parameter and mean sporulation signature") +
+  # xlim(0, 1) +
+  scale_x_log10() +
+  ylim(0, 1) +
+  geom_text_repel(aes(label = species_midas, color=species_midas, fontface = 'italic'), show.legend = FALSE, size=3) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black")) +                                     
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              geom = "smooth") +
+  stat_cor()
+
+pgls_sporulation_shape = gls(sporulation_score ~ shape, correlation=corBrownian(phy=sporulation_tree),
+    data=sporulation_correlation, method='ML')
+
+summary(pgls_sporulation_shape)
+
+
 # Sporulation phylosignal
 sporulation_subtree$node.label = NULL
 sporulation_data = read.csv('../Summary/sporulation_score.csv')
@@ -7000,8 +7497,8 @@ sporulation_phylo_4d = phylo4d(sporulation_subtree, sporulation_score_dataframe,
 
 phyloSignal(sporulation_phylo_4d)
 
-sporulation_phylosim <- phyloSim(tree = sporulation_subtree, method = "all", nsim = 100, reps = 99)
-plot(sporulation_phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
+# sporulation_phylosim <- phyloSim(tree = sporulation_subtree, method = "all", nsim = 100, reps = 99)
+# plot(sporulation_phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
 
 plot(phyloCorrelogram(sporulation_phylo_4d, trait = 'mean_sporulation_signal'), main='Phylogenetic correlogram of mean sporulation signal')
 
@@ -7161,15 +7658,366 @@ FD_no_outlier_phylo_4d = phylo4d(FD_no_outlier_subtree, FD_no_outlier_data, matc
 
 phyloSignal(FD_no_outlier_phylo_4d)
 
-FD_no_outlier_phylosim <- phyloSim(tree = FD_no_outlier_subtree, method = "all", nsim = 100, reps = 99)
-plot(FD_no_outlier_phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
+# FD_no_outlier_phylosim <- phyloSim(tree = FD_no_outlier_subtree, method = "all", nsim = 100, reps = 99)
+# plot(FD_no_outlier_phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
 
-plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'mean_s'), main='Phylogenetic correlogram of mean selection coefficient')
-plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'n_anc'), main='Phylogenetic correlogram of ancestral effective population size')
-plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'mean_2ns'), main='Phylogenetic correlogram of mean population-scaled selection coefficient')
-plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'proportion_neutral'), main='Phylogenetic correlogram of proportion of neutrality')
-plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'shape'), main='Phylogenetic correlogram of Gamma-distributed DFE shape parameter')
+# plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'mean_s'), main='Phylogenetic correlogram of mean selection coefficient')
+# plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'n_anc'), main='Phylogenetic correlogram of ancestral effective population size')
+# plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'mean_2ns'), main='Phylogenetic correlogram of mean population-scaled selection coefficient')
+# plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'proportion_neutrality'), main='Phylogenetic correlogram of proportion of neutrality')
+# plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'shape'), main='Phylogenetic correlogram of Gamma-distributed DFE shape parameter')
 
 barplot(FD_no_outlier_phylo_4d, center=FALSE, scale=FALSE)
 
 barplot(FD_no_outlier_phylo_4d)
+
+# Comparison of Mean s
+
+# Plot DFE Grid
+
+mean_s_file_list = c(
+  '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
+)
+
+
+mean_s_comparison_matrix = matrix(, nrow=39, ncol=39)
+
+for (i in 1:39) {
+  for (j in i:39) {  # This change ensures only the upper right triangle is compared
+    mean_i = compute_selection_coefficients(mean_s_file_list[i])[1]
+    mean_j = compute_selection_coefficients(mean_s_file_list[j])[1]
+    comparison = abs(mean_i - mean_j)
+    mean_s_comparison_matrix[i, j] = comparison
+    mean_s_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
+  }
+}
+
+core_within_genera_mean_s = c()
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_s_comparison_matrix[FD_alistipes, FD_alistipes])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_s_comparison_matrix[FD_roseburia, FD_roseburia])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
+length(core_within_genera_mean_s) # 85 total within-genera comparisons
+
+core_between_genera_mean_s = mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)][!mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)] %in% core_within_genera_mean_s]
+
+mean_s_list <- melt(list(within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s))
+
+between_within_mean_s_diff = abs(mean(core_between_genera_mean_s) - mean(core_within_genera_mean_s))
+
+permutation_mean_s_diff = numeric(100000)
+
+for (i in 1:100000) {
+  this_scramble_between = sample(mean_s_list$value, size=656, replace=FALSE)
+  this_scramble_within = sample(mean_s_list$value, size=85, replace=FALSE)
+  permutation_mean_s_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
+}
+
+permutation_mean_s_data = data.frame(permutation_mean_s_diff)
+
+names(permutation_mean_s_data) = c('value')
+
+sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000
+
+quantile_label = "Proportion of area:"
+
+quantile_label = paste(quantile_label, sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000, sep=' ')
+
+permutation_mean_s = ggplot(permutation_mean_s_data, aes(x=value, y=..count..)) +
+  geom_histogram(bins=100) +
+  xlab('Absolute difference of mean selection coefficient') +
+  ylab('Number of simulations') +
+  geom_vline(xintercept = between_within_mean_s_diff, color='green', linetype='dotted', linewidth=3) +
+  theme_minimal() +
+  ggtitle('Simulated absolute difference of mean selection coefficients') +
+  annotate("text", x=0.04, y=3500, label= quantile_label, size=5) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20))
+
+ggsave('../Summary/permutation_mean_s.svg', permutation_mean_s, width=18, height=12, dpi=600)
+
+set.seed(1)
+mean_s_scramble_within_genera = sample(mean_s_list$value, size=85, replace=FALSE)
+mean_s_scramble_between_genera = sample(mean_s_list$value, size=656, replace=FALSE)
+
+mean_s_list <- melt(
+  list(
+    within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s, scrambled_within = mean_s_scramble_within_genera, scrambled_between = mean_s_scramble_between_genera
+  )
+)
+
+
+mean_s_list$L1 = factor(mean_s_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
+
+mean_s_LRT_distribution = ggplot(mean_s_list, aes(x=L1, y=value, fill=L1)) +
+  geom_boxplot() +
+  ylab('Absolute value of difference') +
+  xlab('Comparison') +
+  scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
+    breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
+    values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank(),) +
+  guides(fill=guide_legend(title="Type of DFE comparison")) +
+  ggtitle('Absolute difference in mean selection coefficient for between-genera and within-genera DFE comparisons') +
+  geom_signif(position='identity', y_position=0.75,
+    comparisons = comparison_1, size=1,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', y_position=0.83,
+    comparisons = comparison_2, size=1,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_3, y_position=0.91,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_4, y_position=0.99,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20)) +
+  theme(legend.title=element_text(size=18)) +
+  theme(legend.text=element_text(size=16))
+
+ggsave('../Summary/mean_s_LRT_distribution.svg', mean_s_LRT_distribution, width=18, height=12, dpi=600)
+
+mean_2ns_demography_list = c(
+  '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
+)
+
+mean_2ns_dfe_list = c(
+  '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
+)
+
+mean_2ns_comparison_matrix = matrix(, nrow=39, ncol=39)
+
+for (i in 1:39) {
+  for (j in i:39) {  # This change ensures only the upper right triangle is compared
+    mean_i = compute_selection_coefficients(mean_2ns_dfe_list[i])[1]
+    mean_j = compute_selection_coefficients(mean_2ns_dfe_list[j])[1]
+    nanc_i = nanc_from_demography(mean_2ns_demography_list[i])
+    nanc_j = nanc_from_demography(mean_2ns_demography_list[j])
+    mean_2ns_i = 2 * mean_i * nanc_i
+    mean_2ns_j = 2 * mean_j * nanc_j
+    comparison = abs(mean_2ns_i - mean_2ns_j)
+    mean_2ns_comparison_matrix[i, j] = comparison
+    mean_2ns_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
+  }
+}
+
+core_within_genera_mean_2ns = c()
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
+length(core_within_genera_mean_2ns) # 85 total within-genera comparisons
+
+core_between_genera_mean_2ns = mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)][!mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)] %in% core_within_genera_mean_2ns]
+
+mean_2ns_list <- melt(list(within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns))
+
+between_within_mean_2ns_diff = abs(mean(core_between_genera_mean_2ns) - mean(core_within_genera_mean_2ns))
+
+permutation_mean_2ns_diff = numeric(100000)
+
+for (i in 1:100000) {
+  this_scramble_between = sample(mean_2ns_list$value, size=656, replace=FALSE)
+  this_scramble_within = sample(mean_2ns_list$value, size=85, replace=FALSE)
+  permutation_mean_2ns_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
+}
+
+permutation_mean_2ns_data = data.frame(permutation_mean_2ns_diff)
+
+names(permutation_mean_2ns_data) = c('value')
+
+sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000
+
+quantile_label = "Proportion of area:"
+
+quantile_label = paste(quantile_label, sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000, sep=' ')
+
+permutation_mean_2ns = ggplot(permutation_mean_2ns_data, aes(x=value, y=..count..)) +
+  geom_histogram(bins=100) +
+  xlab('Absolute difference of mean population-scale selection coefficient') +
+  ylab('Number of simulations') +
+  geom_vline(xintercept = between_within_mean_2ns_diff, color='green', linetype='dotted', linewidth=3) +
+  theme_minimal() +
+  ggtitle('Simulated difference of mean population-scaled selection coefficients') +
+  annotate("text", x=3E6, y=3500, label= quantile_label, size=5) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20))
+
+ggsave('../Summary/permutation_mean_2ns.svg', permutation_mean_2ns, width=18, height=12, dpi=600)
+
+set.seed(1)
+mean_2ns_scramble_within_genera = sample(mean_2ns_list$value, size=85, replace=FALSE)
+mean_2ns_scramble_between_genera = sample(mean_2ns_list$value, size=656, replace=FALSE)
+
+mean_2ns_list <- melt(
+  list(
+    within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns, scrambled_within = mean_2ns_scramble_within_genera, scrambled_between = mean_2ns_scramble_between_genera
+  )
+)
+
+mean_2ns_list$L1 = factor(mean_2ns_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
+
+mean_2ns_LRT_distribution = ggplot(mean_2ns_list, aes(x=L1, y=value, fill=L1)) +
+  geom_boxplot() +
+  ylab('Absolute value of difference') +
+  xlab('Comparison') +
+  scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
+    breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
+    values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank(),) +
+  guides(fill=guide_legend(title="Type of DFE comparison")) +
+  ggtitle('Absolute difference in mean population-scaled selection coefficient for between-genera and within-genera DFE comparisons') +
+  geom_signif(position='identity', y_position=7E7,
+    comparisons = comparison_1, size=1,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1, y_position=7.5E7,
+    comparisons = comparison_2,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_3, y_position=8E7,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_4, y_position=8.5E7,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20)) +
+  theme(legend.title=element_text(size=18)) +
+  theme(legend.text=element_text(size=16))
+
+ggsave('../Summary/mean_2ns_LRT_distribution.svg', mean_2ns_LRT_distribution, width=18, height=12, dpi=600)
+
+LRT_box_and_whiskers = LRT_distribution + 
+  mean_s_LRT_distribution + theme(legend.position = 'none') + 
+  mean_2ns_LRT_distribution + theme(legend.position = 'none') + plot_layout(ncol=1)
+
+ggsave('../Summary/LRT_box_and_whiskers.svg', LRT_box_and_whiskers, width=18, height=36, dpi=600)
+
+LRT_full_figure = LRT_distribution + permutation_LRT +
+  mean_s_LRT_distribution + theme(legend.position = 'none') + permutation_mean_s +
+  mean_2ns_LRT_distribution + theme(legend.position = 'none') + permutation_mean_2ns +
+  plot_layout(ncol=2)
+
+ggsave('../Summary/LRT_full_figure.svg', LRT_full_figure, width=36, height=36, dpi=600)
