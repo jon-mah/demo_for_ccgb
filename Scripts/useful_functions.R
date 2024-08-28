@@ -26,6 +26,11 @@ library(ComplexHeatmap)
 library(phytools)
 # BiocManager::install("ComplexHeatmap")
 library(mdthemes)
+library(ape)
+library(adephylo)
+library(phylobase)
+library(phylosignal)
+
 
 # BiocManager::install("treeio")
 # BiocManager::install("ggtree")
@@ -999,6 +1004,57 @@ plot_core_accessory_dfe = function(input_dfe_file) {
   return(fig)
 }
 
+plot_core_accessory_dadi_dfe = function(input_dfe_file, input_demography) {
+  ## Reads input DFE from output *inferred_DFE.txt
+  this_file = file(input_dfe_file) # Open file
+  on.exit(close(this_file)) # Close when done
+  # Parse file and string manipulation
+
+  param_string_low = readLines(this_file)[5]
+  
+  # Extract the two floats using regular expression
+  floats <- str_extract_all(param_string_low, "[+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?")
+  
+  # Convert the extracted strings to numeric values
+  gamma_shape <- as.numeric(floats[[1]][1])
+  gamma_scale_low <- as.numeric(floats[[1]][2])
+
+  gamma_dfe_dist_low = rgamma(100000, shape=gamma_shape, scale=gamma_scale_low)
+
+  gamma_dfe_dist_low = gamma_dfe_dist_low * 2 * nanc_from_demography(input_demography)
+  
+  dfe_df = data.frame(gamma_dfe_dist_low)
+  dfe_df[dfe_df < 1e-10] = 1e-6
+  dfe_df[dfe_df > 1E10] = 1E7
+
+  grey_red_gradient <- c("#9b9b9b",
+  "#9f9391",
+  "#a28b87",
+  "#a5837d",
+  "#a77b74",
+  "#a9736a",
+  "#aa6a61",
+  "#ab6257",
+  "#ab594e",
+  "#ab5045",
+  "#ab463c",
+  "#aa3c33",
+  "#a9302b",
+  "#a82222")
+
+  fig = ggplot(melt(dfe_df), aes(x=value, y=..density.., fill=variable)) +
+    geom_histogram(position='dodge',
+                   breaks=c(1E-6, 1E-5, 1E-4, 1E-3, 1E-2, 1E-1, 1E0, 1E1, 1E2, 1E3, 1E4, 1E5, 1E6, 1E7, 1E8),
+      show.legend = FALSE, fill=grey_red_gradient) +
+    # geom_density() +
+    scale_x_log10(limits=c(1E-6, 1E7)) +
+    ylab('Proportion of variants') +
+    xlab('Selection coefficient') +
+    theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+  return(fig)
+}
+
 plot_best_fit_sfs = function(input_data) {
   input_data = data.frame(input_data)
   colnames(input_data) = c(
@@ -1574,6 +1630,18 @@ return_time_mle = function(input, sfs_file, theta_file) {
   years = 2 * mle_tau * theta / (4 * 4.08E-10 * allele_sum * 365)
   
   return(years)
+}
+
+return_allele_sum = function(sfs_file) {
+  # Read the contents of the file into a variable
+  sfs_lines <- readLines(sfs_file)
+
+  # Extract the second line and split it into individual values
+  sfs_line <- sfs_lines[2]
+  sfs_vector <- as.numeric(unlist(strsplit(sfs_line, " ")))
+  
+  allele_sum = sum(sfs_vector)
+  return(allele_sum)
 }
 
 read_demography_info <- function(filepath) {
