@@ -420,10 +420,11 @@ p30_l = plot_likelihood_surface_contour_3D('../SupplementaryAnalysis/Ruminococcu
 ### Figure 3
 # 2000 x 900 dimensions for saved image
 
-png("../Summary/figure_3_output.png", width = 2000, height = 900)
-p9 + p9_l + # B. fragilis
+# png("../Summary/figure_3_output.png", width = 2000, height = 900)
+figure_3 = p9 + p9_l + # B. fragilis
   p30 + p30_l + #R. bicirculans
   demography_scatter +
   plot_layout(design=design)
 
-dev.off()
+# dev.off()
+ggsave('../Summary/figure_3_output.svg', figure_3, width=20, height=9, units='in', dpi=600)

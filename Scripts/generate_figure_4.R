@@ -304,8 +304,8 @@ fd_core_dfe_df$value[fd_core_dfe_df$value >= 0.5] = 0.5
 ### Figure 4
 # 600 x 1000
 
-png("../Summary/figure_4_output.png", width = 600, height = 1400)
-ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
+# png("../Summary/figure_4_output.png", width = 600, height = 1400)
+figure_4 = ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
   #labs(
   #  title = 'Gamma-Distributed DFE',
@@ -319,4 +319,7 @@ ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'gamma_dfe_dist_low', ], aes(x=
   theme(legend.position = "none") + 
   xlab('Selection Coefficient')
 
-dev.off()
+# dev.off()
+
+ggsave('../Summary/figure_4_output.svg', figure_4, width=9, height=15, units='in', dpi=600)
+

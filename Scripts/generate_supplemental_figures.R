@@ -1621,7 +1621,7 @@ plot_AIC = ggplot(data=plot_AIC_table) +
   theme(axis.title=element_text(size=16,face="bold")) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
-png("../Supplement/Supplemental_Figure_1.png", width = 1600, height = 1200)
+png("../Supplement/Supplemental_Figure_1.jpg", width = 1600, height = 1200)
 # 1600 x 900 dimensions for saved image
 plot_AIC
 dev.off()
@@ -1655,8 +1655,8 @@ fig_s2_d = plot_empirical_sfs(b_vulgatus_clade_control_nonsyn)
 
 # B. vulgatus, clade control + downsampling
 
-b_vulgatus_clade_control_downsampled_syn = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_empirical_syn_downsampled_sfs.txt')
-b_vulgatus_clade_control_downsampled_nonsyn = read_input_sfs('../Analysis/Bacteroides_vulgatus_57955_downsampled_14/core_empirical_nonsyn_downsampled_sfs.txt')
+b_vulgatus_clade_control_downsampled_syn = read_input_sfs('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_empirical_syn_downsampled_sfs.txt')
+b_vulgatus_clade_control_downsampled_nonsyn = read_input_sfs('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_empirical_nonsyn_downsampled_sfs.txt')
 
 fig_s2_e = plot_empirical_sfs(b_vulgatus_clade_control_downsampled_syn)
 fig_s2_f = plot_empirical_sfs(b_vulgatus_clade_control_downsampled_nonsyn)
@@ -1671,10 +1671,12 @@ fig_s2 = plot_figure_s9(b_vulgatus_all_clades_syn,
   b_vulgatus_clade_control_syn,
   b_vulgatus_clade_control_downsampled_syn)
 
-png("../Supplement/Supplemental_Figure_2.png", width = 2400, height = 800)
-# 2400 x 800 dimensions for saved image
-fig_s2
-dev.off()
+ggsave('../Supplement/Supplemental_Figure_2.jpg', fig_s2, width=15, height=8, units='in', dpi=600)
+
+# png("../Supplement/Supplemental_Figure_2.jpg", width = 2400, height = 800)
+# # 2400 x 800 dimensions for saved image
+# fig_s2
+# dev.off()
 
 # Supplemental Figure 3
 # SFS comparison
@@ -2104,7 +2106,7 @@ HR_demography_fit = a_finegoldii_HR_demography_sfs + a_finegoldii_HR_likelihood_
   r_bicirculans_HR_demography_sfs + r_bicirculans_HR_likelihood_surface +
   plot_layout(ncol=2)
   
-# ggsave(filename='../Supplement/HR_demography_fit.png', plot=HR_demography_fit, width=20, height=150, units='in', limitsize=FALSE)
+# ggsave(filename='../Supplement/HR_demography_fit.jpg', plot=HR_demography_fit, width=20, height=150, units='in', limitsize=FALSE)
 
 a_muciniphila_FD_core_demography = compare_sfs(proportional_sfs(a_muciniphila_FD_core_folded), 
   proportional_sfs(a_muciniphila_FD_core_one_epoch), 
@@ -2507,7 +2509,7 @@ FD_core_demography = alistipes_sp_FD_core_demography + alistipes_sp_FD_core_like
   f_prausnitzii_61481_FD_core_demography + f_prausnitzii_61481_FD_core_likelihood_surface +
   plot_layout(ncol=2)
   
-ggsave(filename='../Supplement/FD_core_demography_fit.png', plot=FD_core_demography, width=20, height=225, units="in", limitsize=FALSE)
+ggsave(filename='../Supplement/Supplemental_Figure_3.jpg', plot=FD_core_demography, width=10, height=125, units="in", limitsize=FALSE)
 
 a_muciniphila_FD_accessory_demography = compare_sfs(proportional_sfs(a_muciniphila_FD_accessory_folded), 
   proportional_sfs(a_muciniphila_FD_accessory_one_epoch), 
@@ -2910,7 +2912,7 @@ FD_accessory_demography = alistipes_sp_FD_accessory_demography + alistipes_sp_FD
   f_prausnitzii_61481_FD_accessory_demography + f_prausnitzii_61481_FD_accessory_likelihood_surface +
   plot_layout(ncol=2)
 
-ggsave(filename='../Supplement/FD_accessory_demography_fit.png', plot=FD_accessory_demography, width=20, height=225, units="in", limitsize=FALSE)
+ggsave(filename='../Supplement/Supplemental_Figure_8.jpg', plot=FD_accessory_demography, width=10, height=125, units="in", limitsize=FALSE)
 
 # Supplemental Figure 4
 
@@ -2984,7 +2986,7 @@ plot_tau_distribution_fig = ggplot() +
 plot_tau_distribution_fig
 
 # 2000 x 1100 dimensions for saved image
-png("../Supplement/Supplemental_Figure_4A.png", width = 2000, height = 2000)
+png("../Supplement/Supplemental_Figure_4A.jpg", width = 2000, height = 2000)
 plot_nu_distribution_fig + plot_tau_distribution_fig + plot_layout(ncol=2)
 dev.off()
 
@@ -3165,8 +3167,8 @@ fd_core_dfe_df$value[fd_core_dfe_df$value >= 0.5] = 0.5
 ### Figure 4
 # 600 x 1000
 
-png("../Supplement/Supplemental_Figure_5A.png", width = 600, height = 2000)
-ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
+# png("../Supplement/Supplemental_Figure_5A.jpg", width = 600, height = 2000)
+figure_s5a = ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'neugamma_dfe_dist_low', ], aes(x=value, y=fct_rev(species), fill=species)) +
   geom_density_ridges2(aes(fill = species), stat = "binline", binwidth = 1, scale = 1) +
   #labs(
   #  title = 'Neugamma-Distributed DFE',
@@ -3180,75 +3182,78 @@ ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'neugamma_dfe_dist_low', ], aes
   theme(legend.position = "none") + 
   xlab('Selection Coefficient')
 
-dev.off()
+# dev.off()
+
+ggsave('../Supplement/Supplemental_Figure_5A.jpg', figure_s5a, width=9, height=15, units='in', dpi=600)
+
 
 # Supplemental Figure 6
-# dfe_comparison_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_matrix.csv', header=TRUE)
-# 
-# dfe_comparison_matrix = dfe_comparison_matrix[, -1]
-# rownames(dfe_comparison_matrix) = phylogenetic_levels
-# colnames(dfe_comparison_matrix) = phylogenetic_levels
-# dfe_comparison_matrix
-# 
-# dfe_constant_s_matrix = read.csv('../Analysis/cross_species_dfe/dfe_comparison_constant_s_matrix.csv', header=TRUE)
-# 
-# dfe_constant_s_matrix = dfe_constant_s_matrix[, -1]
-# rownames(dfe_constant_s_matrix) = phylogenetic_levels
-# colnames(dfe_constant_s_matrix) = phylogenetic_levels
-# dfe_constant_s_matrix
-# 
-# color_scale = colorRampPalette(c('white', 'yellow', 'orange', 'red'), bias=2.5)(100)
-# 
-# # col_scheme = c(rep('black', each=1), rep('darkorange', each=4), rep('black', each=4), rep('darkviolet', each=8), rep('black', each=10))
-# 
-# ### Figure S6A
-# png("../Supplement/Supplemental_Figure_6A.png", width = 1200, height = 800)
-# # 800 x 1200 dimensions of saved image
-# Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
-#   col=color_scale,
-#   cluster_rows = FALSE, cluster_columns = FALSE,
-#   cell_fun = function(j, i, x, y, w, h, fill) {
-#     if (dfe_comparison_matrix[i, j] > 17.7 && i >= j) {
-#       grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white', fontface='italic'))
-#       grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 8, col='blue'))
-#     }
-#     else if(i >= j) {
-#       grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
-#       grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 8))      
-#     }
-#   },
-#   row_names_side='left',
-#   column_names_gp = gpar(fontsize = 12,fontface='italic', col='black'),
-#   row_names_gp = gpar(fontsize = 12,fontface='italic', col='black'),
-#   show_heatmap_legend = T,
-#   name='LRT Statistic'
-#   )
-# dev.off()
-# 
-# ### Figure S6B
-# 
-# png("../Supplement/Supplemental_Figure_6B.png", width = 1200, height = 800)
-# # 800 x 1200 dimensions of saved image
-# Heatmap(dfe_constant_s_matrix, rect_gp = gpar(type = "none"),
-#   col=color_scale,
-#   cluster_rows = FALSE, cluster_columns = FALSE,
-#   cell_fun = function(j, i, x, y, w, h, fill) {
-#     if (dfe_constant_s_matrix[i, j] > 17.7 && i >= j) {
-#       grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'white', fontface='italic'))
-#       grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 8, col='blue'))
-#     }
-#     else if(i >= j) {
-#       grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
-#       grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 8))      
-#     }
-#   },
-#   row_names_side='left',
-#   column_names_gp = gpar(fontsize = 12,fontface='italic', col='black'),
-#   row_names_gp = gpar(fontsize = 12,fontface='italic', col='black'),
-#   show_heatmap_legend = T,
-#   name='LRT Statistic'
-#   )
-# dev.off()
+dfe_comparison_matrix = read.csv('../SupplementaryAnalysis/cross_species_dfe/dfe_comparison_matrix.csv', header=TRUE)
+
+dfe_comparison_matrix = dfe_comparison_matrix[, -1]
+rownames(dfe_comparison_matrix) = FD_phylogenetic_levels
+colnames(dfe_comparison_matrix) = FD_phylogenetic_levels
+dfe_comparison_matrix
+
+dfe_constant_s_matrix = read.csv('../SupplementaryAnalysis/cross_species_dfe/dfe_constant_s_matrix.csv', header=TRUE)
+
+dfe_constant_s_matrix = dfe_constant_s_matrix[, -1]
+rownames(dfe_constant_s_matrix) = FD_phylogenetic_levels
+colnames(dfe_constant_s_matrix) = FD_phylogenetic_levels
+dfe_constant_s_matrix
+
+color_scale = colorRampPalette(c('white', 'yellow', 'orange', 'red'), bias=2.5)(100)
+
+# col_scheme = c(rep('black', each=1), rep('darkorange', each=4), rep('black', each=4), rep('darkviolet', each=8), rep('black', each=10))
+
+### Figure S6A
+png("../Supplement/Supplemental_Figure_6A.jpg", width = 1800, height = 1000)
+# 1000 x 1500 dimensions of saved image
+Heatmap(dfe_comparison_matrix, rect_gp = gpar(type = "none"),
+  col=color_scale,
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  cell_fun = function(j, i, x, y, w, h, fill) {
+    if (dfe_comparison_matrix[i, j] > 19.20747 && i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white', fontface='italic'))
+      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 8, col='blue'))
+    }
+    else if(i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
+      grid.text(sprintf("%.1f", dfe_comparison_matrix[i, j]), x, y, gp = gpar(fontsize = 8))
+    }
+  },
+  row_names_side='left',
+  column_names_gp = gpar(fontsize = 10,fontface='italic', col='black'),
+  row_names_gp = gpar(fontsize = 10,fontface='italic', col='black'),
+  show_heatmap_legend = T,
+  name='LRT Statistic'
+  )
+dev.off()
+
+### Figure S6B
+
+png("../Supplement/Supplemental_Figure_6B.jpg", width = 1800, height = 1000)
+# 800 x 1200 dimensions of saved image
+Heatmap(dfe_constant_s_matrix, rect_gp = gpar(type = "none"),
+  col=color_scale,
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  cell_fun = function(j, i, x, y, w, h, fill) {
+    if (dfe_constant_s_matrix[i, j] > 19.20747 && i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col = 'white', fontface='italic'))
+      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 8, col='blue'))
+    }
+    else if(i >= j) {
+      grid.rect(x, y, w, h, gp = gpar(fill = fill, col='white'))
+      grid.text(sprintf("%.1f", dfe_constant_s_matrix[i, j]), x, y, gp = gpar(fontsize = 8))
+    }
+  },
+  row_names_side='left',
+  column_names_gp = gpar(fontsize = 10,fontface='italic', col='black'),
+  row_names_gp = gpar(fontsize = 10,fontface='italic', col='black'),
+  show_heatmap_legend = T,
+  name='LRT Statistic'
+  )
+dev.off()
 
 # Supplemental Figure 7
 
@@ -3447,7 +3452,7 @@ fig_s7_39 = compare_core_accessory_sfs_syn_ns(f_prausnitzii_61481_FD_core_folded
   f_prausnitzii_61481_FD_accessory_folded,
   f_prausnitzii_61481_FD_accessory_nonsyn) + ggtitle('Faecalibacterium prausnitzii (61481)')
 
-png("../Supplement/Supplemental_Figure_7.png", width = 800, height = 20000)
+png("../Supplement/Supplemental_Figure_7.jpg", width = 800, height = 20000)
 # 1200 x 2800 dimensions of saved image
 fig_s7_1 +
   fig_s7_2 +
@@ -3492,40 +3497,6 @@ fig_s7_1 +
 dev.off()
 
 # Supplemental Figure 8
-# sfs_and_likelihood_accessory = p6a + p6_l_accessory +
-#   p4a + p4_l_accessory +
-#   p2a + p2_l_accessory +
-#   p3a + p3_l_accessory +
-#   p5a + p5_l_accessory +
-#   p23a + p23_l_accessory +
-#   p25a + p25_l_accessory +
-#   p26a + p26_l_accessory  +
-#   p28a + p28_l_accessory +
-#   p9a + p9_l_accessory +
-#   p8a + p8_l_accessory +
-#   p12a + p12_l_accessory +
-#   p14a + p14_l_accessory +
-#   p13a + p13_l_accessory +
-#   # p11a + p11_l_accessory +
-#   p16a + p16_l_accessory +
-#   p7a + p7_l_accessory +
-#   p15a + p15_l_accessory +
-#   p17a + p17_l_accessory +
-#   p1a + p1_l_accessory +
-#   p19a + p19_l_accessory +
-#   p27a + p27_l_accessory +
-#   p20a + p20_l_accessory +
-#   p21a + p21_l_accessory +
-#   p24a + p24_l_accessory +
-#   p30a + p30_l_accessory +
-#   p29a + p29_l_accessory +
-#   p22a + p22_l_accessory +
-#   plot_layout(ncol=2)
-#
-# png("../Supplement/Supplemental_Figure_8.png", width = 1600, height = 16000)
-# # 1600 x 16000 dimensions of saved image
-# sfs_and_likelihood_accessory
-# dev.off()
 
 # Supplemental Figure 9
 shared_species_list = FD_accessory_phylogenetic_levels
@@ -3685,7 +3656,7 @@ difference_plot =
 
 difference_plot
 
-# png("../Supplement/Supplemental_Figure_9.png", width = 800, height = 750)
+# png("../Supplement/Supplemental_Figure_9.jpg", width = 800, height = 750)
 # # 800 x 750 dimensions of saved image
 # difference_plot
 # dev.off()
@@ -3811,7 +3782,7 @@ difference_plot
 #   p22a + p22_core_dfe + p22_acc_dfe +
 #   plot_layout(design=design)
 # 
-# png("../Supplement/Supplemental_Figure_10.png", width = 1200, height = 2800)
+# png("../Supplement/Supplemental_Figure_10.jpg", width = 1200, height = 2800)
 # # 1200 x 2800 dimensions of saved image
 # core_accessory_comparison
 # dev.off()
@@ -3847,7 +3818,7 @@ plot_N_curr_distribution = ggplot() +
   theme(axis.text=element_text(size=16)) +
   theme(axis.title=element_text(size=16,face="bold"))
 
-png("../Supplement/Supplemental_Figure_11A.png", width = 800, height = 1200)
+png("../Supplement/Supplemental_Figure_11A.jpg", width = 800, height = 1200)
 # 800 x 1200 dimensions of saved image
 plot_N_curr_distribution
 dev.off()
@@ -3924,7 +3895,7 @@ dev.off()
 # 
 # qp_samples_per_species = data.frame(species_list, as.numeric(num_qp_samples))
 # 
-# png("../Supplement/Supplemental_Figure_12.png", width = 800, height = 1200)
+# png("../Supplement/Supplemental_Figure_12.jpg", width = 800, height = 1200)
 # ggplot(qp_samples_per_species, aes(x = reorder(species_list, num_qp_samples), y = num_qp_samples)) +  geom_bar(stat='identity', fill='grey') +
 #   theme(legend.position = "none") +
 #   coord_flip() +
@@ -4016,7 +3987,7 @@ dev.off()
 #   ylab('Ancestral effective population size, Core genes') +
 #   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed")
 # 
-# png("../Supplement/Supplemental_Figure_13.png", width = 800, height = 800)
+# png("../Supplement/Supplemental_Figure_13.jpg", width = 800, height = 800)
 # accessory_core_demography_scatter
 # dev.off()
 

@@ -493,74 +493,74 @@ for (i in 1:length(sporulation_subtree$tip.label)) {
 
 write.tree(sporulation_subtree, file='../Summary/sporulation_species.newick')
 
-# FD subtree without `DFE shape` outliers
-
-# Specify the tip labels for the subtree you want to extract
-FD_no_outlier_species_subtree = c(
-  'Akkermansia_muciniphila_55290',
-  'Alistipes_finegoldii_56071',
-  'Alistipes_onderdonkii_55464',
-  'Alistipes_putredinis_61533',
-  'Alistipes_shahii_62199',
-  'Alistipes_sp_60764',
-  'Bacteroidales_bacterium_58650',
-  'Bacteroides_caccae_53434',
-  'Bacteroides_cellulosilyticus_58046',
-  'Bacteroides_coprocola_61586',
-  'Bacteroides_eggerthii_54457',
-  'Bacteroides_fragilis_54507',
-  'Bacteroides_massiliensis_44749',
-  'Bacteroides_plebeius_61623',
-  'Bacteroides_stercoris_56735',
-  'Bacteroides_thetaiotaomicron_56941',
-  'Bacteroides_uniformis_57318',
-  'Bacteroides_vulgatus_57955',
-  'Bacteroides_xylanisolvens_57185',
-  'Barnesiella_intestinihominis_62208',
-  'Coprococcus_sp_62244',
-  'Dialister_invisus_61905',
-  'Eubacterium_eligens_61678',
-  'Eubacterium_rectale_56927',
-  'Eubacterium_siraeum_57634',
-  'Faecalibacterium_prausnitzii_57453',
-  'Faecalibacterium_prausnitzii_61481',
-  'Lachnospiraceae_bacterium_51870',
-  'Odoribacter_splanchnicus_62174',
-  'Oscillibacter_sp_60799',
-  'Parabacteroides_distasonis_56985',
-  'Parabacteroides_merdae_56972',
-  'Phascolarctobacterium_sp_59817',
-  'Prevotella_copri_61740',
-  'Roseburia_inulinivorans_61943',
-  'Ruminococcus_bicirculans_59300',
-  'Ruminococcus_bromii_62047'
-)
-
-FD_no_outlier_midas_code_subtree = c()
-
-for (species in FD_no_outlier_species_subtree) {
-  FD_no_outlier_midas_code_subtree = c(FD_no_outlier_midas_code_subtree, get_species_code_reference(species, output_table))
-}
-
-print(FD_no_outlier_midas_code_subtree)
-
-FD_no_outlier_subtree_tips = FD_no_outlier_midas_code_subtree
-
-# Extract the subtree
-FD_no_outlier_subtree <- keep.tip(input_tree, FD_no_outlier_subtree_tips)
-
-# Print the extracted subtree
-print(FD_no_outlier_subtree)
-
-for (i in 1:length(FD_no_outlier_subtree$tip.label)) {
-  print(FD_no_outlier_subtree$tip.label[i])
-  new_tip = get_species_code_reference(FD_no_outlier_subtree$tip.label[i], output_table)
-  # new_tip = str_sub(new_tip, 1, str_length(new_tip)-6)
-  FD_no_outlier_subtree$tip.label[i] = new_tip
-  print(FD_no_outlier_subtree$tip.label[i])
-}
-
-write.tree(FD_no_outlier_subtree, file='../Summary/FD_no_outlier_species.newick')
+# # FD subtree without `DFE shape` outliers
+# 
+# # Specify the tip labels for the subtree you want to extract
+# FD_no_outlier_species_subtree = c(
+#   'Akkermansia_muciniphila_55290',
+#   'Alistipes_finegoldii_56071',
+#   'Alistipes_onderdonkii_55464',
+#   'Alistipes_putredinis_61533',
+#   'Alistipes_shahii_62199',
+#   'Alistipes_sp_60764',
+#   'Bacteroidales_bacterium_58650',
+#   'Bacteroides_caccae_53434',
+#   'Bacteroides_cellulosilyticus_58046',
+#   'Bacteroides_coprocola_61586',
+#   'Bacteroides_eggerthii_54457',
+#   'Bacteroides_fragilis_54507',
+#   'Bacteroides_massiliensis_44749',
+#   'Bacteroides_plebeius_61623',
+#   'Bacteroides_stercoris_56735',
+#   'Bacteroides_thetaiotaomicron_56941',
+#   'Bacteroides_uniformis_57318',
+#   'Bacteroides_vulgatus_57955',
+#   'Bacteroides_xylanisolvens_57185',
+#   'Barnesiella_intestinihominis_62208',
+#   'Coprococcus_sp_62244',
+#   'Dialister_invisus_61905',
+#   'Eubacterium_eligens_61678',
+#   'Eubacterium_rectale_56927',
+#   'Eubacterium_siraeum_57634',
+#   'Faecalibacterium_prausnitzii_57453',
+#   'Faecalibacterium_prausnitzii_61481',
+#   'Lachnospiraceae_bacterium_51870',
+#   'Odoribacter_splanchnicus_62174',
+#   'Oscillibacter_sp_60799',
+#   'Parabacteroides_distasonis_56985',
+#   'Parabacteroides_merdae_56972',
+#   'Phascolarctobacterium_sp_59817',
+#   'Prevotella_copri_61740',
+#   'Roseburia_inulinivorans_61943',
+#   'Ruminococcus_bicirculans_59300',
+#   'Ruminococcus_bromii_62047'
+# )
+# 
+# FD_no_outlier_midas_code_subtree = c()
+# 
+# for (species in FD_no_outlier_species_subtree) {
+#   FD_no_outlier_midas_code_subtree = c(FD_no_outlier_midas_code_subtree, get_species_code_reference(species, output_table))
+# }
+# 
+# print(FD_no_outlier_midas_code_subtree)
+# 
+# FD_no_outlier_subtree_tips = FD_no_outlier_midas_code_subtree
+# 
+# # Extract the subtree
+# FD_no_outlier_subtree <- keep.tip(input_tree, FD_no_outlier_subtree_tips)
+# 
+# # Print the extracted subtree
+# print(FD_no_outlier_subtree)
+# 
+# for (i in 1:length(FD_no_outlier_subtree$tip.label)) {
+#   print(FD_no_outlier_subtree$tip.label[i])
+#   new_tip = get_species_code_reference(FD_no_outlier_subtree$tip.label[i], output_table)
+#   # new_tip = str_sub(new_tip, 1, str_length(new_tip)-6)
+#   FD_no_outlier_subtree$tip.label[i] = new_tip
+#   print(FD_no_outlier_subtree$tip.label[i])
+# }
+# 
+# write.tree(FD_no_outlier_subtree, file='../Summary/FD_no_outlier_species.newick')
 
 # SFS comparison
 
@@ -2132,6 +2132,10 @@ supplementary_species_list = c(
   'Ruminococcus bromii'
 )
 
+prevalence_df = read.csv('../Data/species_prevalence.csv')
+prevalence_df = prevalence_df[, c(1, 6)]
+prevalence_df = prevalence_df %>% arrange(species_id)
+
 supplementary_demography_df = data.frame(species=supplementary_species_list,
   new_sample_size=numeric(39),
   old_sample_size=numeric(39)
@@ -2145,9 +2149,28 @@ for (i in 1:length(supplementary_species_list)) {
 }
 
 supplementary_demography_df
-supplementary_demography_df$species = reorder(supplementary_demography_df$species, supplementary_demography_df$new_sample_size)
 
-supplementary_demography_df %>% arrange(desc(new_sample_size))
+prevalence_df = cbind(supplementary_demography_df, prevalence_df)
+
+prevalence_df = prevalence_df[, c(1, 2, 5)]
+prevalence_df$species = reorder(prevalence_df$species, prevalence_df$prevalence)
+prevalence_df = prevalence_df %>% arrange(desc(prevalence))
+
+prevalence_df = prevalence_df[, c(1, 3, 2)]
+
+ggplot(melt(prevalence_df), aes(x=species, y=value, fill=variable)) +
+  geom_bar(stat='identity', position = "identity") +
+  coord_flip() +
+  labs(title = "Sample Size by Species",
+       x = "Species",
+       y = "Sample Size",
+  fill = "Data") +
+  scale_fill_manual(labels = c("Non-QP samples", "QP samples"), values = c("lightblue", "blue")) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(face = 'italic'))
+
+supplementary_demography_df = supplementary_demography_df %>% arrange(desc(new_sample_size))
+supplementary_demography_df$species = reorder(supplementary_demography_df$species, supplementary_demography_df$new_sample_size)
 
 ggplot(supplementary_demography_df, aes(x = reorder(species, new_sample_size), y = new_sample_size)) +
   geom_bar(stat = "identity") +
@@ -2168,6 +2191,7 @@ ggplot(melt(supplementary_demography_df), aes(x=species, y=value, fill=variable)
   scale_fill_manual(labels = c("Augmented data", "Original submission"), values = c("blue", "red")) +
   theme_minimal() +
   theme(axis.text.y = element_text(face = 'italic'))
+
 
 # 
 # supplementary_demography_df = data.frame(species=supplementary_species_list, 
@@ -5037,7 +5061,33 @@ FD_core_accessory_DFE_reduced = a_putredinis_fd_core_dfe_plot + a_finegoldii_fd_
   e_siraeum_fd_accessory_dfe_plot + r_bromii_fd_accessory_dfe_plot +
   plot_layout(ncol=2)
 
-ggsave(filename='./FD_core_accessory_DFE_reduced.png', plot=FD_core_accessory_DFE_reduced, width=20, height=150, units="in", limitsize=FALSE)
+FD_core_accessory_dadi_DFE_reduced = a_putredinis_fd_core_dadi_dfe_plot + a_finegoldii_fd_core_dadi_dfe_plot +
+  a_putredinis_fd_accessory_dfe_plot + a_finegoldii_fd_accessory_dfe_plot +
+  a_onderdonkii_fd_core_dadi_dfe_plot + a_shahii_fd_core_dadi_dfe_plot +
+  a_onderdonkii_fd_accessory_dfe_plot + a_shahii_fd_accessory_dfe_plot +
+  b_bacterium_fd_core_dadi_dfe_plot + p_distasonis_fd_core_dadi_dfe_plot +
+  b_bacterium_fd_accessory_dfe_plot + p_distasonis_fd_accessory_dfe_plot +
+  p_merdae_fd_core_dadi_dfe_plot + b_cellulosilyticus_fd_core_dadi_dfe_plot +
+  p_merdae_fd_accessory_dfe_plot + b_cellulosilyticus_fd_accessory_dfe_plot +
+  b_stercoris_fd_core_dadi_dfe_plot + b_thetaiotaomicron_fd_core_dadi_dfe_plot +
+  b_stercoris_fd_accessory_dfe_plot + b_thetaiotaomicron_fd_accessory_dfe_plot +
+  b_caccae_fd_core_dadi_dfe_plot + b_massiliensis_fd_core_dadi_dfe_plot +
+  b_caccae_fd_accessory_dfe_plot + b_massiliensis_fd_accessory_dfe_plot +
+  b_vulgatus_fd_core_dadi_dfe_plot + d_invisus_fd_core_dadi_dfe_plot +
+  b_vulgatus_fd_accessory_dfe_plot + d_invisus_fd_accessory_dfe_plot +
+  e_eligens_fd_core_dadi_dfe_plot + e_rectale_fd_core_dadi_dfe_plot +
+  e_eligens_fd_accessory_dfe_plot + e_rectale_fd_accessory_dfe_plot +
+  e_siraeum_fd_core_dadi_dfe_plot + r_bromii_fd_core_dadi_dfe_plot +
+  e_siraeum_fd_accessory_dfe_plot + r_bromii_fd_accessory_dfe_plot +
+  plot_layout(ncol=2)
+
+ggsave(filename='./FD_core_accessory_dadi_DFE_reduced.png', 
+  plot=FD_core_accessory_dadi_DFE_reduced, 
+  width=20, height=40, units="in", limitsize=FALSE, dpi=300)
+
+ggsave(filename='./FD_core_accessory_DFE_reduced.png', 
+  plot=FD_core_accessory_DFE_reduced, 
+  width=20, height=40, units="in", limitsize=FALSE, dpi=300)
 
 # HR SFS DFE comparison
 a_muciniphila_HR_DFE = compare_dfe_sfs(a_muciniphila_HR_nonsyn,
@@ -7165,11 +7215,13 @@ fd_core_dfe_file_list_phylotree = c(
 fd_core_mean_s = numeric(39)
 fd_core_n_anc = numeric(39)
 fd_core_proportion_neutrality = numeric(39)
+fd_core_proportion_lethal = numeric(39)
 fd_core_shape = numeric(39)
 for (i in 1:length(fd_core_dfe_file_list_phylotree)) {
   fd_core_mean_s[i] = compute_selection_coefficients(fd_core_dfe_file_list_phylotree[i])[1]
   fd_core_n_anc[i] = nanc_from_demography(fd_core_demography_file_list_phylotree[i])
   fd_core_proportion_neutrality[i] = compute_selection_coefficients(fd_core_dfe_file_list_phylotree[i])[2]
+  fd_core_proportion_lethal[i] = compute_selection_coefficients(fd_core_dfe_file_list_phylotree[i])[5]
   fd_core_shape[i] = return_shape_from_dfe(fd_core_dfe_file_list_phylotree[i])
 }
 fd_core_mean_2ns  = fd_core_mean_s * fd_core_n_anc * 2
@@ -7180,6 +7232,7 @@ phylosignal_dataframe = data.frame(
   N_anc = fd_core_n_anc,
   mean_2ns = fd_core_mean_2ns,
   proportion_neutral = fd_core_proportion_neutrality,
+  proportion_lethal = fd_core_proportion_lethal,
   shape = fd_core_shape
 )
 
@@ -7507,156 +7560,156 @@ barplot(sporulation_phylo_4d, center=FALSE, scale=FALSE)
 barplot(sporulation_phylo_4d)
 
 # Reduced DFE phylosignal
-FD_no_outlier_subtree$node.label = NULL
+# FD_no_outlier_subtree$node.label = NULL
+# 
+# fd_no_outlier_species = c(
+#   'Alistipes_sp_60764',
+#   'Bacteroidales_bacterium_58650',
+#   'Alistipes_putredinis_61533',
+#   'Alistipes_finegoldii_56071',
+#   'Alistipes_onderdonkii_55464',
+#   'Alistipes_shahii_62199',
+#   'Odoribacter_splanchnicus_62174',
+#   'Parabacteroides_distasonis_56985',
+#   'Parabacteroides_merdae_56972',
+#   'Prevotella_copri_61740',
+#   'Bacteroides_fragilis_54507',
+#   'Bacteroides_cellulosilyticus_58046',
+#   'Bacteroides_eggerthii_54457',
+#   'Bacteroides_stercoris_56735',
+#   'Bacteroides_uniformis_57318',
+#   'Bacteroides_thetaiotaomicron_56941',
+#   'Bacteroides_xylanisolvens_57185',
+#   'Bacteroides_caccae_53434',
+#   'Bacteroides_massiliensis_44749',
+#   'Bacteroides_vulgatus_57955',
+#   'Bacteroides_plebeius_61623',
+#   'Bacteroides_coprocola_61586',
+#   'Barnesiella_intestinihominis_62208',
+#   'Akkermansia_muciniphila_55290',
+#   'Dialister_invisus_61905',
+#   'Phascolarctobacterium_sp_59817',
+#   'Eubacterium_eligens_61678',
+#   'Lachnospiraceae_bacterium_51870',
+#   'Roseburia_inulinivorans_61943',
+#   'Eubacterium_rectale_56927',
+#   'Coprococcus_sp_62244',
+#   'Oscillibacter_sp_60799',
+#   'Ruminococcus_bromii_62047',
+#   'Eubacterium_siraeum_57634',
+#   'Ruminococcus_bicirculans_59300',
+#   'Faecalibacterium_prausnitzii_57453',
+#   'Faecalibacterium_prausnitzii_61481'
+# )
+# 
+# fd_no_outlier_demography_file_list = c(
+#   '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
+# )
+# 
+# fd_no_outlier_dfe_file_list = c(
+#   '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
+# )
 
-fd_no_outlier_species = c(
-  'Alistipes_sp_60764',
-  'Bacteroidales_bacterium_58650',
-  'Alistipes_putredinis_61533',
-  'Alistipes_finegoldii_56071',
-  'Alistipes_onderdonkii_55464',
-  'Alistipes_shahii_62199',
-  'Odoribacter_splanchnicus_62174',
-  'Parabacteroides_distasonis_56985',
-  'Parabacteroides_merdae_56972',
-  'Prevotella_copri_61740',
-  'Bacteroides_fragilis_54507',
-  'Bacteroides_cellulosilyticus_58046',
-  'Bacteroides_eggerthii_54457',
-  'Bacteroides_stercoris_56735',
-  'Bacteroides_uniformis_57318',
-  'Bacteroides_thetaiotaomicron_56941',
-  'Bacteroides_xylanisolvens_57185',
-  'Bacteroides_caccae_53434',
-  'Bacteroides_massiliensis_44749',
-  'Bacteroides_vulgatus_57955',
-  'Bacteroides_plebeius_61623',
-  'Bacteroides_coprocola_61586',
-  'Barnesiella_intestinihominis_62208',
-  'Akkermansia_muciniphila_55290',
-  'Dialister_invisus_61905',
-  'Phascolarctobacterium_sp_59817',
-  'Eubacterium_eligens_61678',
-  'Lachnospiraceae_bacterium_51870',
-  'Roseburia_inulinivorans_61943',
-  'Eubacterium_rectale_56927',
-  'Coprococcus_sp_62244',
-  'Oscillibacter_sp_60799',
-  'Ruminococcus_bromii_62047',
-  'Eubacterium_siraeum_57634',
-  'Ruminococcus_bicirculans_59300',
-  'Faecalibacterium_prausnitzii_57453',
-  'Faecalibacterium_prausnitzii_61481'
-)
-
-fd_no_outlier_demography_file_list = c(
-  '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
-)
-
-fd_no_outlier_dfe_file_list = c(
-  '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
-)
-
-fd_no_outlier_mean_s = numeric(37)
-fd_no_outlier_n_anc = numeric(37)
-fd_no_outlier_proportion_neutrality = numeric(37)
-fd_no_outlier_shape = numeric(37)
-for (i in 1:length(fd_no_outlier_dfe_file_list)) {
-  fd_no_outlier_mean_s[i] = compute_selection_coefficients(fd_no_outlier_dfe_file_list[i])[1]
-  fd_no_outlier_n_anc[i] = nanc_from_demography(fd_no_outlier_demography_file_list[i])
-  fd_no_outlier_proportion_neutrality[i] = compute_selection_coefficients(fd_no_outlier_dfe_file_list[i])[2]
-  fd_no_outlier_shape[i] = return_shape_from_dfe(fd_no_outlier_dfe_file_list[i])
-}
-
-FD_no_outlier_data = data.frame(
-  species=fd_no_outlier_species,
-  mean_s=fd_no_outlier_mean_s,
-  n_anc=fd_no_outlier_n_anc,
-  proportion_neutrality=fd_no_outlier_proportion_neutrality,
-  shape=fd_no_outlier_shape
-)
-
-FD_no_outlier_data$mean_2ns = fd_no_outlier_mean_s * fd_no_outlier_n_anc * 2
-
-FD_no_outlier_data = FD_no_outlier_data[match(FD_no_outlier_subtree$tip.label, FD_no_outlier_data$species),]
-
-FD_no_outlier_data = FD_no_outlier_data[, -c(1)]
-
-FD_no_outlier_phylo_4d = phylo4d(FD_no_outlier_subtree, FD_no_outlier_data, match.data=TRUE)
-
-phyloSignal(FD_no_outlier_phylo_4d)
+# fd_no_outlier_mean_s = numeric(37)
+# fd_no_outlier_n_anc = numeric(37)
+# fd_no_outlier_proportion_neutrality = numeric(37)
+# fd_no_outlier_shape = numeric(37)
+# for (i in 1:length(fd_no_outlier_dfe_file_list)) {
+#   fd_no_outlier_mean_s[i] = compute_selection_coefficients(fd_no_outlier_dfe_file_list[i])[1]
+#   fd_no_outlier_n_anc[i] = nanc_from_demography(fd_no_outlier_demography_file_list[i])
+#   fd_no_outlier_proportion_neutrality[i] = compute_selection_coefficients(fd_no_outlier_dfe_file_list[i])[2]
+#   fd_no_outlier_shape[i] = return_shape_from_dfe(fd_no_outlier_dfe_file_list[i])
+# }
+# 
+# FD_no_outlier_data = data.frame(
+#   species=fd_no_outlier_species,
+#   mean_s=fd_no_outlier_mean_s,
+#   n_anc=fd_no_outlier_n_anc,
+#   proportion_neutrality=fd_no_outlier_proportion_neutrality,
+#   shape=fd_no_outlier_shape
+# )
+# 
+# FD_no_outlier_data$mean_2ns = fd_no_outlier_mean_s * fd_no_outlier_n_anc * 2
+# 
+# FD_no_outlier_data = FD_no_outlier_data[match(FD_no_outlier_subtree$tip.label, FD_no_outlier_data$species),]
+# 
+# FD_no_outlier_data = FD_no_outlier_data[, -c(1)]
+# 
+# FD_no_outlier_phylo_4d = phylo4d(FD_no_outlier_subtree, FD_no_outlier_data, match.data=TRUE)
+# 
+# phyloSignal(FD_no_outlier_phylo_4d)
 
 # FD_no_outlier_phylosim <- phyloSim(tree = FD_no_outlier_subtree, method = "all", nsim = 100, reps = 99)
 # plot(FD_no_outlier_phylosim, stacked.methods = FALSE, quantiles = c(0.05, 0.95))
@@ -7667,9 +7720,9 @@ phyloSignal(FD_no_outlier_phylo_4d)
 # plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'proportion_neutrality'), main='Phylogenetic correlogram of proportion of neutrality')
 # plot(phyloCorrelogram(FD_no_outlier_phylo_4d, trait = 'shape'), main='Phylogenetic correlogram of Gamma-distributed DFE shape parameter')
 
-barplot(FD_no_outlier_phylo_4d, center=FALSE, scale=FALSE)
-
-barplot(FD_no_outlier_phylo_4d)
+# barplot(FD_no_outlier_phylo_4d, center=FALSE, scale=FALSE)
+# 
+# barplot(FD_no_outlier_phylo_4d)
 
 # Comparison of Mean s
 
@@ -8021,3 +8074,37 @@ LRT_full_figure = LRT_distribution + permutation_LRT +
   plot_layout(ncol=2)
 
 ggsave('../Summary/LRT_full_figure.svg', LRT_full_figure, width=36, height=36, dpi=600)
+
+# Fraction of sites remaining
+survival_curve_file_list = c(
+  '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/survival_curve.csv',
+  '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/survival_curve.csv',
+  '../HighRecombinationAnalysis/Alistipes_onderdonkii_55464/survival_curve.csv',
+  '../HighRecombinationAnalysis/Alistipes_shahii_62199/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_caccae_53434/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_fragilis_54507/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_stercoris_56735/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_vulgatus_57955/survival_curve.csv',
+  '../HighRecombinationAnalysis/Barnesiella_intestinihominis_62208/survival_curve.csv',
+  '../HighRecombinationAnalysis/Dialister_invisus_61905/survival_curve.csv',
+  '../HighRecombinationAnalysis/Eubacterium_rectale_56927/survival_curve.csv',
+  '../HighRecombinationAnalysis/Oscillibacter_sp_60799/survival_curve.csv',
+  '../HighRecombinationAnalysis/Parabacteroides_distasonis_56985/survival_curve.csv',
+  '../HighRecombinationAnalysis/Parabacteroides_merdae_56972/survival_curve.csv',
+  '../HighRecombinationAnalysis/Ruminococcus_bicirculans_59300/survival_curve.csv',
+  '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/survival_curve.csv'
+)
+
+survival_curve_fraction_list = c()
+
+for (i in 1:length(survival_curve_file_list)) {
+  this_table = read.csv(survival_curve_file_list[i])
+  this_fraction = this_table$Remaining.sites[50] / this_table$Remaining.sites[1]
+  survival_curve_fraction_list = c(survival_curve_fraction_list, this_fraction)
+}
+
+num_iLDS_peaks = read.csv('../HighRecombinationData/num_iLDS_peaks.csv')
+
+# temp_table = read.csv(survival_curve_file_list[1])

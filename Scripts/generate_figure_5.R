@@ -37,8 +37,9 @@ DFF
 ### Figure 5
 # 1000 x 800
 
-png("../Summary/figure_5_output.png", width = 1000, height = 800)
-fig_5A + a_finegoldii_core_dfe + a_finegoldii_acc_dfe +
+# png("../Summary/figure_5_output.png", width = 1000, height = 800)
+figure_5 = fig_5A + a_finegoldii_core_dfe + a_finegoldii_acc_dfe +
   fig_5B + e_rectale_core_dfe + e_rectale_acc_dfe +
   plot_layout(design=design)
-dev.off()
+# dev.off()
+ggsave('../Summary/figure_5_output.svg', figure_5, width=15, height=12, units='in', dpi=600)
