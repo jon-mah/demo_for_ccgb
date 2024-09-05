@@ -4742,18 +4742,18 @@ a_onderdonkii_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalys
 a_putredinis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt') + ggtitle('A. putredinis, core genes')
 a_shahii_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt') + ggtitle('A. shahii, core genes')
 alistipes_sp_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt') + ggtitle('Alistipes sp., core genes')
-b_bacterium_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt') + ggtitle('B. bacterium, core genes')
-b_caccae_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt') + ggtitle('B. caccae, core genes')
-b_cellulosilyticus_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt') + ggtitle('B. cellulosilyticus, core genes')
+b_bacterium_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt') + ggtitle('B. bacterium, core genes') + theme(plot.title = element_text(colour = "red"))
+b_caccae_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt') + ggtitle('B. caccae, core genes') + theme(plot.title = element_text(colour = "red"))
+b_cellulosilyticus_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt') + ggtitle('B. cellulosilyticus, core genes') + theme(plot.title = element_text(colour = "red"))
 b_coprocola_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt') + ggtitle('B. coprocola, core genes')
 b_eggerthii_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt') + ggtitle('B. eggerthii, core genes')
 b_fragilis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt') + ggtitle('B. fragilis, core genes')
 b_massiliensis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt') + ggtitle('B. massiliensis, core genes')
 b_plebeius_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt') + ggtitle('B. plebeius, core genes')
 b_stercoris_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt') + ggtitle('B. stercoris, core genes')
-b_thetaiotaomicron_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt') + ggtitle('B. thetaiotaomicron, core genes')
+b_thetaiotaomicron_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt') + ggtitle('B. thetaiotaomicron, core genes') + theme(plot.title = element_text(colour = "red"))
 b_uniformis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt') + ggtitle('B. uniformis, core genes')
-b_vulgatus_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt') + ggtitle('B. vulgatus, core genes')
+b_vulgatus_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt') + ggtitle('B. vulgatus, core genes') + theme(plot.title = element_text(colour = "red"))
 b_xylanisolvens_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt') + ggtitle('B. xylanisolvens, core genes')
 b_intestinihominis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt') + ggtitle('B. intestinihominis, core genes')
 coprococcus_sp_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt') + ggtitle('Coprococcus sp., core genes')
@@ -4767,7 +4767,7 @@ f_prausnitzii_62201_fd_core_dfe_plot = plot_core_accessory_dfe('../Supplementary
 l_bacterium_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt') + ggtitle('L. bacterium, core genes')
 o_splanchnicus_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt') + ggtitle('O. splanchnicus, core genes')
 oscillibacter_sp_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt') + ggtitle('Oscillibacter sp., core genes')
-p_distasonis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt') + ggtitle('P. distasonis, core genes')
+p_distasonis_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt') + ggtitle('P. distasonis, core genes') + theme(plot.title = element_text(colour = "red"))
 p_merdae_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt') + ggtitle('P. merdae, core genes')
 phascolarctobacterium_sp_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt') + ggtitle('Phascolarctobacterium sp., core genes')
 p_copri_fd_core_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt') + ggtitle('P. copri, core genes')
@@ -4782,18 +4782,18 @@ a_onderdonkii_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryA
 a_putredinis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Alistipes_putredinis_61533/accessory_inferred_DFE.txt') + ggtitle('A. putredinis, accessory genes')
 a_shahii_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Alistipes_shahii_62199/accessory_inferred_DFE.txt') + ggtitle('A. shahii, accessory genes')
 alistipes_sp_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Alistipes_sp_60764/accessory_inferred_DFE.txt') + ggtitle('Alistipes sp., accessory genes')
-b_bacterium_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_inferred_DFE.txt') + ggtitle('B. bacterium, accessory genes')
-b_caccae_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_inferred_DFE.txt') + ggtitle('B. caccae, accessory genes')
-b_cellulosilyticus_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_inferred_DFE.txt') + ggtitle('B. cellulosilyticus, accessory genes')
+b_bacterium_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_inferred_DFE.txt') + ggtitle('B. bacterium, accessory genes') + theme(plot.title = element_text(colour = "red"))
+b_caccae_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_inferred_DFE.txt') + ggtitle('B. caccae, accessory genes') + theme(plot.title = element_text(colour = "red"))
+b_cellulosilyticus_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_inferred_DFE.txt') + ggtitle('B. cellulosilyticus, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_coprocola_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_coprocola_61586/accessory_inferred_DFE.txt') + ggtitle('B. coprocola, accessory genes')
 b_eggerthii_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_eggerthii_54457/accessory_inferred_DFE.txt') + ggtitle('B. eggerthii, accessory genes')
 b_fragilis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_fragilis_54507/accessory_inferred_DFE.txt') + ggtitle('B. fragilis, accessory genes')
 b_massiliensis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_massiliensis_44749/accessory_inferred_DFE.txt') + ggtitle('B. massiliensis, accessory genes')
 b_plebeius_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_plebeius_61623/accessory_inferred_DFE.txt') + ggtitle('B. plebeius, accessory genes')
 b_stercoris_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_stercoris_56735/accessory_inferred_DFE.txt') + ggtitle('B. stercoris, accessory genes')
-b_thetaiotaomicron_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_inferred_DFE.txt') + ggtitle('B. thetaiotaomicron, accessory genes')
+b_thetaiotaomicron_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_inferred_DFE.txt') + ggtitle('B. thetaiotaomicron, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_uniformis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_uniformis_57318/accessory_inferred_DFE.txt') + ggtitle('B. uniformis, accessory genes')
-b_vulgatus_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_inferred_DFE.txt') + ggtitle('B. vulgatus, accessory genes')
+b_vulgatus_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_inferred_DFE.txt') + ggtitle('B. vulgatus, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_xylanisolvens_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/accessory_inferred_DFE.txt') + ggtitle('B. xylanisolvens, accessory genes')
 b_intestinihominis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/accessory_inferred_DFE.txt') + ggtitle('B. intestinihominis, accessory genes')
 coprococcus_sp_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Coprococcus_sp_62244/accessory_inferred_DFE.txt') + ggtitle('Coprococcus sp., accessory genes')
@@ -4805,16 +4805,16 @@ f_prausnitzii_57453_fd_accessory_dfe_plot = plot_core_accessory_dfe('../Suppleme
 f_prausnitzii_61481_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/accessory_inferred_DFE.txt') + ggtitle('F. prausnitzii (61481), accessory genes')
 f_prausnitzii_62201_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/accessory_inferred_DFE.txt') + ggtitle('F. prausnitzii (62201), accessory genes')
 l_bacterium_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/accessory_inferred_DFE.txt') + ggtitle('L. bacterium, accessory genes')
-o_splanchnicus_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/accessory_inferred_DFE.txt') + ggtitle('O. splanchnicus, accessory genes')
-oscillibacter_sp_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Oscillibacter_sp_60799/accessory_inferred_DFE.txt') + ggtitle('Phascolarctobacterium sp., accessory genes')
-p_distasonis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_inferred_DFE.txt') + ggtitle('P. copri, accessory genes')
-p_merdae_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_inferred_DFE.txt') + ggtitle('R. intestinalis, accessory genes')
-phascolarctobacterium_sp_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/accessory_inferred_DFE.txt') + ggtitle('R. inulinivorans, accessory genes')
+o_splanchnicus_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/accessory_inferred_DFE.txt') + ggtitle('Oscillibacter sp., accessory genes')
+oscillibacter_sp_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Oscillibacter_sp_60799/accessory_inferred_DFE.txt') + ggtitle('Oscillibacter sp., accessory genes')
+p_distasonis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_inferred_DFE.txt') + ggtitle('P. distasonis, accessory genes') + theme(plot.title = element_text(colour = "red"))
+p_merdae_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_inferred_DFE.txt') + ggtitle('P. merdae, accessory genes')
+phascolarctobacterium_sp_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/accessory_inferred_DFE.txt') + ggtitle('Phascolarctobacterium sp., accessory genes')
 p_copri_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Prevotella_copri_61740/accessory_inferred_DFE.txt') + ggtitle('P. copri, accessory genes')
-r_intestinalis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Roseburia_intestinalis_56239/accessory_inferred_DFE.txt') + ggtitle('R. bicirculans, accessory genes')
-r_inulinivorans_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Roseburia_inulinivorans_61943/accessory_inferred_DFE.txt') + ggtitle('R. bromii, accessory genes')
-r_bicirculans_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/accessory_inferred_DFE.txt') + ggtitle(', accessory genes')
-r_bromii_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_inferred_DFE.txt') + ggtitle(', accessory genes')
+r_intestinalis_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Roseburia_intestinalis_56239/accessory_inferred_DFE.txt') + ggtitle('R. intestinalist, accessory genes')
+r_inulinivorans_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Roseburia_inulinivorans_61943/accessory_inferred_DFE.txt') + ggtitle('R. inulinivorans, accessory genes')
+r_bicirculans_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/accessory_inferred_DFE.txt') + ggtitle('R. bicirculans, accessory genes')
+r_bromii_fd_accessory_dfe_plot = plot_core_accessory_dfe('../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_inferred_DFE.txt') + ggtitle('R. bromii, accessory genes')
 
 # # FD DFE comparison (core, dadi scaling)
 
@@ -4831,11 +4831,11 @@ a_shahii_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryA
 alistipes_sp_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt') + ggtitle('Alistipes sp., core genes')
 b_bacterium_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt') + ggtitle('B. bacterium, core genes')
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt') + ggtitle('B. bacterium, core genes') + theme(plot.title = element_text(colour = "red"))
 b_caccae_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt') + ggtitle('B. caccae, core genes')
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt') + ggtitle('B. caccae, core genes') + theme(plot.title = element_text(colour = "red"))
 b_cellulosilyticus_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt') + ggtitle('B. cellulosilyticus, core genes')
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt') + ggtitle('B. cellulosilyticus, core genes') + theme(plot.title = element_text(colour = "red"))
 b_coprocola_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt') + ggtitle('B. coprocola, core genes')
 b_eggerthii_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
@@ -4847,13 +4847,13 @@ b_massiliensis_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Suppleme
 b_plebeius_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt') + ggtitle('B. plebeius, core genes')
 b_stercoris_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt') + ggtitle('B. stercoris, core genes')
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt') + ggtitle('B. stercoris, core genes') + theme(plot.title = element_text(colour = "red"))
 b_thetaiotaomicron_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt') + ggtitle('B. thetaiotaomicron, core genes')
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt') + ggtitle('B. thetaiotaomicron, core genes') + theme(plot.title = element_text(colour = "red"))
 b_uniformis_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt') + ggtitle('B. uniformis, core genes')
 b_vulgatus_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt') + ggtitle('B. vulgatus, core genes')
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt') + ggtitle('B. vulgatus, core genes') + theme(plot.title = element_text(colour = "red"))
 b_xylanisolvens_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt') + ggtitle('B. xylanisolvens, core genes')
 b_intestinihominis_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
@@ -4861,7 +4861,7 @@ b_intestinihominis_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Supp
 coprococcus_sp_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt') + ggtitle('Coprococcus sp., core genes')
 d_invisus_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt') + ggtitle('D. invisus, core genes')
+  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt') + ggtitle('D. invisus, core genes') + theme(plot.title = element_text(colour = "red"))
 e_eligens_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt') + ggtitle('E. eligens, core genes')
 e_rectale_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
@@ -4881,9 +4881,9 @@ o_splanchnicus_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Suppleme
 oscillibacter_sp_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt') + ggtitle('Oscillibacter sp., core genes')
 p_distasonis_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt') + ggtitle('P. distasonis, core genes')
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt') + ggtitle('P. distasonis, core genes') + theme(plot.title = element_text(colour = "red"))
 p_merdae_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt') + ggtitle('P. merdae, core genes')
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt') + ggtitle('P. merdae, core genes') + theme(plot.title = element_text(colour = "red"))
 phascolarctobacterium_sp_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt') + ggtitle('Phascolarctobacterium sp., core genes')
 p_copri_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
@@ -4895,7 +4895,7 @@ r_inulinivorans_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Supplem
 r_bicirculans_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt') + ggtitle('R. bicirculans, core genes')
 r_bromii_fd_core_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt') + ggtitle('R. bromii, core genes')
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt') + ggtitle('R. bromii, core genes') + theme(plot.title = element_text(colour = "red"))
 
 a_muciniphila_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Akkermansia_muciniphila_55290/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/accessory_two_epoch_demography.txt') + ggtitle('A. muciniphila, accessory genes')
@@ -4910,11 +4910,11 @@ a_shahii_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Supplemen
 alistipes_sp_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Alistipes_sp_60764/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Alistipes_sp_60764/accessory_two_epoch_demography.txt') + ggtitle('Alistipes sp., accessory genes')
 b_bacterium_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_two_epoch_demography.txt') + ggtitle('B. bacterium, accessory genes')
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_two_epoch_demography.txt') + ggtitle('B. bacterium, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_caccae_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_two_epoch_demography.txt') + ggtitle('B. caccae, accessory genes')
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_two_epoch_demography.txt') + ggtitle('B. caccae, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_cellulosilyticus_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_two_epoch_demography.txt') + ggtitle('B. cellulosilyticus, accessory genes')
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_two_epoch_demography.txt') + ggtitle('B. cellulosilyticus, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_coprocola_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_coprocola_61586/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/accessory_two_epoch_demography.txt') + ggtitle('B. coprocola, accessory genes')
 b_eggerthii_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_eggerthii_54457/accessory_inferred_DFE.txt',
@@ -4926,13 +4926,13 @@ b_massiliensis_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Sup
 b_plebeius_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_plebeius_61623/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/accessory_two_epoch_demography.txt') + ggtitle('B. plebeius, accessory genes')
 b_stercoris_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_stercoris_56735/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/accessory_two_epoch_demography.txt') + ggtitle('B. stercoris, accessory genes')
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/accessory_two_epoch_demography.txt') + ggtitle('B. stercoris, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_thetaiotaomicron_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_two_epoch_demography.txt') + ggtitle('B. thetaiotaomicron, accessory genes')
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_two_epoch_demography.txt') + ggtitle('B. thetaiotaomicron, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_uniformis_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_uniformis_57318/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/accessory_two_epoch_demography.txt') + ggtitle('B. uniformis, accessory genes')
 b_vulgatus_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_two_epoch_demography.txt') + ggtitle('B. vulgatus, accessory genes')
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_two_epoch_demography.txt') + ggtitle('B. vulgatus, accessory genes') + theme(plot.title = element_text(colour = "red"))
 b_xylanisolvens_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/accessory_two_epoch_demography.txt') + ggtitle('B. xylanisolvens, accessory genes')
 b_intestinihominis_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/accessory_inferred_DFE.txt',
@@ -4940,7 +4940,7 @@ b_intestinihominis_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('..
 coprococcus_sp_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Coprococcus_sp_62244/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Coprococcus_sp_62244/accessory_two_epoch_demography.txt') + ggtitle('Coprococcus sp., accessory genes')
 d_invisus_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Dialister_invisus_61905/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Dialister_invisus_61905/accessory_two_epoch_demography.txt') + ggtitle('D. invisus, accessory genes')
+  '../SupplementaryAnalysis/Dialister_invisus_61905/accessory_two_epoch_demography.txt') + ggtitle('D. invisus, accessory genes') + theme(plot.title = element_text(colour = "red"))
 e_eligens_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Eubacterium_eligens_61678/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Eubacterium_eligens_61678/accessory_two_epoch_demography.txt') + ggtitle('E. eligens, accessory genes')
 e_rectale_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Eubacterium_rectale_56927/accessory_inferred_DFE.txt',
@@ -4960,9 +4960,9 @@ o_splanchnicus_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Sup
 oscillibacter_sp_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Oscillibacter_sp_60799/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Oscillibacter_sp_60799/accessory_two_epoch_demography.txt') + ggtitle('Oscillibacter sp., accessory genes')
 p_distasonis_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_two_epoch_demography.txt') + ggtitle('P. distasonis, accessory genes')
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_two_epoch_demography.txt') + ggtitle('P. distasonis, accessory genes') + theme(plot.title = element_text(colour = "red"))
 p_merdae_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_two_epoch_demography.txt') + ggtitle('P. merdae, accessory genes')
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_two_epoch_demography.txt') + ggtitle('P. merdae, accessory genes') + theme(plot.title = element_text(colour = "red"))
 phascolarctobacterium_sp_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/accessory_two_epoch_demography.txt') + ggtitle('Phascolarctobacterium sp., accessory genes')
 p_copri_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Prevotella_copri_61740/accessory_inferred_DFE.txt',
@@ -4974,7 +4974,7 @@ r_inulinivorans_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../Su
 r_bicirculans_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/accessory_inferred_DFE.txt',
   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/accessory_two_epoch_demography.txt') + ggtitle('R. bicirculans, accessory genes')
 r_bromii_fd_accessory_dadi_dfe_plot = plot_core_accessory_dadi_dfe('../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_two_epoch_demography.txt') + ggtitle('R. bromii, accessory genes')
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_two_epoch_demography.txt') + ggtitle('R. bromii, accessory genes') + theme(plot.title = element_text(colour = "red"))
 
 # 
 
@@ -5019,7 +5019,7 @@ FD_core_accessory_DFE = alistipes_sp_fd_core_dfe_plot + alistipes_sp_fd_accessor
   f_prausnitzii_61481_fd_core_dfe_plot + f_prausnitzii_61481_fd_accessory_dfe_plot +
   plot_layout(ncol=1)
 
-# sggsave(filename='./FD_core_accessory_DFE.png', plot=FD_core_accessory_DFE, width=20, height=225, units="in", limitsize=FALSE)
+# ggsave(filename='./FD_core_accessory_DFE.png', plot=FD_core_accessory_DFE, width=20, height=225, units="in", limitsize=FALSE)
 
 # FD_core_accessory_DFE_reduced = a_putredinis_fd_core_dfe_plot + a_putredinis_fd_accessory_dfe_plot +
 #   a_finegoldii_fd_core_dfe_plot + a_finegoldii_fd_accessory_dfe_plot +
@@ -7892,341 +7892,341 @@ mean_s_file_list = c(
   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
 )
 
+# 
+# mean_s_comparison_matrix = matrix(, nrow=39, ncol=39)
+# 
+# for (i in 1:39) {
+#   for (j in i:39) {  # This change ensures only the upper right triangle is compared
+#     mean_i = compute_selection_coefficients(mean_s_file_list[i])[1]
+#     mean_j = compute_selection_coefficients(mean_s_file_list[j])[1]
+#     comparison = abs(mean_i - mean_j)
+#     mean_s_comparison_matrix[i, j] = comparison
+#     mean_s_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
+#   }
+# }
+# 
+# core_within_genera_mean_s = c()
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_s_comparison_matrix[FD_alistipes, FD_alistipes])])
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides])])
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium])])
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_s_comparison_matrix[FD_roseburia, FD_roseburia])])
+# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
+# length(core_within_genera_mean_s) # 85 total within-genera comparisons
+# 
+# core_between_genera_mean_s = mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)][!mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)] %in% core_within_genera_mean_s]
+# 
+# mean_s_list <- melt(list(within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s))
+# 
+# between_within_mean_s_diff = abs(mean(core_between_genera_mean_s) - mean(core_within_genera_mean_s))
+# 
+# permutation_mean_s_diff = numeric(100000)
+# 
+# for (i in 1:100000) {
+#   this_scramble_between = sample(mean_s_list$value, size=656, replace=FALSE)
+#   this_scramble_within = sample(mean_s_list$value, size=85, replace=FALSE)
+#   permutation_mean_s_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
+# }
+# 
+# permutation_mean_s_data = data.frame(permutation_mean_s_diff)
 
-mean_s_comparison_matrix = matrix(, nrow=39, ncol=39)
+# names(permutation_mean_s_data) = c('value')
+# 
+# sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000
+# 
+# quantile_label = "Proportion of area:"
+# 
+# quantile_label = paste(quantile_label, sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000, sep=' ')
+# 
+# permutation_mean_s = ggplot(permutation_mean_s_data, aes(x=value, y=..count..)) +
+#   geom_histogram(bins=100) +
+#   xlab('Absolute difference of mean selection coefficient') +
+#   ylab('Number of simulations') +
+#   geom_vline(xintercept = between_within_mean_s_diff, color='green', linetype='dotted', linewidth=3) +
+#   theme_minimal() +
+#   ggtitle('Simulated absolute difference of mean selection coefficients') +
+#   annotate("text", x=0.04, y=3500, label= quantile_label, size=5) +
+#   theme(axis.title=element_text(size=18)) +
+#   theme(plot.title=element_text(size=20))
+# 
+# ggsave('../Summary/permutation_mean_s.svg', permutation_mean_s, width=18, height=12, dpi=600)
+# 
+# set.seed(1)
+# mean_s_scramble_within_genera = sample(mean_s_list$value, size=85, replace=FALSE)
+# mean_s_scramble_between_genera = sample(mean_s_list$value, size=656, replace=FALSE)
+# 
+# mean_s_list <- melt(
+#   list(
+#     within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s, scrambled_within = mean_s_scramble_within_genera, scrambled_between = mean_s_scramble_between_genera
+#   )
+# )
+# 
+# 
+# mean_s_list$L1 = factor(mean_s_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
+# 
+# mean_s_LRT_distribution = ggplot(mean_s_list, aes(x=L1, y=value, fill=L1)) +
+#   geom_boxplot() +
+#   ylab('Absolute value of difference') +
+#   xlab('Comparison') +
+#   scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
+#     breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
+#     values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
+#   theme_minimal() +
+#   theme(axis.text.x=element_blank(),) +
+#   guides(fill=guide_legend(title="Type of DFE comparison")) +
+#   ggtitle('Absolute difference in mean selection coefficient for between-genera and within-genera DFE comparisons') +
+#   geom_signif(position='identity', y_position=0.75,
+#     comparisons = comparison_1, size=1,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   geom_signif(position='identity', y_position=0.83,
+#     comparisons = comparison_2, size=1,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   geom_signif(position='identity', size=1,
+#     comparisons = comparison_3, y_position=0.91,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   geom_signif(position='identity', size=1,
+#     comparisons = comparison_4, y_position=0.99,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   theme(axis.title=element_text(size=18)) +
+#   theme(plot.title=element_text(size=20)) +
+#   theme(legend.title=element_text(size=18)) +
+#   theme(legend.text=element_text(size=16))
+# 
+# ggsave('../Summary/mean_s_LRT_distribution.svg', mean_s_LRT_distribution, width=18, height=12, dpi=600)
+# 
+# mean_2ns_demography_list = c(
+#   '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
+# )
+# 
+# mean_2ns_dfe_list = c(
+#   '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
+#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
+# )
+# 
+# mean_2ns_comparison_matrix = matrix(, nrow=39, ncol=39)
+# 
+# for (i in 1:39) {
+#   for (j in i:39) {  # This change ensures only the upper right triangle is compared
+#     mean_i = compute_selection_coefficients(mean_2ns_dfe_list[i])[1]
+#     mean_j = compute_selection_coefficients(mean_2ns_dfe_list[j])[1]
+#     nanc_i = nanc_from_demography(mean_2ns_demography_list[i])
+#     nanc_j = nanc_from_demography(mean_2ns_demography_list[j])
+#     mean_2ns_i = 2 * mean_i * nanc_i
+#     mean_2ns_j = 2 * mean_j * nanc_j
+#     comparison = abs(mean_2ns_i - mean_2ns_j)
+#     mean_2ns_comparison_matrix[i, j] = comparison
+#     mean_2ns_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
+#   }
+# }
+# 
+# core_within_genera_mean_2ns = c()
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes])])
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides])])
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium])])
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia])])
+# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
+# length(core_within_genera_mean_2ns) # 85 total within-genera comparisons
+# 
+# core_between_genera_mean_2ns = mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)][!mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)] %in% core_within_genera_mean_2ns]
+# 
+# mean_2ns_list <- melt(list(within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns))
+# 
+# between_within_mean_2ns_diff = abs(mean(core_between_genera_mean_2ns) - mean(core_within_genera_mean_2ns))
+# 
+# permutation_mean_2ns_diff = numeric(100000)
+# 
+# for (i in 1:100000) {
+#   this_scramble_between = sample(mean_2ns_list$value, size=656, replace=FALSE)
+#   this_scramble_within = sample(mean_2ns_list$value, size=85, replace=FALSE)
+#   permutation_mean_2ns_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
+# }
+# 
+# permutation_mean_2ns_data = data.frame(permutation_mean_2ns_diff)
+# 
+# names(permutation_mean_2ns_data) = c('value')
+# 
+# sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000
+# 
+# quantile_label = "Proportion of area:"
+# 
+# quantile_label = paste(quantile_label, sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000, sep=' ')
+# 
+# permutation_mean_2ns = ggplot(permutation_mean_2ns_data, aes(x=value, y=..count..)) +
+#   geom_histogram(bins=100) +
+#   xlab('Absolute difference of mean population-scale selection coefficient') +
+#   ylab('Number of simulations') +
+#   geom_vline(xintercept = between_within_mean_2ns_diff, color='green', linetype='dotted', linewidth=3) +
+#   theme_minimal() +
+#   ggtitle('Simulated difference of mean population-scaled selection coefficients') +
+#   annotate("text", x=3E6, y=3500, label= quantile_label, size=5) +
+#   theme(axis.title=element_text(size=18)) +
+#   theme(plot.title=element_text(size=20))
+# 
+# ggsave('../Summary/permutation_mean_2ns.svg', permutation_mean_2ns, width=18, height=12, dpi=600)
 
-for (i in 1:39) {
-  for (j in i:39) {  # This change ensures only the upper right triangle is compared
-    mean_i = compute_selection_coefficients(mean_s_file_list[i])[1]
-    mean_j = compute_selection_coefficients(mean_s_file_list[j])[1]
-    comparison = abs(mean_i - mean_j)
-    mean_s_comparison_matrix[i, j] = comparison
-    mean_s_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
-  }
-}
-
-core_within_genera_mean_s = c()
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_s_comparison_matrix[FD_alistipes, FD_alistipes])])
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides])])
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium])])
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_s_comparison_matrix[FD_roseburia, FD_roseburia])])
-core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
-length(core_within_genera_mean_s) # 85 total within-genera comparisons
-
-core_between_genera_mean_s = mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)][!mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)] %in% core_within_genera_mean_s]
-
-mean_s_list <- melt(list(within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s))
-
-between_within_mean_s_diff = abs(mean(core_between_genera_mean_s) - mean(core_within_genera_mean_s))
-
-permutation_mean_s_diff = numeric(100000)
-
-for (i in 1:100000) {
-  this_scramble_between = sample(mean_s_list$value, size=656, replace=FALSE)
-  this_scramble_within = sample(mean_s_list$value, size=85, replace=FALSE)
-  permutation_mean_s_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
-}
-
-permutation_mean_s_data = data.frame(permutation_mean_s_diff)
-
-names(permutation_mean_s_data) = c('value')
-
-sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000
-
-quantile_label = "Proportion of area:"
-
-quantile_label = paste(quantile_label, sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000, sep=' ')
-
-permutation_mean_s = ggplot(permutation_mean_s_data, aes(x=value, y=..count..)) +
-  geom_histogram(bins=100) +
-  xlab('Absolute difference of mean selection coefficient') +
-  ylab('Number of simulations') +
-  geom_vline(xintercept = between_within_mean_s_diff, color='green', linetype='dotted', linewidth=3) +
-  theme_minimal() +
-  ggtitle('Simulated absolute difference of mean selection coefficients') +
-  annotate("text", x=0.04, y=3500, label= quantile_label, size=5) +
-  theme(axis.title=element_text(size=18)) +
-  theme(plot.title=element_text(size=20))
-
-ggsave('../Summary/permutation_mean_s.svg', permutation_mean_s, width=18, height=12, dpi=600)
-
-set.seed(1)
-mean_s_scramble_within_genera = sample(mean_s_list$value, size=85, replace=FALSE)
-mean_s_scramble_between_genera = sample(mean_s_list$value, size=656, replace=FALSE)
-
-mean_s_list <- melt(
-  list(
-    within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s, scrambled_within = mean_s_scramble_within_genera, scrambled_between = mean_s_scramble_between_genera
-  )
-)
-
-
-mean_s_list$L1 = factor(mean_s_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
-
-mean_s_LRT_distribution = ggplot(mean_s_list, aes(x=L1, y=value, fill=L1)) +
-  geom_boxplot() +
-  ylab('Absolute value of difference') +
-  xlab('Comparison') +
-  scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
-    breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
-    values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
-  theme_minimal() +
-  theme(axis.text.x=element_blank(),) +
-  guides(fill=guide_legend(title="Type of DFE comparison")) +
-  ggtitle('Absolute difference in mean selection coefficient for between-genera and within-genera DFE comparisons') +
-  geom_signif(position='identity', y_position=0.75,
-    comparisons = comparison_1, size=1,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', y_position=0.83,
-    comparisons = comparison_2, size=1,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', size=1,
-    comparisons = comparison_3, y_position=0.91,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', size=1,
-    comparisons = comparison_4, y_position=0.99,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  theme(axis.title=element_text(size=18)) +
-  theme(plot.title=element_text(size=20)) +
-  theme(legend.title=element_text(size=18)) +
-  theme(legend.text=element_text(size=16))
-
-ggsave('../Summary/mean_s_LRT_distribution.svg', mean_s_LRT_distribution, width=18, height=12, dpi=600)
-
-mean_2ns_demography_list = c(
-  '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
-)
-
-mean_2ns_dfe_list = c(
-  '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
-  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
-)
-
-mean_2ns_comparison_matrix = matrix(, nrow=39, ncol=39)
-
-for (i in 1:39) {
-  for (j in i:39) {  # This change ensures only the upper right triangle is compared
-    mean_i = compute_selection_coefficients(mean_2ns_dfe_list[i])[1]
-    mean_j = compute_selection_coefficients(mean_2ns_dfe_list[j])[1]
-    nanc_i = nanc_from_demography(mean_2ns_demography_list[i])
-    nanc_j = nanc_from_demography(mean_2ns_demography_list[j])
-    mean_2ns_i = 2 * mean_i * nanc_i
-    mean_2ns_j = 2 * mean_j * nanc_j
-    comparison = abs(mean_2ns_i - mean_2ns_j)
-    mean_2ns_comparison_matrix[i, j] = comparison
-    mean_2ns_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
-  }
-}
-
-core_within_genera_mean_2ns = c()
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes])])
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides])])
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium])])
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia])])
-core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
-length(core_within_genera_mean_2ns) # 85 total within-genera comparisons
-
-core_between_genera_mean_2ns = mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)][!mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)] %in% core_within_genera_mean_2ns]
-
-mean_2ns_list <- melt(list(within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns))
-
-between_within_mean_2ns_diff = abs(mean(core_between_genera_mean_2ns) - mean(core_within_genera_mean_2ns))
-
-permutation_mean_2ns_diff = numeric(100000)
-
-for (i in 1:100000) {
-  this_scramble_between = sample(mean_2ns_list$value, size=656, replace=FALSE)
-  this_scramble_within = sample(mean_2ns_list$value, size=85, replace=FALSE)
-  permutation_mean_2ns_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
-}
-
-permutation_mean_2ns_data = data.frame(permutation_mean_2ns_diff)
-
-names(permutation_mean_2ns_data) = c('value')
-
-sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000
-
-quantile_label = "Proportion of area:"
-
-quantile_label = paste(quantile_label, sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000, sep=' ')
-
-permutation_mean_2ns = ggplot(permutation_mean_2ns_data, aes(x=value, y=..count..)) +
-  geom_histogram(bins=100) +
-  xlab('Absolute difference of mean population-scale selection coefficient') +
-  ylab('Number of simulations') +
-  geom_vline(xintercept = between_within_mean_2ns_diff, color='green', linetype='dotted', linewidth=3) +
-  theme_minimal() +
-  ggtitle('Simulated difference of mean population-scaled selection coefficients') +
-  annotate("text", x=3E6, y=3500, label= quantile_label, size=5) +
-  theme(axis.title=element_text(size=18)) +
-  theme(plot.title=element_text(size=20))
-
-ggsave('../Summary/permutation_mean_2ns.svg', permutation_mean_2ns, width=18, height=12, dpi=600)
-
-set.seed(1)
-mean_2ns_scramble_within_genera = sample(mean_2ns_list$value, size=85, replace=FALSE)
-mean_2ns_scramble_between_genera = sample(mean_2ns_list$value, size=656, replace=FALSE)
-
-mean_2ns_list <- melt(
-  list(
-    within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns, scrambled_within = mean_2ns_scramble_within_genera, scrambled_between = mean_2ns_scramble_between_genera
-  )
-)
-
-mean_2ns_list$L1 = factor(mean_2ns_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
-
-mean_2ns_LRT_distribution = ggplot(mean_2ns_list, aes(x=L1, y=value, fill=L1)) +
-  geom_boxplot() +
-  ylab('Absolute value of difference') +
-  xlab('Comparison') +
-  scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
-    breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
-    values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
-  theme_minimal() +
-  theme(axis.text.x=element_blank(),) +
-  guides(fill=guide_legend(title="Type of DFE comparison")) +
-  ggtitle('Absolute difference in mean population-scaled selection coefficient for between-genera and within-genera DFE comparisons') +
-  geom_signif(position='identity', y_position=7E7,
-    comparisons = comparison_1, size=1,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', size=1, y_position=7.5E7,
-    comparisons = comparison_2,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', size=1,
-    comparisons = comparison_3, y_position=8E7,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  geom_signif(position='identity', size=1,
-    comparisons = comparison_4, y_position=8.5E7,
-                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-  theme(axis.title=element_text(size=18)) +
-  theme(plot.title=element_text(size=20)) +
-  theme(legend.title=element_text(size=18)) +
-  theme(legend.text=element_text(size=16))
-
-ggsave('../Summary/mean_2ns_LRT_distribution.svg', mean_2ns_LRT_distribution, width=18, height=12, dpi=600)
-
-LRT_box_and_whiskers = LRT_distribution + 
-  mean_s_LRT_distribution + theme(legend.position = 'none') + 
-  mean_2ns_LRT_distribution + theme(legend.position = 'none') + plot_layout(ncol=1)
-
-ggsave('../Summary/LRT_box_and_whiskers.svg', LRT_box_and_whiskers, width=18, height=36, dpi=600)
-
-LRT_full_figure = LRT_distribution + permutation_LRT +
-  mean_s_LRT_distribution + theme(legend.position = 'none') + permutation_mean_s +
-  mean_2ns_LRT_distribution + theme(legend.position = 'none') + permutation_mean_2ns +
-  plot_layout(ncol=2)
-
-ggsave('../Summary/LRT_full_figure.svg', LRT_full_figure, width=36, height=36, dpi=600)
-
-# Fraction of sites remaining
-survival_curve_file_list = c(
-  '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/survival_curve.csv',
-  '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/survival_curve.csv',
-  '../HighRecombinationAnalysis/Alistipes_onderdonkii_55464/survival_curve.csv',
-  '../HighRecombinationAnalysis/Alistipes_shahii_62199/survival_curve.csv',
-  '../HighRecombinationAnalysis/Bacteroides_caccae_53434/survival_curve.csv',
-  '../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/survival_curve.csv',
-  '../HighRecombinationAnalysis/Bacteroides_fragilis_54507/survival_curve.csv',
-  '../HighRecombinationAnalysis/Bacteroides_stercoris_56735/survival_curve.csv',
-  '../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/survival_curve.csv',
-  '../HighRecombinationAnalysis/Bacteroides_vulgatus_57955/survival_curve.csv',
-  '../HighRecombinationAnalysis/Barnesiella_intestinihominis_62208/survival_curve.csv',
-  '../HighRecombinationAnalysis/Dialister_invisus_61905/survival_curve.csv',
-  '../HighRecombinationAnalysis/Eubacterium_rectale_56927/survival_curve.csv',
-  '../HighRecombinationAnalysis/Oscillibacter_sp_60799/survival_curve.csv',
-  '../HighRecombinationAnalysis/Parabacteroides_distasonis_56985/survival_curve.csv',
-  '../HighRecombinationAnalysis/Parabacteroides_merdae_56972/survival_curve.csv',
-  '../HighRecombinationAnalysis/Ruminococcus_bicirculans_59300/survival_curve.csv',
-  '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/survival_curve.csv'
-)
-
-survival_curve_fraction_list = c()
-
-for (i in 1:length(survival_curve_file_list)) {
-  this_table = read.csv(survival_curve_file_list[i])
-  this_fraction = this_table$Remaining.sites[50] / this_table$Remaining.sites[1]
-  survival_curve_fraction_list = c(survival_curve_fraction_list, this_fraction)
-}
-
-num_iLDS_peaks = read.csv('../HighRecombinationData/num_iLDS_peaks.csv')
+# set.seed(1)
+# mean_2ns_scramble_within_genera = sample(mean_2ns_list$value, size=85, replace=FALSE)
+# mean_2ns_scramble_between_genera = sample(mean_2ns_list$value, size=656, replace=FALSE)
+# 
+# mean_2ns_list <- melt(
+#   list(
+#     within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns, scrambled_within = mean_2ns_scramble_within_genera, scrambled_between = mean_2ns_scramble_between_genera
+#   )
+# )
+# 
+# mean_2ns_list$L1 = factor(mean_2ns_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
+# 
+# mean_2ns_LRT_distribution = ggplot(mean_2ns_list, aes(x=L1, y=value, fill=L1)) +
+#   geom_boxplot() +
+#   ylab('Absolute value of difference') +
+#   xlab('Comparison') +
+#   scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
+#     breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
+#     values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
+#   theme_minimal() +
+#   theme(axis.text.x=element_blank(),) +
+#   guides(fill=guide_legend(title="Type of DFE comparison")) +
+#   ggtitle('Absolute difference in mean population-scaled selection coefficient for between-genera and within-genera DFE comparisons') +
+#   geom_signif(position='identity', y_position=7E7,
+#     comparisons = comparison_1, size=1,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   geom_signif(position='identity', size=1, y_position=7.5E7,
+#     comparisons = comparison_2,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   geom_signif(position='identity', size=1,
+#     comparisons = comparison_3, y_position=8E7,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   geom_signif(position='identity', size=1,
+#     comparisons = comparison_4, y_position=8.5E7,
+#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+#   theme(axis.title=element_text(size=18)) +
+#   theme(plot.title=element_text(size=20)) +
+#   theme(legend.title=element_text(size=18)) +
+#   theme(legend.text=element_text(size=16))
+# 
+# ggsave('../Summary/mean_2ns_LRT_distribution.svg', mean_2ns_LRT_distribution, width=18, height=12, dpi=600)
+# 
+# LRT_box_and_whiskers = LRT_distribution + 
+#   mean_s_LRT_distribution + theme(legend.position = 'none') + 
+#   mean_2ns_LRT_distribution + theme(legend.position = 'none') + plot_layout(ncol=1)
+# 
+# ggsave('../Summary/LRT_box_and_whiskers.svg', LRT_box_and_whiskers, width=18, height=36, dpi=600)
+# 
+# LRT_full_figure = LRT_distribution + permutation_LRT +
+#   mean_s_LRT_distribution + theme(legend.position = 'none') + permutation_mean_s +
+#   mean_2ns_LRT_distribution + theme(legend.position = 'none') + permutation_mean_2ns +
+#   plot_layout(ncol=2)
+# 
+# ggsave('../Summary/LRT_full_figure.svg', LRT_full_figure, width=36, height=36, dpi=600)
+# 
+# # Fraction of sites remaining
+# survival_curve_file_list = c(
+#   '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Alistipes_onderdonkii_55464/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Alistipes_shahii_62199/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Bacteroides_caccae_53434/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Bacteroides_fragilis_54507/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Bacteroides_stercoris_56735/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Bacteroides_vulgatus_57955/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Barnesiella_intestinihominis_62208/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Dialister_invisus_61905/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Eubacterium_rectale_56927/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Oscillibacter_sp_60799/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Parabacteroides_distasonis_56985/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Parabacteroides_merdae_56972/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Ruminococcus_bicirculans_59300/survival_curve.csv',
+#   '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/survival_curve.csv'
+# )
+# 
+# survival_curve_fraction_list = c()
+# 
+# for (i in 1:length(survival_curve_file_list)) {
+#   this_table = read.csv(survival_curve_file_list[i])
+#   this_fraction = this_table$Remaining.sites[50] / this_table$Remaining.sites[1]
+#   survival_curve_fraction_list = c(survival_curve_fraction_list, this_fraction)
+# }
+# 
+# num_iLDS_peaks = read.csv('../HighRecombinationData/num_iLDS_peaks.csv')
 
 # temp_table = read.csv(survival_curve_file_list[1])
