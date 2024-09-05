@@ -4876,7 +4876,7 @@ acc_core_dfe_LRT_table
 write.csv(acc_core_dfe_LRT_table, '../Summary/core_acc_dfe_LRT.csv', row.names =FALSE)
 
 # 95% CI based on chi-squared distribution with two degrees of freedom (Gamma DFE)
-qchisq(1 - 0.05/7, df=2)
+qchisq(1 - 0.05/18, df=2)
 
 qchisq(1 - 0.05/351, df=2)
 

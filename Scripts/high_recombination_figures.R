@@ -6679,6 +6679,128 @@ qchisq(1 - 0.05/471, df=2)
 # Critical value for HR or for accessory. 153 unique comparisons
 qchisq(1 - 0.05/153, df=2)
 
+# Critical value for core vs. accessory DFE, 18 compmarisons
+qchisq(1 - 0.05/18, df=2)
+
+DFE_core_file_list = c(
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_putredinis_61533_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_finegoldii_56071_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_onderdonkii_55464_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_shahii_62199_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroidales_bacterium_58650_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Parabacteroides_distasonis_56985_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Parabacteroides_merdae_56972_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_cellulosilyticus_58046_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_stercoris_56735_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_thetaiotaomicron_56941_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_caccae_53434_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_massiliensis_44749_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_vulgatus_57955_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Dialister_invisus_61905_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Eubacterium_eligens_61678_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Eubacterium_rectale_56927_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Eubacterium_siraeum_57634_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Ruminococcus_bromii_62047_likelihood_surface.csv'
+)
+
+DFE_core_file_list_constant_s = c(
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_putredinis_61533_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_finegoldii_56071_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_onderdonkii_55464_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Alistipes_shahii_62199_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroidales_bacterium_58650_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Parabacteroides_distasonis_56985_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Parabacteroides_merdae_56972_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_cellulosilyticus_58046_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_stercoris_56735_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_thetaiotaomicron_56941_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_caccae_53434_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_massiliensis_44749_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Bacteroides_vulgatus_57955_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Dialister_invisus_61905_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Eubacterium_eligens_61678_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Eubacterium_rectale_56927_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Eubacterium_siraeum_57634_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/cross_species_dfe/Ruminococcus_bromii_62047_constant_s_likelihood_surface.csv'
+)
+
+DFE_acc_file_list = c(
+  '../SupplementaryAnalysis/accessory_cross/Alistipes_putredinis_61533_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Alistipes_finegoldii_56071_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Alistipes_onderdonkii_55464_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Alistipes_shahii_62199_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroidales_bacterium_58650_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Parabacteroides_distasonis_56985_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Parabacteroides_merdae_56972_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroides_cellulosilyticus_58046_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroides_stercoris_56735_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroides_thetaiotaomicron_56941_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroides_caccae_53434_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroides_massiliensis_44749_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Bacteroides_vulgatus_57955_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Dialister_invisus_61905_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Eubacterium_eligens_61678_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Eubacterium_rectale_56927_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Eubacterium_siraeum_57634_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_cross/Ruminococcus_bromii_62047_likelihood_surface.csv'
+)
+
+DFE_acc_file_list_constant_s = c(
+  '../SupplementaryAnalysis/accessory_constant_s/Alistipes_putredinis_61533_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Alistipes_finegoldii_56071_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Alistipes_onderdonkii_55464_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Alistipes_shahii_62199_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroidales_bacterium_58650_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Parabacteroides_distasonis_56985_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Parabacteroides_merdae_56972_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroides_cellulosilyticus_58046_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroides_stercoris_56735_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroides_thetaiotaomicron_56941_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroides_caccae_53434_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroides_massiliensis_44749_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Bacteroides_vulgatus_57955_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Dialister_invisus_61905_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Eubacterium_eligens_61678_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Eubacterium_rectale_56927_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Eubacterium_siraeum_57634_constant_s_likelihood_surface.csv',
+  '../SupplementaryAnalysis/accessory_constant_s/Ruminococcus_bromii_62047_constant_s_likelihood_surface.csv'
+)
+
+core_acc_species_list = c(
+  'Alistipes putredinis',
+  'Alistipes finegoldii',
+  'Alistipes onderdonkii',
+  'Alistipes shahii',
+  'Bacteroidales bacterium',
+  'Parabacteroides distasonis',
+  'Parabacteroides merdae',
+  'Bacteroides cellulosilyticus',
+  'Bacteroides stercoris',
+  'Bacteroides thetaiotaomicron',
+  'Bacteroides caccae',
+  'Bacteroides massiliensis',
+  'Bacteroides vulgatus',
+  'Dialister invisus',
+  'Eubacterium eligens',
+  'Eubacterium rectale',
+  'Eubacterium siraeum',
+  'Ruminococcus bromii'
+)
+
+# acc_core_dfe_comparison = numeric(18)
+# acc_core_dfe_comparison_constant_s = numeric(18)
+# 
+# for (i in 1:length(core_acc_species_list)) {
+#   acc_core_dfe_comparison[i] = cross_species_dfe_comparison(DFE_core_file_list[i], DFE_acc_file_list[i])
+#   acc_core_dfe_comparison_constant_s[i] = cross_species_dfe_comparison(DFE_core_file_list_constant_s[i], DFE_acc_file_list_constant_s[i])
+# }
+# 
+# acc_core_dfe_LRT_table = data.frame(species=core_acc_species_list, constant_2NAs=acc_core_dfe_comparison, constant_s=acc_core_dfe_comparison_constant_s)
+# 
+# acc_core_dfe_LRT_table
+# 
+# write.csv(acc_core_dfe_LRT_table, '../Summary/core_acc_dfe_LRT.csv', row.names=FALSE)
+
 
 color_scale = colorRampPalette(c('white', 'yellow', 'orange', 'red'), bias=5)(1000)
 
