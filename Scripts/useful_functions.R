@@ -15,7 +15,6 @@ library(patchwork)
 library(ape)
 library(ggtree)
 library(treeio)
-# install.packages('plotly')
 library(plotly)
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -262,8 +261,8 @@ plot_likelihood_surface_contour_3C = function(input) {
     theme(legend.text=element_text(size=10)) +
     theme(axis.title.x = element_blank()) +
     ylab(ylabel_text) +
-    theme(axis.text=element_text(size=12),
-      axis.title=element_text(size=16))
+    theme(axis.text=element_text(size=16),
+      axis.title=element_text(size=20))
   return(fig)
 }
 
@@ -310,8 +309,8 @@ plot_likelihood_surface_contour_3D = function(input) {
     theme(legend.position = "none") +
     xlab(xlabel_text) +
     ylab(ylabel_text) +
-    theme(axis.text=element_text(size=12),
-      axis.title=element_text(size=16))
+    theme(axis.text=element_text(size=16),
+      axis.title=element_text(size=20))
     # ggtitle(likelihood_surface_title)
   return(fig)
 }
@@ -1097,13 +1096,12 @@ plot_best_fit_sfs_3A = function(input_data) {
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-spectra') +
-    # scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
+    scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1"), name='Site-frequency-Spectra') +
     theme(legend.position = c(0.7, 0.75)) +
     theme(legend.text=element_text(size=10)) +    
-    theme(plot.title = element_text(face = "italic", size=16)) +
-    theme(axis.text=element_text(size=12),
-      axis.title=element_text(size=16))
+    theme(plot.title = element_text(face = "italic", size=24)) +
+    theme(axis.text=element_text(size=16),
+      axis.title=element_text(size=20))
   return(fig)
 }
 
@@ -1126,9 +1124,9 @@ plot_best_fit_sfs_3B = function(input_data) {
     scale_fill_manual(values=c("blue4", "steelblue3", "goldenrod3", "goldenrod1")) +
     # scale_fill_manual(values=c("#cb181d", "#fb6a4a", "blue4", "steelblue3"), name='Site-frequency-spectra') +
     theme(legend.position="none") +
-    theme(plot.title = element_text(face = "italic", size=16)) +
-    theme(axis.text=element_text(size=12),
-      axis.title=element_text(size=16))
+    theme(plot.title = element_text(face = "italic", size=24)) +
+    theme(axis.text=element_text(size=24),
+      axis.title=element_text(size=20))
   return(fig)
 }
 
@@ -1292,7 +1290,8 @@ compare_core_accessory_sfs = function(all, core, accessory) {
     scale_x_continuous(name='Minor allele frequency in sample', breaks=x_axis, limits=c(0.5, length(x_axis) + 0.5)) +
     ylab('Proportion of segregating sites') +
     theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+    plot.title=element_text(size=22)
     ## scale_fill_manual(values=c("darkslateblue", "darkslategrey", "darkturquoise"))
   
   return(p_input_comparison)

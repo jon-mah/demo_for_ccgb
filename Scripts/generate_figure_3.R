@@ -15,14 +15,14 @@ FD_phylogenetic_levels = c(
   'Bacteroides fragilis',
   'Bacteroides cellulosilyticus',
   'Bacteroides eggerthii',
-  'Bacteroides stercoris',
+  # 'Bacteroides stercoris',
   'Bacteroides uniformis',
   'Bacteroides thetaiotaomicron',
   'Bacteroides xylanisolvens',
   'Bacteroides caccae',
   'Bacteroides massiliensis',
   'Bacteroides vulgatus',
-  'Bacteroides plebeius',
+  # 'Bacteroides plebeius',
   'Bacteroides coprocola',
   'Barnesiella intestinihominis',
   'Akkermansia muciniphila',
@@ -31,7 +31,7 @@ FD_phylogenetic_levels = c(
   'Eubacterium eligens',
   'Eubacterium rectale',
   'Roseburia inulinivorans',
-  'Roseburia intestinalis',
+  # 'Roseburia intestinalis',
   'Lachnospiraceae bacterium',
   'Coprococcus sp.',
   'Oscillibacter sp.',
@@ -57,14 +57,14 @@ FD_phylogenetic_levels_MIDAS = c(
   'Bacteroides_fragilis_54507',
   'Bacteroides_cellulosilyticus_58046',
   'Bacteroides_eggerthii_54457',
-  'Bacteroides_stercoris_56735',
+  # 'Bacteroides_stercoris_56735',
   'Bacteroides_uniformis_57318',
   'Bacteroides_thetaiotaomicron_56941',
   'Bacteroides_xylanisolvens_57185',
   'Bacteroides_caccae_53434',
   'Bacteroides_massiliensis_44749',
   'Bacteroides_vulgatus_57955',
-  'Bacteroides_plebeius_61623',
+  # 'Bacteroides_plebeius_61623',
   'Bacteroides_coprocola_61586',
   'Barnesiella_intestinihominis_62208',
   'Akkermansia_muciniphila_55290',
@@ -73,7 +73,7 @@ FD_phylogenetic_levels_MIDAS = c(
   'Eubacterium_eligens_61678',
   'Eubacterium_rectale_56927',
   'Roseburia_inulinivorans_61943',
-  'Roseburia_intestinalis_56239',
+  # 'Roseburia_intestinalis_56239',
   'Lachnospiraceae_bacterium_51870',
   'Coprococcus_sp_62244',
   'Oscillibacter_sp_60799',
@@ -99,8 +99,8 @@ supplementary_species_list = c(
   'Bacteroides eggerthii',
   'Bacteroides fragilis',
   'Bacteroides massiliensis',
-  'Bacteroides plebeius',
-  'Bacteroides stercoris',
+  # 'Bacteroides plebeius',
+  # 'Bacteroides stercoris',
   'Bacteroides thetaiotaomicron',
   'Bacteroides uniformis',
   'Bacteroides vulgatus',
@@ -121,7 +121,7 @@ supplementary_species_list = c(
   'Parabacteroides merdae',
   'Phascolarctobacterium sp.',
   'Prevotella copri',
-  'Roseburia intestinalis',
+  # 'Roseburia intestinalis',
   'Roseburia inulinivorans',
   'Ruminococcus bicirculans',
   'Ruminococcus bromii'
@@ -141,8 +141,8 @@ one_epoch_file_list = c(
   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/one_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/one_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/one_epoch_demography.txt',
+  # '../SupplementaryAnalysis/Bacteroides_plebeius_61623/one_epoch_demography.txt',
+  # '../SupplementaryAnalysis/Bacteroides_stercoris_56735/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/one_epoch_demography.txt',
@@ -163,7 +163,7 @@ one_epoch_file_list = c(
   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Prevotella_copri_61740/one_epoch_demography.txt',
-  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/one_epoch_demography.txt',
+  # '../SupplementaryAnalysis/Roseburia_intestinalis_56239/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/one_epoch_demography.txt',
   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/one_epoch_demography.txt'
@@ -183,8 +183,8 @@ two_epoch_file_list = c(
   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
+  # '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
+  # '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
@@ -205,7 +205,7 @@ two_epoch_file_list = c(
   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
-  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
+  # '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt'
@@ -225,8 +225,8 @@ likelihood_surface_file_list = c(
   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/likelihood_surface.csv',
   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/likelihood_surface.csv',
   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/likelihood_surface.csv',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/likelihood_surface.csv',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/likelihood_surface.csv',
+  # '../SupplementaryAnalysis/Bacteroides_plebeius_61623/likelihood_surface.csv',
+  # '../SupplementaryAnalysis/Bacteroides_stercoris_56735/likelihood_surface.csv',
   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/likelihood_surface.csv',
   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/likelihood_surface.csv',
   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/likelihood_surface.csv',
@@ -247,7 +247,7 @@ likelihood_surface_file_list = c(
   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/likelihood_surface.csv',
   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/likelihood_surface.csv',
   '../SupplementaryAnalysis/Prevotella_copri_61740/likelihood_surface.csv',
-  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/likelihood_surface.csv',
+  # '../SupplementaryAnalysis/Roseburia_intestinalis_56239/likelihood_surface.csv',
   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/likelihood_surface.csv',
   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/likelihood_surface.csv',
   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/likelihood_surface.csv'
@@ -267,8 +267,8 @@ synonymous_sfs_file_list = c(
   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_empirical_syn_downsampled_sfs.txt',
-  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_empirical_syn_downsampled_sfs.txt',
-  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_empirical_syn_downsampled_sfs.txt',
+  # '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_empirical_syn_downsampled_sfs.txt',
+  # '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_empirical_syn_downsampled_sfs.txt',
@@ -289,16 +289,16 @@ synonymous_sfs_file_list = c(
   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Prevotella_copri_61740/core_empirical_syn_downsampled_sfs.txt',
-  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_empirical_syn_downsampled_sfs.txt',
+  # '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_empirical_syn_downsampled_sfs.txt',
   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_empirical_syn_downsampled_sfs.txt'
 )
 
-b_fragilis_hmp_qp_syn = fold_sfs(read_input_sfs_original('../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_empirical_syn_downsampled_sfs.txt'))
-b_fragilis_core_two_epoch = sfs_from_demography('../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt') 
-b_fragilis_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_empirical_nonsyn_downsampled_sfs.txt'))
-b_fragilis_core_gamma_dfe = gamma_sfs_from_dfe('../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt') 
+b_xylanisolvens_hmp_qp_syn = fold_sfs(read_input_sfs_original('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_empirical_syn_downsampled_sfs.txt'))
+b_xylanisolvens_core_two_epoch = sfs_from_demography('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt') 
+b_xylanisolvens_hmp_qp_nonsyn = fold_sfs(read_input_sfs_original('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_empirical_nonsyn_downsampled_sfs.txt'))
+b_xylanisolvens_core_gamma_dfe = gamma_sfs_from_dfe('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt') 
 
 r_bromii_hmp_qp_syn = fold_sfs(read_input_sfs_original('../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_empirical_syn_downsampled_sfs.txt'))
 r_bromii_core_two_epoch = sfs_from_demography('../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt') 
@@ -308,12 +308,12 @@ r_bromii_core_gamma_dfe = gamma_sfs_from_dfe('../SupplementaryAnalysis/Ruminococ
 one_epoch_14 = sfs_from_demography('../SupplementaryAnalysis/Akkermansia_muciniphila_55290/one_epoch_demography.txt')
 x_axis = 1:length(one_epoch_14)
 
-b_fragilis_best_fit = cbind(
-  proportional_sfs(b_fragilis_hmp_qp_syn[-1]),
-  proportional_sfs(b_fragilis_core_two_epoch),
-  proportional_sfs(b_fragilis_hmp_qp_nonsyn[-1]),
-  proportional_sfs(b_fragilis_core_gamma_dfe),
-  rep('B. fragilis', length(b_fragilis_hmp_qp_syn[-1])),
+b_xylanisolvens_best_fit = cbind(
+  proportional_sfs(b_xylanisolvens_hmp_qp_syn[-1]),
+  proportional_sfs(b_xylanisolvens_core_two_epoch),
+  proportional_sfs(b_xylanisolvens_hmp_qp_nonsyn[-1]),
+  proportional_sfs(b_xylanisolvens_core_gamma_dfe),
+  rep('B. xylanisolvens', length(b_xylanisolvens_hmp_qp_syn[-1])),
   x_axis
 )
 
@@ -327,12 +327,12 @@ r_bromii_best_fit = cbind(
 )
 
 nu_tau_distribution = data.frame(species=supplementary_species_list, 
-  nu_mle = numeric(39),
-  time_mle = numeric(39),
-  nu_low = numeric(39), 
-  nu_high = numeric(39), 
-  time_low = numeric(39), 
-  time_high = numeric(39))
+  nu_mle = numeric(36),
+  time_mle = numeric(36),
+  nu_low = numeric(36), 
+  nu_high = numeric(36), 
+  time_low = numeric(36), 
+  time_high = numeric(36))
 
 for (i in 1:length(likelihood_surface_file_list)) {
   # nu_mle
@@ -373,11 +373,11 @@ names(demography_df) = c(
 
 # demography_df$species = factor(demography_df$species, levels=phylogenetic_levels)
 
-species_highlight = c('Bacteroides fragilis', 'Ruminococcus bromii')
+species_highlight = c('Bacteroides xylanisolvens', 'Ruminococcus bromii')
 
 # species_highlight = c('Ruminococcus bromii')
 
-typeface = ifelse(demography_df$species %in% species_highlight, 7, 5)
+typeface = ifelse(demography_df$species %in% species_highlight, 8, 6)
 
 demography_df_highlight = demography_df[demography_df$species %in% species_highlight, ]
 options(ggrepel.max.overlaps = Inf)
@@ -398,8 +398,8 @@ demography_scatter = ggscatter(demography_df, x="nu_mle", y="time_mle", color="s
   theme(legend.position = 'none') +
   guides(color = 'none') +
   guides(shape = 'none')  +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=16))
+  theme(axis.text=element_text(size=16),
+    axis.title=element_text(size=20))
 
 demography_scatter
 
@@ -408,11 +408,11 @@ design = c(
   area(1, 2, 1, 2),
   area(2, 1, 2, 1),
   area(2, 2, 2, 2),
-  area(1, 3, 2, 6)
+  area(1, 3, 2, 5)
 )
 
-p9 = plot_best_fit_sfs_3A(b_fragilis_best_fit) + ggtitle('Bacteroides fragilis')
-p9_l = plot_likelihood_surface_contour_3C('../SupplementaryAnalysis/Bacteroides_fragilis_54507/likelihood_surface.csv')
+p9 = plot_best_fit_sfs_3A(b_xylanisolvens_best_fit) + ggtitle('Bacteroides xylanisolvens')
+p9_l = plot_likelihood_surface_contour_3C('../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/likelihood_surface.csv')
 
 p30 = plot_best_fit_sfs_3B(r_bromii_best_fit) + ggtitle('Ruminococcus bromii')
 p30_l = plot_likelihood_surface_contour_3D('../SupplementaryAnalysis/Ruminococcus_bromii_62047/likelihood_surface.csv')
@@ -421,10 +421,10 @@ p30_l = plot_likelihood_surface_contour_3D('../SupplementaryAnalysis/Ruminococcu
 # 2000 x 900 dimensions for saved image
 
 # png("../Summary/figure_3_output.png", width = 2000, height = 900)
-figure_3 = p9 + p9_l + # B. fragilis
+figure_3 = p9 + p9_l + # B. xylanisolvens
   p30 + p30_l + #R. bicirculans
   demography_scatter +
   plot_layout(design=design)
 
 # dev.off()
-ggsave('../Summary/figure_3_output.svg', figure_3, width=20, height=9, units='in', dpi=600)
+ggsave('../Summary/figure_3_output.svg', figure_3, width=25, height=10, units='in', dpi=600)

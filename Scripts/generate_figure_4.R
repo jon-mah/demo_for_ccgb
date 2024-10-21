@@ -314,8 +314,8 @@ figure_4 = ggplot(fd_core_dfe_df[fd_core_dfe_df$variable == 'gamma_dfe_dist_low'
   theme_ridges() +
   scale_x_log10(limits=c(1e-12, 1e1)) +
   ylab('Proportion of Sites') +
-  theme(axis.text.y = element_text(face='italic')) +
-  theme(axis.text.y = element_text(hjust=0)) +
+  theme(axis.text.y = element_text(face='italic', hjust=0, size=18)) +
+  theme(axis.text.x = element_text(size=18)) + 
   theme(legend.position = "none") + 
   xlab('Selection Coefficient')
 

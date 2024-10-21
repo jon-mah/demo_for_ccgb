@@ -1325,6 +1325,27 @@ hr_sfs_list = c(
   '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/core_0.5_empirical_syn_sfs.txt'
 )
 
+hr_downsampled_sfs_list = c(
+  '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Alistipes_onderdonkii_55464/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Alistipes_shahii_62199/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Bacteroides_caccae_53434/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Bacteroides_fragilis_54507/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Bacteroides_stercoris_56735/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Bacteroides_vulgatus_57955/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Barnesiella_intestinihominis_62208/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Dialister_invisus_61905/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Eubacterium_rectale_56927/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Oscillibacter_sp_60799/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Parabacteroides_distasonis_56985/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Parabacteroides_merdae_56972/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Ruminococcus_bicirculans_59300/core_0.5_empirical_syn_14_downsampled_sfs.txt',
+  '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/core_0.5_empirical_syn_14_downsampled_sfs.txt'
+)
+
 hr_likelihood_surface_list = c(
   '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/likelihood_surface.csv',
   '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/likelihood_surface.csv',
@@ -1833,7 +1854,7 @@ for (i in 1:length(shared_species_list)) {
   hr_demography_df[i, 2] = return_nu_mle(hr_likelihood_surface_list[i])
   # tau_mle
   hr_demography_df[i, 3] = return_time_mle(hr_likelihood_surface_list[i],
-    hr_sfs_list[i],
+    hr_downsampled_sfs_list[i],
     hr_demography_file_list[i])
 }
 
@@ -2172,14 +2193,22 @@ ggplot(melt(prevalence_df), aes(x=species, y=value, fill=variable)) +
 supplementary_demography_df = supplementary_demography_df %>% arrange(desc(new_sample_size))
 supplementary_demography_df$species = reorder(supplementary_demography_df$species, supplementary_demography_df$new_sample_size)
 
+### Fig 1A
+
 ggplot(supplementary_demography_df, aes(x = reorder(species, new_sample_size), y = new_sample_size)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", color='black', fill='darkblue') +
   coord_flip() +
-  labs(title = "Sample Size by Species (Augmented Data)",
-       x = "Species",
-       y = "Sample Size",
-    ) +
-  theme_minimal()
+  # labs(title = "Number of QP samples by species",
+  #      x = "Species",
+  #      y = "Number of QP samples",
+  #   ) +
+  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(axis.text.y = element_text(face = 'italic')) +
+  theme(axis.text.y = element_text(size=16)) +
+  theme(axis.text.x = element_text(size=16)) +
+  theme(axis.title = element_blank()) +
+  theme(plot.title = element_text(size=20))
 
 ggplot(melt(supplementary_demography_df), aes(x=species, y=value, fill=variable)) +
   geom_bar(stat='identity', position = "identity") +
@@ -5750,7 +5779,7 @@ for (i in 1:length(shared_species_list)) {
   # tau_mle
   ## HR
   shared_species_df[i, 4] = return_time_mle(hr_likelihood_surface_list[i],
-    hr_sfs_list[i],
+    hr_downsampled_sfs_list[i],
     hr_demography_file_list[i])
   ## FD
   shared_species_df[i, 5] = return_time_mle(fd_shared_likelihood_surface_list[i],
@@ -5781,7 +5810,7 @@ for (i in 1:length(shared_species_list)) {
   shared_species_df[i, 15] = mean(read_dfe_params(fd_shared_dfe_file_list[i])$gamma_dfe_dist_high)
   # Allele sum
   ## HR
-  shared_species_df[i, 16] = return_allele_sum(hr_sfs_list[i])
+  shared_species_df[i, 16] = return_allele_sum(hr_downsampled_sfs_list[i])
   ## FD
   shared_species_df[i, 17] = return_allele_sum(fd_shared_sfs_list[i])
 }
@@ -5804,7 +5833,7 @@ t.test(shared_species_df$FD_nu_mle, shared_species_df$HR_nu_mle, paired=TRUE)
 HR_FD_nu_mle_scatter = ggscatter(shared_species_df, x="FD_nu_mle", y="HR_nu_mle", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(1E-2, 1E4)) +
   scale_y_log10(limits=c(1E-2, 1E4)) +
   guides(color=guide_legend(title="species")) +
@@ -5812,8 +5841,8 @@ HR_FD_nu_mle_scatter = ggscatter(shared_species_df, x="FD_nu_mle", y="HR_nu_mle"
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Maximum likelihood estimate of Nu') +
   theme(plot.title=element_text(size=22))
 
@@ -5822,7 +5851,7 @@ HR_FD_nu_mle_scatter
 HR_FD_time_mle_scatter = ggscatter(shared_species_df, x="FD_time_mle", y="HR_time_mle", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(1E2, 1E6)) +
   scale_y_log10(limits=c(1E2, 1E6)) +
   guides(color=guide_legend(title="species")) +
@@ -5830,8 +5859,8 @@ HR_FD_time_mle_scatter = ggscatter(shared_species_df, x="FD_time_mle", y="HR_tim
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Maximum likelihood estimate of Time (years)') +
   theme(plot.title=element_text(size=22))
 
@@ -5840,7 +5869,7 @@ HR_FD_time_mle_scatter
 HR_FD_tau_mle_scatter = ggscatter(shared_species_df, x="FD_tau_mle", y="HR_tau_mle", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(1E-1, 1E4)) +
   scale_y_log10(limits=c(1E-1, 1E4)) +
   guides(color=guide_legend(title="species")) +
@@ -5848,8 +5877,8 @@ HR_FD_tau_mle_scatter = ggscatter(shared_species_df, x="FD_tau_mle", y="HR_tau_m
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Maximum likelihood estimate of tau') +
   theme(plot.title=element_text(size=22))
 
@@ -5858,7 +5887,7 @@ HR_FD_tau_mle_scatter
 HR_FD_nanc_scatter = ggscatter(shared_species_df, x="FD_nanc", y="HR_nanc", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(3E6, 3E8)) +
   scale_y_log10(limits=c(3E6, 3E8)) +
   guides(color=guide_legend(title="species")) +
@@ -5866,8 +5895,8 @@ HR_FD_nanc_scatter = ggscatter(shared_species_df, x="FD_nanc", y="HR_nanc", colo
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Effective ancestral population size') +
   theme(plot.title=element_text(size=22))
 
@@ -5876,7 +5905,7 @@ HR_FD_nanc_scatter
 HR_FD_shape_scatter = ggscatter(shared_species_df, x="FD_shape", y="HR_shape", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(0.003, 2.00)) +
   scale_y_log10(limits=c(0.003, 2.00)) +
   guides(color=guide_legend(title="species")) +
@@ -5884,8 +5913,8 @@ HR_FD_shape_scatter = ggscatter(shared_species_df, x="FD_shape", y="HR_shape", c
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Gamma-distributed DFE shape parameter') +
   theme(plot.title=element_text(size=22))
 
@@ -5894,7 +5923,7 @@ HR_FD_shape_scatter
 HR_FD_scale_scatter = ggscatter(shared_species_df, x="FD_scale", y="HR_scale", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(1E-14, 1E3)) +
   scale_y_log10(limits=c(1E-14, 1E3)) +
   guides(color=guide_legend(title="species")) +
@@ -5902,8 +5931,8 @@ HR_FD_scale_scatter = ggscatter(shared_species_df, x="FD_scale", y="HR_scale", c
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Gamma-distributed DFE scale parameter') +
   theme(plot.title=element_text(size=22))
 
@@ -5912,7 +5941,7 @@ HR_FD_scale_scatter
 HR_FD_mean_s_scatter = ggscatter(shared_species_df, x="FD_mean_s", y="HR_mean_s", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(1E-14, 1E3)) +
   scale_y_log10(limits=c(1E-14, 1E3)) +
   guides(color=guide_legend(title="species")) +
@@ -5920,8 +5949,8 @@ HR_FD_mean_s_scatter = ggscatter(shared_species_df, x="FD_mean_s", y="HR_mean_s"
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Gamma-distributed DFE mean selection coefficient') +
   theme(plot.title=element_text(size=22))
 
@@ -5930,7 +5959,7 @@ HR_FD_mean_s_scatter
 HR_FD_2ns_scatter = ggscatter(shared_species_df, x="FD_2ns", y="HR_2ns", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(1E-8, 1E10)) +
   scale_y_log10(limits=c(1E-8, 1E10)) +
   guides(color=guide_legend(title="species")) +
@@ -5938,8 +5967,8 @@ HR_FD_2ns_scatter = ggscatter(shared_species_df, x="FD_2ns", y="HR_2ns", color='
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Estimated 2ns of gamma-distributed DFE') +
   theme(plot.title=element_text(size=22))
 
@@ -5948,7 +5977,7 @@ HR_FD_2ns_scatter
 HR_FD_allele_count_scatter = ggscatter(shared_species_df, x="FD_allele_sum", y="HR_allele_sum", color='species', size=3) +
   ylab('Low recombination sites and selective sweeps removed') +
   xlab('Full data') +
-  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
+  geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=6) +
   scale_x_log10(limits=c(9E4, 5E5)) +
   scale_y_log10(limits=c(9E4, 5E5)) +
   guides(color=guide_legend(title="species")) +
@@ -5956,12 +5985,32 @@ HR_FD_allele_count_scatter = ggscatter(shared_species_df, x="FD_allele_sum", y="
   guides(color = 'none') +
   guides(shape = 'none') +
   geom_abline(slope=1, intercept=0) +
-  theme(axis.text=element_text(size=12),
-    axis.title=element_text(size=18)) +
+  theme(axis.text=element_text(size=18),
+    axis.title=element_blank()) +
   ggtitle('Number of sites included in SFS') +
   theme(plot.title=element_text(size=22))
 
 HR_FD_allele_count_scatter
+
+# nu
+summary(lm(shared_species_df$FD_nu_mle ~ shared_species_df$HR_nu_mle))$r.squared
+cor(shared_species_df$FD_nu_mle, shared_species_df$HR_nu_mle)
+
+
+# tau
+summary(lm(shared_species_df$FD_tau_mle ~ shared_species_df$HR_tau_mle))$r.squared
+
+# mean s
+summary(lm(shared_species_df$FD_mean_s ~ shared_species_df$HR_mean_s))$r.squared
+
+# shape
+summary(lm(shared_species_df$FD_shape ~ shared_species_df$HR_shape))$r.squared
+
+# scale
+summary(lm(shared_species_df$FD_scale ~ shared_species_df$HR_scale))$r.squared
+
+# nanc
+summary(lm(shared_species_df$FD_nanc ~ shared_species_df$HR_nanc))$r.squared
 
 # design = "
 # AABCDE
@@ -5975,8 +6024,12 @@ HR_FD_allele_count_scatter
 #   HR_FD_shape_scatter + HR_FD_scale_scatter +
 #   plot_layout(design=design)
 
-HR_FD_param_scatter = HR_FD_nu_mle_scatter + HR_FD_time_mle_scatter + HR_FD_nanc_scatter +
-  HR_FD_mean_s_scatter + HR_FD_shape_scatter + HR_FD_scale_scatter +
+HR_FD_param_scatter = HR_FD_nu_mle_scatter + theme(axis.title=element_blank()) +
+  HR_FD_time_mle_scatter + theme(axis.title=element_blank()) +
+  HR_FD_nanc_scatter + theme(axis.title=element_blank()) +
+  HR_FD_mean_s_scatter + theme(axis.title=element_blank()) +
+  HR_FD_shape_scatter + theme(axis.title=element_blank()) +
+  HR_FD_scale_scatter + theme(axis.title=element_blank()) +
   plot_layout(ncol=3)
 
 ggsave('../Summary/HR_FD_param_scatter.svg', HR_FD_param_scatter, width=24, height=16, units='in', dpi=600)
@@ -6035,9 +6088,9 @@ for (i in 1:length(supplementary_species_list)) {
   supplementary_species_df[i, 13] = return_scale_from_dfe(fd_core_dfe_file_list[i])
   # Mean s
   ## HR
-  supplementary_species_df[i, 14] = mean(read_dfe_params(fd_accessory_dfe_file_list[i])$gamma_dfe_dist_high)
+  supplementary_species_df[i, 14] = compute_selection_coefficients(fd_accessory_dfe_file_list[i])[1]
   ## FD
-  supplementary_species_df[i, 15] = mean(read_dfe_params(fd_core_dfe_file_list[i])$gamma_dfe_dist_high)
+  supplementary_species_df[i, 15] = compute_selection_coefficients(fd_core_dfe_file_list[i])[1]
 }
 
 supplementary_species_df
@@ -6048,12 +6101,16 @@ supplementary_species_df <- supplementary_species_df[order(supplementary_species
 
 supplementary_species_df
 
-FD_accessory_core_nu_mle_scatter = ggscatter(supplementary_species_df, x="FD_core_nu_mle", y="FD_accessory_nu_mle", color='species', size=3) +
+supplementary_species_df[1, ]
+
+core_accessory_df = supplementary_species_df[c(2, 3, 4, 5, 6, 8, 9, 12, 14, 16, 18, 19, 20, 25, 27, 28, 34, 36), ]
+
+FD_accessory_core_nu_mle_scatter = ggscatter(core_accessory_df, x="FD_core_nu_mle", y="FD_accessory_nu_mle", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-  scale_x_log10() +
-  scale_y_log10() +
+  scale_x_log10(limit=c(1E-5, 1E4)) +
+  scale_y_log10(limit=c(1E-5, 1E4)) +
   guides(color=guide_legend(title="species")) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
@@ -6065,12 +6122,14 @@ FD_accessory_core_nu_mle_scatter = ggscatter(supplementary_species_df, x="FD_cor
 
 FD_accessory_core_nu_mle_scatter
 
-FD_accessory_core_time_mle_scatter = ggscatter(supplementary_species_df, x="FD_core_time_mle", y="FD_accessory_time_mle", color='species', size=3) +
+summary(lm(core_accessory_df$FD_core_nu_mle ~ core_accessory_df$FD_accessory_nu_mle))$r.squared
+
+FD_accessory_core_time_mle_scatter = ggscatter(core_accessory_df, x="FD_core_time_mle", y="FD_accessory_time_mle", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-  scale_x_log10() +
-  scale_y_log10() +
+  scale_x_log10(limit=c(1E-1, 1E6)) +
+  scale_y_log10(limit=c(1E-1, 1E6)) +
   guides(color=guide_legend(title="species")) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
@@ -6082,7 +6141,9 @@ FD_accessory_core_time_mle_scatter = ggscatter(supplementary_species_df, x="FD_c
 
 FD_accessory_core_time_mle_scatter
 
-FD_accessory_core_tau_mle_scatter = ggscatter(supplementary_species_df, x="FD_core_tau_mle", y="FD_accessory_tau_mle", color='species', size=3) +
+summary(lm(core_accessory_df$FD_core_time_mle ~ core_accessory_df$FD_accessory_time_mle))$r.squared
+
+FD_accessory_core_tau_mle_scatter = ggscatter(core_accessory_df, x="FD_core_tau_mle", y="FD_accessory_tau_mle", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
@@ -6099,12 +6160,14 @@ FD_accessory_core_tau_mle_scatter = ggscatter(supplementary_species_df, x="FD_co
 
 FD_accessory_core_tau_mle_scatter
 
-FD_accessory_core_nanc_scatter = ggscatter(supplementary_species_df, x="FD_core_nanc", y="FD_accessory_nanc", color='species', size=3) +
+summary(lm(core_accessory_df$FD_core_tau_mle ~ core_accessory_df$FD_accessory_tau_mle))$r.squared
+
+FD_accessory_core_nanc_scatter = ggscatter(core_accessory_df, x="FD_core_nanc", y="FD_accessory_nanc", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-  scale_x_log10() +
-  scale_y_log10() +
+  scale_x_log10(limit=c(1E5, 1E10)) +
+  scale_y_log10(limit=c(1E5, 1E10)) +
   guides(color=guide_legend(title="species")) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
@@ -6116,12 +6179,14 @@ FD_accessory_core_nanc_scatter = ggscatter(supplementary_species_df, x="FD_core_
 
 FD_accessory_core_nanc_scatter
 
-FD_accessory_core_shape_scatter = ggscatter(supplementary_species_df, x="FD_core_shape", y="FD_accessory_shape", color='species', size=3) +
+summary(lm(core_accessory_df$FD_core_nanc ~ core_accessory_df$FD_accessory_nanc))$r.squared
+
+FD_accessory_core_shape_scatter = ggscatter(core_accessory_df, x="FD_core_shape", y="FD_accessory_shape", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-  scale_x_log10() +
-  scale_y_log10() +
+  scale_x_log10(limit=c(1E-5, 1E3)) +
+  scale_y_log10(limit=c(1E-5, 1E3)) +
   guides(color=guide_legend(title="species")) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
@@ -6133,12 +6198,14 @@ FD_accessory_core_shape_scatter = ggscatter(supplementary_species_df, x="FD_core
 
 FD_accessory_core_shape_scatter
 
-FD_accessory_core_scale_scatter = ggscatter(supplementary_species_df, x="FD_core_scale", y="FD_accessory_scale", color='species', size=3) +
+summary(lm(core_accessory_df$FD_core_shape ~ core_accessory_df$FD_accessory_scale))$r.squared
+
+FD_accessory_core_scale_scatter = ggscatter(core_accessory_df, x="FD_core_scale", y="FD_accessory_scale", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-  scale_x_log10() +
-  scale_y_log10() +
+  scale_x_log10(limit=c(1E-14, 1E3)) +
+  scale_y_log10(limit=c(1E-14, 1E3)) +
   guides(color=guide_legend(title="species")) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
@@ -6150,12 +6217,14 @@ FD_accessory_core_scale_scatter = ggscatter(supplementary_species_df, x="FD_core
 
 FD_accessory_core_scale_scatter
 
-FD_accessory_core_mean_s_scatter = ggscatter(supplementary_species_df, x="FD_core_mean_s", y="FD_accessory_mean_s", color='species', size=3) +
+summary(lm(core_accessory_df$FD_core_scale ~ core_accessory_df$FD_accessory_scale))$r.squared
+
+FD_accessory_core_mean_s_scatter = ggscatter(core_accessory_df, x="FD_core_mean_s", y="FD_accessory_mean_s", color='species', size=3) +
   ylab('Full data (accessory genome)') +
   xlab('Full data (core genome)') +
   geom_text_repel(aes(label = species, color=species, fontface = 'italic'), size=4) +
-  scale_x_log10() +
-  scale_y_log10() +
+  scale_x_log10(limit=c(1E-18, 1E3)) +
+  scale_y_log10(limit=c(1E-18, 1E3)) +
   guides(color=guide_legend(title="species")) +
   theme(legend.position = 'none') +
   guides(color = 'none') +
@@ -6166,6 +6235,16 @@ FD_accessory_core_mean_s_scatter = ggscatter(supplementary_species_df, x="FD_cor
   ggtitle('Gamma-distributed DFE mean selection coefficient')
 
 FD_accessory_core_mean_s_scatter
+
+summary(lm(core_accessory_df$FD_core_mean_s ~ core_accessory_df$FD_accessory_mean_s))$r.squared
+
+
+FD_accessory_core_param_scatter = FD_accessory_core_nu_mle_scatter + FD_accessory_core_time_mle_scatter + FD_accessory_core_nanc_scatter +
+  FD_accessory_core_mean_s_scatter + FD_accessory_core_shape_scatter + FD_accessory_core_scale_scatter +
+  plot_layout(ncol=3)
+
+ggsave('../Summary/FD_accessory_core_param_scatter.svg', FD_accessory_core_param_scatter, width=24, height=16, units='in', dpi=600)
+
 
 # Delta n_Anc
 delta_nanc_df = data.frame(shared_species_df$species, shared_species_df$FD_nanc - shared_species_df$HR_nanc)
@@ -6463,10 +6542,6 @@ dfe_constant_s_matrix = read.table('../SupplementaryAnalysis/cross_species_dfe/d
 HR_dfe_comparison_matrix = read.table('../HighRecombinationAnalysis/cross_species_dfe/dfe_comparison_matrix.csv', header=TRUE, row.names=NULL, sep=',')[, -c(1)]
 HR_dfe_constant_s_matrix = read.table('../HighRecombinationAnalysis/cross_species_dfe/dfe_constant_s_matrix.csv', header=TRUE, row.names=NULL, sep=',')[, -c(1)]
 
-# HR_dfe_comparison_matrix = dfe_comparison_matrix[-c(4, ), -c()]
-# any(FD_species_subtree)
-# row.names(dfe_comparison_matrix) = FD_species_subtree
-# colnames(dfe_comparison_matrix) = FD_species_subtree
 
 ### 2ns DFE comparison within-vs-between genera (Core genes)
 names(dfe_comparison_matrix)
@@ -6808,6 +6883,48 @@ DFE_acc_file_list_constant_s = c(
   '../SupplementaryAnalysis/accessory_constant_s/Ruminococcus_bromii_62047_constant_s_likelihood_surface.csv'
 )
 
+DFE_core_files = c(
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt'
+)
+
+DFE_acc_files = c(
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/accessory_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/accessory_inferred_DFE.txt'
+)
+
 core_acc_species_list = c(
   'Alistipes putredinis',
   'Alistipes finegoldii',
@@ -6829,28 +6946,28 @@ core_acc_species_list = c(
   'Ruminococcus bromii'
 )
 
-# acc_core_dfe_comparison = numeric(18)
-# acc_core_dfe_comparison_constant_s = numeric(18)
-# core_mean_s = numeric(18)
-# core_mean_2ns = numeric(18)
-# acc_mean_s = numeric(18)
-# acc_mean_2ns = numeric(18)
-# 
-# for (i in 1:length(core_acc_species_list)) {
-#   acc_core_dfe_comparison[i] = cross_species_dfe_comparison(DFE_core_file_list[i], DFE_acc_file_list[i])
-#   acc_core_dfe_comparison_constant_s[i] = cross_species_dfe_comparison(DFE_core_file_list_constant_s[i], DFE_acc_file_list_constant_s[i])
-#   core_mean_s[i] = compute_selection_coefficients(DFE_core_file_list[i])[1]
-#   core_mean_2ns[i] = nanc_from_demography(demography_core_file_list[i]) * core_mean_s[i] * 2
-#   acc_mean_s[i] = compute_selection_coefficients(DFE_acc_file_list[i])[1]
-#   acc_mean_2ns[i] = nanc_from_demography(demography_acc_file_list[i]) * acc_mean_s[i] * 2
-# }
-# 
-# acc_core_dfe_LRT_table = data.frame(species=core_acc_species_list, constant_2NAs=acc_core_dfe_comparison, constant_s=acc_core_dfe_comparison_constant_s,
-#   core_mean_s=core_mean_s, core_mean_2ns = core_mean_2ns,
-#   acc_mean_s=acc_mean_s, acc_mean_2ns = acc_mean_2ns)
-# 
-# acc_core_dfe_LRT_table
-# 
+acc_core_dfe_comparison = numeric(18)
+acc_core_dfe_comparison_constant_s = numeric(18)
+core_mean_s = numeric(18)
+core_mean_2ns = numeric(18)
+acc_mean_s = numeric(18)
+acc_mean_2ns = numeric(18)
+
+for (i in 1:length(core_acc_species_list)) {
+  acc_core_dfe_comparison[i] = cross_species_dfe_comparison(DFE_core_file_list[i], DFE_acc_file_list[i])
+  acc_core_dfe_comparison_constant_s[i] = cross_species_dfe_comparison(DFE_core_file_list_constant_s[i], DFE_acc_file_list_constant_s[i])
+  core_mean_s[i] = compute_selection_coefficients(DFE_core_files[i])[1]
+  core_mean_2ns[i] = nanc_from_demography(demography_core_file_list[i]) * core_mean_s[i] * 2
+  acc_mean_s[i] = compute_selection_coefficients(DFE_acc_files[i])[1]
+  acc_mean_2ns[i] = nanc_from_demography(demography_acc_file_list[i]) * acc_mean_s[i] * 2
+}
+
+acc_core_dfe_LRT_table = data.frame(species=core_acc_species_list, constant_2NAs=acc_core_dfe_comparison, constant_s=acc_core_dfe_comparison_constant_s,
+  core_mean_s=core_mean_s, core_mean_2ns = core_mean_2ns,
+  acc_mean_s=acc_mean_s, acc_mean_2ns = acc_mean_2ns)
+
+acc_core_dfe_LRT_table
+
 # write.csv(acc_core_dfe_LRT_table, '../Summary/core_acc_dfe_LRT.csv', row.names=FALSE)
 
 
@@ -7945,242 +8062,242 @@ mean_s_file_list = c(
 )
 
 # 
-# mean_s_comparison_matrix = matrix(, nrow=39, ncol=39)
-# 
-# for (i in 1:39) {
-#   for (j in i:39) {  # This change ensures only the upper right triangle is compared
-#     mean_i = compute_selection_coefficients(mean_s_file_list[i])[1]
-#     mean_j = compute_selection_coefficients(mean_s_file_list[j])[1]
-#     comparison = abs(mean_i - mean_j)
-#     mean_s_comparison_matrix[i, j] = comparison
-#     mean_s_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
-#   }
-# }
-# 
-# core_within_genera_mean_s = c()
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_s_comparison_matrix[FD_alistipes, FD_alistipes])])
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides])])
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium])])
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_s_comparison_matrix[FD_roseburia, FD_roseburia])])
-# core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
-# length(core_within_genera_mean_s) # 85 total within-genera comparisons
-# 
-# core_between_genera_mean_s = mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)][!mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)] %in% core_within_genera_mean_s]
-# 
-# mean_s_list <- melt(list(within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s))
-# 
-# between_within_mean_s_diff = abs(mean(core_between_genera_mean_s) - mean(core_within_genera_mean_s))
-# 
-# permutation_mean_s_diff = numeric(100000)
-# 
-# for (i in 1:100000) {
-#   this_scramble_between = sample(mean_s_list$value, size=656, replace=FALSE)
-#   this_scramble_within = sample(mean_s_list$value, size=85, replace=FALSE)
-#   permutation_mean_s_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
-# }
-# 
-# permutation_mean_s_data = data.frame(permutation_mean_s_diff)
+mean_s_comparison_matrix = matrix(, nrow=39, ncol=39)
 
-# names(permutation_mean_s_data) = c('value')
-# 
-# sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000
-# 
-# quantile_label = "Proportion of area:"
-# 
-# quantile_label = paste(quantile_label, sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000, sep=' ')
-# 
-# permutation_mean_s = ggplot(permutation_mean_s_data, aes(x=value, y=..count..)) +
-#   geom_histogram(bins=100) +
-#   xlab('Absolute difference of mean selection coefficient') +
-#   ylab('Number of simulations') +
-#   geom_vline(xintercept = between_within_mean_s_diff, color='green', linetype='dotted', linewidth=3) +
-#   theme_minimal() +
-#   ggtitle('Simulated absolute difference of mean selection coefficients') +
-#   annotate("text", x=0.04, y=3500, label= quantile_label, size=5) +
-#   theme(axis.title=element_text(size=18)) +
-#   theme(plot.title=element_text(size=20))
-# 
-# ggsave('../Summary/permutation_mean_s.svg', permutation_mean_s, width=18, height=12, dpi=600)
-# 
-# set.seed(1)
-# mean_s_scramble_within_genera = sample(mean_s_list$value, size=85, replace=FALSE)
-# mean_s_scramble_between_genera = sample(mean_s_list$value, size=656, replace=FALSE)
-# 
-# mean_s_list <- melt(
-#   list(
-#     within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s, scrambled_within = mean_s_scramble_within_genera, scrambled_between = mean_s_scramble_between_genera
-#   )
-# )
-# 
-# 
-# mean_s_list$L1 = factor(mean_s_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
-# 
-# mean_s_LRT_distribution = ggplot(mean_s_list, aes(x=L1, y=value, fill=L1)) +
-#   geom_boxplot() +
-#   ylab('Absolute value of difference') +
-#   xlab('Comparison') +
-#   scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
-#     breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
-#     values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
-#   theme_minimal() +
-#   theme(axis.text.x=element_blank(),) +
-#   guides(fill=guide_legend(title="Type of DFE comparison")) +
-#   ggtitle('Absolute difference in mean selection coefficient for between-genera and within-genera DFE comparisons') +
-#   geom_signif(position='identity', y_position=0.75,
-#     comparisons = comparison_1, size=1,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   geom_signif(position='identity', y_position=0.83,
-#     comparisons = comparison_2, size=1,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   geom_signif(position='identity', size=1,
-#     comparisons = comparison_3, y_position=0.91,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   geom_signif(position='identity', size=1,
-#     comparisons = comparison_4, y_position=0.99,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   theme(axis.title=element_text(size=18)) +
-#   theme(plot.title=element_text(size=20)) +
-#   theme(legend.title=element_text(size=18)) +
-#   theme(legend.text=element_text(size=16))
-# 
-# ggsave('../Summary/mean_s_LRT_distribution.svg', mean_s_LRT_distribution, width=18, height=12, dpi=600)
-# 
-# mean_2ns_demography_list = c(
-#   '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
-#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
-# )
-# 
-# mean_2ns_dfe_list = c(
-#   '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
-#   '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
-# )
-# 
-# mean_2ns_comparison_matrix = matrix(, nrow=39, ncol=39)
-# 
-# for (i in 1:39) {
-#   for (j in i:39) {  # This change ensures only the upper right triangle is compared
-#     mean_i = compute_selection_coefficients(mean_2ns_dfe_list[i])[1]
-#     mean_j = compute_selection_coefficients(mean_2ns_dfe_list[j])[1]
-#     nanc_i = nanc_from_demography(mean_2ns_demography_list[i])
-#     nanc_j = nanc_from_demography(mean_2ns_demography_list[j])
-#     mean_2ns_i = 2 * mean_i * nanc_i
-#     mean_2ns_j = 2 * mean_j * nanc_j
-#     comparison = abs(mean_2ns_i - mean_2ns_j)
-#     mean_2ns_comparison_matrix[i, j] = comparison
-#     mean_2ns_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
-#   }
-# }
-# 
-# core_within_genera_mean_2ns = c()
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes])])
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides])])
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium])])
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia])])
-# core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
-# length(core_within_genera_mean_2ns) # 85 total within-genera comparisons
-# 
-# core_between_genera_mean_2ns = mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)][!mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)] %in% core_within_genera_mean_2ns]
-# 
-# mean_2ns_list <- melt(list(within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns))
-# 
-# between_within_mean_2ns_diff = abs(mean(core_between_genera_mean_2ns) - mean(core_within_genera_mean_2ns))
-# 
-# permutation_mean_2ns_diff = numeric(100000)
-# 
-# for (i in 1:100000) {
-#   this_scramble_between = sample(mean_2ns_list$value, size=656, replace=FALSE)
-#   this_scramble_within = sample(mean_2ns_list$value, size=85, replace=FALSE)
-#   permutation_mean_2ns_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
-# }
-# 
+for (i in 1:39) {
+  for (j in i:39) {  # This change ensures only the upper right triangle is compared
+    mean_i = compute_selection_coefficients(mean_s_file_list[i])[1]
+    mean_j = compute_selection_coefficients(mean_s_file_list[j])[1]
+    comparison = abs(mean_i - mean_j)
+    mean_s_comparison_matrix[i, j] = comparison
+    mean_s_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
+  }
+}
+
+core_within_genera_mean_s = c()
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_s_comparison_matrix[FD_alistipes, FD_alistipes])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_s_comparison_matrix[FD_bacteroides, FD_bacteroides])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_s_comparison_matrix[FD_eubacterium, FD_eubacterium])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_s_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_s_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_s_comparison_matrix[FD_roseburia, FD_roseburia])])
+core_within_genera_mean_s = c(core_within_genera_mean_s, mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_s_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
+length(core_within_genera_mean_s) # 85 total within-genera comparisons
+
+core_between_genera_mean_s = mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)][!mean_s_comparison_matrix[lower.tri(mean_s_comparison_matrix)] %in% core_within_genera_mean_s]
+
+mean_s_list <- melt(list(within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s))
+
+between_within_mean_s_diff = abs(mean(core_between_genera_mean_s) - mean(core_within_genera_mean_s))
+
+permutation_mean_s_diff = numeric(100000)
+
+for (i in 1:100000) {
+  this_scramble_between = sample(mean_s_list$value, size=656, replace=FALSE)
+  this_scramble_within = sample(mean_s_list$value, size=85, replace=FALSE)
+  permutation_mean_s_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
+}
+
+permutation_mean_s_data = data.frame(permutation_mean_s_diff)
+
+names(permutation_mean_s_data) = c('value')
+
+sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000
+
+quantile_label = "Proportion of area:"
+
+quantile_label = paste(quantile_label, sum(between_within_mean_s_diff > permutation_mean_s_data) / 100000, sep=' ')
+
+permutation_mean_s = ggplot(permutation_mean_s_data, aes(x=value, y=..count..)) +
+  geom_histogram(bins=100) +
+  xlab('Absolute difference of mean selection coefficient') +
+  ylab('Number of simulations') +
+  geom_vline(xintercept = between_within_mean_s_diff, color='green', linetype='dotted', linewidth=3) +
+  theme_minimal() +
+  ggtitle('Simulated absolute difference of mean selection coefficients') +
+  annotate("text", x=0.04, y=3500, label= quantile_label, size=5) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20))
+
+ggsave('../Summary/permutation_mean_s.svg', permutation_mean_s, width=18, height=12, dpi=600)
+
+set.seed(1)
+mean_s_scramble_within_genera = sample(mean_s_list$value, size=85, replace=FALSE)
+mean_s_scramble_between_genera = sample(mean_s_list$value, size=656, replace=FALSE)
+
+mean_s_list <- melt(
+  list(
+    within_genera = core_within_genera_mean_s, between_genera = core_between_genera_mean_s, scrambled_within = mean_s_scramble_within_genera, scrambled_between = mean_s_scramble_between_genera
+  )
+)
+
+
+mean_s_list$L1 = factor(mean_s_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
+
+mean_s_LRT_distribution = ggplot(mean_s_list, aes(x=L1, y=value, fill=L1)) +
+  geom_boxplot() +
+  ylab('Absolute value of difference') +
+  xlab('Comparison') +
+  scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
+    breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
+    values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank(),) +
+  guides(fill=guide_legend(title="Type of DFE comparison")) +
+  ggtitle('Absolute difference in mean selection coefficient for between-genera and within-genera DFE comparisons') +
+  geom_signif(position='identity', y_position=0.75,
+    comparisons = comparison_1, size=1,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', y_position=0.83,
+    comparisons = comparison_2, size=1,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_3, y_position=0.91,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_4, y_position=0.99,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20)) +
+  theme(legend.title=element_text(size=18)) +
+  theme(legend.text=element_text(size=16))
+
+ggsave('../Summary/mean_s_LRT_distribution.svg', mean_s_LRT_distribution, width=18, height=12, dpi=600)
+
+mean_2ns_demography_list = c(
+  '../SupplementaryAnalysis/Alistipes_sp_60764/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/two_epoch_demography.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/two_epoch_demography.txt'
+)
+
+mean_2ns_dfe_list = c(
+  '../SupplementaryAnalysis/Alistipes_sp_60764/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_finegoldii_56071/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_onderdonkii_55464/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_shahii_62199/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Alistipes_putredinis_61533/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroidales_bacterium_58650/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Odoribacter_splanchnicus_62174/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_distasonis_56985/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Parabacteroides_merdae_56972/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Prevotella_copri_61740/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_fragilis_54507/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_cellulosilyticus_58046/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_eggerthii_54457/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_stercoris_56735/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_uniformis_57318/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_thetaiotaomicron_56941/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_xylanisolvens_57185/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_caccae_53434/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_massiliensis_44749/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_vulgatus_57955/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_plebeius_61623/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Bacteroides_coprocola_61586/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Barnesiella_intestinihominis_62208/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Akkermansia_muciniphila_55290/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Dialister_invisus_61905/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Phascolarctobacterium_sp_59817/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_eligens_61678/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_rectale_56927/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_inulinivorans_61943/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Roseburia_intestinalis_56239/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Lachnospiraceae_bacterium_51870/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Coprococcus_sp_62244/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Oscillibacter_sp_60799/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bromii_62047/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Ruminococcus_bicirculans_59300/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Eubacterium_siraeum_57634/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_57453/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_62201/core_inferred_DFE.txt',
+  '../SupplementaryAnalysis/Faecalibacterium_prausnitzii_61481/core_inferred_DFE.txt'
+)
+
+mean_2ns_comparison_matrix = matrix(, nrow=39, ncol=39)
+
+for (i in 1:39) {
+  for (j in i:39) {  # This change ensures only the upper right triangle is compared
+    mean_i = compute_selection_coefficients(mean_2ns_dfe_list[i])[1]
+    mean_j = compute_selection_coefficients(mean_2ns_dfe_list[j])[1]
+    nanc_i = nanc_from_demography(mean_2ns_demography_list[i])
+    nanc_j = nanc_from_demography(mean_2ns_demography_list[j])
+    mean_2ns_i = 2 * mean_i * nanc_i
+    mean_2ns_j = 2 * mean_j * nanc_j
+    comparison = abs(mean_2ns_i - mean_2ns_j)
+    mean_2ns_comparison_matrix[i, j] = comparison
+    mean_2ns_comparison_matrix[j, i] = comparison  # Mirror the value across the diagonal
+  }
+}
+
+core_within_genera_mean_2ns = c()
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes][lower.tri(mean_2ns_comparison_matrix[FD_alistipes, FD_alistipes])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides][lower.tri(mean_2ns_comparison_matrix[FD_bacteroides, FD_bacteroides])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium][lower.tri(mean_2ns_comparison_matrix[FD_eubacterium, FD_eubacterium])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium][lower.tri(mean_2ns_comparison_matrix[FD_faecalibacterium, FD_faecalibacterium])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides][lower.tri(mean_2ns_comparison_matrix[FD_parabacteroides, FD_parabacteroides])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia][lower.tri(mean_2ns_comparison_matrix[FD_roseburia, FD_roseburia])])
+core_within_genera_mean_2ns = c(core_within_genera_mean_2ns, mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus][lower.tri(mean_2ns_comparison_matrix[FD_ruminococcus, FD_ruminococcus])])
+length(core_within_genera_mean_2ns) # 85 total within-genera comparisons
+
+core_between_genera_mean_2ns = mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)][!mean_2ns_comparison_matrix[lower.tri(mean_2ns_comparison_matrix)] %in% core_within_genera_mean_2ns]
+
+mean_2ns_list <- melt(list(within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns))
+
+between_within_mean_2ns_diff = abs(mean(core_between_genera_mean_2ns) - mean(core_within_genera_mean_2ns))
+
+permutation_mean_2ns_diff = numeric(100000)
+
+for (i in 1:100000) {
+  this_scramble_between = sample(mean_2ns_list$value, size=656, replace=FALSE)
+  this_scramble_within = sample(mean_2ns_list$value, size=85, replace=FALSE)
+  permutation_mean_2ns_diff[i] = abs(mean(this_scramble_between) - mean(this_scramble_within))
+}
+
 # permutation_mean_2ns_data = data.frame(permutation_mean_2ns_diff)
-# 
+#
 # names(permutation_mean_2ns_data) = c('value')
-# 
+#
 # sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000
-# 
+#
 # quantile_label = "Proportion of area:"
-# 
+#
 # quantile_label = paste(quantile_label, sum(between_within_mean_2ns_diff > permutation_mean_2ns_data) / 100000, sep=' ')
-# 
+#
 # permutation_mean_2ns = ggplot(permutation_mean_2ns_data, aes(x=value, y=..count..)) +
 #   geom_histogram(bins=100) +
 #   xlab('Absolute difference of mean population-scale selection coefficient') +
@@ -8191,94 +8308,96 @@ mean_s_file_list = c(
 #   annotate("text", x=3E6, y=3500, label= quantile_label, size=5) +
 #   theme(axis.title=element_text(size=18)) +
 #   theme(plot.title=element_text(size=20))
-# 
+#
 # ggsave('../Summary/permutation_mean_2ns.svg', permutation_mean_2ns, width=18, height=12, dpi=600)
 
-# set.seed(1)
-# mean_2ns_scramble_within_genera = sample(mean_2ns_list$value, size=85, replace=FALSE)
-# mean_2ns_scramble_between_genera = sample(mean_2ns_list$value, size=656, replace=FALSE)
-# 
-# mean_2ns_list <- melt(
-#   list(
-#     within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns, scrambled_within = mean_2ns_scramble_within_genera, scrambled_between = mean_2ns_scramble_between_genera
-#   )
-# )
-# 
-# mean_2ns_list$L1 = factor(mean_2ns_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
-# 
-# mean_2ns_LRT_distribution = ggplot(mean_2ns_list, aes(x=L1, y=value, fill=L1)) +
-#   geom_boxplot() +
-#   ylab('Absolute value of difference') +
-#   xlab('Comparison') +
-#   scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
-#     breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
-#     values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
-#   theme_minimal() +
-#   theme(axis.text.x=element_blank(),) +
-#   guides(fill=guide_legend(title="Type of DFE comparison")) +
-#   ggtitle('Absolute difference in mean population-scaled selection coefficient for between-genera and within-genera DFE comparisons') +
-#   geom_signif(position='identity', y_position=7E7,
-#     comparisons = comparison_1, size=1,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   geom_signif(position='identity', size=1, y_position=7.5E7,
-#     comparisons = comparison_2,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   geom_signif(position='identity', size=1,
-#     comparisons = comparison_3, y_position=8E7,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   geom_signif(position='identity', size=1,
-#     comparisons = comparison_4, y_position=8.5E7,
-#                 map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
-#   theme(axis.title=element_text(size=18)) +
-#   theme(plot.title=element_text(size=20)) +
-#   theme(legend.title=element_text(size=18)) +
-#   theme(legend.text=element_text(size=16))
-# 
-# ggsave('../Summary/mean_2ns_LRT_distribution.svg', mean_2ns_LRT_distribution, width=18, height=12, dpi=600)
-# 
-# LRT_box_and_whiskers = LRT_distribution + 
-#   mean_s_LRT_distribution + theme(legend.position = 'none') + 
-#   mean_2ns_LRT_distribution + theme(legend.position = 'none') + plot_layout(ncol=1)
-# 
-# ggsave('../Summary/LRT_box_and_whiskers.svg', LRT_box_and_whiskers, width=18, height=36, dpi=600)
-# 
+set.seed(1)
+mean_2ns_scramble_within_genera = sample(mean_2ns_list$value, size=85, replace=FALSE)
+mean_2ns_scramble_between_genera = sample(mean_2ns_list$value, size=656, replace=FALSE)
+
+mean_2ns_list <- melt(
+  list(
+    within_genera = core_within_genera_mean_2ns, between_genera = core_between_genera_mean_2ns, scrambled_within = mean_2ns_scramble_within_genera, scrambled_between = mean_2ns_scramble_between_genera
+  )
+)
+#
+mean_2ns_list$L1 = factor(mean_2ns_list$L1, levels=c('between_genera', 'within_genera', 'scrambled_between', 'scrambled_within'))
+
+mean_2ns_LRT_distribution = ggplot(mean_2ns_list, aes(x=L1, y=value, fill=L1)) +
+  geom_boxplot() +
+  ylab('Absolute value of difference') +
+  xlab('Comparison') +
+  scale_fill_manual(labels=c('Between-genera', 'Within-genera', 'Permutation test (within)', 'Permutation test (between)'),
+    breaks=c('between_genera', 'within_genera', 'scrambled_within', 'scrambled_between'),
+    values=c("#69b3a2", "#95fd34", 'black', 'grey'),) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank(),) +
+  guides(fill=guide_legend(title="Type of DFE comparison")) +
+  ggtitle('Absolute difference in mean population-scaled selection coefficient for between-genera and within-genera DFE comparisons') +
+  geom_signif(position='identity', y_position=7E7,
+    comparisons = comparison_1, size=1,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1, y_position=7.5E7,
+    comparisons = comparison_2,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_3, y_position=8E7,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  geom_signif(position='identity', size=1,
+    comparisons = comparison_4, y_position=8.5E7,
+                map_signif_level = function(x) paste("p =", scales::pvalue(x))) +
+  theme(axis.title=element_text(size=18)) +
+  theme(plot.title=element_text(size=20)) +
+  theme(legend.title=element_text(size=18)) +
+  theme(legend.text=element_text(size=16))
+
+ggsave('../Summary/mean_2ns_LRT_distribution.svg', mean_2ns_LRT_distribution, width=18, height=12, dpi=600)
+
+LRT_box_and_whiskers = LRT_distribution + 
+  mean_s_LRT_distribution + theme(legend.position = 'none') +
+  mean_2ns_LRT_distribution + theme(legend.position = 'none') + plot_layout(ncol=1)
+
+ggsave('../Summary/LRT_box_and_whiskers.svg', LRT_box_and_whiskers, width=18, height=36, dpi=600)
+#
 # LRT_full_figure = LRT_distribution + permutation_LRT +
 #   mean_s_LRT_distribution + theme(legend.position = 'none') + permutation_mean_s +
 #   mean_2ns_LRT_distribution + theme(legend.position = 'none') + permutation_mean_2ns +
 #   plot_layout(ncol=2)
-# 
+#
 # ggsave('../Summary/LRT_full_figure.svg', LRT_full_figure, width=36, height=36, dpi=600)
 # 
-# # Fraction of sites remaining
-# survival_curve_file_list = c(
-#   '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Alistipes_onderdonkii_55464/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Alistipes_shahii_62199/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Bacteroides_caccae_53434/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Bacteroides_fragilis_54507/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Bacteroides_stercoris_56735/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Bacteroides_vulgatus_57955/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Barnesiella_intestinihominis_62208/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Dialister_invisus_61905/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Eubacterium_rectale_56927/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Oscillibacter_sp_60799/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Parabacteroides_distasonis_56985/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Parabacteroides_merdae_56972/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Ruminococcus_bicirculans_59300/survival_curve.csv',
-#   '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/survival_curve.csv'
-# )
-# 
-# survival_curve_fraction_list = c()
-# 
-# for (i in 1:length(survival_curve_file_list)) {
-#   this_table = read.csv(survival_curve_file_list[i])
-#   this_fraction = this_table$Remaining.sites[50] / this_table$Remaining.sites[1]
-#   survival_curve_fraction_list = c(survival_curve_fraction_list, this_fraction)
-# }
-# 
+# Fraction of sites remaining
+survival_curve_file_list = c(
+  '../HighRecombinationAnalysis/Akkermansia_muciniphila_55290/survival_curve.csv',
+  '../HighRecombinationAnalysis/Alistipes_finegoldii_56071/survival_curve.csv',
+  '../HighRecombinationAnalysis/Alistipes_onderdonkii_55464/survival_curve.csv',
+  '../HighRecombinationAnalysis/Alistipes_shahii_62199/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_caccae_53434/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_cellulosilyticus_58046/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_fragilis_54507/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_stercoris_56735/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_thetaiotaomicron_56941/survival_curve.csv',
+  '../HighRecombinationAnalysis/Bacteroides_vulgatus_57955/survival_curve.csv',
+  '../HighRecombinationAnalysis/Barnesiella_intestinihominis_62208/survival_curve.csv',
+  '../HighRecombinationAnalysis/Dialister_invisus_61905/survival_curve.csv',
+  '../HighRecombinationAnalysis/Eubacterium_rectale_56927/survival_curve.csv',
+  '../HighRecombinationAnalysis/Oscillibacter_sp_60799/survival_curve.csv',
+  '../HighRecombinationAnalysis/Parabacteroides_distasonis_56985/survival_curve.csv',
+  '../HighRecombinationAnalysis/Parabacteroides_merdae_56972/survival_curve.csv',
+  '../HighRecombinationAnalysis/Ruminococcus_bicirculans_59300/survival_curve.csv',
+  '../HighRecombinationAnalysis/Ruminococcus_bromii_62047/survival_curve.csv'
+)
+
+survival_curve_fraction_list = c()
+
+for (i in 1:length(survival_curve_file_list)) {
+  this_table = read.csv(survival_curve_file_list[i])
+  this_fraction = this_table$Remaining.sites[50] / this_table$Remaining.sites[1]
+  survival_curve_fraction_list = c(survival_curve_fraction_list, this_fraction)
+}
+
 # num_iLDS_peaks = read.csv('../HighRecombinationData/num_iLDS_peaks.csv')
 
 # temp_table = read.csv(survival_curve_file_list[1])
+
+
